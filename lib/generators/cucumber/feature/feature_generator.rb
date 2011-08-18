@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require File.join(File.dirname(__FILE__), 'named_arg')
 
 module Cucumber
@@ -27,5 +28,20 @@ module Cucumber
     def self.banner
       "#{$0} cucumber:feature ModelName [field:type, field:type]"
     end
+
+    def singular_name_ja
+      options = {
+        :locale => :ja,
+        :scope => [:mongoid, :models], # [Mongoid::Document.i18n_scope, :models]みたいに指定したいけど、できなかったので直接指定してしまっています
+        :exception_handler => lambda{|*args| class_name.humanize}
+      }.update(options || {})
+      result = I18n.translate(class_name.underscore, options)
+      result.force_encoding("ASCII-8BIT")
+    end
+
+    def plural_name_ja
+      "#{singular_name_ja}s"
+    end
+
   end
 end

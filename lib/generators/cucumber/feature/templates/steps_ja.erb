@@ -1,16 +1,12 @@
-Given /^the following <%= plural_name %>:$/ do |<%= plural_name %>|
-  <%= plural_name %>.hashes.each do |hash|
-    <%= class_name %>.create!(hash)
-  end
+# encoding: utf-8
+前提 /^以下の<%= plural_name_ja %>が登録されている$/ do |<%= plural_name %>|
+  Given %{the following <%= plural_name %>:}, <%= plural_name %>
 end
 
-When /^I delete the (\d+)(?:st|nd|rd|th) <%= singular_name %>$/ do |pos|
-  visit <%= table_name %>_path
-  within("table tr:nth-child(#{pos.to_i+1})") do
-    click_link "Destroy"
-  end
+もし /^"<%= singular_name_ja %>一覧画面"で(\d+)番目の<%= singular_name_ja %>を削除する$/ do |pos|
+  When %{I delete the #{pos}th <%= singular_name %>}
 end
 
-Then /^I should see the following <%= plural_name %>:$/ do |expected_<%= plural_name %>_table|
-  expected_<%= plural_name %>_table.diff!(tableish('table tr', 'td,th'))
+ならば /^以下の<%= plural_name_ja %>の一覧が表示されること$/ do |expected_table|
+  Then %{I should see the following <%= plural_name %>:}, expected_table
 end
