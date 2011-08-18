@@ -4,7 +4,7 @@ Feature: Manage drivers
   wants [behaviour]
   
   Scenario: Register new driver
-    Given I am on the new driver page
+    Given I am on the new tengine_core_driver page
     When I fill in "Name" with "name 1"
     And I fill in "Version" with "version 1"
     And I uncheck "Enabled"
