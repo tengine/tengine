@@ -1,0 +1,29 @@
+<%= form_for(@tengine_core_driver) do |f| %>
+  <% if @tengine_core_driver.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tengine_core_driver.errors.count, "error") %> prohibited this tengine_core_driver from being saved:</h2>
+
+      <ul>
+      <% @tengine_core_driver.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :version %><br />
+    <%= f.text_field :version %>
+  </div>
+  <div class="field">
+    <%= f.label :enabled %><br />
+    <%= f.check_box :enabled %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

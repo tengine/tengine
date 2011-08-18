@@ -1,0 +1,27 @@
+<h1>Listing tengine_core_drivers</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Version</th>
+    <th>Enabled</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tengine_core_drivers.each do |tengine_core_driver| %>
+  <tr>
+    <td><%= tengine_core_driver.name %></td>
+    <td><%= tengine_core_driver.version %></td>
+    <td><%= tengine_core_driver.enabled %></td>
+    <td><%= link_to 'Show', tengine_core_driver %></td>
+    <td><%= link_to 'Edit', edit_tengine_core_driver_path(tengine_core_driver) %></td>
+    <td><%= link_to 'Destroy', tengine_core_driver, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Driver', new_tengine_core_driver_path %>
