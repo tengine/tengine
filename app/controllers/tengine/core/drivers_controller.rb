@@ -43,12 +43,12 @@ class Tengine::Core::DriversController < ApplicationController
     @driver = Tengine::Core::Driver.new(params[:driver])
 
     respond_to do |format|
-      if @tengine_core_driver.save
+      if @driver.save
         format.html { redirect_to @driver, notice: 'Driver was successfully created.' }
         format.json { render json: @driver, status: :created, location: @driver }
       else
         format.html { render action: "new" }
-        format.json { render json: @tengine_core_driver.errors, status: :unprocessable_entity }
+        format.json { render json: @driver.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -59,12 +59,12 @@ class Tengine::Core::DriversController < ApplicationController
     @driver = Tengine::Core::Driver.find(params[:id])
 
     respond_to do |format|
-      if @tengine_core_driver.update_attributes(params[:driver])
+      if @driver.update_attributes(params[:driver])
         format.html { redirect_to @driver, notice: 'Driver was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
-        format.json { render json: @tengine_core_driver.errors, status: :unprocessable_entity }
+        format.json { render json: @driver.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -73,7 +73,7 @@ class Tengine::Core::DriversController < ApplicationController
   # DELETE /tengine/core/drivers/1.json
   def destroy
     @driver = Tengine::Core::Driver.find(params[:id])
-    @tengine_core_driver.destroy
+    @driver.destroy
 
     respond_to do |format|
       format.html { redirect_to tengine_core_drivers_url }
