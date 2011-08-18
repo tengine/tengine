@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-前提 /^以下のドライバが登録されている$/ do |drivers|
+# encoding: utf-8
+前提 /^以下のドライバsが登録されている$/ do |drivers|
   Given %{the following drivers:}, drivers
 end
 
@@ -7,6 +7,6 @@ end
   When %{I delete the #{pos}th driver}
 end
 
-ならば /^以下のドライバの一覧が表示されること$/ do |expected_table|
+ならば /^以下のドライバsの一覧が表示されること$/ do |expected_table|
   Then %{I should see the following drivers:}, expected_table
 end
