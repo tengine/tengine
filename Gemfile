@@ -6,6 +6,18 @@ gem 'rails', '3.1.0.rc6'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 
+gem "mongoid", "~> 2.1"
+gem "bson_ext", "~> 1.3"
+
+gem "kaminari", "~> 0.12"
+
+group :test, :development do
+  gem "rspec-rails", "~> 2.6"
+  gem "capybara"
+  gem "factory_girl_rails", "~> 1.0"
+  gem "rails3-generators", "~> 0.17"
+end
+
 
 # Gems used only for assets and not required
 # in production environments by default.
