@@ -1,4 +1,4 @@
-<%%= form_for(@<%= file_name %>) do |f| %>
+<%%= form_for(@<%= file_name %>, as:<%= file_name.dump %>) do |f| %>
   <%% if @<%= file_name %>.errors.any? %>
     <div id="error_explanation">
       <h2><%%= pluralize(@<%= file_name %>.errors.count, "error") %> prohibited this <%= file_name %> from being saved:</h2>
