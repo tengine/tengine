@@ -14,8 +14,9 @@ module Cucumber
 
     def generate
       empty_directory 'features/step_definitions'
-      template 'feature.erb', "features/manage_#{plural_name}.feature"
-      template 'steps.erb', "features/step_definitions/#{singular_name}_steps.rb"
+      name_space = class_name.underscore.split('/')[0..-2].join('/')
+      template 'feature.erb', "features/#{name_space}/manage_#{plural_name}.feature"
+      template 'steps.erb', "features/step_definitions/#{name_space}/#{singular_name}_steps.rb"
       gsub_file 'features/support/paths.rb', /'\/'/mi do |match|
         "#{match}\n    when /the new #{singular_name} page/\n      new_#{singular_name}_path\n"
       end
