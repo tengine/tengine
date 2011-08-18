@@ -18,7 +18,7 @@ module Cucumber
       template 'feature.erb', "features/#{name_space}/manage_#{plural_name}.feature"
       template 'steps.erb', "features/step_definitions/#{name_space}/#{singular_name}_steps.rb"
       gsub_file 'features/support/paths.rb', /'\/'/mi do |match|
-        "#{match}\n    when /the new #{singular_name} page/\n      new_#{singular_name}_path\n"
+        "#{match}\n    when /the new #{table_name.singularize} page/\n      new_#{table_name.singularize}_path\n"
       end
     end
   
