@@ -16,6 +16,11 @@ group :test, :development do
   gem "capybara"
   gem "factory_girl_rails", "~> 1.0"
   gem "rails3-generators", "~> 0.17"
+
+  gem "cucumber-rails", "~> 1.0"
+  gem "database_cleaner"
+
+  gem "pickle", "~> 0.4"
 end
 
 
