@@ -29,9 +29,11 @@ describe Tengine::Core::DriversController do
 
   describe "GET index" do
     it "assigns all tengine_core_drivers as @tengine_core_drivers" do
+      Tengine::Core::Driver.delete_all
       driver = Tengine::Core::Driver.create! valid_attributes
       get :index
-      assigns(:tengine_core_drivers).should eq([driver])
+      drivers = assigns(:drivers)
+      drivers.to_a.should eq([driver])
     end
   end
 

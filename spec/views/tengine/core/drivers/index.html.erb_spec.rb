@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "tengine_core_drivers/index.html.erb" do
+describe "tengine/core/driver/index.html.erb" do
   before(:each) do
     assign(:tengine_core_drivers, [
       stub_model(Tengine::Core::Driver,
