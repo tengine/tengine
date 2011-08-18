@@ -1,0 +1,12 @@
+<p id="notice"><%%= notice %></p>
+
+<% attributes.each do |attribute| -%>
+<p>
+  <b><%= attribute.human_name %>:</b>
+  <%%= @<%= file_name %>.<%= attribute.name %> %>
+</p>
+
+<% end -%>
+
+<%%= link_to 'Edit', edit_<%= file_name %>_path(@<%= file_name %>) %> |
+<%%= link_to 'Back', <%= index_helper %>_path %>
