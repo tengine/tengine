@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module NavigationHelpers
   # Maps a name to a path. Used by the
   #
@@ -10,6 +11,8 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
+    when /ドライバ新規登録/
+      new_tengine_core_driver_path
     when /the new tengine_core_driver page/
       new_tengine_core_driver_path
 

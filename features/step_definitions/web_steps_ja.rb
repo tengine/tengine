@@ -23,11 +23,11 @@
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "selectors"))
 
-前提 /^"([^"]*)"ページを表示している$/ do |page_name|
+前提 /^"([^"]*)画面"を表示している$/ do |page_name|
   Given %{I am on #{page_name}}
 end
 
-もし /^"([^"]*)"ページを表示する$/ do |page_name|
+もし /^"([^"]*)画面"を表示する$/ do |page_name|
   When %{I go to #{page_name}}
 end
 
@@ -145,7 +145,7 @@ end
   Then %{the "#{label}" checkbox should not be checked}
 end
 
-ならば /^"([^"]*)"ページを表示していること$/ do |page_name|
+ならば /^"([^"]*)画面"を表示していること$/ do |page_name|
   Then %{I should be on #{page_name}}
 end
 
