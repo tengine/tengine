@@ -1,0 +1,10 @@
+ja:
+  mongoid:
+    models:
+      tengine/core/driver: "ドライバ"
+
+    attributes:
+      tengine/core/driver:
+        name: "名称"
+        version: "バージョン"
+        enabled: "有効"
