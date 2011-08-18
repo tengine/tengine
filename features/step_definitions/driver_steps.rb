@@ -1,9 +1,11 @@
 Given /^the following drivers:$/ do |drivers|
-  Tengine::Core::Driver.create!(drivers.hashes)
+  drivers.hashes.each do |hash|
+    Tengine::Core::Driver.create!(hash)
+  end
 end
 
 When /^I delete the (\d+)(?:st|nd|rd|th) driver$/ do |pos|
-  visit drivers_path
+  visit tengine_core_drivers_path
   within("table tr:nth-child(#{pos.to_i+1})") do
     click_link "Destroy"
   end
