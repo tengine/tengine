@@ -15,14 +15,14 @@
     かつ "false"と表示されていること
 
   シナリオ: ドライバを削除する
-    Given the following drivers:
+    前提 以下のドライバが登録されている
       |name|version|enabled|
       |name 1|version 1|false|
       |name 2|version 2|true|
       |name 3|version 3|false|
       |name 4|version 4|true|
-    When I delete the 3rd driver
-    Then I should see the following drivers:
+    もし "ドライバ一覧画面"で3番目のドライバを削除する
+    ならば 以下のドライバの一覧が表示されること
       |Name|Version|Enabled|
       |name 1|version 1|false|
       |name 2|version 2|true|
