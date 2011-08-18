@@ -1,3 +1,4 @@
+<% path = class_name.underscore.pluralize -%>
 require "spec_helper"
 
 describe <%= controller_class_name %>Controller do
@@ -5,32 +6,32 @@ describe <%= controller_class_name %>Controller do
 
 <% unless options[:singleton] -%>
     it "routes to #index" do
-      get("/<%= ns_table_name %>").should route_to("<%= ns_table_name %>#index")
+      get("/<%= path %>").should route_to("<%= path %>#index")
     end
 
 <% end -%>
     it "routes to #new" do
-      get("/<%= ns_table_name %>/new").should route_to("<%= ns_table_name %>#new")
+      get("/<%= path %>/new").should route_to("<%= path %>#new")
     end
 
     it "routes to #show" do
-      get("/<%= ns_table_name %>/1").should route_to("<%= ns_table_name %>#show", :id => "1")
+      get("/<%= path %>/1").should route_to("<%= path %>#show", :id => "1")
     end
 
     it "routes to #edit" do
-      get("/<%= ns_table_name %>/1/edit").should route_to("<%= ns_table_name %>#edit", :id => "1")
+      get("/<%= path %>/1/edit").should route_to("<%= path %>#edit", :id => "1")
     end
 
     it "routes to #create" do
-      post("/<%= ns_table_name %>").should route_to("<%= ns_table_name %>#create")
+      post("/<%= path %>").should route_to("<%= path %>#create")
     end
 
     it "routes to #update" do
-      put("/<%= ns_table_name %>/1").should route_to("<%= ns_table_name %>#update", :id => "1")
+      put("/<%= path %>/1").should route_to("<%= path %>#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      delete("/<%= ns_table_name %>/1").should route_to("<%= ns_table_name %>#destroy", :id => "1")
+      delete("/<%= path %>/1").should route_to("<%= path %>#destroy", :id => "1")
     end
 
   end
