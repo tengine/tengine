@@ -1,9 +1,11 @@
 Given /^the following <%= plural_name %>:$/ do |<%= plural_name %>|
-  <%= class_name %>.create!(<%= plural_name %>.hashes)
+  <%= plural_name %>.hashes.each do |hash|
+    <%= class_name %>.create!(hash)
+  end
 end
 
 When /^I delete the (\d+)(?:st|nd|rd|th) <%= singular_name %>$/ do |pos|
-  visit <%= plural_name %>_path
+  visit <%= table_name %>_path
   within("table tr:nth-child(#{pos.to_i+1})") do
     click_link "Destroy"
   end
