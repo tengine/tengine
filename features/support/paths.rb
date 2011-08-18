@@ -10,8 +10,10 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
-    when /the new driver page/
-      new_driver_path
+    when /the new tengine_core_driver page/
+      new_tengine_core_driver_path
+
+
 
 
     # the following are examples using path_to_pickle
