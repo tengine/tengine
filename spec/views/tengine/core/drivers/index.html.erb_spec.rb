@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "tengine/core/drivers/index.html.erb" do
   before(:each) do
-    assign(:tengine_core_drivers, [
+    assign(:drivers, [
       stub_model(Tengine::Core::Driver,
         :name => "Name",
         :version => "Version",

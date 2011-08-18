@@ -3,7 +3,7 @@ require 'spec_helper'
 <% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
 describe "<%= class_name.underscore.pluralize %>/index.html.<%= options[:template_engine] %>" do
   before(:each) do
-    assign(:<%= table_name %>, [
+    assign(:<%= file_name.pluralize %>, [
 <% [1,2].each_with_index do |id, model_index| -%>
       stub_model(<%= class_name %><%= output_attributes.empty? ? (model_index == 1 ? ')' : '),') : ',' %>
 <% output_attributes.each_with_index do |attribute, attribute_index| -%>
