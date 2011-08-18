@@ -16,7 +16,7 @@
     <td><%%= <%= file_name %>.<%= attribute.name %> %></td>
 <% end -%>
     <td><%%= link_to 'Show', <%= file_name %> %></td>
-    <td><%%= link_to 'Edit', edit_<%= file_name %>_path(<%= file_name %>) %></td>
+    <td><%%= link_to 'Edit', edit_<%= singular_table_name %>_path(<%= file_name %>) %></td>
     <td><%%= link_to 'Destroy', <%= file_name %>, <%= key_value :confirm, "'Are you sure?'" %>, <%= key_value :method, ":delete" %> %></td>
   </tr>
 <%% end %>
@@ -24,4 +24,4 @@
 
 <br />
 
-<%%= link_to 'New <%= human_name %>', new_<%= file_name %>_path %>
+<%%= link_to 'New <%= human_name %>', new_<%= singular_table_name %>_path %>

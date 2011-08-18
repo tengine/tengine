@@ -16,7 +16,7 @@
     <td><%= driver.version %></td>
     <td><%= driver.enabled %></td>
     <td><%= link_to 'Show', driver %></td>
-    <td><%= link_to 'Edit', edit_driver_path(driver) %></td>
+    <td><%= link_to 'Edit', edit_tengine_core_driver_path(driver) %></td>
     <td><%= link_to 'Destroy', driver, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
@@ -24,4 +24,4 @@
 
 <br />
 
-<%= link_to 'New Driver', new_driver_path %>
+<%= link_to 'New Driver', new_tengine_core_driver_path %>
