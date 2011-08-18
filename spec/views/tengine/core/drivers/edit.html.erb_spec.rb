@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "tengine/core/driver/edit.html.erb" do
+describe "tengine/core/drivers/edit.html.erb" do
   before(:each) do
     @driver = assign(:driver, stub_model(Tengine::Core::Driver,
       :name => "MyString",

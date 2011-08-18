@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 <% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
-describe "<%= class_name.underscore %>/index.html.<%= options[:template_engine] %>" do
+describe "<%= class_name.underscore.pluralize %>/index.html.<%= options[:template_engine] %>" do
   before(:each) do
     assign(:<%= table_name %>, [
 <% [1,2].each_with_index do |id, model_index| -%>
