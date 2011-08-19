@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @driver.name %>
+</p>
+
+<p>
+  <b>Version:</b>
+  <%= @driver.version %>
+</p>
+
+<p>
+  <b>Enabled:</b>
+  <%= @driver.enabled %>
+</p>
+
+
+<%= link_to 'Edit', edit_tengine_core_driver_path(@driver) %> |
+<%= link_to 'Back', tengine_core_drivers_path %>
