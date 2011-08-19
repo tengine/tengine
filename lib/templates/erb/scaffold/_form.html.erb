@@ -1,7 +1,7 @@
 <%%= form_for(@<%= file_name %>, as:<%= file_name.dump %>) do |f| %>
   <%% if @<%= file_name %>.errors.any? %>
     <div id="error_explanation">
-      <h2><%%= pluralize(@<%= file_name %>.errors.count, "error") %> prohibited this <%= file_name %> from being saved:</h2>
+      <h2><%%= I18n.t('activerecord.errors.template.header', :count => @<%= file_name %>.errors.size, :model => @<%= file_name %>.class.human_name) %></h2>
 
       <ul>
       <%% @<%= file_name %>.errors.full_messages.each do |msg| %>
