@@ -16,7 +16,7 @@
 
   シナリオ: ドライバを削除する
     前提 以下のドライバsが登録されている
-      |name|version|enabled|
+      |名称|バージョン|有効|
       |name 1|version 1|false|
       |name 2|version 2|true|
       |name 3|version 3|false|
