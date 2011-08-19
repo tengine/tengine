@@ -11,3 +11,7 @@ en:
       destroy: "Destroy"
       new: "New"
       back_list: "back"
+    notice:
+      successfully_created: "%{model} was successfully created."
+      successfully_updated: "%{model} was successfully updated."
+      successfully_destroyed: "%{model} was successfully destroyed."

@@ -11,3 +11,7 @@ ja:
       destroy: "削除"
       new: "新規作成"
       back_list: "一覧に戻る"
+    notice:
+      successfully_created: "%{model}が登録されました。"
+      successfully_updated: "%{model}が更新されました。"
+      successfully_destroyed: "%{model}が削除されました。"

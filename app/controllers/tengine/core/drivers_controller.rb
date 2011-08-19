@@ -44,7 +44,7 @@ class Tengine::Core::DriversController < ApplicationController
 
     respond_to do |format|
       if @driver.save
-        format.html { redirect_to @driver, notice: 'Driver was successfully created.' }
+        format.html { redirect_to @driver, notice: successfully_created(@driver) }
         format.json { render json: @driver, status: :created, location: @driver }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class Tengine::Core::DriversController < ApplicationController
 
     respond_to do |format|
       if @driver.update_attributes(params[:driver])
-        format.html { redirect_to @driver, notice: 'Driver was successfully updated.' }
+        format.html { redirect_to @driver, notice: successfully_updated(@driver) }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -76,7 +76,7 @@ class Tengine::Core::DriversController < ApplicationController
     @driver.destroy
 
     respond_to do |format|
-      format.html { redirect_to tengine_core_drivers_url }
+      format.html { redirect_to tengine_core_drivers_url, notice: successfully_destroyed(@driver) }
       format.json { head :ok }
     end
   end
