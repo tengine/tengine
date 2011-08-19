@@ -21,6 +21,7 @@ group :test, :development do
   gem "database_cleaner"
 
   gem "pickle", "~> 0.4"
+  gem 'pickle_i18n', '~> 0.0'
 end
 
 
