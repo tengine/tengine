@@ -2,7 +2,7 @@ Feature: Manage drivers
   In order to [goal]
   [stakeholder]
   wants [behaviour]
-  
+
   Background:
     Given I read in English
 
