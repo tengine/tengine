@@ -1,0 +1,27 @@
+<h1><%= page_title Tengine::Core::Driver, :list %></h1>
+
+<table>
+  <tr>
+    <th><%= Tengine::Core::Driver.human_attribute_name(:name) %></th>
+    <th><%= Tengine::Core::Driver.human_attribute_name(:version) %></th>
+    <th><%= Tengine::Core::Driver.human_attribute_name(:enabled) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @drivers.each do |driver| %>
+  <tr>
+    <td><%= driver.name %></td>
+    <td><%= driver.version %></td>
+    <td><%= driver.enabled %></td>
+    <td><%= link_to_show driver %></td>
+    <td><%= link_to_edit edit_tengine_core_driver_path(driver) %></td>
+    <td><%= link_to_destroy driver, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to_new Tengine::Core::Driver, new_tengine_core_driver_path %>
