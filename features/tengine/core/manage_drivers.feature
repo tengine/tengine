@@ -3,6 +3,9 @@ Feature: Manage drivers
   [stakeholder]
   wants [behaviour]
   
+  Background:
+    Given I read in English
+
   Scenario: Register new driver
     Given I am on the new tengine_core_driver page
     When I fill in "Name" with "name 1"
