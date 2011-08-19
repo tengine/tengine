@@ -1,9 +1,9 @@
-<h1>Listing <%= file_name.pluralize %></h1>
+<h1><%%= page_title <%= class_name %>, :list %></h1>
 
 <table>
   <tr>
 <% attributes.each do |attribute| -%>
-    <th><%= attribute.human_name %></th>
+    <th><%%= <%= class_name %>.human_attribute_name(:<%= attribute.name %>) %></th>
 <% end -%>
     <th></th>
     <th></th>
@@ -15,13 +15,13 @@
 <% attributes.each do |attribute| -%>
     <td><%%= <%= file_name %>.<%= attribute.name %> %></td>
 <% end -%>
-    <td><%%= link_to 'Show', <%= file_name %> %></td>
-    <td><%%= link_to 'Edit', edit_<%= singular_table_name %>_path(<%= file_name %>) %></td>
-    <td><%%= link_to 'Destroy', <%= file_name %>, <%= key_value :confirm, "'Are you sure?'" %>, <%= key_value :method, ":delete" %> %></td>
+    <td><%%= link_to_show <%= file_name %> %></td>
+    <td><%%= link_to_edit edit_<%= singular_table_name %>_path(<%= file_name %>) %></td>
+    <td><%%= link_to_destroy <%= file_name %>, <%= key_value :confirm, "'Are you sure?'" %>, <%= key_value :method, ":delete" %> %></td>
   </tr>
 <%% end %>
 </table>
 
 <br />
 
-<%%= link_to 'New <%= human_name %>', new_<%= singular_table_name %>_path %>
+<%%= link_to_new <%= class_name %>, new_<%= singular_table_name %>_path %>

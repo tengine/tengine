@@ -1,12 +1,14 @@
+<h1><%%= page_title <%= class_name %>, :show %></h1>
+
 <p id="notice"><%%= notice %></p>
 
 <% attributes.each do |attribute| -%>
 <p>
-  <b><%= attribute.human_name %>:</b>
+  <b><%%= <%= class_name %>.human_attribute_name(:<%= attribute.name %>) %>:</b>
   <%%= @<%= file_name %>.<%= attribute.name %> %>
 </p>
 
 <% end -%>
 
-<%%= link_to 'Edit', edit_<%= singular_table_name %>_path(@<%= file_name %>) %> |
-<%%= link_to 'Back', <%= index_helper %>_path %>
+<%%= link_to_edit edit_<%= singular_table_name %>_path(@<%= file_name %>) %> |
+<%%= link_to_back_list <%= index_helper %>_path %>
