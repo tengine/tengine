@@ -1,0 +1,10 @@
+en:
+  mongoid:
+    models:
+      tengine/core/driver: "Driver"
+
+    attributes:
+      tengine/core/driver:
+        name: "Name"
+        version: "Version"
+        enabled: "Enabled"

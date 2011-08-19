@@ -1,0 +1,13 @@
+en:
+  views:
+    pages:
+      list: "List"
+      show: ""
+      edit: "Editing"
+      new: "New"
+    links:
+      show: "Show"
+      edit: "Edit"
+      destroy: "Destroy"
+      new: "New"
+      back_list: "back"
