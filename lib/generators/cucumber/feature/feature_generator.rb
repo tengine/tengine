@@ -43,5 +43,22 @@ module Cucumber
       "#{singular_name_ja}s"
     end
 
+    private
+
+    def human_attribute_name_ja(attr_name)
+#     def human_attribute_name_ja(*attr_names)
+#       attr_name = attr_names.first
+      if attr_name.nil?
+        puts caller.join("\n  ")
+      end
+      options = {
+        :locale => :ja,
+        :scope => [:mongoid, :attributes, class_name.underscore],
+        :exception_handler => lambda{|*args| attr_name.humanize}
+      }.update(options || {})
+      result = I18n.translate(attr_name, options)
+      result.force_encoding("ASCII-8BIT")
+    end
+
   end
 end

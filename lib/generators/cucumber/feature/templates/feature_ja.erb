@@ -4,18 +4,21 @@
   [利害関係者、アクター]
   は [振る舞い] をしたい
 
+  背景:
+    前提 日本語でアクセスする
+
   シナリオ: 新しい<%= singular_name_ja %>を登録する
     前提 "<%= singular_name_ja %>新規登録画面"を表示している
 <% keyword = 'もし' -%>
 <% named_args.each do |arg| -%>
 <% if arg.type == 'boolean' -%>
-    <%= keyword %> "<%= arg.name.humanize %>"のチェックを外す
+    <%= keyword %> "<%= human_attribute_name_ja(arg.name) %>"のチェックを外す
 <% else -%>
-    <%= keyword %> "<%= arg.name.humanize %>"に"<%= arg.value(1) %>"と入力する
+    <%= keyword %> "<%= human_attribute_name_ja(arg.name) %>"に"<%= arg.value(1) %>"と入力する
 <% end -%>
 <% keyword = 'かつ' -%>
 <% end -%>
-    かつ "Create"ボタンをクリックする
+    かつ "<%= I18n.t(:create, :scope => [:helpers, :submit], :locale => :ja).force_encoding("ASCII-8BIT") %>"ボタンをクリックする
 <% keyword = 'ならば' -%>
 <% named_args.each do |arg| -%>
     <%= keyword %> "<%= arg.value(1) %>"と表示されていること
@@ -52,13 +55,13 @@
 <% end -%>
   シナリオ: <%= singular_name_ja %>を削除する
     前提 以下の<%= plural_name_ja %>が登録されている
-      |<%= named_args.map(&:name).join('|') %>|
+      |<%= named_args.map{|arg| human_attribute_name_ja(arg.name)}.join('|') %>|
 <% (1..4).each do |n| -%>
       |<%= named_args.map{|arg| arg.value(n)}.join('|') %>|
 <% end -%>
     もし "<%= singular_name_ja %>一覧画面"で3番目の<%= singular_name_ja %>を削除する
     ならば 以下の<%= plural_name_ja %>の一覧が表示されること
-      |<%= named_args.map{|arg| arg.name.humanize}.join('|') %>|
+      |<%= named_args.map{|arg| human_attribute_name_ja(arg.name)}.join('|') %>|
 <% [1,2,4].each do |n| -%>
       |<%= named_args.map{|arg| arg.value(n)}.join('|') %>|
 <% end -%>
