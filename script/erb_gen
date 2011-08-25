@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+require 'erb'
+
+dir_and_files = ARGV.dup
+if dir_and_files.empty? || ARGV.include?("-h") || ARGV.include?("--help")
+  puts(<<-EOS)
+    Usage: script/erb_gen <erb file or directory>...
+
+    example:
+      source file   : foo/bar.txt.erb
+      generated file: foo/bar.txt
+  EOS
+  exit(0)
+end
+
+dir_and_files.each do |dir_or_file|
+  files = nil
+  if Dir.exist?(dir_or_file)
+    files = Dir["#{dir_or_file}/**/*.erb"]
+  elsif File.exist?(dir_or_file)
+    files = [dir_or_file]
+  else
+    STDERR.puts "file or dir not found: #{dir_or_file}"
+    exit(1)
+  end
+  files.each do |filename|
+    destname = filename.sub(/\.erb$/, '')
+    File.open(destname, "w") do |f|
+      f.puts(ERB.new(File.read(filename)).result)
+    end
+    STDOUT.puts destname
+  end
+end
