@@ -10,7 +10,7 @@ tengined [-k action] [-f path_to_config] [-t path/to/file_or_dir]
          [-H db_host] [-P db_port] [-U db_user] [-S db_pass] [-D db_database]
          [-h queue_host] [-p queue_port] [-u queue_user] [-s queue_pass]
 
-  -k --action       start|stop|force-stop
+  -k --action       start|stop|force-stop default: start
   -f --config       /etc/tengine.yml
   -D --daemon       
 
@@ -37,13 +37,27 @@ can't connect to database
 $ tengine test
 Success!
 }}}
-* で、もう起動できちゃう
+* DSLのひな形(hello world的なもの)が生成して
 {{{
-$ tengined -T path/to/example_dsl.rb
+$ tengine example > hello_world.rb
+}}}
+* もう起動できちゃう
+{{{
+$ tengined -T hello_world.rb
 }}}
 
-## 一般的な使い方
+* デーモンとして起動
+{{{
+$ tengined -D -T hello_world.rb
+}}}
+
+## 本番環境での使い方
+* 設定ファイルを生成できる
+{{{
+$ tengine production_config
+}}}
 * 実際の本番環境を想定
+* DSLはcapistranoでデプロイされることを想定
 * 設定ファイルは /etc/tengine.yml
 {{{
 dsl: /home/tengine/capistrano/app/current/dsl
@@ -59,7 +73,6 @@ queue:
   user: user
   pass: pass
 }}}
-* DSLはcapistranoでデプロイされることを想定
 {{{
 $ /etc/init.d/tengined start
 $ /etc/init.d/tengined stop
