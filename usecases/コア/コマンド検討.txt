@@ -10,18 +10,19 @@ tengined [-k action] [-f path_to_config] [-t path/to/file_or_dir]
          [-H db_host] [-P db_port] [-U db_user] [-S db_pass] [-D db_database]
          [-h queue_host] [-p queue_port] [-u queue_user] [-s queue_pass]
 
-  -k --action       start|stop|force-stop default: start
-  -f --config       /etc/tengine.yml
-  -D --daemon       
-
-  -T --tengine-dsl  path/to/file_or_dir
-  -H --db-host      default: localhost
-  -P --db-port      default: 27018
+  -k --action            start|stop|force-stop default: start
+  -f --config            /etc/tengine.yml
+  -D --daemon            
+     --prevent-enabler   doesn't call event handler enabler when start. usually use with --daemon option
+     --prevent-activator doesn't call kernel activator when start. usually use with --daemon option
+  -T --tengine-dsl       path/to/file_or_dir
+  -H --db-host           default: localhost
+  -P --db-port           default: 27018
   -U --db-user      
   -S --db-pass      
-  -D --db-database  default: tengine_production
-  -h --queue-host   default: localhost
-  -p --queue-port   default: 5672
+  -D --db-database       default: tengine_production
+  -h --queue-host        default: localhost
+  -p --queue-port        default: 5672
   -u --queue-user   
   -s --queue-pass   
 }}}
