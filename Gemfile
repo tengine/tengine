@@ -1,12 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc6'
+# すぐにパッチが出る事を予想しています。リリース近くなったらバージョンを固定します。
+gem 'rails', '~> 3.1' 
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 
-gem "mongoid", "~> 2.1"
+gem "mongoid", "~> 2.2"
 gem "bson_ext", "~> 1.3"
 
 gem "kaminari", "~> 0.12"
