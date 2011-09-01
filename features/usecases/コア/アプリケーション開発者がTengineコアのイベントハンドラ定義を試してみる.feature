@@ -15,30 +15,32 @@
     かつ Tengineコンソールのプロセスが停止している
 			
   シナリオ: アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する
-	    もし Tengineコンソールをファアグラウンドで起動する
-			ならば Tengineコンソールのプロセスが起動している
+	  もし "Tengineコンソール"を起動するために""というコマンドを実行する
+		ならば "Tengineコンソール"のプロセスが起動していること
 
-			もし uc01_execute_processing_for_event.rbというイベントハンドラ定義を作成する
-			ならば uc01_execute_processing_for_event.rbというイベントハンドラ定義が存在する
+		もし "./feature/event_handler_def/uc01_execute_processing_for_event.rb"というイベントハンドラ定義を作成する
+		ならば "./feature/event_handler_def/uc01_execute_processing_for_event.rb"というファイルが存在する
 
-			もし Tengineコアをuc01_execute_processing_for_event.rbというイベントハンドラ定義を指定してファアグラウンドで起動する
-			ならば Tengineコアのプロセスが起動している
-			かつ イベントドライバ管理画面でuc01_execute_processing_for_event.rbというイベントハンドラ定義がイベントハンドラストアへ登録されたことを確認できる
+		もし "Tengineコア"を起動するために"tengined -k load -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+		ならば "Tengineコア"のコンソールに"load success"と出力されていること
 
-			もし イベント発火画面でイベントを発火する
-			ならば イベント通知画面でイベントを発火したことを確認できる
-			かつ Tengineコアを起動しているコンソール上でイベントハンドラが実行されたことを確認できる
+		もし "Tengineコア"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+		ならば "Tengineコア"のプロセスが起動していること
 
-			もし Tengineコアを Ctl+c で停止する
-			ならば Tengineコアのプロセスが停止した
+		もし "イベントドライバ管理画面"を表示する
+		ならば "イベントドライバ管理画面"を表示していること
+		かつ "driver01"と表示されていること
 
-			もし Tengineコンソールのプロセスを停止する
-			ならば Tengineコンソールのプロセスが停止した
-			
-  シナリオ: アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する
-      前提 tengineコンソールの起動コマンドに実行権限が付与されていない
-			
-      もし Tengineコンソールをファアグラウンドで起動する
-			ならば Tengineコンソールのプロセスが起動しない
+		もし "イベント発火画面"を表示する
+		ならば "イベント発火画面"を表示していること
 
+		もし "event01"の"発火"リンクをクリックする
+		ならば "event01が発火された"と表示されていること 
+		ならば Tengineコアのコンソールに"handler01"と表示されていること
+
+		もし "Tengineコア"を Ctl+c で停止する
+		ならば "Tengineコア"のプロセスが停止していること
+
+		もし "Tengineコンソール"を Ctl+c で停止する
+		ならば "Tengineコンソール"のプロセスが停止していること
 
