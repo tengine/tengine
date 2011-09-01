@@ -10,9 +10,10 @@ tengined [-k action] [-f path_to_config] [-t path/to/file_or_dir]
          [-H db_host] [-P db_port] [-U db_user] [-S db_pass] [-D db_database]
          [-h queue_host] [-p queue_port] [-u queue_user] [-s queue_pass]
 
-  -k --action            test|start|stop|force-stop default: start
+  -k --action            test|load|start|enable|activate|stop|force-stop default: start
   -f --config            /etc/tengine.yml
   -D --daemon            ignored with "-k test"
+     --prevent-loader    doesn't call event handler loader when start. usually use with --daemon option
      --prevent-enabler   doesn't call event handler enabler when start. usually use with --daemon option
      --prevent-activator doesn't call kernel activator when start. usually use with --daemon option
   -T --tengine-dsl       path/to/file_or_dir. ignored with "-k test"
