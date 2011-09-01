@@ -5,44 +5,46 @@
   は [Tengineを評価] したい
 
 	背景:
-    前提 DBのインストールおよびセットアップが完了している
-    かつ キューのインストールおよびセットアップが完了している
-    かつ Tengineコアのインストールおよびセットアップが完了している
-    かつ Tengineコンソールのインストールおよびセットアップが完了している
-    かつ DBが起動している
-    かつ キューが起動している
+    前提 DBパッケージのインストールおよびセットアップが完了している
+    かつ キューパッケージのインストールおよびセットアップが完了している
+    かつ Tengineコアパッケージのインストールおよびセットアップが完了している
+    かつ Tengineコンソールパッケージのインストールおよびセットアップが完了している
+    かつ DBプロセスが起動している
+    かつ キュープロセスが起動している
     かつ Tengineコアのプロセスが停止している
     かつ Tengineコンソールのプロセスが停止している
+		かつ "./feature/event_handler_def/uc01_execute_processing_for_event.rb"というファイルが存在する
+		
+  シナリオ: アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_正常系
+	  もし "Tengineコンソールプロセス"を起動するためにrails -s -e productionというコマンドを実行する
+		ならば "Tengineコンソールプロセス"の起動していること
 
-  シナリオ: アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する
-	  もし "Tengineコンソール"を起動するために""というコマンドを実行する
-		ならば "Tengineコンソール"のプロセスが起動していること
+		もし "Tengineコアプロセス"を起動するために"tengined -k load -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+		ならば "Tengineコアプロセス"のコンソールに"load success"と出力されていること
+    # TODO : コンソールの出力内容は相談する
 
-		もし "./feature/event_handler_def/uc01_execute_processing_for_event.rb"というイベントハンドラ定義を作成する
-		ならば "./feature/event_handler_def/uc01_execute_processing_for_event.rb"というファイルが存在する
+		もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+		ならば "Tengineコアプロセス"が起動していること
+		# TODO : プロセスが起動していることの確認方法を記載する
 
-		もし "Tengineコア"を起動するために"tengined -k load -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-		ならば "Tengineコア"のコンソールに"load success"と出力されていること
-
-		もし "Tengineコア"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-		ならば "Tengineコア"のプロセスが起動していること
-
-		もし "イベントドライバ管理画面"を表示する
-		ならば "イベントドライバ管理画面"を表示していること
+		もし "イベントドライバ一覧画面"を表示する
+		ならば "イベントドライバ一覧画面"を表示していること
 		かつ "driver01"と表示されていること
 
 		もし "イベント発火画面"を表示する
 		ならば "イベント発火画面"を表示していること
 
 		もし "event01"の"発火"リンクをクリックする
-		ならば "event01が発火された"と表示されていること 
-		ならば Tengineコアのコンソールに"handler01"と表示されていること
+		# TODO 発火はリンクではない。画面仕様作成時に修正してください
+		ならば "event01を発火しました"と表示されていること 
+		ならば Tengineコアプロセスのコンソールに"handler01"と表示されていること
+　　 # TODO コンソールではなく標準出力を書く。出力方式について確認する。
 
-		もし "Tengineコア"を Ctl+c で停止する
-		ならば "Tengineコア"のプロセスが停止していること
+		もし "Tengineコアプロセス"を Ctl+c で停止する
+		ならば "Tengineコアプロセス"が停止していること
 
-		もし "Tengineコンソール"を Ctl+c で停止する
-		ならば "Tengineコンソール"のプロセスが停止していること
+		もし "Tengineコンソールプロセス"を Ctl+c で停止する
+		ならば "Tengineコンソールプロセス"が停止していること
 
 
   シナリオ: アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント発火画面が表示されない_Tengineコンソールが起動してない
