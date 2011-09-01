@@ -13,7 +13,7 @@
   </tr>
 
 <% @drivers.each do |driver| %>
-  <tr>
+  <tr class="<%= cycle("even", "odd") %>" >
     <td><%= driver.name %></td>
     <td><%= driver.version %></td>
     <td><%= driver.enabled %></td>
