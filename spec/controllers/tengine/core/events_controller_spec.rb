@@ -39,7 +39,7 @@ describe Tengine::Core::EventsController do
 
   describe "GET show" do
     it "assigns the requested event as @event" do
-      event = Tengine::Core::Event.create! valid_attributes
+      event = Tengine::Core::Event.find_or_create_by valid_attributes
       get :show, :id => event.id.to_s
       assigns(:event).should eq(event)
     end
@@ -54,7 +54,7 @@ describe Tengine::Core::EventsController do
 
   describe "GET edit" do
     it "assigns the requested event as @event" do
-      event = Tengine::Core::Event.create! valid_attributes
+      event = Tengine::Core::Event.find_or_create_by valid_attributes
       get :edit, :id => event.id.to_s
       assigns(:event).should eq(event)
     end
@@ -62,6 +62,10 @@ describe Tengine::Core::EventsController do
 
   describe "POST create" do
     describe "with valid params" do
+      before do
+        Tengine::Core::Event.delete_all
+      end
+
       it "creates a new Tengine::Core::Event" do
         expect {
           post :create, :event => valid_attributes
@@ -100,7 +104,7 @@ describe Tengine::Core::EventsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested event" do
-        event = Tengine::Core::Event.create! valid_attributes
+        event = Tengine::Core::Event.find_or_create_by valid_attributes
         # Assuming there are no other tengine_core_events in the database, this
         # specifies that the Tengine::Core::Event created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -110,13 +114,13 @@ describe Tengine::Core::EventsController do
       end
 
       it "assigns the requested event as @event" do
-        event = Tengine::Core::Event.create! valid_attributes
+        event = Tengine::Core::Event.find_or_create_by valid_attributes
         put :update, :id => event.id, :event => valid_attributes
         assigns(:event).should eq(event)
       end
 
       it "redirects to the event" do
-        event = Tengine::Core::Event.create! valid_attributes
+        event = Tengine::Core::Event.find_or_create_by valid_attributes
         put :update, :id => event.id, :event => valid_attributes
         response.should redirect_to(event)
       end
@@ -124,7 +128,7 @@ describe Tengine::Core::EventsController do
 
     describe "with invalid params" do
       it "assigns the event as @event" do
-        event = Tengine::Core::Event.create! valid_attributes
+        event = Tengine::Core::Event.find_or_create_by valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Tengine::Core::Event.any_instance.stub(:save).and_return(false)
         put :update, :id => event.id.to_s, :event => {}
@@ -132,7 +136,7 @@ describe Tengine::Core::EventsController do
       end
 
       it "re-renders the 'edit' template" do
-        event = Tengine::Core::Event.create! valid_attributes
+        event = Tengine::Core::Event.find_or_create_by valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Tengine::Core::Event.any_instance.stub(:save).and_return(false)
         put :update, :id => event.id.to_s, :event => {}
@@ -143,14 +147,14 @@ describe Tengine::Core::EventsController do
 
   describe "DELETE destroy" do
     it "destroys the requested event" do
-      event = Tengine::Core::Event.create! valid_attributes
+      event = Tengine::Core::Event.find_or_create_by valid_attributes
       expect {
         delete :destroy, :id => event.id.to_s
       }.to change(Tengine::Core::Event, :count).by(-1)
     end
 
     it "redirects to the tengine_core_events list" do
-      event = Tengine::Core::Event.create! valid_attributes
+      event = Tengine::Core::Event.find_or_create_by valid_attributes
       delete :destroy, :id => event.id.to_s
       response.should redirect_to(tengine_core_events_url)
     end
