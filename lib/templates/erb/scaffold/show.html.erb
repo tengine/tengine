@@ -5,7 +5,7 @@
 <% attributes.each do |attribute| -%>
 <%   suffix = (attribute.type == :array) ? "_text" : (attribute.type == :hash) ? "_yaml" : "" -%>
 <p>
-  <b><%= attribute.human_name %>:</b>
+  <b><%%= <%= class_name %>.human_attribute_name(:<%= attribute.name %>) %>:</b>
 <%   case attribute.type -%>
 <%   when :hash then -%>
   <pre><%%= @<%= file_name %>.<%= attribute.name %><%= suffix %> %></pre>

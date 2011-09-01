@@ -14,12 +14,12 @@
 <% attributes.each do |attribute| -%>
   <div class="field">
 <%   if attribute.reference? -%>
-    <%%= f.label :<%= attribute.name %>_id, :class => 'label' %>
-    <%%= f.<%= attribute.field_type %> :<%= attribute.name %>_id, :class => 'text_field' %>
+    <%%= f.label :<%= attribute.name %>_id %><br />
+    <%%= f.<%= attribute.field_type %> :<%= attribute.name %>_id %>
 <%   else -%>
 <%     suffix = (attribute.type == :array) ? "_text" : (attribute.type == :hash) ? "_yaml" : "" -%>
-    <%%= f.label :<%= attribute.name %><%= suffix %>, :class => 'label' %>
-    <%%= f.<%= attribute.field_type %> :<%= attribute.name %><%= suffix %>, :class => 'text_field' %>
+    <%%= f.label :<%= attribute.name %><%= suffix %> %><br />
+    <%%= f.<%= attribute.field_type %> :<%= attribute.name %><%= suffix %> %>
 <%   end -%>
   </div>
 <% end -%>
