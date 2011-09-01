@@ -23,11 +23,18 @@ tengined [-k action] [-f path_to_config] [-t path/to/file_or_dir]
   -U --db-user
   -S --db-pass
   -D --db-database        default: tengine_production
-  -h --queue-host         default: localhost
-  -p --queue-port         default: 5672
-  -u --queue-user
-  -s --queue-pass
-  -r --queue-routing-key
+  -h --mq-conn-host         default: localhost
+  -p --mq-conn-port         default: 5672
+  -v --mq-conn-vhost        default: /
+  -u --mq-conn-user         default: guest
+  -s --mq-conn-pass         default: guest
+  -e --mq-exchange-name     default: tengine_event_exchange
+     --mq-exchange-type     default: direct
+     --mq-exchange-durable  default: true
+  -q --mq-queue-name        default: tengine_event_queue
+     --mq-queue-durable     default: true
+     --mq-pub-persistent    default: true
+     --mq-pub-mandatory     default: false
 }}}
 
 
@@ -76,11 +83,12 @@ db:
   user: user
   pass: pass
   database: tengine_production
-queue:
-  host: localhost
-  port: 5672
-  user: user
-  pass: pass
+mq:
+  conn:
+    host: localhost
+    port: 5672
+    user: user
+    pass: pass
 }}}
 
  * /etc/init.d/tengined は init.d系の仕組みに則ったもので、前述のtenginedとは別物。
