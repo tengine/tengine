@@ -12,7 +12,7 @@ gem "bson_ext", "~> 1.3"
 
 gem "kaminari", "~> 0.12"
 
-gem "tengine_event", "~> 0.0"
+gem "tengine_event", "~> 0.1"
 
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
