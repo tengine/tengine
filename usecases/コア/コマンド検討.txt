@@ -10,22 +10,24 @@ tengined [-k action] [-f path_to_config] [-t path/to/file_or_dir]
          [-H db_host] [-P db_port] [-U db_user] [-S db_pass] [-D db_database]
          [-h queue_host] [-p queue_port] [-u queue_user] [-s queue_pass]
 
-  -k --action            test|load|start|enable|activate|stop|force-stop default: start
-  -f --config            /etc/tengine.yml
-  -D --daemon            ignored with "-k test"
-     --prevent-loader    doesn't call event handler loader when start. usually use with --daemon option
-     --prevent-enabler   doesn't call event handler enabler when start. usually use with --daemon option
-     --prevent-activator doesn't call kernel activator when start. usually use with --daemon option
-  -T --tengine-dsl       path/to/file_or_dir. ignored with "-k test"
-  -H --db-host           default: localhost
-  -P --db-port           default: 27017
-  -U --db-user      
-  -S --db-pass      
-  -D --db-database       default: tengine_production
-  -h --queue-host        default: localhost
-  -p --queue-port        default: 5672
-  -u --queue-user   
-  -s --queue-pass   
+  -k --action             test|load|start|enable|stop|force-stop default: start
+  -f --config             /etc/tengine.yml
+  -D --daemon             ignored with "-k test, -k load, -k enable"
+     --prevent-loader     doesn't call event handler loader when start. usually use with --daemon option
+     --prevent-enabler    doesn't call event handler enabler when start. usually use with --daemon option
+     --prevent-activator  doesn't call kernel activator when start. usually use with --daemon option
+     --activation-timeout period to wait for making activation file. default: 300(sec)
+  -T --tengine-dsl        path/to/file_or_dir. ignored with "-k test"
+  -H --db-host            default: localhost
+  -P --db-port            default: 27017
+  -U --db-user
+  -S --db-pass
+  -D --db-database        default: tengine_production
+  -h --queue-host         default: localhost
+  -p --queue-port         default: 5672
+  -u --queue-user
+  -s --queue-pass
+  -r --queue-routing-key
 }}}
 
 
