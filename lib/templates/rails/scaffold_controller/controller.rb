@@ -45,7 +45,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
     respond_to do |format|
       if @<%= orm_instance(file_name).save %>
-        format.html { redirect_to @<%= file_name %>, <%= key_value :notice, "'#{human_name} was successfully created.'" %> }
+        format.html { redirect_to @<%= file_name %>, notice: successfully_created(@<%= file_name %>) }
         format.json { render <%= key_value :json, "@#{file_name}" %>, <%= key_value :status, ':created' %>, <%= key_value :location, "@#{file_name}" %> }
       else
         format.html { render <%= key_value :action, '"new"' %> }
@@ -61,7 +61,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
     respond_to do |format|
       if @<%= orm_instance(file_name).update_attributes("params[:#{file_name}]") %>
-        format.html { redirect_to @<%= file_name %>, <%= key_value :notice, "'#{human_name} was successfully updated.'" %> }
+        format.html { redirect_to @<%= file_name %>, notice: successfully_updated(@<%= file_name %>) }
         format.json { head :ok }
       else
         format.html { render <%= key_value :action, '"edit"' %> }
@@ -77,7 +77,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%= orm_instance(file_name).destroy %>
 
     respond_to do |format|
-      format.html { redirect_to <%= index_helper %>_url }
+      format.html { redirect_to <%= index_helper %>_url, notice: successfully_destroyed(@<%= file_name %>) }
       format.json { head :ok }
     end
   end

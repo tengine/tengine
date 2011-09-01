@@ -12,6 +12,8 @@ gem "bson_ext", "~> 1.3"
 
 gem "kaminari", "~> 0.12"
 
+gem "tengine_event", "~> 0.1"
+
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
   gem "capybara"
@@ -23,6 +25,12 @@ group :test, :development do
 
   gem "pickle", "~> 0.4"
   gem 'pickle_i18n', '~> 0.0'
+
+  gem "ZenTest", "~> 4.4"
+  gem "autotest-rails" # if you're using rails
+
+  # gem "rcov", ">= 0"
+  gem "simplecov", "~> 0.4"
 end
 
 

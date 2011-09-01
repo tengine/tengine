@@ -19,7 +19,14 @@ describe "<%= class_name.underscore.pluralize %>/show.html.<%= options[:template
     rendered.should contain(<%= value_for(attribute) %>.to_s)
 <% else -%>
     # Run the generator again with the --webrat flag if you want to use webrat matchers
+<%    case attribute.type -%>
+<%    when :array then -%>
+    rendered.should match(/#{Regexp.escape(CGI.escapeHTML(<%= attribute.default.join(",").inspect %>))}/)
+<%    when :hash then -%>
+    rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump(<%= attribute.default %>)))}/)
+<%    else -%>
     rendered.should match(/<%= eval(value_for(attribute)) %>/)
+<%    end -%>
 <% end -%>
 <% end -%>
   end

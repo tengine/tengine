@@ -13,9 +13,15 @@
   </tr>
 
 <%% @<%= file_name.pluralize %>.each do |<%= file_name %>| %>
-  <tr>
-<% attributes.each do |attribute| -%>
-    <td><%%= <%= file_name %>.<%= attribute.name %> %></td>
+  <tr class="<%%= cycle("even", "odd") %>" >
+<% for attribute in attributes -%>
+<%   suffix = (attribute.type == :array) ? "_text" : (attribute.type == :hash) ? "_yaml" : "" -%>
+<%    case attribute.type -%>
+<%    when :hash then -%>
+    <td><pre><%%= <%= file_name %>.<%= attribute.name %><%= suffix %> %></pre></td>
+<%    else -%>
+    <td><%%= <%= file_name %>.<%= attribute.name %><%= suffix %> %></td>
+<%    end -%>
 <% end -%>
     <td><%%= link_to_show <%= file_name %> %></td>
     <td><%%= link_to_edit edit_<%= singular_table_name %>_path(<%= file_name %>) %></td>
