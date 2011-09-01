@@ -6,35 +6,39 @@
 * DSLファイル一つだけ
 {{{
 SYNOPSIS
-tengined [-k action] [-f path_to_config] [-t path/to/file_or_dir]
-         [-H db_host] [-P db_port] [-U db_user] [-S db_pass] [-D db_database]
-         [-h queue_host] [-p queue_port] [-u queue_user] [-s queue_pass]
+tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
+         [-H db_host] [-P db_port] [-U db_user] [-S db_pass] [-B db_database]
+         [-h mq_conn_host] [-p mq_conn_port] [-u mq_conn_user] [-s mq_conn_pass]
+         [-v mq_conn_vhost] [-e mq_exchange_name] [-q mq_queue_name]
 
-  -k --action             test|load|start|enable|stop|force-stop default: start
-  -f --config             /etc/tengine.yml
-  -D --daemon             ignored with "-k test, -k load, -k enable"
-     --prevent-loader     doesn't call event handler loader when start. usually use with --daemon option
-     --prevent-enabler    doesn't call event handler enabler when start. usually use with --daemon option
-     --prevent-activator  doesn't call kernel activator when start. usually use with --daemon option
-     --activation-timeout period to wait for making activation file. default: 300(sec)
-  -T --tengine-dsl        path/to/file_or_dir. ignored with "-k test"
-  -H --db-host            default: localhost
-  -P --db-port            default: 27017
+  -k --action                 test|load|start|enable|stop|force-stop default: start
+  -f --config                 /etc/tengine.yml
+  -D --daemon                 ignored with "-k test, -k load, -k enable"
+     --prevent-loader         doesn't call event handler loader when start. usually use with --daemon option
+     --prevent-enabler        doesn't call event handler enabler when start. usually use with --daemon option
+     --prevent-activator      doesn't call kernel activator when start. usually use with --daemon option
+     --activation-timeout     period to wait for making activation file. default: 300(sec)
+  -T --tengine-dsl            path/to/file_or_dir. ignored with "-k test"
+     --tengine-log-dir        path/to/dir. default: ./
+     --tengine-pid-dir        path/to/dir. default: ./tmp/tengined_pids
+     --tengine-activation-dir path/to/dir. default: ./tmp/tengined_activations
+  -H --db-host                default: localhost
+  -P --db-port                default: 27017
   -U --db-user
   -S --db-pass
-  -D --db-database        default: tengine_production
-  -h --mq-conn-host         default: localhost
-  -p --mq-conn-port         default: 5672
-  -v --mq-conn-vhost        default: /
-  -u --mq-conn-user         default: guest
-  -s --mq-conn-pass         default: guest
-  -e --mq-exchange-name     default: tengine_event_exchange
-     --mq-exchange-type     default: direct
-     --mq-exchange-durable  default: true
-  -q --mq-queue-name        default: tengine_event_queue
-     --mq-queue-durable     default: true
-     --mq-pub-persistent    default: true
-     --mq-pub-mandatory     default: false
+  -B --db-database            default: tengine_production
+  -h --mq-conn-host           default: localhost
+  -p --mq-conn-port           default: 5672
+  -v --mq-conn-vhost          default: /
+  -u --mq-conn-user           default: guest
+  -s --mq-conn-pass           default: guest
+  -e --mq-exchange-name       default: tengine_event_exchange
+     --mq-exchange-type       default: direct
+     --mq-exchange-durable    default: true
+  -q --mq-queue-name          default: tengine_event_queue
+     --mq-queue-durable       default: true
+     --mq-pub-persistent      default: true
+     --mq-pub-mandatory       default: false
 }}}
 
 
