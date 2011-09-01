@@ -25,6 +25,9 @@ group :test, :development do
 
   gem "pickle", "~> 0.4"
   gem 'pickle_i18n', '~> 0.0'
+
+  gem "ZenTest", "~> 4.4"
+  gem "autotest-rails" # if you're using rails
 end
 
 
