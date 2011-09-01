@@ -9,7 +9,7 @@ describe "tengine/core/events/show.html.erb" do
       :notification_level => 1,
       :notification_confirmed => false,
       :sender_name => "Sender Name",
-      :properties => ""
+      :properties => {"a"=>"1", "b"=>"2"}
     ))
   end
 
@@ -28,6 +28,6 @@ describe "tengine/core/events/show.html.erb" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/Sender Name/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(//)
+    rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump({"a"=>"1", "b"=>"2"})))}/)
   end
 end

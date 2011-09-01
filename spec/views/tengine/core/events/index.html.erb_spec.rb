@@ -10,7 +10,7 @@ describe "tengine/core/events/index.html.erb" do
         :notification_level => 1,
         :notification_confirmed => false,
         :sender_name => "Sender Name",
-        :properties => "properties YAML"
+        :properties => {"a"=>"1", "b"=>"2"}
       ),
       stub_model(Tengine::Core::Event,
         :event_type_name => "Event Type Name",
@@ -19,7 +19,7 @@ describe "tengine/core/events/index.html.erb" do
         :notification_level => 1,
         :notification_confirmed => false,
         :sender_name => "Sender Name",
-        :properties => "properties YAML"
+        :properties => {"a"=>"1", "b"=>"2"}
       )
     ])
   end
@@ -39,6 +39,6 @@ describe "tengine/core/events/index.html.erb" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "Sender Name".to_s, :count => 2
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => "properties YAML".to_s, :count => 2
+    assert_select "tr>td>pre", :text => CGI.escapeHTML(YAML.dump({"a"=>"1", "b"=>"2"})), :count => 2
   end
 end

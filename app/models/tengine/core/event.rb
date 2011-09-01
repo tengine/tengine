@@ -8,4 +8,5 @@ class Tengine::Core::Event
   field :notification_confirmed, :type => Boolean
   field :sender_name, :type => String
   field :properties, :type => Hash
+  map_yaml_accessor :properties
 end

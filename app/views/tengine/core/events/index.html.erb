@@ -18,7 +18,7 @@
   </tr>
 
 <% @events.each do |event| %>
-  <tr>
+  <tr class="<%= cycle("even", "odd") %>" >
     <td><%= event.event_type_name %></td>
     <td><%= event.key %></td>
     <td><%= event.source_name %></td>
@@ -26,7 +26,7 @@
     <td><%= event.notification_level %></td>
     <td><%= event.notification_confirmed %></td>
     <td><%= event.sender_name %></td>
-    <td><%= event.properties %></td>
+    <td><pre><%= event.properties_yaml %></pre></td>
     <td><%= link_to_show event %></td>
     <td><%= link_to_edit edit_tengine_core_event_path(event) %></td>
     <td><%= link_to_destroy event, confirm: 'Are you sure?', method: :delete %></td>
