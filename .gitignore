@@ -1,9 +1,10 @@
-*~
 *.*~
+*~
 .DS_Store
 .bundle
 .sass-cache/
 /.rvmrc
+/coverage
 db/*.sqlite3
 log/*.log
 tmp/
