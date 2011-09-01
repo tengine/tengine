@@ -16,14 +16,24 @@ describe "<%= class_name.underscore.pluralize %>/edit.html.<%= options[:template
 <% if webrat? -%>
     rendered.should have_selector("form", :action => <%= ns_file_name %>_path(@<%= ns_file_name %>), :method => "post") do |form|
 <% for attribute in output_attributes -%>
-      form.should have_selector("<%= attribute.input_type -%>#<%= ns_file_name %>_<%= attribute.name %>", :name => "<%= ns_file_name %>[<%= attribute.name %>]")
+<%   if attribute.reference? -%>
+      form.should have_selector("<%= attribute.input_type -%>#<%= file_name %>_<%= attribute.name %>_id", :name => "<%= file_name %>[<%= attribute.name %>_id]")
+<%   else -%>
+<%   suffix = (attribute.type == :array) ? "_text" : (attribute.type == :hash) ? "_yaml" : "" -%>
+      form.should have_selector("<%= attribute.input_type -%>#<%= file_name %>_<%= attribute.name %><%= suffix %>", :name => "<%= file_name %>[<%= attribute.name %><%= suffix %>]")
+<%   end -%>
 <% end -%>
     end
 <% else -%>
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => <%= index_helper %>_path(@<%= ns_file_name %>), :method => "post" do
 <% for attribute in output_attributes -%>
-      assert_select "<%= attribute.input_type -%>#<%= ns_file_name %>_<%= attribute.name %>", :name => "<%= ns_file_name %>[<%= attribute.name %>]"
+<%   if attribute.reference? -%>
+      assert_select "<%= attribute.input_type -%>#<%= file_name %>_<%= attribute.name %>_id", :name => "<%= file_name %>[<%= attribute.name %>_id]"
+<%   else -%>
+<%   suffix = (attribute.type == :array) ? "_text" : (attribute.type == :hash) ? "_yaml" : "" -%>
+      assert_select "<%= attribute.input_type -%>#<%= file_name %>_<%= attribute.name %><%= suffix %>", :name => "<%= file_name %>[<%= attribute.name %><%= suffix %>]"
+<%   end -%>
 <% end -%>
     end
 <% end -%>
