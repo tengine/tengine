@@ -28,6 +28,9 @@ group :test, :development do
 
   gem "ZenTest", "~> 4.4"
   gem "autotest-rails" # if you're using rails
+
+  # gem "rcov", ">= 0"
+  gem "simplecov", "~> 0.4"
 end
 
 
