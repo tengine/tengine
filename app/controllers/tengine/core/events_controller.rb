@@ -44,7 +44,7 @@ class Tengine::Core::EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
+        format.html { redirect_to @event, notice: successfully_created(@event) }
         format.json { render json: @event, status: :created, location: @event }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class Tengine::Core::EventsController < ApplicationController
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+        format.html { redirect_to @event, notice: successfully_updated(@event) }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -76,7 +76,7 @@ class Tengine::Core::EventsController < ApplicationController
     @event.destroy
 
     respond_to do |format|
-      format.html { redirect_to tengine_core_events_url }
+      format.html { redirect_to tengine_core_events_url, notice: successfully_destroyed(@event) }
       format.json { head :ok }
     end
   end

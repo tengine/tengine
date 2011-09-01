@@ -3,42 +3,42 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Event type name:</b>
+  <b><%= Tengine::Core::Event.human_attribute_name(:event_type_name) %>:</b>
   <%= @event.event_type_name %>
 </p>
 
 <p>
-  <b>Key:</b>
+  <b><%= Tengine::Core::Event.human_attribute_name(:key) %>:</b>
   <%= @event.key %>
 </p>
 
 <p>
-  <b>Source name:</b>
+  <b><%= Tengine::Core::Event.human_attribute_name(:source_name) %>:</b>
   <%= @event.source_name %>
 </p>
 
 <p>
-  <b>Occurred at:</b>
+  <b><%= Tengine::Core::Event.human_attribute_name(:occurred_at) %>:</b>
   <%= @event.occurred_at %>
 </p>
 
 <p>
-  <b>Notification level:</b>
+  <b><%= Tengine::Core::Event.human_attribute_name(:notification_level) %>:</b>
   <%= @event.notification_level %>
 </p>
 
 <p>
-  <b>Notification confirmed:</b>
+  <b><%= Tengine::Core::Event.human_attribute_name(:notification_confirmed) %>:</b>
   <%= @event.notification_confirmed %>
 </p>
 
 <p>
-  <b>Sender name:</b>
+  <b><%= Tengine::Core::Event.human_attribute_name(:sender_name) %>:</b>
   <%= @event.sender_name %>
 </p>
 
 <p>
-  <b>Properties:</b>
+  <b><%= Tengine::Core::Event.human_attribute_name(:properties) %>:</b>
   <pre><%= @event.properties_yaml %></pre>
 </p>
 

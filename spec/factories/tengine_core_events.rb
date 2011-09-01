@@ -5,7 +5,7 @@ FactoryGirl.define do
     event_type_name("MyString")
     key("MyString")
     source_name("MyString")
-    occurred_at("2011-09-01 17:16:21")
+    occurred_at("2011-09-01 17:36:59")
     notification_level(1)
     notification_confirmed(false)
     sender_name("MyString")
