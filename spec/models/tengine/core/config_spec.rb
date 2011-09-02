@@ -20,8 +20,8 @@ describe Tengine::Core::Config do
       subject['tengined'].should == expected
       subject[:tengined]['daemon'].should == true
       subject[:tengined][:daemon].should == true
-      subject[:event_queue][:conn][:host].should == "localhost"
-      subject['event_queue']['conn']['host'].should == "localhost"
+      subject[:event_queue][:connection][:host].should == "localhost"
+      subject['event_queue']['connection']['host'].should == "localhost"
       subject[:event_queue][:queue][:name].should == "tengine_event_queue2"
       subject['event_queue']['queue']['name'].should == "tengine_event_queue2"
     end
@@ -190,8 +190,8 @@ describe Tengine::Core::Config do
       subject[:tengined].object_id.should_not == @source[:tengined].object_id
       subject[:tengined][:log_dir].object_id.should_not == @source[:tengined][:log_dir].object_id
       subject[:event_queue].object_id.should_not == @source[:event_queue].object_id
-      subject[:event_queue][:conn].object_id.should_not == @source[:event_queue][:conn].object_id
-      subject[:event_queue][:conn][:host].object_id.should_not == @source[:event_queue][:conn][:host].object_id
+      subject[:event_queue][:connection].object_id.should_not == @source[:event_queue][:connection].object_id
+      subject[:event_queue][:connection][:host].object_id.should_not == @source[:event_queue][:connection][:host].object_id
       subject[:event_queue][:queue][:name].should_not == @source[:event_queue][:queue][:name].object_id
     end
   end

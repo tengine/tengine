@@ -105,7 +105,7 @@ class Tengine::Core::Config
       :database => 'tengine_production',
     }.freeze,
     :event_queue => {
-      :conn => {
+      :connection => {
         :host => 'localhost',
         :port => 5672,
         # :vhost => nil, # デフォルトなし。
