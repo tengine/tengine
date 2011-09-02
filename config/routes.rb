@@ -1,9 +1,13 @@
 TengineConsole::Application.routes.draw do
-  namespace :tengine do  namespace :core do resources :handlers end end
-
   namespace :tengine do  namespace :core do resources :events end end
 
-  namespace :tengine do  namespace :core do resources :drivers end end
+  namespace :tengine do
+    namespace :core do
+      resources :drivers do
+        resources :handlers
+      end
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
