@@ -27,7 +27,7 @@ module Tengine::Core::DslLoader
       @__driver__.handlers.new(:event_type_names => [event_type_name.to_s])
     else
       # TODO: loggerに差し替え
-      puts "[DslLoader][warn] driver\"#{@__driver__.name}\"には、event_type_name\"#{event_type_name}\"が既に登録されています"
+      puts "[DslLoader][warn] driver\"#{@__driver__.name}\"には、同一のevent_type_name\"#{event_type_name}\"が複数存在します"
     end
   end
 end
