@@ -12,8 +12,7 @@ describe Tengine::Core::DslLoader do
     context "DSLのファイルを指定する場合" do
       before do
         config = Tengine::Core::Config.new({
-          # :tengined_load_path => File.expand_path('dsls', File.dirname(__FILE__)),
-          :tengined_load_path => File.expand_path('dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+          :tengined_load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
         })
         @loader = Object.new
         @loader.extend(Tengine::Core::DslLoader)
