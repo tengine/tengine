@@ -51,7 +51,7 @@ class Tengine::Core::Bootstrap
     event_type_name = :foo
     options = { :notification_level_key => :info }
     Tengine::Event.config = {
-      :connection => config[:event_queue][:conn],
+      :connection => config[:event_queue][:connection],
       :exchange => config[:event_queue][:exchange],
       :queue => config[:event_queue][:queue]
     }
