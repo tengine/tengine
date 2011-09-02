@@ -26,7 +26,14 @@ class Tengine::Core::Config
 
   def dsl_file_paths
     unless @dsl_file_paths
-      @dsl_file_paths = Dir.glob("#{dsl_dir_path}/**/*.rb")
+      load_path = self[:tengined][:load_path]
+      if Dir.exist?(load_path)
+        @dsl_file_paths = Dir.glob("#{load_path}/**/*.rb")
+      elsif File.exist?(load_path)
+        @dsl_file_paths = [load_path]
+      else
+        raise Tengine::Core::ConfigError, "file or directory doesn't exist. #{load_path}"
+      end
     end
     @dsl_file_paths
   end
