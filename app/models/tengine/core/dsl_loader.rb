@@ -9,7 +9,7 @@ module Tengine::Core::DslLoader
       @__driver__ = Tengine::Core::Driver.new((options || {}).update(
           :name => name,
           :version => config.dsl_version,
-          :enabled => !!config[:tengined][:skip_enablement],   # driverを有効化して登録するかのオプション
+          :enabled => !config[:tengined][:skip_enablement],   # driverを有効化して登録するかのオプション
           ))
       yield if block_given?
       @__driver__.save!

@@ -36,7 +36,7 @@ describe Tengine::Core::DslLoader do
           handler1.event_type_names.should == %w[event01]
           Tengine::Core::HandlerPath.where(:driver_id => driver01.id).count.should == 1
           Tengine::Core::HandlerPath.default_driver_version = "20110902213500"
-          Tengine::Core::HandlerPath.find_handlers("event01").count.should == 0
+          Tengine::Core::HandlerPath.find_handlers("event01").count.should == 1
         end
       end
 
@@ -65,7 +65,7 @@ describe Tengine::Core::DslLoader do
           handler1.event_type_names.should == %w[event01]
           Tengine::Core::HandlerPath.where(:driver_id => driver01.id).count.should == 1
           Tengine::Core::HandlerPath.default_driver_version = "20110902213500"
-          Tengine::Core::HandlerPath.find_handlers("event01").count.should == 1
+          Tengine::Core::HandlerPath.find_handlers("event01").count.should == 0
         end
       end
     end
