@@ -39,7 +39,7 @@ class Tengine::Core::Bootstrap
       puts "@stop_kernel fin"
     when "enable" then enable_drivers
     when "status" then kernel_status
-    #いらない。when "stop" then stop_kernel
+    when "stop" then stop_kernel
     else
       raise ArgumentError, "config[:action] must be test|load|start|enable|stop|force-stop|status but was #{config[:action]} "
     end
