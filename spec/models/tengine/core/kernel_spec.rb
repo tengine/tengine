@@ -165,4 +165,122 @@ describe Tengine::Core::Kernel do
     end
   end
 
+  describe :status do
+    describe :starting do
+      before do
+        config = Tengine::Core::Config.new({
+            :tengined => {
+              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+            },
+          })
+        @kernel = Tengine::Core::Kernel.new(config)
+      end
+
+      it "起動要求を受け取った直後は「起動中」の状態を返す" do
+        @kernel.should_receive(:bind)
+        @kernel.should_receive(:activate)
+
+        @kernel.start
+        @kernel.status.should == :starting
+      end
+    end
+
+    describe :waiting_for_activation do
+      before do
+        config = Tengine::Core::Config.new({
+            :tengined => {
+              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+              :wait_activation => true,
+              :activation_timeout => 3,
+              :activation_dir => File.expand_path('.', File.dirname(__FILE__)),
+            },
+          })
+        @kernel = Tengine::Core::Kernel.new(config)
+      end
+
+      it "起動処理が終了した直後に「稼働要求待ち」の状態を返す" do
+        @kernel.should_receive(:bind)
+        @kernel.should_receive(:wait_for_activation)
+
+        @kernel.start
+        @kernel.status.should == :waiting_activation
+      end
+    end
+
+    describe :running do
+      before do
+        config = Tengine::Core::Config.new({
+            :tengined => {
+              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+            },
+          })
+        @kernel = Tengine::Core::Kernel.new(config)
+        @kernel.should_receive(:bind)
+      end
+
+      it "稼働要求を受け取った直後では「稼働中」の状態を返す" do
+        EM.should_receive(:run).and_yield
+        mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
+        Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mq)
+        mock_queue = mock(:queue)
+        mq.should_receive(:queue).twice.and_return(mock_queue)
+        mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true)
+
+        @kernel.start
+        @kernel.status.should == :running
+      end
+    end
+
+    describe :stop do
+      before do
+        @mock_channel = mock(:channel)
+        @mock_queue = mock(:queue)
+        @mock_consumer = mock(:consumer)
+      end
+
+      it "停止要求を受け取った直後では「停止中」および「停止済」の状態を返す(稼働中)" do
+        config = Tengine::Core::Config.new({
+            :tengined => {
+              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+            },
+          })
+        kernel = Tengine::Core::Kernel.new(config)
+        kernel.should_receive(:bind)
+
+        EM.should_receive(:run).and_yield
+        mq = Tengine::Mq::Suite.new(kernel.config[:event_queue])
+        Tengine::Mq::Suite.should_receive(:new).with(kernel.config[:event_queue]).and_return(mq)
+        mq.should_receive(:queue).exactly(3).times.and_return(@mock_queue)
+        @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true)
+
+        kernel.start
+        kernel.status.should == :running
+
+        @mock_queue.should_receive(:default_consumer).and_return(nil)
+
+        kernel.stop
+        kernel.status.should == :stop
+      end
+
+      it "停止要求を受け取った直後では「停止中」および「停止済」の状態を返す(稼働要求待ち)" do
+        config = Tengine::Core::Config.new({
+            :tengined => {
+              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+              :wait_activation => true,
+              :activation_timeout => 3,
+              :activation_dir => File.expand_path('.', File.dirname(__FILE__)),
+            },
+          })
+        kernel = Tengine::Core::Kernel.new(config)
+        kernel.should_receive(:bind)
+
+        lambda {
+          kernel.start
+          kernel.stop
+        }.should raise_error(Tengine::Core::ActivationTimeoutError, "activation file found timeout error.")
+        kernel.status.should == :stopping
+      end
+    end
+  end
+
 end

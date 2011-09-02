@@ -15,7 +15,7 @@ class Tengine::Core::Kernel
     @status = :starting
     bind
     if config[:tengined][:wait_activation]
-      @status = :wait_for_activation
+      @status = :waiting_activation
       wait_for_activation
     else
       activate
@@ -33,6 +33,7 @@ class Tengine::Core::Kernel
       @status = :stopping
       # wait_for_actiontion中の処理を停止させる必要がある
     end
+    @status = :stop
   end
 
   def in_process?
