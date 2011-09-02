@@ -73,5 +73,67 @@ describe Tengine::Core::Kernel do
       end
     end
 
+    describe :activate do
+      before do
+        @mock_connection = mock(:connection)
+        @mock_exchange = mock(:exchange)
+        @mock_channel = mock(:channel)
+        @mock_queue = mock(:queue)
+
+        @header = AMQP::Header.new(@mock_channel, nil, {
+            :routing_key  => "",
+            :content_type => "application/octet-stream",
+            :priority     => 0,
+            :headers      => { },
+            :timestamp    => Time.now,
+            :type         => "",
+            :delivery_tag => 1,
+            :redelivered  => false,
+            :exchange     => "tengine_event_exchange",
+          })
+
+        config = Tengine::Core::Config.new({
+            :tengined => {
+              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+              :prevent_activator => true,
+            },
+          })
+        @kernel = Tengine::Core::Kernel.new(config)
+        @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version)
+        @handler1 = @driver.handlers.new(:event_type_names => ["event01"])
+        @driver.save!
+        @event1 = Tengine::Core::Event.new(:event_type_name => "event01", :key => "uuid1", :sender_name => "localhost")
+        @event1.save!
+      end
+
+      it "イベントの受信待ち状態になる" do
+        EM.should_receive(:run).and_yield
+        mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
+        Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
+        mock_mq.should_receive(:queue).and_return(@mock_queue)
+        @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true)
+        @kernel.should_receive(:puts).with("EM reactor defined")
+
+        @kernel.start
+      end
+
+      it "発火されたイベントを登録できる" do
+        EM.should_receive(:run).and_yield
+        mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
+        Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
+        mock_mq.should_receive(:queue).and_return(@mock_queue)
+        @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true).and_yield(@header, :message)
+
+        mock_row_event = mock(:row_event)
+        mock_row_event.should_receive(:attributes).and_return(:event_type_name => :foo, :key => "uniq_key")
+        Tengine::Event.should_receive(:parse).with(:message).and_return(mock_row_event)
+
+        @header.should_receive(:ack)
+        @kernel.should_receive(:puts).with("EM reactor defined")
+
+        @kernel.start
+        Tengine::Core::Event.where(:event_type_name => :foo).count.should == 1
+      end
+    end
   end
 end

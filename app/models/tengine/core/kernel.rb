@@ -52,6 +52,17 @@ class Tengine::Core::Kernel
     EM.run do
       # subscribe to messages in the queue
       mq.queue.subscribe(:ack => true, :nowait => true) do |headers, msg|
+        # ↑のブロック引数はheadersではなくて、metadataかも。
+        # headersは、metadata.headersで取得できる
+        # metadata.routing_key : 
+        # metadata.content_type: application/octet-stream
+        # metadata.priority    : 8
+        # metadata.headers     : {"coordinates"=>{"latitude"=>59.35, "longitude"=>18.066667}, "participants"=>11, "venue"=>"Stockholm"}
+        # metadata.timestamp   : 2011-09-07 10:39:08 +0900
+        # metadata.type        : kinda.checkin
+        # metadata.delivery_tag: 1
+        # metadata.redelivered : false
+        # metadata.exchange    : amq.direct
         begin
           raw_event = Tengine::Event.parse(msg)
         rescue Exception => e
@@ -73,6 +84,7 @@ class Tengine::Core::Kernel
 #         end
 
         headers.ack
+
       end
       puts "EM reactor defined"
     end
@@ -81,41 +93,8 @@ class Tengine::Core::Kernel
   private
 
   def mq
-    @mq ||= Tengine::Mq::Suite.
-      new(config[:subscription] || DEFAULT_SUBSCRIPTION_CONFIG)
+    @mq ||= Tengine::Mq::Suite.new(config[:event_queue])
   end
-
-  DEFAULT_SUBSCRIPTION_CONFIG = YAML.load(<<EOS)
-connection:
-  user: 'guest'
-  pass: 'guest'
-  vhost: '/'
-  # timeout: nil
-  logging: false
-  insist: false
-  host: 'localhost'
-  port: 5672
-exchange:
-  name: "notification_exchange"
-  type: fanout
-  passive: false
-  durable: true
-  auto_delete: false
-  internal: false
-  nowait: true
-queue:
-  name: "event_queue"
-  passive: false
-  durable: true
-  auto_delete: false
-  exclusive: false
-  nowait: true
-  subscribe:
-    ack: true
-    nowait: true
-    confirm: nil
-EOS
-
 end
 
 
