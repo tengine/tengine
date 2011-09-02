@@ -15,7 +15,7 @@ module Tengine::Core::DslLoader
     else
       # エラーにはしない
       # TODO: loggerに差し替え
-      puts "[warn] driver名\"#{name}\"は既に登録されています"
+      puts "[DslLoader][warn] driver\"#{name}\"は既に登録されています"
       @__driver__ = drivers.first
     end
     @__driver__
@@ -25,7 +25,7 @@ module Tengine::Core::DslLoader
     handlers = @__driver__.handlers.where(:event_type_names => [event_type_name.to_s])
     handlers.each do |handler|
       # TODO: loggerに差し替え
-      puts "[warn] driver名\"#{@__driver__.name}\"には、event_type_nameとして\"#{event_type_name}\"が既に登録されています"
+      puts "[DslLoader][warn] driver\"#{@__driver__.name}\"には、event_type_name\"#{event_type_name}\"が既に登録されています"
     end if handlers.count > 0
     @__driver__.handlers.new(:event_type_names => [event_type_name.to_s])
   end

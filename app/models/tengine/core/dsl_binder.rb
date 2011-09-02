@@ -20,6 +20,7 @@ module Tengine::Core::DslBinder
     # よって DSL で後に記述された block が event_type_name に対応した handler の処理として紐付けられます
     # この曖昧な制約をなくすには、Tengine::Core::DslLoader で複数の event_type_name を登録できないようにする、もしくは
     # 複数でも一つの handler として扱うかにする必要があります
+    puts "[DslBinder][warn] driver\"#{@__driver__.name}\"には、event_type_name\"#{event_type_name}\"へのhandlerが複数存在します" unless handlers.count == 0
     handlers.each do |handler|
       bind_blocks_for_handler_id(handler.id, &block)
     end
