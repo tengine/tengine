@@ -3,6 +3,8 @@ require 'spec_helper'
 
 describe Tengine::Core::Config do
 
+  # log_configのテストは spec/models/tengine/core/config_spec/log_config_spec.rb にあります。
+
   context "ディレクトリ指定の設定ファイル" do
     subject do
       Tengine::Core::Config.new(:config => File.expand_path("config_spec/config_with_dir_load_path.yml", File.dirname(__FILE__)))
@@ -41,6 +43,17 @@ describe Tengine::Core::Config do
           and_return(["/var/lib/tengine/foo/bar.rb"])
         subject.dsl_file_paths.should == ["/var/lib/tengine/foo/bar.rb"]
       end
+
+      # C0カバレッジを100%にするために追加しています
+      it "dsl_dir_path and dsl_file_paths" do
+        Dir.should_receive(:glob).
+          with("/var/lib/tengine/**/*.rb").
+          and_return(["/var/lib/tengine/foo/bar.rb"])
+        subject.dsl_dir_path.should == "/var/lib/tengine"
+        subject.instance_variable_get(:@dsl_load_path_type).should == :dir
+        subject.dsl_file_paths.should == ["/var/lib/tengine/foo/bar.rb"]
+      end
+
 
       it :dsl_version_path do
         subject.dsl_version_path.should == "/var/lib/tengine/VERSION"
@@ -140,7 +153,7 @@ describe Tengine::Core::Config do
       end
     end
 
-    context "ディレクトリもディレクトリも存在しない場合" do
+    context "ファイルもディレクトリも存在しない場合" do
       before do
         @error_message = "file or directory doesn't exist. /var/lib/tengine/init.rb"
         Dir.should_receive(:exist?).with("/var/lib/tengine/init.rb").and_return(false)
@@ -173,8 +186,6 @@ describe Tengine::Core::Config do
       }.to raise_error(Tengine::Core::ConfigError, /Exception occurred when loading configuration file: #{config_path}./)
     end
   end
-
-
 
   describe :default_hash do
     subject do

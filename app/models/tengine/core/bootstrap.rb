@@ -29,14 +29,14 @@ class Tengine::Core::Bootstrap
       version_file.close
 
       load_dsl
-      puts "@load_dsl fin"
+#      puts "@load_dsl fin"
 
       start_kernel
-      puts "@start_kernel fin"
+#      puts "@start_kernel fin"
       start_connection_test
-      puts "@start_connection_test fin"
+#      puts "@start_connection_test fin"
       stop_kernel
-      puts "@stop_kernel fin"
+#      puts "@stop_kernel fin"
     when "enable" then enable_drivers
     when "status" then kernel_status
     when "stop" then stop_kernel
