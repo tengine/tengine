@@ -6,12 +6,14 @@ describe "tengine/core/drivers/index.html.erb" do
       stub_model(Tengine::Core::Driver,
         :name => "Name",
         :version => "Version",
-        :enabled => false
+        :enabled => false,
+        :enabled_on_activation => false
       ),
       stub_model(Tengine::Core::Driver,
         :name => "Name",
         :version => "Version",
-        :enabled => false
+        :enabled => false,
+        :enabled_on_activation => false
       )
     ])
   end
@@ -22,6 +24,8 @@ describe "tengine/core/drivers/index.html.erb" do
     assert_select "tr>td", :text => "Name".to_s, :count => 2
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "Version".to_s, :count => 2
+    # Run the generator again with the --webrat flag if you want to use webrat matchers
+    assert_select "tr>td", :text => false.to_s, :count => 2
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => false.to_s, :count => 2
   end

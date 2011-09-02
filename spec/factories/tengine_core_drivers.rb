@@ -5,5 +5,6 @@ FactoryGirl.define do
     name("MyString")
     version("MyString")
     enabled(false)
+    enabled_on_activation(false)
   end
 end

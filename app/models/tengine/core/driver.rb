@@ -3,4 +3,5 @@ class Tengine::Core::Driver
   field :name, :type => String
   field :version, :type => String
   field :enabled, :type => Boolean
+  field :enabled_on_activation, :type => Boolean
 end
