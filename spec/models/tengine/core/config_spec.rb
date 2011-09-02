@@ -91,7 +91,7 @@ END_OF_YAML
       end
     end
 
-    context "ディレクトリもディレクトリも存在しない場合" do
+    context "ディレクトリもファイルも存在しない場合" do
       before do
         @error_message = "file or directory doesn't exist. /var/lib/tengine"
         Dir.should_receive(:exist?).with("/var/lib/tengine").and_return(false)
