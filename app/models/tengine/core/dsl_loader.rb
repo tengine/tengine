@@ -3,13 +3,20 @@ module Tengine::Core::DslLoader
   include Tengine::Core::DslEvaluator
 
   def driver(name, options = {}, &block)
-    driver = Tengine::Core::Driver.new((options || {}).update(
-        :name => name,
-        :version => config.dsl_version
-        ))
-    @__driver__ = driver
-    yield if block_given?
-    driver.save!
+    drivers = Tengine::Core::Driver.where(:name => name, :version => config.dsl_version)
+    driver = nil
+    # 指定した version の driver が見つかった場合にはデプロイ済みなので以降の処理は行わず処理を終了する
+    if drivers.count == 0
+      driver = Tengine::Core::Driver.new((options || {}).update(
+          :name => name,
+          :version => config.dsl_version
+          ))
+      @__driver__ = driver
+      yield if block_given?
+      driver.save!
+    else
+      driver = drivers.first
+    end
     driver
   end
 
