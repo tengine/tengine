@@ -8,6 +8,8 @@ $LOAD_PATH << File.expand_path('../app/models', File.dirname(__FILE__))
 require 'tengine'
 
 @hash = Tengine::Core::Config.default_hash
+Signal.trap(:INT) {puts ":INT";@bootstrap.stop_kernel}
+
 ARGV.options do |o|
 
   o.banner = <<EOS
@@ -181,10 +183,7 @@ run do
   require File.expand_path('./config/environment', @tengined_root)
   require File.expand_path('./app/models/tengine', @tengined_root)
 
-  bootstrap = Tengine::Core::Bootstrap.new(@hash)
-  bootstrap.boot
+  @bootstrap = Tengine::Core::Bootstrap.new(@hash)
+  @bootstrap.boot
 end
-
-
-Signal.trap(:INT) {puts ":INT";stop_process("INT")}
 
