@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+require 'tengine/event'
+require 'tengine/mq'
+require 'eventmachine'
 
 class Tengine::Core::Bootstrap
 
@@ -70,14 +73,18 @@ class Tengine::Core::Bootstrap
   end
 
   def start_connection_test
-    event_type_name = :foo
-    options = { :notification_level_key => :info }
-    Tengine::Event.config = {
-      :connection => config[:event_queue][:connection],
-      :exchange => config[:event_queue][:exchange],
-      :queue => config[:event_queue][:queue]
-    }
-    Tengine::Event.fire(event_type_name, options)
+    EM.run do
+      event_type_name = :foo
+      options = { :notification_level_key => :info }
+      Tengine::Event.config = {
+        :connection => config[:event_queue][:connection],
+        :exchange => config[:event_queue][:exchange],
+        :queue => config[:event_queue][:queue]
+      }
+      Tengine::Event.fire(event_type_name, options) do
+        Tengine::Event.mq_suite.connection.disconnect { EM.stop }
+      end
+    end
   end
 end
 
