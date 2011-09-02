@@ -112,7 +112,6 @@ describe Tengine::Core::Kernel do
         mock_mq.should_receive(:queue).and_return(@mock_queue)
         # subscribe されていることを検証
         @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true)
-        @kernel.should_receive(:puts).with("EM reactor defined")
 
         # 実行
         @kernel.start
@@ -132,7 +131,6 @@ describe Tengine::Core::Kernel do
         Tengine::Event.should_receive(:parse).with(:message).and_return(mock_row_event)
 
         @header.should_receive(:ack)
-        @kernel.should_receive(:puts).with("EM reactor defined")
 
         # 実行
         @kernel.start
@@ -140,7 +138,7 @@ describe Tengine::Core::Kernel do
         Tengine::Core::Event.where(:event_type_name => :foo).count.should == 1
       end
 
-      it "イベント種別に対応したハンドラの処理を実行することができる", :spot => true do
+      it "イベント種別に対応したハンドラの処理を実行することができる" do
         # eventmachine と mq の mock を生成
         EM.should_receive(:run).and_yield
         mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
@@ -161,7 +159,6 @@ describe Tengine::Core::Kernel do
         @handler1.should_receive(:puts).with("handler01")
 
         @header.should_receive(:ack)
-        @kernel.should_receive(:puts).with("EM reactor defined")
 
         # 実行
         @kernel.start

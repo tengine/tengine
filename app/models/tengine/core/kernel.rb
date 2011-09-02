@@ -100,7 +100,7 @@ class Tengine::Core::Kernel
 
         headers.ack
       end
-      puts "EM reactor defined"
+      # puts "EM reactor defined"
     end
   end
 

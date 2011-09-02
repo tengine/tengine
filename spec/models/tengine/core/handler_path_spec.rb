@@ -50,7 +50,7 @@ describe Tengine::Core::HandlerPath do
       end
     end
 
-    context "generated handler_paths", :paths => true do
+    context "generated handler_paths" do
       before do
         Tengine::Core::Driver.delete_all
         Tengine::Core::HandlerPath.delete_all
