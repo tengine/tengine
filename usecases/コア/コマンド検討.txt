@@ -29,9 +29,9 @@ tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
   -B --db-database             default: tengine_production
   -h --mq-conn-host            default: localhost
   -p --mq-conn-port            default: 5672
-  -v --mq-conn-vhost           default: /
-  -u --mq-conn-user            default: guest
-  -s --mq-conn-pass            default: guest
+  -v --mq-conn-vhost
+  -u --mq-conn-user
+  -s --mq-conn-pass
   -e --mq-exchange-name        default: tengine_event_exchange
      --mq-exchange-type        default: direct
      --mq-exchange-durable     default: true
