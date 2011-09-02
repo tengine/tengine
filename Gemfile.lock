@@ -1,9 +1,9 @@
 GIT
   remote: git@github.com:tengine/tengine_core.git
-  revision: 0399676c080567a1000349ac393749c0fedb2c47
+  revision: 9446028fab7dfe219308db7daf5fb182c44a5788
   branch: develop
   specs:
-    tengine_core (0.1.0)
+    tengine_core (0.1.2)
       activemodel (~> 3.1.0)
       activesupport (~> 3.1.0)
       bson (~> 1.3.1)
@@ -16,10 +16,10 @@ GIT
 
 GIT
   remote: git@github.com:tengine/tengine_event.git
-  revision: 20ac37984b54f280a2073a722ad0c3641a2b75ac
+  revision: fe7f46832868b17aef905d6c42b90c6c01db7c7e
   branch: develop
   specs:
-    tengine_event (0.2.5)
+    tengine_event (0.2.6)
       activesupport (>= 3.0.0)
       amqp (~> 0.8.0)
       uuid (~> 2.3.4)
@@ -142,9 +142,9 @@ GEM
     mime-types (1.16)
     mongo (1.3.1)
       bson (>= 1.3.1)
-    mongoid (2.2.1)
+    mongoid (2.2.2)
       activemodel (~> 3.0)
-      mongo (>= 1.3, < 1.4)
+      mongo (~> 1.3)
       tzinfo (~> 0.3.22)
     multi_json (1.0.3)
     net-scp (1.0.4)
@@ -160,7 +160,7 @@ GEM
       rake
     pickle_i18n (0.0.4)
     polyglot (0.3.2)
-    rack (1.3.3)
+    rack (1.3.4)
     rack-cache (1.0.3)
       rack (>= 0.4)
     rack-mount (0.8.3)
@@ -202,8 +202,8 @@ GEM
       railties (~> 3.0)
       rspec (~> 2.6.0)
     rubyzip (0.9.4)
-    sass (3.1.7)
-    sass-rails (3.1.2)
+    sass (3.1.8)
+    sass-rails (3.1.4)
       actionpack (~> 3.1.0)
       railties (~> 3.1.0)
       sass (>= 3.1.4)
@@ -228,10 +228,10 @@ GEM
       multi_json (~> 1.0.3)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
-    sprockets (2.0.0)
+    sprockets (2.0.2)
       hike (~> 1.2)
       rack (~> 1.0)
-      tilt (~> 1.1, != 1.3.0)
+      tilt (!= 1.3.0, ~> 1.1)
     systemu (2.2.0)
     term-ansicolor (1.0.6)
     therubyracer (0.9.4)
@@ -241,7 +241,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.29)
+    tzinfo (0.3.30)
     uglifier (1.0.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
