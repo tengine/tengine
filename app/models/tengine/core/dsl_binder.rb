@@ -28,7 +28,12 @@ module Tengine::Core::DslBinder
     bind_blocks_for_handler_id(handler.id, &block)
   end
 
-  def fire(event_type_name)
-    puts "fire"
+  def fire(event_type_name, options = {})
+    Tengine::Event.config = {
+      :connection => config[:event_queue][:connection],
+      :exchange => config[:event_queue][:exchange],
+      :queue => config[:event_queue][:queue]
+    }
+    Tengine::Event.fire(event_type_name, options)
   end
 end
