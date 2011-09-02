@@ -21,9 +21,16 @@ class Tengine::Core::Kernel
   end
 
   def stop
-    unless mq.queue.default_consumer
-      mq.queue.unsubscribe
-      conn.close{ EM.stop_event_loop } unless in_process?
+    if activated
+      puts "@@ mq = #{mq.inspect}"
+      puts "@@ queue = #{mq.queue}"
+      puts "@@ mq.queue.default_consumer = #{mq.queue.default_consumer}"
+      if mq.queue.default_consumer
+        mq.queue.unsubscribe
+        conn.close{ EM.stop_event_loop } unless in_process?
+      end
+    else
+      # wait_for_actiontion中の処理を停止させる必要がある
     end
   end
 
