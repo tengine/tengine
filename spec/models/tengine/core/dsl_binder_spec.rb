@@ -30,20 +30,18 @@ describe Tengine::Core::DslBinder do
         @binder.evaluate
         lambda {
           @binder.should_receive(:puts).with("handler01")
-          @binder.block_bindings[@handler1.id].call
+          @binder.block_bindings[@handler1.id].each { |block| block.call }
         }.should_not raise_error
       end
 
-      it "同じイベント種別で複数のハンドラが登録されていても同じハンドラの処理となる" do
+      it "同じイベント種別で複数のハンドラが登録されていた場合にはエラーとなる" do
         @handler2 = @driver.handlers.new(:event_type_names => ["event01"])
         @driver.save!
         @driver.handlers.count.should == 2
 
-        @binder.evaluate
         lambda {
-          @binder.should_receive(:puts).with("handler01")
-          @binder.block_bindings[@handler2.id].call
-        }.should_not raise_error
+          @binder.evaluate
+        }.should raise_error(StandardError)
       end
     end
 
@@ -66,29 +64,28 @@ describe Tengine::Core::DslBinder do
         @handler2_2 = @driver2.handlers.new(:event_type_names => ["event02_2"])
         @driver2.save!
         @driver3 = Tengine::Core::Driver.new(:name => "driver03", :version => config.dsl_version)
-        @handler3_1 = @driver3.handlers.new(:event_type_names => ["event03"])
-        @handler3_2 = @driver3.handlers.new(:event_type_names => ["event03"])
+        @handler3 = @driver3.handlers.new(:event_type_names => ["event03"])
         @driver3.save!
       end
 
       it "イベントハンドラ定義を評価して、ドライバとハンドラを保持する" do
         @binder.evaluate
+
         lambda {
           @binder.should_receive(:puts).with("handler01")
-          @binder.block_bindings[@handler1.id].call
+          @binder.block_bindings[@handler1.id].each { |block| block.call }
         }.should_not raise_error
+
         lambda {
           @binder.should_receive(:puts).with("handler02_1")
-          @binder.should_receive(:puts).with("handler02_2")
-          @binder.block_bindings[@handler2_1.id].call
+          @binder.should_receive(:fire).with(:event02_2)
+          @binder.block_bindings[@handler2_1.id].each { |block| block.call }
         }.should_not raise_error
+
         lambda {
           @binder.should_receive(:puts).with("handler03_1")
           @binder.should_receive(:puts).with("handler03_2")
-          @binder.block_bindings[@handler3_1.id].call
-          @binder.should_receive(:puts).with("handler03_1")
-          @binder.should_receive(:puts).with("handler03_2")
-          @binder.block_bindings[@handler3_2.id].call
+          @binder.block_bindings[@handler3.id].each { |block| block.call }
         }.should_not raise_error
       end
     end

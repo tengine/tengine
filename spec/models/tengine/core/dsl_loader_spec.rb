@@ -57,12 +57,24 @@ describe Tengine::Core::DslLoader do
         drivers.each do |driver|
           driver.version.should == "20110902213500"
         end
+
+        driver01 = Tengine::Core::Driver.where(:name => "driver01").first
+        handler1 = driver01.handlers.first
+        handler1.event_type_names.should == %w[event01]
+        Tengine::Core::HandlerPath.where(:driver_id => driver01.id).count.should == 1
+
         driver02 = Tengine::Core::Driver.where(:name => "driver02").first
         driver02.handlers.count.should == 2
-        handler1, handler2 = driver02.handlers
-        handler1.event_type_names.should == %w[event02_1]
-        handler2.event_type_names.should == %w[event02_2]
+        handler2_1, handler2_2 = driver02.handlers
+        handler2_1.event_type_names.should == %w[event02_1]
+        handler2_2.event_type_names.should == %w[event02_2]
         Tengine::Core::HandlerPath.where(:driver_id => driver02.id).count.should == 2
+
+        driver03 = Tengine::Core::Driver.where(:name => "driver03").first
+        driver03.handlers.count.should == 1
+        handler3 = driver03.handlers.first
+        handler3.event_type_names.should == %w[event03]
+        Tengine::Core::HandlerPath.where(:driver_id => driver03.id).count.should == 1
       end
     end
   end
