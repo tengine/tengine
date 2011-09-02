@@ -10,7 +10,7 @@ describe Tengine::Core::Kernel do
   end
 
   describe :start do
-    describe :bind do
+    describe :bind, "handlerのblockをメモリ上で保持" do
       before do
         config = Tengine::Core::Config.new({
             :tengined => {
@@ -34,7 +34,7 @@ describe Tengine::Core::Kernel do
       end
     end
 
-    describe :wait_for_activation do
+    describe :wait_for_activation, "activate待ち" do
       before do
         config = Tengine::Core::Config.new({
             :tengined => {
@@ -73,10 +73,8 @@ describe Tengine::Core::Kernel do
       end
     end
 
-    describe :activate do
+    describe :activate, "メッセージの受信を開始" do
       before do
-        @mock_connection = mock(:connection)
-        @mock_exchange = mock(:exchange)
         @mock_channel = mock(:channel)
         @mock_queue = mock(:queue)
 
@@ -107,23 +105,28 @@ describe Tengine::Core::Kernel do
       end
 
       it "イベントの受信待ち状態になる" do
+        # eventmachine と mq の mock を生成
         EM.should_receive(:run).and_yield
         mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
         Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
         mock_mq.should_receive(:queue).and_return(@mock_queue)
+        # subscribe されていることを検証
         @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true)
         @kernel.should_receive(:puts).with("EM reactor defined")
 
+        # 実行
         @kernel.start
       end
 
       it "発火されたイベントを登録できる" do
+        # eventmachine と mq の mock を生成
         EM.should_receive(:run).and_yield
         mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
         Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
         mock_mq.should_receive(:queue).and_return(@mock_queue)
         @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true).and_yield(@header, :message)
 
+        # subscribe してみる
         mock_row_event = mock(:row_event)
         mock_row_event.should_receive(:attributes).and_return(:event_type_name => :foo, :key => "uniq_key")
         Tengine::Event.should_receive(:parse).with(:message).and_return(mock_row_event)
@@ -131,8 +134,37 @@ describe Tengine::Core::Kernel do
         @header.should_receive(:ack)
         @kernel.should_receive(:puts).with("EM reactor defined")
 
+        # 実行
         @kernel.start
+        # イベントが登録されていることを検証
         Tengine::Core::Event.where(:event_type_name => :foo).count.should == 1
+      end
+
+      it "イベント種別に対応したハンドラの処理を実行することができる" do
+        # eventmachine と mq の mock を生成
+        EM.should_receive(:run).and_yield
+        mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
+        Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
+        mock_mq.should_receive(:queue).and_return(@mock_queue)
+        @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true).and_yield(@header, :message)
+
+        # subscribe してみる
+        mock_row_event = mock(:row_event)
+        mock_row_event.should_receive(:attributes).and_return(:event_type_name => :event01, :key => "uuid1")
+        Tengine::Event.should_receive(:parse).with(:message).and_return(mock_row_event)
+        # イベントの登録
+        Tengine::Core::Event.should_receive(:create!).with(:event_type_name => :event01, :key => "uuid1").and_return(@event1)
+
+        # ハンドラの実行を検証
+        @handler1.should_receive(:match?).with(@event1).and_return(true)
+        # @handler1.process_event(@event1, &block)
+        @handler1.should_receive(:puts).with("handler01")
+
+        @header.should_receive(:ack)
+        @kernel.should_receive(:puts).with("EM reactor defined")
+
+        # 実行
+        @kernel.start
       end
     end
   end
