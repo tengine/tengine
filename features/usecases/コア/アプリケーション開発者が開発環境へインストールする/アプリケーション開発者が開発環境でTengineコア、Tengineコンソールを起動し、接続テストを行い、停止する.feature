@@ -35,8 +35,8 @@
 #      ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
 #      かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
-      もし "Tengineコンソールプロセスの起動"を行うために"rails -e production"というコマンドを実行する
-      かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+#      もし "Tengineコンソールプロセスの起動"を行うために"rails -e production"というコマンドを実行する
+#      かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
       もし "イベント通知画面"を表示する
       かつ "種別名"に"connect_test"と入力する
