@@ -74,7 +74,7 @@ EOS
     :vhost => ["-u", "vhost to connect queue server."],
     :user  => ["-u", "username to connect queue server."],
     :pass  => ["-s", "password to connect queue server."],
-  }.each{|key, args| tengine_opt.call([:event_queue, :conn], key, args)}
+  }.each{|key, args| tengine_opt.call([:event_queue, :connection], key, args)}
 
 
   {
