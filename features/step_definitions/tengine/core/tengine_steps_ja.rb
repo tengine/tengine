@@ -1,26 +1,35 @@
 # -*- coding: utf-8 -*-
 前提 /^"([^"]*)"パッケージのインストールおよびセットアップが完了している$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+#  pending # express the regexp above with the code you wish you had
 end
 
 前提 /^"([^"]*)"のインストールおよびセットアップが完了している$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+#  pending # express the regexp above with the code you wish you had
 end
 
 前提 /^"([^"]*)"プロセスが起動している$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+#  pending # express the regexp above with the code you wish you had
 end
 
 前提 /^"([^"]*)"プロセスが停止している$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+#  pending # express the regexp above with the code you wish you had
 end
 
-もし /^"([^"]*)"を行うために"([^"]*)"というコマンドを実行する$/ do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
+
+もし /^"([^"]*)"を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
+  io = IO.popen(command)
+  @stdout = ""
+  io = IO.popen(command)
+  while line = io.gets
+    if line.empty? then
+      break
+    end
+    @stdout << line
+  end
 end
 
-ならば /^"([^"]*)"の標準出力に"([^"]*)"と出力されていること$/ do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
+ならば /^"([^"]*)"の標準出力に"([^"]*)"と出力されていること$/ do |name, stdout|
+  @stdout.should match(/#{stdout}/)
 end
 
 もし /^"([^"]*)"を起動するために"([^"]*)"というコマンドを実行する$/ do |arg1, arg2|
