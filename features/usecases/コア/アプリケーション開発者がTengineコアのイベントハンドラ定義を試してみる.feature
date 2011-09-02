@@ -3,7 +3,7 @@
   [Tengineの導入を検討]するために
   [アプリケーション開発者]
   は [Tengineを評価] したい
-  {アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる}のユースケースのうち、イベントハンドラ定義の登録以外を確認するめのテストである
+  {アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる}のユースケースのうち、No.5,6,7を確認するためのテストである
 
   背景:
     前提 DBパッケージのインストールおよびセットアップが完了している
@@ -16,23 +16,20 @@
     かつ Tengineコンソールのプロセスが停止している
     かつ "./feature/event_handler_def/uc01_execute_processing_for_event.rb"というファイルが存在する
 		
-  シナリオ:  [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_正常系
+  シナリオ:  [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する
     もし "Tengineコンソールプロセス"を起動を行うために"rails -s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
     もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
-    # 画面を設計する
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行の表示がされていること
     |  driver01  |有効|
 
-    # 画面を設計する
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
@@ -66,9 +63,7 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
-    # 画面を設計する
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行の表示がされていること
@@ -108,15 +103,13 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
-    # 画面を設計する
+
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行の表示がされていること
     |  driver01  |有効|
 
-    # 画面を設計する
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
@@ -169,15 +162,13 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
-    # 画面を設計する
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行の表示がされていること
     |  driver01  |有効|
 
-    # 画面を設計する
+
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
@@ -200,15 +191,13 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
-    # 画面を設計する
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行の表示がされていること
     |  driver01  |有効|
 
-    # 画面を設計する
+
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
@@ -242,15 +231,12 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
-    # 画面を設計する
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行の表示がされていること
     |  driver01  |有効|
 
-    # 画面を設計する
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
@@ -273,15 +259,12 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
-    # 画面を設計する
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行の表示がされていること
     |  driver01  |有効|
 
-    # 画面を設計する
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
@@ -315,15 +298,12 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
-    # 画面を設計する
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行の表示がされていること
     |  driver01  |有効|
 
-    # 画面を設計する
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
@@ -346,15 +326,12 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
-    # 画面を設計する
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行の表示がされていること
     |  driver01  |有効|
 
-    # 画面を設計する
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
@@ -388,15 +365,12 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
-    # 画面を設計する
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行の表示がされていること
     |  driver01  |有効|
 
-    # 画面を設計する
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
@@ -451,15 +425,12 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
-    # 画面を設計する
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行の表示がされていること
     |  driver01  |有効|
 
-    # 画面を設計する
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
@@ -492,7 +463,6 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
@@ -518,15 +488,12 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
-    # 画面を設計する
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行の表示がされていること
     |  driver01  |有効|
 
-    # 画面を設計する
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
@@ -554,15 +521,12 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
-    # 画面を設計する
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行の表示がされていること
     |  driver01  |有効|
 
-    # 画面を設計する
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
@@ -593,7 +557,6 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
@@ -617,15 +580,12 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
-    # 画面を設計する
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行の表示がされていること
     |  driver01  |有効|
 
-    # 画面を設計する
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
@@ -651,7 +611,6 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
-    # TODO : プロセスが起動していることの確認方法を記載する
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
