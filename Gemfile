@@ -58,3 +58,5 @@ gem 'jquery-rails'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem 'capistrano'
+gem 'capistrano-ext'
+gem 'capistrano_colors'
