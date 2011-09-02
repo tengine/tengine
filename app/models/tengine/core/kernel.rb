@@ -1,19 +1,51 @@
+# -*- coding: utf-8 -*-
 require 'tengine/event'
-
 require 'eventmachine'
 
 class Tengine::Core::Kernel
 
-  attr_reader :config
+  attr_reader :config, :binder
 
   def initialize(config)
     @config = config
   end
 
   def start
-    # bind
-    # wait_for_activation
-    activate
+    bind
+    if config[:tengined][:prevent_activator]
+      activate
+    else
+      wait_for_activation
+    end
+  end
+
+  def bind
+    obj = Object.new
+    @binder = Tengine::Core::DslEnv.new
+    @binder.extend(Tengine::Core::DslBinder)
+    @binder.config = config
+    @binder.evaluate
+  end
+
+  def wait_for_activation
+    activated = false
+    activation_file_name = "#{config[:tengined][:activation_dir]}\/tengined_#{Process.pid}"
+    start_time = Time.now
+    while((Time.now - start_time).to_i <= config[:tengined][:activation_timeout].to_i) do
+      if File.exist?(activation_file_name)
+        # ファイルが見つかった
+        activated = true
+        break
+      end
+      sleep 1
+    end
+    if activated
+      # activate開始
+      activate
+      File.delete(activation_file_name)
+    else
+      raise Tengine::Core::ActivationTimeoutError, "activation file found timeout error."
+    end
   end
 
   def activate
@@ -84,4 +116,8 @@ queue:
     confirm: nil
 EOS
 
+end
+
+
+class Tengine::Core::ActivationTimeoutError < StandardError
 end
