@@ -5,11 +5,46 @@ describe Tengine::Core::DslBinder do
 
   describe :evaluate do
     before do
-      config = Tengine::Core::Config.new({
-        :tengined_load_path => File.expand_path('dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
-      })
-      @binder = Tengine::Core::DslEnv.new
-      @binder.config = config
+      Tengine::Core::Driver.delete_all
+      Tengine::Core::HandlerPath.delete_all
+    end
+
+    context "DSLのファイルを指定する場合" do
+      before do
+        config = Tengine::Core::Config.new({
+            :tengined => {
+              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__))
+            }
+        })
+        @binder = Tengine::Core::DslEnv.new
+        @binder.extend(Tengine::Core::DslBinder)
+        @binder.config = config
+
+        @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version)
+        @handler1 = @driver.handlers.new(:event_type_names => ["event01"])
+        @driver.save!
+      end
+
+      it "イベントハンドラ定義を評価して、ドライバとハンドラを保持する" do
+        @driver.handlers.count.should == 1
+        @binder.evaluate
+        lambda {
+          @binder.should_receive(:puts).with("handler01")
+          @binder.block_bindings[@handler1.id].call
+        }.should_not raise_error
+      end
+
+      it "同じイベント種別で複数のハンドラが登録されていても同じハンドラの処理となる" do
+        @handler2 = @driver.handlers.new(:event_type_names => ["event01"])
+        @driver.save!
+        @driver.handlers.count.should == 2
+
+        @binder.evaluate
+        lambda {
+          @binder.should_receive(:puts).with("handler01")
+          @binder.block_bindings[@handler2.id].call
+        }.should_not raise_error
+      end
     end
   end
 
