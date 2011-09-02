@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :"tengine/core/driver" do
-    name "MyString"
-    version "MyString"
-    enabled false
+    name("MyString")
+    version("MyString")
+    enabled(false)
   end
 end
