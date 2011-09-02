@@ -37,6 +37,7 @@ end
 #end
 
 ならば /^"([^"]*)"の標準出力からPIDを確認することができること$/ do |name|
+  pending # Tengineコアをフォアグラウンド起動した際に標準出力が決まっていないので、PIDの取得部分は暫定的に正規表現で数値を引っこ抜いている
   @pid = @stdout.match(/\d+/)[0]
   @pid.should_not be_empty
 end
