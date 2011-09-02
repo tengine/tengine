@@ -1,3 +1,5 @@
+# mac-mini or rubycenter server in gemserver
+source "http://dev.tenginefw.com/gemserver"
 source 'http://rubygems.org'
 
 # すぐにパッチが出る事を予想しています。リリース近くなったらバージョンを固定します。
