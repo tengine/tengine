@@ -7,13 +7,13 @@ describe "tengine/core/drivers/index.html.erb" do
         :name => "Name",
         :version => "Version",
         :enabled => false,
-        :enabled_on_activation => false
+        :enabled_on_activation => true
       ),
       stub_model(Tengine::Core::Driver,
         :name => "Name",
         :version => "Version",
         :enabled => false,
-        :enabled_on_activation => false
+        :enabled_on_activation => true
       )
     ])
   end
