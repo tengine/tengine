@@ -16,7 +16,7 @@ describe Tengine::Core::DslLoader do
               :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__))
             }
         })
-        @loader = Object.new
+        @loader = Tengine::Core::DslDummyEnv.new
         @loader.extend(Tengine::Core::DslLoader)
         @loader.config = config
       end
@@ -44,13 +44,17 @@ describe Tengine::Core::DslLoader do
               :load_path => File.expand_path('../../../../spec_dsls', File.dirname(__FILE__))
             }
         })
-        @loader = Object.new
+        @loader = Tengine::Core::DslDummyEnv.new
         @loader.extend(Tengine::Core::DslLoader)
         @loader.config = config
       end
 
       it "イベントハンドラ定義を評価して、ドライバとハンドラを登録する" do
+        # driver03にevent03が複数定義されているための警告メッセージ
+        @loader.should_receive(:puts).with("[DslLoader][warn] driver\"driver03\"には、同一のevent_type_name\"event03\"が複数存在します")
+
         @loader.evaluate
+
         Tengine::Core::Driver.count.should == 3
         drivers = Tengine::Core::Driver.all
         drivers.map(&:name).sort.should == ["driver01", "driver02", "driver03"]
