@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe "tengine/core/handlers/index.html.erb" do
   before(:each) do
+    @driver = assign(:driver, stub_model(Tengine::Core::Driver,
+      :name => "driver1", :version => "1234"
+    ))
     assign(:handlers, [
       stub_model(Tengine::Core::Handler,
         :event_type_names => ["abc", "123"]
