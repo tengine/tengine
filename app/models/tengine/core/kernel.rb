@@ -11,14 +11,14 @@ class Tengine::Core::Kernel
     @config = config
   end
 
-  def start
+  def start(&block)
     @status = :starting
     bind
     if config[:tengined][:wait_activation]
       @status = :waiting_activation
-      wait_for_activation
+      wait_for_activation(&block)
     else
-      activate
+      activate(&block)
     end
   end
 
@@ -48,7 +48,7 @@ class Tengine::Core::Kernel
     @dsl_env.evaluate
   end
 
-  def wait_for_activation
+  def wait_for_activation(&block)
     activated = false
     activation_file_name = "#{config[:tengined][:activation_dir]}\/tengined_#{Process.pid}"
     start_time = Time.now
@@ -63,7 +63,7 @@ class Tengine::Core::Kernel
     if activated
       File.delete(activation_file_name)
       # activate開始
-      activate
+      activate(&block)
     else
       @status = :stopping
       raise Tengine::Core::ActivationTimeoutError, "activation file found timeout error."
@@ -71,77 +71,68 @@ class Tengine::Core::Kernel
   end
 
   def activate
-    # TODO: ログ出力する
-    # logger.info("activate process")
     EM.run do
       # queueへの接続までできたら稼働中（仮）
       @status = :running if mq.queue
+      subscribe_queue
 
-      # subscribe to messages in the queue
-      mq.queue.subscribe(:ack => true, :nowait => true) do |headers, msg|
-        # ↑のブロック引数はheadersではなくて、metadataかも。
-        # headersは、metadata.headersで取得できる
-        # metadata.routing_key : 
-        # metadata.content_type: application/octet-stream
-        # metadata.priority    : 8
-        # metadata.headers     : {"coordinates"=>{"latitude"=>59.35, "longitude"=>18.066667}, "participants"=>11, "venue"=>"Stockholm"}
-        # metadata.timestamp   : 2011-09-07 10:39:08 +0900
-        # metadata.type        : kinda.checkin
-        # metadata.delivery_tag: 1
-        # metadata.redelivered : false
-        # metadata.exchange    : amq.direct
+      yield(mq) if block_given? # このyieldは接続テストのための処理をTengine::Core:Bootstrapが定義するのに使われます。
+    end
+  end
 
-        @in_process = true
+  def subscribe_queue
+    # subscribe to messages in the queue
+    mq.queue.subscribe(:ack => true, :nowait => true) do |headers, msg|
+      @in_process = true
+      begin
+        raw_event = Tengine::Event.parse(msg)
+      rescue Exception => e
+        puts "[#{e.class.name}] #{e.message}"
+        headers.ack
+        next
+      end
+
+      # 受信したイベントを登録
+      event = Tengine::Core::Event.create!(raw_event.attributes)
+      # TODO: ログ出力する
+      # logger.info("receive a event \"#{event.event_type_name}\" key:#{event.key}")
+      # puts("receive a event \"#{event.event_type_name}\" key:#{event.key}")
+
+      # イベントハンドラの取得
+      Tengine::Core::HandlerPath.default_driver_version = config.dsl_version
+      handlers = Tengine::Core::HandlerPath.find_handlers(event.event_type_name)
+      handlers.each do |handler|
         begin
-          raw_event = Tengine::Event.parse(msg)
+          # block の取得
+          blocks = dsl_env.blocks_for(handler.id)
+          # イベントハンドラへのディスパッチ
+          # TODO: ログ出力する
+          # logger.info("dispatching the event key:#{event.key} to #{handler.inspect}")
+          # puts("dispatching the event key:#{event.key} to #{handler.inspect}")
+          handler.process_event(event, blocks)
         rescue Exception => e
           puts "[#{e.class.name}] #{e.message}"
           headers.ack
           next
         end
-
-        # 受信したイベントを登録
-        event = Tengine::Core::Event.create!(raw_event.attributes)
-        # TODO: ログ出力する
-        # logger.info("receive a event \"#{event.event_type_name}\" key:#{event.key}")
-        # puts("receive a event \"#{event.event_type_name}\" key:#{event.key}")
-
-        # イベントハンドラの取得
-        Tengine::Core::HandlerPath.default_driver_version = config.dsl_version
-        handlers = Tengine::Core::HandlerPath.find_handlers(event.event_type_name)
-        handlers.each do |handler|
-          begin
-            # block の取得
-            blocks = dsl_env.blocks_for(handler.id)
-            # イベントハンドラへのディスパッチ
-            # TODO: ログ出力する
-            # logger.info("dispatching the event key:#{event.key} to #{handler.inspect}")
-            # puts("dispatching the event key:#{event.key} to #{handler.inspect}")
-            handler.process_event(event, blocks)
-          rescue Exception => e
-            puts "[#{e.class.name}] #{e.message}"
-            headers.ack
-            next
-          end
-        end
-
-        headers.ack
-
-        # unsubscribed されている場合は安全な停止を行う
-        unless mq.queue.default_consumer
-          # TODO: loggerへ
-          # puts "connection closing..."
-          mq.connection.close{ EM.stop_event_loop }
-        end
-        @in_process = false
       end
-      # puts "EM reactor defined"
+
+      headers.ack
+
+      # unsubscribed されている場合は安全な停止を行う
+      unless mq.queue.default_consumer
+        # TODO: loggerへ
+        # puts "connection closing..."
+        mq.connection.close{ EM.stop_event_loop }
+      end
+      @in_process = false
     end
   end
 
+
   # 自動でログ出力する
   extend Tengine::Core::MethodTraceable
-  method_trace(:start, :stop, :bind, :wait_for_activation, :activate)
+  method_trace(:start, :stop, :bind, :wait_for_activation, :activate, :subscribe_queue)
 
   private
 

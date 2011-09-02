@@ -54,7 +54,7 @@ EOS
     :daemon => ["-D", "ignored with \"-k test, -k load, -k enable\".", :hide_value => true],
     :skip_load => ["doesn't load event handler when start. usually use with --daemon option. [only for command]", :hide_value => true],
     :skip_enablement => ["doesn't enable event handler when start. usually use with --daemon option. [only for command]", :hide_value => true],
-    :skip_waiting_activation => ["doesn't activate kernel when start. usually use with --daemon option. [only for command]", :hide_value => true],
+    :wait_activation => ["wait activation when start. usually use with --daemon option [only for command]", :hide_value => true],
     :activation_timeout => "period to wait for making activation file.",
     :log_dir  => "path/to/dir.",
     :pid_dir  => "path/to/dir.",
@@ -137,7 +137,7 @@ EOS
   o.parse!
 end
 
-@verbose = @hash.delete(:verbose)
+@verbose = @hash[:verbose]
 def verbose(msg, output = STDOUT)
   output.puts(msg) if @verbose
 end
@@ -217,6 +217,7 @@ run do
   #  Daemons.daemonize(daemonize_options)
   require File.expand_path('./config/environment', tengined_root)
   require File.expand_path('./app/models/tengine', tengined_root)
+  Tengine::Core::MethodTraceable.disabled = !@hash[:verbose] # Tengine::Core::Bootstrapが動く前に設定しないと余計なログが出ます
   @bootstrap = Tengine::Core::Bootstrap.new(config)
   @bootstrap.boot
 end
