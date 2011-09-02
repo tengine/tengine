@@ -4,4 +4,6 @@ class Tengine::Core::Driver
   field :version, :type => String
   field :enabled, :type => Boolean
   field :enabled_on_activation, :type => Boolean
+
+  embeds_many :handlers, :class_name => "Tengine::Core::Handler"
 end
