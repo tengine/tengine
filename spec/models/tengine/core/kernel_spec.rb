@@ -105,7 +105,7 @@ describe Tengine::Core::Kernel do
         EM.should_receive(:run).and_yield
         mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
         Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
-        mock_mq.should_receive(:queue).and_return(@mock_queue)
+        mock_mq.should_receive(:queue).twice.and_return(@mock_queue)
         # subscribe されていることを検証
         @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true)
 
@@ -118,7 +118,7 @@ describe Tengine::Core::Kernel do
         EM.should_receive(:run).and_yield
         mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
         Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
-        mock_mq.should_receive(:queue).twice.and_return(@mock_queue)
+        mock_mq.should_receive(:queue).exactly(3).times.and_return(@mock_queue)
         @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true).and_yield(@header, :message)
 
         # subscribe してみる
@@ -140,7 +140,7 @@ describe Tengine::Core::Kernel do
         EM.should_receive(:run).and_yield
         mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
         Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
-        mock_mq.should_receive(:queue).twice.and_return(@mock_queue)
+        mock_mq.should_receive(:queue).exactly(3).times.and_return(@mock_queue)
         @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true).and_yield(@header, :message)
 
         # subscribe してみる

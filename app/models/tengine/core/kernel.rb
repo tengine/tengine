@@ -5,31 +5,32 @@ require 'eventmachine'
 
 class Tengine::Core::Kernel
 
-  attr_reader :config, :dsl_env
+  attr_reader :config, :dsl_env, :status
 
   def initialize(config)
     @config = config
   end
 
   def start
+    @status = :starting
     bind
     if config[:tengined][:skip_waiting_activation]
       activate
     else
+      @status = :wait_for_activation
       wait_for_activation
     end
   end
 
   def stop
-    if activated
-      puts "@@ mq = #{mq.inspect}"
-      puts "@@ queue = #{mq.queue}"
-      puts "@@ mq.queue.default_consumer = #{mq.queue.default_consumer}"
+    if @status == :running
+      @status = :stopping
       if mq.queue.default_consumer
         mq.queue.unsubscribe
-        conn.close{ EM.stop_event_loop } unless in_process?
+        mq.connection.close{ EM.stop_event_loop } unless in_process?
       end
     else
+      @status = :stopping
       # wait_for_actiontion中の処理を停止させる必要がある
     end
   end
@@ -59,10 +60,11 @@ class Tengine::Core::Kernel
       sleep 1
     end
     if activated
+      File.delete(activation_file_name)
       # activate開始
       activate
-      File.delete(activation_file_name)
     else
+      @status = :stopping
       raise Tengine::Core::ActivationTimeoutError, "activation file found timeout error."
     end
   end
@@ -71,6 +73,9 @@ class Tengine::Core::Kernel
     # TODO: ログ出力する
     # logger.info("activate process")
     EM.run do
+      # queueへの接続までできたら稼働中（仮）
+      @status = :running if mq.queue
+
       # subscribe to messages in the queue
       mq.queue.subscribe(:ack => true, :nowait => true) do |headers, msg|
         # ↑のブロック引数はheadersではなくて、metadataかも。
