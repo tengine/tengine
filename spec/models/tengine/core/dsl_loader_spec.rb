@@ -1,23 +1,26 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
-require 'tempfile'
 
 describe Tengine::Core::DslLoader do
 
   describe :evaluate do
+    before do
+      Tengine::Core::Driver.delete_all
+      Tengine::Core::HandlerPath.delete_all
+    end
+
     context "DSLのファイルを指定する場合" do
       before do
-        @config = {
+        config = Tengine::Core::Config.new({
           # :tengined_load_path => File.expand_path('dsls', File.dirname(__FILE__)),
           :tengined_load_path => File.expand_path('dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
-        }
-        @loader = Tengine::Core::DslEnv.new(@config)
+        })
+        @loader = Object.new
         @loader.extend(Tengine::Core::DslLoader)
+        @loader.config = config
       end
 
       it "イベントハンドラ定義を評価して、ドライバとハンドラを登録する" do
-        Tengine::Core::Driver.delete_all
-        Tengine::Core::HandlerPath.delete_all
         @loader.evaluate
         # $LOAD_PATH.include?(@config[:dsl_store_path]).should be_true
         # driver01 = Tengine::Core::Driver.find(:conditions => {:name => "driver01"})

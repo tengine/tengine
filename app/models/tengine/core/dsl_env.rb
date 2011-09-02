@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 class Tengine::Core::DslEnv
-  attr_reader :config
+  extend Tengine::Core::DslBinder
 
-  def initialize(config)
-    @config = config
+  attr_accessor :block_bindings
+
+  def remember_block
+  end
+
+  def bind_blocks_for_driver_id_and_handler_id
   end
 end
