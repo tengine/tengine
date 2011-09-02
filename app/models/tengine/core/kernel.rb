@@ -2,20 +2,32 @@
 require 'tengine/event'
 require 'tengine/mq'
 require 'eventmachine'
+require 'selectable_attr'
 
 class Tengine::Core::Kernel
+  include ::SelectableAttr::Base
+
+  selectable_attr :status do
+    entry '01', :starting, '起動中'
+    entry '02', :waiting_activation, '稼働要求待ち'
+    entry '03', :running, '稼働中'
+    entry '04', :stopping, '停止中'
+    entry '05', :stoped, '停止済'
+  end
 
   attr_reader :config, :dsl_env, :status
+  attr_writer :status
 
   def initialize(config)
     @config = config
+    self.status_key = :stoped
   end
 
   def start(&block)
-    @status = :starting
+    self.status_key = :starting
     bind
     if config[:tengined][:wait_activation]
-      @status = :waiting_activation
+      self.status_key = :waiting_activation
       wait_for_activation(&block)
     else
       activate(&block)
@@ -23,17 +35,17 @@ class Tengine::Core::Kernel
   end
 
   def stop
-    if @status == :running
-      @status = :stopping
+    if self.status_key == :running
+      self.status_key = :stopping
       if mq.queue.default_consumer
         mq.queue.unsubscribe
         mq.connection.close{ EM.stop_event_loop } unless in_process?
       end
     else
-      @status = :stopping
+      self.status_key = :stopping
       # wait_for_actiontion中の処理を停止させる必要がある
     end
-    @status = :stop
+    self.status_key = :stoped
   end
 
   def in_process?
@@ -65,15 +77,15 @@ class Tengine::Core::Kernel
       # activate開始
       activate(&block)
     else
-      @status = :stopping
+      self.status_key = :stopping
       raise Tengine::Core::ActivationTimeoutError, "activation file found timeout error."
     end
   end
 
   def activate
     EM.run do
-      # queueへの接続までできたら稼働中（仮）
-      @status = :running if mq.queue
+      # queueへの接続までできたら稼働中
+      self.status_key = :running if mq.queue
       subscribe_queue
 
       yield(mq) if block_given? # このyieldは接続テストのための処理をTengine::Core:Bootstrapが定義するのに使われます。
