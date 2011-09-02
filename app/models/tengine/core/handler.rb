@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require 'tengine/event'
+
 class Tengine::Core::Handler
   include Mongoid::Document
   field :event_type_names, :type => Array
@@ -20,6 +22,7 @@ class Tengine::Core::Handler
       # puts("id:#{self.id} handler matches the event key:#{event.key}")
       # ハンドラの実行
       blocks.each do |block|
+        @caller = eval("self", block.binding)
         # TODO: ログ出力する
         # logger.info("id:#{self.id} handler executed own block, source:#{block.source_location}")
         # puts("id:#{self.id} handler execute own block, source:#{block.source_location}")
@@ -32,4 +35,7 @@ class Tengine::Core::Handler
     true
   end
 
+  def fire(event_type_name)
+    @caller.fire(event_type_name)
+  end
 end

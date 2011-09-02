@@ -27,4 +27,8 @@ module Tengine::Core::DslBinder
     handler = handlers.first
     bind_blocks_for_handler_id(handler.id, &block)
   end
+
+  def fire(event_type_name)
+    puts "fire"
+  end
 end
