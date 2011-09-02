@@ -17,7 +17,6 @@ end
 
 
 もし /^"([^"]*)"を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
-  io = IO.popen(command)
   @stdout = ""
   io = IO.popen(command)
   while line = io.gets
@@ -31,10 +30,6 @@ end
 ならば /^"([^"]*)"の標準出力に"([^"]*)"と出力されていること$/ do |name, stdout|
   @stdout.should match(/#{stdout}/)
 end
-
-#もし /^"([^"]*)"を起動するために"([^"]*)"というコマンドを実行する$/ do |arg1, arg2|
-#  pending # express the regexp above with the code you wish you had
-#end
 
 ならば /^"([^"]*)"の標準出力からPIDを確認することができること$/ do |name|
   pending # Tengineコアをフォアグラウンド起動した際に標準出力が決まっていないので、PIDの取得部分は暫定的に正規表現で数値を引っこ抜いている
