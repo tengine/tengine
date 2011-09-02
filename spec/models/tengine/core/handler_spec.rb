@@ -11,7 +11,7 @@ describe Tengine::Core::Handler do
       mock_event.stub!(:key).and_return("uuid")
       @handler.stub!(:match?).with(mock_event).and_return(true)
       mock_block = lambda{}
-      mock_block.should_receive(:call)
+      @handler.should_receive(:instance_eval).with(&mock_block)
       @handler.process_event(mock_event, [mock_block])
     end
 
@@ -20,7 +20,7 @@ describe Tengine::Core::Handler do
       mock_event.stub!(:key).and_return("uuid")
       @handler.stub!(:match?).with(mock_event).and_return(false)
       mock_block = lambda{}
-      mock_block.should_not_receive(:call)
+      @handler.should_not_receive(:instance_eval).with(&mock_block)
       @handler.process_event(mock_event, [mock_block])
     end
   end

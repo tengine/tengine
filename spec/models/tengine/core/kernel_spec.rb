@@ -25,12 +25,7 @@ describe Tengine::Core::Kernel do
 
       it "event_type_nameからblockを検索することができる" do
         @kernel.bind
-        @kernel.dsl_env.block_bindings[@handler1.id].count.should == 1
-
-        lambda {
-          @kernel.dsl_env.should_receive(:puts).with("handler01")
-          @kernel.dsl_env.block_bindings[@handler1.id].each { |block| block.call }
-        }.should_not raise_error
+        @kernel.dsl_env.blocks_for(@handler1.id).count.should == 1
       end
     end
 

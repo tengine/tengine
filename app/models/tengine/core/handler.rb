@@ -23,7 +23,7 @@ class Tengine::Core::Handler
         # TODO: ログ出力する
         # logger.info("id:#{self.id} handler executed own block, source:#{block.source_location}")
         # puts("id:#{self.id} handler execute own block, source:#{block.source_location}")
-        block.call
+        instance_eval(&block)
       end
     end
   end
