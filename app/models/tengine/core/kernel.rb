@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'tengine/event'
+require 'tengine/mq'
 require 'eventmachine'
 
 class Tengine::Core::Kernel
