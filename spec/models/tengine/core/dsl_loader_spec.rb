@@ -34,6 +34,32 @@ describe Tengine::Core::DslLoader do
       end
     end
 
+    context "DSLのファイルを指定しない場合" do
+      before do
+        config = Tengine::Core::Config.new({
+          :tengined_load_path => File.expand_path('../../../../spec_dsls', File.dirname(__FILE__)),
+        })
+        @loader = Object.new
+        @loader.extend(Tengine::Core::DslLoader)
+        @loader.config = config
+      end
+
+      it "イベントハンドラ定義を評価して、ドライバとハンドラを登録する" do
+        @loader.evaluate
+        Tengine::Core::Driver.count.should == 3
+        drivers = Tengine::Core::Driver.all
+        drivers.map(&:name).sort.should == ["driver01", "driver02", "driver03"]
+        drivers.each do |driver|
+          driver.version.should == "20110902213500"
+        end
+        driver02 = Tengine::Core::Driver.where(:name => "driver02").first
+        driver02.handlers.count.should == 2
+        handler1, handler2 = driver02.handlers
+        handler1.event_type_names.should == %w[event02_1]
+        handler2.event_type_names.should == %w[event02_2]
+        Tengine::Core::HandlerPath.where(:driver_id => driver02.id).count.should == 2
+      end
+    end
   end
 
 end
