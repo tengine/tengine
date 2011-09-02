@@ -4,7 +4,7 @@ require 'eventmachine'
 
 class Tengine::Core::Kernel
 
-  attr_reader :config, :binder
+  attr_reader :config, :dsl_env
 
   def initialize(config)
     @config = config
@@ -21,10 +21,10 @@ class Tengine::Core::Kernel
 
   def bind
     obj = Object.new
-    @binder = Tengine::Core::DslEnv.new
-    @binder.extend(Tengine::Core::DslBinder)
-    @binder.config = config
-    @binder.evaluate
+    @dsl_env = Tengine::Core::DslEnv.new
+    @dsl_env.extend(Tengine::Core::DslBinder)
+    @dsl_env.config = config
+    @dsl_env.evaluate
   end
 
   def wait_for_activation
