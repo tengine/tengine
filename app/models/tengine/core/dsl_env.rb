@@ -6,7 +6,8 @@ class Tengine::Core::DslEnv
     @block_bindings ||= {}
   end
 
-  def remember_block
+  def blocks_for(handler_id)
+    return block_bindings[handler_id]
   end
 
   def bind_blocks_for_handler_id(handler_id, &block)

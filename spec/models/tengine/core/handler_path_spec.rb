@@ -50,7 +50,36 @@ describe Tengine::Core::HandlerPath do
       end
     end
 
+    context "generated handler_paths", :paths => true do
+      before do
+        Tengine::Core::Driver.delete_all
+        Tengine::Core::HandlerPath.delete_all
+      end
 
+      it "should return handlers for enabled driver" do
+        @driver = Tengine::Core::Driver.new(:name => "driver01", :version => "123", :enabled => true)
+        @handler1 = @driver.handlers.new(:event_type_names => ["event01"])
+        @driver.save!
+
+        Tengine::Core::HandlerPath.all.count.should == 1
+        Tengine::Core::HandlerPath.default_driver_version = "123"
+        handlers = Tengine::Core::HandlerPath.find_handlers("event01")
+        handlers.count.should == 1
+        handlers.each do |handler|
+          handler.id.should == @handler1.id
+        end
+      end
+
+      it "should return handlers for disabled driver" do
+        @driver = Tengine::Core::Driver.new(:name => "driver01", :version => "123", :enabled => false)
+        @handler1 = @driver.handlers.new(:event_type_names => ["event01"])
+        @driver.save!
+
+        Tengine::Core::HandlerPath.all.count.should == 1
+        Tengine::Core::HandlerPath.default_driver_version = "123"
+        Tengine::Core::HandlerPath.find_handlers("event01").count.should == 0
+      end
+    end
   end
 
 end

@@ -12,7 +12,7 @@ class Tengine::Core::Kernel
 
   def start
     bind
-    if config[:tengined][:prevent_activator]
+    if config[:tengined][:skip_waiting_activation]
       activate
     else
       wait_for_activation
@@ -49,6 +49,8 @@ class Tengine::Core::Kernel
   end
 
   def activate
+    # TODO: ログ出力する
+    # logger.info("activate process")
     EM.run do
       # subscribe to messages in the queue
       mq.queue.subscribe(:ack => true, :nowait => true) do |headers, msg|
@@ -71,20 +73,32 @@ class Tengine::Core::Kernel
           next
         end
 
-        Tengine::Core::Event.create!(raw_event.attributes)
+        # 受信したイベントを登録
+        event = Tengine::Core::Event.create!(raw_event.attributes)
+        # TODO: ログ出力する
+        # logger.info("receive a event \"#{event.event_type_name}\" key:#{event.key}")
+        # puts("receive a event \"#{event.event_type_name}\" key:#{event.key}")
 
-#         context.handlers.each do |handler|
-#           begin
-#             handler.process(event)
-#           rescue Exception => e
-#             puts "[#{e.class.name}] #{e.message}"
-#             headers.ack
-#             next
-#           end
-#         end
+        # イベントハンドラの取得
+        Tengine::Core::HandlerPath.default_driver_version = config.dsl_version
+        handlers = Tengine::Core::HandlerPath.find_handlers(event.event_type_name)
+        handlers.each do |handler|
+          begin
+            # block の取得
+            blocks = dsl_env.blocks_for(handler.id)
+            # イベントハンドラへのディスパッチ
+            # TODO: ログ出力する
+            # logger.info("dispatching the event key:#{event.key} to #{handler.inspect}")
+            # puts("dispatching the event key:#{event.key} to #{handler.inspect}")
+            handler.process_event(event, blocks)
+          rescue Exception => e
+            puts "[#{e.class.name}] #{e.message}"
+            headers.ack
+            next
+          end
+        end
 
         headers.ack
-
       end
       puts "EM reactor defined"
     end

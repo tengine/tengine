@@ -18,7 +18,7 @@ describe Tengine::Core::Kernel do
             },
           })
         @kernel = Tengine::Core::Kernel.new(config)
-        @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version)
+        @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version, :enabled => true)
         @handler1 = @driver.handlers.new(:event_type_names => ["event01"])
         @driver.save!
       end
@@ -44,7 +44,7 @@ describe Tengine::Core::Kernel do
             },
           })
         @kernel = Tengine::Core::Kernel.new(config)
-        @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version)
+        @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version, :enabled => true)
         @handler1 = @driver.handlers.new(:event_type_names => ["event01"])
         @driver.save!
       end
@@ -93,14 +93,14 @@ describe Tengine::Core::Kernel do
         config = Tengine::Core::Config.new({
             :tengined => {
               :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
-              :prevent_activator => true,
+              :skip_waiting_activation => true,
             },
           })
         @kernel = Tengine::Core::Kernel.new(config)
-        @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version)
+        @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version, :enabled => true)
         @handler1 = @driver.handlers.new(:event_type_names => ["event01"])
         @driver.save!
-        @event1 = Tengine::Core::Event.new(:event_type_name => "event01", :key => "uuid1", :sender_name => "localhost")
+        @event1 = Tengine::Core::Event.new(:event_type_name => :event01, :key => "uuid1", :sender_name => "localhost")
         @event1.save!
       end
 
@@ -128,7 +128,7 @@ describe Tengine::Core::Kernel do
 
         # subscribe してみる
         mock_row_event = mock(:row_event)
-        mock_row_event.should_receive(:attributes).and_return(:event_type_name => :foo, :key => "uniq_key")
+        mock_row_event.stub!(:attributes).and_return(:event_type_name => :foo, :key => "uniq_key")
         Tengine::Event.should_receive(:parse).with(:message).and_return(mock_row_event)
 
         @header.should_receive(:ack)
@@ -140,7 +140,7 @@ describe Tengine::Core::Kernel do
         Tengine::Core::Event.where(:event_type_name => :foo).count.should == 1
       end
 
-      it "イベント種別に対応したハンドラの処理を実行することができる" do
+      it "イベント種別に対応したハンドラの処理を実行することができる", :spot => true do
         # eventmachine と mq の mock を生成
         EM.should_receive(:run).and_yield
         mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
@@ -156,8 +156,8 @@ describe Tengine::Core::Kernel do
         Tengine::Core::Event.should_receive(:create!).with(:event_type_name => :event01, :key => "uuid1").and_return(@event1)
 
         # ハンドラの実行を検証
+        Tengine::Core::HandlerPath.should_receive(:find_handlers).with("event01").and_return([@handler1])
         @handler1.should_receive(:match?).with(@event1).and_return(true)
-        # @handler1.process_event(@event1, &block)
         @handler1.should_receive(:puts).with("handler01")
 
         @header.should_receive(:ack)
