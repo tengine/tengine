@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
+require 'amqp'
+require 'eventmachine'
+require 'tengine/mq'
+require 'tengine/event'
 
 describe "Tengine::Core::Bootstrap" do
 
@@ -147,11 +151,29 @@ describe "Tengine::Core::Bootstrap" do
   end
 
   describe :start_connection_test do
+    before do
+      @config = {
+        :connection => {"foo" => "aaa"},
+        :exchange => {'name' => "exchange1", 'type' => 'direct', 'durable' => true},
+        :queue => {'name' => "queue1", 'durable' => true},
+      }
+      @mq_suite = Tengine::Mq::Suite.new(@config)
+
+      @mock_mq = mock(:amqp)
+      @mock_connection = mock(:connection)
+    end
+
     it "イベントを発火する" do
       options = { :action => "test" }
 
       bootstrap = Tengine::Core::Bootstrap.new(options)
-      Tengine::Event.should_receive(:fire).with(:foo, :notification_level_key => :info)
+      EM.should_receive(:run).and_yield
+      Tengine::Event.should_receive(:fire).with(:foo, :notification_level_key => :info).and_yield
+
+      Tengine::Event.should_receive(:mq_suite).and_return(@mock_mq)
+      @mock_mq.should_receive(:connection).and_return(@mock_connection)
+      @mock_connection.should_receive(:disconnect).and_yield
+      EM.should_receive(:stop)
       event = bootstrap.start_connection_test
 
       Tengine::Event.config[:connection][:host].should == "localhost"
