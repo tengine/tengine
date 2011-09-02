@@ -1,6 +1,14 @@
-set :application, "set your application name here"
-set :repository,  "set your repository location here"
+# -*- coding: utf-8 -*-
+set :application, "tengine"
 
+#####################
+# deploy stage
+#####################
+set :stages, %w(development staging production)
+set :default_stage, "production"
+require 'capistrano/ext/multistage'
+
+set :repository,  "set your repository location here"
 set :scm, :subversion
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
