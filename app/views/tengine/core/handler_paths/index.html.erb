@@ -1,0 +1,29 @@
+<h1><%= page_title Tengine::Core::HandlerPath, :list %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th><%= Tengine::Core::HandlerPath.human_attribute_name(:event_type_name) %></th>
+    <th><%= Tengine::Core::HandlerPath.human_attribute_name(:driver) %></th>
+    <th><%= Tengine::Core::HandlerPath.human_attribute_name(:handler_id) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @handler_paths.each do |handler_path| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= handler_path.event_type_name %></td>
+    <td><%= (d = handler_path.driver) ? d.name : nil %></td>
+    <td><%= handler_path.handler_id %></td>
+    <td><%= link_to_show handler_path %></td>
+    <td><%= link_to_edit edit_tengine_core_handler_path_path(handler_path) %></td>
+    <td><%= link_to_destroy handler_path, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to_new Tengine::Core::HandlerPath, new_tengine_core_handler_path_path %>

@@ -5,7 +5,8 @@ describe "tengine/core/drivers/new.html.erb" do
     assign(:driver, stub_model(Tengine::Core::Driver,
       :name => "MyString",
       :version => "MyString",
-      :enabled => false
+      :enabled => false,
+      :enabled_on_activation => false
     ).as_new_record)
   end
 
@@ -17,6 +18,7 @@ describe "tengine/core/drivers/new.html.erb" do
       assert_select "input#driver_name", :name => "driver[name]"
       assert_select "input#driver_version", :name => "driver[version]"
       assert_select "input#driver_enabled", :name => "driver[enabled]"
+      assert_select "input#driver_enabled_on_activation", :name => "driver[enabled_on_activation]"
     end
   end
 end

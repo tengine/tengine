@@ -17,6 +17,11 @@
   <%= @driver.enabled %>
 </p>
 
+<p>
+  <b><%= Tengine::Core::Driver.human_attribute_name(:enabled_on_activation) %>:</b>
+  <%= @driver.enabled_on_activation %>
+</p>
+
 
 <%= link_to_edit edit_tengine_core_driver_path(@driver) %> |
 <%= link_to_back_list tengine_core_drivers_path %>

@@ -1,0 +1,22 @@
+<h1><%= page_title Tengine::Core::HandlerPath, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Core::HandlerPath.human_attribute_name(:event_type_name) %>:</b>
+  <%= @handler_path.event_type_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Core::HandlerPath.human_attribute_name(:driver) %>:</b>
+  <%= @handler_path.driver %>
+</p>
+
+<p>
+  <b><%= Tengine::Core::HandlerPath.human_attribute_name(:handler_id) %>:</b>
+  <%= @handler_path.handler_id %>
+</p>
+
+
+<%= link_to_edit edit_tengine_core_handler_path_path(@handler_path) %> |
+<%= link_to_back_list tengine_core_handler_paths_path %>

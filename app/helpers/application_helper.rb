@@ -4,15 +4,15 @@ module ApplicationHelper
   end
 
   def link_to_show(*args, &block)
-    link_to(I18n.t(:show, :scope => [:views, :links]), *args, &block)
+    link_to(I18n.t(:show, :scope => [:views, :links]), *args_for_nested_path(*args), &block)
   end
 
   def link_to_edit(*args, &block)
-    link_to(I18n.t(:edit, :scope => [:views, :links]), *args, &block)
+    link_to(I18n.t(:edit, :scope => [:views, :links]), *args_for_nested_path(*args), &block)
   end
 
   def link_to_destroy(*args, &block)
-    link_to(I18n.t(:destroy, :scope => [:views, :links]), *args, &block)
+    link_to(I18n.t(:destroy, :scope => [:views, :links]), *args_for_nested_path(*args), &block)
   end
 
   def link_to_new(class_or_name, *args, &block)
@@ -27,6 +27,16 @@ module ApplicationHelper
   def model_name(class_or_name)
     class_or_name.respond_to?(:human_name) ?
       class_or_name.human_name : class_or_name
+  end
+
+  def args_for_nested_path(*args)
+    case args.first
+    when Array then
+      if args.first.map(&:class) == [Tengine::Core::Driver, Tengine::Core::Handler]
+        return *[tengine_core_driver_handler_path(*args.shift), *args]
+      end
+    end
+    return *args
   end
 
 end

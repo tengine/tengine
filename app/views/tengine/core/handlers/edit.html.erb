@@ -1,0 +1,6 @@
+<h1><%= page_title Tengine::Core::Handler, :edit %></h1>
+
+<%= render 'form' %>
+
+<%= link_to_show [@driver, @handler] %> |
+<%= link_to_back_list tengine_core_driver_handlers_path(@driver) %>
