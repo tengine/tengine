@@ -1,0 +1,21 @@
+<%= form_for(@handler, as:"handler") do |f| %>
+  <% if @handler.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= I18n.t('activerecord.errors.template.header', :count => @handler.errors.size, :model => @handler.class.human_name) %></h2>
+
+      <ul>
+      <% @handler.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :event_type_names_text %><br />
+    <%= f.text_field :event_type_names_text %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

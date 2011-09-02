@@ -1,0 +1,25 @@
+<h1><%= page_title Tengine::Core::Handler, :list %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th><%= Tengine::Core::Handler.human_attribute_name(:event_type_names) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @handlers.each do |handler| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= handler.event_type_names_text %></td>
+    <td><%= link_to_show handler %></td>
+    <td><%= link_to_edit edit_tengine_core_handler_path(handler) %></td>
+    <td><%= link_to_destroy handler, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to_new Tengine::Core::Handler, new_tengine_core_handler_path %>
