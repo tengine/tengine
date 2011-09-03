@@ -32,4 +32,8 @@
 
 <br />
 
+<%%= paginate @<%= file_name.pluralize %> %>
+
+<br />
+
 <%%= link_to_new <%= class_name %>, new_<%= singular_table_name %>_path %>
