@@ -12,4 +12,11 @@ class Tengine::Core::Handler
     end
   end
 
+  def process_event(event, &block)
+    block.call if match?(event)
+  end
+
+  def match?(event)
+  end
+
 end

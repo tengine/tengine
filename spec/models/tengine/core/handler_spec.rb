@@ -1,5 +1,26 @@
 require 'spec_helper'
 
 describe Tengine::Core::Handler do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context :process do
+    before do
+      @handler = Tengine::Core::Handler.new
+    end
+
+    it "should call block if match" do
+      mock_event = mock(:event)
+      @handler.stub!(:match?).with(mock_event).and_return(true)
+      mock_block = lambda{}
+      mock_block.should_receive(:call)
+      @handler.process_event(mock_event, &mock_block)
+    end
+
+    it "should not call block unless match" do
+      mock_event = mock(:event)
+      @handler.stub!(:match?).with(mock_event).and_return(false)
+      mock_block = lambda{}
+      mock_block.should_not_receive(:call)
+      @handler.process_event(mock_event, &mock_block)
+    end
+  end
+
 end
