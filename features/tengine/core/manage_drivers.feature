@@ -25,7 +25,7 @@ Feature: Manage drivers
       |name 4|version 4|true|
     When I delete the 3rd driver
     Then I should see the following drivers:
-      |Name|Version|Enabled|
-      |name 1|version 1|false|
-      |name 2|version 2|true|
-      |name 4|version 4|true|
+      |Name|Version|Enabled|Enabled on activation|
+      |name 1|version 1|false| |
+      |name 2|version 2|true| |
+      |name 4|version 4|true| |
