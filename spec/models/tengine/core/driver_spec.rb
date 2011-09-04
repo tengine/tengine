@@ -20,4 +20,11 @@ describe Tengine::Core::Driver do
     end
   end
 
+  context "must have only one session" do
+    subject do
+      Tengine::Core::Driver.delete_all
+      Tengine::Core::Driver.create!(name:"driver1", version:"1", enabled:true)
+    end
+    its(:session){ should be_a(Tengine::Core::Session)}
+  end
 end
