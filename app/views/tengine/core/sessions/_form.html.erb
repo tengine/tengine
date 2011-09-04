@@ -1,0 +1,21 @@
+<%= form_for(@session, as:"session") do |f| %>
+  <% if @session.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= I18n.t('activerecord.errors.template.header', :count => @session.errors.size, :model => @session.class.human_name) %></h2>
+
+      <ul>
+      <% @session.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :properties_yaml %><br />
+    <%= f.text_area :properties_yaml %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,4 +1,6 @@
 TengineConsole::Application.routes.draw do
+  namespace :tengine do  namespace :core do resources :sessions end end
+
   namespace :tengine do  namespace :core do resources :handler_paths end end
 
   namespace :tengine do  namespace :core do resources :events end end

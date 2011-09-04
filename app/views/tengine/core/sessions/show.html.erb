@@ -1,0 +1,12 @@
+<h1><%= page_title Tengine::Core::Session, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Core::Session.human_attribute_name(:properties) %>:</b>
+  <pre><%= @session.properties_yaml %></pre>
+</p>
+
+
+<%= link_to_edit edit_tengine_core_session_path(@session) %> |
+<%= link_to_back_list tengine_core_sessions_path %>
