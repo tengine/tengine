@@ -5,7 +5,7 @@ describe "tengine/core/handler_paths/index.html.erb" do
     @driver = assign(:driver, stub_model(Tengine::Core::Driver,
       :name => "driver1", :version => "1234"
     ))
-    assign(:handler_paths, [
+    mock_pagination(assign(:handler_paths, [
       stub_model(Tengine::Core::HandlerPath,
         :event_type_name => "Event Type Name",
         :driver => @driver,
@@ -16,7 +16,7 @@ describe "tengine/core/handler_paths/index.html.erb" do
         :driver => @driver,
         :handler_id => "handler2"
       )
-    ])
+    ]))
   end
 
   it "renders a list of tengine_core_handler_paths" do

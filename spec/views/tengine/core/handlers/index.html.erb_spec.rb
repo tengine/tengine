@@ -5,14 +5,14 @@ describe "tengine/core/handlers/index.html.erb" do
     @driver = assign(:driver, stub_model(Tengine::Core::Driver,
       :name => "driver1", :version => "1234"
     ))
-    assign(:handlers, [
+    mock_pagination(assign(:handlers, [
       stub_model(Tengine::Core::Handler,
         :event_type_names => ["abc", "123"]
       ),
       stub_model(Tengine::Core::Handler,
         :event_type_names => ["abc", "123"]
       )
-    ])
+    ]))
   end
 
   it "renders a list of tengine_core_handlers" do

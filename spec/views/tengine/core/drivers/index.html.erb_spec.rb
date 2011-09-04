@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "tengine/core/drivers/index.html.erb" do
   before(:each) do
-    assign(:drivers, [
+    mock_pagination(assign(:drivers, [
       stub_model(Tengine::Core::Driver,
         :name => "Name",
         :version => "Version",
@@ -15,7 +15,7 @@ describe "tengine/core/drivers/index.html.erb" do
         :enabled => false,
         :enabled_on_activation => true
       )
-    ])
+    ]))
   end
 
   it "renders a list of tengine_core_drivers" do
