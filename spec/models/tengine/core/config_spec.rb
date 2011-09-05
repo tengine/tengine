@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Tengine::Core::Config do
 
-  YAML_EXAMPLE = <<END_OF_YAML
+  YAML_WITH_DIR_LOAD_PATH = <<END_OF_YAML
 tengined:
   daemon: true
   load_path: "/var/lib/tengine"
@@ -18,7 +18,7 @@ END_OF_YAML
 
   context "ディレクトリ指定の設定ファイル" do
     subject do
-      Tengine::Core::Config.new(YAML.load(YAML_EXAMPLE))
+      Tengine::Core::Config.new(YAML.load(YAML_WITH_DIR_LOAD_PATH))
     end
     it "should allow to read value by using []" do
       expected = {
@@ -80,6 +80,98 @@ END_OF_YAML
         @error_message = "file or directory doesn't exist. /var/lib/tengine"
         Dir.should_receive(:exist?).with("/var/lib/tengine").and_return(false)
         File.should_receive(:exist?).with("/var/lib/tengine").and_return(false)
+      end
+
+      it :dsl_dir_path do
+        expect{ subject.dsl_dir_path }.should raise_error(Tengine::Core::ConfigError, @error_message)
+      end
+
+      it :dsl_file_paths do
+        expect{ subject.dsl_file_paths }.should raise_error(Tengine::Core::ConfigError, @error_message)
+      end
+
+      it :dsl_version_path do
+        expect{ subject.dsl_version_path }.should raise_error(Tengine::Core::ConfigError, @error_message)
+      end
+
+      it :dsl_version do
+        expect{ subject.dsl_version }.should raise_error(Tengine::Core::ConfigError, @error_message)
+      end
+    end
+
+  end
+
+
+  YAML_WITH_FILE_LOAD_PATH = <<END_OF_YAML
+tengined:
+  daemon: true
+  load_path: "/var/lib/tengine/init.rb"
+  log_dir: "/var/log/tengined"
+  pid_dir: "/var/run/tengined_pids"
+  activation_dir: "/var/run/tengined_activations"
+event_queue:
+  queue:
+    name: tengine_event_queue2
+END_OF_YAML
+
+  context "ファイル指定の設定ファイル" do
+    subject do
+      Tengine::Core::Config.new(YAML.load(YAML_WITH_FILE_LOAD_PATH))
+    end
+    it "should allow to read value by using []" do
+      expected = {
+        'daemon' => true,
+        "activation_timeout" => 300,
+        "load_path" => "/var/lib/tengine/init.rb",
+        "log_dir" => "/var/log/tengined",
+        "pid_dir" => "/var/run/tengined_pids",
+        "activation_dir" => "/var/run/tengined_activations",
+      }
+      subject[:tengined].should == expected
+      subject['tengined'].should == expected
+      subject[:tengined]['load_path'].should == "/var/lib/tengine/init.rb"
+      subject[:tengined][:load_path].should == "/var/lib/tengine/init.rb"
+    end
+
+    context "ファイルが存在する場合" do
+      before do
+        Dir.should_receive(:exist?).with("/var/lib/tengine/init.rb").and_return(false)
+        File.should_receive(:exist?).with("/var/lib/tengine/init.rb").and_return(true)
+      end
+
+      it :dsl_dir_path do
+        subject.dsl_dir_path.should == "/var/lib/tengine"
+      end
+
+      it :dsl_file_paths do
+        subject.dsl_file_paths.should == ["/var/lib/tengine/init.rb"]
+      end
+
+      it :dsl_version_path do
+        subject.dsl_version_path.should == "/var/lib/tengine/VERSION"
+      end
+
+      context :dsl_version do
+        it "VERSIONファイルがある場合" do
+          File.should_receive(:exist?).with("/var/lib/tengine/VERSION").and_return(true)
+          File.should_receive(:read).and_return("TEST20110905164100")
+          subject.dsl_version.should == "TEST20110905164100"
+        end
+
+        it "VERSIONファイルがない場合" do
+          File.should_receive(:exist?).with("/var/lib/tengine/VERSION").and_return(false)
+          t = Time.local(2011,9,5,17,28,30)
+          Time.stub!(:now).and_return(t)
+          subject.dsl_version.should == "20110905172830"
+        end
+      end
+    end
+
+    context "ディレクトリもディレクトリも存在しない場合" do
+      before do
+        @error_message = "file or directory doesn't exist. /var/lib/tengine/init.rb"
+        Dir.should_receive(:exist?).with("/var/lib/tengine/init.rb").and_return(false)
+        File.should_receive(:exist?).with("/var/lib/tengine/init.rb").and_return(false)
       end
 
       it :dsl_dir_path do
