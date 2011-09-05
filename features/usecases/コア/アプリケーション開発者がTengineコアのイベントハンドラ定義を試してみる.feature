@@ -975,3 +975,36 @@
     ならば "Tengineコンールプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
 
+  #
+  # イベントドライバ一覧画面での異常系
+  #
+  シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントドライバ一覧画面が表示されない_Tengineコンソールが起動していない
+    #
+    # Tengineコンソールが起動していないためイベントドライバ一覧画面が表示されない
+    #
+    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
+
+    # 異常を発生させるためTengineコンソールのプロセスを停止する
+    もし "Tengineコンソール"を Ctl+c で停止する
+    ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    # Tengineコンソールが落ちているので、404エラーになる
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していないこと
+    かつ "404"と表示されていること
+
+    # Tengineコンソールを復旧する
+    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver01  |有効|
