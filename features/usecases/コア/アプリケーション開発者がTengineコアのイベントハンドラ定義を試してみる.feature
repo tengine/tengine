@@ -34,7 +34,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -74,7 +74,7 @@
     ならば "Tengineコンソール"のプロセスが停止していること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -118,7 +118,7 @@
     ならば キューが停止していること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -133,7 +133,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -177,7 +177,7 @@
     ならば イベントキューを削除していること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -202,7 +202,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -245,7 +245,7 @@
     ならば イベントキューをアンバインドしていること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -269,7 +269,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -312,7 +312,7 @@
     ならば イベントエクスチェンジを削除していること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -336,7 +336,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -379,7 +379,7 @@
     ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -396,7 +396,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -439,7 +439,7 @@
     ならば DBが停止していることを"ps -eo pid PID"で確認できること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -498,7 +498,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -536,7 +536,7 @@
 
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -594,7 +594,7 @@
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
     もし "event_type"に"event01"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -647,7 +647,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event00"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -687,7 +687,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event00"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -727,7 +727,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event02_1"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -768,7 +768,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event02_1"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -825,7 +825,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event03"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -864,7 +864,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event03"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -905,7 +905,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event02"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
@@ -944,7 +944,7 @@
     ならば "イベント発火画面"を表示していること
 
     もし "event_type"に"event04"と入力する
-    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
     かつ "sender_name"に"tengine_console"と入力する
