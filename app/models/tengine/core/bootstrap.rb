@@ -22,9 +22,18 @@ class Tengine::Core::Bootstrap
   end
 
   def load_dsl
+    dsl_env = Tengine::Core::DslEnv.new(options)
+    dsl_env.extend(Tengine::Core::DslLoader)
+    dsl_env.evaluate
   end
 
   def start_kernel
+    dsl_env = Tengine::Core::DslEnv.new(options)
+    dsl_env.extend(Tengine::Core::DslBinder)
+    dsl_env.evaluate
+
+    kernel = Tengine::Core::Kernel.new(options)
+    kernel.start
   end
 
   def enable_drivers

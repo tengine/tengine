@@ -82,14 +82,46 @@ describe "Tengine::Core::Bootstrap" do
   end
 
   describe :load_dsl do
-
+    it "load_dslがよばれる" do
+      options = {
+        :action => "load",
+        :deamon => false,
+        :boot_options => []
+      }
+      bootstrap = Tengine::Core::Bootstrap.new(options)
+      @mock_dsl_env = mock(:dsl_env)
+      Tengine::Core::DslEnv.should_receive(:new).with(options).and_return(@mock_dsl_env)
+      @mock_dsl_env.should_receive(:extend).with(Tengine::Core::DslLoader)
+      @mock_dsl_env.should_receive(:evaluate)
+      bootstrap.load_dsl
+    end
   end
 
   describe :start_kernel do
+    it "start_dslがよばれる" do
+      options = {
+        :action => "start",
+        :daemon => false,
+        :boot_options => []
+      }
+      bootstrap = Tengine::Core::Bootstrap.new(options)
+      @mock_dsl_env = mock(:dsl_env)
+      Tengine::Core::DslEnv.should_receive(:new).with(options).and_return(@mock_dsl_env)
+      @mock_dsl_env.should_receive(:extend).with(Tengine::Core::DslBinder)
+      @mock_dsl_env.should_receive(:evaluate)
+
+      @mock_kernel = mock(:kernel)
+      Tengine::Core::Kernel.should_receive(:new).with(options).and_return(@mock_kernel)
+      @mock_kernel.should_receive(:start)
+
+      bootstrap.start_kernel
+    end
     it "startオプションが省略された場合" do
+      pending
     end
 
     it "deamon起動ではないとき" do
+      pending
     end
   end
 
