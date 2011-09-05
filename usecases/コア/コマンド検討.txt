@@ -27,8 +27,8 @@ tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
   -h --event-queue-conn-host        default: localhost
   -p --event-queue-conn-port        default: 5672
   -v --event-queue-conn-vhost
-  -u --event-queue-conn-username
-  -s --event-queue-conn-password
+  -u --event-queue-conn-user
+  -s --event-queue-conn-pass
   -e --event-queue-exchange-name    default: tengine_event_exchange
      --event-queue-exchange-type    default: direct
      --event-queue-exchange-durable default: true
@@ -38,16 +38,44 @@ tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
 
 
 ## 起動時のオプションと設定ファイルの対応
-上記の [only for command] が指定されていないオプションについては、必ず接頭辞がつけられている。
-接頭辞は以下の３つである。
-* --tengined
-* --db
-* --event-queue
+オプションを設定ファイルのキーと対応させるために、ここでは便宜的に先頭の'--'を除いて'-'を'_'に変換したものをオプション名と呼ぶ。
+オプション名は、予め決められたルールに則ってHashに振り分けられる。
+(予め決められた単語毎に振り分けるもので、必ずしもアンダースコア毎に分類される訳ではない。)
 
-設定ファイルではこれらの接頭辞(から先頭の'--'を除いたもの)ごとにHashを持つ。
-そのHashには(各オプションから接頭辞を除いたもの)のハイフンをアンダースコアに変換したものをキーとした値が設定可能である。
-# 起動時のオプションとして指定される値は全て文字列だが、YAMLの設定ファイルでは数値など文字列でない値を設定できることに注意。
+例えば以下のようなキーを持つHashで構成されるツリーである。
+{{{
+tengined:
+  daemon: true
+  activation_timeout: 300
+  load_path: ./
+  log_dir: ./log
+  pid_dir: ./tmp/tengined_pids
+  activation_dir: ./tmp/tengined_activations
+db:
+  host: localhost
+  port: 27017
+  username: 
+  password:
+  database: tengine_production
+event_queue:
+  conn:
+    host: localhost
+    port: 5672
+    vhost:
+    user:
+    pass:
+  exchange:
+    name: tengine_event_exchange
+    type: direct
+    durable: true
+  queue:
+    name: tengine_event_queue
+    durable: true
+}}}
 
+ただし、上記のオプションのうち [only for command] が指定されているオプションは、設定ファイルに記述してあっても無視される。
+
+起動時のオプションとして指定される値は全て文字列だが、YAMLの設定ファイルでは数値など文字列でない値を設定できることに注意。
 
 設定ファイルを指定しつつも、起動時のオプションを指定する事もある。一時的に設定ファイルの設定を変更したい場合など。
 
