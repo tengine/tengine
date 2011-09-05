@@ -20,6 +20,17 @@ module Tengine::Core::DslLoader
     file_paths.each{|f| self.instance_eval(File.read(f), f)}
   end
 
+  def driver(name, options = {}, &block)
+    driver = Tengine::Core::Driver.new((options || {}).update(
+        :name => name,
+        :version => @__version__
+        ))
+    @__driver__ = driver
+    yield if block_given?
+    driver.save!
+    driver
+  end
+
   def on(event_type_name, options = {}, &block)
     @__driver__.handlers.new(:event_type_names => [event_type_name.to_s])
   end
