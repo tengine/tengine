@@ -17,7 +17,7 @@
     かつ "./feature/event_handler_def/uc01_execute_processing_for_event.rb"というファイルが存在する
 		
   シナリオ:  [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントに対応する処理の実行する
-    もし "Tengineコンソールプロセス"を起動を行うために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動を行うために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -56,7 +56,7 @@
 
 
   シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント発火画面が表示されない_Tengineコンソールが起動してない
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -79,7 +79,7 @@
     かつ "404"と表示されていること
 
     # Tengineコンソールを復旧する
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -109,7 +109,7 @@
 
 
   シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_event01が発火されたと表示されない_キューが起動していない
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -167,7 +167,7 @@
 
 
   シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_event01が発火されたと表示されない_発火の際にイベントキューが存在しない
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -234,7 +234,7 @@
 
 
   シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_event01が発火されたと表示されない_発火の際にイベントエクスチェンジがバインディングされていない
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -301,7 +301,7 @@
 
 
   シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_event01が発火されたと表示されない_発火の際にイベントエクスチェンジが存在しない
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -368,7 +368,7 @@
 
 
   シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_event01が発火されたと表示されない_Tengineコンソールが起動してない
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -398,7 +398,7 @@
     ならば "railsのログ"に"プロセスが停止したログ"が含まれていること
 
     # 復旧させるためにTengineコンソールのプロセスを再度起動して処理を再度行う
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -428,7 +428,7 @@
 
 
   シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_Tengineコアのコンソールに"handler01"と表示されない_DBが起動していない
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -491,7 +491,7 @@
   シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_Tengineコアのコンソールに"handler01"と表示されない_Tengineコアのコードにバグがあった場合
     前提 Tengineコアのコードにバグがある_(保留)
 
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -524,7 +524,7 @@
 
 
   シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_Tengineコアのコンソールに"handler01"と表示されない_DBが停止したことが原因でTengineコアが停止した
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -583,7 +583,7 @@
 
 
   シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_Tengineコアのコンソールに"handler01"と表示されない_Tengineコアが停止した
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -640,7 +640,7 @@
 
 
   シナリオ:  [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントに対応するイベントハンドラがない
-    もし "Tengineコンソールプロセス"を起動を行うために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動を行うために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -680,7 +680,7 @@
 
 
   シナリオ:  [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント処理中にキューが落ちた
-    もし "Tengineコンソールプロセス"を起動を行うために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動を行うために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -720,7 +720,7 @@
 ##2
 
   シナリオ: [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントが発生したら新たなイベントを発火する
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -761,7 +761,7 @@
 
 
   シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントハンドリングでイベントを発火する前にキューが落ちた
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -818,7 +818,7 @@
 ##3
 
   シナリオ: [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントに対して処理Aと処理Bを実行する
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -857,7 +857,7 @@
     ならば "Tengineコンールプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
   シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -898,7 +898,7 @@
 ##4
 
   シナリオ: [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_特定のイベント以外のイベントに対して処理を実行する_処理が実行される場合
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -937,7 +937,7 @@
 
 
   シナリオ: [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_特定のイベント以外のイベントに対して処理を実行する_処理が実行されない場合
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -984,7 +984,7 @@
     #
     # Tengineコンソールが起動していないためイベントドライバ一覧画面が表示されない
     #
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -1003,7 +1003,7 @@
     かつ "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
     # Tengineコンソールを復旧する
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -1041,7 +1041,7 @@
     # DBのプロセスが起動していない場合、Tengineコンソールのプロセスが停止する
     # 同時に、Tengineコアも停止している
     #
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -1073,7 +1073,7 @@
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること  
 
     # Tengineコンソール起動
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -1110,7 +1110,7 @@
     #
     # イベントドライバ一覧画面を表示後にTengineコンソールが落ちたため、イベントドライバを有効から無効に変更できない
     #
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -1133,7 +1133,7 @@
     かつ "404"と表示されていること
 
     # Tengineコンソールを復旧する
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -1182,7 +1182,7 @@
     # DBのプロセスが起動していない場合、Tengineコンソールのプロセスが停止する
     # 同時に、Tengineコアも停止している
     #
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -1220,7 +1220,7 @@
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること  
 
     # Tengineコンソール起動
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
@@ -1268,7 +1268,7 @@
     # イベントドライバ一覧画面を表示後に他のアプリケーション開発者が誤って対象のイベントドライバを削除したため、イベントドライバを有効から無効に変更できない
     # この場合、操作を最初からやり直す
     #
-    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
