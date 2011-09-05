@@ -1010,7 +1010,7 @@
     かつ 以下の行の表示がされていること
     |  driver01  |有効|
 
-  シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントドライバ一覧画面が表示されない_DBのプロセスが起動していない
+  シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントドライバ一覧画面が表示されない_DBが起動していない
     #
     # DBのプロセスが起動していない場合、Tengineコンソールのプロセスが停止する
     # 同時に、Tengineコアも停止している
@@ -1077,11 +1077,75 @@
     もし "Tengineコンソール"を Ctl+c で停止する
     ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
+    # DBが落ちるのと同時にTengineコンソールが落ちているので、404エラーになる
     もし "無効ボタン"をクリックする
     ならば "イベントドライバ一覧画面"を表示されていないこと
     かつ "404"と表示されていること
 
     # Tengineコンソールを復旧する
+    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver01  |有効|
+
+    もし "無効"ボタンをクリックする
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver01  |無効|
+
+    もし "有効"ボタンをクリックする
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver01  |有効|
+
+  シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントドライバを有効から無効に変更できない_DBが起動していない
+    #
+    # イベントドライバ一覧画面を表示後にTengineコンソールが落ちたため、イベントドライバを有効から無効に変更できない
+    # DBのプロセスが起動していない場合、Tengineコンソールのプロセスが停止する
+    # 同時に、Tengineコアも停止している
+    #
+    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver01  |有効|
+
+    # 異常を発生させるためDBを停止する
+    もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
+    ならば DBが停止していることを"ps -eo pid PID"で確認できること
+
+    # DBが落ちるのと同時にTengineコンソールが落ちているので、404エラーになる
+    もし "無効ボタン"をクリックする
+    ならば "イベントドライバ一覧画面"を表示されていないこと
+    かつ "404"と表示されていること
+    かつ "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    # Tengineコアプロセスも落ちている
+    もし "プロセスログ"を表示する
+    ならば "プロセスログ"に"DBが終了しました"と表示していること
+    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    # DBの起動
+    もし DBを起動するために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
+    ならば DBが起動していることを"ps -eo pid PID"で確認できること
+
+    # Tengineコアプロセス起動
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること  
+
+    # Tengineコンソール起動
     もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
