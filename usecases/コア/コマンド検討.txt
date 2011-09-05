@@ -1,9 +1,6 @@
 # 起動方法の検討
 
-## 最も簡単にDSLを動かす方法
-* 最初にちょっと試すときを想定
-* 設定ファイルなし
-* DSLファイル一つだけ
+## 起動時のオプション
 {{{
 SYNOPSIS
 tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
@@ -11,36 +8,84 @@ tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
          [-h mq_conn_host] [-p mq_conn_port] [-u mq_conn_user] [-s mq_conn_pass]
          [-v mq_conn_vhost] [-e mq_exchange_name] [-q mq_queue_name]
 
-  -k --action                  test|load|start|enable|stop|force-stop default: start
-  -f --config                  /etc/tengine.yml
-  -D --daemon                  ignored with "-k test, -k load, -k enable"
-     --prevent-loader          doesn't call event handler loader when start. usually use with --daemon option
-     --prevent-enabler         doesn't call event handler enabler when start. usually use with --daemon option
-     --prevent-activator       doesn't call kernel activator when start. usually use with --daemon option
-     --activation-timeout      period to wait for making activation file. default: 300(sec)
-  -T --tengined-dsl            path/to/file_or_dir. ignored with "-k test"
-     --tengined-log-dir        path/to/dir. default: ./
-     --tengined-pid-dir        path/to/dir. default: ./tmp/tengined_pids
-     --tengined-activation-dir path/to/dir. default: ./tmp/tengined_activations
-  -H --db-host                 default: localhost
-  -P --db-port                 default: 27017
-  -U --db-user
-  -S --db-pass
-  -B --db-database             default: tengine_production
-  -h --mq-conn-host            default: localhost
-  -p --mq-conn-port            default: 5672
-  -v --mq-conn-vhost
-  -u --mq-conn-user
-  -s --mq-conn-pass
-  -e --mq-exchange-name        default: tengine_event_exchange
-     --mq-exchange-type        default: direct
-     --mq-exchange-durable     default: true
-  -q --mq-queue-name           default: tengine_event_queue
-     --mq-queue-durable        default: true
-     --mq-pub-persistent       default: true
-     --mq-pub-mandatory        default: false
+  -k --action                       test|load|start|enable|stop|force-stop default: start [only for command]
+  -f --config                       /etc/tengine.yml [only for command]
+  -D --tengined-daemon              default false. ignored with "-k test, -k load, -k enable"
+     --tengined-prevent-loader      doesn't call event handler loader when start. usually use with --daemon option [only for command]
+     --tengined-prevent-enabler     doesn't call event handler enabler when start. usually use with --daemon option [only for command]
+     --tengined-prevent-activator   doesn't call kernel activator when start. usually use with --daemon option [only for command]
+     --tengined-activation-timeout  period to wait for making activation file. default: 300(sec)
+  -T --tengined-load-path           [REQUIRED] path/to/file_or_dir. ignored with "-k test"
+     --tengined-log-dir             path/to/dir. default: ./
+     --tengined-pid-dir             path/to/dir. default: ./tmp/tengined_pids
+     --tengined-activation-dir      path/to/dir. default: ./tmp/tengined_activations
+  -H --db-host                      default: localhost
+  -P --db-port                      default: 27017
+  -U --db-username
+  -S --db-password
+  -B --db-database                  default: tengine_production
+  -h --event-queue-conn-host        default: localhost
+  -p --event-queue-conn-port        default: 5672
+  -v --event-queue-conn-vhost
+  -u --event-queue-conn-user
+  -s --event-queue-conn-pass
+  -e --event-queue-exchange-name    default: tengine_event_exchange
+     --event-queue-exchange-type    default: direct
+     --event-queue-exchange-durable default: true
+  -q --event-queue-queue-name       default: tengine_event_queue
+     --event-queue-queue-durable    default: true
 }}}
 
+
+## 起動時のオプションと設定ファイルの対応
+オプションを設定ファイルのキーと対応させるために、ここでは便宜的に先頭の'--'を除いて'-'を'_'に変換したものをオプション名と呼ぶ。
+オプション名は、予め決められたルールに則ってHashに振り分けられる。
+(予め決められた単語毎に振り分けるもので、必ずしもアンダースコア毎に分類される訳ではない。)
+
+例えば以下のようなキーを持つHashで構成されるツリーである。
+{{{
+tengined:
+  daemon: true
+  activation_timeout: 300
+  load_path: ./
+  log_dir: ./log
+  pid_dir: ./tmp/tengined_pids
+  activation_dir: ./tmp/tengined_activations
+db:
+  host: localhost
+  port: 27017
+  username: 
+  password:
+  database: tengine_production
+event_queue:
+  conn:
+    host: localhost
+    port: 5672
+    vhost:
+    user:
+    pass:
+  exchange:
+    name: tengine_event_exchange
+    type: direct
+    durable: true
+  queue:
+    name: tengine_event_queue
+    durable: true
+}}}
+
+ただし、上記のオプションのうち [only for command] が指定されているオプションは、設定ファイルに記述してあっても無視される。
+
+起動時のオプションとして指定される値は全て文字列だが、YAMLの設定ファイルでは数値など文字列でない値を設定できることに注意。
+
+設定ファイルを指定しつつも、起動時のオプションを指定する事もある。一時的に設定ファイルの設定を変更したい場合など。
+
+
+## 最も簡単にDSLを動かす方法
+* 最初にちょっと試すときを想定
+* 設定ファイルなし
+* DSLファイル一つだけ
+
+## 使い方
 
 * gemをインストールしたらまずテスト
 {{{
