@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
-前提 /^"([^"]*)"パッケージのインストールおよびセットアップが完了している$/ do |arg1|
+
+# インストール、セットアップ関係は優先度を下げるため後ほど実装する
+前提 /^"([^"]*)パッケージ"のインストールおよびセットアップが完了している$/ do |arg1|
 #  pending # express the regexp above with the code you wish you had
 end
 
-前提 /^"([^"]*)"のインストールおよびセットアップが完了している$/ do |arg1|
+前提 /^"([^"]*)プロセス"が起動している$/ do |arg1|
 #  pending # express the regexp above with the code you wish you had
 end
 
-前提 /^"([^"]*)"プロセスが起動している$/ do |arg1|
-#  pending # express the regexp above with the code you wish you had
-end
-
-前提 /^"([^"]*)"プロセスが停止している$/ do |arg1|
+前提 /^"([^"]*)プロセス"が停止している$/ do |arg1|
 #  pending # express the regexp above with the code you wish you had
 end
 
@@ -25,8 +23,13 @@ end
   @h[name] = {:io => io}
 end
 
-ならば /^"([^"]*)"の標準出力に"([^"]*)"と出力されていること$/ do |name, stdout|
-  @stdout.should match(/#{stdout}/)
+# TODO 動作未確認
+ならば /^"([^"]*)"の標準出力に"([^"]*)"と出力されていること$/ do |name, word|
+  while line = @h[name][:io].gets
+    if line.match(word) then
+      break
+    end
+  end
 end
 
 ならば /^"([^"]*)"の標準出力からPIDを確認することができること$/ do |name|
@@ -53,10 +56,13 @@ end
   system(exec_command).should be_false
 end
 
-もし /^"([^"]*)"を Ctl\+c で停止する$/ do |name|
+もし /^"([^"]*)プロセス"を Ctl\+c で停止する$/ do |name|
   pid = @h[name][:pid]
   exec_command = "kill -2 #{pid} > /dev/null"
   system(exec_command)
+end
+
+もし /^"([^"]*)プロセス"を強制停止する$/ do |arg1|
 end
 
 もし /^"([^"]*)"が起動していることを"([^"]*)"で確認できる$/ do |arg1, arg2|
@@ -72,3 +78,32 @@ end
   pending # express the regexp above with the code you wish you had
 end
 
+前提 /.*ファイル"([^"]*)"が存在すること$/ do |file_path|
+  FileTest.exists?(file_path).should be_true
+end
+
+前提 /.*ファイル"([^"]*)"が存在しないこと$/ do |file_path|
+  FileTest.exists?(file_path).should be_false
+end
+
+# TODO
+もし /^Tengineコアの設定ファイル"([^"]*)"を作成する$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+# TODO
+もし /^不正なTengineコアプロセスの設定ファイル"([^"]*)"を修正する$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+前提 /.*イベントハンドラ定義"([^"]*)"が登録されている$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^"([^"]*)"へ問い合わせる$/ do
+#  pending # express the regexp above with the code you wish you had
+end
+
+もし /^"([^"]*)"イベントを発火する$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
