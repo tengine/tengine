@@ -1,6 +1,15 @@
 ユースケース名:
   アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる
 
+※本ユースケースは最新化する必要がありますが、作業の優先順位のために最新化されていない。
+関連する.feature及びGoogleDocsのドキュメントが最新化されているので、以下を参照のこと。
+・.feature
+tengine_console/features/usecases/コア/アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる/アプリケーション開発者がいろんなパターンのイベントハンドラ定義を試してみる.feature
+tengine_console/features/usecases/コア/アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる.feature
+・GoogleDocs
+https://docs.google.com/a/nautilus-technologies.com/spreadsheet/ccc?key=0AiCFoDki8k_ndDZxbWxMdWlfcnlUVU1DWHN2ZXhjYmc&hl=en_US#gid=7
+
+
 背景:
   アプリケーション開発者は、Tengineの導入を検討するために、イベントハンドラ定義の開発やTengineの運用の容易性や運用の信頼性を評価する
   また、Tengineの利用を容易にする為には、以下にあげた項目が重要である
