@@ -6,31 +6,13 @@ describe Tengine::Core::Config do
   YAML_EXAMPLE = <<END_OF_YAML
 tengined:
   daemon: true
-  activation_timeout: 300
   load_path: "/var/lib/tengine"
   log_dir: "/var/log/tengined"
   pid_dir: "/var/run/tengined_pids"
   activation_dir: "/var/run/tengined_activations"
-db:
-  host: localhost
-  port: 27017
-  username:
-  password:
-  database: tengine_production
 event_queue:
-  conn:
-    host: localhost
-    port: 5672
-    vhost:
-    user:
-    pass:
-  exchange:
-    name: tengine_event_exchange
-    type: direct
-    durable: true
   queue:
-    name: tengine_event_queue
-    durable: true
+    name: tengine_event_queue2
 END_OF_YAML
 
 
@@ -53,6 +35,8 @@ END_OF_YAML
       subject[:tengined][:daemon].should == true
       subject[:event_queue][:conn][:host].should == "localhost"
       subject['event_queue']['conn']['host'].should == "localhost"
+      subject[:event_queue][:queue][:name].should == "tengine_event_queue2"
+      subject['event_queue']['queue']['name'].should == "tengine_event_queue2"
     end
 
     context "ディレクトリが存在する場合" do
@@ -134,6 +118,7 @@ END_OF_YAML
       subject[:event_queue].object_id.should_not == @source[:event_queue].object_id
       subject[:event_queue][:conn].object_id.should_not == @source[:event_queue][:conn].object_id
       subject[:event_queue][:conn][:host].object_id.should_not == @source[:event_queue][:conn][:host].object_id
+      subject[:event_queue][:queue][:name].should_not == @source[:event_queue][:queue][:name].object_id
     end
   end
 
