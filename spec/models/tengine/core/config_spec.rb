@@ -163,8 +163,17 @@ describe Tengine::Core::Config do
         expect{ subject.dsl_version }.should raise_error(Tengine::Core::ConfigError, @error_message)
       end
     end
-
   end
+
+  context "指定した設定ファイルが存在しない場合" do
+    it "例外を生成します" do
+      config_path = File.expand_path("config_spec/unexist_config.yml", File.dirname(__FILE__))
+      expect{
+        Tengine::Core::Config.new(:config => config_path)
+      }.to raise_error(Tengine::Core::ConfigError, /Exception occurred when loading configuration file: #{config_path}./)
+    end
+  end
+
 
 
   describe :default_hash do

@@ -11,7 +11,12 @@ class Tengine::Core::Config
     original = ActiveSupport::HashWithIndifferentAccess.new(original || {})
     # 設定ファイルが指定されている場合はそれをロードする
     if config_filepath = original[:config]
-      hash = YAML.load(File.open(config_filepath))
+      begin
+        hash = YAML.load_file(config_filepath)
+      rescue Exception => e
+        # File.exist?を使うとモックを使ったテストが面倒になるので例外をrescueしています。
+        raise Tengine::Core::ConfigError, "Exception occurred when loading configuration file: #{config_filepath}. #{e.message}"
+      end
       hash = ActiveSupport::HashWithIndifferentAccess.new(hash)
       self.class.copy_deeply(hash, @hash)
     end
