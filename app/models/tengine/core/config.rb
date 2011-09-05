@@ -1,50 +1,75 @@
 # -*- coding: utf-8 -*-
 require 'active_support/hash_with_indifferent_access'
+require 'active_support/memoizable'
 
 class Tengine::Core::Config
-  def initialize(original)
-    @hash = ActiveSupport::HashWithIndifferentAccess.new(original)
+  # memoize については http://wota.jp/ac/?date=20081025#p11 などを参照してください
+  extend ActiveSupport::Memoizable
+
+  def initialize(original= nil)
+    @hash = self.class.copy_deeply(
+      ActiveSupport::HashWithIndifferentAccess.new(original || {}),
+      ActiveSupport::HashWithIndifferentAccess.new(self.class.default_hash))
+    @dsl_load_path_type = :unknown
   end
 
   def [](key)
     @hash[key]
   end
 
+  def dsl_load_path
+    self[:tengined][:load_path]
+  end
+  memoize :dsl_load_path
+
   def dsl_dir_path
-    unless @dsl_dir_path
-      load_path = self[:tengined][:load_path]
-      if Dir.exist?(load_path)
-        @dsl_dir_path = load_path
-      elsif File.exist?(load_path)
-        @dsl_dir_path = File.dirname(load_path)
+    # RSpecで何度もモックを作らなくていいようにDir.exist?などを最小限にする
+    case @dsl_load_path_type
+    when :dir  then dsl_load_path
+    when :file then File.dirname(dsl_load_path)
+    else
+      if Dir.exist?(dsl_load_path)
+        @dsl_load_path_type = :dir
+        dsl_load_path
+      elsif File.exist?(dsl_load_path)
+        @dsl_load_path_type = :file
+        File.dirname(dsl_load_path)
       else
-        raise Tengine::Core::ConfigError, "file or directory doesn't exist. #{load_path}"
+        raise Tengine::Core::ConfigError, "file or directory doesn't exist. #{dsl_load_path}"
       end
     end
-    @dsl_dir_path
   end
+  memoize :dsl_dir_path
+
 
   def dsl_file_paths
-    unless @dsl_file_paths
-      load_path = self[:tengined][:load_path]
-      if Dir.exist?(load_path)
-        @dsl_file_paths = Dir.glob("#{load_path}/**/*.rb")
-      elsif File.exist?(load_path)
-        @dsl_file_paths = [load_path]
+    # RSpecで何度もモックを作らなくていいようにDir.exist?などを最小限にする
+    case @dsl_load_path_type
+    when :dir  then Dir.glob("#{dsl_dir_path}/**/*.rb")
+    when :file then File.dirname(dsl_load_path)
+    else
+      if Dir.exist?(dsl_load_path)
+        @dsl_load_path_type = :dir
+        Dir.glob("#{dsl_dir_path}/**/*.rb")
+      elsif File.exist?(dsl_load_path)
+        @dsl_load_path_type = :file
+        [dsl_load_path]
       else
-        raise Tengine::Core::ConfigError, "file or directory doesn't exist. #{load_path}"
+        raise Tengine::Core::ConfigError, "file or directory doesn't exist. #{dsl_load_path}"
       end
     end
-    @dsl_file_paths
   end
+  memoize :dsl_file_paths
 
   def dsl_version_path
-    @dsl_version_path ||= File.expand_path("VERSION", dsl_dir_path)
+    File.expand_path("VERSION", dsl_dir_path)
   end
+  memoize :dsl_version_path
 
   def dsl_version
     File.exist?(dsl_version_path) ? File.read(dsl_version_path).strip : Time.now.strftime("%Y%m%d%H%M%S")
   end
+  memoize :dsl_version
 
   # このデフォルト値をdupしたものを、起動時のオプションを格納するツリーとして使用します
   DEFAULT = {
@@ -93,14 +118,13 @@ class Tengine::Core::Config
       copy_deeply(DEFAULT, {})
     end
 
-    private
     def copy_deeply(source, dest)
       source.each do |key, value|
         case value
         when NilClass, TrueClass, FalseClass, Numeric, Symbol then
           dest[key] = value
         when Hash then
-          dest[key] = copy_deeply(value, {})
+          dest[key] = copy_deeply(value, dest[key] || {})
         else
           dest[key] = value.dup
         end

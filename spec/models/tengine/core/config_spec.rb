@@ -3,40 +3,22 @@ require 'spec_helper'
 
 describe Tengine::Core::Config do
 
-  YAML_EXAMPLE = <<END_OF_YAML
+  YAML_WITH_DIR_LOAD_PATH = <<END_OF_YAML
 tengined:
   daemon: true
-  activation_timeout: 300
   load_path: "/var/lib/tengine"
   log_dir: "/var/log/tengined"
   pid_dir: "/var/run/tengined_pids"
   activation_dir: "/var/run/tengined_activations"
-db:
-  host: localhost
-  port: 27017
-  username:
-  password:
-  database: tengine_production
 event_queue:
-  conn:
-    host: localhost
-    port: 5672
-    vhost:
-    user:
-    pass:
-  exchange:
-    name: tengine_event_exchange
-    type: direct
-    durable: true
   queue:
-    name: tengine_event_queue
-    durable: true
+    name: tengine_event_queue2
 END_OF_YAML
 
 
   context "ディレクトリ指定の設定ファイル" do
     subject do
-      Tengine::Core::Config.new(YAML.load(YAML_EXAMPLE))
+      Tengine::Core::Config.new(YAML.load(YAML_WITH_DIR_LOAD_PATH))
     end
     it "should allow to read value by using []" do
       expected = {
@@ -53,6 +35,8 @@ END_OF_YAML
       subject[:tengined][:daemon].should == true
       subject[:event_queue][:conn][:host].should == "localhost"
       subject['event_queue']['conn']['host'].should == "localhost"
+      subject[:event_queue][:queue][:name].should == "tengine_event_queue2"
+      subject['event_queue']['queue']['name'].should == "tengine_event_queue2"
     end
 
     context "ディレクトリが存在する場合" do
@@ -118,6 +102,98 @@ END_OF_YAML
   end
 
 
+  YAML_WITH_FILE_LOAD_PATH = <<END_OF_YAML
+tengined:
+  daemon: true
+  load_path: "/var/lib/tengine/init.rb"
+  log_dir: "/var/log/tengined"
+  pid_dir: "/var/run/tengined_pids"
+  activation_dir: "/var/run/tengined_activations"
+event_queue:
+  queue:
+    name: tengine_event_queue2
+END_OF_YAML
+
+  context "ファイル指定の設定ファイル" do
+    subject do
+      Tengine::Core::Config.new(YAML.load(YAML_WITH_FILE_LOAD_PATH))
+    end
+    it "should allow to read value by using []" do
+      expected = {
+        'daemon' => true,
+        "activation_timeout" => 300,
+        "load_path" => "/var/lib/tengine/init.rb",
+        "log_dir" => "/var/log/tengined",
+        "pid_dir" => "/var/run/tengined_pids",
+        "activation_dir" => "/var/run/tengined_activations",
+      }
+      subject[:tengined].should == expected
+      subject['tengined'].should == expected
+      subject[:tengined]['load_path'].should == "/var/lib/tengine/init.rb"
+      subject[:tengined][:load_path].should == "/var/lib/tengine/init.rb"
+    end
+
+    context "ファイルが存在する場合" do
+      before do
+        Dir.should_receive(:exist?).with("/var/lib/tengine/init.rb").and_return(false)
+        File.should_receive(:exist?).with("/var/lib/tengine/init.rb").and_return(true)
+      end
+
+      it :dsl_dir_path do
+        subject.dsl_dir_path.should == "/var/lib/tengine"
+      end
+
+      it :dsl_file_paths do
+        subject.dsl_file_paths.should == ["/var/lib/tengine/init.rb"]
+      end
+
+      it :dsl_version_path do
+        subject.dsl_version_path.should == "/var/lib/tengine/VERSION"
+      end
+
+      context :dsl_version do
+        it "VERSIONファイルがある場合" do
+          File.should_receive(:exist?).with("/var/lib/tengine/VERSION").and_return(true)
+          File.should_receive(:read).and_return("TEST20110905164100")
+          subject.dsl_version.should == "TEST20110905164100"
+        end
+
+        it "VERSIONファイルがない場合" do
+          File.should_receive(:exist?).with("/var/lib/tengine/VERSION").and_return(false)
+          t = Time.local(2011,9,5,17,28,30)
+          Time.stub!(:now).and_return(t)
+          subject.dsl_version.should == "20110905172830"
+        end
+      end
+    end
+
+    context "ディレクトリもディレクトリも存在しない場合" do
+      before do
+        @error_message = "file or directory doesn't exist. /var/lib/tengine/init.rb"
+        Dir.should_receive(:exist?).with("/var/lib/tengine/init.rb").and_return(false)
+        File.should_receive(:exist?).with("/var/lib/tengine/init.rb").and_return(false)
+      end
+
+      it :dsl_dir_path do
+        expect{ subject.dsl_dir_path }.should raise_error(Tengine::Core::ConfigError, @error_message)
+      end
+
+      it :dsl_file_paths do
+        expect{ subject.dsl_file_paths }.should raise_error(Tengine::Core::ConfigError, @error_message)
+      end
+
+      it :dsl_version_path do
+        expect{ subject.dsl_version_path }.should raise_error(Tengine::Core::ConfigError, @error_message)
+      end
+
+      it :dsl_version do
+        expect{ subject.dsl_version }.should raise_error(Tengine::Core::ConfigError, @error_message)
+      end
+    end
+
+  end
+
+
   describe :default_hash do
     subject do
       @source = Tengine::Core::Config::DEFAULT
@@ -134,6 +210,7 @@ END_OF_YAML
       subject[:event_queue].object_id.should_not == @source[:event_queue].object_id
       subject[:event_queue][:conn].object_id.should_not == @source[:event_queue][:conn].object_id
       subject[:event_queue][:conn][:host].object_id.should_not == @source[:event_queue][:conn][:host].object_id
+      subject[:event_queue][:queue][:name].should_not == @source[:event_queue][:queue][:name].object_id
     end
   end
 

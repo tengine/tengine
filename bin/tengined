@@ -3,24 +3,100 @@
 require 'rubygems'
 require 'optparse'
 
-require File.expand_path('../app/models/tengine/core/bootstrap', File.dirname(__FILE__))
+require File.expand_path('../config/environment', File.dirname(__FILE__))
+# require File.expand_path('../app/models/tengine/core/bootstrap', File.dirname(__FILE__))
 
-options = Tengine::Core::Bootstrap.default_options.dup
+hash = Tengine::Core::Config.default_hash
+
 ARGV.options do |o|
-  o.banner = "Usage:"
-  o.on("-k", "--action", "test|load|start|enable|stop|force-stop default: start"){|v|options[:action] = v}
-  o.on("-f", "--config", "Specify configuration file path."){|v|options[:config] = v}
-  o.on("-D", "--daemon", ""){|v|options[:daemon] = true}
-  o.on("--prevent-loader", ""){|v|options[:prevent_loader] = true}
-  o.on("--prevent-enabler", ""){|v|options[:prevent_enabler] = true}
-  o.on("--prevent-activator", ""){|v|options[:prevent_activator] = true}
-  o.on("--activation-timeout", ""){|v|options[:activation_timeout] = v}
+
+  o.banner = <<EOS
+Usage: tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
+         [-H db_host] [-P db_port] [-U db_user] [-S db_pass] [-B db_database]
+         [-h mq_conn_host] [-p mq_conn_port] [-u mq_conn_user] [-s mq_conn_pass]
+         [-v mq_conn_vhost] [-e mq_exchange_name] [-q mq_queue_name]
+EOS
+
+  tengine_opt = lambda do |prefixes, base_name, args|
+    prefixes = Array(prefixes)
+    args = Array(args)
+    options = args.last.is_a?(Hash) ? args.pop : {}
+    description = args.pop
+    short_arg = args.first
+    long_arg = "--#{prefixes.join('-')}-#{base_name}".gsub(/_/, '-')
+    datasource = prefixes.inject(hash){|d, prefix| d[prefix]}
+    if options[:hide_value]
+      block = lambda{ datasource[base_name] = true}
+    else
+      default_value = datasource[base_name]
+      long_arg << "=VAL"
+      description << " default: #{default_value.inspect}"
+      block = lambda{|v| datasource[base_name] = v}
+    end
+    on_args = [short_arg, long_arg, description].compact
+    o.on(*on_args, &block)
+  end
+
+  o.separator ""
+  o.separator "Generic"
+  o.on("-k", "--action=test|load|start|enable|stop|force-stop", "default: start"){|v| hash[:action] = v}
+  o.on("-f", "--config=filepath"                , "Specify configuration file path."){|v| hash[:config] = v}
+
+  o.separator ""
+  o.separator "Process"
+  {
+    :daemon => ["-D", "ignored with \"-k test, -k load, -k enable\".", {:hide_val => true}],
+    :prevent_loader => ["doesn't call event handler loader when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
+    :prevent_enabler => ["doesn't call event handler enabler when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
+    :prevent_activator => ["doesn't call kernel activator when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
+    :activation_timeout => "period to wait for making activation file.",
+    :load_path => ["-T", "[REQUIRED] path/to/file_or_dir. ignored with \"-k test\".", {:hide_val => true}],
+    :log_dir  => "path/to/dir.",
+    :pid_dir  => "path/to/dir.",
+    :activation_dir => "path/to/dir.",
+  }.each{|key, args| tengine_opt.call(:tengined, key, args)}
+
+  o.separator ""
+  o.separator "DB Connection"
+  {
+    :host     => ["-O", "hostname to connect db."],
+    :port     => ["-P", "port to connect db."],
+    :username => ["-U", "username to connect db."],
+    :password => ["-S", "password to connect db."],
+    :database => ["-B", "database name to connect db."],
+  }.each{|key, args| tengine_opt.call(:db, key, args)}
+
+  o.separator ""
+  o.separator "MQ subscription"
+  {
+    :host  => ["-o", "hostname to connect queue server."],
+    :port  => ["-p", "port to connect queue server."],
+    :vhost => ["-u", "vhost to connect queue server."],
+    :user  => ["-u", "username to connect queue server."],
+    :pass  => ["-s", "password to connect queue server."],
+  }.each{|key, args| tengine_opt.call([:event_queue, :conn], key, args)}
+
+
+  {
+    :name    => ["-e", "exchange name to access to queue."],
+    :type    => [     "exchange type to access to queue."],
+    :durable => [     "exchange durable to access to queue"],
+  }.each{|key, args| tengine_opt.call([:event_queue, :exchange], key, args)}
+
+  {
+    :name    => ["-q", "queue name to subscribe."],
+    :durable => [     "queue durable to subscribe."],
+  }.each{|key, args| tengine_opt.call([:event_queue, :queue], key, args)}
 
   o.on("-h", '--help', "Show this help message."){ puts o; exit}
   o.parse!
-  { :daemon_proc_path => __FILE__ }.merge(options)
-  run
 end
+
+
+hash.update(:daemon_proc_path => File.expand_path(__FILE__))
+
+require 'pp'
+pp hash
 
 def run
   block = Proc.new do
