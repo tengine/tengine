@@ -3,22 +3,9 @@ require 'spec_helper'
 
 describe Tengine::Core::Config do
 
-  YAML_WITH_DIR_LOAD_PATH = <<END_OF_YAML
-tengined:
-  daemon: true
-  load_path: "/var/lib/tengine"
-  log_dir: "/var/log/tengined"
-  pid_dir: "/var/run/tengined_pids"
-  activation_dir: "/var/run/tengined_activations"
-event_queue:
-  queue:
-    name: tengine_event_queue2
-END_OF_YAML
-
-
   context "ディレクトリ指定の設定ファイル" do
     subject do
-      Tengine::Core::Config.new(YAML.load(YAML_WITH_DIR_LOAD_PATH))
+      Tengine::Core::Config.new(:config => File.expand_path("config_spec/config_with_dir_load_path.yml", File.dirname(__FILE__)))
     end
     it "should allow to read value by using []" do
       expected = {
@@ -98,25 +85,11 @@ END_OF_YAML
         expect{ subject.dsl_version }.should raise_error(Tengine::Core::ConfigError, @error_message)
       end
     end
-
   end
-
-
-  YAML_WITH_FILE_LOAD_PATH = <<END_OF_YAML
-tengined:
-  daemon: true
-  load_path: "/var/lib/tengine/init.rb"
-  log_dir: "/var/log/tengined"
-  pid_dir: "/var/run/tengined_pids"
-  activation_dir: "/var/run/tengined_activations"
-event_queue:
-  queue:
-    name: tengine_event_queue2
-END_OF_YAML
 
   context "ファイル指定の設定ファイル" do
     subject do
-      Tengine::Core::Config.new(YAML.load(YAML_WITH_FILE_LOAD_PATH))
+      Tengine::Core::Config.new(:config => File.expand_path("config_spec/config_with_file_load_path.yml", File.dirname(__FILE__)))
     end
     it "should allow to read value by using []" do
       expected = {

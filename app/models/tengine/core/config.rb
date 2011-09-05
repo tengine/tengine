@@ -7,9 +7,15 @@ class Tengine::Core::Config
   extend ActiveSupport::Memoizable
 
   def initialize(original= nil)
-    @hash = self.class.copy_deeply(
-      ActiveSupport::HashWithIndifferentAccess.new(original || {}),
-      ActiveSupport::HashWithIndifferentAccess.new(self.class.default_hash))
+    @hash = ActiveSupport::HashWithIndifferentAccess.new(self.class.default_hash)
+    original = ActiveSupport::HashWithIndifferentAccess.new(original || {})
+    # 設定ファイルが指定されている場合はそれをロードする
+    if config_filepath = original[:config]
+      hash = YAML.load(File.open(config_filepath))
+      hash = ActiveSupport::HashWithIndifferentAccess.new(hash)
+      self.class.copy_deeply(hash, @hash)
+    end
+    self.class.copy_deeply(original, @hash)
     @dsl_load_path_type = :unknown
   end
 
