@@ -33,7 +33,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -1337,3 +1337,49 @@
     もし "Tengineコンソールプロセス"を Ctl+c で停止する
     ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
+  #
+  # イベント発火画面での異常系
+  # イベント発火画面の異常系をこちらにまとめる(正常系と異常系が混ざっていて見難いため)
+  #
+  シナリオ:  [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントに対応する処理の実行する_イベント発火画面でイベント種別名を指定せずに発火
+    もし "Tengineコンソールプロセス"を起動を行うために"rails s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver01  |有効|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    # イベント発火画面で未入力状態で発火を試みる
+    もし "発火"ボタンをクリックする
+    ならば "event_fire_status"に"event_type_nameを入力してください"と表示されていること 
+
+    # きちんと入力してイベント発火を試みる
+    もし "event_type_name"に"event01"と入力する
+    かつ "source_name"に"tengine_console"と入力する
+    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
+    かつ "notification_level"から"info"を選択する
+    かつ "sender_name"に"tengine_console"と入力する
+    かつ "発火"ボタンをクリックする
+    ならば "event_fire_status"に"event01を発火しました"と表示されていること 
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+ 
+    もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
+    ならば "event_process.log"に"handler01"と表示されていること
+
+    もし "Tengineコアプロセス"を Ctl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコンソールプロセス"を Ctl+c で停止する
+    ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
