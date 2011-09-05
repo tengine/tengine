@@ -10,12 +10,12 @@ tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
 
   -k --action                       test|load|start|enable|stop|force-stop default: start [only for command]
   -f --config                       /etc/tengine.yml [only for command]
-  -D --tengined-daemon              ignored with "-k test, -k load, -k enable"
+  -D --tengined-daemon              default false. ignored with "-k test, -k load, -k enable"
      --tengined-prevent-loader      doesn't call event handler loader when start. usually use with --daemon option [only for command]
      --tengined-prevent-enabler     doesn't call event handler enabler when start. usually use with --daemon option [only for command]
      --tengined-prevent-activator   doesn't call kernel activator when start. usually use with --daemon option [only for command]
      --tengined-activation-timeout  period to wait for making activation file. default: 300(sec)
-  -T --tengined-load-path           path/to/file_or_dir. ignored with "-k test"
+  -T --tengined-load-path           [REQUIRED] path/to/file_or_dir. ignored with "-k test"
      --tengined-log-dir             path/to/dir. default: ./
      --tengined-pid-dir             path/to/dir. default: ./tmp/tengined_pids
      --tengined-activation-dir      path/to/dir. default: ./tmp/tengined_activations
