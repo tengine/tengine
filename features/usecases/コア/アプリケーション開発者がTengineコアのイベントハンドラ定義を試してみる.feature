@@ -86,7 +86,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -129,7 +129,7 @@
     もし キューを停止する
     ならば キューが停止していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -144,7 +144,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -187,7 +187,7 @@
     もし イベントキューを削除する
     ならば イベントキューを削除していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -211,7 +211,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -254,7 +254,7 @@
     もし イベントキューをアンバインドする
     ならば イベントキューをアンバインドしていること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -278,7 +278,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -321,7 +321,7 @@
     もし イベントエクスチェンジを削除する
     ならば イベントエクスチェンジを削除していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -345,7 +345,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -388,7 +388,7 @@
     もし "Tengineコンソールプロセス"を Ctl+c で停止する
     ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -405,7 +405,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -448,7 +448,7 @@
     もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
     ならば DBが停止していることを"ps -eo pid PID"で確認できること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -507,7 +507,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -545,7 +545,7 @@
     ならば DBが停止していることを"ps -eo pid PID"で確認できること
 
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -603,7 +603,7 @@
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -656,7 +656,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event00"と入力する
+    もし "event_type_name"に"event00"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -696,7 +696,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event00"と入力する
+    もし "event_type_name"に"event00"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -736,7 +736,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event02_1"と入力する
+    もし "event_type_name"に"event02_1"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -777,7 +777,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event02_1"と入力する
+    もし "event_type_name"に"event02_1"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -834,7 +834,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event03"と入力する
+    もし "event_type_name"に"event03"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -873,7 +873,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event03"と入力する
+    もし "event_type_name"に"event03"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -914,7 +914,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event02"と入力する
+    もし "event_type_name"に"event02"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -953,7 +953,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event04"と入力する
+    もし "event_type_name"に"event04"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -1015,7 +1015,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -1085,7 +1085,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -1155,7 +1155,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
@@ -1242,7 +1242,7 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type"に"event01"と入力する
+    もし "event_type_name"に"event01"と入力する
     かつ "source_name"に"tengine_console"と入力する
     かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
     かつ "notification_level"から"info"を選択する
