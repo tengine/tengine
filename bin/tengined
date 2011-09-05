@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+require 'rubygems'
+require 'optparse'
+
+require File.expand_path('../app/models/tengine/core/bootstrap', File.dirname(__FILE__))
+
+options = Tengine::Core::Bootstrap.default_options.dup
+ARGV.options do |o|
+  o.banner = "Usage:"
+  o.on("-k", "--action", "test|load|start|enable|stop|force-stop default: start"){|v|options[:action] = v}
+  o.on("-f", "--config", "Specify configuration file path."){|v|options[:config] = v}
+  o.on("-D", "--daemon", ""){|v|options[:daemon] = true}
+  o.on("--prevent-loader", ""){|v|options[:prevent_loader] = true}
+  o.on("--prevent-enabler", ""){|v|options[:prevent_enabler] = true}
+  o.on("--prevent-activator", ""){|v|options[:prevent_activator] = true}
+  o.on("--activation-timeout", ""){|v|options[:activation_timeout] = v}
+
+  o.on("-h", '--help', "Show this help message."){ puts o; exit}
+  o.parse!
+  { :daemon_proc_path => __FILE__ }.merge(options)
+  run
+end
+
+def run
+  block = Proc.new do
+    bootstrap = Tengine::Core::Bootstrap.new(options)
+    bootstrap.boot
+  end
+
+  if options[:daemon] == false
+    block.call
+  else
+    Daemons.run_proc
+  end
+end
