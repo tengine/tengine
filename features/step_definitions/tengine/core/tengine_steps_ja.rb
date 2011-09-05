@@ -17,7 +17,6 @@ end
 
 
 もし /^"([^"]*)"を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
-  io = IO.popen(command)
   @stdout = ""
   io = IO.popen(command)
   while line = io.gets
@@ -32,19 +31,18 @@ end
   @stdout.should match(/#{stdout}/)
 end
 
-もし /^"([^"]*)"を起動するために"([^"]*)"というコマンドを実行する$/ do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
+ならば /^"([^"]*)"の標準出力からPIDを確認することができること$/ do |name|
+  pending # Tengineコアをフォアグラウンド起動した際に標準出力が決まっていないので、PIDの取得部分は暫定的に正規表現で数値を引っこ抜いている
+  @pid = @stdout.match(/\d+/)[0]
+  @pid.should_not be_empty
 end
 
-ならば /^"([^"]*)"の標準出力からPIDを確認することができること$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+ならば /^"([^"]*)"が起動していることを"([^"]*)"で確認できること$/ do |name, command|
+  result = `#{command.gsub(/PID/, @pid)}`
+  result.should match(/#{@pid}/)
 end
 
-ならば /^"([^"]*)"が起動していることを"([^"]*)"で確認できること$/ do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
-end
-
-もし /^"([^"]*)"が起動していることを"([^"]*)"で確認できること$/ do |arg1, arg2|
+もし /^"([^"]*)"が起動していることを"([^"]*)"で確認できる$/ do |arg1, arg2|
   pending # express the regexp above with the code you wish you had
 end
 
