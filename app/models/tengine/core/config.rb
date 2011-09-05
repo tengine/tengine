@@ -6,11 +6,10 @@ class Tengine::Core::Config
   # memoize については http://wota.jp/ac/?date=20081025#p11 などを参照してください
   extend ActiveSupport::Memoizable
 
-  def initialize(original)
-    hash = self.class.copy_deeply(
-      ActiveSupport::HashWithIndifferentAccess.new(original),
+  def initialize(original= nil)
+    @hash = self.class.copy_deeply(
+      ActiveSupport::HashWithIndifferentAccess.new(original || {}),
       ActiveSupport::HashWithIndifferentAccess.new(self.class.default_hash))
-    @hash = ActiveSupport::HashWithIndifferentAccess.new(hash)
     @dsl_load_path_type = :unknown
   end
 
