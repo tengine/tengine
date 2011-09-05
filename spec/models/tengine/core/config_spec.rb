@@ -115,7 +115,26 @@ END_OF_YAML
       end
     end
 
+  end
 
+
+  describe :default_hash do
+    subject do
+      @source = Tengine::Core::Config::DEFAULT
+      Tengine::Core::Config.default_hash
+    end
+    it "must be copied deeply" do
+      YAML.dump(subject).should == YAML.dump(@source)
+    end
+    it "must be differenct object(s)" do
+      subject.object_id.should_not == @source.object_id
+      subject[:action].object_id.should_not == @source[:action].object_id
+      subject[:tengined].object_id.should_not == @source[:tengined].object_id
+      subject[:tengined][:log_dir].object_id.should_not == @source[:tengined][:log_dir].object_id
+      subject[:event_queue].object_id.should_not == @source[:event_queue].object_id
+      subject[:event_queue][:conn].object_id.should_not == @source[:event_queue][:conn].object_id
+      subject[:event_queue][:conn][:host].object_id.should_not == @source[:event_queue][:conn][:host].object_id
+    end
   end
 
 end
