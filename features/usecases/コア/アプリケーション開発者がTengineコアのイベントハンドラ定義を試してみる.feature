@@ -624,3 +624,344 @@
 
     もし "Tengineコンソールプロセス"を Ctl+c で停止する
     ならば "Tengineコンールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+####
+
+
+
+シナリオ:  [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントに対応するイベントハンドラがない
+    もし "Tengineコンソールプロセス"を起動を行うために"rails -s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver01  |有効|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "event_type"に"event00"と入力する
+    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
+    かつ "notification_level"から"info"を選択する
+    かつ "sender_name"に"tengine_console"と入力する
+    かつ "発火"ボタンをクリックする
+    ならば "event_fire_status"に"event01を発火しました"と表示されていること 
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event00|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+ 
+    もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
+    ならば "event_process.log"に"handler01"と表示されていないこと
+
+    もし "Tengineコアプロセス"を Ctl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコンソールプロセス"を Ctl+c で停止する
+    ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+
+
+シナリオ:  [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント処理中にキューが落ちた
+    もし "Tengineコンソールプロセス"を起動を行うために"rails -s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver01  |有効|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "event_type"に"event00"と入力する
+    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
+    かつ "notification_level"から"info"を選択する
+    かつ "sender_name"に"tengine_console"と入力する
+    かつ "発火"ボタンをクリックする
+    ならば "event_fire_status"に"event01を発火しました"と表示されていること 
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event00|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+ 
+    もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
+    ならば "event_process.log"に"handler01"と表示されていないこと
+
+    もし "Tengineコアプロセス"を Ctl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコンソールプロセス"を Ctl+c で停止する
+    ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること  
+
+##2
+
+シナリオ: [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc02_fire_another_event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver02  |有効|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "event_type"に"event02_1"と入力する
+    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
+    かつ "notification_level"から"info"を選択する
+    かつ "sender_name"に"tengine_console"と入力する
+    かつ "発火"ボタンをクリックする
+    ならば "event_fire_status"に"event02_1を発火しました"と表示されていること 
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event02_1|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event02_2|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+
+    もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
+    ならば "event_process.log"に"handler02_1"と表示されていること
+    かつ "event_process.log"に"handler02_2"と表示されていること
+
+    もし "Tengineコアプロセス"を Ctl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコンソールプロセス"を Ctl+c で停止する
+    ならば "Tengineコンールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+
+  シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントハンドリングでイベントを発火する前にキューが落ちた
+    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc02_fire_another_event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver02  |有効|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "event_type"に"event02_1"と入力する
+    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
+    かつ "notification_level"から"info"を選択する
+    かつ "sender_name"に"tengine_console"と入力する
+    かつ "発火"ボタンをクリックする
+    ならば "event_fire_status"に"event02_1を発火しました"と表示されていること 
+
+    # 自動でテストを行う為には、イベントハンドラ定義を修正して、fireする直前にキューを落とすよう修正する必要があると思われます
+    もし イベントを受信してから、event02_1で起動するイベントハンドラのputsを実行するまでにイベントキューを落とす
+    ならば キューが停止する
+    ならば "Tengineコアプロセス"の標準出力に"キューとの接続が切断されました"と表示されること
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event02_1|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+
+    もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
+    ならば "event_process.log"に"handler02_1"と表示されていること
+
+    もし キューを起動する
+    ならば キューがしていることを確認できること
+    かつ "Tengineコアプロセス"の標準出力に"キューと接続しました"と表示されること
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event02_1|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event02_2|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+
+    もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
+    かつ "event_process.log"に"handler02_2"と表示されていること
+
+    もし "Tengineコアプロセス"を Ctl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコンソールプロセス"を Ctl+c で停止する
+    ならば "Tengineコンールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+##3
+
+  シナリオ: [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc03_2handlers_for_1event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver03  |有効|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "event_type"に"event03"と入力する
+    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
+    かつ "notification_level"から"info"を選択する
+    かつ "sender_name"に"tengine_console"と入力する
+    かつ "発火"ボタンをクリックする
+    ならば "event_fire_status"に"event03を発火しました"と表示されていること 
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event03|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+ 
+    もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
+    ならば "event_process.log"に"handler03_1"と表示されていること
+    かつ "event_process.log"に"handler03_2"と表示されていること
+
+    もし "Tengineコアプロセス"を Ctl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコンソールプロセス"を Ctl+c で停止する
+    ならば "Tengineコンールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+ シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc03_2handlers_for_1event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver01  |有効|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "event_type"に"event03"と入力する
+    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
+    かつ "notification_level"から"info"を選択する
+    かつ "sender_name"に"tengine_console"と入力する
+    かつ "発火"ボタンをクリックする
+    ならば "event_fire_status"に"event03を発火しました"と表示されていること 
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event03|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+ 
+    もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
+    ならば "event_process.log"に"handler03_1"と表示されていること
+    かつ "event_process.log"に"handler03_2"と表示されていること
+
+    もし "Tengineコアプロセス"を Ctl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコンソールプロセス"を Ctl+c で停止する
+    ならば "Tengineコンールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+##4
+
+  シナリオ: [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc04_unless_the_event_occurs.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver01  |有効|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "event_type"に"event02"と入力する
+    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
+    かつ "notification_level"から"info"を選択する
+    かつ "sender_name"に"tengine_console"と入力する
+    かつ "発火"ボタンをクリックする
+    ならば "event_fire_status"に"event04を発火しました"と表示されていること 
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event02|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+ 
+    もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
+    ならば "event_process.log"に"handler04"と表示されていること
+
+    もし "Tengineコアプロセス"を Ctl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコンソールプロセス"を Ctl+c で停止する
+    ならば "Tengineコンールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+
+  シナリオ: [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する
+    もし "Tengineコンソールプロセス"を起動するために"rails -s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc04_unless_the_event_occurs.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver01  |有効|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "event_type"に"event04"と入力する
+    かつ "sourch_name"に"tengine_console"と入力する
+    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
+    かつ "notification_level"から"info"を選択する
+    かつ "sender_name"に"tengine_console"と入力する
+    かつ "発火"ボタンをクリックする
+    ならば "event_fire_status"に"event04を発火しました"と表示されていること 
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event04|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+ 
+    もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
+    ならば "event_process.log"に"handler04"と表示されていないこと
+
+    もし "Tengineコアプロセス"を Ctl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコンソールプロセス"を Ctl+c で停止する
+    ならば "Tengineコンールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+
