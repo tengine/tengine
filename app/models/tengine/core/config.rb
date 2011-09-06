@@ -7,9 +7,20 @@ class Tengine::Core::Config
   extend ActiveSupport::Memoizable
 
   def initialize(original= nil)
-    @hash = self.class.copy_deeply(
-      ActiveSupport::HashWithIndifferentAccess.new(original || {}),
-      ActiveSupport::HashWithIndifferentAccess.new(self.class.default_hash))
+    @hash = ActiveSupport::HashWithIndifferentAccess.new(self.class.default_hash)
+    original = ActiveSupport::HashWithIndifferentAccess.new(original || {})
+    # 設定ファイルが指定されている場合はそれをロードする
+    if config_filepath = original[:config]
+      begin
+        hash = YAML.load_file(config_filepath)
+      rescue Exception => e
+        # File.exist?を使うとモックを使ったテストが面倒になるので例外をrescueしています。
+        raise Tengine::Core::ConfigError, "Exception occurred when loading configuration file: #{config_filepath}. #{e.message}"
+      end
+      hash = ActiveSupport::HashWithIndifferentAccess.new(hash)
+      self.class.copy_deeply(hash, @hash)
+    end
+    self.class.copy_deeply(original, @hash)
     @dsl_load_path_type = :unknown
   end
 
