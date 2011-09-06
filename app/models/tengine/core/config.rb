@@ -57,7 +57,7 @@ class Tengine::Core::Config
     # RSpecで何度もモックを作らなくていいようにDir.exist?などを最小限にする
     case @dsl_load_path_type
     when :dir  then Dir.glob("#{dsl_dir_path}/**/*.rb")
-    when :file then File.dirname(dsl_load_path)
+    when :file then [dsl_load_path]
     else
       if Dir.exist?(dsl_load_path)
         @dsl_load_path_type = :dir
