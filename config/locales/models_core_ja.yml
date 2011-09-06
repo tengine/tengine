@@ -1,10 +1,37 @@
 ja:
   mongoid:
     models:
+      tengine/core/event: "イベント"
       tengine/core/driver: "ドライバ"
+      tengine/core/handler: "ハンドラ"
+      tengine/core/handler_path: "ハンドラパス"
+      tengine/core/session: "セッション"
 
     attributes:
+      tengine/core/event:
+        event_type_name: "種別名"
+        key: "イベントキー"
+        source_name: "発生源名"
+        occurred_at: "発生時刻"
+        notification_level: "通知レベル"
+        notification_confirmed: "通知確認済み"
+        sender_name: "送信者名"
+        properties: "付加情報"
       tengine/core/driver:
         name: "名称"
         version: "バージョン"
         enabled: "有効"
+        enabled_on_activation: "起動時有効"
+        session: "セッション"
+        handlers: "ハンドラ"
+        handler_paths: "ハンドラパス"
+      tengine/core/handler:
+        event_type_names: "対象種別名群"
+        driver: "ドライバ"
+      tengine/core/handler_path:
+        event_type_name: "種別名"
+        handler_id: "ハンドラID"
+        driver: "ドライバ"
+      tengine/core/session:
+        properties: "付加情報"
+        driver: "ドライバ"
