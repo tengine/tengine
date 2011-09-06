@@ -1,3 +1,8 @@
+<br/>
+<%= link_to_list Tengine::Core::Driver, tengine_core_drivers_path %> &gt;
+<%= link_to_model @driver %> &gt;
+<%= link_to_list Tengine::Core::Handler, tengine_core_driver_handlers_path(@driver) %> &gt;
+
 <h1><%= page_title Tengine::Core::Handler, :show %></h1>
 
 <p id="notice"><%= notice %></p>
@@ -6,7 +11,6 @@
   <b><%= Tengine::Core::Handler.human_attribute_name(:event_type_names) %>:</b>
   <%= @handler.event_type_names_text %>
 </p>
-
 
 <%= link_to_edit edit_tengine_core_driver_handler_path(@driver, @handler) %> |
 <%= link_to_back_list tengine_core_driver_handlers_path(@driver) %>

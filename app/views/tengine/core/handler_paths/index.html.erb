@@ -15,7 +15,7 @@
 <% @handler_paths.each do |handler_path| %>
   <tr class="<%= cycle("even", "odd") %>" >
     <td><%= handler_path.event_type_name %></td>
-    <td><%= (d = handler_path.driver) ? d.name : nil %></td>
+    <td><%= link_to_model handler_path.driver %></td>
     <td><%= handler_path.handler_id %></td>
     <td><%= link_to_show handler_path %></td>
     <td><%= link_to_edit edit_tengine_core_handler_path_path(handler_path) %></td>

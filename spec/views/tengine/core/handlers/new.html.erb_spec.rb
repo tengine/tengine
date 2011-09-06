@@ -15,7 +15,7 @@ describe "tengine/core/handlers/new.html.erb" do
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => tengine_core_driver_handlers_path(@driver), :method => "post" do
-      assert_select "input#handler_event_type_names_text", :name => "handler[event_type_names_text]"
+      assert_select "textarea#handler_event_type_names_text", :name => "handler[event_type_names_text]"
     end
   end
 end
