@@ -47,7 +47,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -86,7 +86,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event00|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event00|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていないこと
@@ -130,7 +130,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -173,8 +173,8 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event02_1|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
-    |xxxxxxxxxxxx|event02_2|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event02_1|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |xxxxxxxxxxxx|event02_2|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler02_1"と表示されていること
@@ -218,7 +218,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event03|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event03|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler03_1"と表示されていること
@@ -262,7 +262,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event02|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event02|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler04"と表示されていること
@@ -301,7 +301,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event04|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event04|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler04"と表示されていないこと
@@ -367,7 +367,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -437,7 +437,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -447,6 +447,7 @@
 
     もし "Tengineコンソールプロセス"を Ctl+c で停止する
     ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
 
   シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントドライバ一覧画面でイベントドライバを有効から無効に変更できない_Tengineコンソールが起動していない
     #
@@ -469,7 +470,7 @@
     もし "Tengineコンソール"を Ctl+c で停止する
     ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
-    # DBが落ちるのと同時にTengineコンソールが落ちているので、404エラーになる
+    # Tengineコンソールが落ちているので、404エラーになる
     もし "無効ボタン"をクリックする
     ならば "イベントドライバ一覧画面"を表示されていないこと
     かつ "404"と表示されていること
@@ -507,7 +508,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -594,7 +595,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -668,7 +669,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -725,7 +726,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -783,7 +784,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -850,7 +851,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -917,7 +918,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -984,7 +985,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -1044,7 +1045,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -1087,7 +1088,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されていないこと
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていないこと
@@ -1105,7 +1106,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -1184,7 +1185,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されていないこと
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていないこと
@@ -1199,7 +1200,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -1242,7 +1243,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されていないこと
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていないこと
@@ -1253,7 +1254,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていること
@@ -1291,7 +1292,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event00|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event00|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていないこと
@@ -1335,7 +1336,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event02_1|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event02_1|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler02_1"と表示されていること
@@ -1346,8 +1347,8 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event02_1|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
-    |xxxxxxxxxxxx|event02_2|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event02_1|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |xxxxxxxxxxxx|event02_2|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     かつ "event_process.log"に"handler02_2"と表示されていること
@@ -1386,7 +1387,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event03|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |xxxxxxxxxxxx|event03|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler03_1"と表示されていること
@@ -1398,3 +1399,167 @@
     もし "Tengineコンソールプロセス"を Ctl+c で停止する
     ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
+
+#
+# イベント通知画面での異常系
+# 画面イメージ:
+# https://docs.google.com/a/nautilus-technologies.com/spreadsheet/ccc?key=0AiCFoDki8k_ndEZmOXZJSFZxZURKZTd5ejBEWW1YQ2c&hl=ja#gid=0
+# 発火されたイベントを確認する画面でjsで定期的にリロードを行う
+# イベントには以下の通知レベルがあり、errorとfatalに関しては、通知確認済みでないイベントはjsでアラートを出す
+# {0:"gr_heartbeat", 1:"debug", 2:"info", 3:"warn", 4:"error", 5:"fatal"}
+# 
+  シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント通知画面が表示されない_Tengineコンソールが起動していない
+    #
+    # イベント発火の発火後にTengineコンソールが落ちたため、イベント通知画面が表示されない
+    #
+    もし "Tengineコンソールプロセス"を起動を行うために"rails s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver01  |有効|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "event_type_name"に"event01"と入力する
+    かつ "source_name"に"tengine_console"と入力する
+    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
+    かつ "notification_level"から"info"を選択する
+    かつ "sender_name"に"tengine_console"と入力する
+    かつ "発火"ボタンをクリックする
+    ならば "event_fire_status"に"event01を発火しました"と表示されていること
+
+    # 異常を発生させるためTengineコンソールのプロセスを停止する
+    もし "Tengineコンソール"を Ctl+c で停止する
+    ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"を表示していないこと
+    かつ "404"と表示されていること
+    かつ "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    # Tengineコンソールを復旧する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+
+    もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
+    ならば "event_process.log"に"handler01"と表示されていること
+
+    もし "Tengineコアプロセス"を Ctl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコンソールプロセス"を Ctl+c で停止する
+    ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+
+  シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント通知画面が表示されない_DBが起動していない
+    #
+    # DBのプロセスが起動していない場合、Tengineコンソールのプロセスが停止する
+    # 同時に、Tengineコアも停止している
+    #
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    # DBが落ちるのと同時にTengineコンソールが落ちているので、404エラーになる
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していないこと
+    かつ "404"と表示されていること
+    かつ "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "プロセスログ"を表示する
+    ならば "プロセスログ"に"DBが終了しました"と表示していること
+    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    # DBの起動
+    もし DBを起動するために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
+    ならば DBが起動していることを"ps -eo pid PID"で確認できること
+
+    # Tengineコアプロセス起動
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    # Tengineコンソール起動
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver01  |有効|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "event_type_name"に"event01"と入力する
+    かつ "source_name"に"tengine_console"と入力する
+    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
+    かつ "notification_level"から"info"を選択する
+    かつ "sender_name"に"tengine_console"と入力する
+    かつ "発火"ボタンをクリックする
+    ならば "event_fire_status"に"event01を発火しました"と表示されていること
+
+    # 異常を発生させるためDBを停止する
+    もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
+    ならば DBが停止していることを"ps -eo pid PID"で確認できること
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"を表示していないこと
+    かつ "404"と表示されていること
+    かつ "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "プロセスログ"を表示する
+    ならば "プロセスログ"に"DBが終了しました"と表示していること
+    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    # DBの起動
+    もし DBを起動するために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
+    ならば DBが起動していることを"ps -eo pid PID"で確認できること
+
+    # Tengineコアプロセス起動
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    # Tengineコンソール起動
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+
+    もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
+    ならば "event_process.log"に"handler01"と表示されていること
+
+    もし "Tengineコアプロセス"を Ctl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコンソールプロセス"を Ctl+c で停止する
+    ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+
+  シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント通知画面でイベントを通知確認済みに変更できない_Tengineコンソールが起動していない
+  シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント通知画面でイベントを通知確認済みに変更できない_DBが起動していない
+  シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント通知画面でイベントを通知確認済みに変更できない_他のアプリケーション開発者が誤ってイベントドライバを削除
+  シナリオ: [正常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント通知画面で通知レベルがエラーのイベントのアラートを出さない_他のアプリケーション開発者がイベントを通知確認済みに変更
+  # 最新状態を表示した際に通知レベルがerror,fatalで通知確認済みでないイベントはアラートを出す。他のアプリケーション開発者が対象のイベントを通知確認済みに変更した場合、アラートが検出されない
