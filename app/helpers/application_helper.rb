@@ -1,6 +1,6 @@
 module ApplicationHelper
   def page_title(class_or_name, page_type)
-    model_name(class_or_name) + I18n.t(page_type, :scope => [:views, :pages])
+    model_class_name(class_or_name) + I18n.t(page_type, :scope => [:views, :pages])
   end
 
   def link_to_show(*args, &block)
@@ -16,17 +16,44 @@ module ApplicationHelper
   end
 
   def link_to_new(class_or_name, *args, &block)
-    link_to(model_name(class_or_name) + I18n.t(:new, :scope => [:views, :links]), *args, &block)
+    link_to(model_class_name(class_or_name) + I18n.t(:new, :scope => [:views, :links]), *args, &block)
   end
 
   def link_to_back_list(*args, &block)
     link_to(I18n.t(:back_list, :scope => [:views, :links]), *args, &block)
   end
 
+  def link_to_list(class_or_name, *args, &block)
+    str = model_class_name(class_or_name) + I18n.t(:list, :scope => [:views, :pages])
+    link_to(str, *args, &block)
+  end
+
+  def link_to_model(model, *args, &block)
+    s = model_name(model)
+    case model
+    when Tengine::Core::Event then link_to(s, tengine_core_event_path(model))
+    when Tengine::Core::Driver then link_to(s, tengine_core_driver_path(model))
+    when Tengine::Core::Handler then link_to(s, tengine_core_driver_handler_path(model.driver, model))
+    when Tengine::Core::Session then link_to(s, tengine_core_session_path(model))
+    when Tengine::Core::HandlerPath then link_to(s, tengine_core_handler_path(model))
+    end
+  end
+
+
   private
-  def model_name(class_or_name)
+  def model_class_name(class_or_name)
     class_or_name.respond_to?(:human_name) ?
       class_or_name.human_name : class_or_name
+  end
+
+  def model_name(model)
+    case model
+    when Tengine::Core::Event then "%s@%s[%s]" % [model.event_type_name, model.source_name, model.iso8601]
+    when Tengine::Core::Driver then model.name
+    when Tengine::Core::Handler then "%s<%s>" % [model.driver.name, model.event_type_names.join(",")]
+    when Tengine::Core::Session then "%s:session" % model.driver.name
+    when Tengine::Core::HandlerPath then "%s->%s" % [model.event_type_name, model.driver.name]
+    end
   end
 
   def args_for_nested_path(*args)

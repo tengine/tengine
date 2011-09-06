@@ -1,3 +1,8 @@
+<br/>
+<%= link_to_list Tengine::Core::Driver, tengine_core_drivers_path %> &gt;
+<%= link_to_model @driver %> &gt;
+<%= link_to_list Tengine::Core::Handler, tengine_core_driver_handlers_path(@driver) %> &gt;
+
 <h1><%= page_title Tengine::Core::Handler, :new %></h1>
 
 <%= render 'form' %>

@@ -22,6 +22,8 @@
   <%= @driver.enabled_on_activation %>
 </p>
 
+<%= link_to_list Tengine::Core::Handler, tengine_core_driver_handlers_path(@driver) %> |
+<%= link_to_model @driver.session %> |
 
 <%= link_to_edit edit_tengine_core_driver_path(@driver) %> |
 <%= link_to_back_list tengine_core_drivers_path %>

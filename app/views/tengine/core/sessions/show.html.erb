@@ -3,6 +3,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <b><%= Tengine::Core::Session.human_attribute_name(:driver) %>:</b>
+  <%= link_to_model @session.driver %>
+</p>
+
+<p>
   <b><%= Tengine::Core::Session.human_attribute_name(:properties) %>:</b>
   <pre><%= @session.properties_yaml %></pre>
 </p>
