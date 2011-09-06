@@ -1462,4 +1462,81 @@
 
 
   シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント通知画面でイベントを通知確認済みに変更できない_Tengineコンソールが途中で停止した
+    #
+    # イベント通知画面を表示後にTengineコンソールが落ちたため、イベントを通知確認済みに変更できない
+    #
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver01  |有効|
+
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
+    かつ "発火"ボタンをクリックする
+    ならば "event_fire_status"に"event01を発火しました"と表示されていること
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "編集"ボタンをクリックする
+    ならば "イベント編集画面"が表示されていること
+
+    # 異常を発生させるためTengineコンソールのプロセスを停止する
+    もし "Tengineコンソール"を Ctl+c で停止する
+    ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    # Tengineコンソールが落ちているので、タイムアウトエラーになる
+    もし "通知確認済み"をチェックする
+    かつ "更新"ボタンをクリックする
+    ならば "イベント参照画面"が表示されていないこと
+    かつ "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    # Tengineコンソールを復旧する
+    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "編集"ボタンをクリックする
+    ならば "イベント編集画面"が表示されていること
+
+    もし "通知確認済み"をチェックする
+    かつ "更新"ボタンをクリックする
+    ならば "イベント参照画面"が表示されていること
+
+    かつ "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+
+    もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
+    ならば "event_process.log"に"handler01"と表示されていること
+
+    もし "Tengineコアプロセス"を Ctl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+    もし "Tengineコンソールプロセス"を Ctl+c で停止する
+    ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+
   シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント通知画面でイベントを通知確認済みに変更できない_DBが途中で停止した
