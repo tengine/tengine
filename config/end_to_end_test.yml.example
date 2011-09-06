@@ -1,0 +1,6 @@
+# Tengineコンソール
+tengine_console:
+  # エンドツーエンドでアクセスするTengineコンソールのホスト名
+  host: "http://localhost" 
+  # エンドツーエンドでアクセスするTengineコンソールのポート番号
+  port: 3000 
