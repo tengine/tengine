@@ -37,11 +37,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -76,11 +76,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event00"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event00"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -117,14 +117,14 @@
 
     # イベント発火画面で未入力状態で発火を試みる
     もし "発火"ボタンをクリックする
-    ならば "event_fire_status"に"event_type_nameを入力してください"と表示されていること
+    ならば "event_fire_status"に"種別名を入力してください"と表示されていること
 
     # きちんと入力してイベント発火を試みる
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -163,11 +163,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event02_1"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event02_1"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event02_1を発火しました"と表示されていること
 
@@ -208,11 +208,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event03"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event03"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event03を発火しました"と表示されていること
 
@@ -252,11 +252,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event02"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event02"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event04を発火しました"と表示されていること
 
@@ -291,11 +291,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event04"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event04"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event04を発火しました"と表示されていること
 
@@ -357,11 +357,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -427,11 +427,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -498,11 +498,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -585,11 +585,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -659,11 +659,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -716,11 +716,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -759,11 +759,11 @@
     もし キューを停止する
     ならば キューが停止していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"キューへの接続に失敗しました"と表示されていること
 
@@ -774,11 +774,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -817,11 +817,11 @@
     もし イベントキューを削除する
     ならば イベントキューを削除していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"イベントキューが存在しません"と表示されていること
 
@@ -841,11 +841,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -884,11 +884,11 @@
     もし イベントキューをアンバインドする
     ならば イベントキューをアンバインドしていること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -908,11 +908,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -951,11 +951,11 @@
     もし イベントエクスチェンジを削除する
     ならば イベントエクスチェンジを削除していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"イベントエクスチェンジが存在しません"と表示されていること
 
@@ -975,11 +975,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -1018,11 +1018,11 @@
     もし "Tengineコンソールプロセス"を Ctl+c で停止する
     ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
     ならば "railsのログ"に"プロセスが停止したログ"が含まれていること
@@ -1035,11 +1035,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -1078,11 +1078,11 @@
     もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
     ならば DBが停止していることを"ps -eo pid PID"で確認できること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -1137,11 +1137,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
     もし "イベント通知画面"を表示する
@@ -1175,11 +1175,11 @@
     ならば DBが停止していることを"ps -eo pid PID"で確認できること
 
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -1233,11 +1233,11 @@
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -1282,11 +1282,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event00"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event00"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -1321,11 +1321,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event02_1"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event02_1"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event02_1を発火しました"と表示されていること
 
@@ -1377,11 +1377,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event03"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event03"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event03を発火しました"と表示されていること
 
@@ -1428,11 +1428,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
@@ -1509,11 +1509,11 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "event_type_name"に"event01"と入力する
-    かつ "source_name"に"tengine_console"と入力する
-    かつ "occurred_at"に"2011/09/01 12:00:00"と入力する
-    かつ "notification_level"から"info"を選択する
-    かつ "sender_name"に"tengine_console"と入力する
+    もし "種別名"に"event01"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
     ならば "event_fire_status"に"event01を発火しました"と表示されていること
 
