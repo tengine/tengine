@@ -12,5 +12,8 @@ When /^I delete the (\d+)(?:st|nd|rd|th) driver$/ do |pos|
 end
 
 Then /^I should see the following drivers:$/ do |expected_drivers_table|
-  expected_drivers_table.diff!(tableish('table tr', 'td,th'))
+  expected_column_size = expected_drivers_table.rows.first.length
+  actual = tableish('table tr', 'td,th')
+  actual = actual.map{|row| row[0, expected_column_size]}
+  expected_drivers_table.diff!(actual)
 end

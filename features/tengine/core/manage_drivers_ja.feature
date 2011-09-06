@@ -26,7 +26,7 @@
       |name 4|version 4|true|
     もし "ドライバ一覧画面"で3番目のドライバを削除する
     ならば 以下のドライバsの一覧が表示されること
-      |名称|バージョン|有効|
-      |name 1|version 1|false|
-      |name 2|version 2|true|
-      |name 4|version 4|true|
+      |名称|バージョン|有効|起動時有効|
+      |name 1|version 1|false| |
+      |name 2|version 2|true| |
+      |name 4|version 4|true| |
