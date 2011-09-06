@@ -395,11 +395,10 @@
     もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
     ならば DBが停止していることを"ps -eo pid PID"で確認できること
 
-    # DBが落ちるのと同時にTengineコンソールが落ちているので、404エラーになる
+    # DBが落ちているので、500エラーになる
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していないこと
-    かつ "404"と表示されていること
-    かつ "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "Mongo::ConnectionFailure"と表示されていること
 
     もし "プロセスログ"を表示する
     ならば "プロセスログ"に"DBが終了しました"と表示していること
@@ -413,11 +412,6 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
-
-    # Tengineコンソール起動
-    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
-    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
-    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
@@ -542,11 +536,10 @@
     もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
     ならば DBが停止していることを"ps -eo pid PID"で確認できること
 
-    # DBが落ちるのと同時にTengineコンソールが落ちているので、404エラーになる
+    # DBが落ちているので、500エラーになる
     もし "無効ボタン"をクリックする
     ならば "イベントドライバ一覧画面"を表示されていないこと
-    かつ "404"と表示されていること
-    かつ "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "Mongo::ConnectionFailure"と表示されていること
 
     # Tengineコアプロセスも落ちている
     もし "プロセスログ"を表示する
@@ -561,11 +554,6 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
-
-    # Tengineコンソール起動
-    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
-    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
-    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
@@ -1403,11 +1391,10 @@
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
-    # DBが落ちるのと同時にTengineコンソールが落ちているので、404エラーになる
+    # DBが落ちているので、500エラーになる
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していないこと
-    かつ "404"と表示されていること
-    かつ "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "Mongo::ConnectionFailure"と表示されていること
 
     もし "プロセスログ"を表示する
     ならば "プロセスログ"に"DBが終了しました"と表示していること
@@ -1421,11 +1408,6 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
-
-    # Tengineコンソール起動
-    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
-    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
-    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
@@ -1447,10 +1429,10 @@
     もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
     ならば DBが停止していることを"ps -eo pid PID"で確認できること
 
+    # DBが落ちているので、500エラーになる
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していないこと
-    かつ "404"と表示されていること
-    かつ "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "Mongo::ConnectionFailure"と表示されていること
 
     もし "プロセスログ"を表示する
     ならば "プロセスログ"に"DBが終了しました"と表示していること
@@ -1464,11 +1446,6 @@
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
-
-    # Tengineコンソール起動
-    もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
-    ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
-    かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
