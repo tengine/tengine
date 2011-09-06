@@ -17,6 +17,7 @@ ja:
         notification_confirmed: "通知確認済み"
         sender_name: "送信者名"
         properties: "付加情報"
+        properties_yaml: "付加情報(YAML形式)"
       tengine/core/driver:
         name: "名称"
         version: "バージョン"
@@ -27,11 +28,14 @@ ja:
         handler_paths: "ハンドラパス"
       tengine/core/handler:
         event_type_names: "対象種別名群"
+        event_type_names_text: "対象種別名群(改行区切り)"
         driver: "ドライバ"
       tengine/core/handler_path:
         event_type_name: "種別名"
         handler_id: "ハンドラID"
         driver: "ドライバ"
+        driver_id: "ドライバ"
       tengine/core/session:
         properties: "付加情報"
+        properties_yaml: "付加情報(YAML形式)"
         driver: "ドライバ"
