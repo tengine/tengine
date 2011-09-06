@@ -10,7 +10,4 @@ Tengine.driver :driver01 do
 
 end
 
-a = 0
-if a == 0
-  puts 'a is zero'
-#end # ブロック外のSyntaxError
+raise StandardError, "StandardError out of EventDriver" # ブロック外のStandardError
