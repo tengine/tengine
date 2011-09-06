@@ -400,8 +400,8 @@
     ならば "イベントドライバ一覧画面"を表示していないこと
     かつ "Mongo::ConnectionFailure"と表示されていること
 
-    もし "プロセスログ"を表示する
-    ならば "プロセスログ"に"DBが終了しました"と表示していること
+    もし "Tengineコアプロセスログ"を表示する
+    ならば "Tengineコアプロセスログ"に"Mongo::ConnectionFailure"と表示していること
     かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
     # DBの起動
@@ -542,8 +542,8 @@
     かつ "Mongo::ConnectionFailure"と表示されていること
 
     # Tengineコアプロセスも落ちている
-    もし "プロセスログ"を表示する
-    ならば "プロセスログ"に"DBが終了しました"と表示していること
+    もし "Tengineコアプロセスログ"を表示する
+    ならば "Tengineコアプロセスログ"に"Mongo::ConnectionFailure"と表示していること
     かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
     # DBの起動
@@ -1007,8 +1007,9 @@
     もし Tengineコアプロセスのイベント処理ログ:"event_process.log"を表示する
     ならば "event_process.log"に"handler01"と表示されていないこと
 
-    もし "プロセスログ"を表示する
-    ならば "プロセスログ"に"DBが終了しました"と表示していること
+    もし "Tengineコアプロセスログ"を表示する
+    ならば "Tengineコアプロセスログ"に"Mongo::ConnectionFailure"と表示していること
+    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
     # 復旧させるためにDBの起動、Tengineの起動して処理を再度行う
     もし DBを起動するために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
@@ -1063,7 +1064,7 @@
     かつ "Tengineユーザグループ、またはTengineサポート窓口に問い合わせを行ってください。"と表示されていること
 
     #(保留)
-    もし "プロセスログ"を表示する
+    もし "Tengineコアプロセスログ"を表示する
     ならば "Tengineコアプロセス"の標準出力に"異常終了しました"と表示していること
 
 
@@ -1396,8 +1397,8 @@
     ならば "イベントドライバ一覧画面"を表示していないこと
     かつ "Mongo::ConnectionFailure"と表示されていること
 
-    もし "プロセスログ"を表示する
-    ならば "プロセスログ"に"DBが終了しました"と表示していること
+    もし "Tengineコアプロセスログ"を表示する
+    ならば "Tengineコアプロセスログ"に"Mongo::ConnectionFailure"と表示していること
     かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
     # DBの起動
@@ -1434,8 +1435,8 @@
     ならば "イベント通知画面"を表示していないこと
     かつ "Mongo::ConnectionFailure"と表示されていること
 
-    もし "プロセスログ"を表示する
-    ならば "プロセスログ"に"DBが終了しました"と表示していること
+    もし "Tengineコアプロセスログ"を表示する
+    ならば "Tengineコアプロセスログ"に"Mongo::ConnectionFailure"と表示していること
     かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
     # DBの起動
