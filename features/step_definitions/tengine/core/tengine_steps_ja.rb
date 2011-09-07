@@ -58,6 +58,11 @@ end
   @h[name] = {:io => io, :stdout => []}
 end
 
+もし /^"([^"]*)"の停止を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
+  puts "command:#{command}"
+  `#{command}`
+end
+
 ならば /^"([^"]*)"の標準出力に"([^"]*)"と出力されていること$/ do |name, word|
 
   # 既に表示されていないか
@@ -132,6 +137,27 @@ end
       sleep 1
     end
   end
+end
+
+ならば /^"([^"]*)"が停止していること$/ do |name|
+  result = ""
+  if name == "DBプロセス"
+    result = system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
+  elsif name == "キュープロセス"
+    result = system('ps aux | grep -v grep | grep -e rabbitmq')
+  elsif name == "Tengineコアプロセス"
+    # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
+    # 例：tmp/tengine_pids/tengine.0.3948
+    # ファイルの中はpidが記述されている
+    pids = IO.popen("cat tmp/tengine_pids/tengine.*").to_a
+    pids.each do |pid|
+      result = system('ps -eo pid #{pid}}')
+    end
+  elsif name == "Tengineコンソールプロセス"
+    result = system('ps -eo pid | grep `cat tmp/pids/server.pid`')
+  end
+  # systemメソッドの戻り値が空であることで停止を判断する
+  result.should be_empty
 end
 
 もし /^"([^"]*)"を Ctrl\+c で停止する$/ do |name|

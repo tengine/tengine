@@ -43,7 +43,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -82,7 +82,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -121,7 +121,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -169,7 +169,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc02_fire_another_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -214,7 +214,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc03_2handlers_for_1event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -258,7 +258,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc04_unless_the_event_occurs.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -297,7 +297,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc04_unless_the_event_occurs.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -348,7 +348,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     # 異常を発生させるためTengineコンソールのプロセスを停止する
@@ -404,12 +404,12 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     # 異常を発生させるためDBを停止する
-    もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
-    ならば "DBプロセスが"停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+    もし "DBプロセス"の停止を行うために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js"というコマンドを実行する
+    ならば "DBプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     # DBが落ちているので、500エラーになる
     もし "イベントドライバ一覧画面"を表示する
@@ -464,7 +464,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -534,7 +534,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -543,11 +543,11 @@
     |  driver01  |有効|
 
     # 異常を発生させるためDBを停止する
-    もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
-    ならば "DBプロセスが"停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+    もし "DBプロセス"の停止を行うために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js"というコマンドを実行する
+    ならば "DBプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     # DBが落ちているので、500エラーになる
-    もし "無効ボタン"をクリックする
+    もし "無効"ボタンをクリックする
     ならば "イベントドライバ一覧画面"を表示されていないこと
     かつ "データベースの接続に失敗しました"と表示されていること
     # "Mongo::ConnectionFailure" が発生
@@ -609,7 +609,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -662,7 +662,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -686,7 +686,7 @@
     ならば "キューへの接続に失敗しました"と表示されていること
 
     # 復旧させるためにキューを起動する
-    もし キューを起動する
+    もし "キュープロセス"の起動を行うために"rabbitmq-server -detached"というコマンドを実行する
     ならば キューが起動していること
 
     もし "イベント発火画面"を表示する
@@ -720,7 +720,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -744,11 +744,11 @@
     ならば "イベントキューが存在しません"と表示されていること
 
     # 復旧させるためにコアプロセスを停止し、起動する
-    もし "Tengineコア"を Ctrl+c で停止する
-    ならば "Tengineコア"のプロセスが停止していること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -787,7 +787,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -811,11 +811,11 @@
     ならば "イベントキューが存在しません"と表示されていること
 
     # 復旧させるためにコアプロセスを停止し、起動する
-    もし "Tengineコア"を Ctrl+c で停止する
-    ならば "Tengineコア"のプロセスが停止していること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -854,7 +854,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -878,11 +878,11 @@
     ならば "イベントエクスチェンジが存在しません"と表示されていること
 
     # 復旧させるためにコアプロセスを停止し、起動する
-    もし "Tengineコア"を Ctrl+c で停止する
-    ならば "Tengineコア"のプロセスが停止していること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -921,7 +921,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -981,7 +981,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -993,8 +993,8 @@
     ならば "イベント発火画面"を表示していること
 
     # 異常を発生させるためDBを停止する
-    もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
-    ならば "DBプロセスが"停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+    もし "DBプロセス"の停止を行うために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js"というコマンドを実行する
+    ならば "DBプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "種別名"に"event01"と入力する
     かつ "発生源名"に"tengine_console"と入力する
@@ -1023,7 +1023,7 @@
     # Tengineコンソールプロセスは停止していないので起動は行わない
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベント通知画面"を表示する
@@ -1048,7 +1048,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -1081,7 +1081,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -1093,8 +1093,8 @@
     ならば "イベント発火画面"を表示していること
 
     # 異常を発生させるためDB停止する
-    もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
-    ならば "DBプロセスが"停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+    もし "DBプロセス"の停止を行うために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js"というコマンドを実行する
+    ならば "DBプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "種別名"に"event01"と入力する
     かつ "発生源名"に"tengine_console"と入力する
@@ -1116,7 +1116,7 @@
     ならば "DBプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベント通知画面"を表示する
@@ -1139,7 +1139,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -1170,7 +1170,7 @@
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていないこと
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベント通知画面"を表示する
@@ -1192,7 +1192,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -1231,7 +1231,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc02_fire_another_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -1252,8 +1252,8 @@
 
     # 自動でテストを行う為には、イベントハンドラ定義を修正して、fireする直前にキューを落とすよう修正する必要があると思われます
     もし イベントを受信してから、event02_1で起動するイベントハンドラのputsを実行するまでにイベントキューを落とす
-    ならば キューが停止する
-    ならば "Tengineコアプロセス"の標準出力に"キューとの接続が切断されました"と出力されていること
+    ならば キューが停止していること
+    かつ "Tengineコアプロセス"の標準出力に"キューとの接続が切断されました"と出力されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
@@ -1262,8 +1262,8 @@
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler02_1"と表示されていること
 
-    もし キューを起動する
-    ならば キューがしていることを確認できること
+    もし "キュープロセス"の起動を行うために"rabbitmq-server -detached"というコマンドを実行する
+    ならば "キュープロセス"が起動していることを確認できること
     かつ "Tengineコアプロセス"の標準出力に"キューと接続しました"と出力されていること
 
     もし "イベント通知画面"を表示する
@@ -1287,7 +1287,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc03_2handlers_for_1event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -1336,7 +1336,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -1392,7 +1392,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -1412,8 +1412,8 @@
     ならば "event01を発火しました"と表示されていること
 
     # 異常を発生させるためDBを停止する
-    もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
-    ならば "DBプロセスが"停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+    もし "DBプロセス"の停止を行うために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js"というコマンドを実行する
+    ならば "DBプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     # DBが落ちているので、500エラーになる
     もし "イベント通知画面"を表示する
@@ -1452,7 +1452,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -1524,7 +1524,7 @@
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認することができること
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -1548,8 +1548,8 @@
     ならば "イベント編集画面"が表示されていること
 
     # 異常を発生させるためDBを停止する
-    もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
-    ならば "DBプロセスが"停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+    もし "DBプロセス"の停止を行うために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js"というコマンドを実行する
+    ならば "DBプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     # DBが落ちているので、500エラーになる
     もし "通知確認済み"をチェックする
