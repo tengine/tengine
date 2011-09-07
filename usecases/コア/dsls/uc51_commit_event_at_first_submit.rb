@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 require 'tengine/core'
 
-# カーネルはイベントfoo51を受け取ったらDBに保存。
+# カーネルはイベントevent51を受け取ったらDBに保存。
 # 対応するハンドラを実行して最初にsubmitされたときにACKを返す。
-Tengine.commit_event(:at_first_submit, :foo51)
+Tengine.ack_policy(:at_first_submit, :event51)
 
 Tengine.driver :driver51_1 do
   # 最初に実行されるハンドラではsubmitしないので、ACKされない

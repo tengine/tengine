@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 require 'tengine/core'
 
-# カーネルはイベントfoo52を受け取ったらDBに保存。
+# カーネルはイベントevent52を受け取ったらDBに保存。
 # 対応するハンドラ群をすべて実行してすべてsubmitしたらACKを返す。
-Tengine.commit_event(:at_first_submit, :foo52)
+Tengine.ack_policy(:at_first_submit, :event52)
 
 Tengine.driver :driver52_1 do
   on:event52 do
