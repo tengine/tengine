@@ -5,42 +5,51 @@
   は [いろいろなパターンのイベントハンドラ定義を登録] したい
   {アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる}のNo.72-84までの基本コースと代替コースを確認するためのテストである
   テスト中に使用しているファイル、ディレクトリの構成は以下のとおり
-  ./features/usecases/コア/dsls/try_dsl
-  ├── dir_1
-  │   ├── dir_2
-  │   │   └── dsl_a.rb             driver_a(event_a -> handler_a)
-  │   ├── dir_3
-  │   ├── dir_4
-  │   │   └── dir_5
-  │   │       └── dsl_b.rb         driver_b(event_b -> handler_b)
-  │   ├── dir_sym -> dir_6
-  │   ├── dsl_c.rb                  driver_c(event_c -> handler_c)
-  │   └── dsl_sym.rb -> dsl_e.rb
-  ├── dir_6
-  │   └── dsl_d.rb                  driver_d(event_d -> handler_d)
-  ├── dsl_e.rb                       driver_e(event_e -> handler_e)
-  ├── dir_7
-  │   ├── dsl_f_unreadable.rb       driver_f(event_f -> handler_f)
-  │   └── dsl_g.rb                  driver_g(event_g -> handler_g)
-  ├── dir_8
-  │   ├── dir_9_unreadable
-  │   │   └── dsl_h.rb             driver_h(event_h -> handler_h)
-  │   └── dir_10 
-  │   │   └── dsl_i.rb             driver_i(event_i -> handler_i)
-  ├── dir_11
-  │   ├── dir_12_unreadable
-  │   │   └── dsl_j.rb             driver_j(event_j -> handler_j)
-  │   ├── dir_13
-  │   │   └── dsl_k.rb             driver_k(event_k -> handler_k)
-  │   ├── dir_14
-  │   │   └── dsl_l_unreadable.rb  driver_l(event_l -> handler_l)
-  │   ├── dsl_m.rb                  driver_m(event_m -> handler_m)
-  │   └── dsl_n_unreadable.rb       driver_n(event_n -> handler_n)
-  ├── error_in_event_driver.rb
-  ├── error_not_in_event_driver.rb
-  ├── error_on_execute.rb
-  ├── no_event_driver.rb
-  └── no_event_handler.rb
+  ./features/usecases/コア/dsls/
+  ├── try_dsl
+  │   ├── dir_1
+  │   │   ├── dir_2
+  │   │   │   └── dsl_a.rb
+  │   │   ├── dir_4
+  │   │   │   └── dir_5
+  │   │   │       └── dsl_b.rb
+  │   │   ├── dir_sym -> dir_6
+  │   │   ├── dsl_c.rb
+  │   │   └── dsl_sym.rb -> dsl_e.rb
+  │   ├── dir_11
+  │   │   ├── dir_12_unreadable
+  │   │   │   └── dsl_j.rb
+  │   │   ├── dir_13
+  │   │   │   └── dsl_k.rb
+  │   │   ├── dir_14
+  │   │   │   └── dsl_l_unreadable.rb
+  │   │   ├── dsl_m_unreadable.rb
+  │   │   └── dsl_n.rb
+  │   ├── dir_6
+  │   │   └── dsl_d.rb
+  │   ├── dir_7
+  │   │   ├── dsl_f_unreadable.rb
+  │   │   └── dsl_g.rb
+  │   ├── dir_8
+  │   │   ├── dir_10
+  │   │   │   └── dsl_i.rb
+  │   │   └── dir_9_unreadable
+  │   │       └── dsl_h.rb
+  │   ├── dsl_e.rb
+  │   ├── error_in_event_driver.rb
+  │   ├── error_not_in_event_driver.rb
+  │   ├── error_on_execute.rb
+  │   ├── no_event_driver.rb
+  │   ├── no_event_handler.rb
+  │   └── syntax_error.rb
+  ├── uc50_commit_event_at_first.rb
+  ├── uc51_commit_event_at_first_submit.rb
+  ├── uc52_commit_event_after_all_handler_submit.rb
+  ├── uc53_submit_outside_of_handler.rb
+  ├── uc60_event_in_handler.rb
+  ├── uc61_event_outside_of_handler.rb
+  ├── uc62_session_in_driver.rb
+  └── uc63_session_outside_of_driver.rb
 
 
   背景:
@@ -66,7 +75,7 @@
     |  driver_a  |有効|
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
-		ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     
   シナリオ: [正常系]アプリケーション開発者がディレクトリを指定してTengineコアを起動する
@@ -165,6 +174,49 @@
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+
+    
+  シナリオ:  [正常系]イベントを受け取ったらすぐにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
+    前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc50_commit_event_at_first.rb"が存在すること
+
+    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/uc50_commit_event_at_first.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行の表示がされていること
+    |  driver50  |有効|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "種別名"に"event50"と入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "通知レベル"から"info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
+    かつ "発火"ボタンをクリックする
+    ならば "event50を発火しました"と表示されていること
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"に以下の行が表示されること
+    |EVENT_ID|event50|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
+
+    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler50"と表示されていること
+
+		# TODO:queueの状態の確認方法
+
+    もし "Tengineコアプロセス"を Ctl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+
+
+
+
+
 
 
   シナリオ: [正常系]アプリケーション開発者が存在しないイベントハンドラ定義ファイルを指定してTengineコアを起動する
