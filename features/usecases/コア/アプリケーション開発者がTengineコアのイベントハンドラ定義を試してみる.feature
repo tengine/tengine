@@ -1369,9 +1369,9 @@
     もし "Tengineコンソール"を Ctl+c で停止する
     ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
+    # Tengineコンソールが落ちているので、タイムアウトエラーになる
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していないこと
-    かつ "404"と表示されていること
     かつ "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
     # Tengineコンソールを復旧する
@@ -1402,24 +1402,6 @@
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
-
-    # DBが落ちているので、500エラーになる
-    もし "イベントドライバ一覧画面"を表示する
-    ならば "イベントドライバ一覧画面"を表示していないこと
-    かつ "Mongo::ConnectionFailure"と表示されていること
-
-    もし "Tengineコアプロセスのプロセスログファイル"を表示する
-    ならば "Tengineコアプロセスのプロセスログファイル"に"Mongo::ConnectionFailure"と表示していること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
-
-    # DBの起動
-    もし DBを起動するために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
-    ならば DBが起動していることを"ps -eo pid PID"で確認できること
-
-    # Tengineコアプロセス起動
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
