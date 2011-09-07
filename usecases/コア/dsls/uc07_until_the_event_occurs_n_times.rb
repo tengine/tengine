@@ -7,7 +7,7 @@ Tengine.driver :driver07 do
   #
   # 5回より少なく(5回目はハンドリングしない)
   on :event07.fewer_than(5).times do
-    puts "handler07"
+    puts "#{event.id}:handler07"
   end
 
 end

@@ -5,7 +5,7 @@ Tengine.driver :driver01 do
 
   # イベントに対応する処理の実行する
   on:event01 do
-    puts "handler01"
+    puts "#{event.id}:handler01"
   end
 
 end

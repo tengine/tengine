@@ -19,6 +19,20 @@
     かつ "./feature/event_handler_def/uc03_2handlers_for_1event.rb"というファイルが存在する
     かつ "./feature/event_handler_def/uc04_unless_the_event_occurs.rb"というファイルが存在する
 
+# 検証で使用するイベントハンドラ定義ファイルでは、以下のようにイベントIDを加えた文言を出力する
+# # -*- coding: utf-8 -*-
+# require 'tengine/core'
+# 
+# Tengine.driver :driver01 do
+# 
+#   # イベントに対応する処理の実行する
+#   on:event01 do
+#     puts "#{event.id}:handler01"
+#   end
+# 
+# end
+
+
 #
 # イベントに対応する処理の実行するシナリオ
 # ./feature/event_handler_def/uc01_execute_processing_for_event.rb
@@ -46,15 +60,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -86,15 +99,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event00|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event00|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていないこと
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていないこと
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -131,15 +143,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -175,17 +186,16 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event02_1を発火しました"と表示されていること
+    ならば "event02_1を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event02_1|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
-    |xxxxxxxxxxxx|event02_2|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event02_1|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event02_2|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler02_1"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"handler02_2"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler02_1"と表示されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler02_2"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -221,16 +231,15 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event03を発火しました"と表示されていること
+    ならば "event03を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event03|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event03|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler03_1"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"handler03_2"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler03_1"と表示されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler03_2"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -266,15 +275,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event04を発火しました"と表示されていること
+    ならば "event04を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event02|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event02|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler04"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler04"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -306,15 +314,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event04を発火しました"と表示されていること
+    ならば "event04を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event04|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event04|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler04"と表示されていないこと
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler04"と表示されていないこと
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -372,15 +379,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -437,15 +443,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -509,16 +514,15 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
-
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
+ 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
@@ -590,15 +594,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -647,15 +650,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -706,15 +708,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -774,15 +775,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -842,15 +842,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -910,15 +909,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -954,7 +952,7 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
     ならば "railsのログ"に"プロセスが停止したログ"が含まれていること
 
     # 復旧させるためにTengineコンソールのプロセスを再度起動して処理を再度行う
@@ -971,15 +969,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -1015,15 +1012,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されていないこと
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていないこと
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていないこと
 
     もし "Tengineコアプロセスのプロセスログファイル"を表示する
     ならば "Tengineコアプロセスのプロセスログファイル"に"Mongo::ConnectionFailure"と表示していること
@@ -1039,11 +1035,10 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -1077,7 +1072,7 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     かつ "Tengineユーザグループ、またはTengineサポート窓口に問い合わせを行ってください。"と表示されていること
@@ -1115,15 +1110,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されていないこと
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていないこと
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていないこと
 
     # 復旧させるためにDBの起動、Tengineの起動して処理を再度行う
     もし DBを起動するために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
@@ -1135,11 +1129,10 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -1175,15 +1168,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されていないこと
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていないこと
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていないこと
 
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
@@ -1191,11 +1183,10 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -1226,15 +1217,14 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event00|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event00|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていないこと
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていないこと
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -1266,7 +1256,7 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event02_1を発火しました"と表示されていること
+    ならば "event02_1を発火しました"と表示されていること
 
     # 自動でテストを行う為には、イベントハンドラ定義を修正して、fireする直前にキューを落とすよう修正する必要があると思われます
     もし イベントを受信してから、event02_1で起動するイベントハンドラのputsを実行するまでにイベントキューを落とす
@@ -1275,11 +1265,10 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event02_1|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event02_1|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler02_1"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler02_1"と表示されていること
 
     もし キューを起動する
     ならば キューがしていることを確認できること
@@ -1287,12 +1276,11 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event02_1|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
-    |xxxxxxxxxxxx|event02_2|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event02_1|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event02_2|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"handler02_2"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler02_2"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -1324,16 +1312,15 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event03を発火しました"と表示されていること
+    ならば "event03を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event03|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event03|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler03_1"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"handler03_2"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler03_1"と表示されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler03_2"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -1376,7 +1363,7 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     # 異常を発生させるためTengineコンソールのプロセスを停止する
     もし "Tengineコンソール"を Ctl+c で停止する
@@ -1394,11 +1381,10 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -1452,7 +1438,7 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     # 異常を発生させるためDBを停止する
     もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
@@ -1478,11 +1464,10 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -1514,11 +1499,11 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -1543,7 +1528,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -1557,11 +1542,10 @@
 
     かつ "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -1594,11 +1578,11 @@
     かつ "通知レベル"から"info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "発火"ボタンをクリックする
-    ならば "ID:event01を発火しました"と表示されていること
+    ならば "event01を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -1632,7 +1616,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -1646,11 +1630,10 @@
 
     かつ "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |xxxxxxxxxxxx|event01|xxxxxxxxxxxx|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |EVENT_ID|event01|EVENT_KEY|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"handler01"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"ID"と表示されていること
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"EVENT_ID:handler01"と表示されていること
 
     もし "Tengineコアプロセス"を Ctl+c で停止する
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
