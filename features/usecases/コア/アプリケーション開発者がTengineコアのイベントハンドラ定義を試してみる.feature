@@ -6,18 +6,18 @@
   {アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる}のユースケースのうち、No.5,6,7を確認するためのテストである
 
   背景:
-    前提 DBパッケージのインストールおよびセットアップが完了している
-    かつ キューパッケージのインストールおよびセットアップが完了している
-    かつ Tengineコアパッケージのインストールおよびセットアップが完了している
-    かつ Tengineコンソールパッケージのインストールおよびセットアップが完了している
-    かつ DBプロセスがコマンド"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"で起動している
-    かつ キュープロセスが起動している
-    かつ Tengineコアのプロセスが停止している
-    かつ Tengineコンソールのプロセスが停止している
-    かつ "./feature/event_handler_def/uc01_execute_processing_for_event.rb"というファイルが存在する
-    かつ "./feature/event_handler_def/uc02_fire_another_event.rb"というファイルが存在する
-    かつ "./feature/event_handler_def/uc03_2handlers_for_1event.rb"というファイルが存在する
-    かつ "./feature/event_handler_def/uc04_unless_the_event_occurs.rb"というファイルが存在する
+    前提 "DBパッケージ"のインストールおよびセットアップが完了している
+    かつ "キューパッケージ"のインストールおよびセットアップが完了している
+    かつ "Tengineコアパッケージ"のインストールおよびセットアップが完了している
+    かつ "Tengineコンソールパッケージ"のインストールおよびセットアップが完了している
+    かつ "DBプロセス"が起動している
+    かつ "キュープロセス"が起動している
+    かつ "Tengineコアプロセス"が停止している
+    かつ "Tengineコンソールプロセス"が停止している
+    かつ ファイル"./feature/event_handler_def/uc01_execute_processing_for_event.rb"が存在すること
+    かつ ファイル"./feature/event_handler_def/uc02_fire_another_event.rb"が存在すること
+    かつ ファイル"./feature/event_handler_def/uc03_2handlers_for_1event.rb"が存在すること
+    かつ ファイル"./feature/event_handler_def/uc04_unless_the_event_occurs.rb"が存在すること
 
 # 検証で使用するイベントハンドラ定義ファイルでは、以下のようにイベントのKEYを加えた文言を出力する
 # # -*- coding: utf-8 -*-
