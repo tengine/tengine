@@ -124,6 +124,27 @@ end
   end
 end
 
+ならば /^"([^"]*)"が起動していること$/ do |name|
+  result = ""
+  if name == "DBプロセス"
+    result = system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
+  elsif name == "キュープロセス"
+    result = system('ps aux | grep -v grep | grep -e rabbitmq')
+  elsif name == "Tengineコアプロセス"
+    # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
+    # 例：tmp/tengine_pids/tengine.0.3948
+    # ファイルの中はpidが記述されている
+    pids = IO.popen("cat tmp/tengine_pids/tengine.*").to_a
+    pids.each do |pid|
+      result = system('ps -eo pid #{pid}}')
+    end
+  elsif name == "Tengineコンソールプロセス"
+    result = system('ps -eo pid | grep `cat tmp/pids/server.pid`')
+  end
+  # systemメソッドの戻り値が空でないことで起動を判断する
+  result.should_not be_empty
+end
+
 ならば /^"([^"]*)"が停止していることをPIDを用いて"([^"]*)"というコマンドで確認できること$/ do |name,  command|
   pid = @h[name][:pid]
   # cucumberからのテストでforkしたプロセスは、killされた場合にゾンビプロセスが残ってしまうので
