@@ -47,14 +47,14 @@ end
 もし /^"([^"]*)"を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
   puts "command:#{command}"
   io = IO.popen(command)
-  @h = {} 
+  @h = {}
   @h[name] = {:io => io, :stdout => []}
 end
 
 もし /^"([^"]*)"の起動を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
   puts "command:#{command}"
   io = IO.popen(command)
-  @h = {} 
+  @h = {}
   @h[name] = {:io => io, :stdout => []}
 end
 
@@ -94,9 +94,9 @@ end
     pid_regexp = /PID:(\d+)/
   elsif name == "Tengineコンソールプロセス"
     pid_regexp = /pid=(\d+)/
-  end 
+  end
 
-  time_out(5) { 
+  time_out(5) {
     while line = @h[name][:io].gets
       @h[name][:stdout] << line
       if line.match(pid_regexp) then
@@ -106,7 +106,11 @@ end
       end
     end
   }
+end
 
+ならば /^"([^"]*)"のPIDファイル"([^"]*)"からPIDを確認できること$/ do |name, file_path|
+  @h[name][:pid] = `cat #{file_path}`.chomp
+  @h[name][:pid].should_not be_empty
 end
 
 ならば /^"([^"]*)"が起動していることをPIDを用いて"([^"]*)"というコマンドで確認できること$/ do |name,  command|
@@ -118,7 +122,7 @@ end
   puts "start confirm command: #{exec_command}"
   time_out(5) do
     while true
-      break if system(exec_command) 
+      break if system(exec_command)
       sleep 1
     end
   end
@@ -154,7 +158,7 @@ end
   puts "stop confirm command: #{exec_command}"
   time_out(5) do
     while true
-      break unless system(exec_command) 
+      break unless system(exec_command)
       sleep 1
     end
   end
