@@ -3,69 +3,54 @@ require 'spec_helper'
 
 describe "Tengine::Core::Bootstrap" do
 
-  before do
-
-  end
-
-  describe :boot do
-    # 引数にoptions(Hash)をうけとる
-    # options[:action]をみてload_dsl or start_kernel or enable_driversをよぶ
-    context :deploy_production do
-      context :load_dsl do
-        it ":action => loadの場合" do
-          options = {
-            :action => "load",
-            :tengined => {
-              :deamon => false,
-            }
-          }
-          bootstrap = Tengine::Core::Bootstrap.new(options)
-          bootstrap.should_receive(:load_dsl)
-          bootstrap.boot
-        end
-      end
-
-      context :start_kernel do
-        it ":action => startで、start_kernelのみを実行したい場合" do
-          options = {
-            :action => "start",
-            :tengined => {
-              :daemon => true,
-              :prevent_loader => true,
-              :prevent_enabler => true,
-              :prevent_activator => true
-            }
-          }
-          bootstrap = Tengine::Core::Bootstrap.new(options)
-          bootstrap.should_receive(:start_kernel)
-          bootstrap.should_not_receive(:load_dsl)
-          bootstrap.boot
-        end
-      end
-
-      context :enable_drivers do
-        it ":action => enableの場合" do
-          options = {
-            :action => "enable",
-            :tengined => {
-              :deamon => false,
-            }
-          }
-          bootstrap = Tengine::Core::Bootstrap.new(options)
-          bootstrap.should_receive(:enable_drivers)
-          bootstrap.boot
-        end
+  describe "bootメソッドでは" do
+    context "config[:action] => load の場合" do
+      it "load_dslがよばれること" do
+        options = { :action => "load" }
+        bootstrap = Tengine::Core::Bootstrap.new(options)
+        bootstrap.should_receive(:load_dsl)
+        bootstrap.boot
       end
     end
 
-    context :single_process_mode_on_development do
-      it ":action => startで、--tengined-prevent-loaderの指定がない" do
+    context "config[:action] => start かつ skipオプションが設定されている場合" do
+      it "load_dslはよばれず、start_kernelのみよばれること" do
         options = {
           :action => "start",
           :tengined => {
-            :daemon => true,
+            :skip_load => true,
+            :skip_enablement => true,
+            :skip_waiting_activation => true
           }
         }
+        bootstrap = Tengine::Core::Bootstrap.new(options)
+        bootstrap.should_receive(:start_kernel)
+        bootstrap.should_not_receive(:load_dsl)
+        bootstrap.boot
+      end
+    end
+
+    context "config[:action] => status の場合" do
+      it "kernel_statusがよばれること" do
+        options = { :action => "status" }
+        bootstrap = Tengine::Core::Bootstrap.new(options)
+        bootstrap.should_receive(:kernel_status)
+        bootstrap.boot
+      end
+    end
+
+    context "config[:action] => enable の場合" do
+      it "enable_driversがよばれること" do
+        options = { :action => "enable" }
+        bootstrap = Tengine::Core::Bootstrap.new(options)
+        bootstrap.should_receive(:enable_drivers)
+        bootstrap.boot
+      end
+    end
+
+    context "config[:action] => startで、skipオプションの指定がない場合" do
+      it "load_dslとstart_kernelがよばれること" do
+        options = { :action => "start" }
         bootstrap = Tengine::Core::Bootstrap.new(options)
         bootstrap.should_receive(:load_dsl)
         bootstrap.should_receive(:start_kernel)
@@ -73,14 +58,9 @@ describe "Tengine::Core::Bootstrap" do
       end
     end
 
-    context :test_boot do
-      it ":action => testの場合" do
-        options = {
-          :action => "test",
-          :tengined => {
-            :daemon => false,
-          }
-        }
+    context "config[:action] => test の場合" do
+      it "load_dsl, start_kernel, start_connection_test, stop_kernelがよばれること" do
+        options = { :action => "test" }
         bootstrap = Tengine::Core::Bootstrap.new(options)
         bootstrap.should_receive(:load_dsl)
         bootstrap.should_receive(:start_kernel)
@@ -89,16 +69,31 @@ describe "Tengine::Core::Bootstrap" do
         bootstrap.boot
       end
     end
+
+    context "config[:action] => stop の場合" do
+      it "stop_kernelがよばれること" do
+        options = { :action => "stop" }
+        bootstrap = Tengine::Core::Bootstrap.new(options)
+        bootstrap.should_receive(:stop_kernel)
+        bootstrap.boot
+      end
+    end
+
+    context "config[:action]に想定外の値が設定された場合" do
+      it "ArgumentErrorをraiseする" do
+        options = { :action => 1 }
+        bootstrap = Tengine::Core::Bootstrap.new(options)
+        expect {
+          bootstrap.boot
+        }.to raise_error(ArgumentError, /config[:action] must be test|load|start|enable|stop|force-stop|status but was/)
+      end
+    end
   end
 
   describe :load_dsl do
-    it "load_dslがよばれる" do
-      options = {
-        :action => "load",
-        :tengined => {
-          :deamon => false,
-        }
-      }
+    it "Tengine::Core::DslLoaderのevaluateがよばれる" do
+      options = { :action => "load" }
+
       bootstrap = Tengine::Core::Bootstrap.new(options)
       mock_config = mock(:config)
       bootstrap.should_receive(:config).and_return(mock_config)
@@ -112,13 +107,8 @@ describe "Tengine::Core::Bootstrap" do
   end
 
   describe :start_kernel do
-    it "start_kernelがよばれる" do
-      options = {
-        :action => "start",
-        :tengined => {
-          :daemon => false,
-        }
-      }
+    it "Tengine::Core::Kernel#start がよばれる" do
+      options = { :action => "start" }
       bootstrap = Tengine::Core::Bootstrap.new(options)
 
       mock_config = mock(:config)
@@ -142,12 +132,10 @@ describe "Tengine::Core::Bootstrap" do
       @d3 = Tengine::Core::Driver.create!(:name=>"driver3", :version=>"20110905172830", :enabled=>false, :enabled_on_activation=>false)
     end
 
-    it "enable_driversで、enabled=trueになる" do
+    it "enabled=true に更新される" do
       options = {
         :action => "enable",
-        :tengined => {
-          :load_path => "./"
-        }
+        :tengined => { :load_path => "./" }
       }
       bootstrap = Tengine::Core::Bootstrap.new(options)
       bootstrap.boot
@@ -159,10 +147,8 @@ describe "Tengine::Core::Bootstrap" do
   end
 
   describe :start_connection_test do
-    it "イベントキューにイベントを発火 " do
-      options = {
-        :action => "test",
-      }
+    it "イベントを発火する" do
+      options = { :action => "test" }
 
       bootstrap = Tengine::Core::Bootstrap.new(options)
       Tengine::Event.should_receive(:fire).with(:foo, :notification_level_key => :info)
@@ -176,5 +162,24 @@ describe "Tengine::Core::Bootstrap" do
       Tengine::Event.config[:queue][:name].should == "tengine_event_queue"
       Tengine::Event.config[:queue][:durable].should be_true
     end
+  end
+
+  describe :stop_kernel do
+    it "Tengine::Core::Kernel#stop がよばれること" do
+      options = { :action => "stop" }
+      bootstrap = Tengine::Core::Bootstrap.new(options)
+
+      mock_config = mock(:config)
+      bootstrap.should_receive(:config).and_return(mock_config)
+      mock_kernel = mock(:kernel)
+      Tengine::Core::Kernel.should_receive(:new).with(mock_config).and_return(mock_kernel)
+      mock_kernel.should_receive(:start)
+      bootstrap.start_kernel
+      mock_kernel.should_receive(:stop)
+      bootstrap.stop_kernel
+    end
+  end
+
+  describe :kernel_status do
   end
 end

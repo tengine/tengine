@@ -3,6 +3,7 @@
 class Tengine::Core::Bootstrap
 
   attr_accessor :config
+  attr_accessor :kernel
 
   def initialize(hash)
     @config = Tengine::Core::Config.new(hash)
@@ -12,7 +13,7 @@ class Tengine::Core::Bootstrap
     case config[:action]
     when "load" then load_dsl
     when "start"
-      load_dsl unless config[:tengined][:prevent_loader] == true
+      load_dsl unless config[:tengined][:skip_load] == true
       start_kernel
     when "test"
       # TODO 接続テスト用イベントハンドラ定義ファイルをload_pathに指定してあげる必要があります
@@ -24,6 +25,10 @@ class Tengine::Core::Bootstrap
       start_connection_test
       stop_kernel
     when "enable" then enable_drivers
+    when "status" then kernel_status
+    when "stop" then stop_kernel
+    else
+      raise ArgumentError, "config[:action] must be test|load|start|enable|stop|force-stop|status but was #{config[:action]} "
     end
   end
 
@@ -35,16 +40,20 @@ class Tengine::Core::Bootstrap
   end
 
   def start_kernel
-    kernel = Tengine::Core::Kernel.new(config)
+    @kernel = Tengine::Core::Kernel.new(config)
     kernel.start
   end
 
   def stop_kernel
+    kernel.stop
   end
 
   def enable_drivers
     drivers = Tengine::Core::Driver.where(:version => config.dsl_version, :enabled_on_activation => false)
     drivers.each{ |d| d.update_attribute(:enabled, true) }
+  end
+
+  def kernel_status
   end
 
   def start_connection_test
