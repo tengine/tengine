@@ -3,7 +3,7 @@ require 'tengine/core'
 
 # カーネルはイベントevent52を受け取ったらDBに保存。
 # 対応するハンドラ群をすべて実行してすべてsubmitしたらACKを返す。
-Tengine.ack_policy(:at_first_submit, :event52)
+Tengine.ack_policy(:after_all_handler_submit, :event52)
 
 Tengine.driver :driver52_1 do
   on:event52 do
