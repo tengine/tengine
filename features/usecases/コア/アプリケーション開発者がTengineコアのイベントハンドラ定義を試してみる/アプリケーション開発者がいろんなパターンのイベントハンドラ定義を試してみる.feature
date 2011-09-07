@@ -56,44 +56,45 @@
   シナリオ: [正常系]アプリケーション開発者がイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_1/dir_2/dsl_a.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_1/dir_2/dsl_a.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_1/dir_2/dsl_a.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
-    かつ 以下の行の表示がされていること
+    かつ 以下の行が表示されること
     |  driver_a  |有効|
 
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+		ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
+    
   シナリオ: [正常系]アプリケーション開発者がディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_1/dir_2"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_1/dir_2"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_1/dir_2"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
-    かつ 以下の行の表示がされていること
+    かつ 以下の行が表示されること
     |  driver_a  |有効|
 
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者がイベントハンドラ実行時にエラーとなるイベントハンドラ定義を指定してTengineコアを起動する
   前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/error_on_execute.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/error_on_execute.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/error_on_execute.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
-    かつ 以下の行の表示がされていること
+    かつ 以下の行が表示されること
     |  driver_err  |有効|
 
     もし "イベント発火画面"を表示する
@@ -101,171 +102,171 @@
 
     もし "event_err"の"発火"リンクをクリックする
     ならば "event_errを発火しました"と表示されていること 
-    ならば "Tengineコアプロセス"のコンソールに"error"と表示されていること
+    ならば "Tengineコアプロセス"の標準出力に"error"と出力されていること
 
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者がイベントドライバが1つもないイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/no_event_driver.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/no_event_driver.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/no_event_driver.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"のコンソールに"warning"と表示されていること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
+    かつ "Tengineコアプロセス"の標準出力に"warning"と出力されていること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ イベントドライバが登録されていないこと
 
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者がイベントハンドラが1つもないイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/no_event_handler.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/no_event_handler.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/no_event_handler.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"のコンソールに"warning"と表示されていること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
+    かつ "Tengineコアプロセス"の標準出力に"warning"と出力されていること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ イベントドライバが登録されていないこと
 
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者がイベントドライバ内に一般的なエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/error_in_event_driver.rb"が存在すること
    
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/error_in_event_driver.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/error_in_event_driver.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
+    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者がイベントドライバ外に一般的なエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/error_not_in_event_driver.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/error_not_in_event_driver.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/error_not_in_event_driver.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
+    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者がシンタックスエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsls/syntax_error.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/syntax_error.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/syntax_error.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
+    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者が存在しないイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dsl_not_exist.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dsl_not_exist.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dsl_not_exist.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
+    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者が存在しないディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_not_exist.rb"が存在しないこと
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_not_exist"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_not_exist"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
+    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者が中にファイルが存在しないディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_1/dir_3"が存在しないこと
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def_test_dir/dir_4/dir_3/"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def_test_dir/dir_4/dir_3/"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"のコンソールに"warning"と表示されていること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
+    かつ "Tengineコアプロセス"の標準出力に"worning"と出力されていること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること    
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ イベントドライバが登録されていないこと
 
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]階層になったディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_1"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_1"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_1"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること    
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること    
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
-    かつ 以下の行の表示がされていること
+    かつ 以下の行が表示されること
     |  driver_a  |有効|
     |  driver_b  |有効|
     |  driver_e  |有効|
 
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限がないイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_7/dsl_f_unreadable.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_7/dsl_f_unreadable.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_7/dsl_f_unreadable.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
+    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限がないディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_8/dir_9_unreadable"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_8/dir_9_unreadable"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_8/dir_9_unreadable"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
+    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限があるイベントハンドラ定義ファイルと読込権限がないイベントハンドラ定義ファイルが混在しているディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_7"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_7"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_7"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
+    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限があるディレクトリと読込権限がないディレクトリが混在しているディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_8"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_8"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_8"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
+    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限があるディレクトリに読込権限がないイベントハンドラ定義ファイルがあるディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_11/dir_14"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_11/dir_14"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_11/dir_14"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
+    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]読込権限が複雑に設定されている階層になったディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_11"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_11"というコマンドを実行する
-    かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_11"というコマンドを実行する
+    かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
