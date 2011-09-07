@@ -27,7 +27,7 @@
 # 
 #   # イベントに対応する処理の実行する
 #   on:event01 do
-#     puts "#{event.send(:key)}:handler01"
+#     puts "#{event.key}:handler01"
 #   end
 # 
 # end
@@ -64,7 +64,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -103,7 +103,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event00|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event00|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていないこと
@@ -147,7 +147,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -190,8 +190,8 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event02_1|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
-    |EVENT_ID|event02_2|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event02_1|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
+    |EVENT_ID|event02_2|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler02_1"と表示されていること
@@ -235,7 +235,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event03|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event03|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler03_1"と表示されていること
@@ -279,7 +279,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event02|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event02|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler04"と表示されていること
@@ -318,7 +318,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event04|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event04|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler04"と表示されていないこと
@@ -341,7 +341,7 @@
 #
   シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントドライバ一覧画面が表示されない_Tengineコンソールが起動していない
     #
-    # Tengineコンソールが起動していないためイベントドライバ一覧画面が表示されない
+    # Tengineコンソールが起動していないためイベントドライバ一覧画面の表示に失敗する
     #
     もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
@@ -383,7 +383,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -394,10 +394,10 @@
     もし "Tengineコンソールプロセス"を Ctl+c で停止する
     ならば "Tengineコンソールプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
+
   シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントドライバ一覧画面が表示されない_DBが起動していない
     #
-    # DBのプロセスが起動していない場合、Tengineコンソールのプロセスが停止する
-    # 同時に、Tengineコアも停止している
+    # DBのプロセスが起動していないため、イベントドライバ一覧画面が表示できない
     #
     もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
@@ -414,20 +414,16 @@
     # DBが落ちているので、500エラーになる
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していないこと
-    かつ "Mongo::ConnectionFailure"と表示されていること
+    かつ "データベースの接続に失敗しました"と表示されていること
+    # Mongo::ConnectionFailure が発生
 
-    もし "Tengineコアプロセスのプロセスログファイル"を表示する
-    ならば "Tengineコアプロセスのプロセスログファイル"に"Mongo::ConnectionFailure"と表示していること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    # TengineコアプロセスはDB停止後にDBにアクセスしていないので停止しない
 
     # DBの起動
     もし DBを起動するために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
     ならば DBが起動していることを"ps -eo pid PID"で確認できること
 
-    # Tengineコアプロセス起動
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+    # Tengineコンソールプロセスは停止していないので起動は行わない
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
@@ -447,7 +443,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -518,7 +514,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -532,7 +528,6 @@
   シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントドライバ一覧画面でイベントドライバを有効から無効に変更できない_DBが途中で停止した
     #
     # イベントドライバ一覧画面を表示後にDBが落ちたため、イベントドライバを有効から無効に変更できない
-    # DBのプロセスが起動していない場合、Tengineコアが停止している(Tengineコンソールは停止しないがエラーになる)
     #
     もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
@@ -554,21 +549,16 @@
     # DBが落ちているので、500エラーになる
     もし "無効ボタン"をクリックする
     ならば "イベントドライバ一覧画面"を表示されていないこと
-    かつ "Mongo::ConnectionFailure"と表示されていること
+    かつ "データベースの接続に失敗しました"と表示されていること
+    # "Mongo::ConnectionFailure" が発生
 
-    # Tengineコアプロセスも落ちている
-    もし "Tengineコアプロセスのプロセスログファイル"を表示する
-    ならば "Tengineコアプロセスのプロセスログファイル"に"Mongo::ConnectionFailure"と表示していること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    # TengineコアプロセスはDB停止後にDBにアクセスしていないので停止しない
 
     # DBの起動
     もし DBを起動するために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
     ならば DBが起動していることを"ps -eo pid PID"で確認できること
 
-    # Tengineコアプロセス起動
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+    # Tengineコンソールプロセスは停止していないので起動は行わない
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
@@ -598,7 +588,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -654,7 +644,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -712,7 +702,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -779,7 +769,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -846,7 +836,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -913,7 +903,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -973,7 +963,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -1016,11 +1006,12 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されていないこと
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていないこと
 
+    # DB接続に失敗してTengineコアプロセスが停止している
     もし "Tengineコアプロセスのプロセスログファイル"を表示する
     ならば "Tengineコアプロセスのプロセスログファイル"に"Mongo::ConnectionFailure"と表示していること
     かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -1029,13 +1020,15 @@
     もし DBを起動するために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
     ならば DBが起動していることを"ps -eo pid PID"で確認できること
 
+    # Tengineコンソールプロセスは停止していないので起動は行わない
+
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -1103,7 +1096,6 @@
     もし DBを停止するために"mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js""というコマンドを実行する
     ならば DBが停止していることを"ps -eo pid PID"で確認できること
 
-
     もし "種別名"に"event01"と入力する
     かつ "発生源名"に"tengine_console"と入力する
     かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
@@ -1114,7 +1106,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されていないこと
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていないこと
@@ -1129,7 +1121,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -1172,7 +1164,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されていないこと
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていないこと
@@ -1183,7 +1175,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -1221,7 +1213,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event00|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event00|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていないこと
@@ -1265,7 +1257,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event02_1|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event02_1|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler02_1"と表示されていること
@@ -1276,8 +1268,8 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event02_1|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
-    |EVENT_ID|event02_2|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event02_1|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
+    |EVENT_ID|event02_2|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler02_2"と表示されていること
@@ -1316,7 +1308,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event03|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event03|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler03_1"と表示されていること
@@ -1333,9 +1325,7 @@
 # イベント通知画面での異常系
 # 画面イメージ:
 # https://docs.google.com/a/nautilus-technologies.com/spreadsheet/ccc?key=0AiCFoDki8k_ndEZmOXZJSFZxZURKZTd5ejBEWW1YQ2c&hl=ja#gid=0
-# 発火されたイベントを確認する画面でjsで定期的にリロードを行う
-# イベントには以下の通知レベルがあり、errorとfatalに関しては、通知確認済みでないイベントはjsでアラートを出す
-# {0:"gr_heartbeat", 1:"debug", 2:"info", 3:"warn", 4:"error", 5:"fatal"}
+# イベント通知画面は通知されたイベントを確認する画面であり、metaタグを使用して定期的にリフレッシュを行う
 # 
   シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント通知画面が表示されない_Tengineコンソールが起動していない
     #
@@ -1381,7 +1371,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -1395,8 +1385,7 @@
 
   シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント通知画面が表示されない_DBが起動していない
     #
-    # DBのプロセスが起動していない場合、Tengineコンソールのプロセスが停止する
-    # 同時に、Tengineコアも停止している
+    # DBのプロセスが起動していないためイベント通知画面の表示に失敗する
     #
     もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
@@ -1429,24 +1418,20 @@
     # DBが落ちているので、500エラーになる
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していないこと
-    かつ "Mongo::ConnectionFailure"と表示されていること
-
-    もし "Tengineコアプロセスのプロセスログファイル"を表示する
-    ならば "Tengineコアプロセスのプロセスログファイル"に"Mongo::ConnectionFailure"と表示していること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    かつ "データベースの接続に失敗しました"と表示されていること
+    # Mongo::ConnectionFailure が発生
+ 
+    # TengineコアプロセスはDB停止後にDBにアクセスしていないので停止しない
 
     # DBの起動
     もし DBを起動するために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
     ならば DBが起動していることを"ps -eo pid PID"で確認できること
 
-    # Tengineコアプロセス起動
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+    # Tengineコンソールプロセスは停止していないので起動は行わない
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -1485,10 +1470,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
-
-    もし "イベント発火画面"を表示する
-    ならば "イベント発火画面"を表示していること
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"が表示されていること
@@ -1510,10 +1492,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
-
-    もし "イベント発火画面"を表示する
-    ならば "イベント発火画面"を表示していること
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"が表示されていること
@@ -1524,7 +1503,7 @@
 
     かつ "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |true      |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
@@ -1539,7 +1518,6 @@
   シナリオ: [異常系]アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベント通知画面でイベントを通知確認済みに変更できない_DBが途中で停止した
     #
     # イベント通知画面を表示後にDBが落ちたため、イベントを通知確認済みに変更できない
-    # DBのプロセスが起動していない場合、Tengineコアが停止している(Tengineコンソールは停止しないがエラーになる)
     #
     もし "Tengineコンソールプロセス"を起動するために"rails s -e production"というコマンドを実行する
     ならば "Tengineコンソールプロセス"のPIDファイル(tmp/pids/server.pid)からPIDを確認できること
@@ -1564,10 +1542,7 @@
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
-
-    もし "イベント発火画面"を表示する
-    ならば "イベント発火画面"を表示していること
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"が表示されていること
@@ -1580,28 +1555,20 @@
     もし "通知確認済み"をチェックする
     かつ "更新"ボタンをクリックする
     ならば "イベント参照画面"が表示されていないこと
-    かつ "Mongo::ConnectionFailure"と表示されていること
+    かつ "データベースの接続に失敗しました"と表示されていること
+    # Mongo::ConnectionFailure が発生
 
-    # Tengineコアプロセスも落ちている
-    もし "Tengineコアプロセスのプロセスログファイル"を表示する
-    ならば "Tengineコアプロセスのプロセスログファイル"に"Mongo::ConnectionFailure"と表示していること
-    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    # TengineコアプロセスはDB停止後にDBにアクセスしていないので停止しない
 
     # DBの起動
     もし DBを起動するために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
     ならば DBが起動していることを"ps -eo pid PID"で確認できること
 
-    # Tengineコアプロセス起動
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+    # Tengineコンソールプロセスは停止していないので起動は行わない
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |FALSE     |tengine_console|       |
-
-    もし "イベント発火画面"を表示する
-    ならば "イベント発火画面"を表示していること
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"が表示されていること
@@ -1612,7 +1579,7 @@
 
     かつ "イベント通知画面"を表示する
     ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |TRUE      |tengine_console|       |
+    |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |true      |tengine_console|       |
 
     もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
     ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
