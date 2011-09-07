@@ -193,6 +193,33 @@ end
   raise "イベントタイプ名#{event_type_name}のイベント発火に失敗しました" unless system('tengine_fire #{event_type_name}')
 end
 
+もし /^"([^"]*)"を"([^"]*)"にコピーする$/ do |src, dest|
+  FileUtils.copy(src,dest)
+end
+
+もし /^"([^"]*)"を削除する$/ do |src|
+  FileUtils.rm(src)
+end
+
+もし /^DBを"([^"]*)"に物理バックアップする$/ do |backup_path|
+  # MongoDBのDBファイルを退避させる
+  # TODO:バックアップ対象のファイル名の指定
+  FileUtils.copy("/data/mongo/master",backup_path)
+end
+
+もし /^DBを"([^"]*)"から物理リストアする$/ do |backup_path|
+  # MongoDBのDBファイルを上書きする
+  # TODO:バックアップ対象のファイル名の指定
+  FileUtils.copy(backup_path,"/data/mongo/master")
+end
+
+前提 /^"([^"]*)"にDBの物理バックアップファイルが存在する$/ do
+  # MongoDBのDBファイルを事前にバックアップしておく
+  # TODO:バックアップ対象のファイル名の指定
+  FileUtils.copy("/data/mongo/master",backup_path)
+end
+
+
 def time_out(time, &block)
   begin
     timeout(time){

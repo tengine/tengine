@@ -7,7 +7,7 @@ Tengine.driver :driver06 do
   #
   # 5回より多く(5回目はハンドリングしない)
   on :event06.more_than(5).times do
-    puts "handler06"
+    puts "#{event.id}:handler06"
   end
 
 end

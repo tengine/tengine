@@ -8,34 +8,34 @@
   ./features/usecases/コア/dsls/try_dsl
   ├── dir_1
   │   ├── dir_2
-  │   │   └── dsl_a.rb     driver_a(event_a -> handler_a)
+  │   │   └── dsl_a.rb             driver_a(event_a -> handler_a)
   │   ├── dir_3
   │   ├── dir_4
   │   │   └── dir_5
-  │   │       └── dsl_b.rb driver_b(event_b -> handler_b)
+  │   │       └── dsl_b.rb         driver_b(event_b -> handler_b)
   │   ├── dir_sym -> dir_6
-  │   ├── dsl_c.rb          driver_c(event_c -> handler_c)
+  │   ├── dsl_c.rb                  driver_c(event_c -> handler_c)
   │   └── dsl_sym.rb -> dsl_e.rb
   ├── dir_6
-  │   └── dsl_d.rb          driver_d(event_d -> handler_d)
-  ├── dsl_e.rb               driver_e(event_e -> handler_e)
+  │   └── dsl_d.rb                  driver_d(event_d -> handler_d)
+  ├── dsl_e.rb                       driver_e(event_e -> handler_e)
   ├── dir_7
-  │   ├── dsl_f.rb          driver_f(event_f -> handler_f) (not readable)
-  │   └── dsl_g.rb          driver_g(event_g -> handler_g)
+  │   ├── dsl_f_unreadable.rb       driver_f(event_f -> handler_f)
+  │   └── dsl_g.rb                  driver_g(event_g -> handler_g)
   ├── dir_8
-  │   ├── dir_9 (not readable)
-  │   │   └── dsl_h.rb     driver_h(event_h -> handler_h)
+  │   ├── dir_9_unreadable
+  │   │   └── dsl_h.rb             driver_h(event_h -> handler_h)
   │   └── dir_10 
-  │   │   └── dsl_i.rb     driver_i(event_i -> handler_i)
+  │   │   └── dsl_i.rb             driver_i(event_i -> handler_i)
   ├── dir_11
-  │   ├── dir_12 (not readable)
-  │   │   └── dsl_j.rb     driver_j(event_j -> handler_j)
+  │   ├── dir_12_unreadable
+  │   │   └── dsl_j.rb             driver_j(event_j -> handler_j)
   │   ├── dir_13
-  │   │   └── dsl_k.rb     driver_k(event_k -> handler_k)
+  │   │   └── dsl_k.rb             driver_k(event_k -> handler_k)
   │   ├── dir_14
-  │   │   └── dsl_l.rb     driver_l(event_l -> handler_l) (not readable)
-  │   ├── dsl_m.rb          driver_m(event_m -> handler_m)
-  │   └── dsl_n.rb          driver_n(event_n -> handler_n) (not readable)
+  │   │   └── dsl_l_unreadable.rb  driver_l(event_l -> handler_l)
+  │   ├── dsl_m.rb                  driver_m(event_m -> handler_m)
+  │   └── dsl_n_unreadable.rb       driver_n(event_n -> handler_n)
   ├── error_in_event_driver.rb
   ├── error_not_in_event_driver.rb
   ├── error_on_execute.rb
@@ -139,7 +139,7 @@
     ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
 
-  シナリオ: [正常系]アプリケーション開発者がイベントドライバ内にシンタックスエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
+  シナリオ: [正常系]アプリケーション開発者がイベントドライバ内に一般的なエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/error_in_event_driver.rb"が存在すること
    
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/error_in_event_driver.rb"というコマンドを実行する
@@ -148,10 +148,19 @@
     かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
 
-  シナリオ: [正常系]アプリケーション開発者がイベントドライバ外にシンタックスエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/error_not_in_event_driver.rb.rb"が存在すること
+  シナリオ: [正常系]アプリケーション開発者がイベントドライバ外に一般的なエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
+    前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/error_not_in_event_driver.rb"が存在すること
 
     もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/error_not_in_event_driver.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
+    かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+
+
+  シナリオ: [正常系]アプリケーション開発者がシンタックスエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
+    前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsls/syntax_error.rb"が存在すること
+
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/syntax_error.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
     かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
@@ -210,18 +219,18 @@
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限がないイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_7/dsl_f.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_7/dsl_f_unreadable.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_7/dsl_f.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_7/dsl_f_unreadable.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
     かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限がないディレクトリを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_8/dir_9"が存在すること
+    前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/try_dsl/dir_8/dir_9_unreadable"が存在すること
 
-    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_8/dir_9"というコマンドを実行する
+    もし "Tengineコアプロセス"を起動するために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_8/dir_9_unreadable"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"のコンソールに"error"と表示されていること
     かつ "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
