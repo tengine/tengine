@@ -83,7 +83,7 @@ end
 
 end
 
-ならば /^"([^"]*)"の標準出力からPIDを確認することができること$/ do |name|
+ならば /^"([^"]*)"の標準出力からPIDを確認できること$/ do |name|
   # TODO Tengineコアをフォアグラウンド起動した際に標準出力が決まっていないので、PIDの取得部分は暫定的に正規表現で数値を引っこ抜いている
   if name == "Tengineコアプロセス"
     pid_regexp = /PID:(\d+)/
@@ -106,7 +106,10 @@ end
 
 ならば /^"([^"]*)"が起動していることをPIDを用いて"([^"]*)"というコマンドで確認できること$/ do |name,  command|
   pid = @h[name][:pid]
-  exec_command = "#{command.gsub(/PID/, pid)} > /dev/null"
+  # cucumberからのテストでforkしたプロセスは、killされた場合にゾンビプロセスが残ってしまうので
+  # statusがZのプロセスは省く処理を入れます。
+  # よって、指定するps コマンドには"-o stat"というオプションが必須になります。
+  exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z > /dev/null"
   puts "start confirm command: #{exec_command}"
   time_out(5) do
     while true
@@ -118,7 +121,10 @@ end
 
 ならば /^"([^"]*)"が停止していることをPIDを用いて"([^"]*)"というコマンドで確認できること$/ do |name,  command|
   pid = @h[name][:pid]
-  exec_command = "#{command.gsub(/PID/, pid)} > /dev/null"
+  # cucumberからのテストでforkしたプロセスは、killされた場合にゾンビプロセスが残ってしまうので
+  # statusがZのプロセスは省く処理を入れます。
+  # よって、指定するps コマンドには"-o stat"というオプションが必須になります。
+  exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z > /dev/null"
   puts "stop confirm command: #{exec_command}"
   time_out(5) do
     while true
@@ -147,14 +153,33 @@ end
   pending # express the regexp above with the code you wish you had
 end
 
+#############
+# 画面
+#############
+
 もし /^"([^"]*)"に"([^"]*)"を入力する$/ do |arg1, arg2|
   pending # express the regexp above with the code you wish you had
 end
 
-ならば /^"([^"]*)"に以下の行が表示されること$/ do |arg1, table|
-  # table is a Cucumber::Ast::Table
-  pending # express the regexp above with the code you wish you had
+ならば /^"([^"]*)"に以下の行が表示されること$/ do |arg1, expected_table|
+  Then %{I should see the following drivers:}, expected_table
 end
+
+ならば /^以下の行が表示されること$/ do |arg1, expected_table|
+  Then %{I should see the following drivers:}, expected_table
+end
+
+ならば /^イベントドライバが登録されていないこと$/ do
+  # イベントドライバ一覧のテーブルを取得
+  # actual.class # => Array
+  actual = tableish('table tr', 'td,th')
+  # ヘッダのみとれるのsizeは1になる
+  actual.size.should == 1
+end
+
+#############
+# ファイル操作
+#############
 
 前提 /.*ファイル"([^"]*)"が存在すること$/ do |file_path|
   FileTest.exists?(file_path).should be_true
