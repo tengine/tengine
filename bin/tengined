@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 require 'rubygems'
 require 'optparse'
+require 'daemons'
 
 require File.expand_path('../config/environment', File.dirname(__FILE__))
 # require File.expand_path('../app/models/tengine/core/bootstrap', File.dirname(__FILE__))
@@ -39,16 +40,16 @@ EOS
 
   o.separator ""
   o.separator "Generic"
-  o.on("-k", "--action=test|load|start|enable|stop|force-stop", "default: start"){|v| hash[:action] = v}
+  o.on("-k", "--action=test|load|start|enable|stop|force-stop|status", "default: start"){|v| hash[:action] = v}
   o.on("-f", "--config=filepath"                , "Specify configuration file path."){|v| hash[:config] = v}
 
   o.separator ""
   o.separator "Process"
   {
     :daemon => ["-D", "ignored with \"-k test, -k load, -k enable\".", {:hide_val => true}],
-    :prevent_loader => ["doesn't call event handler loader when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
-    :prevent_enabler => ["doesn't call event handler enabler when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
-    :prevent_activator => ["doesn't call kernel activator when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
+    :skip_load => ["doesn't load event handler when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
+    :skip_enablement => ["doesn't enable event handler when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
+    :skip_waiting_activation => ["doesn't activate kernel when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
     :activation_timeout => "period to wait for making activation file.",
     :load_path => ["-T", "[REQUIRED] path/to/file_or_dir. ignored with \"-k test\".", {:hide_val => true}],
     :log_dir  => "path/to/dir.",
@@ -97,16 +98,34 @@ hash.update(:daemon_proc_path => File.expand_path(__FILE__))
 
 require 'pp'
 pp hash
-
-def run
-  block = Proc.new do
-    bootstrap = Tengine::Core::Bootstrap.new(options)
-    bootstrap.boot
+__END__
+if ["stop", "force_stop"].include? hash[:action]
+  pid = Dir.glob(hash[:tengined][:pid_dir] + "/*") do |f|
   end
-
-  if options[:daemon] == false
-    block.call
-  else
-    Daemons.run_proc
+  result = Process.kill("INT", pid)
+else
+  daemonize_options = {
+    :ontop => hash[:tengined][:daemon],
+    :backtrace => true,
+    :app_name => "tengined",
+    :dir_mode => :normal,
+    :dir => hash[:tengined][:pid_dir],
+    :log_dir => hash[:tengined][:log_dir],
+    :log_output => false
+  }
+  pp daemonize_options
+  if hash[:tengined][:daemon]
+    STDOUT.reopen(File.expand_path(hash[:tengined][:log_dir] + "/#{Process.pid}_stdout.log", File.dirname(__FILE__)))
+    STDERR.reopen(File.expand_path(hash[:tengined][:log_dir] + "/#{Process.pid}_stderr.log", File.dirname(__FILE__)))
   end
+  Daemons.daemonize(daemonize_options)
+  #bootstrap = Tengine::Core::Bootstrap.new(hash)
+  loop do
+    puts 'in loop'
+    sleep 10
+  end
+  #bootstrap.boot
 end
+
+Signal.trap(:INT){puts ":INT"; exit(0)}
+Signal.trap(:TERM){puts ":INT"; exit(0)}
