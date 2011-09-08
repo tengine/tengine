@@ -101,7 +101,7 @@ EOS
   o.separator ""
   o.separator "Application log options:"
   {
-    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/application.log” else "STDOUT"', :hide_value => true],
+    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/application.log" else "STDOUT"', :hide_value => true],
     :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_value => true],
     :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_value => true],
     :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_value => true],
@@ -110,7 +110,7 @@ EOS
   o.separator ""
   o.separator "Process STDOUT log options:"
   {
-    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log” else "STDOUT"', :hide_value => true],
+    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log" else "STDOUT"', :hide_value => true],
     :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_value => true],
     :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_value => true],
     :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_value => true],
@@ -119,7 +119,7 @@ EOS
   o.separator ""
   o.separator "Process STDERR log options:"
   {
-    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stderr.log” else "STDERR"', :hide_value => true],
+    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stderr.log" else "STDERR"', :hide_value => true],
     :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_value => true],
     :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_value => true],
     :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_value => true],
