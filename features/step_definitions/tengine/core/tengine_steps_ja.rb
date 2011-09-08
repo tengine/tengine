@@ -1,7 +1,16 @@
 # -*- coding: utf-8 -*-
 require 'timeout'
+require 'amqp'
 
 @h = {}
+
+tengine_yaml = YAML::load(IO.read('./features/usecases/コア/config/tengine.yml'))
+@mq_server = tengine_yaml["event_queue"]["conn"]
+@tengine_event_queue_opts = tengine_yaml["event_queue"]["queue"]
+@tengine_event_queue_name = @tengine_event_queue_opts.delete("name")
+@tengine_event_exchange_opts = tengine_yaml["event_queue"]["exchange"]
+@tengine_event_exchange_name = @tengine_event_exchange_opts.delete("name")
+@tengine_event_exchange_type = @tengine_event_exchange_opts.delete("type")
 
 # インストール、セットアップ関係は優先度を下げるため後ほど実装する
 前提 /^"([^"]*)パッケージ"のインストールおよびセットアップが完了している$/ do |arg1|
@@ -208,18 +217,30 @@ end
 # キュー関連
 #############
 
+もし /^イベントキューを削除する$/ do
+  delete_queue(@tengine_event_queue_name, @tengine_event_queue_opts)
+end
+
+もし /^イベントエクスチェンジを削除する$/ do
+  delete_exchange(@tengine_event_exchange_name, @tengine_event_exchange_type, @tengine_event_exchange_opts)
+end
+
+もし /^イベントキューをアンバインドする$/ do
+  unbind_queue(@tengine_event_queue_name, @tengine_event_exchange_name, @tengine_event_queue_opts)
+end
+
 ならば /^イベントキューが存在しないこと$/ do
-  exec_command = "rabbitmqctl list_queues name | grep tengine_event_queue"
+  exec_command = "rabbitmqctl list_queues name | grep #{@tengine_event_queue_name}"
   `#{exec_command}`.chomp.should be_empty
 end
 
 ならば /^イベントエクスチェンジが存在しないこと$/ do
-  exec_command = "rabbitmqctl list_exchanges name | grep tengine_event_exchange"
+  exec_command = "rabbitmqctl list_exchanges name | grep #{@tengine_event_exchange_name}"
   `#{exec_command}`.chomp.should be_empty
 end
 
 ならば /^イベントキューをバインドしていないこと$/ do
-  exec_command = "rabbitmqctl list_bindings source_name destination_name | grep tengine_event_exchange"
+  exec_command = "rabbitmqctl list_bindings source_name destination_name | grep #{@tengine_event_exchange_name}"
   result = `#{exec_command}`.chomp
   result.include?("tengine_event_queue").should be_false
 end
@@ -338,5 +359,48 @@ def time_out(time, &block)
   rescue Timeout::Error
     puts "Timeout!"
     true.should be_false
+  end
+end
+
+
+server ={
+  :host => 'localhost',
+  :port => 5672,
+  :vhost => '/',
+  :user => 'guest',
+  :pass => 'guest',
+}
+
+
+# キューの削除
+def delete_queue(queue_name, options = {})
+  AMQP.start(@mq_server) do |connection, open_ok|
+    AMQP::Channel.new(connection) do |channel, open_ok|
+      queue = channel.queue(queue_name, options)
+      queue.delete
+      connection.close { EM.stop { exit } }
+    end
+  end
+end
+
+# エクスチェンジの削除
+def delete_exchange(exchange_name, type = :direct, options = {})
+  AMQP.start(@mq_server) do |connection, open_ok|
+    AMQP::Channel.new(connection) do |channel, open_ok|
+      exchange = AMQP::Exchange.new(channel, type, exchange_name, options)
+      exchange.delete
+      connection.close { EM.stop { exit } }
+    end
+  end
+end
+
+# キューのアンバインド
+def unbind_queue(queue_name, exchange_name, options = {})
+  AMQP.start(@mq_server) do |connection, open_ok|
+    AMQP::Channel.new(connection) do |channel, open_ok|
+      queue = channel.queue(queue_name, options)
+      queue.unbind(exchange_name)
+      connection.close { EM.stop { exit } }
+    end
   end
 end

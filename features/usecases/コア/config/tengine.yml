@@ -15,9 +15,9 @@ event_queue:
   conn:
     host: localhost
     port: 5672
-    vhost:
-    user:
-    pass:
+    vhost: /
+    user: guest
+    pass: guest
   exchange:
     name: tengine_event_exchange
     type: direct
