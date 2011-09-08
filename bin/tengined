@@ -27,10 +27,13 @@ EOS
     long_arg = "--#{prefixes.join('-')}-#{base_name}".gsub(/_/, '-')
     datasource = prefixes.inject(hash){|d, prefix| d[prefix]}
     if options[:hide_value]
-      block = lambda{ datasource[base_name] = true}
-    else
-      default_value = datasource[base_name]
+      block = lambda{|v| datasource[base_name] = true}
+    elsif options[:hide_default]
       long_arg << "=VAL"
+      block = lambda{|v| datasource[base_name] = v}
+    else
+      long_arg << "=VAL"
+      default_value = datasource[base_name]
       description << " default: #{default_value.inspect}"
       block = lambda{|v| datasource[base_name] = v}
     end
@@ -101,28 +104,28 @@ EOS
   o.separator ""
   o.separator "Application log options:"
   {
-    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/application.log" else "STDOUT"', :hide_value => true],
-    :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_value => true],
-    :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_value => true],
-    :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_value => true],
+    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/application.log" else "STDOUT"', :hide_default => true],
+    :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_default => true],
+    :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_default => true],
+    :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_default => true],
   }.each{|key, args| tengine_opt.call(:application_log, key, args)}
 
   o.separator ""
   o.separator "Process STDOUT log options:"
   {
-    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log" else "STDOUT"', :hide_value => true],
-    :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_value => true],
-    :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_value => true],
-    :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_value => true],
+    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log" else "STDOUT"', :hide_default => true],
+    :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_default => true],
+    :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_default => true],
+    :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_default => true],
   }.each{|key, args| tengine_opt.call(:process_stdout_log, key, args)}
 
   o.separator ""
   o.separator "Process STDERR log options:"
   {
-    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stderr.log" else "STDERR"', :hide_value => true],
-    :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_value => true],
-    :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_value => true],
-    :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_value => true],
+    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stderr.log" else "STDERR"', :hide_default => true],
+    :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_default => true],
+    :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_default => true],
+    :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_default => true],
   }.each{|key, args| tengine_opt.call(:process_stderr_log, key, args)}
 
   o.separator ""
@@ -137,6 +140,7 @@ hash.update(:daemon_proc_path => File.expand_path(__FILE__))
 
 require 'pp'
 pp hash
+exit
 
 if ["stop", "force_stop"].include? hash[:action]
   pid = Dir.glob(hash[:tengined][:pid_dir] + "/*") do |f|
