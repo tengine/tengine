@@ -69,7 +69,7 @@
     |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 		
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"KEY:handler01"と表示されていること
+    ならば "アプリケーションログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
