@@ -205,6 +205,26 @@ end
 end
 
 #############
+# キュー関連
+#############
+
+ならば /^イベントキューが存在しないこと$/ do
+  exec_command = "rabbitmqctl list_queues name | grep tengine_event_queue"
+  `#{exec_command}`.should be_empty
+end
+
+ならば /^イベントエクスチェンジが存在しないこと$/ do
+  exec_command = "rabbitmqctl list_exchanges name | grep tengine_event_exchange"
+  `#{exec_command}`.should be_empty
+end
+
+ならば /^イベントキューをバインドしていないこと$/ do
+  exec_command = "rabbitmqctl list_bindings source_name destination_name | grep tengine_event_exchange"
+  result = `#{exec_command}`
+  result.include?("tengine_event_queue").should be_false
+end
+
+#############
 # 画面
 #############
 
