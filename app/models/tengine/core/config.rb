@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require 'logger'
+
 require 'active_support/hash_with_indifferent_access'
 require 'active_support/memoizable'
 
@@ -82,10 +84,22 @@ class Tengine::Core::Config
   end
   memoize :dsl_version
 
-  LOG_TYPE_NAMES = [:application_log, :process_stdout_log, :process_stderr_log].freeze
+  OUTPUT_MAPPING = {"STDOUT" => STDOUT, "STDERR" => STDERR}.freeze
+
+  def new_logger(log_type_name)
+    raise_unless_valid_log_type_name(log_type_name)
+    c = log_config(log_type_name)
+    output = c[:output]
+    result = Logger.new(OUTPUT_MAPPING[output] || output,
+      :shift_age => c[:rotation],
+      :shift_size => c[:rotation_size]
+      )
+    result.level = Logger.const_get(c[:level].to_s.upcase)
+    result
+  end
 
   def log_config(log_type_name)
-    raise ArgumentError, "Unsupported log_type_name: #{log_type_name.inspect}" unless LOG_TYPE_NAMES.include?(log_type_name)
+    raise_unless_valid_log_type_name(log_type_name)
     log_common = self[:log_common].dup
     log_config = self[log_type_name].dup
     log_config.delete_if{|key, value| value.nil?}
@@ -100,7 +114,14 @@ class Tengine::Core::Config
 
   private
 
+  LOG_TYPE_NAMES = [:application_log, :process_stdout_log, :process_stderr_log].freeze
+
+  def raise_unless_valid_log_type_name(log_type_name)
+    raise ArgumentError, "Unsupported log_type_name: #{log_type_name.inspect}" unless LOG_TYPE_NAMES.include?(log_type_name)
+  end
+
   def default_log_output(log_type_name, foreground)
+    raise_unless_valid_log_type_name(log_type_name)
     case log_type_name
     when :application_log then foreground ? 'STDOUT' : "./log/application.log"
     when :process_stdout_log then foreground ? 'STDOUT' : "./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log"
