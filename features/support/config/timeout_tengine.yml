@@ -19,7 +19,7 @@ event_queue:
     user: guest
     pass: guest
   exchange:
-    name: tengine_event_exchange
+    name: timeout_end_to_end_test_tengine_event_exchange
     type: direct
     durable: true
   queue:

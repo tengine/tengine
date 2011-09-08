@@ -4,7 +4,7 @@ require 'amqp'
 
 @h = {}
 
-tengine_yaml = YAML::load(IO.read('./features/usecases/コア/config/tengine.yml'))
+tengine_yaml = YAML::load(IO.read('./features/support/config/tengine.yml'))
 @mq_server = tengine_yaml["event_queue"]["conn"]
 @tengine_event_queue_opts = tengine_yaml["event_queue"]["queue"]
 @tengine_event_queue_name = @tengine_event_queue_opts.delete("name")
@@ -308,15 +308,15 @@ end
 end
 
 もし /^Tengineコアの設定ファイル"([^"]*)"を作成する$/ do |config_file_path|
-  FileUtils.cp("./features/usecases/コア/config/tengine.yml", config_file_path)
+  FileUtils.cp("./features/support/config/tengine.yml", config_file_path)
 end
 
 もし /^Tengineコアの設定ファイル"([^"]*)"を修正する$/ do |config_file_path|
-  FileUtils.cp("./features/usecases/コア/config/tengine.yml", config_file_path)
+  FileUtils.cp("./features/support/config/tengine.yml", config_file_path)
 end
 
 前提 /^yamlファイルとして不正なTengineコアの設定ファイルinvalid_tengine.ymlが存在する$/ do
-  FileUtils.cp("./features/usecases/コア/config/invalid_tengine.yml", "./tmp/invalid_tengine.yml")
+  FileUtils.cp("./features/support/config/invalid_tengine.yml", "./tmp/end_to_end_test/config/invalid_tengine.yml")
 end
 
 前提 /.*イベントハンドラ定義"([^"]*)"が登録されている$/ do |event_handler_def|
