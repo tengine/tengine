@@ -8,11 +8,14 @@ Tengine.ack_policy(:at_first, :event50)
 Tengine.driver :driver50 do
 
   on:event50 do
-    puts "handler50"
-    # queueの確認
-    io=IO.popen("rabbitmqctl list_queues name messages_ready messages_unacknowledged")
-    puts line while line=io.gets
+    # ackされていないmessageの確認
+    io=IO.popen("rabbitmqctl list_queues messages_unacknowledged")
+    lines = Array.new
+    lines << line while line=io.gets
     io.close
+
+    puts "#{event.key}:handler50:#{lines[1]}"
+
     submit # submitしても無視されます
   end
 

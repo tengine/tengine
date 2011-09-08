@@ -12,6 +12,6 @@ Tengine.driver :driver62 do
     value = session[:foo]
     value +=1
     session.update(:foo => value)
-    puts session[:foo]
+    puts "#{event.key}:#{session[:foo]}"
   end
 end

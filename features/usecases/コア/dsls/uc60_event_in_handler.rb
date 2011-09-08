@@ -8,7 +8,7 @@ Tengine.driver :driver60 do
   on:event60 do
     [:event_type_name, :key, :source_name, :occurred_at,
       :notification_level, :notification_confirmed, :sender_name, :properties,].each do |attr_name|
-      puts "#{attr_name}: #{event.send(attr_name)}"
+      puts "#{event.key}:#{attr_name}: #{event.send(attr_name)}"
     end
   end
 end
