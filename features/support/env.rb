@@ -49,3 +49,17 @@ end
 #     DatabaseCleaner.strategy = :transaction
 #   end
 #
+
+
+end_to_end_test_yaml = YAML::load(IO.read('config/end_to_end_test.yml'))
+
+Capybara.configure do |config|
+  config.run_server = false
+  tengine_console = end_to_end_test_yaml['tengine_console']
+  if tengine_console['port']
+    config.app_host = "#{tengine_console['host']}:#{tengine_console['port']}"
+  else
+    config.app_host = tengine_console['host']
+  end
+end 
+
