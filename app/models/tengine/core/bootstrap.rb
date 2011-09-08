@@ -49,7 +49,7 @@ class Tengine::Core::Bootstrap
   end
 
   def start_kernel
-    @kernel ||= Tengine::Core::Kernel.new(config)
+    @kernel = Tengine::Core::Kernel.new(config)
     kernel.start
   end
 
@@ -63,6 +63,7 @@ class Tengine::Core::Bootstrap
   end
 
   def kernel_status
+    kernel.status
   end
 
   def start_connection_test
@@ -80,5 +81,3 @@ class Tengine::Core::Bootstrap
     end
   end
 end
-
-# SIGINTをトラップして、stop_kernelする必要あり
