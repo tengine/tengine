@@ -26,7 +26,7 @@ dir_and_files.each do |dir_or_file|
   files.each do |filename|
     destname = filename.sub(/\.erb$/, '')
     File.open(destname, "w") do |f|
-      f.puts(ERB.new(File.read(filename)).result)
+      f.puts(ERB.new(File.read(filename),nil,"-").result)
     end
     STDOUT.puts destname
   end
