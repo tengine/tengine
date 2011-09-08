@@ -1,0 +1,36 @@
+#language:ja
+機能: アプリケーション運用者が本番環境を変更する
+  本番環境をメンテナンスするためや、本番環境で動作しているサーバやアプリケーションに問題が発生したときは、アプリケーションを正常に運用するために
+  アプリケーション運用者
+  は本番環境を変更したい
+
+  背景:
+    前提 日本語でアクセスする
+ 
+<%
+  $: << File.dirname(__FILE__)
+  require '../../support/combination'
+  require '../../support/feature_combination'
+
+  combination = Combination.new
+  patterns = combination.result_node(11)
+  feature_combination  = FeatureCombination.new
+
+  alt_course_origin = "A"
+  patterns.each do |pattern|
+    course_name = "  シナリオ: " << (alt_course_origin)
+    alt_course_origin = alt_course_origin.next
+    prerequisites = feature_combination.prerequisite(pattern)
+%>
+<%= course_name %>
+<%=   "    前提 #{prerequisites.shift}" unless prerequisites.empty? %>
+<%   prerequisites.each do |prerequisite| -%>
+<%=    "    かつ #{prerequisite}" %>
+<%   end %>
+<%   pattern.each_with_index do |usecase_step, index| -%>
+<%     feature_steps = feature_combination.translate_usecase_to_feature(pattern,usecase_step) -%>
+<%     feature_steps.each do |step| -%>
+<%=      "    #{step}" %>
+<%     end %>
+<%   end -%>
+<% end %>
