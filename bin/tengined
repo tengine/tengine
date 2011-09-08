@@ -137,14 +137,6 @@ EOS
 end
 
 
-@hash.update(:daemon_proc_path => File.expand_path(__FILE__))
-
-require 'pp'
-pp @hash
-
-@base_dir = File.expand_path(File.dirname(__FILE__))
-@tengined_root = File.expand_path("..", @base_dir)
-
 def stop_process(signal)
   pids = Dir.glob(File.expand_path(@hash[:tengined][:pid_dir] + "/*")).map do |pid_path|
     File.open(pid_path, "r"){|f| f.gets.chomp.to_i}
@@ -171,7 +163,6 @@ def run
     current_dir = Dir.pwd
     Daemons.run_proc(File.basename(@hash[:daemon_proc_path]), daemonize_options) do
       Dir.chdir(current_dir) do
-        puts "Dir.pwd: #{Dir.pwd}"
         yield
       end
     end
@@ -180,12 +171,27 @@ def run
   end
 end
 
+
+@hash.update(:daemon_proc_path => File.expand_path(__FILE__))
+
+require 'pp'
+pp @hash
+
+tengined_root = File.expand_path("..", File.expand_path(File.dirname(__FILE__)))
+
 run do
+  config = nil
+  begin
+    config = Tengine::Core::Config.new(@hash)
+    config.setup_loggers
+  rescue Exception
+    puts "[#{$!.class.name}] #{$!.message}\n  "
+    raise
+  end
+
   #  Daemons.daemonize(daemonize_options)
-  require File.expand_path('./config/environment', @tengined_root)
-  require File.expand_path('./app/models/tengine', @tengined_root)
-
-  @bootstrap = Tengine::Core::Bootstrap.new(@hash)
-  @bootstrap.boot
+  require File.expand_path('./config/environment', tengined_root)
+  require File.expand_path('./app/models/tengine', tengined_root)
+  bootstrap = Tengine::Core::Bootstrap.new(config)
+  bootstrap.boot
 end
-

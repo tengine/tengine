@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 require 'logger'
 
+require 'active_support/core_ext/hash'
+require 'active_support/ordered_hash'
 require 'active_support/hash_with_indifferent_access'
 require 'active_support/memoizable'
 
@@ -84,22 +86,26 @@ class Tengine::Core::Config
   end
   memoize :dsl_version
 
-  OUTPUT_MAPPING = {"STDOUT" => STDOUT, "STDERR" => STDERR}.freeze
+  def setup_loggers
+    stdout_path = log_config(:process_stdout_log)[:output]
+    $stdout = File.open(stdout_path, "w") unless stdout_path =~ /^STDOUT$|^STDERR$/
+    stderr_path = log_config(:process_stderr_log)[:output]
+    $stderr = File.open(stderr_path, "w") unless stderr_path =~ /^STDOUT$|^STDERR$/
+    Tengine::Core::stdout_logger = new_logger(:process_stdout_log, $stdout)
+    Tengine::Core::stderr_logger = new_logger(:process_stderr_log, $stdout)
+    Tengine.logger = new_logger(:application_log)
+    Tengine::Core::stdout_logger.info("#{self.class.name}#setup_loggers complete")
+  rescue Exception
+    Tengine::Core::stderr_logger.info("#{self.class.name}#setup_loggers failure")
+    raise
+  end
 
-  PROCESS_IDENTIFIER = "#{$PROGRAM_NAME}<#{Process.pid}>".freeze
-
-  FORMATTERS = {
-    :application_log    => lambda{|level, t, prog, msg| "#{t.iso8601} #{level} #{PROCESS_IDENTIFIER} #{msg}\n"},
-    :process_stdout_log => lambda{|level, t, prog, msg| "#{t.iso8601} STDOUT #{PROCESS_IDENTIFIER} #{msg}\n"},
-    :process_stderr_log => lambda{|level, t, prog, msg| "#{t.iso8601} STDERR #{PROCESS_IDENTIFIER} #{msg}\n"}
-  }.freeze
-
-  def new_logger(log_type_name)
+  def new_logger(log_type_name, output = nil)
     raise_unless_valid_log_type_name(log_type_name)
     c = log_config(log_type_name)
-    output = c[:output]
-    result = Logger.new(OUTPUT_MAPPING[output] || output, c[:rotation], c[:rotation_size])
-    result.formatter = FORMATTERS[log_type_name]
+    output = output || c[:output]
+    result = Logger.new(output_to_io_or_filepath(output), c[:rotation], c[:rotation_size])
+    result.formatter = logger_formatters(log_type_name)
     result.level = Logger.const_get(c[:level].to_s.upcase)
     result
   end
@@ -130,10 +136,26 @@ class Tengine::Core::Config
     raise_unless_valid_log_type_name(log_type_name)
     case log_type_name
     when :application_log then foreground ? 'STDOUT' : "./log/application.log"
-    when :process_stdout_log then foreground ? 'STDOUT' : "./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log"
-    when :process_stderr_log then foreground ? 'STDERR' : "./log/#{$PROGRAM_NAME}_#{Process.pid}_stderr.log"
+    when :process_stdout_log then foreground ? 'STDOUT' : "./log/#{File.basename($PROGRAM_NAME)}_#{Process.pid}_stdout.log"
+    when :process_stderr_log then foreground ? 'STDERR' : "./log/#{File.basename($PROGRAM_NAME)}_#{Process.pid}_stderr.log"
     end
   end
+
+  def output_to_io_or_filepath(output)
+    @output_to_io_or_filepath ||= {"STDOUT" => STDOUT, "STDERR" => STDERR}.freeze
+    @output_to_io_or_filepath[output] || output
+  end
+
+  def logger_formatters(log_type_name)
+    @process_identifier ||= "#{File.basename($PROGRAM_NAME)}<#{Process.pid}>".freeze
+    @logger_formatters ||= {
+      :application_log    => lambda{|level, t, prog, msg| "#{t.iso8601} #{level} #{@process_identifier} #{msg}\n"},
+      :process_stdout_log => lambda{|level, t, prog, msg| "#{t.iso8601} STDOUT #{@process_identifier} #{msg}\n"},
+      :process_stderr_log => lambda{|level, t, prog, msg| "#{t.iso8601} STDERR #{@process_identifier} #{msg}\n"}
+    }.freeze
+    @logger_formatters[log_type_name]
+  end
+
 
   public
 
@@ -228,6 +250,10 @@ class Tengine::Core::Config
         end
       end
       dest
+    end
+
+    def [](obj)
+      obj.is_a?(self) ? obj : new(obj)
     end
   end
 
