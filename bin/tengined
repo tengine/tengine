@@ -39,26 +39,26 @@ EOS
   end
 
   o.separator ""
-  o.separator "Generic"
+  o.separator "Basic:"
   o.on("-k", "--action=test|load|start|enable|stop|force-stop|status", "default: start"){|v| hash[:action] = v}
   o.on("-f", "--config=filepath"                , "Specify configuration file path."){|v| hash[:config] = v}
 
   o.separator ""
-  o.separator "Process"
+  o.separator "Process:"
   {
-    :daemon => ["-D", "ignored with \"-k test, -k load, -k enable\".", {:hide_val => true}],
-    :skip_load => ["doesn't load event handler when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
-    :skip_enablement => ["doesn't enable event handler when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
-    :skip_waiting_activation => ["doesn't activate kernel when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
+    :daemon => ["-D", "ignored with \"-k test, -k load, -k enable\".", :hide_value => true],
+    :skip_load => ["doesn't load event handler when start. usually use with --daemon option. [only for command]", :hide_value => true],
+    :skip_enablement => ["doesn't enable event handler when start. usually use with --daemon option. [only for command]", :hide_value => true],
+    :skip_waiting_activation => ["doesn't activate kernel when start. usually use with --daemon option. [only for command]", :hide_value => true],
     :activation_timeout => "period to wait for making activation file.",
-    :load_path => ["-T", "[REQUIRED] path/to/file_or_dir. ignored with \"-k test\".", {:hide_val => true}],
+    :load_path => ["-T", "[REQUIRED] path/to/file_or_dir. ignored with \"-k test\".", :hide_value => true],
     :log_dir  => "path/to/dir.",
     :pid_dir  => "path/to/dir.",
     :activation_dir => "path/to/dir.",
   }.each{|key, args| tengine_opt.call(:tengined, key, args)}
 
   o.separator ""
-  o.separator "DB Connection"
+  o.separator "DB Connection:"
   {
     :host     => ["-O", "hostname to connect db."],
     :port     => ["-P", "port to connect db."],
@@ -68,7 +68,7 @@ EOS
   }.each{|key, args| tengine_opt.call(:db, key, args)}
 
   o.separator ""
-  o.separator "MQ subscription"
+  o.separator "MQ subscription:"
   {
     :host  => ["-o", "hostname to connect queue server."],
     :port  => ["-p", "port to connect queue server."],
@@ -88,6 +88,45 @@ EOS
     :name    => ["-q", "queue name to subscribe."],
     :durable => [     "queue durable to subscribe."],
   }.each{|key, args| tengine_opt.call([:event_queue, :queue], key, args)}
+
+  o.separator ""
+  o.separator "Log common options:"
+  {
+    :output        => ['file path or "STDOUT" / "STDERR"', :hide_value => true],
+    :rotation      => ['rotation file count or daily,weekly,monthly.'],
+    :rotation_size => ['number of max log file size.'],
+    :level         => ['debug/info/warn/error/fatal.'],
+  }.each{|key, args| tengine_opt.call(:log_common, key, args)}
+
+  o.separator ""
+  o.separator "Application log options:"
+  {
+    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/application.log” else "STDOUT"', :hide_value => true],
+    :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_value => true],
+    :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_value => true],
+    :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_value => true],
+  }.each{|key, args| tengine_opt.call(:application_log, key, args)}
+
+  o.separator ""
+  o.separator "Process STDOUT log options:"
+  {
+    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log” else "STDOUT"', :hide_value => true],
+    :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_value => true],
+    :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_value => true],
+    :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_value => true],
+  }.each{|key, args| tengine_opt.call(:process_stdout_log, key, args)}
+
+  o.separator ""
+  o.separator "Process STDERR log options:"
+  {
+    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stderr.log” else "STDERR"', :hide_value => true],
+    :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_value => true],
+    :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_value => true],
+    :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_value => true],
+  }.each{|key, args| tengine_opt.call(:process_stderr_log, key, args)}
+
+  o.separator ""
+  o.separator "General options:"
 
   o.on("-h", '--help', "Show this help message."){ puts o; exit}
   o.parse!
