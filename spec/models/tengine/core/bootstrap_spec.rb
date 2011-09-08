@@ -74,15 +74,6 @@ describe "Tengine::Core::Bootstrap" do
       end
     end
 
-    context "config[:action] => stop の場合" do
-      it "stop_kernelがよばれること" do
-        options = { :action => "stop" }
-        bootstrap = Tengine::Core::Bootstrap.new(options)
-        bootstrap.should_receive(:stop_kernel)
-        bootstrap.boot
-      end
-    end
-
     context "config[:action]に想定外の値が設定された場合" do
       it "ArgumentErrorをraiseする" do
         options = { :action => 1 }

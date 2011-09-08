@@ -5,9 +5,16 @@ class Tengine::Core::IoToLogger
     @method_to_write = method_to_write
   end
   def puts(str)
-    @logger.send(@method_to_write, str)
+    @logger.send(@method_to_write, str.strip)
   end
   def write(str)
-    @logger.send(@method_to_write, str)
+    @logger.send(@method_to_write, str.strip)
   end
+  alias_method :<<, :puts
+
+  def flush; end # ignore
+
+  alias_method :to_s, :inspect
+
+
 end
