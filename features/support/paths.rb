@@ -18,9 +18,16 @@ module NavigationHelpers
       new_tengine_core_driver_path
     when /the new tengine_core_driver page/
       new_tengine_core_driver_path
-
-
-
+    when /ドライバ一覧/
+      tengine_core_drivers_path
+    when /イベント発火/
+      new_tengine_core_event_ignitions_path
+    when /イベント新規登録/
+      new_tengine_core_event_path
+    when /イベント一覧/
+      tengine_core_events_path
+    when /イベント通知/
+      tengine_core_events_path
 
     # the following are examples using path_to_pickle
 
