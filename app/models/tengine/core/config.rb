@@ -86,14 +86,20 @@ class Tengine::Core::Config
 
   OUTPUT_MAPPING = {"STDOUT" => STDOUT, "STDERR" => STDERR}.freeze
 
+  PROCESS_IDENTIFIER = "#{$PROGRAM_NAME}<#{Process.pid}>".freeze
+
+  FORMATTERS = {
+    :application_log    => lambda{|level, t, prog, msg| "#{t.iso8601} #{level} #{PROCESS_IDENTIFIER} #{msg}\n"},
+    :process_stdout_log => lambda{|level, t, prog, msg| "#{t.iso8601} STDOUT #{PROCESS_IDENTIFIER} #{msg}\n"},
+    :process_stderr_log => lambda{|level, t, prog, msg| "#{t.iso8601} STDERR #{PROCESS_IDENTIFIER} #{msg}\n"}
+  }.freeze
+
   def new_logger(log_type_name)
     raise_unless_valid_log_type_name(log_type_name)
     c = log_config(log_type_name)
     output = c[:output]
-    result = Logger.new(OUTPUT_MAPPING[output] || output,
-      :shift_age => c[:rotation],
-      :shift_size => c[:rotation_size]
-      )
+    result = Logger.new(OUTPUT_MAPPING[output] || output, c[:rotation], c[:rotation_size])
+    result.formatter = FORMATTERS[log_type_name]
     result.level = Logger.const_get(c[:level].to_s.upcase)
     result
   end
