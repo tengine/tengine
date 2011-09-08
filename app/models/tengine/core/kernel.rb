@@ -138,6 +138,10 @@ class Tengine::Core::Kernel
     end
   end
 
+  # 自動でログ出力する
+  extend Tengine::Core::MethodTraceable
+  method_trace(:start, :stop, :bind, :wait_for_activation, :activate)
+
   private
 
   def mq
