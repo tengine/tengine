@@ -7,19 +7,18 @@ class Tengine::Core::Bootstrap
 
   def initialize(hash)
     @config = Tengine::Core::Config[hash]
+    prepare_trap
   end
+
+  def prepare_trap; Signal.trap(:HUP) {puts ":HUP"; kernel.stop} end
 
   def boot
     case config[:action]
     when "load" then load_dsl
     when "start"
-      load_dsl unless config[:tengined][:skip_load] == true
+      load_dsl unless config[:tengined][:skip_load]
       start_kernel
     when "test"
-      # TODO 接続テスト用イベントハンドラ定義ファイルをload_pathに指定してあげる必要があります
-      # config[:tengined][:load_path] = File.expand_path("lib/tengine/core/connection_test/fire_bar_on_foo.rb", tengine_root)
-      # @config[:tengined][:load_path] = tengine_coreのルート/lib/tengine/core/connection_test/fire_bar_on_foo.rb
-      # tengine_coreのルート/lib/tengine/core/connection_test/VERSION
       config[:tengined][:skip_waiting_activation] = true
       config[:tengined][:load_path] = File.expand_path("../../../../lib/tengine/core/connection_test/fire_bar_on_foo.rb", File.dirname(__FILE__))
 
@@ -29,19 +28,13 @@ class Tengine::Core::Bootstrap
       version_file.close
 
       load_dsl
-#      puts "@load_dsl fin"
-
       start_kernel
-#      puts "@start_kernel fin"
       start_connection_test
-#      puts "@start_connection_test fin"
       stop_kernel
-#      puts "@stop_kernel fin"
     when "enable" then enable_drivers
     when "status" then kernel_status
-    when "stop" then stop_kernel
     else
-      raise ArgumentError, "config[:action] must be test|load|start|enable|stop|force-stop|status but was #{config[:action]} "
+      raise ArgumentError, "config[:action] in boot method must be test|load|start|enable|status but was #{config[:action]} "
     end
   end
 
@@ -53,7 +46,7 @@ class Tengine::Core::Bootstrap
   end
 
   def start_kernel
-    @kernel = Tengine::Core::Kernel.new(config)
+    @kernel ||= Tengine::Core::Kernel.new(config)
     kernel.start
   end
 
