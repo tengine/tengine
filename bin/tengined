@@ -98,15 +98,25 @@ hash.update(:daemon_proc_path => File.expand_path(__FILE__))
 
 require 'pp'
 pp hash
-__END__
+
 if ["stop", "force_stop"].include? hash[:action]
   pid = Dir.glob(hash[:tengined][:pid_dir] + "/*") do |f|
   end
   result = Process.kill("INT", pid)
 else
   daemonize_options = {
-    :ontop => hash[:tengined][:daemon],
-    :backtrace => true,
+    :app_name => "tengined",
+    :ARGV => ['start'],
+    :dir_mode => :normal,
+    :dir => hash[:tengined][:pid_dir],
+    :multiple => true,
+    :ontop => !hash[:tengined][:daemon],
+    :monitor => true,
+    :log_dir => hash[:tengined][:log_dir],
+    :log_output => false
+  }
+  daemonize_options = {
+    :ontop => !hash[:tengined][:daemon],
     :app_name => "tengined",
     :dir_mode => :normal,
     :dir => hash[:tengined][:pid_dir],
@@ -114,18 +124,22 @@ else
     :log_output => false
   }
   pp daemonize_options
-  if hash[:tengined][:daemon]
-    STDOUT.reopen(File.expand_path(hash[:tengined][:log_dir] + "/#{Process.pid}_stdout.log", File.dirname(__FILE__)))
-    STDERR.reopen(File.expand_path(hash[:tengined][:log_dir] + "/#{Process.pid}_stderr.log", File.dirname(__FILE__)))
-  end
+  # pid_dir, log_dirない場合は
+  #Daemons.run_proc("tengined", daemonize_options) do
   Daemons.daemonize(daemonize_options)
-  #bootstrap = Tengine::Core::Bootstrap.new(hash)
-  loop do
-    puts 'in loop'
-    sleep 10
-  end
-  #bootstrap.boot
+    #if hash[:tengined][:daemon]
+    #  STDOUT.reopen(File.expand_path(hash[:tengined][:log_dir] + "#{Process.pid}_stdout.log", File.dirname(__FILE__)), "a")
+    #  STDERR.reopen(File.expand_path(hash[:tengined][:log_dir] + "#{Process.pid}_stderr.log", File.dirname(__FILE__)), "a")
+    #end
+
+    #bootstrap = Tengine::Core::Bootstrap.new(hash)
+    loop do
+      puts 'in loop'
+      sleep 10
+    end
+    #bootstrap.boot
+  #end
 end
 
-Signal.trap(:INT){puts ":INT"; exit(0)}
-Signal.trap(:TERM){puts ":INT"; exit(0)}
+Signal.trap(:INT){puts ":INT"; exit()}
+Signal.trap(:TERM){puts ":INT"; exit()}
