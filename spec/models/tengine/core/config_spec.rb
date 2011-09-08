@@ -140,7 +140,7 @@ describe Tengine::Core::Config do
       end
     end
 
-    context "ディレクトリもディレクトリも存在しない場合" do
+    context "ファイルもディレクトリも存在しない場合" do
       before do
         @error_message = "file or directory doesn't exist. /var/lib/tengine/init.rb"
         Dir.should_receive(:exist?).with("/var/lib/tengine/init.rb").and_return(false)
