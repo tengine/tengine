@@ -12,6 +12,8 @@ module Tengine::Core
   autoload :DslEnv,       'tengine/core/dsl_env'
   # autoload :DslFilterDef, 'tengine/core/dsl_filter_def'
 
+  autoload :IoToLogger,   'tengine/core/io_to_logger'
+
   # 設定ファイルエラー
   class ConfigError < StandardError
   end
