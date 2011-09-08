@@ -5,6 +5,19 @@ describe Tengine::Core::Config do
 
   # log_configのテストは spec/models/tengine/core/config_spec/log_config_spec.rb にあります。
 
+  describe :[] do
+    it "should convert a Hash to a Tengine::Core::Config" do
+      converted = Tengine::Core::Config[{ :tengined => { :daemon => true}}]
+      converted.should be_a(Tengine::Core::Config)
+      converted[:tengined][:daemon].should be_true
+    end
+
+    it "should return same Tengine::Core::Config" do
+      converted = Tengine::Core::Config.new(:tengined => { :daemon => true})
+      Tengine::Core::Config[converted].should == converted
+    end
+  end
+
   context "ディレクトリ指定の設定ファイル" do
     subject do
       Tengine::Core::Config.new(:config => File.expand_path("config_spec/config_with_dir_load_path.yml", File.dirname(__FILE__)))

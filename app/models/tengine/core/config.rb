@@ -229,6 +229,10 @@ class Tengine::Core::Config
       end
       dest
     end
+
+    def [](obj)
+      obj.is_a?(self) ? obj : new(obj)
+    end
   end
 
 

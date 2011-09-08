@@ -6,7 +6,7 @@ class Tengine::Core::Bootstrap
   attr_accessor :kernel
 
   def initialize(hash)
-    @config = Tengine::Core::Config.new(hash)
+    @config = Tengine::Core::Config[hash]
   end
 
   def boot
