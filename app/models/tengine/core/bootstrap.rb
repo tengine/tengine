@@ -79,6 +79,12 @@ class Tengine::Core::Bootstrap
       end
     end
   end
+
+  # 自動でログ出力する
+  extend Tengine::Core::MethodTraceable
+  method_trace(:prepare_trap, :boot, :load_dsl, :start_kernel, :stop_kernel,
+    :enable_drivers, :kernel_status, :start_connection_test)
+
 end
 
 # SIGINTをトラップして、stop_kernelする必要あり
