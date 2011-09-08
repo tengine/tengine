@@ -49,8 +49,9 @@
   ├── uc60_event_in_handler.rb
   ├── uc61_event_outside_of_handler.rb
   ├── uc62_session_in_driver.rb
-  └── uc63_session_outside_of_driver.rb
-
+  ├── uc63_session_outside_of_driver.rb
+  ├── uc70_driver_enabled_on_activation.rb
+  └── uc71_driver_disabled_on_activation.rb
 
   背景:
     前提 "DBパッケージ"のインストールおよびセットアップが完了している
@@ -429,6 +430,38 @@
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"session is not available outside of event driver block."と出力されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+
+  シナリオ: [正常系]アプリケーション開発者がアクティベーション時に有効になるようなイベントハンドラ定義ファイルを指定してTengineコアを起動する
+    前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc70_driver_enabled_on_activation.rb"が存在すること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/uc70_driver_enabled_on_activation.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行が表示されること
+    |  driver70  |有効|
+
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+    
+  シナリオ: [正常系]アプリケーション開発者がアクティベーション時に無効になるようなイベントハンドラ定義ファイルを指定してTengineコアを起動する
+    前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc71_driver_disabled_on_activation.rb"が存在すること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/uc71_driver_disabled_on_activation.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行が表示されること
+    |  driver71  |無効|
+
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     
   シナリオ: [正常系]アプリケーション開発者が存在しないイベントハンドラ定義ファイルを指定してTengineコアを起動する
