@@ -86,6 +86,7 @@ class Tengine::Core::Config
   DEFAULT = {
     :action => "start", # 設定ファイルには記述しない
     :config => nil,     # 設定ファイルには記述しない
+
     :tengined => {
       :daemon => false,
       # :prevent_loader    => nil, # デフォルトなし。設定ファイルには記述しない
@@ -97,6 +98,7 @@ class Tengine::Core::Config
       :pid_dir        => "./tmp/tengined_pids"       , # 本番環境での例 "/var/run/tengined_pids"
       :activation_dir => "./tmp/tengined_activations", # 本番環境での例 "/var/run/tengined_activations"
     }.freeze,
+
     :db => {
       :host => 'localhost',
       :port => 27017,
@@ -104,6 +106,7 @@ class Tengine::Core::Config
       :password => nil,
       :database => 'tengine_production',
     }.freeze,
+
     :event_queue => {
       :connection => {
         :host => 'localhost',
@@ -122,6 +125,35 @@ class Tengine::Core::Config
         :durable => true,
       }.freeze,
     }.freeze,
+
+    :log_common => {
+      :output        => nil        , # file path or "STDOUT" / "STDERR"
+      :rotation      => 3          , # rotation file count or daily,weekly,monthly. default: 3
+      :rotation_size => 1024 * 1024, # number of max log file size. default: 1048576 (10MB)
+      :level         => 'info'     , # debug/info/warn/error/fatal. default: info
+    }.freeze,
+
+    :application_log => {
+      :output        => nil        , # file path or "STDOUT" / "STDERR". default: if daemon process then “./log/application.log” else "STDOUT"
+      :rotation      => 3          , # rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+      :rotation_size => 1024 * 1024, # number of max log file size. default: value of --log-common-rotation-size
+      :level         => 'info'     , # debug/info/warn/error/fatal. default: value of --log-common-level
+    }.freeze,
+
+    :process_stdout_log => {
+      :output        => nil        , # file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log” else "STDOUT"
+      :rotation      => 3          , # rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+      :rotation_size => 1024 * 1024, # number of max log file size. default: value of --log-common-rotation-size
+      :level         => 'info'     , # debug/info/warn/error/fatal. default: value of --log-common-level
+    }.freeze,
+
+    :process_stderr_log => {
+      :output        => nil        , # file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stderr.log” else "STDERR"
+      :rotation      => 3          , # rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+      :rotation_size => 1024 * 1024, # number of max log file size. default: value of --log-common-rotation-size
+      :level         => 'info'     , # debug/info/warn/error/fatal. default: value of --log-common-level
+    }.freeze,
+
   }.freeze
 
   class << self
