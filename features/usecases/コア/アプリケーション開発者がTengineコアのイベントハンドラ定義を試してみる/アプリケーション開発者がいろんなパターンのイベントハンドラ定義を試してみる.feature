@@ -89,7 +89,6 @@
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_1/dir_2"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-				 xxxxx      
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行が表示されること
@@ -186,7 +185,7 @@
   シナリオ:  [正常系]イベントを受け取ったらすぐにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc50_commit_event_at_first.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc50_commit_event_at_first.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc50_commit_event_at_first.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること    
 
@@ -223,13 +222,13 @@
   シナリオ:  [正常系]ハンドラを実行して最初にSubmitされたときにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc51_commit_event_at_first_submit.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc51_commit_event_at_first_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc51_commit_event_at_first_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること    
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
-    かつ 以下の行の表示がされていること
+    かつ 以下の行が表示されること
     |  driver51_1  |有効|
     |  driver51_2  |有効|
     |  driver51_3  |有効|
@@ -263,13 +262,13 @@
   シナリオ:  [正常系]ハンドラを実行して全てsubmitされたときにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc52_commit_event_after_all_handler_submit.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc52_commit_event_after_all_handler_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc52_commit_event_after_all_handler_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
-    かつ 以下の行の表示がされていること
+    かつ 以下の行が表示されること
     |  driver52_1  |有効|
 		|  driver52_2  |有効|
     |  driver52_3  |有効|
@@ -312,7 +311,7 @@
   シナリオ:  [正常系]ack_policyによって実行回数が1回になるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc54_ack_check_at_first.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc54_ack_check_at_first.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc54_ack_check_at_first.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -346,14 +345,14 @@
     かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler54_2:1:0"と記述されていること
     かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler54_3:1:0"と記述されていること
 		
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ:  [正常系]ack_policyによって実行回数が2回になるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc55_ack_check_at_first_submit.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc55_ack_check_at_first_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc55_ack_check_at_first_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -396,7 +395,7 @@
   シナリオ:  [正常系]ack_policyによって実行回数が3回になるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc56_ack_check_after_all_handler_submit.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc56_ack_check_after_all_handler_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc56_ack_check_after_all_handler_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
