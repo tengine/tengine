@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+require 'logger'
+
 module Tengine
   autoload :Core, 'tengine/core'
 
@@ -8,6 +10,11 @@ module Tengine
       client = eval("self", block.binding)
       client.driver(*args, &block)
     end
+
+    def logger
+      @logger ||= Logger.new
+    end
+    attr_writer :logger
   end
 
 end
