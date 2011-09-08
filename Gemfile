@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # すぐにパッチが出る事を予想しています。リリース近くなったらバージョンを固定します。
-gem 'rails', '~> 3.1' 
+gem 'rails', '~> 3.1'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -13,6 +13,8 @@ gem "bson_ext", "~> 1.3"
 gem "kaminari", "~> 0.12"
 
 gem "tengine_event", "~> 0.1"
+
+gem "daemons", "~> 1.1"
 
 group :test, :development do
   gem "rspec-rails", "~> 2.6"

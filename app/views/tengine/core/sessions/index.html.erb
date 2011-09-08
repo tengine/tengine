@@ -1,0 +1,31 @@
+<h1><%= page_title Tengine::Core::Session, :list %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th><%= Tengine::Core::Session.human_attribute_name(:driver) %></th>
+    <th><%= Tengine::Core::Session.human_attribute_name(:properties) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sessions.each do |session| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><pre><%= link_to_model session.driver %></pre></td>
+    <td><pre><%= session.properties_yaml %></pre></td>
+    <td><%= link_to_show session %></td>
+    <td><%= link_to_edit edit_tengine_core_session_path(session) %></td>
+    <td><%= link_to_destroy session, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= paginate @sessions %>
+
+<br />
+
+<%= link_to_new Tengine::Core::Session, new_tengine_core_session_path %>

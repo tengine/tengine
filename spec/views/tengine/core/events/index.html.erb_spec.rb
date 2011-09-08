@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "tengine/core/events/index.html.erb" do
   before(:each) do
-    assign(:events, [
+    mock_pagination(assign(:events, [
       stub_model(Tengine::Core::Event,
         :event_type_name => "Event Type Name",
         :key => "Key",
@@ -21,7 +21,7 @@ describe "tengine/core/events/index.html.erb" do
         :sender_name => "Sender Name",
         :properties => {"a"=>"1", "b"=>"2"}
       )
-    ])
+    ]))
   end
 
   it "renders a list of tengine_core_events" do
