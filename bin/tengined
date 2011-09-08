@@ -8,7 +8,7 @@ $LOAD_PATH << File.expand_path('../app/models', File.dirname(__FILE__))
 require 'tengine'
 
 @hash = Tengine::Core::Config.default_hash
-Signal.trap(:INT) {puts ":INT";@bootstrap.stop_kernel}
+Signal.trap(:INT) {puts ":INT"; @bootstrap.stop_kernel}
 
 ARGV.options do |o|
 
@@ -217,6 +217,6 @@ run do
   #  Daemons.daemonize(daemonize_options)
   require File.expand_path('./config/environment', tengined_root)
   require File.expand_path('./app/models/tengine', tengined_root)
-  bootstrap = Tengine::Core::Bootstrap.new(config)
-  bootstrap.boot
+  @bootstrap = Tengine::Core::Bootstrap.new(config)
+  @bootstrap.boot
 end
