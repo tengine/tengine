@@ -76,7 +76,8 @@
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行が表示されること
-    |  driver_a  |有効|
+    |名称     |状態|
+    |driver_a|有効|
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -88,11 +89,11 @@
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/try_dsl/dir_1/dir_2"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行が表示されること
-    |  driver_a  |有効|
+    |名称     |状態|
+    |driver_a|有効|
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -108,7 +109,8 @@
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行が表示されること
-    |  driver_err  |有効|
+    |名称     |状態|
+    |driver_err|有効|
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -183,14 +185,15 @@
   シナリオ:  [正常系]イベントを受け取ったらすぐにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc50_commit_event_at_first.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/uc50_commit_event_at_first.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc50_commit_event_at_first.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること    
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
-    かつ 以下の行の表示がされていること
-    |  driver50  |有効|
+    かつ 以下の行が表示されること
+    |名称     |状態|
+    |driver50|有効|
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -204,31 +207,31 @@
     ならば "event50を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
-    ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event50|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
+    ならば "イベント通知画面"を表示していること
+    かつ 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
+    |event50|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に以下の内容が表示されること
-    |KEY:handler50|
-    |Listing queues ...|
-    |queue  0 0|
-    |...done.|
+    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler50:0"と記述されていること
 
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ:  [正常系]ハンドラを実行して最初にSubmitされたときにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc51_commit_event_at_first_submit.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/uc51_commit_event_at_first_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc51_commit_event_at_first_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること    
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
-    かつ 以下の行の表示がされていること
-    |  driver51  |有効|
+    かつ 以下の行が表示されること
+    |  driver51_1  |有効|
+    |  driver51_2  |有効|
+    |  driver51_3  |有効|
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -242,45 +245,33 @@
     ならば "event51を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
-    ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event51|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
+    ならば "イベント通知画面"を表示していること
+    かつ 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
+    |event51|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に以下の内容が表示されること
-    |KEY:handler51_1|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |KEY:handler51_2|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 0|
-    |...done.|
-    |KEY:handler51_2|
-    |Listing queues ...|
-    |queue  0 0|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 0|
-    |...done.|
+    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler51_1:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler51_2:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler51_3:0"と記述されていること
 
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ:  [正常系]ハンドラを実行して全てsubmitされたときにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc52_commit_event_after_all_handler_submit.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/uc52_commit_event_after_all_handler_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc52_commit_event_after_all_handler_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
-    かつ 以下の行の表示がされていること
-    |  driver52  |有効|
+    かつ 以下の行が表示されること
+    |  driver52_1  |有効|
+		|  driver52_2  |有効|
+    |  driver52_3  |有効|
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -294,41 +285,18 @@
     ならば "event52を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
-    ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event52|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
+    ならば "イベント通知画面"を表示していること
+    かつ 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
+    |event52|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に以下の内容が表示されること
-    |KEY:handler52_1|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |KEY:handler52_2|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |KEY:handler52_3|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
+    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler52_1:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler52_2:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler52_3:1"と記述されていること
 
-    もし "rabbitmqctl list_queues name messages_ready messages_unacknowledged"というコマンドを実行する
-    ならば 標準出力に以下の内容が表示されること
-    |Listing queues ...|
-    |queue  0 0|
-    |...done.|
-
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]submitをイベントハンドラ外で使用するイベントハンドラ定義ファイルを指定してTengineコアを起動する
@@ -343,15 +311,17 @@
   シナリオ:  [正常系]ack_policyによって実行回数が1回になるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc54_ack_check_at_first.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/uc54_ack_check_at_first.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc54_ack_check_at_first.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
-    かつ 以下の行の表示がされていること
-    |  driver54_1  |有効|
-    |  driver54_2  |有効|
+    かつ 以下の行が表示されること
+    |名称     |状態|
+    |driver54_1|有効|
+    |driver54_2|有効|
+
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -365,48 +335,33 @@
     ならば "event54を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
-    ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event54|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
+    ならば "イベント通知画面"を表示していること
+    かつ 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
+    |event54|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に以下の内容が表示されること
-    |handler54_1:1|
-    |Listing queues ...|
-    |queue  0 0|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 0|
-    |...done.|
-    |handler54_2:1|
-    |Listing queues ...|
-    |queue  0 0|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 0|
-    |...done.|
-
-    もし "rabbitmqctl list_queues name messages_ready messages_unacknowledged"というコマンドを実行する
-    ならば 標準出力に以下の内容が表示されること
-    |Listing queues ...|
-    |queue  0 0|
-    |...done.|
-
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler54_1:1:0"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler54_2:1:0"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler54_3:1:0"と記述されていること
+		
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ:  [正常系]ack_policyによって実行回数が2回になるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc55_ack_check_at_first_submit.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/uc55_ack_check_at_first_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc55_ack_check_at_first_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
-    かつ 以下の行の表示がされていること
-    |  driver55_1  |有効|
-    |  driver55_2  |有効|
+    かつ 以下の行が表示されること
+    |名称     |状態|
+    |driver55_1|有効|
+    |driver55_2|有効|
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -420,62 +375,36 @@
     ならば "event55を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
-    ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event55|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
+    ならば "イベント通知画面"を表示していること
+    かつ 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
+    |event55|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に以下の内容が表示されること
-    |handler55_1:1|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |handler55_2:1|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |handler55_1:2|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |handler55_2:2|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
+    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler55_1:1:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler55_2:1:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler55_3:1:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler55_1:2:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler55_2:2:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler55_3:2:1"と記述されていること
 
-    もし "rabbitmqctl list_queues name messages_ready messages_unacknowledged"というコマンドを実行する
-    ならば 標準出力に以下の内容が表示されること
-    |Listing queues ...|
-    |queue  0 0|
-    |...done.|
-
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ:  [正常系]ack_policyによって実行回数が3回になるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc56_ack_check_after_all_handler_submit.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/uc56_ack_check_after_all_handler_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/usecases/コア/dsls/uc56_ack_check_after_all_handler_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
-    かつ 以下の行の表示がされていること
-    |  driver56_1  |有効|
-    |  driver56_2  |有効|
+    かつ 以下の行が表示されること
+    |名称     |状態|
+    |driver56_1|有効|
+    |driver56_2|有効|
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -489,75 +418,39 @@
     ならば "event56を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
-    ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event56|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
+    ならば "イベント通知画面"を表示していること
+    かつ 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
+    |event56|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に以下の内容が表示されること
-    |handler56_1:1|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |handler56_2:1|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |handler56_1:2|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |handler56_2:2|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |handler56_1:3|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |handler56_2:3|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
-    |Listing queues ...|
-    |queue  0 1|
-    |...done.|
+    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_1:1:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_2:1:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_3:1:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_1:2:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_2:2:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_3:2:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_1:3:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_2:3:1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_3:3:1"と記述されていること
 
-    もし "rabbitmqctl list_queues name messages_ready messages_unacknowledged"というコマンドを実行する
-    ならば 標準出力に以下の内容が表示されること
-    |Listing queues ...|
-    |queue  0 0|
-    |...done.|
 
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ:  [正常系]eventを使ってイベントの情報を取得するイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc60_event_in_handler.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/uc60_event_in_handler.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/uc60_event_in_handler.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
-    かつ 以下の行の表示がされていること
-    |  driver60  |有効|
+    かつ 以下の行が表示されること
+    |名称     |状態|
+    |driver60|有効|
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -571,22 +464,23 @@
     ならば "event60を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
-    ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event60|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
+    ならば "イベント通知画面"を表示していること
+    かつ 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
+    |event60|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に以下の内容が表示されること
-    |event_type_name: ???|
-    |key: ???
-    |source_name: ???|
-    |occurred_at: ???|
-    |notification_level: ???|
-    |notification_confirmed: ???|
-    |sender_name ???|
-    |properties ???|
+    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:event_type_name:???"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:key:???"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:source_name:???"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:occured_at:???"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:notification_level:???"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:notification_confirmed:???"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:sender_name:???"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:properties:???"と記述されていること
 
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
     
     
   シナリオ: [正常系]eventをイベントハンドラ外で使用するイベントハンドラ定義ファイルを指定してTengineコアを起動する
@@ -601,14 +495,15 @@
   シナリオ:  [正常系]sessionを使ってセッション情報を取得するイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./features/usecases/コア/dsls/uc62_session_in_driver.rb"が存在すること
 
-    もし "Tengineコアプロセス"を起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/uc62_session_in_driver.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/usecases/コア/dsls/uc62_session_in_driver.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"が起動していることを"ps -eo pid PID"で確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
-    かつ 以下の行の表示がされていること
-    |  driver62  |有効|
+    かつ 以下の行が表示されること
+    |名称     |状態|
+    |driver62|有効|
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -622,15 +517,16 @@
     ならば "event60を発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
-    ならば "イベント通知画面"に以下の行が表示されること
-    |EVENT_ID|event60|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
+    ならば "イベント通知画面"を表示していること
+    かつ 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
+    |event60|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に以下の内容が表示されること
-    |101|
+    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:101"と記述されていること
 
-    もし "Tengineコアプロセス"を Ctl+c で停止する
-    ならば "Tengineコアプロセス"が停止していることを"ps -eo pid PID"で確認できること
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
     
     
   シナリオ: [正常系]sessionをイベントドライバ外で使用するイベントハンドラ定義ファイルを指定してTengineコアを起動する
@@ -652,7 +548,8 @@
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行が表示されること
-    |  driver70  |有効|
+    |名称     |状態|
+    |driver70|有効|
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -668,7 +565,8 @@
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行が表示されること
-    |  driver71  |無効|
+    |名称     |状態|
+    |driver71|有効|
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -718,9 +616,10 @@
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行が表示されること
-    |  driver_a  |有効|
-    |  driver_b  |有効|
-    |  driver_e  |有効|
+    |名称     |状態|
+    |driver_a|有効|
+    |driver_b|有効|
+    |driver_e|有効|
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること

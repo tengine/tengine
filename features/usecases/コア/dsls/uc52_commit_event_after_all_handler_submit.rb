@@ -7,46 +7,40 @@ Tengine.ack_policy(:after_all_handler_submit, :event52)
 
 Tengine.driver :driver52_1 do
   on:event52 do
-    puts "handler52_1"
-    # queueの確認
-    io=IO.popen("rabbitmqctl list_queues name messages_ready messages_unacknowledged")
-    puts line while line=io.gets
+    # ackされていないmessageの確認
+    io=IO.popen("rabbitmqctl list_queues messages_unacknowledged")
+    lines = Array.new
+    lines << line while line=io.gets
     io.close
+
+    puts "#{event.key}:handler52_1:#{lines[1]}"
     submit
-    # queueの確認
-    io=IO.popen("rabbitmqctl list_queues name messages_ready messages_unacknowledged")
-    puts line while line=io.gets
-    io.close
   end
 end
 
 Tengine.driver :driver52_2 do
   on:event52 do
-    puts "handler52_2"
-    # queueの確認
-    io=IO.popen("rabbitmqctl list_queues name messages_ready messages_unacknowledged")
-    puts line while line=io.gets
+    # ackされていないmessageの確認
+    io=IO.popen("rabbitmqctl list_queues messages_unacknowledged")
+    lines = Array.new
+    lines << line while line=io.gets
     io.close
+
+    puts "#{event.key}:handler52_2:#{lines[1]}"
     submit
-    # queueの確認
-    io=IO.popen("rabbitmqctl list_queues name messages_ready messages_unacknowledged")
-    puts line while line=io.gets
-    io.close
   end
 end
 
 Tengine.driver :driver52_3 do
   on:event52 do
-    puts "handler52_3"
-    # queueの確認
-    io=IO.popen("rabbitmqctl list_queues name messages_ready messages_unacknowledged")
-    puts line while line=io.gets
+    # ackされていないmessageの確認
+    io=IO.popen("rabbitmqctl list_queues messages_unacknowledged")
+    lines = Array.new
+    lines << line while line=io.gets
     io.close
+
+    puts "#{event.key}:handler52_3:#{lines[1]}"
     submit
-    # queueの確認
-    io=IO.popen("rabbitmqctl list_queues name messages_ready messages_unacknowledged")
-    puts line while line=io.gets
-    io.close
   end
 end
 
