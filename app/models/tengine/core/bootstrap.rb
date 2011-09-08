@@ -17,13 +17,26 @@ class Tengine::Core::Bootstrap
       start_kernel
     when "test"
       # TODO 接続テスト用イベントハンドラ定義ファイルをload_pathに指定してあげる必要があります
-      # config[:tengined][:load_path] = File.expand_path("../../../../lib/tengine/core/connection_test/fire_bar_on_foo.rb", __FILE__)
+      # config[:tengined][:load_path] = File.expand_path("lib/tengine/core/connection_test/fire_bar_on_foo.rb", tengine_root)
       # @config[:tengined][:load_path] = tengine_coreのルート/lib/tengine/core/connection_test/fire_bar_on_foo.rb
       # tengine_coreのルート/lib/tengine/core/connection_test/VERSION
+      config[:tengined][:skip_waiting_activation] = true
+      config[:tengined][:load_path] = File.expand_path("../../../../lib/tengine/core/connection_test/fire_bar_on_foo.rb", File.dirname(__FILE__))
+
+      # VERSIONファイルの生成とバージョンアップの書き込み
+      version_file = File.open("#{config.dsl_dir_path}/VERSION", "w")
+      version_file.write(Time.now.strftime("%Y%m%d%H%M%S").to_s)
+      version_file.close
+
       load_dsl
+#      puts "@load_dsl fin"
+
       start_kernel
+#      puts "@start_kernel fin"
       start_connection_test
+#      puts "@start_connection_test fin"
       stop_kernel
+#      puts "@stop_kernel fin"
     when "enable" then enable_drivers
     when "status" then kernel_status
     when "stop" then stop_kernel
@@ -67,3 +80,5 @@ class Tengine::Core::Bootstrap
     Tengine::Event.fire(event_type_name, options)
   end
 end
+
+# SIGINTをトラップして、stop_kernelする必要あり

@@ -4,11 +4,10 @@ require 'rubygems'
 require 'optparse'
 require 'daemons'
 
-require File.expand_path('../config/environment', File.dirname(__FILE__))
-# require File.expand_path('../app/models/tengine/core/bootstrap', File.dirname(__FILE__))
+$LOAD_PATH << File.expand_path('../app/models', File.dirname(__FILE__))
+require 'tengine'
 
-hash = Tengine::Core::Config.default_hash
-
+@hash = Tengine::Core::Config.default_hash
 ARGV.options do |o|
 
   o.banner = <<EOS
@@ -25,7 +24,7 @@ EOS
     description = args.pop
     short_arg = args.first
     long_arg = "--#{prefixes.join('-')}-#{base_name}".gsub(/_/, '-')
-    datasource = prefixes.inject(hash){|d, prefix| d[prefix]}
+    datasource = prefixes.inject(@hash){|d, prefix| d[prefix]}
     if options[:hide_value]
       block = lambda{|v| datasource[base_name] = true}
     elsif options[:hide_default]
@@ -43,8 +42,8 @@ EOS
 
   o.separator ""
   o.separator "Basic:"
-  o.on("-k", "--action=test|load|start|enable|stop|force-stop|status", "default: start"){|v| hash[:action] = v}
-  o.on("-f", "--config=filepath"                , "Specify configuration file path."){|v| hash[:config] = v}
+  o.on("-k", "--action=test|load|start|enable|stop|force-stop|status", "default: start"){|v| @hash[:action] = v}
+  o.on("-f", "--config=filepath"                , "Specify configuration file path."){|v| @hash[:config] = v}
 
   o.separator ""
   o.separator "Process:"
@@ -136,53 +135,56 @@ EOS
 end
 
 
-hash.update(:daemon_proc_path => File.expand_path(__FILE__))
+@hash.update(:daemon_proc_path => File.expand_path(__FILE__))
 
 require 'pp'
-pp hash
-exit
+pp @hash
 
-if ["stop", "force_stop"].include? hash[:action]
-  pid = Dir.glob(hash[:tengined][:pid_dir] + "/*") do |f|
-  end
-  result = Process.kill("INT", pid)
-else
-  daemonize_options = {
-    :app_name => "tengined",
-    :ARGV => ['start'],
-    :dir_mode => :normal,
-    :dir => hash[:tengined][:pid_dir],
-    :multiple => true,
-    :ontop => !hash[:tengined][:daemon],
-    :monitor => true,
-    :log_dir => hash[:tengined][:log_dir],
-    :log_output => false
-  }
-  daemonize_options = {
-    :ontop => !hash[:tengined][:daemon],
-    :app_name => "tengined",
-    :dir_mode => :normal,
-    :dir => hash[:tengined][:pid_dir],
-    :log_dir => hash[:tengined][:log_dir],
-    :log_output => false
-  }
-  pp daemonize_options
-  # pid_dir, log_dirない場合は
-  #Daemons.run_proc("tengined", daemonize_options) do
-  Daemons.daemonize(daemonize_options)
-    #if hash[:tengined][:daemon]
-    #  STDOUT.reopen(File.expand_path(hash[:tengined][:log_dir] + "#{Process.pid}_stdout.log", File.dirname(__FILE__)), "a")
-    #  STDERR.reopen(File.expand_path(hash[:tengined][:log_dir] + "#{Process.pid}_stderr.log", File.dirname(__FILE__)), "a")
-    #end
+@base_dir = File.expand_path(File.dirname(__FILE__))
+@tengined_root = File.expand_path("..", @base_dir)
 
-    #bootstrap = Tengine::Core::Bootstrap.new(hash)
-    loop do
-      puts 'in loop'
-      sleep 10
-    end
-    #bootstrap.boot
-  #end
+def stop_process(signal)
+ pids = Dir.glob(File.expand_path(@hash[:tengined][:pid_dir] + "/*")).map do |pid_path|
+   File.open(pid_path, "r"){|f| f.gets.chomp.to_i}
+ end
+ results = pids.each{|pid| Process.kill(signal, pid)}
 end
 
-Signal.trap(:INT){puts ":INT"; exit()}
-Signal.trap(:TERM){puts ":INT"; exit()}
+def run(&block)
+  daemonize_options = {
+    :ARGV => ['start'],
+    :ontop => !@hash[:tengined][:daemon],
+    :app_name => "tengined",
+    :dir_mode => :normal,
+    :dir => File.expand_path("../#{@hash[:tengined][:pid_dir]}", File.dirname(__FILE__)),
+#    :log_dir => File.expand_path("../#{@hash[:tengined][:log_dir]}", File.dirname(__FILE__)),
+#    :log_output => false
+  }
+
+  if "stop" == @hash[:action]
+    results = stop_process("INT")
+  elsif "force_stop" == @hash[:action]
+    results = stop_process("KILL")
+  else
+    daemonize_options.update(
+      :ARGV => ['start'],
+    )
+  end
+  pp daemonize_options
+  Daemons.run_proc(File.basename(@hash[:daemon_proc_path]), daemonize_options) do
+    block.call
+  end
+end
+
+run do
+  #  Daemons.daemonize(daemonize_options)
+  require File.expand_path('./config/environment', @tengined_root)
+  require File.expand_path('./app/models/tengine', @tengined_root)
+
+  bootstrap = Tengine::Core::Bootstrap.new(@hash)
+  bootstrap.boot
+end
+
+
+Signal.trap(:INT) {puts ":INT";stop_process("INT")}
+

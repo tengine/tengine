@@ -19,6 +19,17 @@ class Tengine::Core::Kernel
     end
   end
 
+  def stop
+    unless mq.queue.default_consumer
+      mq.queue.unsubscribe
+      conn.close{ EM.stop_event_loop } unless in_process?
+    end
+  end
+
+  def in_process?
+    !!@in_process
+  end
+
   def bind
     obj = Object.new
     @dsl_env = Tengine::Core::DslEnv.new
@@ -65,6 +76,8 @@ class Tengine::Core::Kernel
         # metadata.delivery_tag: 1
         # metadata.redelivered : false
         # metadata.exchange    : amq.direct
+
+        @in_process = true
         begin
           raw_event = Tengine::Event.parse(msg)
         rescue Exception => e
@@ -99,6 +112,14 @@ class Tengine::Core::Kernel
         end
 
         headers.ack
+
+        # unsubscribed されている場合は安全な停止を行う
+        unless mq.queue.default_consumer
+          # TODO: loggerへ
+          # puts "connection closing..."
+          mq.connection.close{ EM.stop_event_loop }
+        end
+        @in_process = false
       end
       # puts "EM reactor defined"
     end
@@ -114,3 +135,4 @@ end
 
 class Tengine::Core::ActivationTimeoutError < StandardError
 end
+
