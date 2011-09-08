@@ -82,6 +82,34 @@ class Tengine::Core::Config
   end
   memoize :dsl_version
 
+  LOG_TYPE_NAMES = [:application_log, :process_stdout_log, :process_stderr_log].freeze
+
+  def log_config(log_type_name)
+    raise ArgumentError, "Unsupported log_type_name: #{log_type_name.inspect}" unless LOG_TYPE_NAMES.include?(log_type_name)
+    log_common = self[:log_common].dup
+    log_config = self[log_type_name].dup
+    log_config.delete_if{|key, value| value.nil?}
+    result = {}
+    result.update(log_common)
+    result.update(log_config)
+    result.symbolize_keys!
+    result.delete(:rotation_size) unless result[:rotation].is_a?(Integer)
+    result[:output] ||= default_log_output(log_type_name, !self[:tengined][:daemon])
+    result
+  end
+
+  private
+
+  def default_log_output(log_type_name, foreground)
+    case log_type_name
+    when :application_log then foreground ? 'STDOUT' : "./log/application.log"
+    when :process_stdout_log then foreground ? 'STDOUT' : "./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log"
+    when :process_stderr_log then foreground ? 'STDERR' : "./log/#{$PROGRAM_NAME}_#{Process.pid}_stderr.log"
+    end
+  end
+
+  public
+
   # このデフォルト値をdupしたものを、起動時のオプションを格納するツリーとして使用します
   DEFAULT = {
     :action => "start", # 設定ファイルには記述しない
@@ -134,24 +162,24 @@ class Tengine::Core::Config
     }.freeze,
 
     :application_log => {
-      :output        => nil        , # file path or "STDOUT" / "STDERR". default: if daemon process then “./log/application.log” else "STDOUT"
-      :rotation      => 3          , # rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
-      :rotation_size => 1024 * 1024, # number of max log file size. default: value of --log-common-rotation-size
-      :level         => 'info'     , # debug/info/warn/error/fatal. default: value of --log-common-level
+      :output        => nil, # file path or "STDOUT" / "STDERR". default: if daemon process then "./log/application.log" else "STDOUT"
+      :rotation      => nil, # rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+      :rotation_size => nil, # number of max log file size. default: value of --log-common-rotation-size
+      :level         => nil, # debug/info/warn/error/fatal. default: value of --log-common-level
     }.freeze,
 
     :process_stdout_log => {
-      :output        => nil        , # file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log” else "STDOUT"
-      :rotation      => 3          , # rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
-      :rotation_size => 1024 * 1024, # number of max log file size. default: value of --log-common-rotation-size
-      :level         => 'info'     , # debug/info/warn/error/fatal. default: value of --log-common-level
+      :output        => nil, # file path or "STDOUT" / "STDERR". default: if daemon process then "./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log" else "STDOUT"
+      :rotation      => nil, # rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+      :rotation_size => nil, # number of max log file size. default: value of --log-common-rotation-size
+      :level         => nil, # debug/info/warn/error/fatal. default: value of --log-common-level
     }.freeze,
 
     :process_stderr_log => {
-      :output        => nil        , # file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stderr.log” else "STDERR"
-      :rotation      => 3          , # rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
-      :rotation_size => 1024 * 1024, # number of max log file size. default: value of --log-common-rotation-size
-      :level         => 'info'     , # debug/info/warn/error/fatal. default: value of --log-common-level
+      :output        => nil, # file path or "STDOUT" / "STDERR". default: if daemon process then "./log/#{$PROGRAM_NAME}_#{Process.pid}_stderr.log" else "STDERR"
+      :rotation      => nil, # rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+      :rotation_size => nil, # number of max log file size. default: value of --log-common-rotation-size
+      :level         => nil, # debug/info/warn/error/fatal. default: value of --log-common-level
     }.freeze,
 
   }.freeze
