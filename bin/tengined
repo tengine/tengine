@@ -76,7 +76,7 @@ EOS
   {
     :host  => ["-o", "hostname to connect queue server."],
     :port  => ["-p", "port to connect queue server."],
-    :vhost => ["-u", "vhost to connect queue server."],
+    :vhost => [      "vhost to connect queue server."],
     :user  => ["-u", "username to connect queue server."],
     :pass  => ["-s", "password to connect queue server."],
   }.each{|key, args| tengine_opt.call([:event_queue, :connection], key, args)}
@@ -131,30 +131,35 @@ EOS
 
   o.separator ""
   o.separator "General options:"
-
+  o.on("-V", '--verbose', "Show detail to this command"){ @hash[:verbose] = true}
+  o.on("-v", '--version', "Show version."){ puts "comming soon"; exit}
   o.on("-h", '--help', "Show this help message."){ puts o; exit}
   o.parse!
 end
 
+@verbose = @hash.delete(:verbose)
+def verbose(msg, output = STDOUT)
+  output.puts(msg) if @verbose
+end
 
-@hash.update(:daemon_proc_path => File.expand_path(__FILE__))
-
-require 'pp'
-pp @hash
-
-@base_dir = File.expand_path(File.dirname(__FILE__))
-@tengined_root = File.expand_path("..", @base_dir)
-
+verbose "before define stop_process"
 def stop_process(signal)
+  verbose "before stop_process"
   pids = Dir.glob(File.expand_path(@hash[:tengined][:pid_dir] + "/*")).map do |pid_path|
     File.open(pid_path, "r"){|f| f.gets.chomp.to_i}
   end
   results = pids.map{|pid| Process.kill(signal, pid)}
+  verbose "after stop_process"
+rescue Exception
+  verbose("Exception occurred in stop_process\n[#{$!.class.name}] #{$!.message}\n  " << $!.backtrace.join("\n  "), STDERR)
 end
+verbose "after define stop_process"
 
+verbose "before define run"
 def run
+  verbose "before run"
   case @hash[:action].to_sym
-  when :stop       then stop_process("INT")
+  when :stop       then stop_process("HUP")
   when :force_stop then stop_process("KILL")
   when :test, :load, :start, :enable, :status then
     daemonize_options = {
@@ -167,25 +172,51 @@ def run
   #    :log_output => false
     }
     daemonize_options.update(:ARGV => ['start'])
-    pp daemonize_options
     current_dir = Dir.pwd
-    Daemons.run_proc(File.basename(@hash[:daemon_proc_path]), daemonize_options) do
-      Dir.chdir(current_dir) do
-        puts "Dir.pwd: #{Dir.pwd}"
-        yield
+    begin
+      Daemons.run_proc(File.basename(@hash[:daemon_proc_path]), daemonize_options) do
+        Dir.chdir(current_dir) do
+          yield
+        end
       end
+    rescue SystemExit => e
+      verbose("Daemons.run_proc exit successfully") if e.status == 0
     end
   else
-    STDERR.puts "Unknown action: #{@hash[:action]}"
+    verbose("Unknown action: #{@hash[:action]}", STDERR)
   end
+  verbose "after run"
+rescue SystemExit
+  verbose("Exception occurred in run\n[#{$!.class.name}] #{$!.message}\n  " << $!.backtrace.join("\n  "), STDERR)
+  raise
+rescue Exception
+  verbose("Exception occurred in run\n[#{$!.class.name}] #{$!.message}\n  " << $!.backtrace.join("\n  "), STDERR)
+  raise
+end
+verbose "after define run"
+
+@hash.update(:daemon_proc_path => File.expand_path(__FILE__))
+tengined_root = File.expand_path("..", File.expand_path(File.dirname(__FILE__)))
+
+if @verbose
+  verbose "configurations:"
+  require 'pp'; pp @hash
+  verbose "tengined_root: #{tengined_root}"
 end
 
 run do
+  config = nil
+  begin
+    config = Tengine::Core::Config.new(@hash)
+    config.setup_loggers
+  rescue Exception
+    puts "[#{$!.class.name}] #{$!.message}\n  " << $!.backrace.join("\n  ")
+    raise
+  end
+
   #  Daemons.daemonize(daemonize_options)
-  require File.expand_path('./config/environment', @tengined_root)
-  require File.expand_path('./app/models/tengine', @tengined_root)
-
-  @bootstrap = Tengine::Core::Bootstrap.new(@hash)
-  @bootstrap.boot
+  require File.expand_path('./config/environment', tengined_root)
+  require File.expand_path('./app/models/tengine', tengined_root)
+  bootstrap = Tengine::Core::Bootstrap.new(config)
+  bootstrap.boot
 end
-
