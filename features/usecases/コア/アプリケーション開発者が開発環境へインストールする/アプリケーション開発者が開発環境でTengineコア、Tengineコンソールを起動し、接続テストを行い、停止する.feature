@@ -65,6 +65,7 @@
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること 
 
       もし "DBプロセス"が起動している
+			ならば "DBプロセス"が起動していること
 
       もし "接続テスト"を行うために"tengined -k test -f tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Success!"と出力されていること
@@ -79,6 +80,7 @@
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること 
 
       もし "キュープロセス"が起動している
+			ならば "キュープロセス"が起動していること
 
       もし "接続テスト"を行うために"tengined -k test -f ./tmp/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Success!"と出力されていること
@@ -107,7 +109,7 @@
       ならば "接続テスト"の標準出力に"inquire of Tengine User Group or Tengine Support Service."と出力されていること 
 #      もし サーバ構成レポート収集ツールでサーバ構成の内容を収集する
 #      ならば サーバ構成レポートが作成されていること
-      もし "Tengineサポート的口"へ問い合わせる
+      もし "Tengineサポート窓口"へ問い合わせる
       # シナリオ終了
 
 
@@ -121,7 +123,7 @@
       ならば "接続テスト"の標準出力に"inquire of Tengine User Group or Tengine Support Service."と出力されていること 
 #      もし サーバ構成レポート収集ツールでサーバ構成の内容を収集する
 #      ならば サーバ構成レポートが作成されていること
-      もし "Tengineサポート的口"へ問い合わせる
+      もし "Tengineサポート窓口"へ問い合わせる
       # シナリオ終了
 
   シナリオ: 6.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_設定ファイルが不正
@@ -284,8 +286,9 @@
       ならば "Tengineコアプロセス"の標準出力に"can't connect to database."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-			もし "DBプロセス"が起動している			
-
+			もし "DBプロセス"が起動している
+			ならば 
+			
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -303,7 +306,7 @@
       ならば "Tengineコアプロセウ"の標準出力に"inquire of Tengine User Group or Tengine Support Service."と出力されていること 
 #      もし サーバ構成レポート収集ツールでサーバ構成の内容を収集する
 #      ならば サーバ構成レポートが作成されていること
-      もし "Tengineサポート的口"へ問い合わせる
+      もし "Tengineサポート窓口"へ問い合わせる
       # シナリオ終了
 
 
