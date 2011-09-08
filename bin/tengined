@@ -146,35 +146,37 @@ pp @hash
 @tengined_root = File.expand_path("..", @base_dir)
 
 def stop_process(signal)
- pids = Dir.glob(File.expand_path(@hash[:tengined][:pid_dir] + "/*")).map do |pid_path|
-   File.open(pid_path, "r"){|f| f.gets.chomp.to_i}
- end
- results = pids.each{|pid| Process.kill(signal, pid)}
+  pids = Dir.glob(File.expand_path(@hash[:tengined][:pid_dir] + "/*")).map do |pid_path|
+    File.open(pid_path, "r"){|f| f.gets.chomp.to_i}
+  end
+  results = pids.map{|pid| Process.kill(signal, pid)}
 end
 
-def run(&block)
-  daemonize_options = {
-    :ARGV => ['start'],
-    :ontop => !@hash[:tengined][:daemon],
-    :app_name => "tengined",
-    :dir_mode => :normal,
-    :dir => File.expand_path("../#{@hash[:tengined][:pid_dir]}", File.dirname(__FILE__)),
-#    :log_dir => File.expand_path("../#{@hash[:tengined][:log_dir]}", File.dirname(__FILE__)),
-#    :log_output => false
-  }
-
-  if "stop" == @hash[:action]
-    results = stop_process("INT")
-  elsif "force_stop" == @hash[:action]
-    results = stop_process("KILL")
-  else
-    daemonize_options.update(
+def run
+  case @hash[:action].to_sym
+  when :stop       then stop_process("INT")
+  when :force_stop then stop_process("KILL")
+  when :test, :load, :start, :enable, :status then
+    daemonize_options = {
       :ARGV => ['start'],
-    )
-  end
-  pp daemonize_options
-  Daemons.run_proc(File.basename(@hash[:daemon_proc_path]), daemonize_options) do
-    block.call
+      :ontop => !@hash[:tengined][:daemon],
+      :app_name => "tengined",
+      :dir_mode => :normal,
+      :dir => File.expand_path("../#{@hash[:tengined][:pid_dir]}", File.dirname(__FILE__)),
+  #    :log_dir => File.expand_path("../#{@hash[:tengined][:log_dir]}", File.dirname(__FILE__)),
+  #    :log_output => false
+    }
+    daemonize_options.update(:ARGV => ['start'])
+    pp daemonize_options
+    current_dir = Dir.pwd
+    Daemons.run_proc(File.basename(@hash[:daemon_proc_path]), daemonize_options) do
+      Dir.chdir(current_dir) do
+        puts "Dir.pwd: #{Dir.pwd}"
+        yield
+      end
+    end
+  else
+    STDERR.puts "Unknown action: #{@hash[:action]}"
   end
 end
 
