@@ -8,6 +8,8 @@ $LOAD_PATH << File.expand_path('../app/models', File.dirname(__FILE__))
 require 'tengine'
 
 @hash = Tengine::Core::Config.default_hash
+Signal.trap(:INT) {puts ":INT";@bootstrap.stop_kernel}
+
 ARGV.options do |o|
 
   o.banner = <<EOS
@@ -144,7 +146,7 @@ end
 
 def run
   case @hash[:action].to_sym
-  when :stop       then stop_process("INT")
+  when :stop       then stop_process("HUP")
   when :force_stop then stop_process("KILL")
   when :test, :load, :start, :enable, :status then
     daemonize_options = {
@@ -193,6 +195,3 @@ run do
   bootstrap = Tengine::Core::Bootstrap.new(config)
   bootstrap.boot
 end
-
-Signal.trap(:INT) {puts ":INT";stop_process("INT")}
-
