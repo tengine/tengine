@@ -154,7 +154,7 @@ end
 
 def run
   case @hash[:action].to_sym
-  when :stop       then stop_process("INT")
+  when :stop       then stop_process("HUP")
   when :force_stop then stop_process("KILL")
   when :test, :load, :start, :enable, :status then
     daemonize_options = {
