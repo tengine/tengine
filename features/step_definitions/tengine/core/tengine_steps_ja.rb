@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 require 'timeout'
 
+@h = {}
+
 # インストール、セットアップ関係は優先度を下げるため後ほど実装する
 前提 /^"([^"]*)パッケージ"のインストールおよびセットアップが完了している$/ do |arg1|
 #  pending # express the regexp above with the code you wish you had
@@ -47,14 +49,12 @@ end
 もし /^"([^"]*)"を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
   puts "command:#{command}"
   io = IO.popen(command)
-  @h = {}
   @h[name] = {:io => io, :stdout => []}
 end
 
 もし /^"([^"]*)"の起動を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
   puts "command:#{command}"
   io = IO.popen(command)
-  @h = {}
   @h[name] = {:io => io, :stdout => []}
 end
 
@@ -244,6 +244,20 @@ end
   if FileTest.exists?(file_path)
     FileUtils.rm(file_path)
   end
+end
+
+もし /^"([^"]*)ファイル""([^"]*)"を参照する$/ do |name, file_path|
+  raise "#{name}:#{file_path}が存在しません" unless FileTest.exists?(file_path)
+  # ファイルを展開した文字配列を格納する
+  @h[name] = {:file_path => file_path, :read_lines => File.readlines(file_path)}
+end
+
+ならば /^"([^"]*)ファイル"に"([^"]*)"と記述されていること$/ do |name, text|
+  @h[name][:read_lines].grep(/#{text}/).should_not be_empty
+end
+
+ならば /^"([^"]*)ファイル"に"([^"]*)"と記述されていないこと$/ do |name, text|
+  @h[name][:read_lines].grep(/#{text}/).should be_empty
 end
 
 もし /^Tengineコアの設定ファイル"([^"]*)"を作成する$/ do |config_file_path|

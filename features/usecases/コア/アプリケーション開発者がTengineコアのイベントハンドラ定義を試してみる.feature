@@ -66,8 +66,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -105,8 +105,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event00|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていないこと
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていないこと
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -149,8 +149,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -193,9 +193,9 @@
     |EVENT_ID|event02_1|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
     |EVENT_ID|event02_2|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler02_1"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler02_2"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler02_1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler02_2"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -237,9 +237,9 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event03|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler03_1"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler03_2"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler03_1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler03_2"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -281,8 +281,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event02|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler04"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler04"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -320,8 +320,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event04|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler04"と表示されていないこと
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler04"と記述されていないこと
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -385,8 +385,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -445,8 +445,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -516,8 +516,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -590,8 +590,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -646,8 +646,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -704,8 +704,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -771,8 +771,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -838,8 +838,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -905,8 +905,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -965,8 +965,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1008,12 +1008,12 @@
     ならば "イベント通知画面"に以下の行が表示されていないこと
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていないこと
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていないこと
 
     # DB接続に失敗してTengineコアプロセスが停止している
-    もし "Tengineコアプロセスのプロセスログファイル"を表示する
-    ならば "Tengineコアプロセスのプロセスログファイル"に"Mongo::ConnectionFailure"と表示していること
+    もし "Tengineコアプロセスのプロセスログファイル""log/tengine_core.log"を参照する
+    ならば "Tengineコアプロセスのプロセスログファイル"に"Mongo::ConnectionFailure"と記述されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     # 復旧させるためにDBの起動、Tengineの起動して処理を再度行う
@@ -1030,8 +1030,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1108,8 +1108,8 @@
     ならば "イベント通知画面"に以下の行が表示されていないこと
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていないこと
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていないこと
 
     # 復旧させるためにDBの起動、Tengineの起動して処理を再度行う
     もし "DBプロセス"の起動を行うために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
@@ -1123,8 +1123,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1166,8 +1166,8 @@
     ならば "イベント通知画面"に以下の行が表示されていないこと
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていないこと
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていないこと
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./feature/event_handler_def/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
@@ -1177,8 +1177,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1215,8 +1215,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event00|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていないこと
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていないこと
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1259,8 +1259,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event02_1|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler02_1"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler02_1"と記述されていること
 
     もし "キュープロセス"の起動を行うために"rabbitmq-server -detached"というコマンドを実行する
     ならば "キュープロセス"が起動していること
@@ -1271,8 +1271,8 @@
     |EVENT_ID|event02_1|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
     |EVENT_ID|event02_2|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler02_2"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler02_2"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1310,9 +1310,9 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event03|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler03_1"と表示されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler03_2"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler03_1"と記述されていること
+    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler03_2"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1373,8 +1373,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1433,8 +1433,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1505,8 +1505,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |true      |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1581,8 +1581,8 @@
     ならば "イベント通知画面"に以下の行が表示されること
     |EVENT_ID|event01|KEY|tengine_console|2011/09/01 12:00:00|info     |true      |tengine_console|       |
 
-    もし "Tengineコアプロセスのイベント処理ログファイル"を表示する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と表示されていること
+    もし "Tengineコアプロセスのイベント処理ログファイル""log/event_process.log"を参照する
+    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
