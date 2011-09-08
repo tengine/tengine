@@ -2,7 +2,7 @@ class Tengine::Core::DriversController < ApplicationController
   # GET /tengine/core/drivers
   # GET /tengine/core/drivers.json
   def index
-    @drivers = Tengine::Core::Driver.all(:sort => [[:_id]]).page(params[:page])
+    @drivers = Tengine::Core::Driver.all(:sort => [[:_id, 1], [:name, 1]]).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

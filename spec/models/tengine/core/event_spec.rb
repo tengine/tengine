@@ -8,7 +8,7 @@ describe Tengine::Core::Event do
       unique_key_name = "key1"
       Tengine::Core::Event.delete_all
       Tengine::Core::Event.create!(:event_type_name => "foo", :key => unique_key_name, :sender_name => "server1")
-      expect{
+      expect {
         Tengine::Core::Event.create!(:event_type_name => "foo", :key => unique_key_name, :sender_name => "server2")
       }.to raise_error # (Mongo::OperationFailure, /duplicate key error/)
     end

@@ -5,7 +5,8 @@ describe "tengine/core/drivers/show.html.erb" do
     @driver = assign(:driver, stub_model(Tengine::Core::Driver,
       :name => "Name",
       :version => "Version",
-      :enabled => false
+      :enabled => false,
+      :enabled_on_activation => false
     ))
   end
 
@@ -15,6 +16,8 @@ describe "tengine/core/drivers/show.html.erb" do
     rendered.should match(/Name/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/Version/)
+    # Run the generator again with the --webrat flag if you want to use webrat matchers
+    rendered.should match(/false/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/false/)
   end
