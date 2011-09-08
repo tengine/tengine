@@ -550,7 +550,62 @@
 
       # 以下基本コースに戻る
 
-			
+
+  シナリオ: 21.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログファイルを指定したが書き込み権限がない
+      前提 "/tmp/ap_not_writable.log"ファイルに書き込み権限がない
+      かつ "/tmp/ap.log"ファイルに書き込み権限がある
+
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start --application-log-output /tmp/ap_not_writable.log"というコマンドを実行する
+      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+      ならば "Tengineコアプロセス"の標準出力に"permission denied. can't create o write file path: /tmp/ap.log"と出力されていること
+      かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start --application-log-output /tmp/ap.log"というコマンドを実行する
+      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+      かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+      # 以下基本コースに戻る
+
+
+  シナリオ: 22.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログローテーションを指定したが認識できない
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start --application-log-rotation yearly"というコマンドを実行する
+      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+      ならば "Tengineコアプロセス"の標準出力に"invalid value of application-log-rotation : yearly"と出力されていること
+      かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start --application-log-rotation monthly"というコマンドを実行する
+      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+      かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+      # 以下基本コースに戻る
+
+
+  シナリオ: 23.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログローテーションサイズを指定したが認識できない
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start --application-log-rotation-size hoge"というコマンドを実行する
+      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+      ならば "Tengineコアプロセス"の標準出力に"invalid value of application-log-rotation-size : hoge"と出力されていること
+      かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start --application-log-rotation-size 10"というコマンドを実行する
+      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+      かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+      # 以下基本コースに戻る
+
+
+  シナリオ: 24.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログレベルを指定したが認識できない
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start --application-log-level hoge"というコマンドを実行する
+      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+      ならば "Tengineコアプロセス"の標準出力に"invalid value of application-log-level : hoge"と出力されていること
+      かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start --application-log-level error"というコマンドを実行する
+      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+      かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+      # 以下基本コースに戻る
+
+
   ######################################
   # Tengineコアの停止に失敗
   #####################################
