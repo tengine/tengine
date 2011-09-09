@@ -21,30 +21,7 @@ class Tengine::Core::Bootstrap
     when "start" then
       load_dsl unless config[:tengined][:skip_load]
       start_kernel
-    when "test" then
-      config[:tengined][:load_path] = File.expand_path("../../../../lib/tengine/core/connection_test/fire_bar_on_foo.rb", File.dirname(__FILE__))
-
-      # VERSIONファイルの生成とバージョンアップの書き込み
-      version_file = File.open("#{config.dsl_dir_path}/VERSION", "w")
-      version_file.write(Time.now.strftime("%Y%m%d%H%M%S").to_s)
-      version_file.close
-
-      begin
-        load_dsl
-        start_kernel do |mq| # このブロックは Tengine::Core::Kernel#activateのEM.runに渡されたブロックから呼び出されます。
-          teardown = lambda do |result|
-            EM.next_tick do
-              Tengine::Core.stdout_logger.info(result)
-              stop_kernel
-            end
-          end
-          # http://keijinsonyaban.blogspot.com/2010/12/eventmachine.html のEM.defer(op, callback)を参照
-          EM.defer(lambda{test_connection(mq)}, teardown)
-        end
-        Tengine::Core::stdout_logger.info("Connection test success.")
-      rescue Exception => e
-        Tengine::Core::stderr_logger.error("Connection test failure: [#{e.class.name}] #{e.message}")
-      end
+    when "test" then test_connection
     when "enable" then enable_drivers
     when "status" then kernel_status
     else
@@ -77,7 +54,33 @@ class Tengine::Core::Bootstrap
     kernel.status
   end
 
-  def test_connection(mq)
+  def test_connection
+    config[:tengined][:load_path] = File.expand_path("../../../../lib/tengine/core/connection_test/fire_bar_on_foo.rb", File.dirname(__FILE__))
+
+    # VERSIONファイルの生成とバージョンアップの書き込み
+    version_file = File.open("#{config.dsl_dir_path}/VERSION", "w")
+    version_file.write(Time.now.strftime("%Y%m%d%H%M%S").to_s)
+    version_file.close
+
+    begin
+      load_dsl
+      start_kernel do |mq| # このブロックは Tengine::Core::Kernel#activateのEM.runに渡されたブロックから呼び出されます。
+        teardown = lambda do |result|
+          EM.next_tick do
+            Tengine::Core.stdout_logger.info(result)
+            stop_kernel
+          end
+        end
+        # http://keijinsonyaban.blogspot.com/2010/12/eventmachine.html のEM.defer(op, callback)を参照
+        EM.defer(lambda{start_connection_test(mq)}, teardown)
+      end
+      Tengine::Core::stdout_logger.info("Connection test success.")
+    rescue Exception => e
+      Tengine::Core::stderr_logger.error("Connection test failure: [#{e.class.name}] #{e.message}")
+    end
+  end
+
+  def start_connection_test(mq)
     require 'timeout'
     begin
       # Tengine::Event.fire(:foo, :notification_level_key => :info) do
@@ -111,6 +114,6 @@ class Tengine::Core::Bootstrap
   # 自動でログ出力する
   extend Tengine::Core::MethodTraceable
   method_trace(:prepare_trap, :boot, :load_dsl, :start_kernel, :stop_kernel,
-    :enable_drivers, :kernel_status, :test_connection)
+    :enable_drivers, :kernel_status, :test_connection, :start_connection_test)
 
 end

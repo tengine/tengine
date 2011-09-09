@@ -64,13 +64,12 @@ describe "Tengine::Core::Bootstrap" do
 
     context "config[:action] => test の場合" do
       it "load_dsl, start_kernel, start_connection_test, stop_kernelがよばれること" do
-        pending "実装優先で変更したのでテストを一時pendingに"
         options = { :action => "test" }
         bootstrap = Tengine::Core::Bootstrap.new(options)
         bootstrap.should_receive(:load_dsl)
         bootstrap.should_receive(:start_kernel)
-        bootstrap.should_receive(:test_connection)
-        bootstrap.should_receive(:stop_kernel)
+        # #stop_kernel は、#start_kernel に渡されるブロックから呼び出されます
+        # bootstrap.should_receive(:stop_kernel)
         bootstrap.boot
       end
     end
