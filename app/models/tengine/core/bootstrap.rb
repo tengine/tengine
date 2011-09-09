@@ -82,33 +82,26 @@ class Tengine::Core::Bootstrap
 
   def start_connection_test(mq)
     require 'timeout'
-    begin
-      # Tengine::Event.fire(:foo, :notification_level_key => :info) do
-      #   mq.connection.disconnect { EM.stop }
-      # end
-      timeout(10) do
-        connection_test_completed = false
-        Tengine.callback_for_test = lambda do |event_type_name|
-          case event_type_name
-          when :foo then
-            Tengine::Core.stdout_logger.info("handing :foo successfully.")
-          when :bar then
-            Tengine::Core.stdout_logger.info("handing :bar successfully.")
-            connection_test_completed = true
-          else
-            Tengine::Core.stderr_logger.error("Unexpected event: #{event_type_name}")
-          end
-        end
-        Tengine::Event.instance_variable_set(:@mq_suite, mq)
-        Tengine::Event.fire(:foo, :notification_level_key => :info)
-        loop do
-          return "Connection test success." if connection_test_completed
+    timeout(10) do
+      connection_test_completed = false
+      Tengine.callback_for_test = lambda do |event_type_name|
+        case event_type_name
+        when :foo then
+          Tengine::Core.stdout_logger.info("handing :foo successfully.")
+        when :bar then
+          Tengine::Core.stdout_logger.info("handing :bar successfully.")
+          connection_test_completed = true
+        else
+          Tengine::Core.stderr_logger.error("Unexpected event: #{event_type_name}")
         end
       end
-    rescue Timeout::Error
-      return "Connection test timed out."
+      Tengine::Event.instance_variable_set(:@mq_suite, mq)
+      Tengine::Event.fire(:foo, :notification_level_key => :info)
+      loop do
+        sleep(0.1)
+        return if connection_test_completed
+      end
     end
-    return "Connection test failure."
   end
 
   # 自動でログ出力する
