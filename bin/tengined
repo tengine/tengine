@@ -54,7 +54,7 @@ EOS
     :daemon => ["-D", "ignored with \"-k test, -k load, -k enable\".", :hide_value => true],
     :skip_load => ["doesn't load event handler when start. usually use with --daemon option. [only for command]", :hide_value => true],
     :skip_enablement => ["doesn't enable event handler when start. usually use with --daemon option. [only for command]", :hide_value => true],
-    :skip_waiting_activation => ["doesn't activate kernel when start. usually use with --daemon option. [only for command]", :hide_value => true],
+    :wait_activation => ["wait activation when start. usually use with --daemon option [only for command]", :hide_value => true],
     :activation_timeout => "period to wait for making activation file.",
     :log_dir  => "path/to/dir.",
     :pid_dir  => "path/to/dir.",
