@@ -34,6 +34,7 @@ describe Tengine::Core::Kernel do
         config = Tengine::Core::Config.new({
             :tengined => {
               :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+              :wait_activation => true,
               :activation_timeout => 3,
               :activation_dir => File.expand_path('.', File.dirname(__FILE__)),
             },
@@ -89,7 +90,7 @@ describe Tengine::Core::Kernel do
         config = Tengine::Core::Config.new({
             :tengined => {
               :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
-              :skip_waiting_activation => true,
+              :wait_activation => false,
             },
           })
         @kernel = Tengine::Core::Kernel.new(config)

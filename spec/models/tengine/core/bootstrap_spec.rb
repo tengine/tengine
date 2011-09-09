@@ -24,7 +24,7 @@ describe "Tengine::Core::Bootstrap" do
           :tengined => {
             :skip_load => true,
             :skip_enablement => true,
-            :skip_waiting_activation => true
+            :wait_activation => false
           }
         }
         bootstrap = Tengine::Core::Bootstrap.new(options)

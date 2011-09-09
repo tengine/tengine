@@ -22,7 +22,6 @@ class Tengine::Core::Bootstrap
       load_dsl unless config[:tengined][:skip_load]
       start_kernel
     when "test"
-      config[:tengined][:skip_waiting_activation] = true
       config[:tengined][:load_path] = File.expand_path("../../../../lib/tengine/core/connection_test/fire_bar_on_foo.rb", File.dirname(__FILE__))
 
       # VERSIONファイルの生成とバージョンアップの書き込み

@@ -14,11 +14,11 @@ class Tengine::Core::Kernel
   def start
     @status = :starting
     bind
-    if config[:tengined][:skip_waiting_activation]
-      activate
-    else
+    if config[:tengined][:wait_activation]
       @status = :wait_for_activation
       wait_for_activation
+    else
+      activate
     end
   end
 
