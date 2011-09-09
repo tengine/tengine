@@ -13,7 +13,7 @@ tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
   -D --tengined-daemon                    default false. ignored with "-k test, -k load, -k enable"
      --tengined-skip-load                 doesn't load event handler when start. usually use with --daemon option [only for command]
      --tengined-skip-enablement           doesn't enable event handler when start. usually use with --daemon option [only for command]
-     --tengined-skip-waiting-activation   doesn't activate kernel when start. usually use with --daemon option [only for command]
+     --tengined-wait-activation           wait activation when start. usually use with --daemon option [only for command]
      --tengined-activation-timeout        period to wait for making activation file. default: 300(sec)
   -T --tengined-load-path                 [REQUIRED] path/to/file_or_dir. ignored with "-k test"
      --tengined-log-dir                   path/to/dir. default: ./
