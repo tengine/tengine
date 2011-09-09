@@ -4,10 +4,11 @@ require 'rubygems'
 require 'optparse'
 require 'daemons'
 
-require File.expand_path('../config/environment', File.dirname(__FILE__))
-# require File.expand_path('../app/models/tengine/core/bootstrap', File.dirname(__FILE__))
+$LOAD_PATH << File.expand_path('../app/models', File.dirname(__FILE__))
+require 'tengine'
 
-hash = Tengine::Core::Config.default_hash
+@hash = Tengine::Core::Config.default_hash
+Signal.trap(:INT) {puts ":INT"; @bootstrap.stop_kernel}
 
 ARGV.options do |o|
 
@@ -25,12 +26,15 @@ EOS
     description = args.pop
     short_arg = args.first
     long_arg = "--#{prefixes.join('-')}-#{base_name}".gsub(/_/, '-')
-    datasource = prefixes.inject(hash){|d, prefix| d[prefix]}
+    datasource = prefixes.inject(@hash){|d, prefix| d[prefix]}
     if options[:hide_value]
-      block = lambda{ datasource[base_name] = true}
-    else
-      default_value = datasource[base_name]
+      block = lambda{|v| datasource[base_name] = true}
+    elsif options[:hide_default]
       long_arg << "=VAL"
+      block = lambda{|v| datasource[base_name] = v}
+    else
+      long_arg << "=VAL"
+      default_value = datasource[base_name]
       description << " default: #{default_value.inspect}"
       block = lambda{|v| datasource[base_name] = v}
     end
@@ -39,26 +43,26 @@ EOS
   end
 
   o.separator ""
-  o.separator "Generic"
-  o.on("-k", "--action=test|load|start|enable|stop|force-stop|status", "default: start"){|v| hash[:action] = v}
-  o.on("-f", "--config=filepath"                , "Specify configuration file path."){|v| hash[:config] = v}
+  o.separator "Basic:"
+  o.on("-k", "--action=test|load|start|enable|stop|force-stop|status", "default: start"){|v| @hash[:action] = v}
+  o.on("-f", "--config=filepath"                , "Specify configuration file path."){|v| @hash[:config] = v}
 
   o.separator ""
-  o.separator "Process"
+  o.separator "Process:"
   {
-    :daemon => ["-D", "ignored with \"-k test, -k load, -k enable\".", {:hide_val => true}],
-    :skip_load => ["doesn't load event handler when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
-    :skip_enablement => ["doesn't enable event handler when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
-    :skip_waiting_activation => ["doesn't activate kernel when start. usually use with --daemon option. [only for command]", {:hide_val => true}],
+    :load_path => ["-T", "[REQUIRED] path/to/file_or_dir. ignored with \"-k test\".", :hide_default => true],
+    :daemon => ["-D", "ignored with \"-k test, -k load, -k enable\".", :hide_value => true],
+    :skip_load => ["doesn't load event handler when start. usually use with --daemon option. [only for command]", :hide_value => true],
+    :skip_enablement => ["doesn't enable event handler when start. usually use with --daemon option. [only for command]", :hide_value => true],
+    :skip_waiting_activation => ["doesn't activate kernel when start. usually use with --daemon option. [only for command]", :hide_value => true],
     :activation_timeout => "period to wait for making activation file.",
-    :load_path => ["-T", "[REQUIRED] path/to/file_or_dir. ignored with \"-k test\".", {:hide_val => true}],
     :log_dir  => "path/to/dir.",
     :pid_dir  => "path/to/dir.",
     :activation_dir => "path/to/dir.",
   }.each{|key, args| tengine_opt.call(:tengined, key, args)}
 
   o.separator ""
-  o.separator "DB Connection"
+  o.separator "DB Connection:"
   {
     :host     => ["-O", "hostname to connect db."],
     :port     => ["-P", "port to connect db."],
@@ -68,11 +72,11 @@ EOS
   }.each{|key, args| tengine_opt.call(:db, key, args)}
 
   o.separator ""
-  o.separator "MQ subscription"
+  o.separator "MQ subscription:"
   {
     :host  => ["-o", "hostname to connect queue server."],
     :port  => ["-p", "port to connect queue server."],
-    :vhost => ["-u", "vhost to connect queue server."],
+    :vhost => [      "vhost to connect queue server."],
     :user  => ["-u", "username to connect queue server."],
     :pass  => ["-s", "password to connect queue server."],
   }.each{|key, args| tengine_opt.call([:event_queue, :connection], key, args)}
@@ -89,57 +93,130 @@ EOS
     :durable => [     "queue durable to subscribe."],
   }.each{|key, args| tengine_opt.call([:event_queue, :queue], key, args)}
 
+  o.separator ""
+  o.separator "Log common options:"
+  {
+    :output        => ['file path or "STDOUT" / "STDERR"', :hide_value => true],
+    :rotation      => ['rotation file count or daily,weekly,monthly.'],
+    :rotation_size => ['number of max log file size.'],
+    :level         => ['debug/info/warn/error/fatal.'],
+  }.each{|key, args| tengine_opt.call(:log_common, key, args)}
+
+  o.separator ""
+  o.separator "Application log options:"
+  {
+    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/application.log" else "STDOUT"', :hide_default => true],
+    :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_default => true],
+    :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_default => true],
+    :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_default => true],
+  }.each{|key, args| tengine_opt.call(:application_log, key, args)}
+
+  o.separator ""
+  o.separator "Process STDOUT log options:"
+  {
+    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log" else "STDOUT"', :hide_default => true],
+    :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_default => true],
+    :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_default => true],
+    :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_default => true],
+  }.each{|key, args| tengine_opt.call(:process_stdout_log, key, args)}
+
+  o.separator ""
+  o.separator "Process STDERR log options:"
+  {
+    :output        => ['file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stderr.log" else "STDERR"', :hide_default => true],
+    :rotation      => ['rotation file count or daily,weekly,monthly. default: value of --log-common-rotation', :hide_default => true],
+    :rotation_size => ['number of max log file size. default: value of --log-common-rotation-size', :hide_default => true],
+    :level         => ['debug/info/warn/error/fatal. default: value of --log-common-level', :hide_default => true],
+  }.each{|key, args| tengine_opt.call(:process_stderr_log, key, args)}
+
+  o.separator ""
+  o.separator "General options:"
+  o.on("-V", '--verbose', "Show detail to this command"){ @hash[:verbose] = true}
+  o.on("-v", '--version', "Show version."){ puts "comming soon"; exit}
   o.on("-h", '--help', "Show this help message."){ puts o; exit}
   o.parse!
 end
 
-
-hash.update(:daemon_proc_path => File.expand_path(__FILE__))
-
-require 'pp'
-pp hash
-
-if ["stop", "force_stop"].include? hash[:action]
-  pid = Dir.glob(hash[:tengined][:pid_dir] + "/*") do |f|
-  end
-  result = Process.kill("INT", pid)
-else
-  daemonize_options = {
-    :app_name => "tengined",
-    :ARGV => ['start'],
-    :dir_mode => :normal,
-    :dir => hash[:tengined][:pid_dir],
-    :multiple => true,
-    :ontop => !hash[:tengined][:daemon],
-    :monitor => true,
-    :log_dir => hash[:tengined][:log_dir],
-    :log_output => false
-  }
-  daemonize_options = {
-    :ontop => !hash[:tengined][:daemon],
-    :app_name => "tengined",
-    :dir_mode => :normal,
-    :dir => hash[:tengined][:pid_dir],
-    :log_dir => hash[:tengined][:log_dir],
-    :log_output => false
-  }
-  pp daemonize_options
-  # pid_dir, log_dirない場合は
-  #Daemons.run_proc("tengined", daemonize_options) do
-  Daemons.daemonize(daemonize_options)
-    #if hash[:tengined][:daemon]
-    #  STDOUT.reopen(File.expand_path(hash[:tengined][:log_dir] + "#{Process.pid}_stdout.log", File.dirname(__FILE__)), "a")
-    #  STDERR.reopen(File.expand_path(hash[:tengined][:log_dir] + "#{Process.pid}_stderr.log", File.dirname(__FILE__)), "a")
-    #end
-
-    #bootstrap = Tengine::Core::Bootstrap.new(hash)
-    loop do
-      puts 'in loop'
-      sleep 10
-    end
-    #bootstrap.boot
-  #end
+@verbose = @hash.delete(:verbose)
+def verbose(msg, output = STDOUT)
+  output.puts(msg) if @verbose
 end
 
-Signal.trap(:INT){puts ":INT"; exit()}
-Signal.trap(:TERM){puts ":INT"; exit()}
+verbose "before define stop_process"
+def stop_process(signal)
+  verbose "before stop_process"
+  pids = Dir.glob(File.expand_path(@hash[:tengined][:pid_dir] + "/*")).map do |pid_path|
+    File.open(pid_path, "r"){|f| f.gets.chomp.to_i}
+  end
+  results = pids.map{|pid| Process.kill(signal, pid)}
+  verbose "after stop_process"
+rescue Exception
+  verbose("Exception occurred in stop_process\n[#{$!.class.name}] #{$!.message}\n  " << $!.backtrace.join("\n  "), STDERR)
+end
+verbose "after define stop_process"
+
+verbose "before define run"
+def run
+  verbose "before run"
+  case @hash[:action].to_sym
+  when :stop       then stop_process("HUP")
+  when :force_stop then stop_process("KILL")
+  when :test, :load, :start, :enable, :status then
+    daemonize_options = {
+      :ARGV => ['start'],
+      :ontop => !@hash[:tengined][:daemon],
+      :app_name => "tengined",
+      :dir_mode => :normal,
+      :dir => File.expand_path("../#{@hash[:tengined][:pid_dir]}", File.dirname(__FILE__)),
+  #    :log_dir => File.expand_path("../#{@hash[:tengined][:log_dir]}", File.dirname(__FILE__)),
+  #    :log_output => false
+    }
+    daemonize_options.update(:ARGV => ['start'])
+    current_dir = Dir.pwd
+    begin
+      Daemons.run_proc(File.basename(@hash[:daemon_proc_path]), daemonize_options) do
+        Dir.chdir(current_dir) do
+          yield
+        end
+      end
+    rescue SystemExit => e
+      verbose("Daemons.run_proc exit successfully") if e.status == 0
+    end
+  else
+    verbose("Unknown action: #{@hash[:action]}", STDERR)
+  end
+  verbose "after run"
+rescue SystemExit
+  verbose("Exception occurred in run\n[#{$!.class.name}] #{$!.message}\n  " << $!.backtrace.join("\n  "), STDERR)
+  raise
+rescue Exception
+  verbose("Exception occurred in run\n[#{$!.class.name}] #{$!.message}\n  " << $!.backtrace.join("\n  "), STDERR)
+  raise
+end
+verbose "after define run"
+
+@hash.update(:daemon_proc_path => File.expand_path(__FILE__))
+tengined_root = File.expand_path("..", File.expand_path(File.dirname(__FILE__)))
+
+if @verbose
+  verbose "configurations:"
+  require 'pp'; pp @hash
+  verbose "tengined_root: #{tengined_root}"
+end
+
+run do
+  config = nil
+  begin
+    config = Tengine::Core::Config.new(@hash)
+    config.setup_loggers
+  rescue Exception
+    puts "[#{$!.class.name}] #{$!.message}\n  " << $!.backrace.join("\n  ")
+    raise
+  end
+
+  #  Daemons.daemonize(daemonize_options)
+  require File.expand_path('./config/environment', tengined_root)
+  require File.expand_path('./app/models/tengine', tengined_root)
+  @bootstrap = Tengine::Core::Bootstrap.new(config)
+  @bootstrap.boot
+end
