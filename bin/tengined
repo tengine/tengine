@@ -137,7 +137,7 @@ EOS
   o.parse!
 end
 
-@verbose = @hash.delete(:verbose)
+@verbose = @hash[:verbose]
 def verbose(msg, output = STDOUT)
   output.puts(msg) if @verbose
 end
@@ -217,6 +217,7 @@ run do
   #  Daemons.daemonize(daemonize_options)
   require File.expand_path('./config/environment', tengined_root)
   require File.expand_path('./app/models/tengine', tengined_root)
+  Tengine::Core::MethodTraceable.disabled = !@hash[:verbose] # Tengine::Core::Bootstrapが動く前に設定しないと余計なログが出ます
   @bootstrap = Tengine::Core::Bootstrap.new(config)
   @bootstrap.boot
 end
