@@ -8,6 +8,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <b><%= Tengine::Core::Handler.human_attribute_name(:filepath) %>:</b>
+  <%= @handler.filepath %>
+</p>
+
+<p>
+  <b><%= Tengine::Core::Handler.human_attribute_name(:lineno) %>:</b>
+  <%= @handler.lineno %>
+</p>
+
+<p>
   <b><%= Tengine::Core::Handler.human_attribute_name(:event_type_names) %>:</b>
   <%= @handler.event_type_names_text %>
 </p>

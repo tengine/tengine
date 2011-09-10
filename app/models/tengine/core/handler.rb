@@ -3,6 +3,8 @@ require 'tengine/event'
 
 class Tengine::Core::Handler
   include Mongoid::Document
+  field :filepath, :type => String
+  field :lineno, :type => Integer
   field :event_type_names, :type => Array
   array_text_accessor :event_type_names
   field :filter, :type => Hash, :default => {}
