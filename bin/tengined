@@ -139,17 +139,20 @@ end
 
 @verbose = @hash[:verbose]
 def verbose(msg, output = STDOUT)
-  return unless @verbose
-  if block_given?
-    output.puts("#{msg} begin")
-    begin
-      yield
-      output.puts("#{msg} end")
-    rescue Exception => e
-      STDERR.puts("Exception occurred in #{msg}\n[#{e.class.name}] #{e.message}\n  " << e.backtrace.join("\n  "))
+  if @verbose
+    if block_given?
+      output.puts("#{msg} begin")
+      begin
+        yield
+        output.puts("#{msg} end")
+      rescue Exception => e
+        STDERR.puts("Exception occurred in #{msg}\n[#{e.class.name}] #{e.message}\n  " << e.backtrace.join("\n  "))
+      end
+    else
+      output.puts(msg)
     end
   else
-    output.puts(msg)
+    yield if block_given?
   end
 end
 
@@ -160,6 +163,22 @@ verbose "define stop_process" do
         File.open(pid_path, "r"){|f| f.gets.chomp.to_i}
       end
       results = pids.map{|pid| Process.kill(signal, pid)}
+    end
+  end
+end
+
+verbose "define show_status" do
+  def show_status
+    verbose("show_status") do
+      pid_to_status = {}
+      Dir.glob(File.expand_path(@hash[:tengined][:status_dir] + "/*.status")).map do |status_filepath|
+        pid_to_status[status_filepath.scan(/\d+/).first.to_i] = File.read(status_filepath).chomp
+      end
+      pid_lines = `ps -opid -p #{pid_to_status.keys.join(',')}`.split(/\n/)
+      living_pids = pid_lines.select{|line| line =~ /^\s*\d+\s*$/}.map(&:to_i)
+      pid_to_status.each do |pid, status|
+        puts "%6d %s" % [pid, living_pids.include?(pid) ? status : "terminated"]
+      end
     end
   end
 end
@@ -207,7 +226,8 @@ verbose "define run" do
       case @hash[:action].to_sym
       when :stop       then stop_process("HUP")
       when :force_stop then stop_process("KILL")
-      when :test, :load, :start, :enable, :status then
+      when :status     then show_status
+      when :test, :load, :start, :enable then
         run_daemons(&block)
       else
         verbose("Unknown action: #{@hash[:action]}", STDERR)
