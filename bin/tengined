@@ -165,16 +165,28 @@ def run
     daemonize_options = {
       :ARGV => ['start'],
       :ontop => !@hash[:tengined][:daemon],
-      :app_name => "tengined",
       :dir_mode => :normal,
-      :dir => File.expand_path("../#{@hash[:tengined][:pid_dir]}", File.dirname(__FILE__)),
+      :dir => File.expand_path("../#{@hash[:tengined][:pid_dir]}", File.dirname(@hash[:daemon_proc_path])),
   #    :log_dir => File.expand_path("../#{@hash[:tengined][:log_dir]}", File.dirname(__FILE__)),
   #    :log_output => false
     }
     daemonize_options.update(:ARGV => ['start'])
     current_dir = Dir.pwd
     begin
-      Daemons.run_proc(File.basename(@hash[:daemon_proc_path]), daemonize_options) do
+      if @hash[:action].to_sym == :start
+        # pidファイルは、"tengined.0.pid"の数字の部分を連番でふります
+        pids = Dir.glob("#{daemonize_options[:dir]}/tengined.*.pid")
+        if pids.count == 0
+          max_pid_num = 0
+        else
+          max_pid_num = pids.map{|pid_path| File.basename(pid_path).scan(/\d+/).first.to_i}.max.succ
+        end
+        pid_file_name = "#{File.basename(@hash[:daemon_proc_path])}.#{max_pid_num}"
+      else
+        pid_file_name = "#{File.basename(@hash[:daemon_proc_path])}_#{@hash[:action]}"
+      end
+
+      Daemons.run_proc(pid_file_name, daemonize_options) do
         Dir.chdir(current_dir) do
           yield
         end
