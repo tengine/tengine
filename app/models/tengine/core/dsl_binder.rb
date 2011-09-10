@@ -22,6 +22,11 @@ module Tengine::Core::DslBinder
     handlers = @__driver__.handlers.where(
       :filepath => config.relative_path_from_dsl_dir(filepath),
       :lineno => lineno).to_a
+    # 古い（なのに同じバージョンを使用している）Driverにはないハンドラが登録された場合は開発環境などでは十分ありえる
+    if handlers.empty?
+      # TODO こういう場合の例外は何を投げるべき？
+      raise "Handler not found for #{filepath}:#{lineno}"
+    end
     handlers.each do |handler|
       bind_blocks_for_handler_id(handler, &block)
     end

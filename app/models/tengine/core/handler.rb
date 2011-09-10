@@ -20,7 +20,9 @@ class Tengine::Core::Handler
   end
 
   def process_event(event, &block)
-    if match?(event)
+    matched = match?(event)
+    Tengine.logger.debug("match?(...) => #{matched} #{block.source_location.inspect}")
+    if matched
       # TODO: ログ出力する
       # logger.info("id:#{self.id} handler matches the event key:#{event.key}")
       # puts("id:#{self.id} handler matches the event key:#{event.key}")
@@ -29,7 +31,11 @@ class Tengine::Core::Handler
       # TODO: ログ出力する
       # logger.info("id:#{self.id} handler executed own block, source:#{block.source_location}")
       # puts("id:#{self.id} handler execute own block, source:#{block.source_location}")
-      instance_eval(&block)
+      begin
+        instance_eval(&block)
+      rescue Exception
+        Tengine.logger.error("exception occurred in #{block.source_location.inspect} [#{e.class.name}] #{e.message}.\n#{msg}")
+      end
     end
   end
 
@@ -52,6 +58,7 @@ class Tengine::Core::Handler
     end
 
     def visit
+      Tengine.logger.debug("visiting #{@current.inspect}")
       send(@current['method'])
     end
 
@@ -73,12 +80,13 @@ class Tengine::Core::Handler
     end
 
     def find_or_mark_in_session
-      name = @current['pattern']
+      name = @current['pattern'].to_s
       key = "mark_#{name}"
       if name == @event.event_type_name
         unless @session.system_properties[key]
           @session.system_properties.update(key => true)
           @session.save!
+          Tengine.logger.debug("system_properties.updated #{@session.system_properties.inspect}")
         end
         return true
       else

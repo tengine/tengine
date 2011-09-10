@@ -58,6 +58,7 @@ class Tengine::Core::Kernel
     @dsl_env.extend(Tengine::Core::DslBinder)
     @dsl_env.config = config
     @dsl_env.evaluate
+    Tengine::Core::stdout_logger.debug("Hanlder bindings:\n" << @dsl_env.to_a.inspect)
   end
 
   def wait_for_activation(&block)
@@ -99,20 +100,22 @@ class Tengine::Core::Kernel
       begin
         raw_event = Tengine::Event.parse(msg)
       rescue Exception => e
-        puts "[#{e.class.name}] #{e.message}"
+        Tengine.logger.error("failed to parse a message because of [#{e.class.name}] #{e.message}.\n#{msg}")
         headers.ack
         next
       end
 
+      Tengine.logger.debug("received a event #{raw_event.inspect}")
+
       # 受信したイベントを登録
       event = Tengine::Core::Event.create!(raw_event.attributes)
-      # TODO: ログ出力する
-      # logger.info("receive a event \"#{event.event_type_name}\" key:#{event.key}")
-      # puts("receive a event \"#{event.event_type_name}\" key:#{event.key}")
+      Tengine.logger.debug("saved a event #{event.inspect}")
 
       # イベントハンドラの取得
       Tengine::Core::HandlerPath.default_driver_version = config.dsl_version
       handlers = Tengine::Core::HandlerPath.find_handlers(event.event_type_name)
+      Tengine.logger.debug("handlers found: " << handlers.map{|h| "#{h.driver.name} #{h.id.to_s}"}.join(", "))
+
       handlers.each do |handler|
         begin
           # block の取得
