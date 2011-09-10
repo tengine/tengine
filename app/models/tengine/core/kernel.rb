@@ -153,10 +153,13 @@ class Tengine::Core::Kernel
     :terminated,         # 停止済
   ].freeze
 
-  # 状態遷移図、状態遷移表に基づいたチェックを入れるべき
+  # TODO 状態遷移図、状態遷移表に基づいたチェックを入れるべき
+  # https://cacoo.com/diagrams/hwYJGxDuumYsmFzP#EBF87
   def update_status(status)
     raise ArgumentError, "Unkown status #{status.inspect}" unless STATUS_LIST.include?(status)
+    @status_filepath ||= File.expand_path("tengined_#{Process.pid}.status", config.status_dir)
     @status = status
+    File.open(@status_filepath, "w"){|f| f.write(status.to_s)}
   end
 
   def mq
