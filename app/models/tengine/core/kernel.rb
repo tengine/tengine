@@ -116,12 +116,12 @@ class Tengine::Core::Kernel
       handlers.each do |handler|
         begin
           # block の取得
-          blocks = dsl_env.blocks_for(handler.id)
+          block = dsl_env.block_for(handler)
           # イベントハンドラへのディスパッチ
           # TODO: ログ出力する
           # logger.info("dispatching the event key:#{event.key} to #{handler.inspect}")
           # puts("dispatching the event key:#{event.key} to #{handler.inspect}")
-          handler.process_event(event, blocks)
+          handler.process_event(event, &block)
         rescue Exception => e
           puts "[#{e.class.name}] #{e.message}"
           headers.ack

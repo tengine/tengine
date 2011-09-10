@@ -19,13 +19,13 @@ describe Tengine::Core::Kernel do
           })
         @kernel = Tengine::Core::Kernel.new(config)
         @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version, :enabled => true)
-        @handler1 = @driver.handlers.new(:event_type_names => ["event01"])
+        @handler1 = @driver.handlers.new(:filepath => "uc01_execute_processing_for_event.rb", :lineno => 7, :event_type_names => ["event01"])
         @driver.save!
       end
 
       it "event_type_nameからblockを検索することができる" do
         @kernel.bind
-        @kernel.dsl_env.blocks_for(@handler1.id).count.should == 1
+        @kernel.dsl_env.block_for(@handler1).should_not be_nil
       end
     end
 
@@ -41,7 +41,7 @@ describe Tengine::Core::Kernel do
           })
         @kernel = Tengine::Core::Kernel.new(config)
         @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version, :enabled => true)
-        @handler1 = @driver.handlers.new(:event_type_names => ["event01"])
+        @handler1 = @driver.handlers.new(:filepath => "uc01_execute_processing_for_event.rb", :lineno => 7, :event_type_names => ["event01"])
         @driver.save!
       end
 
@@ -95,7 +95,7 @@ describe Tengine::Core::Kernel do
           })
         @kernel = Tengine::Core::Kernel.new(config)
         @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version, :enabled => true)
-        @handler1 = @driver.handlers.new(:event_type_names => ["event01"])
+        @handler1 = @driver.handlers.new(:filepath => "uc01_execute_processing_for_event.rb", :lineno => 7, :event_type_names => ["event01"])
         @driver.save!
         @event1 = Tengine::Core::Event.new(:event_type_name => :event01, :key => "uuid1", :sender_name => "localhost")
         @event1.save!

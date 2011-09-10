@@ -18,14 +18,13 @@ module Tengine::Core::DslBinder
   end
 
   def on(event_type_name, options = {}, &block)
-    handlers = @__driver__.handlers.where(:event_type_names => [event_type_name.to_s])
-    # 一つの driver で、同じ event_type_name で複数の handler が記述されている場合には、一つの handler として扱い、
-    # block を複数利用できるようにします
-    unless handlers.count == 1
-      raise StandardError, "[DslBinder][error] driver\"#{@__driver__.name}\"には、event_type_name\"#{event_type_name}\"へのhandlerが複数存在します"
+    filepath, lineno = *block.source_location
+    handlers = @__driver__.handlers.where(
+      :filepath => config.relative_path_from_dsl_dir(filepath),
+      :lineno => lineno).to_a
+    handlers.each do |handler|
+      bind_blocks_for_handler_id(handler, &block)
     end
-    handler = handlers.first
-    bind_blocks_for_handler_id(handler.id, &block)
   end
 
   def fire(event_type_name, options = {})

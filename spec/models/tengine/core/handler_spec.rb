@@ -13,7 +13,7 @@ describe Tengine::Core::Handler do
       @handler.stub!(:match?).with(mock_event).and_return(true)
       mock_block = lambda{}
       @handler.should_receive(:instance_eval).with(&mock_block)
-      @handler.process_event(mock_event, [mock_block])
+      @handler.process_event(mock_event, &mock_block)
     end
 
     it "should not call block unless match" do
@@ -22,7 +22,7 @@ describe Tengine::Core::Handler do
       @handler.stub!(:match?).with(mock_event).and_return(false)
       mock_block = lambda{}
       @handler.should_not_receive(:instance_eval).with(&mock_block)
-      @handler.process_event(mock_event, [mock_block])
+      @handler.process_event(mock_event, &mock_block)
     end
   end
 

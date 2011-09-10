@@ -19,19 +19,17 @@ class Tengine::Core::Handler
     end
   end
 
-  def process_event(event, blocks)
+  def process_event(event, &block)
     if match?(event)
       # TODO: ログ出力する
       # logger.info("id:#{self.id} handler matches the event key:#{event.key}")
       # puts("id:#{self.id} handler matches the event key:#{event.key}")
       # ハンドラの実行
-      blocks.each do |block|
-        @caller = eval("self", block.binding)
-        # TODO: ログ出力する
-        # logger.info("id:#{self.id} handler executed own block, source:#{block.source_location}")
-        # puts("id:#{self.id} handler execute own block, source:#{block.source_location}")
-        instance_eval(&block)
-      end
+      @caller = eval("self", block.binding)
+      # TODO: ログ出力する
+      # logger.info("id:#{self.id} handler executed own block, source:#{block.source_location}")
+      # puts("id:#{self.id} handler execute own block, source:#{block.source_location}")
+      instance_eval(&block)
     end
   end
 

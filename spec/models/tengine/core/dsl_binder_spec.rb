@@ -21,27 +21,23 @@ describe Tengine::Core::DslBinder do
         @binder.config = config
 
         @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version)
-        @handler1 = @driver.handlers.new(:event_type_names => ["event01"])
+        @handler1 = @driver.handlers.new(:filepath => "uc01_execute_processing_for_event.rb", :lineno => 7, :event_type_names => ["event01"])
         @driver.save!
       end
 
       it "イベントハンドラ定義を評価して、ドライバとハンドラを保持する" do
         @driver.handlers.count.should == 1
         @binder.evaluate
-        lambda {
-          @binder.should_receive(:puts).with("handler01")
-          @binder.block_bindings[@handler1.id].each { |block| block.call }
-        }.should_not raise_error
+        @binder.should_receive(:puts).with("handler01")
+        @binder.block_bindings[@handler1.id].call
       end
 
-      it "同じイベント種別で複数のハンドラが登録されていた場合にはエラーとなる" do
+      it "同じイベント種別で複数のハンドラが登録されていた場合でもエラーにはならない" do
         @handler2 = @driver.handlers.new(:event_type_names => ["event01"])
         @driver.save!
         @driver.handlers.count.should == 2
 
-        lambda {
-          @binder.evaluate
-        }.should raise_error(StandardError)
+        @binder.evaluate
       end
     end
 
@@ -63,36 +59,32 @@ describe Tengine::Core::DslBinder do
           ])
 
         @driver1 = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version)
-        @handler1 = @driver1.handlers.new(:event_type_names => ["event01"])
+        @handler1 = @driver1.handlers.new(:filepath => "uc01_execute_processing_for_event.rb", :lineno => 7, :event_type_names => ["event01"])
         @driver1.save!
         @driver2 = Tengine::Core::Driver.new(:name => "driver02", :version => config.dsl_version)
-        @handler2_1 = @driver2.handlers.new(:event_type_names => ["event02_1"])
-        @handler2_2 = @driver2.handlers.new(:event_type_names => ["event02_2"])
+        @handler2_1 = @driver2.handlers.new(:filepath => "uc02_fire_another_event.rb", :lineno => 7, :event_type_names => ["event02_1"])
+        @handler2_2 = @driver2.handlers.new(:filepath => "uc02_fire_another_event.rb", :lineno => 12, :event_type_names => ["event02_2"])
         @driver2.save!
         @driver3 = Tengine::Core::Driver.new(:name => "driver03", :version => config.dsl_version)
-        @handler3 = @driver3.handlers.new(:event_type_names => ["event03"])
+        @handler3_1 = @driver3.handlers.new(:filepath => "uc03_2handlers_for_1event.rb", :lineno => 8, :event_type_names => ["event03"])
+        @handler3_2 = @driver3.handlers.new(:filepath => "uc03_2handlers_for_1event.rb", :lineno => 12, :event_type_names => ["event03"])
         @driver3.save!
       end
 
       it "イベントハンドラ定義を評価して、ドライバとハンドラを保持する" do
         @binder.evaluate
 
-        lambda {
-          @binder.should_receive(:puts).with("handler01")
-          @binder.block_bindings[@handler1.id].each { |block| block.call }
-        }.should_not raise_error
+        @binder.should_receive(:puts).with("handler01")
+        @binder.block_bindings[@handler1.id].call
 
-        lambda {
-          @binder.should_receive(:puts).with("handler02_1")
-          @binder.should_receive(:fire).with(:event02_2)
-          @binder.block_bindings[@handler2_1.id].each { |block| block.call }
-        }.should_not raise_error
+        @binder.should_receive(:puts).with("handler02_1")
+        @binder.should_receive(:fire).with(:event02_2)
+        @binder.block_bindings[@handler2_1.id].call
 
-        lambda {
-          @binder.should_receive(:puts).with("handler03_1")
-          @binder.should_receive(:puts).with("handler03_2")
-          @binder.block_bindings[@handler3.id].each { |block| block.call }
-        }.should_not raise_error
+        @binder.should_receive(:puts).with("handler03_1")
+        @binder.should_receive(:puts).with("handler03_2")
+        @binder.block_bindings[@handler3_1.id].call
+        @binder.block_bindings[@handler3_2.id].call
       end
     end
   end
