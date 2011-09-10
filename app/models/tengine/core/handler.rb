@@ -33,11 +33,60 @@ class Tengine::Core::Handler
     end
   end
 
-  def match?(event)
-    true
-  end
-
   def fire(event_type_name)
     @caller.fire(event_type_name)
   end
+
+  def match?(event)
+    filter.blank? ? true : Visitor.new(filter, event, driver.session).visit
+  end
+
+  # HashとArrayで入れ子になったfilterのツリーをルートから各Leafの方向に辿っていくVisitorです。
+  # 正確にはVisitorパターンではないのですが、似ているのでメタファとしてVisitorとしました。
+  class Visitor
+    def initialize(filter, event, session)
+      @filter = filter
+      @event = event
+      @session = session
+      @current = @filter
+    end
+
+    def visit
+      send(@current['method'])
+    end
+
+    def backup_current(node)
+      backup = @current
+      @current = node
+      begin
+        return yield
+      ensure
+        @current = backup
+      end
+    end
+
+    def and
+      children = @current["children"]
+      children.all? do |child|
+        backup_current(child){ visit }
+      end
+    end
+
+    def find_or_mark_in_session
+      name = @current['pattern']
+      key = "mark_#{name}"
+      if name == @event.event_type_name
+        unless @session.system_properties[key]
+          @session.system_properties.update(key => true)
+          @session.save!
+        end
+        return true
+      else
+        return @session.system_properties[key]
+      end
+    end
+
+  end
+
+
 end

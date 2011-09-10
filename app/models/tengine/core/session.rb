@@ -2,9 +2,9 @@
 class Tengine::Core::Session
   include Mongoid::Document
   field :lock_version, :type => Integer
-  field :properties, :type => Hash
+  field :properties, :type => Hash, :default => {}
   map_yaml_accessor :properties
-  field :system_properties, :type => Hash
+  field :system_properties, :type => Hash, :default => {}
   map_yaml_accessor :system_properties
 
   belongs_to :driver, :index => true, :class_name => "Tengine::Core::Driver"
