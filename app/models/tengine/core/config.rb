@@ -40,15 +40,15 @@ class Tengine::Core::Config
   def dsl_dir_path
     # RSpecで何度もモックを作らなくていいようにDir.exist?などを最小限にする
     case @dsl_load_path_type
-    when :dir  then dsl_load_path
-    when :file then File.dirname(dsl_load_path)
+    when :dir  then File.expand_path(dsl_load_path)
+    when :file then File.expand_path(File.dirname(dsl_load_path))
     else
       if Dir.exist?(dsl_load_path)
         @dsl_load_path_type = :dir
-        dsl_load_path
+        File.expand_path(dsl_load_path)
       elsif File.exist?(dsl_load_path)
         @dsl_load_path_type = :file
-        File.dirname(dsl_load_path)
+        File.expand_path(File.dirname(dsl_load_path))
       else
         raise Tengine::Core::ConfigError, "file or directory doesn't exist. #{dsl_load_path}"
       end
