@@ -12,7 +12,7 @@ module Tengine
     end
 
     def logger
-      @logger ||= Logger.new
+      @logger ||= ::Logger.new(STDOUT)
     end
     attr_writer :logger
   end

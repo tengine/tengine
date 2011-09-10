@@ -12,6 +12,10 @@ require 'rspec/rails'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 Tengine::Core::MethodTraceable.disabled = true
+require 'logger'
+Tengine.logger.level = Logger::FATAL
+Tengine::Core.stdout_logger.level = Logger::FATAL
+Tengine::Core.stderr_logger.level = Logger::FATAL
 
 RSpec.configure do |config|
   # == Mock Framework
