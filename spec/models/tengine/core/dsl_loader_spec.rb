@@ -90,7 +90,7 @@ describe Tengine::Core::DslLoader do
 
       it "イベントハンドラ定義を評価して、ドライバとハンドラを登録する" do
         # driver03にevent03が複数定義されているための警告メッセージ
-        @loader.should_receive(:puts).with("[DslLoader][warn] driver\"driver03\"には、同一のevent_type_name\"event03\"が複数存在します")
+        # Tengine::Core.stdout_logger.should_receive(:warn).with("driver\"driver03\"には、同一のevent_type_name\"event03\"が複数存在します")
 
         @loader.evaluate
 
@@ -114,10 +114,16 @@ describe Tengine::Core::DslLoader do
         Tengine::Core::HandlerPath.where(:driver_id => driver02.id).count.should == 2
 
         driver03 = Tengine::Core::Driver.where(:name => "driver03").first
-        driver03.handlers.count.should == 1
-        handler3 = driver03.handlers.first
-        handler3.event_type_names.should == %w[event03]
-        Tengine::Core::HandlerPath.where(:driver_id => driver03.id).count.should == 1
+        driver03.handlers.count.should == 2
+        handler3_1 = driver03.handlers.first
+        handler3_1.filepath.should == "uc03_2handlers_for_1event.rb"
+        handler3_1.lineno.should == 8
+        handler3_1.event_type_names.should == %w[event03]
+        handler3_2 = driver03.handlers.last
+        handler3_2.filepath.should == "uc03_2handlers_for_1event.rb"
+        handler3_2.lineno.should == 12
+        handler3_2.event_type_names.should == %w[event03]
+        Tengine::Core::HandlerPath.where(:driver_id => driver03.id).count.should == 2
       end
     end
   end
