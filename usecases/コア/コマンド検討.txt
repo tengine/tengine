@@ -34,6 +34,26 @@ tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
      --event-queue-exchange-durable       default: true
   -q --event-queue-queue-name             default: tengine_event_queue
      --event-queue-queue-durable          default: true
+
+     --log-common-output                  file path or "STDOUT" / "STDERR"
+     --log-common-rotation                rotation file count or daily,weekly,monthly. default: 3
+     --log-common-rotation-size           number of max log file size. default: 1048576 (10MB)
+     --log-common-level                   debug/info/warn/error/fatal. default: info
+
+     --application-log-output             file path or "STDOUT" / "STDERR". default: if daemon process then “./log/application.log” else "STDOUT"
+     --application-log-rotation           rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+     --application-log-rotation-size      number of max log file size. default: value of --log-common-rotation-size
+     --application-log-level              debug/info/warn/error/fatal. default: value of --log-common-level
+
+     --process-stdout-log-output          file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log” else "STDOUT"
+     --process-stdout-log-rotation        rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+     --process-stdout-log-rotation-size   number of max log file size. default: value of --log-common-rotation-size
+     --process-stdout-log-level           debug/info/warn/error/fatal. default: value of --log-common-level
+
+     --process-stderr-log-output          file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stderr.log” else "STDERR"
+     --process-stderr-log-rotation        rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+     --process-stderr-log-rotation-size   number of max log file size. default: value of --log-common-rotation-size
+     --process-stderr-log-level           debug/info/warn/error/fatal. default: value of --log-common-level
 }}}
 
 
