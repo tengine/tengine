@@ -176,12 +176,16 @@ describe Tengine::Core::Kernel do
         @kernel = Tengine::Core::Kernel.new(config)
       end
 
-      it "起動要求を受け取った直後は「起動中」の状態を返す" do
+      it "カーネルのインスタンス生成直後は「停止済」の状態を返す" do
+        @kernel.status_key.should == :stoped
+      end
+
+      it "起動要求を受け取った直後は「起動中」の状態を返す", :start => true do
         @kernel.should_receive(:bind)
         @kernel.should_receive(:activate)
 
         @kernel.start
-        @kernel.status.should == :starting
+        @kernel.status_key.should == :starting
       end
     end
 
@@ -203,7 +207,7 @@ describe Tengine::Core::Kernel do
         @kernel.should_receive(:wait_for_activation)
 
         @kernel.start
-        @kernel.status.should == :waiting_activation
+        @kernel.status_key.should == :waiting_activation
       end
     end
 
@@ -227,7 +231,7 @@ describe Tengine::Core::Kernel do
         mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true)
 
         @kernel.start
-        @kernel.status.should == :running
+        @kernel.status_key.should == :running
       end
     end
 
@@ -254,12 +258,12 @@ describe Tengine::Core::Kernel do
         @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true)
 
         kernel.start
-        kernel.status.should == :running
+        kernel.status_key.should == :running
 
         @mock_queue.should_receive(:default_consumer).and_return(nil)
 
         kernel.stop
-        kernel.status.should == :stop
+        kernel.status_key.should == :stoped
       end
 
       it "停止要求を受け取った直後では「停止中」および「停止済」の状態を返す(稼働要求待ち)" do
@@ -278,7 +282,7 @@ describe Tengine::Core::Kernel do
           kernel.start
           kernel.stop
         }.should raise_error(Tengine::Core::ActivationTimeoutError, "activation file found timeout error.")
-        kernel.status.should == :stopping
+        kernel.status_key.should == :stopping
       end
     end
   end

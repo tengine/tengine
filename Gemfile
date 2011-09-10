@@ -6,6 +6,8 @@ gem 'rails', '~> 3.1'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
+gem "selectable_attr", "~> 0.3"
+gem "selectable_attr_rails", "~> 0.3"
 
 gem "mongoid", "~> 2.2"
 gem "bson_ext", "~> 1.3"
