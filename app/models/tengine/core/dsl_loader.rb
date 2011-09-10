@@ -24,9 +24,9 @@ module Tengine::Core::DslLoader
 
   def on(event_type_name, options = {}, &block)
     filepath, lineno = *block.source_location
-    path = Pathname.new(filepath)
     @__driver__.handlers.new(
-      :filepath => path.relative? ? path.to_s : path.relative_path_from(Pathname.new(config.dsl_dir_path)).to_s,
+      # filepathはTengineコアが動く環境ごとに違うかもしれないので、相対パスを使う必要があります。
+      :filepath => config.relative_path_from_dsl_dir(filepath),
       :lineno => lineno,
       :event_type_names => [event_type_name.to_s])
     # 一つのドライバに対して複数個のハンドラを登録しようとした際に警告を出すべきだが・・・

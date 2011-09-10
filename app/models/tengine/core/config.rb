@@ -86,6 +86,11 @@ class Tengine::Core::Config
   end
   memoize :dsl_version
 
+  def relative_path_from_dsl_dir(filepath)
+    path = Pathname.new(filepath)
+    path.relative? ? path.to_s : path.relative_path_from(Pathname.new(dsl_dir_path)).to_s
+  end
+
   def setup_loggers
     stdout_path = log_config(:process_stdout_log)[:output]
     $stdout = File.open(stdout_path, "w") unless stdout_path =~ /^STDOUT$|^STDERR$/

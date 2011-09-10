@@ -41,6 +41,17 @@ describe Tengine::Core::Config do
       subject['event_queue']['queue']['name'].should == "tengine_event_queue2"
     end
 
+    describe :relative_path_from_dsl_dir do
+      it "絶対パスが指定されるとdsl_dir_pathからの相対パスを返します" do
+        Dir.should_receive(:exist?).with("/var/lib/tengine").and_return(true)
+        subject.relative_path_from_dsl_dir("/var/lib/tengine/foo/bar").should == "foo/bar"
+      end
+
+      it "相対パスが指定されると（計算のしようがないので）そのまま返します" do
+        subject.relative_path_from_dsl_dir("lib/tengine/foo/bar").should == "lib/tengine/foo/bar"
+      end
+    end
+
     context "ディレクトリが存在する場合" do
       before do
         Dir.should_receive(:exist?).with("/var/lib/tengine").and_return(true)
@@ -130,6 +141,18 @@ describe Tengine::Core::Config do
       subject['tengined'].should == expected
       subject[:tengined]['load_path'].should == "/var/lib/tengine/init.rb"
       subject[:tengined][:load_path].should == "/var/lib/tengine/init.rb"
+    end
+
+    describe :relative_path_from_dsl_dir do
+      it "絶対パスが指定されるとdsl_dir_pathからの相対パスを返します" do
+        Dir.should_receive(:exist?).with("/var/lib/tengine/init.rb").and_return(false)
+        File.should_receive(:exist?).with("/var/lib/tengine/init.rb").and_return(true)
+        subject.relative_path_from_dsl_dir("/var/lib/tengine/foo/bar").should == "foo/bar"
+      end
+
+      it "相対パスが指定されると（計算のしようがないので）そのまま返します" do
+        subject.relative_path_from_dsl_dir("lib/tengine/foo/bar").should == "lib/tengine/foo/bar"
+      end
     end
 
     context "ファイルが存在する場合" do
