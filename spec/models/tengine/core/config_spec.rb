@@ -18,6 +18,14 @@ describe Tengine::Core::Config do
     end
   end
 
+  context "デフォルト" do
+    subject do
+      Tengine::Core::Config.new
+    end
+    its(:status_dir){ should == "./tmp/tengined_status" }
+    its(:activation_dir){ should == "./tmp/tengined_activations" }
+  end
+
   context "ディレクトリ指定の設定ファイル" do
     subject do
       Tengine::Core::Config.new(:config => File.expand_path("config_spec/config_with_dir_load_path.yml", File.dirname(__FILE__)))
@@ -27,8 +35,8 @@ describe Tengine::Core::Config do
         'daemon' => true,
         "activation_timeout" => 300,
         "load_path" => "/var/lib/tengine",
-        "log_dir" => "/var/log/tengined",
         "pid_dir" => "/var/run/tengined_pids",
+        "status_dir" => "/var/run/tengined_status",
         "activation_dir" => "/var/run/tengined_activations",
       }
       subject[:tengined].should == expected
@@ -133,8 +141,8 @@ describe Tengine::Core::Config do
         'daemon' => true,
         "activation_timeout" => 300,
         "load_path" => "/var/lib/tengine/init.rb",
-        "log_dir" => "/var/log/tengined",
         "pid_dir" => "/var/run/tengined_pids",
+        "status_dir" => "/var/run/tengined_status",
         "activation_dir" => "/var/run/tengined_activations",
       }
       subject[:tengined].should == expected
@@ -235,7 +243,7 @@ describe Tengine::Core::Config do
       subject.object_id.should_not == @source.object_id
       subject[:action].object_id.should_not == @source[:action].object_id
       subject[:tengined].object_id.should_not == @source[:tengined].object_id
-      subject[:tengined][:log_dir].object_id.should_not == @source[:tengined][:log_dir].object_id
+      subject[:tengined][:pid_dir].object_id.should_not == @source[:tengined][:pid_dir].object_id
       subject[:event_queue].object_id.should_not == @source[:event_queue].object_id
       subject[:event_queue][:connection].object_id.should_not == @source[:event_queue][:connection].object_id
       subject[:event_queue][:connection][:host].object_id.should_not == @source[:event_queue][:connection][:host].object_id
