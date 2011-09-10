@@ -139,73 +139,88 @@ end
 
 @verbose = @hash[:verbose]
 def verbose(msg, output = STDOUT)
-  output.puts(msg) if @verbose
-end
-
-verbose "before define stop_process"
-def stop_process(signal)
-  verbose "before stop_process"
-  pids = Dir.glob(File.expand_path(@hash[:tengined][:pid_dir] + "/*")).map do |pid_path|
-    File.open(pid_path, "r"){|f| f.gets.chomp.to_i}
-  end
-  results = pids.map{|pid| Process.kill(signal, pid)}
-  verbose "after stop_process"
-rescue Exception
-  verbose("Exception occurred in stop_process\n[#{$!.class.name}] #{$!.message}\n  " << $!.backtrace.join("\n  "), STDERR)
-end
-verbose "after define stop_process"
-
-verbose "before define run"
-def run
-  verbose "before run"
-  case @hash[:action].to_sym
-  when :stop       then stop_process("HUP")
-  when :force_stop then stop_process("KILL")
-  when :test, :load, :start, :enable, :status then
-    daemonize_options = {
-      :ARGV => ['start'],
-      :ontop => !@hash[:tengined][:daemon],
-      :dir_mode => :normal,
-      :dir => File.expand_path("../#{@hash[:tengined][:pid_dir]}", File.dirname(@hash[:daemon_proc_path])),
-  #    :log_dir => File.expand_path("../#{@hash[:tengined][:log_dir]}", File.dirname(__FILE__)),
-  #    :log_output => false
-    }
-    daemonize_options.update(:ARGV => ['start'])
-    current_dir = Dir.pwd
+  return unless @verbose
+  if block_given?
+    output.puts("#{msg} begin")
     begin
-      if @hash[:action].to_sym == :start
-        # pidファイルは、"tengined.0.pid"の数字の部分を連番でふります
-        pids = Dir.glob("#{daemonize_options[:dir]}/tengined.*.pid")
-        if pids.count == 0
-          max_pid_num = 0
-        else
-          max_pid_num = pids.map{|pid_path| File.basename(pid_path).scan(/\d+/).first.to_i}.max.succ
-        end
-        pid_file_name = "#{File.basename(@hash[:daemon_proc_path])}.#{max_pid_num}"
-      else
-        pid_file_name = "#{File.basename(@hash[:daemon_proc_path])}_#{@hash[:action]}"
-      end
-
-      Daemons.run_proc(pid_file_name, daemonize_options) do
-        Dir.chdir(current_dir) do
-          yield
-        end
-      end
-    rescue SystemExit => e
-      verbose("Daemons.run_proc exit successfully") if e.status == 0
+      yield
+      output.puts("#{msg} end")
+    rescue Exception => e
+      STDERR.puts("Exception occurred in #{msg}\n[#{e.class.name}] #{e.message}\n  " << e.backtrace.join("\n  "))
     end
   else
-    verbose("Unknown action: #{@hash[:action]}", STDERR)
+    output.puts(msg)
   end
-  verbose "after run"
-rescue SystemExit
-  verbose("Exception occurred in run\n[#{$!.class.name}] #{$!.message}\n  " << $!.backtrace.join("\n  "), STDERR)
-  raise
-rescue Exception
-  verbose("Exception occurred in run\n[#{$!.class.name}] #{$!.message}\n  " << $!.backtrace.join("\n  "), STDERR)
-  raise
 end
-verbose "after define run"
+
+verbose "define stop_process" do
+  def stop_process(signal)
+    verbose("stop_process") do
+      pids = Dir.glob(File.expand_path(@hash[:tengined][:pid_dir] + "/*")).map do |pid_path|
+        File.open(pid_path, "r"){|f| f.gets.chomp.to_i}
+      end
+      results = pids.map{|pid| Process.kill(signal, pid)}
+    end
+  end
+end
+
+verbose "define run_daemons" do
+  def run_daemons(&block)
+    verbose("run_daemons") do
+      daemonize_options = {
+        :ARGV => ['start'],
+        :ontop => !@hash[:tengined][:daemon],
+        :dir_mode => :normal,
+        :dir => File.expand_path("../#{@hash[:tengined][:pid_dir]}", File.dirname(@hash[:daemon_proc_path])),
+        # :log_dir => File.expand_path("../#{@hash[:tengined][:log_dir]}", File.dirname(__FILE__)),
+        # :log_output => false
+      }
+      daemonize_options.update(:ARGV => ['start'])
+      current_dir = Dir.pwd
+      begin
+        if @hash[:action].to_sym == :start
+          # pidファイルは、"tengined.0.pid"の数字の部分を連番でふります
+          pids = Dir.glob("#{daemonize_options[:dir]}/tengined.*.pid")
+          if pids.count == 0
+            max_pid_num = 0
+          else
+            max_pid_num = pids.map{|pid_path| File.basename(pid_path).scan(/\d+/).first.to_i}.max.succ
+          end
+          pid_file_name = "#{File.basename(@hash[:daemon_proc_path])}.#{max_pid_num}"
+        else
+          pid_file_name = "#{File.basename(@hash[:daemon_proc_path])}_#{@hash[:action]}"
+        end
+
+        Daemons.run_proc(pid_file_name, daemonize_options) do
+          Dir.chdir(current_dir, &block)
+        end
+      rescue SystemExit => e
+        verbose("Daemons.run_proc exit successfully") if e.status == 0
+      end
+    end
+  end
+end
+
+verbose "define run" do
+  def run(&block)
+    verbose("run") do
+      case @hash[:action].to_sym
+      when :stop       then stop_process("HUP")
+      when :force_stop then stop_process("KILL")
+      when :test, :load, :start, :enable, :status then
+        run_daemons(&block)
+      else
+        verbose("Unknown action: #{@hash[:action]}", STDERR)
+      end
+    end
+  rescue SystemExit
+    verbose("Exception occurred in run\n[#{$!.class.name}] #{$!.message}\n  " << $!.backtrace.join("\n  "), STDERR)
+    raise
+  rescue Exception
+    verbose("Exception occurred in run\n[#{$!.class.name}] #{$!.message}\n  " << $!.backtrace.join("\n  "), STDERR)
+    raise
+  end
+end
 
 @hash.update(:daemon_proc_path => File.expand_path(__FILE__))
 tengined_root = File.expand_path("..", File.expand_path(File.dirname(__FILE__)))
