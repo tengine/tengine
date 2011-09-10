@@ -16,6 +16,9 @@ gem "tengine_event", "~> 0.1"
 
 gem "daemons", "~> 1.1"
 
+gem "selectable_attr", '~> 0.3.13'
+gem "selectable_attr_rails", '~> 0.3.14'
+
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
   gem "capybara"
