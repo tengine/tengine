@@ -16,8 +16,8 @@ tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
      --tengined-wait-activation           wait activation when start. usually use with --daemon option [only for command]
      --tengined-activation-timeout        period to wait for making activation file. default: 300(sec)
   -T --tengined-load-path                 [REQUIRED] path/to/file_or_dir. ignored with "-k test"
-     --tengined-log-dir                   path/to/dir. default: ./
      --tengined-pid-dir                   path/to/dir. default: ./tmp/tengined_pids
+     --tengined-status-dir                path/to/dir. default: ./tmp/tengined_status
      --tengined-activation-dir            path/to/dir. default: ./tmp/tengined_activations
   -H --db-host                            default: localhost
   -P --db-port                            default: 27017
