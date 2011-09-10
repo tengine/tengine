@@ -16,23 +16,23 @@ module Tengine::Core::DslLoader
       yield if block_given?
       @__driver__.save!
     else
-      Tengine::Core::stdout.warn("driver#{name.to_s.dump}は既に登録されています")
+      Tengine::Core::stdout_logger.warn("driver#{name.to_s.dump}は既に登録されています")
       @__driver__ = drivers.first
     end
     @__driver__
   end
 
-  def on(event_type_name, options = {}, &block)
+  def on(filter_def, options = {}, &block)
+    event_type_names = filter_def.respond_to?(:event_type_names) ? filter_def.event_type_names : [filter_def.to_s]
     filepath, lineno = *block.source_location
     @__driver__.handlers.new(
       # filepathはTengineコアが動く環境ごとに違うかもしれないので、相対パスを使う必要があります。
       :filepath => config.relative_path_from_dsl_dir(filepath),
       :lineno => lineno,
-      :event_type_names => [event_type_name.to_s])
+      :event_type_names => event_type_names,
+      :filter => filter_def.is_a?(Tengine::Core::DslFilterDef) ? filter_def.filter : nil)
     # 一つのドライバに対して複数個のハンドラを登録しようとした際に警告を出すべきだが・・・
     # Tengine::Core::stdout.warn("driver#{@__driver__.name.dump}には、同一のevent_type_name#{event_type_name.to_s.dump}が複数存在します")
   end
+
 end
-
-
-

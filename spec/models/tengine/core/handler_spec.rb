@@ -107,8 +107,8 @@ describe Tengine::Core::Handler do
             {
               :method => :and,
               :children => [
-                { :pattern => 'foo', :method => :find_or_update_session_true },
-                { :pattern => 'bar', :method => :find_or_update_session_true },
+                { :pattern => 'foo', :method => :find_or_mark_in_session },
+                { :pattern => 'bar', :method => :find_or_mark_in_session },
               ]
             },
             { :method => :equal, :pattern => "baz"}
@@ -125,8 +125,8 @@ describe Tengine::Core::Handler do
             {
               'method' => :and,
               'children' => [
-                { 'pattern' => 'foo', 'method' => :find_or_update_session_true },
-                { 'pattern' => 'bar', 'method' => :find_or_update_session_true },
+                { 'pattern' => 'foo', 'method' => :find_or_mark_in_session },
+                { 'pattern' => 'bar', 'method' => :find_or_mark_in_session },
               ]
             },
             { 'method' => :equal, 'pattern' => "baz"}
