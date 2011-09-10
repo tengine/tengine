@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+require 'logger'
+
+require 'active_support/core_ext/hash'
+require 'active_support/ordered_hash'
 require 'active_support/hash_with_indifferent_access'
 require 'active_support/memoizable'
 
@@ -82,10 +86,84 @@ class Tengine::Core::Config
   end
   memoize :dsl_version
 
+  def setup_loggers
+    stdout_path = log_config(:process_stdout_log)[:output]
+    $stdout = File.open(stdout_path, "w") unless stdout_path =~ /^STDOUT$|^STDERR$/
+    stderr_path = log_config(:process_stderr_log)[:output]
+    $stderr = File.open(stderr_path, "w") unless stderr_path =~ /^STDOUT$|^STDERR$/
+    Tengine::Core::stdout_logger = new_logger(:process_stdout_log, $stdout)
+    Tengine::Core::stderr_logger = new_logger(:process_stderr_log, $stdout)
+    Tengine.logger = new_logger(:application_log)
+    Tengine::Core::stdout_logger.info("#{self.class.name}#setup_loggers complete")
+  rescue Exception
+    Tengine::Core::stderr_logger.info("#{self.class.name}#setup_loggers failure")
+    raise
+  end
+
+  def new_logger(log_type_name, output = nil)
+    raise_unless_valid_log_type_name(log_type_name)
+    c = log_config(log_type_name)
+    output = output || c[:output]
+    result = Logger.new(output_to_io_or_filepath(output), c[:rotation], c[:rotation_size])
+    result.formatter = logger_formatters(log_type_name)
+    result.level = Logger.const_get(c[:level].to_s.upcase)
+    result
+  end
+
+  def log_config(log_type_name)
+    raise_unless_valid_log_type_name(log_type_name)
+    log_common = self[:log_common].dup
+    log_config = self[log_type_name].dup
+    log_config.delete_if{|key, value| value.nil?}
+    result = {}
+    result.update(log_common)
+    result.update(log_config)
+    result.symbolize_keys!
+    result.delete(:rotation_size) unless result[:rotation].is_a?(Integer)
+    result[:output] ||= default_log_output(log_type_name, !self[:tengined][:daemon])
+    result
+  end
+
+  private
+
+  LOG_TYPE_NAMES = [:application_log, :process_stdout_log, :process_stderr_log].freeze
+
+  def raise_unless_valid_log_type_name(log_type_name)
+    raise ArgumentError, "Unsupported log_type_name: #{log_type_name.inspect}" unless LOG_TYPE_NAMES.include?(log_type_name)
+  end
+
+  def default_log_output(log_type_name, foreground)
+    raise_unless_valid_log_type_name(log_type_name)
+    case log_type_name
+    when :application_log then foreground ? 'STDOUT' : "./log/application.log"
+    when :process_stdout_log then foreground ? 'STDOUT' : "./log/#{File.basename($PROGRAM_NAME)}_#{Process.pid}_stdout.log"
+    when :process_stderr_log then foreground ? 'STDERR' : "./log/#{File.basename($PROGRAM_NAME)}_#{Process.pid}_stderr.log"
+    end
+  end
+
+  def output_to_io_or_filepath(output)
+    @output_to_io_or_filepath ||= {"STDOUT" => STDOUT, "STDERR" => STDERR}.freeze
+    @output_to_io_or_filepath[output] || output
+  end
+
+  def logger_formatters(log_type_name)
+    @process_identifier ||= "#{File.basename($PROGRAM_NAME)}<#{Process.pid}>".freeze
+    @logger_formatters ||= {
+      :application_log    => lambda{|level, t, prog, msg| "#{t.iso8601} #{level} #{@process_identifier} #{msg}\n"},
+      :process_stdout_log => lambda{|level, t, prog, msg| "#{t.iso8601} STDOUT #{@process_identifier} #{msg}\n"},
+      :process_stderr_log => lambda{|level, t, prog, msg| "#{t.iso8601} STDERR #{@process_identifier} #{msg}\n"}
+    }.freeze
+    @logger_formatters[log_type_name]
+  end
+
+
+  public
+
   # このデフォルト値をdupしたものを、起動時のオプションを格納するツリーとして使用します
   DEFAULT = {
     :action => "start", # 設定ファイルには記述しない
     :config => nil,     # 設定ファイルには記述しない
+
     :tengined => {
       :daemon => false,
       # :prevent_loader    => nil, # デフォルトなし。設定ファイルには記述しない
@@ -97,6 +175,7 @@ class Tengine::Core::Config
       :pid_dir        => "./tmp/tengined_pids"       , # 本番環境での例 "/var/run/tengined_pids"
       :activation_dir => "./tmp/tengined_activations", # 本番環境での例 "/var/run/tengined_activations"
     }.freeze,
+
     :db => {
       :host => 'localhost',
       :port => 27017,
@@ -104,6 +183,7 @@ class Tengine::Core::Config
       :password => nil,
       :database => 'tengine_production',
     }.freeze,
+
     :event_queue => {
       :connection => {
         :host => 'localhost',
@@ -122,6 +202,35 @@ class Tengine::Core::Config
         :durable => true,
       }.freeze,
     }.freeze,
+
+    :log_common => {
+      :output        => nil        , # file path or "STDOUT" / "STDERR"
+      :rotation      => 3          , # rotation file count or daily,weekly,monthly. default: 3
+      :rotation_size => 1024 * 1024, # number of max log file size. default: 1048576 (10MB)
+      :level         => 'info'     , # debug/info/warn/error/fatal. default: info
+    }.freeze,
+
+    :application_log => {
+      :output        => nil, # file path or "STDOUT" / "STDERR". default: if daemon process then "./log/application.log" else "STDOUT"
+      :rotation      => nil, # rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+      :rotation_size => nil, # number of max log file size. default: value of --log-common-rotation-size
+      :level         => nil, # debug/info/warn/error/fatal. default: value of --log-common-level
+    }.freeze,
+
+    :process_stdout_log => {
+      :output        => nil, # file path or "STDOUT" / "STDERR". default: if daemon process then "./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log" else "STDOUT"
+      :rotation      => nil, # rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+      :rotation_size => nil, # number of max log file size. default: value of --log-common-rotation-size
+      :level         => nil, # debug/info/warn/error/fatal. default: value of --log-common-level
+    }.freeze,
+
+    :process_stderr_log => {
+      :output        => nil, # file path or "STDOUT" / "STDERR". default: if daemon process then "./log/#{$PROGRAM_NAME}_#{Process.pid}_stderr.log" else "STDERR"
+      :rotation      => nil, # rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+      :rotation_size => nil, # number of max log file size. default: value of --log-common-rotation-size
+      :level         => nil, # debug/info/warn/error/fatal. default: value of --log-common-level
+    }.freeze,
+
   }.freeze
 
   class << self
@@ -141,6 +250,10 @@ class Tengine::Core::Config
         end
       end
       dest
+    end
+
+    def [](obj)
+      obj.is_a?(self) ? obj : new(obj)
     end
   end
 

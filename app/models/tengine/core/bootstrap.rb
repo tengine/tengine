@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+require 'tengine/event'
+require 'tengine/mq'
+require 'eventmachine'
 
 class Tengine::Core::Bootstrap
 
@@ -6,29 +9,35 @@ class Tengine::Core::Bootstrap
   attr_accessor :kernel
 
   def initialize(hash)
-    @config = Tengine::Core::Config.new(hash)
+    @config = Tengine::Core::Config[hash]
+    prepare_trap
   end
+
+  def prepare_trap; Signal.trap(:HUP) {puts ":HUP"; kernel.stop} end
 
   def boot
     case config[:action]
     when "load" then load_dsl
     when "start"
-      load_dsl unless config[:tengined][:skip_load] == true
+      load_dsl unless config[:tengined][:skip_load]
       start_kernel
     when "test"
-      # TODO 接続テスト用イベントハンドラ定義ファイルをload_pathに指定してあげる必要があります
-      # config[:tengined][:load_path] = File.expand_path("../../../../lib/tengine/core/connection_test/fire_bar_on_foo.rb", __FILE__)
-      # @config[:tengined][:load_path] = tengine_coreのルート/lib/tengine/core/connection_test/fire_bar_on_foo.rb
-      # tengine_coreのルート/lib/tengine/core/connection_test/VERSION
+      config[:tengined][:skip_waiting_activation] = true
+      config[:tengined][:load_path] = File.expand_path("../../../../lib/tengine/core/connection_test/fire_bar_on_foo.rb", File.dirname(__FILE__))
+
+      # VERSIONファイルの生成とバージョンアップの書き込み
+      version_file = File.open("#{config.dsl_dir_path}/VERSION", "w")
+      version_file.write(Time.now.strftime("%Y%m%d%H%M%S").to_s)
+      version_file.close
+
       load_dsl
       start_kernel
       start_connection_test
       stop_kernel
     when "enable" then enable_drivers
     when "status" then kernel_status
-    when "stop" then stop_kernel
     else
-      raise ArgumentError, "config[:action] must be test|load|start|enable|stop|force-stop|status but was #{config[:action]} "
+      raise ArgumentError, "config[:action] in boot method must be test|load|start|enable|status but was #{config[:action]} "
     end
   end
 
@@ -54,16 +63,27 @@ class Tengine::Core::Bootstrap
   end
 
   def kernel_status
+    kernel.status
   end
 
   def start_connection_test
-    event_type_name = :foo
-    options = { :notification_level_key => :info }
-    Tengine::Event.config = {
-      :connection => config[:event_queue][:connection],
-      :exchange => config[:event_queue][:exchange],
-      :queue => config[:event_queue][:queue]
-    }
-    Tengine::Event.fire(event_type_name, options)
+    EM.run do
+      event_type_name = :foo
+      options = { :notification_level_key => :info }
+      Tengine::Event.config = {
+        :connection => config[:event_queue][:connection],
+        :exchange => config[:event_queue][:exchange],
+        :queue => config[:event_queue][:queue]
+      }
+      Tengine::Event.fire(event_type_name, options) do
+        Tengine::Event.mq_suite.connection.disconnect { EM.stop }
+      end
+    end
   end
+
+  # 自動でログ出力する
+  extend Tengine::Core::MethodTraceable
+  method_trace(:prepare_trap, :boot, :load_dsl, :start_kernel, :stop_kernel,
+    :enable_drivers, :kernel_status, :start_connection_test)
+
 end

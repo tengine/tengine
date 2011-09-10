@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
+require 'amqp'
+require 'eventmachine'
+require 'tengine/mq'
+require 'tengine/event'
 
 describe "Tengine::Core::Bootstrap" do
 
@@ -65,15 +69,6 @@ describe "Tengine::Core::Bootstrap" do
         bootstrap.should_receive(:load_dsl)
         bootstrap.should_receive(:start_kernel)
         bootstrap.should_receive(:start_connection_test)
-        bootstrap.should_receive(:stop_kernel)
-        bootstrap.boot
-      end
-    end
-
-    context "config[:action] => stop の場合" do
-      it "stop_kernelがよばれること" do
-        options = { :action => "stop" }
-        bootstrap = Tengine::Core::Bootstrap.new(options)
         bootstrap.should_receive(:stop_kernel)
         bootstrap.boot
       end
@@ -147,11 +142,29 @@ describe "Tengine::Core::Bootstrap" do
   end
 
   describe :start_connection_test do
+    before do
+      @config = {
+        :connection => {"foo" => "aaa"},
+        :exchange => {'name' => "exchange1", 'type' => 'direct', 'durable' => true},
+        :queue => {'name' => "queue1", 'durable' => true},
+      }
+      @mq_suite = Tengine::Mq::Suite.new(@config)
+
+      @mock_mq = mock(:amqp)
+      @mock_connection = mock(:connection)
+    end
+
     it "イベントを発火する" do
       options = { :action => "test" }
 
       bootstrap = Tengine::Core::Bootstrap.new(options)
-      Tengine::Event.should_receive(:fire).with(:foo, :notification_level_key => :info)
+      EM.should_receive(:run).and_yield
+      Tengine::Event.should_receive(:fire).with(:foo, :notification_level_key => :info).and_yield
+
+      Tengine::Event.should_receive(:mq_suite).and_return(@mock_mq)
+      @mock_mq.should_receive(:connection).and_return(@mock_connection)
+      @mock_connection.should_receive(:disconnect).and_yield
+      EM.should_receive(:stop)
       event = bootstrap.start_connection_test
 
       Tengine::Event.config[:connection][:host].should == "localhost"
