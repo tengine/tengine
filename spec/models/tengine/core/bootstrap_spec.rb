@@ -162,7 +162,7 @@ describe "Tengine::Core::Bootstrap" do
       bootstrap = Tengine::Core::Bootstrap.new(options)
       bootstrap.boot
 
-      Tengine::Core::Driver.where(:version => "20110905172830") do |d|
+      Tengine::Core::Driver.where(:version => "20110905172830").each do |d|
         d.enabled.should be_true
       end
     end

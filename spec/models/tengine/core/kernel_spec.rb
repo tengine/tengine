@@ -280,7 +280,7 @@ describe Tengine::Core::Kernel do
 
         lambda {
           kernel.start
-          kernel.stop
+          # kernel.stop
         }.should raise_error(Tengine::Core::ActivationTimeoutError, "activation file found timeout error.")
         kernel.status_key.should == :stopping
       end
