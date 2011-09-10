@@ -7,10 +7,12 @@ describe "tengine/core/handlers/index.html.erb" do
     ))
     mock_pagination(assign(:handlers, [
       stub_model(Tengine::Core::Handler,
-        :event_type_names => ["abc", "123"]
+        :event_type_names => ["abc", "123"],
+        :filter => {"a"=>"1", "b"=>"2"}
       ),
       stub_model(Tengine::Core::Handler,
-        :event_type_names => ["abc", "123"]
+        :event_type_names => ["abc", "123"],
+        :filter => {"a"=>"1", "b"=>"2"}
       )
     ]))
   end
