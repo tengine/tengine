@@ -175,7 +175,7 @@ def run
     begin
       if @hash[:action].to_sym == :start
         # pidファイルは、"tengined.0.pid"の数字の部分を連番でふります
-        pids = Dir.glob("#{daemonize_options[:dir]}/*")
+        pids = Dir.glob("#{daemonize_options[:dir]}/tengined.*.pid")
         if pids.count == 0
           max_pid_num = 0
         else
@@ -183,7 +183,7 @@ def run
         end
         pid_file_name = "#{File.basename(@hash[:daemon_proc_path])}.#{max_pid_num}"
       else
-        pid_file_name = "#{File.basename(@hash[:daemon_proc_path])}.#{@hash[:action]}"
+        pid_file_name = "#{File.basename(@hash[:daemon_proc_path])}_#{@hash[:action]}"
       end
 
       Daemons.run_proc(pid_file_name, daemonize_options) do
