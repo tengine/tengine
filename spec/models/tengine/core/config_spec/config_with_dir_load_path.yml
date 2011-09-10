@@ -1,8 +1,8 @@
 tengined:
   daemon: true
   load_path: "/var/lib/tengine"
-  log_dir: "/var/log/tengined"
   pid_dir: "/var/run/tengined_pids"
+  status_dir: "/var/run/tengined_status"
   activation_dir: "/var/run/tengined_activations"
 event_queue:
   queue:

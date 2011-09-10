@@ -7,27 +7,18 @@ require 'selectable_attr'
 class Tengine::Core::Kernel
   include ::SelectableAttr::Base
 
-  selectable_attr :status do
-    entry '01', :starting, '起動中'
-    entry '02', :waiting_activation, '稼働要求待ち'
-    entry '03', :running, '稼働中'
-    entry '04', :stopping, '停止中'
-    entry '05', :stoped, '停止済'
-  end
-
   attr_reader :config, :dsl_env, :status
-  attr_writer :status
 
   def initialize(config)
+    @status = :initialized
     @config = config
-    self.status_key = :stoped
   end
 
   def start(&block)
-    self.status_key = :starting
+    update_status(:starting)
     bind
     if config[:tengined][:wait_activation]
-      self.status_key = :waiting_activation
+      update_status(:waiting_activation)
       wait_for_activation(&block)
     else
       activate(&block)
@@ -35,17 +26,17 @@ class Tengine::Core::Kernel
   end
 
   def stop
-    if self.status_key == :running
-      self.status_key = :stopping
+    if self.status == :running
+      update_status(:shutting_down)
       if mq.queue.default_consumer
         mq.queue.unsubscribe
         mq.connection.close{ EM.stop_event_loop } unless in_process?
       end
     else
-      self.status_key = :stopping
+      update_status(:shutting_down)
       # wait_for_actiontion中の処理を停止させる必要がある
     end
-    self.status_key = :stoped
+    update_status(:terminated)
   end
 
   def in_process?
@@ -58,6 +49,7 @@ class Tengine::Core::Kernel
     @dsl_env.extend(Tengine::Core::DslBinder)
     @dsl_env.config = config
     @dsl_env.evaluate
+    Tengine::Core::stdout_logger.debug("Hanlder bindings:\n" << @dsl_env.to_a.inspect)
   end
 
   def wait_for_activation(&block)
@@ -77,7 +69,7 @@ class Tengine::Core::Kernel
       # activate開始
       activate(&block)
     else
-      self.status_key = :stopping
+      update_status(:shutting_down)
       raise Tengine::Core::ActivationTimeoutError, "activation file found timeout error."
     end
   end
@@ -85,7 +77,8 @@ class Tengine::Core::Kernel
   def activate
     EM.run do
       # queueへの接続までできたら稼働中
-      self.status_key = :running if mq.queue
+      # self.status_key = :running if mq.queue
+      update_status(:running) if mq.queue
       subscribe_queue
 
       yield(mq) if block_given? # このyieldは接続テストのための処理をTengine::Core:Bootstrapが定義するのに使われます。
@@ -99,29 +92,31 @@ class Tengine::Core::Kernel
       begin
         raw_event = Tengine::Event.parse(msg)
       rescue Exception => e
-        puts "[#{e.class.name}] #{e.message}"
+        Tengine.logger.error("failed to parse a message because of [#{e.class.name}] #{e.message}.\n#{msg}")
         headers.ack
         next
       end
 
+      Tengine.logger.debug("received a event #{raw_event.inspect}")
+
       # 受信したイベントを登録
       event = Tengine::Core::Event.create!(raw_event.attributes)
-      # TODO: ログ出力する
-      # logger.info("receive a event \"#{event.event_type_name}\" key:#{event.key}")
-      # puts("receive a event \"#{event.event_type_name}\" key:#{event.key}")
+      Tengine.logger.debug("saved a event #{event.inspect}")
 
       # イベントハンドラの取得
       Tengine::Core::HandlerPath.default_driver_version = config.dsl_version
       handlers = Tengine::Core::HandlerPath.find_handlers(event.event_type_name)
+      Tengine.logger.debug("handlers found: " << handlers.map{|h| "#{h.driver.name} #{h.id.to_s}"}.join(", "))
+
       handlers.each do |handler|
         begin
           # block の取得
-          blocks = dsl_env.blocks_for(handler.id)
+          block = dsl_env.block_for(handler)
           # イベントハンドラへのディスパッチ
           # TODO: ログ出力する
           # logger.info("dispatching the event key:#{event.key} to #{handler.inspect}")
           # puts("dispatching the event key:#{event.key} to #{handler.inspect}")
-          handler.process_event(event, blocks)
+          handler.process_event(event, &block)
         rescue Exception => e
           puts "[#{e.class.name}] #{e.message}"
           headers.ack
@@ -147,6 +142,25 @@ class Tengine::Core::Kernel
   method_trace(:start, :stop, :bind, :wait_for_activation, :activate, :subscribe_queue)
 
   private
+
+
+  STATUS_LIST = [
+    :initialized,        # 初期化済み
+    :starting,           # 起動中
+    :waiting_activation, # 稼働要求待ち
+    :running,            # 稼働中
+    :shutting_down,      # 停止中
+    :terminated,         # 停止済
+  ].freeze
+
+  # TODO 状態遷移図、状態遷移表に基づいたチェックを入れるべき
+  # https://cacoo.com/diagrams/hwYJGxDuumYsmFzP#EBF87
+  def update_status(status)
+    raise ArgumentError, "Unkown status #{status.inspect}" unless STATUS_LIST.include?(status)
+    @status_filepath ||= File.expand_path("tengined_#{Process.pid}.status", config.status_dir)
+    @status = status
+    File.open(@status_filepath, "w"){|f| f.write(status.to_s)}
+  end
 
   def mq
     @mq ||= Tengine::Mq::Suite.new(config[:event_queue])

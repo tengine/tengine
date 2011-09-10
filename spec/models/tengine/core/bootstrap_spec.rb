@@ -103,6 +103,15 @@ describe "Tengine::Core::Bootstrap" do
     end
   end
 
+  describe :prepare_trap do
+    it "シグナルハンドラが定義される" do
+      mock_kernel = mock(:kernel)
+      Signal.should_receive(:trap).with(:HUP)
+#      Signal.should_receive(:trap).with(:QUIT)
+      bootstrap = Tengine::Core::Bootstrap.new({})
+    end
+  end
+
   describe :load_dsl do
     it "Tengine::Core::DslLoaderのevaluateがよばれる" do
       options = { :action => "load" }
@@ -140,9 +149,9 @@ describe "Tengine::Core::Bootstrap" do
       t = Time.local(2011,9,5,17,28,30)
       Time.stub!(:now).and_return(t)
 
-      @d1 = Tengine::Core::Driver.create!(:name=>"driver1", :version=>"20110905172830", :enabled=>false, :enabled_on_activation=>false)
-      @d2 = Tengine::Core::Driver.create!(:name=>"driver2", :version=>"20110905172830", :enabled=>false, :enabled_on_activation=>false)
-      @d3 = Tengine::Core::Driver.create!(:name=>"driver3", :version=>"20110905172830", :enabled=>false, :enabled_on_activation=>false)
+      @d1 = Tengine::Core::Driver.create!(:name=>"driver1", :version=>"20110905172830", :enabled=>false, :enabled_on_activation=>true)
+      @d2 = Tengine::Core::Driver.create!(:name=>"driver2", :version=>"20110905172830", :enabled=>false, :enabled_on_activation=>true)
+      @d3 = Tengine::Core::Driver.create!(:name=>"driver3", :version=>"20110905172830", :enabled=>false, :enabled_on_activation=>true)
     end
 
     it "enabled=true に更新される" do
@@ -153,7 +162,7 @@ describe "Tengine::Core::Bootstrap" do
       bootstrap = Tengine::Core::Bootstrap.new(options)
       bootstrap.boot
 
-      Tengine::Core::Driver.where(:version => "20110905172830") do |d|
+      Tengine::Core::Driver.where(:version => "20110905172830").each do |d|
         d.enabled.should be_true
       end
     end

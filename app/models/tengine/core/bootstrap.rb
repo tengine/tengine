@@ -13,7 +13,10 @@ class Tengine::Core::Bootstrap
     prepare_trap
   end
 
-  def prepare_trap; Signal.trap(:HUP) {puts ":HUP"; kernel.stop} end
+  def prepare_trap
+    Signal.trap(:HUP) { kernel.stop   }
+#    Signal.trap(:QUIT){ kernel.status }
+  end
 
   def boot
     case config[:action]
@@ -46,7 +49,7 @@ class Tengine::Core::Bootstrap
   end
 
   def enable_drivers
-    drivers = Tengine::Core::Driver.where(:version => config.dsl_version, :enabled_on_activation => false)
+    drivers = Tengine::Core::Driver.where(:version => config.dsl_version, :enabled_on_activation => true)
     drivers.each{ |d| d.update_attribute(:enabled, true) }
   end
 

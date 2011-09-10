@@ -19,13 +19,13 @@ describe Tengine::Core::Kernel do
           })
         @kernel = Tengine::Core::Kernel.new(config)
         @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version, :enabled => true)
-        @handler1 = @driver.handlers.new(:event_type_names => ["event01"])
+        @handler1 = @driver.handlers.new(:filepath => "uc01_execute_processing_for_event.rb", :lineno => 7, :event_type_names => ["event01"])
         @driver.save!
       end
 
       it "event_type_nameからblockを検索することができる" do
         @kernel.bind
-        @kernel.dsl_env.blocks_for(@handler1.id).count.should == 1
+        @kernel.dsl_env.block_for(@handler1).should_not be_nil
       end
     end
 
@@ -41,7 +41,7 @@ describe Tengine::Core::Kernel do
           })
         @kernel = Tengine::Core::Kernel.new(config)
         @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version, :enabled => true)
-        @handler1 = @driver.handlers.new(:event_type_names => ["event01"])
+        @handler1 = @driver.handlers.new(:filepath => "uc01_execute_processing_for_event.rb", :lineno => 7, :event_type_names => ["event01"])
         @driver.save!
       end
 
@@ -95,7 +95,7 @@ describe Tengine::Core::Kernel do
           })
         @kernel = Tengine::Core::Kernel.new(config)
         @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version, :enabled => true)
-        @handler1 = @driver.handlers.new(:event_type_names => ["event01"])
+        @handler1 = @driver.handlers.new(:filepath => "uc01_execute_processing_for_event.rb", :lineno => 7, :event_type_names => ["event01"])
         @driver.save!
         @event1 = Tengine::Core::Event.new(:event_type_name => :event01, :key => "uuid1", :sender_name => "localhost")
         @event1.save!
@@ -176,8 +176,8 @@ describe Tengine::Core::Kernel do
         @kernel = Tengine::Core::Kernel.new(config)
       end
 
-      it "カーネルのインスタンス生成直後は「停止済」の状態を返す" do
-        @kernel.status_key.should == :stoped
+      it "カーネルのインスタンス生成直後は「初期化済み」の状態を返す" do
+        @kernel.status.should == :initialized
       end
 
       it "起動要求を受け取った直後は「起動中」の状態を返す", :start => true do
@@ -185,7 +185,13 @@ describe Tengine::Core::Kernel do
         @kernel.should_receive(:activate)
 
         @kernel.start
-        @kernel.status_key.should == :starting
+        @kernel.status.should == :starting
+      end
+
+      it "内部で使用されるupdate_statusにおかしな値を入れるとArgumentError" do
+        expect {
+          @kernel.send(:update_status, :invalid_status)
+        }.to raise_error(ArgumentError)
       end
     end
 
@@ -207,7 +213,7 @@ describe Tengine::Core::Kernel do
         @kernel.should_receive(:wait_for_activation)
 
         @kernel.start
-        @kernel.status_key.should == :waiting_activation
+        @kernel.status.should == :waiting_activation
       end
     end
 
@@ -231,7 +237,7 @@ describe Tengine::Core::Kernel do
         mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true)
 
         @kernel.start
-        @kernel.status_key.should == :running
+        @kernel.status.should == :running
       end
     end
 
@@ -258,12 +264,12 @@ describe Tengine::Core::Kernel do
         @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true)
 
         kernel.start
-        kernel.status_key.should == :running
+        kernel.status.should == :running
 
         @mock_queue.should_receive(:default_consumer).and_return(nil)
 
         kernel.stop
-        kernel.status_key.should == :stoped
+        kernel.status.should == :terminated
       end
 
       it "停止要求を受け取った直後では「停止中」および「停止済」の状態を返す(稼働要求待ち)" do
@@ -280,9 +286,9 @@ describe Tengine::Core::Kernel do
 
         lambda {
           kernel.start
-          kernel.stop
+          # kernel.stop
         }.should raise_error(Tengine::Core::ActivationTimeoutError, "activation file found timeout error.")
-        kernel.status_key.should == :stopping
+        kernel.status.should == :shutting_down
       end
     end
   end
