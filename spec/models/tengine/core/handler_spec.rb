@@ -51,13 +51,20 @@ describe Tengine::Core::Handler do
         end
         subject{ @handler }
 
-        it "最初にfooが来たらセッションに記録してfalse" do
+        it "最初にfooが受信したらセッションに記録してfalse" do
           event_foo = FactoryGirl.create(:"tengine/core/event", :event_type_name => "foo")
           subject.match?(event_foo).should == false
           @driver1.session.system_properties.should == {'mark_foo' => true}
         end
 
-        context "一度fooが来た場合" do
+        it "最初にbarが受信したらセッションに記録してfalse" do
+          # 実装がall?などを使って全てのフィルタを評価しない場合は失敗することがあります。
+          event_bar = FactoryGirl.create(:"tengine/core/event", :event_type_name => "bar")
+          subject.match?(event_bar).should == false
+          @driver1.session.system_properties.should == {'mark_bar' => true}
+        end
+
+        context "一度fooを受信した場合" do
           before do
             session = @driver1.session
             session.system_properties = {'mark_foo' => true}
@@ -77,8 +84,24 @@ describe Tengine::Core::Handler do
             @driver1.reload
             @driver1.session.system_properties.should == {'mark_foo' => true, 'mark_bar' => true}
           end
-
         end
+
+        context "一度barを受信した場合" do
+          before do
+            session = @driver1.session
+            session.system_properties = {'mark_bar' => true}
+            session.save!
+          end
+
+          it "fooが来るとセッションを変更してtrue" do
+            event_foo = FactoryGirl.create(:"tengine/core/event", :event_type_name => "foo")
+            subject.match?(event_foo).should == true
+            @driver1.reload
+            @driver1.session.system_properties.should == {'mark_foo' => true, 'mark_bar' => true}
+          end
+        end
+
+
       end
 
     end

@@ -74,9 +74,8 @@ class Tengine::Core::Handler
 
     def and
       children = @current["children"]
-      children.all? do |child|
-        backup_current(child){ visit }
-      end
+      # children.all?{|child| backup_current(child){ visit }} # これだと全てのchildrenについて評価せずfalseがあったら処理を抜けてしまいます。
+      children.map{|child| backup_current(child){ visit }}.all?
     end
 
     def find_or_mark_in_session
