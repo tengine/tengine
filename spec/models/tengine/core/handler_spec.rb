@@ -26,7 +26,20 @@ describe Tengine::Core::Handler do
     end
   end
 
-  describe :filter do
+  describe 'filter persistence' do
+    before do
+      Tengine::Core::Driver.delete_all
+      @driver1 = Tengine::Core::Driver.new(:name => "driver1", :version => "123")
+    end
+
+    it "デフォルトでは空のHash" do
+      @driver1.handlers.new(:event_type_names => [:foo, :bar])
+      @driver1.save!
+      loaded = Tengine::Core::Driver.find(@driver1.id)
+      handler1 = loaded.handlers.first
+      handler1.filter.should == {}
+    end
+
     it "はネストしたフィルタの情報を保持できる" do
       expected_hash = {
           :method => :or,
@@ -41,11 +54,9 @@ describe Tengine::Core::Handler do
             { :method => :equal, :pattern => "baz"}
           ]
         }
-      Tengine::Core::Driver.delete_all
-      driver1 = Tengine::Core::Driver.new(:name => "driver1", :version => "123")
-      driver1.handlers.new(:event_type_names => [:foo, :bar], :filter => expected_hash)
-      driver1.save!
-      loaded = Tengine::Core::Driver.find(driver1.id)
+      @driver1.handlers.new(:event_type_names => [:foo, :bar], :filter => expected_hash)
+      @driver1.save!
+      loaded = Tengine::Core::Driver.find(@driver1.id)
       handler1 = loaded.handlers.first
       # mongoの制約でSymbolのキーは文字列に変換される。
       handler1.filter.should == {
@@ -62,8 +73,6 @@ describe Tengine::Core::Handler do
           ]
         }
     end
-
-
   end
 
 end
