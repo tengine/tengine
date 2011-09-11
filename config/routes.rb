@@ -1,11 +1,7 @@
 TengineConsole::Application.routes.draw do
-  get "event_ignitions/firegit"
+  get "tengine/core/event_ignitions/new"
 
-  get "event_ignitions/add"
-
-  get "event_ignitions/new"
-
-  get "event_ignitions/fire"
+  post "tengine/core/event_ignitions/fire"
 
   namespace :tengine do  namespace :core do resources :sessions end end
 

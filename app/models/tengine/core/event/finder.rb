@@ -20,13 +20,14 @@ class Tengine::Core::Event::Finder
   multi_selectable_attr :notification_level, :enum => Tengine::Core::Event.notification_level_enum
 
 
-  def initialize(attrs = {})
+  def initialize(attrs = {}, page = {})
     attrs = {
       notification_level_ids: default_notification_level_ids
     }.update(attrs || {})
     attrs.each do |attr, v| 
       send("#{attr}=", v) unless v.blank?
     end
+    @page = page
   end
 
   # デフォルトでは通知レベルがすべて選択された状態にする
@@ -38,12 +39,8 @@ class Tengine::Core::Event::Finder
     return result
   end
 
-  def paginate(criteria)
-    scope(criteria).page(paginate_options)
-  end
-
-  def criteria(criteria)
-    scope(criteria)
+  def paginate
+    scope(Tengine::Core::Event).page(@page)
   end
 
   def scope(criteria)
@@ -58,12 +55,8 @@ class Tengine::Core::Event::Finder
     result = result.where(sender_name: sender_name) if sender_name
     result = result.where(properties: properties) if properties
     # ソート
-    result = result.asc(:_id)
+    result = result.desc(:_id)
     result
-  end
-
-  def paginate_options
-    {:page => page, :per_page => per_page}
   end
 
 end
