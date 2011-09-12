@@ -31,6 +31,7 @@ describe Tengine::Core::EventsController do
     it "assigns all tengine_core_events as @tengine_core_events" do
       Tengine::Core::Event.delete_all
       event = Tengine::Core::Event.create! valid_attributes
+      event.level = 1
       get :index
       events = assigns(:events)
       events.to_a.should eq([event])

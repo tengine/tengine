@@ -9,7 +9,7 @@ class Tengine::Core::EventsController < ApplicationController
     if params[:commit].blank? && session[:events_finder]
       @finder = session[:events_finder]
     else
-      @finder = Tengine::Core::Event::Finder.new(params[:finder], params[:page])
+      @finder = Tengine::Core::Event::Finder.new(params[:finder] || {}, params[:page])
       session[:events_finder]  = @finder
     end
 

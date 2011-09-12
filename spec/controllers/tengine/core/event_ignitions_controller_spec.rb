@@ -9,17 +9,11 @@ describe Tengine::Core::EventIgnitionsController do
     end
   end
 
-  describe "GET 'firegit'" do
+  describe "POST 'fire'" do
     it "should be successful" do
-      get 'firegit'
-      response.should be_success
-    end
-  end
-
-  describe "GET 'add'" do
-    it "should be successful" do
-      get 'add'
-      response.should be_success
+      Kernel.stub(:system).and_return(true)
+      post :fire, :event => {event_type_name: "event01"}
+      response.should redirect_to(tengine_core_event_ignitions_new_path)
     end
   end
 

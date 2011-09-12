@@ -20,13 +20,13 @@ class Tengine::Core::Event
   # selectable_attrを使ってます
   # see http://github.com/akm/selectable_attr
   #     http://github.com/akm/selectable_attr_rails
-  selectable_attr :notification_level do
-    entry "0", :gr_heartbeat, "gr_heartbeat"
-    entry "1", :debug       , "debug"
-    entry "2", :info        , "info"
-    entry "3", :warn        , "warn"
-    entry "4", :error       , "error"
-    entry "5", :fatal       , "fatal"
+  selectable_attr :level do
+    entry 0, :gr_heartbeat, "gr_heartbeat"
+    entry 1, :debug       , "debug"
+    entry 2, :info        , "info"
+    entry 3, :warn        , "warn"
+    entry 4, :error       , "error"
+    entry 5, :fatal       , "fatal"
   end
 
 end

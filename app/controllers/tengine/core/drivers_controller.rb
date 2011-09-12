@@ -8,7 +8,7 @@ class Tengine::Core::DriversController < ApplicationController
     if params[:commit].blank? && session[:driver_finder]
       @finder = session[:driver_finder]
     else
-      @finder = Tengine::Core::Driver::Finder.new(params[:finder], params[:page])
+      @finder = Tengine::Core::Driver::Finder.new(params[:finder] || {}, params[:page])
       session[:driver_finder]  = @finder
     end
 
