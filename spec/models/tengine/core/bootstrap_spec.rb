@@ -34,15 +34,6 @@ describe "Tengine::Core::Bootstrap" do
       end
     end
 
-    context "config[:action] => status の場合" do
-      it "kernel_statusがよばれること" do
-        options = { :action => "status" }
-        bootstrap = Tengine::Core::Bootstrap.new(options)
-        bootstrap.should_receive(:kernel_status)
-        bootstrap.boot
-      end
-    end
-
     context "config[:action] => enable の場合" do
       it "enable_driversがよばれること" do
         options = { :action => "enable" }
@@ -98,7 +89,7 @@ describe "Tengine::Core::Bootstrap" do
         bootstrap = Tengine::Core::Bootstrap.new(options)
         expect {
           bootstrap.boot
-        }.to raise_error(ArgumentError, /config[:action] must be test|load|start|enable|stop|force-stop|status but was/)
+        }.to raise_error(ArgumentError, /config[:action] must be test|load|start|enable|stop|force-stop but was/)
       end
     end
   end
@@ -212,6 +203,4 @@ describe "Tengine::Core::Bootstrap" do
     end
   end
 
-  describe :kernel_status do
-  end
 end
