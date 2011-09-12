@@ -106,6 +106,14 @@ class Tengine::Core::Config
   end
   memoize :confirmation_threshold
 
+  def heartbeat_period
+    self[:tengined][:heartbeat_period].to_i
+  end
+
+  def heartbeat_enabled?
+    heartbeat_period > 0
+  end
+
   def setup_loggers
     stdout_path = log_config(:process_stdout_log)[:output]
     $stdout = File.open(stdout_path, "w") unless stdout_path =~ /^STDOUT$|^STDERR$/
