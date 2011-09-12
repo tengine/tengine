@@ -6,12 +6,11 @@ module Tengine::Core::DslBinder
   include Tengine::Core::DslEvaluator
 
   def ack_policy(policy, *args)
-    @__ack_policies__ ||= {}
-    args.each{|arg| @__ack_policies__[arg.to_s] = policy.to_sym}
+    args.each{|arg| @__kernel__.add_ack_policy(arg, policy)}
   end
 
   def ack?
-    true
+    @__kernel__.ack?
   end
 
   def submit

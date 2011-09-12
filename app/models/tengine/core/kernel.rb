@@ -6,6 +6,7 @@ require 'selectable_attr'
 
 class Tengine::Core::Kernel
   include ::SelectableAttr::Base
+  include Tengine::Core::DslRuntime
 
   attr_reader :config, :status
   attr_accessor :before_delegate, :after_delegate
@@ -100,23 +101,28 @@ class Tengine::Core::Kernel
   def process_message(headers, msg)
     @working = true
     begin
+      safety_processing_headers(headers) do
       raw_event = parse_event(msg)
       if raw_event.nil?
         headers.ack
         return
       end
       event = save_event(raw_event)
+      ack_policy = ack_policy_for(event)
+      Tengine.logger.debug("ack_policy: #{ack_policy.inspect} for #{event.inspect}")
+      ack if ack_policy == :at_first
       handlers = find_handlers(event)
       begin
         delegate(event, handlers)
       rescue Exception => e
         puts "[#{e.class.name}] #{e.message}"
-        headers.ack
+        # headers.ack
         return
       end
-      headers.ack
+      ack if ack_policy == :after_all_handler_submit
       close_if_shutting_down
-    rescue
+      end
+    ensure
       @working = false
     end
   end
