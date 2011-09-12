@@ -92,12 +92,17 @@ class Tengine::Core::Kernel
   # subscribe to messages in the queue
   def subscribe_queue
     mq.queue.subscribe(:ack => true, :nowait => true) do |headers, msg|
+      process_mq_message(headers, msg)
+    end
+  end
+
+  def process_mq_message(headers, msg)
       @working = true
       begin
         raw_event = parse_event(msg)
         unless raw_event
           headers.ack
-          next
+          return
         end
         event = save_event(raw_event)
         handlers = find_handlers(event)
@@ -106,16 +111,14 @@ class Tengine::Core::Kernel
         rescue Exception => e
           puts "[#{e.class.name}] #{e.message}"
           headers.ack
-          next
+          return
         end
         headers.ack
         close_if_shutting_down
       rescue
         @working = false
       end
-    end
   end
-
 
   GR_HEARTBEAT_EVENT_TYPE_NAME = "gr_heart_beat.tengined".freeze
   GR_HEARTBEAT_ATTRIBUTES = {
