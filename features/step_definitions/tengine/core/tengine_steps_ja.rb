@@ -253,14 +253,6 @@ end
   pending # express the regexp above with the code you wish you had
 end
 
-もし /^イベントが表示されていないこと$/ do
-  # イベント通知画面のテーブルを取得
-  # actual.class # => Array
-  actual = tableish('table tr', 'td,th')
-  # ヘッダのみとれるのsizeは1になる
-  actual.size.should == 1  
-end
-
 ならば /^"([^\"]*)"に以下の行が表示されること$/ do |arg1, expected_table|
   Then %{I should see the following drivers:}, expected_table
 end
@@ -270,7 +262,7 @@ end
   expected_table.diff!(actual, :surplus_row => false)
 end
 
-ならば /^イベントドライバが登録されていないこと$/ do
+ならば /^一件も表示されていないこと$/ do
   # イベントドライバ一覧のテーブルを取得
   # actual.class # => Array
   actual = tableish('table tr', 'td,th')
