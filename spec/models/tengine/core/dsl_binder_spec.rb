@@ -13,10 +13,10 @@ describe Tengine::Core::DslBinder do
       before do
         config = Tengine::Core::Config.new({
             :tengined => {
-              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__))
+              :load_path => File.expand_path('../../../../examples/uc01_execute_processing_for_event.rb', File.dirname(__FILE__))
             }
         })
-        @binder = Tengine::Core::DslEnv.new
+        @binder = Tengine::Core::DslEnv.new(mock(:kernel))
         @binder.extend(Tengine::Core::DslBinder)
         @binder.config = config
 
@@ -29,7 +29,7 @@ describe Tengine::Core::DslBinder do
         @driver.handlers.count.should == 1
         @binder.evaluate
         @binder.should_receive(:puts).with("handler01")
-        @binder.block_bindings[@handler1.id.to_s].call
+        @binder.__block_bindings__[@handler1.id.to_s].call
       end
 
       it "同じイベント種別で複数のハンドラが登録されていた場合でもエラーにはならない" do
@@ -45,10 +45,10 @@ describe Tengine::Core::DslBinder do
       before do
         config = Tengine::Core::Config.new({
             :tengined => {
-              :load_path => File.expand_path('../../../../spec_dsls', File.dirname(__FILE__))
+              :load_path => File.expand_path('../../../../examples', File.dirname(__FILE__))
             }
         })
-        @binder = Tengine::Core::DslEnv.new
+        @binder = Tengine::Core::DslEnv.new(mock(:kernel))
         @binder.extend(Tengine::Core::DslBinder)
         @binder.config = config
 
@@ -75,16 +75,16 @@ describe Tengine::Core::DslBinder do
         @binder.evaluate
 
         @binder.should_receive(:puts).with("handler01")
-        @binder.block_bindings[@handler1.id.to_s].call
+        @binder.__block_bindings__[@handler1.id.to_s].call
 
         @binder.should_receive(:puts).with("handler02_1")
         @binder.should_receive(:fire).with(:event02_2)
-        @binder.block_bindings[@handler2_1.id.to_s].call
+        @binder.__block_bindings__[@handler2_1.id.to_s].call
 
         @binder.should_receive(:puts).with("handler03_1")
         @binder.should_receive(:puts).with("handler03_2")
-        @binder.block_bindings[@handler3_1.id.to_s].call
-        @binder.block_bindings[@handler3_2.id.to_s].call
+        @binder.__block_bindings__[@handler3_1.id.to_s].call
+        @binder.__block_bindings__[@handler3_2.id.to_s].call
       end
     end
   end

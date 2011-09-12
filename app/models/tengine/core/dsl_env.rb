@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
 class Tengine::Core::DslEnv
-  attr_accessor :block_bindings
+  attr_accessor :__block_bindings__
 
-  def initialize
-    @block_bindings = {}
+  def initialize(kernel)
+    @__kernel__ = kernel
+    @__block_bindings__ = {}
   end
 
-  def block_for(handler)
-    block_bindings[handler.id.to_s]
+  def __block_for__(handler)
+    __block_bindings__[handler.id.to_s]
   end
 
-  def bind_blocks_for_handler_id(handler, &block)
-    block_bindings[handler.id.to_s] = block
+  def __bind_blocks_for_handler_id__(handler, &block)
+    __block_bindings__[handler.id.to_s] = block
   end
 
   # デバッグ用の情報を表示します
   def to_a
-    block_bindings.inject({}){|d, (handler_id, block)|
+    __block_bindings__.inject({}){|d, (handler_id, block)|
       f, l = block.source_location
       d["#{f}:#{l}"] = handler_id
       d

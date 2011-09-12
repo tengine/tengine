@@ -5,6 +5,13 @@ require 'tengine/event'
 module Tengine::Core::DslBinder
   include Tengine::Core::DslEvaluator
 
+  def ack_policy(policy, *args)
+    args.each{|arg| @__kernel__.add_ack_policy(arg, policy)}
+  end
+
+  def ack?; @__kernel__.ack?; end
+  def submit; @__kernel__.submit; end
+
   def driver(name, options = {}, &block)
     drivers = Tengine::Core::Driver.where(:name => name, :version => config.dsl_version)
     # 指定した version の driver が見つからなかった場合にはデプロイされていないのでエラー
@@ -28,7 +35,7 @@ module Tengine::Core::DslBinder
       raise "Handler not found for #{filepath}:#{lineno}"
     end
     handlers.each do |handler|
-      bind_blocks_for_handler_id(handler, &block)
+      __bind_blocks_for_handler_id__(handler, &block)
     end
   end
 

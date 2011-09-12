@@ -14,7 +14,7 @@ describe Tengine::Core::Kernel do
       before do
         config = Tengine::Core::Config.new({
             :tengined => {
-              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+              :load_path => File.expand_path('../../../../examples/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
             },
           })
         @kernel = Tengine::Core::Kernel.new(config)
@@ -25,7 +25,7 @@ describe Tengine::Core::Kernel do
 
       it "event_type_nameからblockを検索することができる" do
         @kernel.bind
-        @kernel.dsl_env.block_for(@handler1).should_not be_nil
+        @kernel.dsl_env.__block_for__(@handler1).should_not be_nil
       end
     end
 
@@ -33,7 +33,7 @@ describe Tengine::Core::Kernel do
       before do
         config = Tengine::Core::Config.new({
             :tengined => {
-              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+              :load_path => File.expand_path('../../../../examples/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
               :wait_activation => true,
               :activation_timeout => 3,
               :activation_dir => File.expand_path('.', File.dirname(__FILE__)),
@@ -90,7 +90,7 @@ describe Tengine::Core::Kernel do
 
         config = Tengine::Core::Config.new({
             :tengined => {
-              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+              :load_path => File.expand_path('../../../../examples/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
               :wait_activation => false,
               :confirmation_threashold => 'info'
             },
@@ -132,7 +132,7 @@ describe Tengine::Core::Kernel do
           EM.should_receive(:run).and_yield
           mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
           Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
-          mock_mq.should_receive(:queue).exactly(3).times.and_return(@mock_queue)
+          mock_mq.should_receive(:queue).exactly(2).times.and_return(@mock_queue)
           @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true).and_yield(@header, :message)
 
           # subscribe してみる
@@ -140,7 +140,6 @@ describe Tengine::Core::Kernel do
           Tengine::Event.should_receive(:parse).with(:message).and_return(@mock_raw_event)
 
           @header.should_receive(:ack)
-          @mock_queue.should_receive(:default_consumer).and_return(@mock_consumer)
         end
 
         it "confirmation_threshold以下なら登録されたイベントはconfirmedがtrue" do
@@ -163,7 +162,7 @@ describe Tengine::Core::Kernel do
         EM.should_receive(:run).and_yield
         mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
         Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
-        mock_mq.should_receive(:queue).exactly(3).times.and_return(@mock_queue)
+        mock_mq.should_receive(:queue).exactly(2).times.and_return(@mock_queue)
         @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true).and_yield(@header, :message)
 
         # subscribe してみる
@@ -177,10 +176,10 @@ describe Tengine::Core::Kernel do
         # ハンドラの実行を検証
         Tengine::Core::HandlerPath.should_receive(:find_handlers).with("event01").and_return([@handler1])
         @handler1.should_receive(:match?).with(@event1).and_return(true)
-        @handler1.should_receive(:puts).with("handler01")
+
+        @kernel.dsl_env.should_receive(:puts).with("handler01")
 
         @header.should_receive(:ack)
-        @mock_queue.should_receive(:default_consumer).and_return(@mock_consumer)
 
         # 実行
         @kernel.start
@@ -193,7 +192,7 @@ describe Tengine::Core::Kernel do
       before do
         config = Tengine::Core::Config.new({
             :tengined => {
-              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+              :load_path => File.expand_path('../../../../examples/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
             },
           })
         @kernel = Tengine::Core::Kernel.new(config)
@@ -222,7 +221,7 @@ describe Tengine::Core::Kernel do
       before do
         config = Tengine::Core::Config.new({
             :tengined => {
-              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+              :load_path => File.expand_path('../../../../examples/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
               :wait_activation => true,
               :activation_timeout => 3,
               :activation_dir => File.expand_path('.', File.dirname(__FILE__)),
@@ -244,7 +243,7 @@ describe Tengine::Core::Kernel do
       before do
         config = Tengine::Core::Config.new({
             :tengined => {
-              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+              :load_path => File.expand_path('../../../../examples/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
             },
           })
         @kernel = Tengine::Core::Kernel.new(config)
@@ -274,7 +273,7 @@ describe Tengine::Core::Kernel do
       it "停止要求を受け取った直後では「停止中」および「停止済」の状態を返す(稼働中)" do
         config = Tengine::Core::Config.new({
             :tengined => {
-              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+              :load_path => File.expand_path('../../../../examples/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
             },
           })
         kernel = Tengine::Core::Kernel.new(config)
@@ -298,7 +297,7 @@ describe Tengine::Core::Kernel do
       it "停止要求を受け取った直後では「停止中」および「停止済」の状態を返す(稼働要求待ち)" do
         config = Tengine::Core::Config.new({
             :tengined => {
-              :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
+              :load_path => File.expand_path('../../../../examples/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
               :wait_activation => true,
               :activation_timeout => 3,
               :activation_dir => File.expand_path('.', File.dirname(__FILE__)),

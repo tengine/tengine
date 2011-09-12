@@ -32,9 +32,9 @@ class Tengine::Core::Handler
       # logger.info("id:#{self.id} handler executed own block, source:#{block.source_location}")
       # puts("id:#{self.id} handler execute own block, source:#{block.source_location}")
       begin
-        instance_eval(&block)
-      rescue Exception
-        Tengine.logger.error("exception occurred in #{block.source_location.inspect} [#{e.class.name}] #{e.message}.\n#{msg}")
+        @caller.instance_eval(&block)
+      rescue Exception => e
+        Tengine.logger.error("exception occurred in #{block.source_location.inspect} [#{e.class.name}] #{e.message}.")
       end
     end
   end
