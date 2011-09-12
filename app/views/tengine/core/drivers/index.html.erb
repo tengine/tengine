@@ -2,31 +2,6 @@
 
 <p id="notice"><%= notice %></p>
 
-<%= form_for(:finder, :html => {:method => :get}) do |f| %>
-<table>
- <tr>
-  <th style="text-align:right"><%= f.label :name, Tengine::Core::Driver.human_attribute_name(:name) %></th>
-  <td style="text-align:left;"><%= f.text_field :name %></td>
- </tr>
- <tr>
-  <th style="text-align:right"><%= f.label :version, Tengine::Core::Driver.human_attribute_name(:version) %></th>
-  <td style="text-align:left;"><%= f.text_field :version %></td>
- </tr>
- <tr>
-  <th style="text-align:right"><%= f.label :enabled, Tengine::Core::Driver.human_attribute_name(:enabled) %></th>
-  <td style="text-align:left;"><%= f.text_field :enabled %></td>
- </tr>
- <tr>
-  <th style="text-align:right"><%= f.label :enabled_on_activation, Tengine::Core::Driver.human_attribute_name(:enabled_on_activation) %></th>
-  <td style="text-align:left;"><%= f.text_field :enabled_on_activation %></td>
- </tr>
- <tr>
-  <td colspan="2"><%= f.submit '検索', :id => 'input-submit' %></td>
- </tr>
-</table>
-<% end %>
-
-
 <table>
   <tr>
     <th><%= Tengine::Core::Driver.human_attribute_name(:name) %></th>
