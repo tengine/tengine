@@ -103,17 +103,27 @@ describe Tengine::Core::Kernel do
         @event1.save!
       end
 
-      it "イベントの受信待ち状態になる" do
-        # eventmachine と mq の mock を生成
-        EM.should_receive(:run).and_yield
-        mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
-        Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
-        mock_mq.should_receive(:queue).twice.and_return(@mock_queue)
-        # subscribe されていることを検証
-        @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true)
+      context "イベントの受信待ち状態になる" do
+        before do
+          # eventmachine と mq の mock を生成
+          EM.should_receive(:run).and_yield
+          mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
+          Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
+          mock_mq.should_receive(:queue).twice.and_return(@mock_queue)
+          # subscribe されていることを検証
+          @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true)
+        end
 
-        # 実行
-        @kernel.start
+        it "heartbeatは有効にならない" do
+          @kernel.should_not_receive(:enable_heartbeat)
+          @kernel.start
+        end
+
+        it "heartbeatは有効になる" do
+          @kernel.config.should_receive(:heartbeat_enabled?).and_return(true)
+          @kernel.should_receive(:enable_heartbeat)
+          @kernel.start
+        end
       end
 
       context "発火されたイベントを登録できる" do
@@ -126,23 +136,23 @@ describe Tengine::Core::Kernel do
           @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true).and_yield(@header, :message)
 
           # subscribe してみる
-          @mock_row_event = mock(:row_event)
-          Tengine::Event.should_receive(:parse).with(:message).and_return(@mock_row_event)
+          @mock_raw_event = mock(:row_event)
+          Tengine::Event.should_receive(:parse).with(:message).and_return(@mock_raw_event)
 
           @header.should_receive(:ack)
           @mock_queue.should_receive(:default_consumer).and_return(@mock_consumer)
         end
 
         it "confirmation_threshold以下なら登録されたイベントはconfirmedがtrue" do
-          @mock_row_event.stub!(:attributes).and_return(:event_type_name => :foo, :key => "uniq_key", :level => Tengine::Event::LEVELS_INV[:info])
-          @mock_row_event.stub!(:level).and_return(Tengine::Event::LEVELS_INV[:info])
+          @mock_raw_event.stub!(:attributes).and_return(:event_type_name => :foo, :key => "uniq_key", :level => Tengine::Event::LEVELS_INV[:info])
+          @mock_raw_event.stub!(:level).and_return(Tengine::Event::LEVELS_INV[:info])
           count = lambda{ Tengine::Core::Event.where(:event_type_name => :foo, :confirmed => true).count }
           expect{ @kernel.start }.should change(count, :call).by(1) # イベントが登録されていることを検証
         end
 
         it "confirmation_threshold以下なら登録されたイベントはconfirmedがfalse" do
-          @mock_row_event.stub!(:attributes).and_return(:event_type_name => :foo, :key => "uniq_key", :level => Tengine::Event::LEVELS_INV[:warn])
-          @mock_row_event.stub!(:level).and_return(Tengine::Event::LEVELS_INV[:warn])
+          @mock_raw_event.stub!(:attributes).and_return(:event_type_name => :foo, :key => "uniq_key", :level => Tengine::Event::LEVELS_INV[:warn])
+          @mock_raw_event.stub!(:level).and_return(Tengine::Event::LEVELS_INV[:warn])
           count = lambda{ Tengine::Core::Event.where(:event_type_name => :foo, :confirmed => false).count }
           expect{ @kernel.start }.should change(count, :call).by(1) # イベントが登録されていることを検証
         end
@@ -157,10 +167,10 @@ describe Tengine::Core::Kernel do
         @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true).and_yield(@header, :message)
 
         # subscribe してみる
-        mock_row_event = mock(:row_event)
-        mock_row_event.should_receive(:attributes).and_return(:event_type_name => :event01, :key => "uuid1")
-        mock_row_event.stub!(:level).and_return(Tengine::Event::LEVELS_INV[:info])
-        Tengine::Event.should_receive(:parse).with(:message).and_return(mock_row_event)
+        mock_raw_event = mock(:row_event)
+        mock_raw_event.should_receive(:attributes).and_return(:event_type_name => :event01, :key => "uuid1")
+        mock_raw_event.stub!(:level).and_return(Tengine::Event::LEVELS_INV[:info])
+        Tengine::Event.should_receive(:parse).with(:message).and_return(mock_raw_event)
         # イベントの登録
         Tengine::Core::Event.should_receive(:create!).with(:event_type_name => :event01, :key => "uuid1", :confirmed => true).and_return(@event1)
 

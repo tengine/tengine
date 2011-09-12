@@ -26,6 +26,7 @@ describe Tengine::Core::Config do
     its(:activation_dir){ should == "./tmp/tengined_activations" }
 
     its(:confirmation_threshold){ should == Tengine::Event::LEVELS_INV[:info] }
+    its(:heartbeat_enabled?){ should == false }
   end
 
   context "ディレクトリ指定の設定ファイル" do
@@ -52,6 +53,7 @@ describe Tengine::Core::Config do
       subject[:event_queue][:queue][:name].should == "tengine_event_queue2"
       subject['event_queue']['queue']['name'].should == "tengine_event_queue2"
     end
+    its(:heartbeat_enabled?){ should == true }
 
     describe :relative_path_from_dsl_dir do
       it "絶対パスが指定されるとdsl_dir_pathからの相対パスを返します" do

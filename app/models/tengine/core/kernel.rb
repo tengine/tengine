@@ -28,6 +28,7 @@ class Tengine::Core::Kernel
   def stop
     if self.status == :running
       update_status(:shutting_down)
+      EM.cancel_timer(@heartbeat_timer) if @heartbeat_timer
       if mq.queue.default_consumer
         mq.queue.unsubscribe
         mq.connection.close{ EM.stop_event_loop } unless in_process?
@@ -80,7 +81,7 @@ class Tengine::Core::Kernel
       # self.status_key = :running if mq.queue
       update_status(:running) if mq.queue
       subscribe_queue
-
+      enable_heartbeat if config.heartbeat_enabled?
       yield(mq) if block_given? # このyieldは接続テストのための処理をTengine::Core:Bootstrapが定義するのに使われます。
     end
   end
@@ -136,6 +137,20 @@ class Tengine::Core::Kernel
     end
   end
 
+  GR_HEARTBEAT_EVENT_TYPE_NAME = "gr_heart_beat.tengined".freeze
+  GR_HEARTBEAT_ATTRIBUTES = {
+    :level => Tengine::Event::LEVELS_INV[:debug]
+  }.freeze
+
+  def enable_heartbeat
+    EM.defer do
+      @heartbeat_timer = EM.add_periodic_timer(config.heartbeat_period) do
+        Tengine::Core.stdout_logger.debug("sending heartbeat") if config[:verbose]
+        Tengine::Event.config = config[:event_queue]
+        Tengine::Event.fire(GR_HEARTBEAT_EVENT_TYPE_NAME, GR_HEARTBEAT_ATTRIBUTES.dup)
+      end
+    end
+  end
 
   # 自動でログ出力する
   extend Tengine::Core::MethodTraceable
