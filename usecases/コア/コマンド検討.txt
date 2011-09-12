@@ -19,7 +19,7 @@ tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
      --tengined-pid-dir                   path/to/dir. default: ./tmp/tengined_pids
      --tengined-status-dir                path/to/dir. default: ./tmp/tengined_status
      --tengined-activation-dir            path/to/dir. default: ./tmp/tengined_activations
-  -G --tengined-heartbeat-period          the period which heartbeat event be fired. disable heartbeat if 0. default: 0
+  -G --tengined-heartbeat-period          the second of period which heartbeat event be fired. disable heartbeat if 0. default: 0
   -C --tengined-confirmation-threshold    the event which is this level or less will be made confirmed automatically. debug/info/warn/error/fatal. default: info
   -H --db-host                            default: localhost
   -P --db-port                            default: 27017
