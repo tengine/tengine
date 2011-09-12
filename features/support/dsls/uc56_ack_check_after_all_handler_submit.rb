@@ -19,14 +19,14 @@ Tengine.driver :driver56_1 do
     session.update(:count => count)
 
     # ackされていないmessageの確認
-    io=IO.popen("rabbitmqctl list_queues messages_unacknowledged")
-    lines = Array.new
-    lines << line while line=io.gets
-    io.close
+    IO.popen("rabbitmqctl list_queues messages_unacknowledged") { |io|
+      @unacked_message_count=io.readlines[1].to_i
+    }
 
     submit if count >= 2
 
-    puts "#{event.key}:handler56_1:#{count}:#{lines[1]}"
+    puts "#{event.key}:handler56_1:#{@unacked_message_count}"
+
   end
 end
 
@@ -40,14 +40,13 @@ Tengine.driver :driver56_2 do
     session.update(:count => count)
 
     # ackされていないmessageの確認
-    io=IO.popen("rabbitmqctl list_queues messages_unacknowledged")
-    lines = Array.new
-    lines << line while line=io.gets
-    io.close
+    IO.popen("rabbitmqctl list_queues messages_unacknowledged") { |io|
+      @unacked_message_count=io.readlines[1].to_i
+    }
 
     submit if count >= 3
 
-    puts "#{event.key}:handler56_2:#{count}:#{lines[1]}"
+    puts "#{event.key}:handler56_2:#{@unacked_message_count}"
 
   end
 end

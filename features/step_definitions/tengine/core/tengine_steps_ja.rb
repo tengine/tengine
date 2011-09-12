@@ -378,6 +378,8 @@ end
 end
 
 もし /^(.*ファイル)"([^"]*)"を作成する$/ do |name, file_path|
+  dir_name = File.dirname(file_path)
+  FileUtils.mkdir_p(dir_name) unless File.exists?(dir_name)
   FileUtils.touch(file_path)
 end
 
@@ -406,6 +408,10 @@ end
 
 もし /^"([^"]*)"を削除する$/ do |src|
   FileUtils.rm(src)
+end
+
+もし /^.*ファイル"([^"]*)"を削除する$/ do |name, file_path|
+  FileUtils.rm(file_path) unless File.exists?(file_path)
 end
 
 もし /^DBを"([^"]*)"に物理バックアップする$/ do |backup_path|

@@ -212,8 +212,9 @@
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
     |event50|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler50:0"と記述されていること
+    もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
+    ならば "アプリケーションログファイル"に"#{event.key}:handler50:0"と記述されていること
+		# ログファイルの記載内容は"{発火されたイベントのキー}:{イベントドライバ名}:{ackされてないメッセージの数}"となっている。
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -225,6 +226,7 @@
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/support/dsls/uc51_commit_event_at_first_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること    
+    # アプリケーションログがファイル"./tmp/stdout.log"に出力される設定になっていることを確認する。
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
@@ -250,10 +252,10 @@
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
     |event51|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler51_1:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler51_2:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler51_3:0"と記述されていること
+    もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
+    ならば "アプリケーションログファイル"に"#{event.key}:handler51_1:1"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:handler51_2:1"と記述されていること
+		# ログファイルの記載内容は"{発火されたイベントのキー}:{イベントドライバ名}:{ackされてないメッセージの数}"となっている。
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -265,6 +267,7 @@
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/support/dsls/uc52_commit_event_after_all_handler_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+    # アプリケーションログがファイル"./tmp/stdout.log"に出力される設定になっていることを確認する。
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
@@ -290,10 +293,11 @@
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
     |event52|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler52_1:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler52_2:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler52_3:1"と記述されていること
+    もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
+    ならば "アプリケーションログファイル"に"#{event.key}:handler52_1:1"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:handler52_2:1"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:handler52_3:1"と記述されていること
+		# ログファイルの記載内容は"{発火されたイベントのキー}:{イベントドライバ名}:{ackされてないメッセージの数}"となっている。
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -303,9 +307,10 @@
     前提 イベントハンドラ定義ファイル"./features/support/dsls/uc53_submit_outside_of_handler.rb"が存在すること
    
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/support/dsls/uc53_submit_outside_of_handler.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"の標準出力に"submit is not available outside of event handler block."と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+    もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
+    ならば "アプリケーションログファイル"に"submit is not available outside of event handler block."と記述されていること
 
 
   シナリオ:  [正常系]ack_policyによって実行回数が1回になるイベントハンドラ定義ファイルを指定してTengineコアを起動する
@@ -314,6 +319,7 @@
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/support/dsls/uc54_ack_check_at_first.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+    # アプリケーションログがファイル"./tmp/stdout.log"に出力される設定になっていることを確認する。
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
@@ -321,7 +327,6 @@
     |名称     |状態|
     |driver54_1|有効|
     |driver54_2|有効|
-
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -340,11 +345,11 @@
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
     |event54|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler54_1:1:0"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler54_2:1:0"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler54_3:1:0"と記述されていること
-		
+    もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
+    ならば "アプリケーションログファイル"に"#{event.key}:handler54_1:1:0"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:handler54_2:1:0"と記述されていること
+		# ログファイルの記載内容は"{発火されたイベントのキー}:{イベントドライバ名}:{イベントハンドラの呼出回数}:{ackされてないメッセージの数}"となっている。
+
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -355,6 +360,7 @@
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/support/dsls/uc55_ack_check_at_first_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+    # アプリケーションログがファイル"./tmp/stdout.log"に出力される設定になっていることを確認する。
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
@@ -380,13 +386,12 @@
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
     |event55|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler55_1:1:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler55_2:1:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler55_3:1:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler55_1:2:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler55_2:2:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler55_3:2:1"と記述されていること
+    もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
+    ならば "アプリケーションログファイル"に"#{event.key}:handler55_1:1:1"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:handler55_2:1:1"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:handler55_1:2:1"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:handler55_2:2:1"と記述されていること
+		# ログファイルの記載内容は"{発火されたイベントのキー}:{イベントドライバ名}:{イベントハンドラの呼出回数}:{ackされてないメッセージの数}"となっている。
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -398,6 +403,7 @@
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./features/support/dsls/uc56_ack_check_after_all_handler_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+    # アプリケーションログがファイル"./tmp/stdout.log"に出力される設定になっていることを確認する。
 
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
@@ -423,17 +429,14 @@
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
     |event56|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_1:1:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_2:1:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_3:1:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_1:2:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_2:2:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_3:2:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_1:3:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_2:3:1"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:handler56_3:3:1"と記述されていること
-
+    もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
+    ならば "アプリケーションログファイル"に"#{event.key}:handler56_1:1:1"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:handler56_2:1:1"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:handler56_1:2:1"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:handler56_2:2:1"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:handler56_1:3:1"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:handler56_2:3:1"と記述されていること
+		# ログファイルの記載内容は"{発火されたイベントのキー}:{イベントドライバ名}:{イベントハンドラの呼出回数}:{ackされてないメッセージの数}"となっている。
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -469,15 +472,15 @@
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
     |event60|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:event_type_name:???"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:key:???"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:source_name:???"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:occured_at:???"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:notification_level:???"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:notification_confirmed:???"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:sender_name:???"と記述されていること
-    かつ "Tengineコアプロセスのイベント処理ログファイル"に"KEY:properties:???"と記述されていること
+    もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
+    ならば "アプリケーションログファイル"に"#{event.key}:event_type_name:???"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:key:???"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:source_name:???"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:occured_at:???"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:notification_level:???"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:notification_confirmed:???"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:sender_name:???"と記述されていること
+    かつ "アプリケーションログファイル"に"#{event.key}:properties:???"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -522,8 +525,8 @@
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
     |event60|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
 
-    もし "Tengineコアプロセスのイベント処理ログファイル""./tmp/stdout.log"を参照する
-    ならば "Tengineコアプロセスのイベント処理ログファイル"に"KEY:101"と記述されていること
+    もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
+    ならば "アプリケーションログファイル"に"#{event.key}:101"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
