@@ -2,6 +2,7 @@
 require 'timeout'
 require 'amqp'
 
+
 tengine_yaml = YAML::load(IO.read('./features/support/config/tengine.yml'))
 @mq_server = tengine_yaml["event_queue"]["conn"]
 @tengine_event_queue_opts = tengine_yaml["event_queue"]["queue"]
@@ -257,8 +258,10 @@ end
 # 画面
 #############
 
-もし /^"([^"]*)"に"([^"]*)"を入力する$/ do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
+# 取得した値を入力する場合に使う
+もし /^"([^"]*)"に"([^"]*)"を入力する$/ do |field, value|
+  value = @event_key if value == '"#{イベントキー}"'
+  もし %{"#{field}"に"#{value}"と入力する}
 end
 
 ならば /^"([^\"]*)"に以下の行が表示されること$/ do |arg1, expected_table|
@@ -326,7 +329,14 @@ end
   @h[name] = {:file_path => file_path, :read_lines => File.readlines(file_path)}
 end
 
+# UUIDを生成し、インスタンス変数にセットする
+もし /^RailsConsoleで"([^"]*)"と実行し生成したイベントキーを確認する$/ do |arg1|
+  @event_key = Tengine::Event.uuid_gen.generate
+end
+
 ならば /^"([^"]*)ファイル"に"([^"]*)"と記述されていること$/ do |name, text|
+  # イベントキーを表すキーワードが含まれていたら置換する
+  text = text.gsub(/\#{イベントキー}/, @event_key)
   @h[name][:read_lines].grep(/#{text}/).should_not be_empty
 end
 
@@ -343,8 +353,6 @@ end
 end
 
 もし /^(.*ファイル)"([^"]*)"を作成する$/ do |name, file_path|
-  dir_name = File.dirname(file_path)
-  FileUtils.mkdir_p(dir_name) unless File.exists?(dir_name)
   FileUtils.touch(file_path)
 end
 
@@ -373,10 +381,6 @@ end
 
 もし /^"([^"]*)"を削除する$/ do |src|
   FileUtils.rm(src)
-end
-
-もし /^.*ファイル"([^"]*)"を削除する$/ do |name, file_path|
-  FileUtils.rm(file_path) unless File.exists?(file_path)
 end
 
 もし /^DBを"([^"]*)"に物理バックアップする$/ do |backup_path|
@@ -451,3 +455,4 @@ def unbind_queue(queue_name, exchange_name, options = {})
     end
   end
 end
+
