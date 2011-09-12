@@ -51,6 +51,7 @@ class Tengine::Core::Kernel
     @dsl_env.config = config
     @dsl_env.evaluate
     Tengine::Core::stdout_logger.debug("Hanlder bindings:\n" << @dsl_env.to_a.inspect)
+    Tengine::Core::HandlerPath.default_driver_version = config.dsl_version
   end
 
   def wait_for_activation(&block)
@@ -86,56 +87,30 @@ class Tengine::Core::Kernel
     end
   end
 
+  # subscribe to messages in the queue
   def subscribe_queue
-    # subscribe to messages in the queue
     mq.queue.subscribe(:ack => true, :nowait => true) do |headers, msg|
       @in_process = true
-      begin
-        raw_event = Tengine::Event.parse(msg)
-      rescue Exception => e
-        Tengine.logger.error("failed to parse a message because of [#{e.class.name}] #{e.message}.\n#{msg}")
+      raw_event = parse_event(msg)
+      unless raw_event
         headers.ack
         next
       end
-
-      Tengine.logger.debug("received a event #{raw_event.inspect}")
-
-      # 受信したイベントを登録
-      event = Tengine::Core::Event.create!(raw_event.attributes.update(:confirmed => (raw_event.level <= config.confirmation_threshold)))
-      Tengine.logger.debug("saved a event #{event.inspect}")
-
-      # イベントハンドラの取得
-      Tengine::Core::HandlerPath.default_driver_version = config.dsl_version
-      handlers = Tengine::Core::HandlerPath.find_handlers(event.event_type_name)
-      Tengine.logger.debug("handlers found: " << handlers.map{|h| "#{h.driver.name} #{h.id.to_s}"}.join(", "))
-
-      handlers.each do |handler|
-        begin
-          # block の取得
-          block = dsl_env.block_for(handler)
-          # イベントハンドラへのディスパッチ
-          # TODO: ログ出力する
-          # logger.info("dispatching the event key:#{event.key} to #{handler.inspect}")
-          # puts("dispatching the event key:#{event.key} to #{handler.inspect}")
-          handler.process_event(event, &block)
-        rescue Exception => e
-          puts "[#{e.class.name}] #{e.message}"
-          headers.ack
-          next
-        end
+      event = save_event(raw_event)
+      handlers = find_handlers(event)
+      begin
+        delegate(event, handlers)
+      rescue Exception => e
+        puts "[#{e.class.name}] #{e.message}"
+        headers.ack
+        next
       end
-
       headers.ack
-
-      # unsubscribed されている場合は安全な停止を行う
-      unless mq.queue.default_consumer
-        # TODO: loggerへ
-        # puts "connection closing..."
-        mq.connection.close{ EM.stop_event_loop }
-      end
+      close_if_shutting_down
       @in_process = false
     end
   end
+
 
   GR_HEARTBEAT_EVENT_TYPE_NAME = "gr_heart_beat.tengined".freeze
   GR_HEARTBEAT_ATTRIBUTES = {
@@ -157,6 +132,53 @@ class Tengine::Core::Kernel
   method_trace(:start, :stop, :bind, :wait_for_activation, :activate, :subscribe_queue)
 
   private
+
+  def parse_event(msg)
+    begin
+      raw_event = Tengine::Event.parse(msg)
+      Tengine.logger.debug("received a event #{raw_event.inspect}")
+      return raw_event
+    rescue Exception => e
+      Tengine.logger.error("failed to parse a message because of [#{e.class.name}] #{e.message}.\n#{msg}")
+      return nil
+    end
+  end
+
+  # 受信したイベントを登録
+  def save_event(raw_event)
+    event = Tengine::Core::Event.create!(
+      raw_event.attributes.update(:confirmed => (raw_event.level <= config.confirmation_threshold)))
+    Tengine.logger.debug("saved a event #{event.inspect}")
+    event
+  end
+
+  # イベントハンドラの取得
+  def find_handlers(event)
+    handlers = Tengine::Core::HandlerPath.find_handlers(event.event_type_name)
+    Tengine.logger.debug("handlers found: " << handlers.map{|h| "#{h.driver.name} #{h.id.to_s}"}.join(", "))
+    handlers
+  end
+
+  def delegate(event, handlers)
+    handlers.each do |handler|
+      # block の取得
+      block = dsl_env.block_for(handler)
+      # イベントハンドラへのディスパッチ
+      # TODO: ログ出力する
+      # logger.info("dispatching the event key:#{event.key} to #{handler.inspect}")
+      # puts("dispatching the event key:#{event.key} to #{handler.inspect}")
+      handler.process_event(event, &block)
+    end
+  end
+
+  def close_if_shutting_down
+    # unsubscribed されている場合は安全な停止を行う
+    unless mq.queue.default_consumer
+      # TODO: loggerへ
+      # puts "connection closing..."
+      mq.connection.close{ EM.stop_event_loop }
+    end
+  end
 
 
   STATUS_LIST = [
