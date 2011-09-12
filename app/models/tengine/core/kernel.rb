@@ -54,7 +54,7 @@ class Tengine::Core::Kernel
 
   def wait_for_activation(&block)
     activated = false
-    activation_file_name = "#{config[:tengined][:activation_dir]}\/tengined_#{Process.pid}"
+    activation_file_name = "#{config[:tengined][:activation_dir]}\/tengined_#{Process.pid}.activation"
     start_time = Time.now
     while((Time.now - start_time).to_i <= config[:tengined][:activation_timeout].to_i) do
       if File.exist?(activation_file_name)

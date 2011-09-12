@@ -13,10 +13,7 @@ class Tengine::Core::Bootstrap
     prepare_trap
   end
 
-  def prepare_trap
-    Signal.trap(:HUP) { kernel.stop   }
-#    Signal.trap(:QUIT){ kernel.status }
-  end
+  def prepare_trap; Signal.trap(:HUP) { kernel.stop } end
 
   def boot
     case config[:action]
@@ -26,9 +23,8 @@ class Tengine::Core::Bootstrap
       start_kernel
     when "test" then test_connection
     when "enable" then enable_drivers
-    when "status" then kernel_status
     else
-      raise ArgumentError, "config[:action] in boot method must be test|load|start|enable|status but was #{config[:action]} "
+      raise ArgumentError, "config[:action] in boot method must be test|load|start|enable but was #{config[:action]} "
     end
   end
 
@@ -51,10 +47,6 @@ class Tengine::Core::Bootstrap
   def enable_drivers
     drivers = Tengine::Core::Driver.where(:version => config.dsl_version, :enabled_on_activation => true)
     drivers.each{ |d| d.update_attribute(:enabled, true) }
-  end
-
-  def kernel_status
-    kernel.status
   end
 
   def test_connection
@@ -110,6 +102,6 @@ class Tengine::Core::Bootstrap
   # 自動でログ出力する
   extend Tengine::Core::MethodTraceable
   method_trace(:prepare_trap, :boot, :load_dsl, :start_kernel, :stop_kernel,
-    :enable_drivers, :kernel_status, :test_connection, :start_connection_test)
+    :enable_drivers, :test_connection, :start_connection_test)
 
 end

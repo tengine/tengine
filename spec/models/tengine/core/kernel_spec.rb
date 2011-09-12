@@ -43,10 +43,11 @@ describe Tengine::Core::Kernel do
         @driver = Tengine::Core::Driver.new(:name => "driver01", :version => config.dsl_version, :enabled => true)
         @handler1 = @driver.handlers.new(:filepath => "uc01_execute_processing_for_event.rb", :lineno => 7, :event_type_names => ["event01"])
         @driver.save!
+        @activation_file_path = "#{@kernel.config[:tengined][:activation_dir]}\/tengined_#{Process.pid}.activation"
       end
 
       after do
-        FileUtils.rm_f("#{@kernel.config[:tengined][:activation_dir]}\/tengined_#{Process.pid}")
+        FileUtils.rm_f(@activation_file_path)
       end
 
       it "activationファイルが生成されたらactivateされる" do
@@ -55,7 +56,7 @@ describe Tengine::Core::Kernel do
           @kernel.start
         }
         t2 = Thread.new {
-          FileUtils.touch("#{@kernel.config[:tengined][:activation_dir]}\/tengined_#{Process.pid}")
+          FileUtils.touch(@activation_file_path)
         }
         t1.join
         t2.join
