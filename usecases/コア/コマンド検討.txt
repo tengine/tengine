@@ -15,10 +15,12 @@ tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
      --tengined-skip-enablement           doesn't enable event handler when start. usually use with --daemon option [only for command]
      --tengined-wait-activation           wait activation when start. usually use with --daemon option [only for command]
      --tengined-activation-timeout        period to wait for making activation file. default: 300(sec)
-  -T --tengined-load-path                 [REQUIRED] path/to/file_or_dir. ignored with "-k test"
+  -T --tengined-load-path                 path/to/file_or_dir. ignored with "-k test"
      --tengined-pid-dir                   path/to/dir. default: ./tmp/tengined_pids
      --tengined-status-dir                path/to/dir. default: ./tmp/tengined_status
      --tengined-activation-dir            path/to/dir. default: ./tmp/tengined_activations
+  -G --tengined-enable-heartbeat          fire the tengined process heartbeat event periodically
+  -A --tengined-confirmation-threshold    the event which is this level or less will be made confirmed automatically. debug/info/warn/error/fatal. default: info
   -H --db-host                            default: localhost
   -P --db-port                            default: 27017
   -U --db-username
