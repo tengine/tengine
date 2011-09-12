@@ -2,8 +2,6 @@
 require 'timeout'
 require 'amqp'
 
-@h = {}
-
 tengine_yaml = YAML::load(IO.read('./features/support/config/tengine.yml'))
 @mq_server = tengine_yaml["event_queue"]["conn"]
 @tengine_event_queue_opts = tengine_yaml["event_queue"]["queue"]
@@ -58,12 +56,14 @@ end
 もし /^"([^"]*)"を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
   puts "command:#{command}"
   io = IO.popen(command)
+  @h ||= {}
   @h[name] = {:io => io, :stdout => []}
 end
 
 もし /^"([^"]*)"の起動を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
   puts "command:#{command}"
   io = IO.popen(command)
+  @h ||= {}
   @h[name] = {:io => io, :stdout => []}
 end
 
@@ -213,6 +213,14 @@ end
   pending # express the regexp above with the code you wish you had
 end
 
+前提 /^GR Heartbeatの発火間隔が(.*)と設定されている$/ do |tengined_heartbeat_period|
+  @tengined_heartbeat_period = tengined_heartbeat_period
+end
+
+もし /^発火間隔だけ待機する$/ do
+  sleep @tengined_heartbeat_period
+end
+
 #############
 # キュー関連
 #############
@@ -253,7 +261,7 @@ end
   pending # express the regexp above with the code you wish you had
 end
 
-ならば /^"([^"]*)"に以下の行が表示されること$/ do |arg1, expected_table|
+ならば /^"([^\"]*)"に以下の行が表示されること$/ do |arg1, expected_table|
   Then %{I should see the following drivers:}, expected_table
 end
 
@@ -262,7 +270,7 @@ end
   expected_table.diff!(actual, :surplus_row => false)
 end
 
-ならば /^イベントドライバが登録されていないこと$/ do
+ならば /^一件も表示されていないこと$/ do
   # イベントドライバ一覧のテーブルを取得
   # actual.class # => Array
   actual = tableish('table tr', 'td,th')
@@ -270,7 +278,25 @@ end
   actual.size.should == 1
 end
 
-ならば /^"([^"]*)画面"を表示していないこと$/ do |page_name|
+
+ならば /^一件以上表示されていること$/ do
+  # イベントドライバ一覧のテーブルを取得
+  # actual.class # => Array
+  actual = tableish('table tr', 'td,th')
+  # ヘッダが含まれるのでsizeは1より多くなるべき
+  actual.size.should > 1
+end
+
+ならば /^一件以上されていること$/ do
+  # イベントドライバ一覧のテーブルを取得
+  # actual.class # => Array
+  actual = tableish('table tr', 'td,th')
+  # ヘッダが含まれるのでsizeは2になるべき
+  actual.size.should == 2
+end
+
+
+ならば /^"([^\"]*)画面"を表示していないこと$/ do |page_name|
   current_path = URI.parse(current_url).path
   current_path.should_not == path_to(page_name)
 end
@@ -296,6 +322,7 @@ end
 もし /^"([^"]*)ファイル""([^"]*)"を参照する$/ do |name, file_path|
   raise "#{name}:#{file_path}が存在しません" unless FileTest.exists?(file_path)
   # ファイルを展開した文字配列を格納する
+  @h = {}
   @h[name] = {:file_path => file_path, :read_lines => File.readlines(file_path)}
 end
 
@@ -313,6 +340,16 @@ end
 
 もし /^Tengineコアの設定ファイル"([^"]*)"を修正する$/ do |config_file_path|
   FileUtils.cp("./features/support/config/tengine.yml", config_file_path)
+end
+
+もし /^(.*ファイル)"([^"]*)"を作成する$/ do |name, file_path|
+  dir_name = File.dirname(file_path)
+  FileUtils.mkdir_p(dir_name) unless File.exists?(dir_name)
+  FileUtils.touch(file_path)
+end
+
+もし /^(.*ファイル)"([^"]*)"に以下の記述をする$/ do |name, file_path, text|
+  File.open(file_path, 'w') {|f| f.puts(text) }
 end
 
 前提 /^yamlファイルとして不正なTengineコアの設定ファイルinvalid_tengine.ymlが存在する$/ do
@@ -336,6 +373,10 @@ end
 
 もし /^"([^"]*)"を削除する$/ do |src|
   FileUtils.rm(src)
+end
+
+もし /^.*ファイル"([^"]*)"を削除する$/ do |name, file_path|
+  FileUtils.rm(file_path) unless File.exists?(file_path)
 end
 
 もし /^DBを"([^"]*)"に物理バックアップする$/ do |backup_path|
