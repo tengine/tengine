@@ -146,8 +146,8 @@ class Tengine::Core::Kernel
     EM.defer do
       @heartbeat_timer = EM.add_periodic_timer(config.heartbeat_period) do
         Tengine::Core.stdout_logger.debug("sending heartbeat") if config[:verbose]
-        Tengine::Event.config = config[:event_queue]
-        Tengine::Event.fire(GR_HEARTBEAT_EVENT_TYPE_NAME, GR_HEARTBEAT_ATTRIBUTES.dup)
+        @sender ||= Tengine::Event::Sender.new(mq)
+        @sender.fire(GR_HEARTBEAT_EVENT_TYPE_NAME, GR_HEARTBEAT_ATTRIBUTES.dup)
       end
     end
   end
