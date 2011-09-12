@@ -7,7 +7,7 @@ class Tengine::Core::EventIgnitionsController < ApplicationController
     @event.key = nil
     @event.source_name = nil
     @event.sender_name = nil
-    @event.notification_level = nil
+    @event.level = nil
 
     respond_to do |format|
       format.html # new.html.erb
