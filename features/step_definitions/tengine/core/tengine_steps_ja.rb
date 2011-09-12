@@ -213,6 +213,13 @@ end
   pending # express the regexp above with the code you wish you had
 end
 
+前提 /^GR Heartbeatの発火間隔が(.*)と設定されている$/ |tengined_heartbeat_period|do
+  @tengined_heartbeat_period = tengined_heartbeat_period
+end
+もし /^発火間隔だけ待機する/
+  sleep @tengined_heartbeat_period
+end
+
 #############
 # キュー関連
 #############
@@ -269,6 +276,24 @@ end
   # ヘッダのみとれるのsizeは1になる
   actual.size.should == 1
 end
+
+
+ならば /^一件以上表示されていること$/ do
+  # イベントドライバ一覧のテーブルを取得
+  # actual.class # => Array
+  actual = tableish('table tr', 'td,th')
+  # ヘッダが含まれるのでsizeは1より多くなるべき
+  actual.size.should > 1
+end
+
+ならば /^一件以上されていること$/ do
+  # イベントドライバ一覧のテーブルを取得
+  # actual.class # => Array
+  actual = tableish('table tr', 'td,th')
+  # ヘッダが含まれるのでsizeは2になるべき
+  actual.size.should == 2
+end
+
 
 ならば /^"([^\"]*)画面"を表示していないこと$/ do |page_name|
   current_path = URI.parse(current_url).path
