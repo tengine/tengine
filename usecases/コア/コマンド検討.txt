@@ -8,7 +8,7 @@ tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
          [-h mq_conn_host] [-p mq_conn_port] [-u mq_conn_user] [-s mq_conn_pass]
          [-v mq_conn_vhost] [-e mq_exchange_name] [-q mq_queue_name]
 
-  -k --action                             test|load|start|enable|stop|force-stop|status default: start [only for command]
+  -k --action                             test|load|start|enable|stop|force-stop|status|activate default: start [only for command]
   -f --config                             /etc/tengine.yml [only for command]
   -D --tengined-daemon                    default false. ignored with "-k test, -k load, -k enable"
      --tengined-skip-load                 doesn't load event handler when start. usually use with --daemon option [only for command]
