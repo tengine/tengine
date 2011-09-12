@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'tengine/core'
 
-Tengine.driver :driver08 do
+driver :driver08 do
 
   # イベントAとイベントBが発生したら処理を実行する
   on :event08_a & :event_08_b do
