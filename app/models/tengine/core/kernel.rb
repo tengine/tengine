@@ -91,23 +91,26 @@ class Tengine::Core::Kernel
   def subscribe_queue
     mq.queue.subscribe(:ack => true, :nowait => true) do |headers, msg|
       @in_process = true
-      raw_event = parse_event(msg)
-      unless raw_event
-        headers.ack
-        next
-      end
-      event = save_event(raw_event)
-      handlers = find_handlers(event)
       begin
-        delegate(event, handlers)
-      rescue Exception => e
-        puts "[#{e.class.name}] #{e.message}"
+        raw_event = parse_event(msg)
+        unless raw_event
+          headers.ack
+          next
+        end
+        event = save_event(raw_event)
+        handlers = find_handlers(event)
+        begin
+          delegate(event, handlers)
+        rescue Exception => e
+          puts "[#{e.class.name}] #{e.message}"
+          headers.ack
+          next
+        end
         headers.ack
-        next
+        close_if_shutting_down
+      rescue
+        @in_process = false
       end
-      headers.ack
-      close_if_shutting_down
-      @in_process = false
     end
   end
 
