@@ -32,7 +32,7 @@ class Tengine::Core::Kernel
       EM.cancel_timer(@heartbeat_timer) if @heartbeat_timer
       if mq.queue.default_consumer
         mq.queue.unsubscribe
-        mq.connection.close{ EM.stop_event_loop } unless @working
+        close_if_shutting_down unless @working
       end
     else
       update_status(:shutting_down)
@@ -173,11 +173,11 @@ class Tengine::Core::Kernel
 
   def close_if_shutting_down
     # unsubscribed されている場合は安全な停止を行う
-    unless mq.queue.default_consumer
-      # TODO: loggerへ
-      # puts "connection closing..."
-      mq.connection.close{ EM.stop_event_loop }
-    end
+    # return if mq.queue.default_consumer
+    return unless status == :shutting_down
+    # TODO: loggerへ
+    # puts "connection closing..."
+    mq.connection.close{ EM.stop_event_loop }
   end
 
 

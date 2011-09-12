@@ -132,7 +132,7 @@ describe Tengine::Core::Kernel do
           EM.should_receive(:run).and_yield
           mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
           Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
-          mock_mq.should_receive(:queue).exactly(3).times.and_return(@mock_queue)
+          mock_mq.should_receive(:queue).exactly(2).times.and_return(@mock_queue)
           @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true).and_yield(@header, :message)
 
           # subscribe してみる
@@ -140,7 +140,6 @@ describe Tengine::Core::Kernel do
           Tengine::Event.should_receive(:parse).with(:message).and_return(@mock_raw_event)
 
           @header.should_receive(:ack)
-          @mock_queue.should_receive(:default_consumer).and_return(@mock_consumer)
         end
 
         it "confirmation_threshold以下なら登録されたイベントはconfirmedがtrue" do
@@ -163,7 +162,7 @@ describe Tengine::Core::Kernel do
         EM.should_receive(:run).and_yield
         mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
         Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
-        mock_mq.should_receive(:queue).exactly(3).times.and_return(@mock_queue)
+        mock_mq.should_receive(:queue).exactly(2).times.and_return(@mock_queue)
         @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true).and_yield(@header, :message)
 
         # subscribe してみる
@@ -180,7 +179,6 @@ describe Tengine::Core::Kernel do
         @handler1.should_receive(:puts).with("handler01")
 
         @header.should_receive(:ack)
-        @mock_queue.should_receive(:default_consumer).and_return(@mock_consumer)
 
         # 実行
         @kernel.start
