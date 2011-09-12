@@ -21,7 +21,6 @@ class Tengine::Core::Event
   # see http://github.com/akm/selectable_attr
   #     http://github.com/akm/selectable_attr_rails
   selectable_attr :level do
-    entry 0, :gr_heartbeat, "gr_heartbeat"
     entry 1, :debug       , "debug"
     entry 2, :info        , "info"
     entry 3, :warn        , "warn"
