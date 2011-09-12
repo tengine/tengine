@@ -8,6 +8,7 @@ class Tengine::Core::Kernel
   include ::SelectableAttr::Base
 
   attr_reader :config, :status
+  attr_accessor :before_delegate, :after_delegate
 
   def initialize(config)
     @status = :initialized
@@ -43,7 +44,7 @@ class Tengine::Core::Kernel
 
   def dsl_env
     unless @dsl_env
-      @dsl_env = Tengine::Core::DslEnv.new
+      @dsl_env = Tengine::Core::DslEnv.new(self)
       @dsl_env.extend(Tengine::Core::DslBinder)
       @dsl_env.config = config
     end
@@ -100,7 +101,7 @@ class Tengine::Core::Kernel
     @working = true
     begin
       raw_event = parse_event(msg)
-      unless raw_event
+      if raw_event.nil?
         headers.ack
         return
       end
@@ -135,10 +136,6 @@ class Tengine::Core::Kernel
     end
   end
 
-  # 自動でログ出力する
-  extend Tengine::Core::MethodTraceable
-  method_trace(:start, :stop, :bind, :wait_for_activation, :activate, :subscribe_queue)
-
   private
 
   def parse_event(msg)
@@ -158,6 +155,9 @@ class Tengine::Core::Kernel
       raw_event.attributes.update(:confirmed => (raw_event.level <= config.confirmation_threshold)))
     Tengine.logger.debug("saved a event #{event.inspect}")
     event
+  rescue Exception => e
+    Tengine.logger.error("failed to save a event #{event.inspect}\n[#{e.class.name}] #{e.message}")
+    raise e
   end
 
   # イベントハンドラの取得
@@ -168,15 +168,17 @@ class Tengine::Core::Kernel
   end
 
   def delegate(event, handlers)
+    before_delegate.call if before_delegate.respond_to?(:call)
     handlers.each do |handler|
       # block の取得
-      block = dsl_env.block_for(handler)
+      block = dsl_env.__block_for__(handler)
       # イベントハンドラへのディスパッチ
       # TODO: ログ出力する
       # logger.info("dispatching the event key:#{event.key} to #{handler.inspect}")
       # puts("dispatching the event key:#{event.key} to #{handler.inspect}")
       handler.process_event(event, &block)
     end
+    after_delegate.call if after_delegate.respond_to?(:call)
   end
 
   def close_if_shutting_down
@@ -210,6 +212,13 @@ class Tengine::Core::Kernel
   def mq
     @mq ||= Tengine::Mq::Suite.new(config[:event_queue])
   end
+
+
+  # 自動でログ出力する
+  extend Tengine::Core::MethodTraceable
+  method_trace(:start, :stop, :bind, :wait_for_activation, :activate, :subscribe_queue,
+    :process_message, :parse_event, :save_event, :find_handlers, :delegate, :close_if_shutting_down,
+    :update_status)
 end
 
 

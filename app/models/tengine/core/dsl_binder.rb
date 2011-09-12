@@ -40,7 +40,7 @@ module Tengine::Core::DslBinder
       raise "Handler not found for #{filepath}:#{lineno}"
     end
     handlers.each do |handler|
-      bind_blocks_for_handler_id(handler, &block)
+      __bind_blocks_for_handler_id__(handler, &block)
     end
   end
 

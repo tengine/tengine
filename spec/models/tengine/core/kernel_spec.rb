@@ -25,7 +25,7 @@ describe Tengine::Core::Kernel do
 
       it "event_type_nameからblockを検索することができる" do
         @kernel.bind
-        @kernel.dsl_env.block_for(@handler1).should_not be_nil
+        @kernel.dsl_env.__block_for__(@handler1).should_not be_nil
       end
     end
 
