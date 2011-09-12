@@ -343,6 +343,8 @@ end
 end
 
 もし /^(.*ファイル)"([^"]*)"を作成する$/ do |name, file_path|
+  dir_name = File.dirname(file_path)
+  FileUtils.mkdir_p(dir_name) unless File.exists?(dir_name)
   FileUtils.touch(file_path)
 end
 
