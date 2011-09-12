@@ -22,7 +22,7 @@
 
   # テストコード
   #  describe :driver_example do
-  #    it :event1 が発火すると、/tmp/event2.txtが作成される do
+  #    it ":event1 が発火すると、/tmp/event2.txtが作成される" do
   #      # driver_example は event1 を受けてイベントハンドリングする
   #      driver_example.should_handle_event(:event1)
   #      # driver_example は event2 を受けてイベントハンドリングする
@@ -46,6 +46,7 @@
     かつ イベントハンドラ定義のテストファイル"features/support/dsls/uc_a0_create_dsl_spec.rb"が存在しない
     かつ イベントハンドラが作成した一時ファイル"tmp/event2.txt"が存在しない
 
+
   シナリオ: [正常系] アプリケーション開発者がイベントハンドラ定義を開発する
     # シナリオの概要
     # テストファーストを考慮して、はじめに失敗をさせています
@@ -57,8 +58,9 @@
     もし イベントハンドラ定義のテストファイル"features/support/dsls/uc_a0_create_dsl_spec.rb"を作成する
     かつ イベントハンドラ定義のテストファイル"features/support/dsls/uc_a0_create_dsl_spec.rb"に以下の記述をする
     """
+    # -*- coding: utf-8 -*-
     describe :driver_example do
-      it :event1 が発火すると、/tmp/event2.txtが作成される do
+      it ":event1 が発火すると、/tmp/event2.txtが作成される" do
         # driver_example は event1 を受けてイベントハンドリングする
         driver_example.should_handle_event(:event1)
         # driver_example は event2 を受けてイベントハンドリングする
@@ -77,6 +79,7 @@
     もし イベントハンドラ定義ファイル"features/support/dsls/uc_a0_create_dsl.rb"を作成する
     かつ イベントハンドラ定義ファイル"features/support/dsls/uc_a0_create_dsl.rb"に以下の記述をする
     """
+    # -*- coding: utf-8 -*-
     require 'tengine/core'
     require 'fileutils'
 
@@ -116,8 +119,9 @@
     もし イベントハンドラ定義のテストファイル"features/support/dsls/uc_a0_create_dsl_spec.rb"を作成する
     かつ イベントハンドラ定義のテストファイル"features/support/dsls/uc_a0_create_dsl_spec.rb"に以下の記述をする
     """
+    # -*- coding: utf-8 -*-
     describe :driver_example do
-      it :event1 が発火すると、/tmp/event2.txtが作成される do
+      it ":event1 が発火すると、/tmp/event2.txtが作成される" do
         # driver_example は event1 を受けてイベントハンドリングする
         driver_example.should_handle_event(:event1)
         # driver_example は event2 を受けてイベントハンドリングする
@@ -141,6 +145,7 @@
     もし イベントハンドラ定義ファイル"features/support/dsls/uc_a0_create_dsl.rb"を作成する
     かつ イベントハンドラ定義ファイル"features/support/dsls/uc_a0_create_dsl.rb"に以下の記述をする
     """
+    # -*- coding: utf-8 -*-
     require 'tengine/core'
     require 'fileutils'
 
@@ -168,6 +173,7 @@
 
     もし イベントハンドラ定義ファイル"features/support/dsls/uc_a0_create_dsl.rb"に以下の記述をする
     """
+    # -*- coding: utf-8 -*-
     require 'tengine/core'
     require 'fileutils'
 
@@ -207,8 +213,9 @@
     もし イベントハンドラ定義のテストファイル"features/support/dsls/uc_a0_create_dsl_spec.rb"を作成する
     かつ イベントハンドラ定義のテストファイル"features/support/dsls/uc_a0_create_dsl_spec.rb"に以下の記述をする
     """
+    # -*- coding: utf-8 -*-
     describe :driver_example do
-      it :event1 が発火すると、/tmp/event2.txtが作成される do
+      it ":event1 が発火すると、/tmp/event2.txtが作成される" do
         # driver_example は event1 を受けてイベントハンドリングする
         driver_example.should_handle_event(:event1)
         # driver_example は event2 を受けてイベントハンドリングする
@@ -232,6 +239,7 @@
     もし イベントハンドラ定義ファイル"features/support/dsls/uc_a0_create_dsl.rb"を作成する
     かつ イベントハンドラ定義ファイル"features/support/dsls/uc_a0_create_dsl.rb"に以下の記述をする
     """
+    # -*- coding: utf-8 -*-
     require 'tengine/core'
     require 'fileutils'
 
@@ -260,6 +268,7 @@
 
     もし イベントハンドラ定義ファイル"features/support/dsls/uc_a0_create_dsl.rb"に以下の記述をする
     """
+    # -*- coding: utf-8 -*-
     require 'tengine/core'
     require 'fileutils'
 
@@ -303,8 +312,9 @@
     もし イベントハンドラ定義のテストファイル"features/support/dsls/uc_a0_create_dsl_spec.rb"を作成する
     かつ イベントハンドラ定義のテストファイル"features/support/dsls/uc_a0_create_dsl_spec.rb"に以下の記述をする
     """
+    # -*- coding: utf-8 -*-
     describe :driver_example do
-      it :event1 が発火すると、/tmp/event2.txtが作成される do
+      it ":event1 が発火すると、/tmp/event2.txtが作成される" do
         # driver_example は event1 を受けてイベントハンドリングする
         driver_example.should_handle_event(:event1)
         # driver_example は event2 を受けてイベントハンドリングする
@@ -327,6 +337,7 @@
     もし イベントハンドラ定義ファイル"features/support/dsls/uc_a0_create_dsl.rb"を作成する
     かつ イベントハンドラ定義ファイル"features/support/dsls/uc_a0_create_dsl.rb"に以下の記述をする
     """
+    # -*- coding: utf-8 -*-
     require 'tengine/core'
     require 'fileutils'
 
@@ -349,8 +360,9 @@
 
     もし イベントハンドラ定義のテストファイル"features/support/dsls/uc_a0_create_dsl_spec.rb"に以下の記述をする
     """
+    # -*- coding: utf-8 -*-
     describe :driver_example do
-      it :event1 が発火すると、/tmp/event2.txtが作成される do
+      it ":event1 が発火すると、/tmp/event2.txtが作成される" do
         # driver_example は event1 を受けてイベントハンドリングする
         driver_example.should_handle_event(:event1)
         # driver_example は event2 を受けてイベントハンドリングする
