@@ -24,14 +24,13 @@ describe Tengine::Core::EventsController do
   # Tengine::Core::Event. As you add validations to Tengine::Core::Event, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {:level => Tengine::Event::LEVELS_INV[:info]}
   end
 
   describe "GET index" do
     it "assigns all tengine_core_events as @tengine_core_events" do
       Tengine::Core::Event.delete_all
       event = Tengine::Core::Event.create! valid_attributes
-      event.level = 1
       get :index
       events = assigns(:events)
       events.to_a.should eq([event])
