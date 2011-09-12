@@ -101,6 +101,11 @@ class Tengine::Core::Config
   end
   memoize :activation_dir
 
+  def confirmation_threshold
+    Tengine::Event::LEVELS_INV[ self[:tengined][:confirmation_threshold].to_sym ]
+  end
+  memoize :confirmation_threshold
+
   def setup_loggers
     stdout_path = log_config(:process_stdout_log)[:output]
     $stdout = File.open(stdout_path, "w") unless stdout_path =~ /^STDOUT$|^STDERR$/

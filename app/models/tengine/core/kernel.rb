@@ -100,7 +100,7 @@ class Tengine::Core::Kernel
       Tengine.logger.debug("received a event #{raw_event.inspect}")
 
       # 受信したイベントを登録
-      event = Tengine::Core::Event.create!(raw_event.attributes)
+      event = Tengine::Core::Event.create!(raw_event.attributes.update(:confirmed => (raw_event.level <= config.confirmation_threshold)))
       Tengine.logger.debug("saved a event #{event.inspect}")
 
       # イベントハンドラの取得

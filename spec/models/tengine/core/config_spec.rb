@@ -24,6 +24,8 @@ describe Tengine::Core::Config do
     end
     its(:status_dir){ should == "./tmp/tengined_status" }
     its(:activation_dir){ should == "./tmp/tengined_activations" }
+
+    its(:confirmation_threshold){ should == Tengine::Event::LEVELS_INV[:info] }
   end
 
   context "ディレクトリ指定の設定ファイル" do
@@ -59,6 +61,12 @@ describe Tengine::Core::Config do
 
       it "相対パスが指定されると（計算のしようがないので）そのまま返します" do
         subject.relative_path_from_dsl_dir("lib/tengine/foo/bar").should == "lib/tengine/foo/bar"
+      end
+    end
+
+    describe :confirmation_threshold do
+      it "--tengined-confirmation-levelで設定した値を数値に変換する" do
+        subject.confirmation_threshold.should == Tengine::Event::LEVELS_INV[:warn]
       end
     end
 

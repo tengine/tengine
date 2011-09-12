@@ -91,6 +91,7 @@ describe Tengine::Core::Kernel do
             :tengined => {
               :load_path => File.expand_path('../../../../spec_dsls/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
               :wait_activation => false,
+              :confirmation_threashold => 'info'
             },
           })
         @kernel = Tengine::Core::Kernel.new(config)
@@ -114,26 +115,36 @@ describe Tengine::Core::Kernel do
         @kernel.start
       end
 
-      it "発火されたイベントを登録できる" do
-        # eventmachine と mq の mock を生成
-        EM.should_receive(:run).and_yield
-        mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
-        Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
-        mock_mq.should_receive(:queue).exactly(3).times.and_return(@mock_queue)
-        @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true).and_yield(@header, :message)
+      context "発火されたイベントを登録できる" do
+        before do
+          # eventmachine と mq の mock を生成
+          EM.should_receive(:run).and_yield
+          mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
+          Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
+          mock_mq.should_receive(:queue).exactly(3).times.and_return(@mock_queue)
+          @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true).and_yield(@header, :message)
 
-        # subscribe してみる
-        mock_row_event = mock(:row_event)
-        mock_row_event.stub!(:attributes).and_return(:event_type_name => :foo, :key => "uniq_key")
-        Tengine::Event.should_receive(:parse).with(:message).and_return(mock_row_event)
+          # subscribe してみる
+          @mock_row_event = mock(:row_event)
+          Tengine::Event.should_receive(:parse).with(:message).and_return(@mock_row_event)
 
-        @header.should_receive(:ack)
-        @mock_queue.should_receive(:default_consumer).and_return(@mock_consumer)
+          @header.should_receive(:ack)
+          @mock_queue.should_receive(:default_consumer).and_return(@mock_consumer)
+        end
 
-        # 実行
-        @kernel.start
-        # イベントが登録されていることを検証
-        Tengine::Core::Event.where(:event_type_name => :foo).count.should == 1
+        it "confirmation_threshold以下なら登録されたイベントはconfirmedがtrue" do
+          @mock_row_event.stub!(:attributes).and_return(:event_type_name => :foo, :key => "uniq_key", :level => Tengine::Event::LEVELS_INV[:info])
+          @mock_row_event.stub!(:level).and_return(Tengine::Event::LEVELS_INV[:info])
+          count = lambda{ Tengine::Core::Event.where(:event_type_name => :foo, :confirmed => true).count }
+          expect{ @kernel.start }.should change(count, :call).by(1) # イベントが登録されていることを検証
+        end
+
+        it "confirmation_threshold以下なら登録されたイベントはconfirmedがfalse" do
+          @mock_row_event.stub!(:attributes).and_return(:event_type_name => :foo, :key => "uniq_key", :level => Tengine::Event::LEVELS_INV[:warn])
+          @mock_row_event.stub!(:level).and_return(Tengine::Event::LEVELS_INV[:warn])
+          count = lambda{ Tengine::Core::Event.where(:event_type_name => :foo, :confirmed => false).count }
+          expect{ @kernel.start }.should change(count, :call).by(1) # イベントが登録されていることを検証
+        end
       end
 
       it "イベント種別に対応したハンドラの処理を実行することができる" do
@@ -147,9 +158,10 @@ describe Tengine::Core::Kernel do
         # subscribe してみる
         mock_row_event = mock(:row_event)
         mock_row_event.should_receive(:attributes).and_return(:event_type_name => :event01, :key => "uuid1")
+        mock_row_event.stub!(:level).and_return(Tengine::Event::LEVELS_INV[:info])
         Tengine::Event.should_receive(:parse).with(:message).and_return(mock_row_event)
         # イベントの登録
-        Tengine::Core::Event.should_receive(:create!).with(:event_type_name => :event01, :key => "uuid1").and_return(@event1)
+        Tengine::Core::Event.should_receive(:create!).with(:event_type_name => :event01, :key => "uuid1", :confirmed => true).and_return(@event1)
 
         # ハンドラの実行を検証
         Tengine::Core::HandlerPath.should_receive(:find_handlers).with("event01").and_return([@handler1])
