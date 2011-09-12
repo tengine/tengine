@@ -92,11 +92,11 @@ class Tengine::Core::Kernel
   # subscribe to messages in the queue
   def subscribe_queue
     mq.queue.subscribe(:ack => true, :nowait => true) do |headers, msg|
-      process_mq_message(headers, msg)
+      process_message(headers, msg)
     end
   end
 
-  def process_mq_message(headers, msg)
+  def process_message(headers, msg)
     @working = true
     begin
       raw_event = parse_event(msg)

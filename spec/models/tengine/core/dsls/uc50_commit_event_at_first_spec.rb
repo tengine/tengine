@@ -15,25 +15,11 @@ describe "uc50_commit_event_at_first" do
   end
 
   it "必ずACKされている" do
-    handler_invoked = false
-    @kernel.dsl_env.should_receive(:puts).with("handler50 acknowledged").and_return{handler_invoked = true}
-    @kernel.activate do |mq|
-      run = lambda do
-        EM.add_timer(0.5) do
-          sender = Tengine::Event::Sender.new(mq)
-          sender.fire(:event50)
-        end
-        require 'timeout'
-        timeout(3) do
-          sleep(0.1) until handler_invoked
-        end
-      end
-      teardown = lambda do |result|
-        @kernel.stop(true) # イベント処理中なので、無理矢理終了させます
-        # EM.add_timer(0.1){ EM.stop }
-      end
-      EM.defer(run, teardown)
-    end
+    raw_event = Tengine::Event.new(:event_type_name => "event50")
+    @kernel.dsl_env.should_receive(:puts).with("handler50 acknowledged")
+    mock_headers = mock(:headers)
+    mock_headers.should_receive(:ack)
+    @kernel.process_message(mock_headers, raw_event.to_json)
   end
 
 end
