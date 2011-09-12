@@ -108,16 +108,16 @@ class Tengine::Core::Kernel
       event = save_event(raw_event)
       ack_policy = ack_policy_for(event)
       safety_processing_headers(headers, event, ack_policy) do
-      Tengine.logger.debug("ack_policy: #{ack_policy.inspect} for #{event.inspect}")
-      ack if ack_policy == :at_first
-      handlers = find_handlers(event)
-      begin
-        delegate(event, handlers)
-      rescue Exception => e
-        puts "[#{e.class.name}] #{e.message}"
-        return
-      end
-      ack if ack_policy == :after_all_handler_submit
+        Tengine.logger.debug("ack_policy: #{ack_policy.inspect} for #{event.inspect}")
+        ack if ack_policy == :at_first
+        handlers = find_handlers(event)
+        begin
+          delegate(event, handlers)
+        rescue Exception => e
+          puts "[#{e.class.name}] #{e.message}"
+          return
+        end
+        ack if ack_policy == :after_all_handler_submit
       end
       close_if_shutting_down
     end
