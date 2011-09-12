@@ -2,8 +2,6 @@
 require 'timeout'
 require 'amqp'
 
-@h = {}
-
 tengine_yaml = YAML::load(IO.read('./features/support/config/tengine.yml'))
 @mq_server = tengine_yaml["event_queue"]["conn"]
 @tengine_event_queue_opts = tengine_yaml["event_queue"]["queue"]
@@ -58,12 +56,14 @@ end
 もし /^"([^"]*)"を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
   puts "command:#{command}"
   io = IO.popen(command)
+  @h ||= {}
   @h[name] = {:io => io, :stdout => []}
 end
 
 もし /^"([^"]*)"の起動を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
   puts "command:#{command}"
   io = IO.popen(command)
+  @h ||= {}
   @h[name] = {:io => io, :stdout => []}
 end
 
@@ -296,6 +296,7 @@ end
 もし /^"([^"]*)ファイル""([^"]*)"を参照する$/ do |name, file_path|
   raise "#{name}:#{file_path}が存在しません" unless FileTest.exists?(file_path)
   # ファイルを展開した文字配列を格納する
+  @h = {}
   @h[name] = {:file_path => file_path, :read_lines => File.readlines(file_path)}
 end
 
@@ -313,6 +314,14 @@ end
 
 もし /^Tengineコアの設定ファイル"([^"]*)"を修正する$/ do |config_file_path|
   FileUtils.cp("./features/support/config/tengine.yml", config_file_path)
+end
+
+もし /^(.*ファイル)"([^"]*)"を作成する$/ do |name, file_path|
+  FileUtils.touch(file_path)
+end
+
+もし /^(.*ファイル)"([^"]*)"に以下の記述をする$/ do |name, file_path, text|
+  File.open(file_path, 'w') {|f| f.puts(text) }
 end
 
 前提 /^yamlファイルとして不正なTengineコアの設定ファイルinvalid_tengine.ymlが存在する$/ do
