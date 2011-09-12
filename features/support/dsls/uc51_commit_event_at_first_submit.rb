@@ -9,12 +9,12 @@ Tengine.driver :driver51_1 do
   # 最初に実行されるハンドラではsubmitしないので、ACKされない
   on:event51 do
     # ackされていないmessageの確認
-    io=IO.popen("rabbitmqctl list_queues messages_unacknowledged")
-    lines = Array.new
-    lines << line while line=io.gets
-    io.close
-    
-    puts "#{event.key}:handler51_1:#{lines[1]}"
+    IO.popen("rabbitmqctl list_queues messages_unacknowledged") { |io|
+      @unacked_message_count=io.readlines[1].to_i
+    }
+
+    puts "#{event.key}:handler51_1:#{@unacked_message_count}"
+
   end
 end
 
@@ -22,13 +22,14 @@ Tengine.driver :driver51_2 do
   # このハンドラでsubmitするので、ACKする
   on:event51 do
     # ackされていないmessageの確認
-    io=IO.popen("rabbitmqctl list_queues messages_unacknowledged")
-    lines = Array.new
-    lines << line while line=io.gets
-    io.close
+    IO.popen("rabbitmqctl list_queues messages_unacknowledged") { |io|
+      @unacked_message_count=io.readlines[1].to_i
+    }
 
-    puts "#{event.key}:handler51_2:#{lines[1]}"
     submit
+
+    puts "#{event.key}:handler51_2:#{@unacked_message_count}"
+
   end
 end
 
@@ -36,12 +37,13 @@ Tengine.driver :driver51_3 do
   # このハンドラでsubmitするが、すでにACKしているのでACKしない
   on:event51 do
     # ackされていないmessageの確認
-    io=IO.popen("rabbitmqctl list_queues messages_unacknowledged")
-    lines = Array.new
-    lines << line while line=io.gets
-    io.close
+    IO.popen("rabbitmqctl list_queues messages_unacknowledged") { |io|
+      @unacked_message_count=io.readlines[1].to_i
+    }
 
-    puts "#{event.key}:handler51_3:#{lines[1]}"
     submit
+
+    puts "#{event.key}:handler51_3:#{@unacked_message_count}"
+
   end
 end
