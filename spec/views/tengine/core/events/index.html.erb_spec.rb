@@ -7,8 +7,8 @@ describe "tengine/core/events/index.html.erb" do
         :event_type_name => "Event Type Name",
         :key => "Key",
         :source_name => "Source Name",
-        :notification_level => 1,
-        :notification_confirmed => false,
+        :level => 1,
+        :confirmed => false,
         :sender_name => "Sender Name",
         :properties => {"a"=>"1", "b"=>"2"}
       ),
@@ -16,8 +16,8 @@ describe "tengine/core/events/index.html.erb" do
         :event_type_name => "Event Type Name",
         :key => "Key",
         :source_name => "Source Name",
-        :notification_level => 1,
-        :notification_confirmed => false,
+        :level => 1,
+        :confirmed => false,
         :sender_name => "Sender Name",
         :properties => {"a"=>"1", "b"=>"2"}
       )

@@ -6,8 +6,8 @@ FactoryGirl.define do
     key { @uuid ||= UUID.new; @uuid.generate }
     source_name("server1")
     occurred_at { Time.now.utc }
-    notification_level(2) # info
-    notification_confirmed(false)
+    level(2) # info
+    confirmed(false)
     sender_name("server1")
     properties({})
   end

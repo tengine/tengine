@@ -99,7 +99,7 @@ class Tengine::Core::Bootstrap
         end
       end
       Tengine::Event.instance_variable_set(:@mq_suite, mq)
-      Tengine::Event.fire(:foo, :notification_level_key => :info)
+      Tengine::Event.fire(:foo, :level_key => :info)
       loop do
         sleep(0.1)
         return if connection_test_completed
