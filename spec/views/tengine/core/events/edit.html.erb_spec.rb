@@ -6,8 +6,8 @@ describe "tengine/core/events/edit.html.erb" do
       :event_type_name => "MyString",
       :key => "MyString",
       :source_name => "MyString",
-      :notification_level => 1,
-      :notification_confirmed => false,
+      :level => 1,
+      :confirmed => false,
       :sender_name => "MyString",
       :properties => {"a"=>"1", "b"=>"2"}
     ))
@@ -21,8 +21,8 @@ describe "tengine/core/events/edit.html.erb" do
       assert_select "input#event_event_type_name", :name => "event[event_type_name]"
       assert_select "input#event_key", :name => "event[key]"
       assert_select "input#event_source_name", :name => "event[source_name]"
-      assert_select "input#event_notification_level", :name => "event[notification_level]"
-      assert_select "input#event_notification_confirmed", :name => "event[notification_confirmed]"
+      assert_select "input#event_level", :name => "event[level]"
+      assert_select "input#event_confirmed", :name => "event[confirmed]"
       assert_select "input#event_sender_name", :name => "event[sender_name]"
       assert_select "textarea#event_properties_yaml", :name => "event[properties_yaml]"
     end

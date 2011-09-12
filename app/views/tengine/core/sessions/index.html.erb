@@ -5,7 +5,9 @@
 <table>
   <tr>
     <th><%= Tengine::Core::Session.human_attribute_name(:driver) %></th>
+    <th><%= Tengine::Core::Session.human_attribute_name(:lock_version) %></th>
     <th><%= Tengine::Core::Session.human_attribute_name(:properties) %></th>
+    <th><%= Tengine::Core::Session.human_attribute_name(:system_properties) %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -14,7 +16,9 @@
 <% @sessions.each do |session| %>
   <tr class="<%= cycle("even", "odd") %>" >
     <td><pre><%= link_to_model session.driver %></pre></td>
+    <td><%= session.lock_version %></td>
     <td><pre><%= session.properties_yaml %></pre></td>
+    <td><pre><%= session.system_properties_yaml %></pre></td>
     <td><%= link_to_show session %></td>
     <td><%= link_to_edit edit_tengine_core_session_path(session) %></td>
     <td><%= link_to_destroy session, confirm: 'Are you sure?', method: :delete %></td>

@@ -2,13 +2,13 @@
 
 FactoryGirl.define do
   factory :"tengine/core/event" do
-    event_type_name("MyString")
-    key("MyString")
-    source_name("MyString")
-    occurred_at("2011-09-01 17:36:59")
-    notification_level(1)
-    notification_confirmed(false)
-    sender_name("MyString")
-    properties({"a"=>"1", "b"=>"2"})
+    event_type_name("event01")
+    key { @uuid ||= UUID.new; @uuid.generate }
+    source_name("server1")
+    occurred_at { Time.now.utc }
+    level(2) # info
+    confirmed(false)
+    sender_name("server1")
+    properties({})
   end
 end

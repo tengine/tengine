@@ -34,15 +34,6 @@ describe "Tengine::Core::Bootstrap" do
       end
     end
 
-    context "config[:action] => status の場合" do
-      it "kernel_statusがよばれること" do
-        options = { :action => "status" }
-        bootstrap = Tengine::Core::Bootstrap.new(options)
-        bootstrap.should_receive(:kernel_status)
-        bootstrap.boot
-      end
-    end
-
     context "config[:action] => enable の場合" do
       it "enable_driversがよばれること" do
         options = { :action => "enable" }
@@ -64,13 +55,30 @@ describe "Tengine::Core::Bootstrap" do
 
     context "config[:action] => test の場合" do
       it "load_dsl, start_kernel, start_connection_test, stop_kernelがよばれること" do
-        pending "実装優先で変更したのでテストを一時pendingに"
-        options = { :action => "test" }
-        bootstrap = Tengine::Core::Bootstrap.new(options)
+        bootstrap = Tengine::Core::Bootstrap.new(:action => "test")
         bootstrap.should_receive(:load_dsl)
         bootstrap.should_receive(:start_kernel)
-        bootstrap.should_receive(:test_connection)
-        bootstrap.should_receive(:stop_kernel)
+        # #stop_kernel は、#start_kernel に渡されるブロックから呼び出されます
+        # bootstrap.should_receive(:stop_kernel)
+        Tengine::Core.stdout_logger.should_receive(:info).with("Connection test success.")
+        bootstrap.boot
+      end
+
+      it "start_kernelに渡されたブロックを実行する" do
+        bootstrap = Tengine::Core::Bootstrap.new(:action => "test")
+        bootstrap.should_receive(:load_dsl)
+        mock_mq = mock(:mq)
+        bootstrap.should_receive(:start_kernel).and_yield(mock_mq)
+        EM.should_receive(:defer).with(an_instance_of(Proc), an_instance_of(Proc))
+        Tengine::Core.stdout_logger.should_receive(:info).with("Connection test success.")
+        bootstrap.boot
+      end
+
+      it "start_kernelに失敗するとstdout_loggerに出力する" do
+        bootstrap = Tengine::Core::Bootstrap.new(:action => "test")
+        bootstrap.should_receive(:load_dsl)
+        bootstrap.should_receive(:start_kernel).and_raise(IOError.new("Something wrong."))
+        Tengine::Core.stderr_logger.should_receive(:error).with("Connection test failure: [IOError] Something wrong.")
         bootstrap.boot
       end
     end
@@ -81,8 +89,17 @@ describe "Tengine::Core::Bootstrap" do
         bootstrap = Tengine::Core::Bootstrap.new(options)
         expect {
           bootstrap.boot
-        }.to raise_error(ArgumentError, /config[:action] must be test|load|start|enable|stop|force-stop|status but was/)
+        }.to raise_error(ArgumentError, /config[:action] must be test|load|start|enable|stop|force-stop but was/)
       end
+    end
+  end
+
+  describe :prepare_trap do
+    it "シグナルハンドラが定義される" do
+      mock_kernel = mock(:kernel)
+      Signal.should_receive(:trap).with(:HUP)
+#      Signal.should_receive(:trap).with(:QUIT)
+      bootstrap = Tengine::Core::Bootstrap.new({})
     end
   end
 
@@ -123,9 +140,9 @@ describe "Tengine::Core::Bootstrap" do
       t = Time.local(2011,9,5,17,28,30)
       Time.stub!(:now).and_return(t)
 
-      @d1 = Tengine::Core::Driver.create!(:name=>"driver1", :version=>"20110905172830", :enabled=>false, :enabled_on_activation=>false)
-      @d2 = Tengine::Core::Driver.create!(:name=>"driver2", :version=>"20110905172830", :enabled=>false, :enabled_on_activation=>false)
-      @d3 = Tengine::Core::Driver.create!(:name=>"driver3", :version=>"20110905172830", :enabled=>false, :enabled_on_activation=>false)
+      @d1 = Tengine::Core::Driver.create!(:name=>"driver1", :version=>"20110905172830", :enabled=>false, :enabled_on_activation=>true)
+      @d2 = Tengine::Core::Driver.create!(:name=>"driver2", :version=>"20110905172830", :enabled=>false, :enabled_on_activation=>true)
+      @d3 = Tengine::Core::Driver.create!(:name=>"driver3", :version=>"20110905172830", :enabled=>false, :enabled_on_activation=>true)
     end
 
     it "enabled=true に更新される" do
@@ -136,7 +153,7 @@ describe "Tengine::Core::Bootstrap" do
       bootstrap = Tengine::Core::Bootstrap.new(options)
       bootstrap.boot
 
-      Tengine::Core::Driver.where(:version => "20110905172830") do |d|
+      Tengine::Core::Driver.where(:version => "20110905172830").each do |d|
         d.enabled.should be_true
       end
     end
@@ -144,39 +161,29 @@ describe "Tengine::Core::Bootstrap" do
 
   describe :start_connection_test do
     before do
-      @config = {
-        :connection => {"foo" => "aaa"},
-        :exchange => {'name' => "exchange1", 'type' => 'direct', 'durable' => true},
-        :queue => {'name' => "queue1", 'durable' => true},
-      }
-      @mq_suite = Tengine::Mq::Suite.new(@config)
-
-      @mock_mq = mock(:amqp)
-      @mock_connection = mock(:connection)
+      class << Tengine
+        attr_accessor :callback_for_test
+      end
+    end
+    after do
+      class << Tengine
+        remove_method :callback_for_test, :callback_for_test=
+      end
     end
 
-    it "イベントを発火する" do
-      pending "実装優先で変更したのでテストを一時pendingに"
-
-      options = { :action => "test" }
-
-      bootstrap = Tengine::Core::Bootstrap.new(options)
-      EM.should_receive(:run).and_yield
-      Tengine::Event.should_receive(:fire).with(:foo, :notification_level_key => :info).and_yield
-
-      Tengine::Event.should_receive(:mq_suite).and_return(@mock_mq)
-      @mock_mq.should_receive(:connection).and_return(@mock_connection)
-      @mock_connection.should_receive(:disconnect).and_yield
-      EM.should_receive(:stop)
-      event = bootstrap.test_connection
-
-      Tengine::Event.config[:connection][:host].should == "localhost"
-      Tengine::Event.config[:connection][:port].should == 5672
-      Tengine::Event.config[:exchange][:name].should == "tengine_event_exchange"
-      Tengine::Event.config[:exchange][:type].should == "direct"
-      Tengine::Event.config[:exchange][:durable].should be_true
-      Tengine::Event.config[:queue][:name].should == "tengine_event_queue"
-      Tengine::Event.config[:queue][:durable].should be_true
+    it "イベント:fooを発火して、テスト用のDSLが受信後にbarを発火、それを受け取るイベントハンドラから通知が来るまで待つ" do
+      bootstrap = Tengine::Core::Bootstrap.new(:action => "test")
+      mock_mq = mock(:mq)
+      Tengine::Event.should_receive(:fire).with(:foo, :level_key => :info)
+      bootstrap.should_receive(:loop).and_yield
+      bootstrap.start_connection_test(mock_mq)
+      #
+      Tengine::Core.stdout_logger.should_receive(:info).with("handing :foo successfully.")
+      Tengine.callback_for_test.call(:foo)
+      Tengine::Core.stdout_logger.should_receive(:info).with("handing :bar successfully.")
+      Tengine.callback_for_test.call(:bar)
+      Tengine::Core.stderr_logger.should_receive(:error).with("Unexpected event: baz")
+      Tengine.callback_for_test.call(:baz)
     end
   end
 
@@ -196,6 +203,4 @@ describe "Tengine::Core::Bootstrap" do
     end
   end
 
-  describe :kernel_status do
-  end
 end

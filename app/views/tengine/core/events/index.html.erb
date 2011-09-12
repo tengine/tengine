@@ -52,8 +52,8 @@
     <th><%= Tengine::Core::Event.human_attribute_name(:key) %></th>
     <th><%= Tengine::Core::Event.human_attribute_name(:source_name) %></th>
     <th><%= Tengine::Core::Event.human_attribute_name(:occurred_at) %></th>
-    <th><%= Tengine::Core::Event.human_attribute_name(:notification_level) %></th>
-    <th><%= Tengine::Core::Event.human_attribute_name(:notification_confirmed) %></th>
+    <th><%= Tengine::Core::Event.human_attribute_name(:level) %></th>
+    <th><%= Tengine::Core::Event.human_attribute_name(:confirmed) %></th>
     <th><%= Tengine::Core::Event.human_attribute_name(:sender_name) %></th>
     <th><%= Tengine::Core::Event.human_attribute_name(:properties) %></th>
     <th></th>
@@ -66,9 +66,9 @@
     <td><%= event.event_type_name %></td>
     <td><%= event.key %></td>
     <td><%= event.source_name %></td>
-    <td><%= l event.occurred_at if event.occurred_at %></td>
-    <td><%= event.notification_level_name %></td>
-    <td><%= event.notification_confirmed %></td>
+    <td><%= event.occurred_at %></td>
+    <td><%= event.level %></td>
+    <td><%= event.confirmed %></td>
     <td><%= event.sender_name %></td>
     <td><pre><%= event.properties_yaml %></pre></td>
     <td><%= link_to_show event %></td>
