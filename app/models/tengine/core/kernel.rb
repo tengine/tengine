@@ -108,16 +108,17 @@ class Tengine::Core::Kernel
       event = save_event(raw_event)
       ack_policy = ack_policy_for(event)
       safety_processing_headers(headers, event, ack_policy) do
-        Tengine.logger.debug("ack_policy: #{ack_policy.inspect} for #{event.inspect}")
         ack if ack_policy == :at_first
         handlers = find_handlers(event)
-        begin
-          delegate(event, handlers)
-        rescue Exception => e
-          puts "[#{e.class.name}] #{e.message}"
-          return
+        safty_handlers(handlers) do
+          begin
+            delegate(event, handlers)
+          rescue Exception => e
+            puts "[#{e.class.name}] #{e.message}"
+            return
+          end
+          ack if all_submitted?
         end
-        ack if ack_policy == :after_all_handler_submit
       end
       close_if_shutting_down
     end
@@ -182,13 +183,15 @@ class Tengine::Core::Kernel
   def delegate(event, handlers)
     before_delegate.call if before_delegate.respond_to?(:call)
     handlers.each do |handler|
-      # block の取得
-      block = dsl_env.__block_for__(handler)
-      # イベントハンドラへのディスパッチ
-      # TODO: ログ出力する
-      # logger.info("dispatching the event key:#{event.key} to #{handler.inspect}")
-      # puts("dispatching the event key:#{event.key} to #{handler.inspect}")
-      handler.process_event(event, &block)
+      safety_handler(handler) do
+        # block の取得
+        block = dsl_env.__block_for__(handler)
+        # イベントハンドラへのディスパッチ
+        # TODO: ログ出力する
+        # logger.info("dispatching the event key:#{event.key} to #{handler.inspect}")
+        # puts("dispatching the event key:#{event.key} to #{handler.inspect}")
+        handler.process_event(event, &block)
+      end
     end
     after_delegate.call if after_delegate.respond_to?(:call)
   end
