@@ -253,7 +253,15 @@ end
   pending # express the regexp above with the code you wish you had
 end
 
-ならば /^"([^"]*)"に以下の行が表示されること$/ do |arg1, expected_table|
+もし /^イベントが表示されていないこと$/ do
+  # イベント通知画面のテーブルを取得
+  # actual.class # => Array
+  actual = tableish('table tr', 'td,th')
+  # ヘッダのみとれるのsizeは1になる
+  actual.size.should == 1  
+end
+
+ならば /^"([^\"]*)"に以下の行が表示されること$/ do |arg1, expected_table|
   Then %{I should see the following drivers:}, expected_table
 end
 
@@ -270,7 +278,7 @@ end
   actual.size.should == 1
 end
 
-ならば /^"([^"]*)画面"を表示していないこと$/ do |page_name|
+ならば /^"([^\"]*)画面"を表示していないこと$/ do |page_name|
   current_path = URI.parse(current_url).path
   current_path.should_not == path_to(page_name)
 end
