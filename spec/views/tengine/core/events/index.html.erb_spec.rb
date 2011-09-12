@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "tengine/core/events/index.html.erb" do
   before(:each) do
+    assign(:finder, Tengine::Core::Event::Finder.new)
     mock_pagination(assign(:events, [
       stub_model(Tengine::Core::Event,
         :event_type_name => "Event Type Name",
