@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 module Tengine::Core::DslRuntime # Kernelにincludeされます
 
-  def safety_processing_headers(headers)
+  def safety_processing_headers(headers, event, ack_policy)
     @ack_called = false
-    @processing_headers = headers
+    @processing_headers, @event, @ack_policy = headers, event, ack_policy
     begin
       yield if block_given?
     ensure
-      @processing_headers = nil
+      @processing_headers, @event, @ack_policy = nil, nil, nil
     end
   end
 
@@ -25,12 +25,17 @@ module Tengine::Core::DslRuntime # Kernelにincludeされます
   end
 
   def ack
-    @ack_called = true
-    @processing_headers.ack
+    unless @ack_called
+      @ack_called = true
+      @processing_headers.ack
+    end
   end
 
   def ack?
     @ack_called
+  end
+
+  def submit
   end
 
 end

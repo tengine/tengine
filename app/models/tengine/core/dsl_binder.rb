@@ -9,12 +9,8 @@ module Tengine::Core::DslBinder
     args.each{|arg| @__kernel__.add_ack_policy(arg, policy)}
   end
 
-  def ack?
-    @__kernel__.ack?
-  end
-
-  def submit
-  end
+  def ack?; @__kernel__.ack?; end
+  def submit; @__kernel__.submit; end
 
   def driver(name, options = {}, &block)
     drivers = Tengine::Core::Driver.where(:name => name, :version => config.dsl_version)

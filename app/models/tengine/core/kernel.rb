@@ -99,9 +99,7 @@ class Tengine::Core::Kernel
   end
 
   def process_message(headers, msg)
-    @working = true
-    begin
-      safety_processing_headers(headers) do
+    safety_working(headers) do
       raw_event = parse_event(msg)
       if raw_event.nil?
         headers.ack
@@ -109,6 +107,7 @@ class Tengine::Core::Kernel
       end
       event = save_event(raw_event)
       ack_policy = ack_policy_for(event)
+      safety_processing_headers(headers, event, ack_policy) do
       Tengine.logger.debug("ack_policy: #{ack_policy.inspect} for #{event.inspect}")
       ack if ack_policy == :at_first
       handlers = find_handlers(event)
@@ -116,14 +115,11 @@ class Tengine::Core::Kernel
         delegate(event, handlers)
       rescue Exception => e
         puts "[#{e.class.name}] #{e.message}"
-        # headers.ack
         return
       end
       ack if ack_policy == :after_all_handler_submit
-      close_if_shutting_down
       end
-    ensure
-      @working = false
+      close_if_shutting_down
     end
   end
 
@@ -143,6 +139,16 @@ class Tengine::Core::Kernel
   end
 
   private
+
+  def safety_working(headers)
+    @working = true
+    begin
+      yield if block_given?
+    ensure
+      @working = false
+    end
+  end
+
 
   def parse_event(msg)
     begin
