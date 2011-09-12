@@ -13,9 +13,9 @@ class Tengine::Core::Event::Finder
   attr_accessor :sender_name
   attr_accessor :properties
 
-  # 更新間隔 
+  # 更新間隔
   attr_accessor :reflesh_interval
-  
+
   # 通知レベル
   multi_selectable_attr :level, :enum => Tengine::Core::Event.level_enum
 
@@ -24,7 +24,7 @@ class Tengine::Core::Event::Finder
     attrs = {
       level_ids: default_level_ids
     }.update(attrs || {})
-    attrs.each do |attr, v| 
+    attrs.each do |attr, v|
       send("#{attr}=", v) unless v.blank?
     end
     @page = page
