@@ -8,17 +8,19 @@ tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
          [-h mq_conn_host] [-p mq_conn_port] [-u mq_conn_user] [-s mq_conn_pass]
          [-v mq_conn_vhost] [-e mq_exchange_name] [-q mq_queue_name]
 
-  -k --action                             test|load|start|enable|stop|force-stop|status default: start [only for command]
+  -k --action                             test|load|start|enable|stop|force-stop|status|activate default: start [only for command]
   -f --config                             /etc/tengine.yml [only for command]
   -D --tengined-daemon                    default false. ignored with "-k test, -k load, -k enable"
      --tengined-skip-load                 doesn't load event handler when start. usually use with --daemon option [only for command]
      --tengined-skip-enablement           doesn't enable event handler when start. usually use with --daemon option [only for command]
      --tengined-wait-activation           wait activation when start. usually use with --daemon option [only for command]
      --tengined-activation-timeout        period to wait for making activation file. default: 300(sec)
-  -T --tengined-load-path                 [REQUIRED] path/to/file_or_dir. ignored with "-k test"
-     --tengined-log-dir                   path/to/dir. default: ./
+  -T --tengined-load-path                 path/to/file_or_dir. ignored with "-k test"
      --tengined-pid-dir                   path/to/dir. default: ./tmp/tengined_pids
+     --tengined-status-dir                path/to/dir. default: ./tmp/tengined_status
      --tengined-activation-dir            path/to/dir. default: ./tmp/tengined_activations
+  -G --tengined-heartbeat-period          the second of period which heartbeat event be fired. disable heartbeat if 0. default: 0
+  -C --tengined-confirmation-threshold    the event which is this level or less will be made confirmed automatically. debug/info/warn/error/fatal. default: info
   -H --db-host                            default: localhost
   -P --db-port                            default: 27017
   -U --db-username
