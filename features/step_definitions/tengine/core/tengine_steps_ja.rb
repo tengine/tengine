@@ -213,10 +213,11 @@ end
   pending # express the regexp above with the code you wish you had
 end
 
-前提 /^GR Heartbeatの発火間隔が(.*)と設定されている$/ |tengined_heartbeat_period|do
+前提 /^GR Heartbeatの発火間隔が(.*)と設定されている$/ do |tengined_heartbeat_period|
   @tengined_heartbeat_period = tengined_heartbeat_period
 end
-もし /^発火間隔だけ待機する/
+
+もし /^発火間隔だけ待機する$/ do
   sleep @tengined_heartbeat_period
 end
 
