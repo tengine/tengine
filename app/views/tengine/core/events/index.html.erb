@@ -24,12 +24,12 @@
   </td>
  </tr>
  <tr>
-  <th style="text-align:right"><%= f.label :notification_level, Tengine::Core::Event.human_attribute_name(:notification_level) %></th>
-  <td style="text-align:left;"><%= f.check_box_group :notification_level %></td>
+  <th style="text-align:right"><%= f.label :level, Tengine::Core::Event.human_attribute_name(:level) %></th>
+  <td style="text-align:left;"><%= f.check_box_group :level %></td>
  </tr>
  <tr>
-  <th style="text-align:right"><%= f.label :notification_confirmed, Tengine::Core::Event.human_attribute_name(:notification_confirmed) %></th>
-  <td style="text-align:left;"><%= f.text_field :notification_confirmed %></td>
+  <th style="text-align:right"><%= f.label :confirmed, Tengine::Core::Event.human_attribute_name(:confirmed) %></th>
+  <td style="text-align:left;"><%= f.text_field :confirmed %></td>
  </tr>
  <tr>
   <th style="text-align:right"><%= f.label :sender_name, Tengine::Core::Event.human_attribute_name(:sender_name) %></th>
@@ -67,8 +67,8 @@
     <td><%= event.key %></td>
     <td><%= event.source_name %></td>
     <td><%= l event.occurred_at if event.occurred_at %></td>
-    <td><%= event.notification_level_name %></td>
-    <td><%= event.notification_confirmed %></td>
+    <td><%= event.level_name %></td>
+    <td><%= event.confirmed %></td>
     <td><%= event.sender_name %></td>
     <td><pre><%= event.properties_yaml %></pre></td>
     <td><%= link_to_show event %></td>
