@@ -7,7 +7,7 @@ require 'selectable_attr'
 class Tengine::Core::Kernel
   include ::SelectableAttr::Base
 
-  attr_reader :config, :dsl_env, :status
+  attr_reader :config, :status
 
   def initialize(config)
     @status = :initialized
@@ -26,13 +26,13 @@ class Tengine::Core::Kernel
     end
   end
 
-  def stop
+  def stop(force = false)
     if self.status == :running
       update_status(:shutting_down)
       EM.cancel_timer(@heartbeat_timer) if @heartbeat_timer
       if mq.queue.default_consumer
         mq.queue.unsubscribe
-        close_if_shutting_down unless @working
+        close_if_shutting_down if !@working || force
       end
     else
       update_status(:shutting_down)
@@ -41,13 +41,18 @@ class Tengine::Core::Kernel
     update_status(:terminated)
   end
 
+  def dsl_env
+    unless @dsl_env
+      @dsl_env = Tengine::Core::DslEnv.new
+      @dsl_env.extend(Tengine::Core::DslBinder)
+      @dsl_env.config = config
+    end
+    @dsl_env
+  end
+
   def bind
-    obj = Object.new
-    @dsl_env = Tengine::Core::DslEnv.new
-    @dsl_env.extend(Tengine::Core::DslBinder)
-    @dsl_env.config = config
-    @dsl_env.evaluate
-    Tengine::Core::stdout_logger.debug("Hanlder bindings:\n" << @dsl_env.to_a.inspect)
+    dsl_env.evaluate
+    Tengine::Core::stdout_logger.debug("Hanlder bindings:\n" << dsl_env.to_a.inspect)
     Tengine::Core::HandlerPath.default_driver_version = config.dsl_version
   end
 

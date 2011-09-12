@@ -4,6 +4,10 @@ require 'pathname'
 module Tengine::Core::DslLoader
   include Tengine::Core::DslEvaluator
 
+  def ack_policy(*args)
+    # DBにack_policyを登録する訳ではないのでここでは何もしません
+  end
+
   def driver(name, options = {}, &block)
     drivers = Tengine::Core::Driver.where(:name => name.to_s, :version => config.dsl_version)
     # 指定した version の driver が見つかった場合にはデプロイ済みなので以降の処理は行わず処理を終了する

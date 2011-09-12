@@ -176,7 +176,8 @@ describe Tengine::Core::Kernel do
         # ハンドラの実行を検証
         Tengine::Core::HandlerPath.should_receive(:find_handlers).with("event01").and_return([@handler1])
         @handler1.should_receive(:match?).with(@event1).and_return(true)
-        @handler1.should_receive(:puts).with("handler01")
+
+        @kernel.dsl_env.should_receive(:puts).with("handler01")
 
         @header.should_receive(:ack)
 

@@ -5,6 +5,18 @@ require 'tengine/event'
 module Tengine::Core::DslBinder
   include Tengine::Core::DslEvaluator
 
+  def ack_policy(policy, *args)
+    @__ack_policies__ ||= {}
+    args.each{|arg| @__ack_policies__[arg.to_s] = policy.to_sym}
+  end
+
+  def ack?
+    true
+  end
+
+  def submit
+  end
+
   def driver(name, options = {}, &block)
     drivers = Tengine::Core::Driver.where(:name => name, :version => config.dsl_version)
     # 指定した version の driver が見つからなかった場合にはデプロイされていないのでエラー
