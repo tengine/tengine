@@ -103,17 +103,27 @@ describe Tengine::Core::Kernel do
         @event1.save!
       end
 
-      it "イベントの受信待ち状態になる" do
-        # eventmachine と mq の mock を生成
-        EM.should_receive(:run).and_yield
-        mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
-        Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
-        mock_mq.should_receive(:queue).twice.and_return(@mock_queue)
-        # subscribe されていることを検証
-        @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true)
+      context "イベントの受信待ち状態になる" do
+        before do
+          # eventmachine と mq の mock を生成
+          EM.should_receive(:run).and_yield
+          mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
+          Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
+          mock_mq.should_receive(:queue).twice.and_return(@mock_queue)
+          # subscribe されていることを検証
+          @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true)
+        end
 
-        # 実行
-        @kernel.start
+        it "heartbeatは有効にならない" do
+          @kernel.should_not_receive(:enable_heartbeat)
+          @kernel.start
+        end
+
+        it "heartbeatは有効になる" do
+          @kernel.config.should_receive(:heartbeat_enabled?).and_return(true)
+          @kernel.should_receive(:enable_heartbeat)
+          @kernel.start
+        end
       end
 
       context "発火されたイベントを登録できる" do
