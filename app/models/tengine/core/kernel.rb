@@ -12,6 +12,7 @@ class Tengine::Core::Kernel
   def initialize(config)
     @status = :initialized
     @config = config
+    @working = false
   end
 
   def start(&block)
@@ -31,17 +32,13 @@ class Tengine::Core::Kernel
       EM.cancel_timer(@heartbeat_timer) if @heartbeat_timer
       if mq.queue.default_consumer
         mq.queue.unsubscribe
-        mq.connection.close{ EM.stop_event_loop } unless in_process?
+        mq.connection.close{ EM.stop_event_loop } unless @working
       end
     else
       update_status(:shutting_down)
       # wait_for_actiontion中の処理を停止させる必要がある
     end
     update_status(:terminated)
-  end
-
-  def in_process?
-    !!@in_process
   end
 
   def bind
@@ -90,7 +87,7 @@ class Tengine::Core::Kernel
   # subscribe to messages in the queue
   def subscribe_queue
     mq.queue.subscribe(:ack => true, :nowait => true) do |headers, msg|
-      @in_process = true
+      @working = true
       begin
         raw_event = parse_event(msg)
         unless raw_event
@@ -109,7 +106,7 @@ class Tengine::Core::Kernel
         headers.ack
         close_if_shutting_down
       rescue
-        @in_process = false
+        @working = false
       end
     end
   end
