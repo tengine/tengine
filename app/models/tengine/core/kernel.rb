@@ -97,27 +97,27 @@ class Tengine::Core::Kernel
   end
 
   def process_mq_message(headers, msg)
-      @working = true
-      begin
-        raw_event = parse_event(msg)
-        unless raw_event
-          headers.ack
-          return
-        end
-        event = save_event(raw_event)
-        handlers = find_handlers(event)
-        begin
-          delegate(event, handlers)
-        rescue Exception => e
-          puts "[#{e.class.name}] #{e.message}"
-          headers.ack
-          return
-        end
+    @working = true
+    begin
+      raw_event = parse_event(msg)
+      unless raw_event
         headers.ack
-        close_if_shutting_down
-      rescue
-        @working = false
+        return
       end
+      event = save_event(raw_event)
+      handlers = find_handlers(event)
+      begin
+        delegate(event, handlers)
+      rescue Exception => e
+        puts "[#{e.class.name}] #{e.message}"
+        headers.ack
+        return
+      end
+      headers.ack
+      close_if_shutting_down
+    rescue
+      @working = false
+    end
   end
 
   GR_HEARTBEAT_EVENT_TYPE_NAME = "gr_heart_beat.tengined".freeze
