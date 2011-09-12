@@ -6,11 +6,6 @@ module Tengine
   autoload :Core, 'tengine/core'
 
   class << self
-    def driver(*args, &block)
-      client = eval("self", block.binding)
-      client.driver(*args, &block)
-    end
-
     def logger
       @logger ||= ::Logger.new(STDOUT)
     end
