@@ -189,6 +189,8 @@ class Tengine::Core::Config
       :pid_dir        => "./tmp/tengined_pids"       , # 本番環境での例 "/var/run/tengined_pids"
       :status_dir     => "./tmp/tengined_status"     , # 本番環境での例 "/var/run/tengined_status"
       :activation_dir => "./tmp/tengined_activations", # 本番環境での例 "/var/run/tengined_activations"
+      :enable_heartbeat => false, # デフォルトではGRハートビートは無効
+      :confirmation_threshold => 'info' # デフォルトではinfo以下のイベントはイベント登録時に自動でconfirmedがtrueになります
     }.freeze,
 
     :db => {

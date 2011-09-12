@@ -38,6 +38,8 @@ describe Tengine::Core::Config do
         "pid_dir" => "/var/run/tengined_pids",
         "status_dir" => "/var/run/tengined_status",
         "activation_dir" => "/var/run/tengined_activations",
+        "enable_heartbeat" => true,
+        "confirmation_threshold" => "warn",
       }
       subject[:tengined].should == expected
       subject['tengined'].should == expected
@@ -144,6 +146,8 @@ describe Tengine::Core::Config do
         "pid_dir" => "/var/run/tengined_pids",
         "status_dir" => "/var/run/tengined_status",
         "activation_dir" => "/var/run/tengined_activations",
+        "enable_heartbeat" => true,
+        "confirmation_threshold" => "warn",
       }
       subject[:tengined].should == expected
       subject['tengined'].should == expected

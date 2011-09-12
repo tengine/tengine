@@ -59,6 +59,8 @@ EOS
     :pid_dir  => "path/to/dir.",
     :status_dir => "path/to/dir.",
     :activation_dir => "path/to/dir.",
+    :enable_heartbeat => ["-G", "fire the tengined process heartbeat event periodically", :hide_value => true],
+    :confirmation_threshold => ["-C", "the event which is this level or less will be made confirmed automatically. debug/info/warn/error/fatal. "]
   }.each{|key, args| tengine_opt.call(:tengined, key, args)}
 
   o.separator ""
