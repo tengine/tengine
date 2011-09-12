@@ -375,6 +375,10 @@ end
   FileUtils.rm(src)
 end
 
+もし /^.*ファイル"([^"]*)"を削除する$/ do |name, file_path|
+  FileUtils.rm(file_path) unless File.exists?(file_path)
+end
+
 もし /^DBを"([^"]*)"に物理バックアップする$/ do |backup_path|
   # MongoDBのDBファイルを退避させる
   # TODO:バックアップ対象のファイル名の指定
