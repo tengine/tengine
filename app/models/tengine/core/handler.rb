@@ -20,23 +20,19 @@ class Tengine::Core::Handler
   end
 
   def process_event(event, &block)
+    @caller = eval("self", block.binding)
     matched = match?(event)
     Tengine.logger.debug("match?(...) => #{matched} #{block.source_location.inspect}")
     if matched
-      # TODO: ログ出力する
-      # logger.info("id:#{self.id} handler matches the event key:#{event.key}")
-      # puts("id:#{self.id} handler matches the event key:#{event.key}")
       # ハンドラの実行
-      @caller = eval("self", block.binding)
-      # TODO: ログ出力する
-      # logger.info("id:#{self.id} handler executed own block, source:#{block.source_location}")
-      # puts("id:#{self.id} handler execute own block, source:#{block.source_location}")
       @caller.__safety_driver__(self.driver) do
         @caller.__safety_event__(event) do
           @caller.instance_eval(&block)
         end
       end
     end
+  ensure
+    @caller = nil
   end
 
   def fire(event_type_name)
@@ -53,7 +49,7 @@ class Tengine::Core::Handler
     def initialize(filter, event, session)
       @filter = filter
       @event = event
-      @session = session
+      @session = Tengine::Core::SessionWrapper.new(session)
       @current = @filter
     end
 
@@ -83,9 +79,8 @@ class Tengine::Core::Handler
       key = "mark_#{name}"
       if name == @event.event_type_name
         unless @session.system_properties[key]
-          @session.system_properties.update(key => true)
-          @session.save!
-          Tengine.logger.debug("system_properties.updated #{@session.system_properties.inspect}")
+          @session.system_update(key => true)
+          Tengine.logger.debug("session.system_updated #{@session.system_properties.inspect}")
         end
         return true
       else
