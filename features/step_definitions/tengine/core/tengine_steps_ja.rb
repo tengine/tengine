@@ -110,21 +110,19 @@ end
     match = line.match(word)
     break if match
   end
-  message_out = false
   unless match
     time_out(10) do
       while line = @h[name][:io].gets
-        puts line
         @h[name][:stdout] << line
-        message_out = line.match(word)
-        if message_out
+        match = line.match(word)
+        if match
           # puts "match:#{word}"
           break
         end
       end
     end
   end
-  message_out.should be_true
+  match.should be_true
 end
 
 ならば /^"([^"]*)"の標準出力からPIDを確認できること$/ do |name|
