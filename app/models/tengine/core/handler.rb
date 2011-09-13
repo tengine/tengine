@@ -31,17 +31,10 @@ class Tengine::Core::Handler
       # TODO: ログ出力する
       # logger.info("id:#{self.id} handler executed own block, source:#{block.source_location}")
       # puts("id:#{self.id} handler execute own block, source:#{block.source_location}")
-      begin
-        @caller.__safety_driver__(self.driver) do
-          @caller.__safety_event__(event) do
-
-    Tengine.logger.debug("@__event__: #{@__event__.inspect}")
-
-            @caller.instance_eval(&block)
-          end
+      @caller.__safety_driver__(self.driver) do
+        @caller.__safety_event__(event) do
+          @caller.instance_eval(&block)
         end
-      rescue Exception => e
-        Tengine.logger.error("exception occurred in #{block.source_location.inspect} [#{e.class.name}] #{e.message}.")
       end
     end
   end

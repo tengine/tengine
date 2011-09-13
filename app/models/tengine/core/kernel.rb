@@ -110,12 +110,7 @@ class Tengine::Core::Kernel
         ack if ack_policy == :at_first
         handlers = find_handlers(event)
         safty_handlers(handlers) do
-          begin
-            delegate(event, handlers)
-          rescue Exception => e
-            puts "[#{e.class.name}] #{e.message}"
-            return
-          end
+          delegate(event, handlers)
           ack if all_submitted?
         end
       end
@@ -173,13 +168,19 @@ class Tengine::Core::Kernel
     before_delegate.call if before_delegate.respond_to?(:call)
     handlers.each do |handler|
       safety_handler(handler) do
-        # block の取得
         block = dsl_env.__block_for__(handler)
-        # イベントハンドラへのディスパッチ
-        # TODO: ログ出力する
-        # logger.info("dispatching the event key:#{event.key} to #{handler.inspect}")
-        # puts("dispatching the event key:#{event.key} to #{handler.inspect}")
-        handler.process_event(event, &block)
+        begin
+          handler.process_event(event, &block)
+        rescue Exception => e
+          dsl_env.fire("#{event.event_type_name}.error.tengined",
+            :properties => {
+              :original_event => event.to_json,
+              :error_class_name => e.class.name,
+              :error_message => e.message,
+              :error_backtrace => e.backtrace,
+              :block_source_location => '%s:%d' % block.source_location,
+            })
+        end
       end
     end
     after_delegate.call if after_delegate.respond_to?(:call)
