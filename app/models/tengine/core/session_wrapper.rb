@@ -6,17 +6,28 @@ class Tengine::Core::SessionWrapper
     @source = source
   end
 
+  def system_properties
+    @source.system_properties
+  end
+
   def [](key)
     @source.properties[key.to_s]
   end
 
   def update(properties)
-    Tengine.logger.debug("*" * 100)
-    Tengine.logger.debug("#{self.inspect}")
-    Tengine.logger.debug("#{properties.inspect}")
-    new_vals = @source.properties.merge(properties.stringify_keys)
-    @source.properties = new_vals
-    @source.save! unless @options[:ignore_update]
+    return if @options[:ignore_update]
+    __update__(:properties, properties)
+  end
+
+  def system_update(properties)
+    __update__(:system_properties, properties)
+  end
+
+  private
+  def __update__(target_name, properties)
+    new_vals = @source.send(target_name).merge(properties.stringify_keys)
+    @source.send("#{target_name}=", new_vals)
+    @source.save!
   end
 
 end
