@@ -33,14 +33,13 @@ class Tengine::Core::SessionWrapper
       idx = 0
       begin
         values = ActiveSupport::HashWithIndifferentAccess.new(__get_properties__(target_name, idx > 0))
-
         yield(values)
         __find_and_modify__(target_name, values)
       rescue Mongo::OperationFailure => e
         idx += 1
         retry if idx <= retry_count
+        raise e
       end
-      # raise "retry over"
     else
       properties = args.first
       new_vals = __get_properties__(target_name).merge(properties.stringify_keys)
