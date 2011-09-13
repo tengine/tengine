@@ -35,7 +35,7 @@
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコンソールプロセス"の起動を行うために"rails s -e test"というコマンドを実行する
+      もし "Tengineコンソールプロセス"の起動を行うために"rails s -e production"というコマンドを実行する
       ならば "Tengineコンソールプロセス"のPIDファイル"./tmp/pids/server.pid"からPIDを確認できること
       かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -63,11 +63,11 @@
       もし "接続テスト"を行うために"bin/tengined -k test -f ./tmp/end_to_end_test/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること 
 
-      もし "DBプロセス"が起動している
-			ならば "DBプロセス"が起動していること
+      もし "DBプロセス"の起動を行うために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
+      ならば "DBプロセス"が起動していること
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -78,22 +78,23 @@
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること 
 
-      もし "キュープロセス"が起動している
-			ならば "キュープロセス"が起動していること
+      もし "キュープロセス"の起動を行うために"rabbitmq-server -detached"というコマンドを実行する
+      ならば "キュープロセス"が起動していること
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
   シナリオ: 3.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_イベント発火を行ったがイベントの受信ができない
-	    # subscribeするキューと、publishするexchengeがバインディングされていない状況をでテストを行う。
-			# 上の状況を設定ファイルで作り出す。具体的にはpublishするexchangeをテスト用に用意し、そちらにメッセージを送信する。
+      # subscribeするキューと、publishするexchengeがバインディングされていない状況をでテストを行う。
+      # 上の状況を設定ファイルで作り出す。具体的にはpublishするexchangeをテスト用に用意し、そちらにメッセージを送信する。
+ 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/timeout_tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"timeout error."と出力されていること 
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -134,7 +135,7 @@
       もし Tengineコアの設定ファイル"./tmp/end_to_end_test/config/invalid_tengine.yml"を修正する
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./tmp/end_to_end_test/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -144,7 +145,7 @@
       ならば "接続テスト"の標準出力に"tengined: invalid option: -Q"と出力されていること
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -158,7 +159,7 @@
       もし Tengineコアの設定ファイル"./tmp/end_to_end_test/config/not_found_tengine.yml"を作成する
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./tmp/end_to_end_test/config/not_found_tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -169,7 +170,7 @@
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -179,7 +180,7 @@
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -190,7 +191,7 @@
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -201,7 +202,7 @@
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config _end_test/config/not_found_tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -211,7 +212,7 @@
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -222,7 +223,7 @@
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -233,7 +234,7 @@
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -244,7 +245,7 @@
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -255,7 +256,7 @@
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -266,7 +267,7 @@
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
@@ -285,9 +286,9 @@
       ならば "Tengineコアプロセス"の標準出力に"can't connect to database."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-			もし "DBプロセス"が起動している
-			ならば 
-			
+      もし "DBプロセス"の起動を行うために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
+      ならば "DBプロセス"が起動していること
+		
       もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -612,14 +613,15 @@
       前提 処理が終了しないイベントハンドラ定義ファイル"./features/usecases/コア/dsls/hang_up.rb"が存在すること
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されていること
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       もし "Tengineコアプロセスの起動"を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./features/usecases/コア/dsls/hung_up.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
-      もし "Tengineコンソールプロセスの起動"を行うために"rails s -e test"というコマンドを実行する
+      もし "Tengineコンソールプロセスの起動"を行うために"rails s -e production"というコマンドを実行する
+      ならば "Tengineコンソールプロセス"のPIDファイル"./tmp/pids/server.pid"からPIDを確認できること
       ならば "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       もし "イベント通知画面"を表示する
@@ -629,7 +631,13 @@
       |種別名  |
       |connection_test|
 
-      もし イベントタイプ名"hung_up"のイベントを発火する
+      もし "種別名"に"hung_up"と入力する
+      かつ "発生源名"に"tengine_console"と入力する
+      かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+      かつ "通知レベル"から"info"を選択する
+      かつ "送信者名"に"tengine_console"と入力する
+      かつ "発火"ボタンをクリックする
+      ならば "hung_upを発火しました"と表示されていること
 			
       かつ "Tengineコアプロセス"を Ctrl+c で停止する
       ならば "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
