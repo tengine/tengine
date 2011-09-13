@@ -170,6 +170,17 @@ end
   process_started.should be_true
 end
 
+# Tengieコアはバックグラウンドで起動している前提です
+前提 /^"([^"]*)"から"([^"]*)"の"起動時刻"を確認する$/ do |file, name|
+  raise "サポート外の定義です。" unless file == "アプリケーションログファイル" && "Tengineコアプロセス"
+  @h ||= {}
+  @h[name] ||= {}
+  pids = tengine_core_process_running_pids
+  raise "#{name}が起動していません" if pids.empty?
+  raise "#{name}が2つ以上起動しています。:pids => #{pids}" if 1 < pids.size
+  @h[name][:start_time] = tengine_core_process_start_time(pids[0]) 
+end
+
 ならば /^"([^"]*)"が起動していること$/ do |name|
   result = ""
   if name == "DBプロセス"
@@ -296,6 +307,20 @@ end
   value = @event_key if value == '"#{イベントキー}"'
   もし %{"#{field}"に"#{value}"と入力する}
 end
+
+# 取得した値を入力する場合に使う
+もし /^"([^"]*)"に"([^"]*)"の"([^"]*)"を入力する$/ do |field, name, value|
+
+  # 発生時刻には入力項目が2つあり、日本語指定では入力できなかったので暫定対応
+  field = "finder_occurred_at_start" if field == "発生時刻(開始)"
+
+  if value == '#{開始時刻}'
+    raise "#{name}の開始時刻が取得できませんでした。" unless @h[name][:start_time]
+    value = @h[name][:start_time].strftime("%Y-%m-%d %H:%M:%S")
+  end 
+  もし %{"#{field}"に"#{value}"と入力する}
+end
+
 
 ならば /^"([^"]*)"に以下の行が表示されること$/ do |arg1, expected_table|
   Then %{I should see the following drivers:}, expected_table
@@ -487,7 +512,30 @@ end
 end
 
 
+def tengine_core_process_pids(status)
+  pids = []
+  command = "bin/tengined -k status | grep #{status} | awk '{print $1}'"
+  IO.popen(command) do |io|
+    pid = io.gets.chomp
+    pids << pid
+  end
+  return pids
+end
 
+def tengine_core_process_running_pids
+  tengine_core_process_pids "running"
+end
+
+def tengine_core_process_start_time(pid)
+  start_time = ""
+  # tengined起動でTengineコアが初めて出力するロガーの初期化を開始としています。
+  startline = "Tengine::Core::Config#setup_loggers complete"
+  command = "cat log/tengined.*_#{pid}_stdout.log | grep '#{startline}' | tail -n 1 | awk '{print $1}'"
+  IO.popen(command) do |io|
+    start_time = io.gets
+  end
+  Time.parse(start_time)
+end
 
 def time_out(time, &block)
   begin
