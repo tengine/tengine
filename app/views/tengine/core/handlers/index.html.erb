@@ -8,6 +8,8 @@
 
 <table>
   <tr>
+    <th><%= Tengine::Core::Handler.human_attribute_name(:filepath) %></th>
+    <th><%= Tengine::Core::Handler.human_attribute_name(:lineno) %></th>
     <th><%= Tengine::Core::Handler.human_attribute_name(:event_type_names) %></th>
     <th></th>
     <th></th>
@@ -16,6 +18,8 @@
 
 <% @handlers.each do |handler| %>
   <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= handler.filepath %></td>
+    <td><%= handler.lineno %></td>
     <td><%= handler.event_type_names_text %></td>
     <td><%= link_to_show [@driver, handler] %></td>
     <td><%= link_to_edit edit_tengine_core_driver_handler_path(@driver, handler) %></td>

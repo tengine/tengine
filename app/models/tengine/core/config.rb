@@ -40,15 +40,15 @@ class Tengine::Core::Config
   def dsl_dir_path
     # RSpecで何度もモックを作らなくていいようにDir.exist?などを最小限にする
     case @dsl_load_path_type
-    when :dir  then dsl_load_path
-    when :file then File.dirname(dsl_load_path)
+    when :dir  then File.expand_path(dsl_load_path)
+    when :file then File.expand_path(File.dirname(dsl_load_path))
     else
       if Dir.exist?(dsl_load_path)
         @dsl_load_path_type = :dir
-        dsl_load_path
+        File.expand_path(dsl_load_path)
       elsif File.exist?(dsl_load_path)
         @dsl_load_path_type = :file
-        File.dirname(dsl_load_path)
+        File.expand_path(File.dirname(dsl_load_path))
       else
         raise Tengine::Core::ConfigError, "file or directory doesn't exist. #{dsl_load_path}"
       end
@@ -85,6 +85,34 @@ class Tengine::Core::Config
     File.exist?(dsl_version_path) ? File.read(dsl_version_path).strip : Time.now.strftime("%Y%m%d%H%M%S")
   end
   memoize :dsl_version
+
+  def relative_path_from_dsl_dir(filepath)
+    path = Pathname.new(filepath)
+    path.relative? ? path.to_s : path.relative_path_from(Pathname.new(dsl_dir_path)).to_s
+  end
+
+  def status_dir
+    self[:tengined][:status_dir]
+  end
+  memoize :status_dir
+
+  def activation_dir
+    self[:tengined][:activation_dir]
+  end
+  memoize :activation_dir
+
+  def confirmation_threshold
+    Tengine::Event::LEVELS_INV[ self[:tengined][:confirmation_threshold].to_sym ]
+  end
+  memoize :confirmation_threshold
+
+  def heartbeat_period
+    self[:tengined][:heartbeat_period].to_i
+  end
+
+  def heartbeat_enabled?
+    heartbeat_period > 0
+  end
 
   def setup_loggers
     stdout_path = log_config(:process_stdout_log)[:output]
@@ -171,9 +199,11 @@ class Tengine::Core::Config
       # :prevent_activator => nil, # デフォルトなし。設定ファイルには記述しない
       :activation_timeout => 300,
       # :load_path => "/var/lib/tengine", # 必須
-      :log_dir        => "./"                        , # 本番環境での例 "/var/log/tengined"
       :pid_dir        => "./tmp/tengined_pids"       , # 本番環境での例 "/var/run/tengined_pids"
+      :status_dir     => "./tmp/tengined_status"     , # 本番環境での例 "/var/run/tengined_status"
       :activation_dir => "./tmp/tengined_activations", # 本番環境での例 "/var/run/tengined_activations"
+      :heartbeat_period => 0, # GRハートビートの送信周期。デフォルトではGRハートビートは無効
+      :confirmation_threshold => 'info' # デフォルトではinfo以下のイベントはイベント登録時に自動でconfirmedがtrueになります
     }.freeze,
 
     :db => {

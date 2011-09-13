@@ -1,11 +1,30 @@
+# -*- coding: utf-8 -*-
 class Tengine::Core::EventsController < ApplicationController
+
   # GET /tengine/core/events
   # GET /tengine/core/events.json
   def index
-    @events = Tengine::Core::Event.all(:sort => [[:_id]]).page(params[:page])
+
+    # 検索ボタン押下の遷移でない且つ、セッション上に検索フォームの情報がある場合は、セッション情報を利用する
+    if params[:commit].blank? && session[:events_finder]
+      @finder = session[:events_finder]
+    else
+      @finder = Tengine::Core::Event::Finder.new(params[:finder] || {}, params[:page])
+      session[:events_finder]  = @finder
+    end
+
+    @events = @finder.paginate
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { 
+        if reflesh?
+          # app/views/layouts/refresh.html.erb で更新間隔として参照しています。
+          @reflesh_interval = reflesh_interval
+          render layout: "refresh"
+        else
+          render
+        end
+      } # index.html.erb
       format.json { render json: @events }
     end
   end
@@ -80,4 +99,18 @@ class Tengine::Core::EventsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  # indexアクション且つ、更新間隔が0以外の場合リフレッシュします。
+  def reflesh?
+    action_name == 'index' && reflesh_interval != 0
+  end
+
+  # パラメータから更新間隔を取り出し数値でかえします。
+  # 有効な値がない場合は0を返します。
+  def reflesh_interval
+    result = 0
+    result = params[:finder][:reflesh_interval].to_i if params[:finder]
+    return result
+  end
+
 end

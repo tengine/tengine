@@ -24,7 +24,7 @@ describe Tengine::Core::EventsController do
   # Tengine::Core::Event. As you add validations to Tengine::Core::Event, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {:level => Tengine::Event::LEVELS_INV[:info]}
   end
 
   describe "GET index" do

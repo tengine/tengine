@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 require 'tengine/core'
 
+class << Tengine
+  attr_accessor :callback_for_test
+end
+
 Tengine.driver :__connection_test_driver__ do
   on :foo do
-    puts "handler foo"
+    Tengine.callback_for_test.call(:foo) if Tengine.callback_for_test
     fire :bar
   end
   on :bar do
-    puts "handler bar"
+    Tengine.callback_for_test.call(:bar) if Tengine.callback_for_test
   end
 end

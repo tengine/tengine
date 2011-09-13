@@ -5,6 +5,13 @@ require 'tengine/event'
 module Tengine::Core::DslBinder
   include Tengine::Core::DslEvaluator
 
+  def ack_policy(policy, *args)
+    args.each{|arg| @__kernel__.add_ack_policy(arg, policy)}
+  end
+
+  def ack?; @__kernel__.ack?; end
+  def submit; @__kernel__.submit; end
+
   def driver(name, options = {}, &block)
     drivers = Tengine::Core::Driver.where(:name => name, :version => config.dsl_version)
     # 指定した version の driver が見つからなかった場合にはデプロイされていないのでエラー
@@ -18,14 +25,18 @@ module Tengine::Core::DslBinder
   end
 
   def on(event_type_name, options = {}, &block)
-    handlers = @__driver__.handlers.where(:event_type_names => [event_type_name.to_s])
-    # 一つの driver で、同じ event_type_name で複数の handler が記述されている場合には、一つの handler として扱い、
-    # block を複数利用できるようにします
-    unless handlers.count == 1
-      raise StandardError, "[DslBinder][error] driver\"#{@__driver__.name}\"には、event_type_name\"#{event_type_name}\"へのhandlerが複数存在します"
+    filepath, lineno = *block.source_location
+    handlers = @__driver__.handlers.where(
+      :filepath => config.relative_path_from_dsl_dir(filepath),
+      :lineno => lineno).to_a
+    # 古い（なのに同じバージョンを使用している）Driverにはないハンドラが登録された場合は開発環境などでは十分ありえる
+    if handlers.empty?
+      # TODO こういう場合の例外は何を投げるべき？
+      raise "Handler not found for #{filepath}:#{lineno}"
     end
-    handler = handlers.first
-    bind_blocks_for_handler_id(handler.id, &block)
+    handlers.each do |handler|
+      __bind_blocks_for_handler_id__(handler, &block)
+    end
   end
 
   def fire(event_type_name, options = {})
