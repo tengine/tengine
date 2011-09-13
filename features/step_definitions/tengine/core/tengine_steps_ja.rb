@@ -501,7 +501,6 @@ def unbind_queue(queue_name, exchange_name, options = {})
   end
 end
 
-=======
 #############
 # pending一覧
 #############
