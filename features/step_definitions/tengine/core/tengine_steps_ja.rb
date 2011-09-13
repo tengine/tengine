@@ -375,6 +375,50 @@ end
   @h[name][:read_lines].grep(/#{text}/).should_not be_empty
 end
 
+# expected_tableに指定された1番目のデータを探し、そこを起点に次のデータを探します。
+# 定義されたデータ間に他のデータがあった場合は読飛ばします。
+#
+# 定義の例：
+#  ならば "Tengineコアプロセスのイベント処理ログファイル"に以下の順で記述されていること
+#    |aaa|
+#    |bbb|
+#    |ccc|
+#
+# OKなログの出力パターン:
+#  1:aaa # <- 起点となる１番目のデータ
+#  2:bbb
+#  3:foo # <- 読飛ばされる
+#  4:ccc
+#
+# NGなログの出力パターン:
+#  1:bbb # <- 起点となるデータの前なので対象外となる
+#  2:aaa # <- 起点となる１番目のデータ
+#  3:ccc
+#
+ならば /^"([^"]*)ファイル"に以下の順で記述されていること$/ do |name, expected_table|
+  raise "指定した列数が多いです。想定の列数は1です。" unless expected_table.headers.size == 1
+  raise "イベントキーが取得できませんでした" unless @event_key
+  expected_lines = []
+  expected_table.each_cells_row do |cells|
+    value = cells.value(0)
+    # イベントキーは置換します
+    expected_lines << value.gsub(/\#{イベントキー}/, @event_key)
+  end
+  actual_lines = []
+  search_lines = expected_lines.dup
+  search_text = search_lines.shift
+  @h[name][:read_lines].each do |line|
+    if line.match(/#{search_text}/)
+      actual_lines << search_text
+      break if search_lines.empty?
+      search_text = search_lines.shift
+    end
+  end
+  # actualの作成では順序を意識しているため、実際は "aaa", "bbb", "ccc" と出力されていても
+  # リストactual_lines は ["aaa"] という内容になります。
+  actual_lines.should == expected_lines
+end
+
 ならば /^"([^"]*)ファイル"に"([^"]*)"と記述されていないこと$/ do |name, text|
   @h[name][:read_lines].grep(/#{text}/).should be_empty
 end
@@ -501,7 +545,6 @@ def unbind_queue(queue_name, exchange_name, options = {})
   end
 end
 
-=======
 #############
 # pending一覧
 #############
