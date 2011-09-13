@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'tengine/core'
 
-Tengine.driver :driver03 do
+driver :driver03 do
 
   # イベントに対して処理Aと処理Bを実行する
 

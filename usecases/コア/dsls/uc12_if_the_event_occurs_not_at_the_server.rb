@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'tengine/core'
 
-Tengine.driver :driver12 do
+driver :driver12 do
 
   # サーバA以外からのイベントが発生した場合のみ処理を実行する
   on :event12.not_at("res:server_a") do

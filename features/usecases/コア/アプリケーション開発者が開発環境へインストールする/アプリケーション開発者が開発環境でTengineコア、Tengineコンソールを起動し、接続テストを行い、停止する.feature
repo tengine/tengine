@@ -607,7 +607,7 @@
   # Tengineコアの停止に失敗
   #####################################
   シナリオ: [異常系]Tengineコアのプロセスの停止に失敗し、強制停止を行う
-      前提 処理が終了しないイベントハンドラ定義ファイル"./features/usecases/コア/dsls/hung_up.rb"が存在すること
+      前提 処理が終了しないイベントハンドラ定義ファイル"./features/usecases/コア/dsls/hang_up.rb"が存在すること
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./feature/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Success!"と出力されていること
@@ -616,8 +616,6 @@
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       もし "Tengineコンソールプロセスの起動"を行うために"rails -e production"というコマンドを実行する
       ならば "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること

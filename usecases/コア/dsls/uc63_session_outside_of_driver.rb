@@ -6,7 +6,7 @@ require 'tengine/core'
 
 session # SyntaxErrorなどではなく、Tengine::Core::DslErrorがraiseされる
 
-Tengine.driver :driver63 do
+driver :driver63 do
 
   on:event63 do
   end
