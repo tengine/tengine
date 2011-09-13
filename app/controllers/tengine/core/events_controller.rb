@@ -7,16 +7,16 @@ class Tengine::Core::EventsController < ApplicationController
 
     # 検索ボタン押下の遷移でない且つ、セッション上に検索フォームの情報がある場合は、セッション情報を利用する
     if params[:commit].blank? && session[:events_finder]
-      @finder = session[:events_finder]
+      @finder = Tengine::Core::Event::Finder.new(session[:events_finder])
     else
-      @finder = Tengine::Core::Event::Finder.new(params[:finder] || {}, params[:page])
-      session[:events_finder]  = @finder
+      @finder = Tengine::Core::Event::Finder.new(params[:finder])
+      session[:events_finder]  = @finder.attributes
     end
 
-    @events = @finder.paginate
+    @events = @finder.paginate(params[:page])
 
     respond_to do |format|
-      format.html { 
+      format.html {
         if reflesh?
           # app/views/layouts/refresh.html.erb で更新間隔として参照しています。
           @reflesh_interval = reflesh_interval
