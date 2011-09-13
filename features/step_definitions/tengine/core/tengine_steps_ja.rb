@@ -43,7 +43,7 @@ end
     io = IO.popen("bin/tengined #{option}")
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
-　elsif name == "DBプロセス"
+  elsif name == "DBプロセス"
     unless system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
       raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
     end
@@ -128,9 +128,8 @@ end
 end
 
 ならば /^"([^"]*)"の標準出力からPIDを確認できること$/ do |name|
-  # TODO Tengineコアをフォアグラウンド起動した際に標準出力が決まっていないので、PIDの取得部分は暫定的に正規表現で数値を引っこ抜いている
   if name == "Tengineコアプロセス"
-    pid_regexp = /(\d+)/
+    pid_regexp = /tengined\<(\d+)\>/
   elsif name == "Tengineコンソールプロセス"
     pid_regexp = /pid=(\d+)/
   end
