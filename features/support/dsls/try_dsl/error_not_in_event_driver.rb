@@ -10,4 +10,4 @@ Tengine.driver :driver01 do
 
 end
 
-raise StandardError, "StandardError out of EventDriver" # ブロック外のStandardError
+File.open("") # ブロック外のStandardError
