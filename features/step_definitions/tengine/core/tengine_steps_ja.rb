@@ -21,11 +21,15 @@ end
     io = IO.popen("bin/tengined")
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
+    pid_regexp = /<(\d+)>/
+    get_pid_from_stdout name,pid_regexp
   end
   if name == "Tengineコンソール"
-    io = IO.popen("rails s -e test")
+    IO.popen("rm -rf ./tmp/pids/server.pid")
+    io = IO.popen("rails s -e production")
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
+    get_pid_from_file(name, "./tmp/pids/server.pid")
   end
   if name == "DBプロセス"
     unless system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
@@ -134,31 +138,14 @@ end
   elsif name == "Tengineコンソールプロセス"
     pid_regexp = /pid=(\d+)/
   end
-  get_pid = false
-  time_out(20) {
-    while line = @h[name][:io].gets
-      @h[name][:stdout] << line
-      get_pid = line.match(pid_regexp)
-      if get_pid then
-        pid = line.match(pid_regexp)[1]
-        @h[name][:pid] = pid
-        break
-      end
-    end
-  }
+  get_pid = get_pid_from_stdout name,pid_regexp
   get_pid.should be_true
 end
 
 ならば /^"([^"]*)"のPIDファイル"([^"]*)"からPIDを確認できること$/ do |name, file_path|
   @h ||= {}
   @h[name] ||= {}
-  while  true
-    sleep 1
-    if File.exist?(file_path) 
-      @h[name][:pid] = `cat #{file_path}`.chomp
-      break
-    end
-  end
+  get_pid_from_file(name,file_path)
   @h[name][:pid].should_not be_empty
 end
 
@@ -597,6 +584,32 @@ def unbind_queue(queue_name, exchange_name, options = {})
       queue = channel.queue(queue_name, options)
       queue.unbind(exchange_name)
       connection.close { EM.stop { exit } }
+    end
+  end
+end
+
+def get_pid_from_stdout(name,pid_regexp)
+  get_pid = false
+  time_out(20) {
+    while line = @h[name][:io].gets
+      @h[name][:stdout] << line
+      get_pid = line.match(pid_regexp)
+      if get_pid then
+        pid = line.match(pid_regexp)[1]
+        @h[name][:pid] = pid
+        break
+      end
+    end
+  }
+  get_pid
+end
+
+def get_pid_from_file(name, file_path)
+  while  true
+    sleep 1
+    if File.exist?(file_path) 
+      @h[name][:pid] = `cat #{file_path}`.chomp
+      break
     end
   end
 end
