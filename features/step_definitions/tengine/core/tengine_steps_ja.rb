@@ -47,7 +47,7 @@ end
     io = IO.popen("bin/tengined #{option}")
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
-　elsif name == "DBプロセス"
+  elsif name == "DBプロセス"
     unless system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
       raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
     end
@@ -119,9 +119,9 @@ end
   unless match
     time_out(20) do
       while line = @h[name][:io].gets
-        @h[name][:stdout] << line
-        match = line.match(word)
-        if match
+         @h[name][:stdout] << line
+         match = line.match(word)
+         if match
           # puts "match:#{word}"
           break
         end
@@ -132,9 +132,8 @@ end
 end
 
 ならば /^"([^"]*)"の標準出力からPIDを確認できること$/ do |name|
-  # TODO Tengineコアをフォアグラウンド起動した際に標準出力が決まっていないので、PIDの取得部分は暫定的に正規表現で数値を引っこ抜いている
   if name == "Tengineコアプロセス"
-    pid_regexp = /<(\d+)>/
+    pid_regexp = /tengined\<(\d+)\>/
   elsif name == "Tengineコンソールプロセス"
     pid_regexp = /pid=(\d+)/
   end
@@ -204,17 +203,17 @@ end
   # cucumberからのテストでforkしたプロセスは、killされた場合にゾンビプロセスが残ってしまうので
   # statusがZのプロセスは省く処理を入れます。
   # よって、指定するps コマンドには"-o stat"というオプションが必須になります。
-  exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z > /dev/null"
+  exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z"
   puts "stop confirm command: #{exec_command}"
-  process_stop = false
+  process_stop = ""
   time_out(5) do
     while true
-      process_stop = system(exec_command)
-      break unless process_stop
+      process_stop = `#{exec_command}`.chomp
+      break if process_stop.empty?
       sleep 1
     end
   end
-  process_stop.should be_false
+  process_stop.should be_empty
 end
 
 ならば /^"([^"]*)"が停止していること$/ do |name|
@@ -242,6 +241,7 @@ end
   pid = @h[name][:pid]
   exec_command = "kill -INT #{pid} > /dev/null"
   #exec_command = "kill -KILL #{pid} > /dev/null"
+  system(exec_command)
   puts "kill commando: #{exec_command}"
 end
 
@@ -249,6 +249,7 @@ end
   pid = @h[name][:pid]
   exec_command = "kill KILL #{pid} > /dev/null"
   system(exec_command)
+  puts "kill commando: #{exec_command}"
 end
 
 もし /^"([^"]*)"が起動していることを"([^"]*)"で確認できる$/ do |arg1, arg2|
@@ -313,11 +314,22 @@ end
 
   if value == '#{開始時刻}'
     raise "#{name}の開始時刻が取得できませんでした。" unless @h[name][:start_time]
-    value = @h[name][:start_time].strftime("%Y-%m-%d %H:%M:%S")
+    value = @h[name][:start_time].strftime(view_time_format)
+  elsif value == '#{イベント発火時刻}'
+    raise "#{name}のイベント発火時刻が取得できませんでした。" unless @h[name][:event_ignition_time]
+    value = @h[name][:event_ignition_time].strftime(view_time_format)
   end 
   もし %{"#{field}"に"#{value}"と入力する}
 end
 
+もし /^"([^"]*)"に"([^"]*)"のイベント発火時刻として現在の時刻を入力し記録しておく$/ do |field, name|
+  @h ||= {}
+  @h[name] ||= {}
+  now = Time.now
+  @h[name][:event_ignition_time] = now
+  value = now.strftime(view_time_format)
+  もし %{"#{field}"に"#{value}"と入力する}
+end
 
 ならば /^"([^"]*)"に以下の行が表示されること$/ do |arg1, expected_table|
   Then %{I should see the following drivers:}, expected_table
@@ -508,6 +520,9 @@ end
    rails "権限の変更に失敗しました" unless system("chmod +r #{path}")
 end
 
+def view_time_format
+  "%Y-%m-%d %H:%M:%S"
+end
 
 def tengine_core_process_pids(status)
   pids = []

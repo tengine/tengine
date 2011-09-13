@@ -21,7 +21,7 @@ module NavigationHelpers
     when /ドライバ一覧/
       tengine_core_drivers_path
     when /イベント発火/
-      new_tengine_core_event_ignitions_path
+      tengine_core_event_ignitions_new_path
     when /イベント新規登録/
       new_tengine_core_event_path
     when /イベント一覧/
