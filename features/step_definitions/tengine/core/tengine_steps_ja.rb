@@ -217,17 +217,17 @@ end
   # cucumberからのテストでforkしたプロセスは、killされた場合にゾンビプロセスが残ってしまうので
   # statusがZのプロセスは省く処理を入れます。
   # よって、指定するps コマンドには"-o stat"というオプションが必須になります。
-  exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z > /dev/null"
+  exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z"
   puts "stop confirm command: #{exec_command}"
-  process_stop = false
+  process_stop = ""
   time_out(5) do
     while true
-      process_stop = system(exec_command)
-      break unless process_stop
+      process_stop = `#{exec_command}`.chomp
+      break if process_stop.empty?
       sleep 1
     end
   end
-  process_stop.should be_false
+  process_stop.should be_empty
 end
 
 ならば /^"([^"]*)"が停止していること$/ do |name|
@@ -255,6 +255,7 @@ end
   pid = @h[name][:pid]
   exec_command = "kill -INT #{pid} > /dev/null"
   #exec_command = "kill -KILL #{pid} > /dev/null"
+  system(exec_command)
   puts "kill commando: #{exec_command}"
 end
 
@@ -262,6 +263,7 @@ end
   pid = @h[name][:pid]
   exec_command = "kill KILL #{pid} > /dev/null"
   system(exec_command)
+  puts "kill commando: #{exec_command}"
 end
 
 もし /^"([^"]*)"が起動していることを"([^"]*)"で確認できる$/ do |arg1, arg2|
