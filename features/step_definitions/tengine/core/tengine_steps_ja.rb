@@ -110,25 +110,27 @@ end
     match = line.match(word)
     break if match
   end
+  message_out = false
   unless match
     time_out(10) do
       while line = @h[name][:io].gets
+        puts line
         @h[name][:stdout] << line
-        match = line.match(word)
-        if match
+        message_out = line.match(word)
+        if message_out
           # puts "match:#{word}"
           break
         end
       end
     end
   end
-  match.should be_true
+  message_out.should be_true
 end
 
 ならば /^"([^"]*)"の標準出力からPIDを確認できること$/ do |name|
   # TODO Tengineコアをフォアグラウンド起動した際に標準出力が決まっていないので、PIDの取得部分は暫定的に正規表現で数値を引っこ抜いている
   if name == "Tengineコアプロセス"
-    pid_regexp = /<(\d+)>/
+    pid_regexp = /PID:(\d+)/
   elsif name == "Tengineコンソールプロセス"
     pid_regexp = /pid=(\d+)/
   end
@@ -316,11 +318,22 @@ end
 
   if value == '#{開始時刻}'
     raise "#{name}の開始時刻が取得できませんでした。" unless @h[name][:start_time]
-    value = @h[name][:start_time].strftime("%Y-%m-%d %H:%M:%S")
+    value = @h[name][:start_time].strftime(view_time_format)
+  elsif value == '#{イベント発火時刻}'
+    raise "#{name}のイベント発火時刻が取得できませんでした。" unless @h[name][:event_ignition_time]
+    value = @h[name][:event_ignition_time].strftime(view_time_format)
   end 
   もし %{"#{field}"に"#{value}"と入力する}
 end
 
+もし /^"([^"]*)"に"([^"]*)"のイベント発火時刻として現在の時刻を入力し記録しておく$/ do |field, name|
+  @h ||= {}
+  @h[name] ||= {}
+  now = Time.now
+  @h[name][:event_ignition_time] = now
+  value = now.strftime(view_time_format)
+  もし %{"#{field}"に"#{value}"と入力する}
+end
 
 ならば /^"([^"]*)"に以下の行が表示されること$/ do |arg1, expected_table|
   Then %{I should see the following drivers:}, expected_table
@@ -511,6 +524,9 @@ end
    rails "権限の変更に失敗しました" unless system("chmod +r #{path}")
 end
 
+def view_time_format
+  "%Y-%m-%d %H:%M:%S"
+end
 
 def tengine_core_process_pids(status)
   pids = []
