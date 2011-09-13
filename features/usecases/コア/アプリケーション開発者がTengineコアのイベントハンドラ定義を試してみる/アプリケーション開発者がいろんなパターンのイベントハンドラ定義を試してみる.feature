@@ -699,3 +699,221 @@
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f tengine.yml -T ./features/support/dsls/try_dsl/dir_11"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+  ######################################
+  # ログファイル
+	# アプリケーションログ     : ./tmp/app.log
+	# プロセスログ(標準)      ： ./tmp/proc_stdout.log
+	# プロセスログ(標準エラー) ： ./tmp/proc_stderr.log
+	# となるようにtengine_log.ymlに設定を行う。
+	# 不正な設定ファイルとしてinvalid_tengine_log.ymlも作成する
+  #####################################
+
+  シナリオ: 1.[正常系]Tengineコアを起動したときのログを確認する
+
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./feature/support/config/tengine_log.yml"というコマンドを実行する
+
+      もし "プロセスログ(標準)ファイル""./tmp/proc_stdout.log"を参照する
+      ならば "プロセスログ(標準)ファイル"に"tengined.0: process with pid PID started."と記述されていること
+
+      もし "Tengineコアプロセス"を Ctrl+c で停止する
+      ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+      もし "Tengineコンソールプロセス"を Ctrl+c で停止する
+      ならば "Tengineコンソールプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+
+
+  シナリオ: 2.[異常系]DBプロセスが起動していないときのログを確認する
+      前提 "DBプロセス"が停止している
+
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./feature/support/config/tengine_log.yml"というコマンドを実行する
+			
+      もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
+      ならば "プロセスログ(標準エラー)ファイル"に"can't connect to database."と記述されていること
+
+
+  シナリオ: 3.[異常系]設定ファイルが不正なときのログを確認する
+      前提 yamlファイルとして不正なTengineコアの設定ファイルinvalid_tengine_log.ymlが存在する
+			
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./feature/support/config/invalid_tengine_log.yml"というコマンドを実行する
+
+      もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
+      ならば "プロセスログ(標準エラー)ファイル"に"Exception occurred when loading configuration file: ./feature/support/config/invalid_tengine_log.yml."と記述されていること
+
+
+  シナリオ: 4.[異常系]起動オプションに存在しないオプションを指定した時のログを確認する
+
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./feature/support/config/tengine_log.yml -Q"というコマンドを実行する
+
+      もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
+      ならば "プロセスログ(標準エラー)ファイル"に"tengined: invalid option: -Q"と記述されていること
+
+
+  シナリオ: 5.[異常系]DBのhostが見つからない時のログを確認する
+
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --process-stderr-log-output ./tmp/proc_stderr.log --db-host xxx"というコマンドを実行する
+
+      もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
+      ならば "プロセスログ(標準エラー)ファイル"に"can't connect to database."と記述されていること
+
+
+  シナリオ: 6.[異常系]DBのhostが見つからない時のログを確認する
+
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --process-stderr-log-output ./tmp/proc_stderr.log --db-port 9999"というコマンドを実行する
+
+      もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
+      ならば "プロセスログ(標準エラー)ファイル"に"can't connect to database."と記述されていること
+
+
+  シナリオ: 7.[異常系]DBのusernameが見つからない時のログを確認する
+
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --process-stderr-log-output ./tmp/proc_stderr.log --db-username xxx"というコマンドを実行する
+
+      もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
+      ならば "プロセスログ(標準エラー)ファイル"に"can't connect to database."と記述されていること
+
+
+  シナリオ: 8.[異常系]DBのpasswordが不正なときのログを確認する
+
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --process-stderr-log-output ./tmp/proc_stderr.log --db-password xxx"というコマンドを実行する
+
+      もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
+      ならば "プロセスログ(標準エラー)ファイル"に"can't connect to database."と記述されていること
+
+
+  シナリオ: 9.[異常系]DBのdatabaseが見つからないときのログを確認する
+
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --process-stderr-log-output ./tmp/proc_stderr.log --db-database xxx"というコマンドを実行する
+
+      もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
+      ならば "プロセスログ(標準エラー)ファイル"に"can't connect to database."と記述されていること
+
+
+  シナリオ: 10.[異常系]_loadで--tengined-load-pathを指定していないときのログを確認する
+
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k load  --process-stderr-log-output ./tmp/proc_stderr.log"というコマンドを実行する
+
+      もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
+      ならば "プロセスログ(標準エラー)ファイル"に"--tengined-load-path is required if --action load specified."と記述されていること
+
+
+  シナリオ: 11.[異常系]_startで--tengined-load-pathを指定していないときのログを確認する
+
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start  --process-stderr-log-output ./tmp/proc_stderr.log"というコマンドを実行する
+
+      もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
+      ならば "プロセスログ(標準エラー)ファイル"に"--tengined-load-path is required if --action start specified."と記述されていること
+
+			
+  シナリオ: 12.[異常系]_enabelで--tengined-load-pathを指定していないときのログを確認する
+
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k enable  --process-stderr-log-output ./tmp/proc_stderr.log"というコマンドを実行する
+			
+      もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
+      ならば "プロセスログ(標準エラー)ファイル"に"--tengined-load-path is required if --action enable specified."と記述されていること
+			
+			
+  シナリオ: 13.[異常系]_stopで--tengined-load-pathを指定していないときのログを確認する
+
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k stop  --process-stderr-log-output ./tmp/proc_stderr.log"というコマンドを実行する
+			
+      もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
+      ならば "プロセスログ(標準エラー)ファイル"に"--tengined-load-path is required if --action stop specified."と記述されていること
+
+
+  シナリオ: 14.[異常系]_force-stopで--tengined-load-pathを指定していないときのログを確認する
+
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k force-stop  --process-stderr-log-output ./tmp/proc_stderr.log"というコマンドを実行する
+
+      もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
+      ならば "プロセスログ(標準エラー)ファイル"に"--tengined-load-path is required if --action force-stop specified."と記述されていること
+
+
+  シナリオ: 15.[正常系]存在しないイベントハンドラ定義ファイルを指定したときのログを確認する
+    前提 イベントハンドラ定義ファイル"./features/support/dsls/try_dsl/dsl_not_exist.rb"が存在しないこと
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./feature/support/config/tengine_log.yml -T ./features/support/dsls/try_dsl/dsl_not_exist.rb"というコマンドを実行する
+
+    もし "アプリケーションログファイル""./tmp/app.log"を参照する
+    ならば "アプリケーションログファイル"に"./features/support/dsls/try_dsl/dsl_not_exist.rb is not found."と記述されていること
+
+
+  シナリオ: 16.[正常系]存在しないディレクトリを指定したときのログを確認する
+    前提 イベントハンドラ定義ファイル"./features/support/dsls/try_dsl/dir_not_exist"が存在しないこと
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./feature/support/config/tengine_log.yml -T ./features/support/dsls/try_dsl/dir_not_exist"というコマンドを実行する
+		
+    もし "アプリケーションログファイル""./tmp/app.log"を参照する
+    ならば "アプリケーションログファイル"に"./features/support/dsls/try_dsl/dir_not_exist is not found."と記述されていること
+		
+
+  シナリオ: 17.[正常系]読込権限がないイベントハンドラ定義ファイルを指定したときのログを確認する
+    前提 イベントハンドラ定義ファイル"./features/support/dsls/try_dsl/dir_7/dsl_f_unreadable.rb"が存在すること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./feature/support/config/tengine_log.yml -T ./features/support/dsls/try_dsl/dir_7/dsl_f_unreadable.rb"というコマンドを実行する
+		
+    もし "アプリケーションログファイル""./tmp/app.log"を参照する
+    ならば "アプリケーションログファイル"に"permission denied."と記述されていること
+
+
+  シナリオ: 18.[正常系]読込権限がないディレクトリを指定したときのログを確認する
+    前提 イベントハンドラ定義ファイル"./features/support/dsls/try_dsl/dir_8/dir_9_unreadable"が存在すること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./feature/support/config/tengine_log.yml -T ./features/support/dsls/try_dsl/dir_8/dir_9_unreadable"というコマンドを実行する
+		
+    もし "アプリケーションログファイル""./tmp/app.log"を参照する
+    ならば "アプリケーションログファイル"に"permission denied."と記述されていること
+
+		
+  シナリオ: 19.[正常系]イベントドライバ内に一般的なエラーとなるイベントハンドラ定義ファイルを指定したときのログを確認する
+    前提 イベントハンドラ定義ファイル"./features/support/dsls/try_dsl/error_in_event_driver.rb"が存在すること
+   
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./feature/support/config/tengine_log.yml -T ./features/support/dsls/try_dsl/error_in_event_driver.rb"というコマンドを実行する
+
+    もし "アプリケーションログファイル""./tmp/app.log"を参照する
+    ならば "アプリケーションログファイル"に"exception occured. No such file or directory - "と記述されていること
+
+  シナリオ: 20.[正常系]イベントドライバ外に一般的なエラーとなるイベントハンドラ定義ファイルを指定したときのログを確認する
+    前提 イベントハンドラ定義ファイル"./features/support/dsls/try_dsl/error_not_in_event_driver.rb"が存在すること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./feature/support/config/tengine_log.yml -T ./features/support/dsls/try_dsl/error_not_in_event_driver.rb"というコマンドを実行する
+
+    もし "アプリケーションログファイル""./tmp/app.log"を参照する
+    ならば "アプリケーションログファイル"に"exception occured. No such file or directory - "と記述されていること
+
+
+  シナリオ: 21.[正常系]submitをイベントハンドラ外で使用するイベントハンドラ定義ファイルを指定したときのログを確認する
+    前提 イベントハンドラ定義ファイル"./features/support/dsls/uc53_submit_outside_of_handler.rb"が存在すること
+   
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./feature/support/config/tengine_log.yml -T ./features/support/dsls/uc53_submit_outside_of_handler.rb"というコマンドを実行する
+
+    もし "アプリケーションログファイル""./tmp/app.log"を参照する
+    ならば "アプリケーションログファイル"に"submit is not available outside of event handler block."と記述されていること
+
+
+  シナリオ: 22.[正常系]eventをイベントハンドラ外で使用するイベントハンドラ定義ファイルを指定したときのログを確認する
+    前提 イベントハンドラ定義ファイル"./features/support/dsls/uc61_event_outside_of_handler.rb"が存在すること
+   
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./feature/support/config/tengine_log.yml -T ./features/support/dsls/uc61_event_outside_of_handler.rb"というコマンドを実行する
+		
+    もし "アプリケーションログファイル""./tmp/app.log"を参照する
+    ならば "アプリケーションログファイル"に"event is not available outside of event handler block."と記述されていること
+
+
+  シナリオ: 23.[正常系]sessionをイベントドライバ外で使用するイベントハンドラ定義ファイルを指定したときのログを確認する
+    前提 イベントハンドラ定義ファイル"./features/support/dsls/uc63_session_outside_of_driver.rb"が存在すること
+   
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./feature/support/config/tengine_log.yml -T ./features/support/dsls/uc63_session_outside_of_driver.rb"というコマンドを実行する
+
+    もし "アプリケーションログファイル""./tmp/app.log"を参照する
+    ならば "アプリケーションログファイル"に"session is not available outside of event driver block."と記述されていること
+
+
+  シナリオ: 24.[正常系]アプリケーション開発者がシンタックスエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
+    前提 イベントハンドラ定義ファイル"./features/support/dsls/try_dsls/syntax_error.rb"が存在すること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./feature/support/config/tengine_log.yml -T ./features/support/dsls/try_dsl/syntax_error.rb"というコマンドを実行する
+
+    もし "アプリケーションログファイル""./tmp/app.log"を参照する
+    ならば "アプリケーションログファイル"に"syntax error"と記述されていること
+
