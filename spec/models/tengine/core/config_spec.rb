@@ -18,6 +18,17 @@ describe Tengine::Core::Config do
     end
   end
 
+  context "デフォルト" do
+    subject do
+      Tengine::Core::Config.new
+    end
+    its(:status_dir){ should == "./tmp/tengined_status" }
+    its(:activation_dir){ should == "./tmp/tengined_activations" }
+
+    its(:confirmation_threshold){ should == Tengine::Event::LEVELS_INV[:info] }
+    its(:heartbeat_enabled?){ should == false }
+  end
+
   context "ディレクトリ指定の設定ファイル" do
     subject do
       Tengine::Core::Config.new(:config => File.expand_path("config_spec/config_with_dir_load_path.yml", File.dirname(__FILE__)))
@@ -27,9 +38,11 @@ describe Tengine::Core::Config do
         'daemon' => true,
         "activation_timeout" => 300,
         "load_path" => "/var/lib/tengine",
-        "log_dir" => "/var/log/tengined",
         "pid_dir" => "/var/run/tengined_pids",
+        "status_dir" => "/var/run/tengined_status",
         "activation_dir" => "/var/run/tengined_activations",
+        "heartbeat_period" => 600,
+        "confirmation_threshold" => "warn",
       }
       subject[:tengined].should == expected
       subject['tengined'].should == expected
@@ -39,6 +52,24 @@ describe Tengine::Core::Config do
       subject['event_queue']['connection']['host'].should == "localhost"
       subject[:event_queue][:queue][:name].should == "tengine_event_queue2"
       subject['event_queue']['queue']['name'].should == "tengine_event_queue2"
+    end
+    its(:heartbeat_enabled?){ should == true }
+
+    describe :relative_path_from_dsl_dir do
+      it "絶対パスが指定されるとdsl_dir_pathからの相対パスを返します" do
+        Dir.should_receive(:exist?).with("/var/lib/tengine").and_return(true)
+        subject.relative_path_from_dsl_dir("/var/lib/tengine/foo/bar").should == "foo/bar"
+      end
+
+      it "相対パスが指定されると（計算のしようがないので）そのまま返します" do
+        subject.relative_path_from_dsl_dir("lib/tengine/foo/bar").should == "lib/tengine/foo/bar"
+      end
+    end
+
+    describe :confirmation_threshold do
+      it "--tengined-confirmation-levelで設定した値を数値に変換する" do
+        subject.confirmation_threshold.should == Tengine::Event::LEVELS_INV[:warn]
+      end
     end
 
     context "ディレクトリが存在する場合" do
@@ -122,14 +153,28 @@ describe Tengine::Core::Config do
         'daemon' => true,
         "activation_timeout" => 300,
         "load_path" => "/var/lib/tengine/init.rb",
-        "log_dir" => "/var/log/tengined",
         "pid_dir" => "/var/run/tengined_pids",
+        "status_dir" => "/var/run/tengined_status",
         "activation_dir" => "/var/run/tengined_activations",
+        "heartbeat_period" => 600,
+        "confirmation_threshold" => "warn",
       }
       subject[:tengined].should == expected
       subject['tengined'].should == expected
       subject[:tengined]['load_path'].should == "/var/lib/tengine/init.rb"
       subject[:tengined][:load_path].should == "/var/lib/tengine/init.rb"
+    end
+
+    describe :relative_path_from_dsl_dir do
+      it "絶対パスが指定されるとdsl_dir_pathからの相対パスを返します" do
+        Dir.should_receive(:exist?).with("/var/lib/tengine/init.rb").and_return(false)
+        File.should_receive(:exist?).with("/var/lib/tengine/init.rb").and_return(true)
+        subject.relative_path_from_dsl_dir("/var/lib/tengine/foo/bar").should == "foo/bar"
+      end
+
+      it "相対パスが指定されると（計算のしようがないので）そのまま返します" do
+        subject.relative_path_from_dsl_dir("lib/tengine/foo/bar").should == "lib/tengine/foo/bar"
+      end
     end
 
     context "ファイルが存在する場合" do
@@ -212,7 +257,7 @@ describe Tengine::Core::Config do
       subject.object_id.should_not == @source.object_id
       subject[:action].object_id.should_not == @source[:action].object_id
       subject[:tengined].object_id.should_not == @source[:tengined].object_id
-      subject[:tengined][:log_dir].object_id.should_not == @source[:tengined][:log_dir].object_id
+      subject[:tengined][:pid_dir].object_id.should_not == @source[:tengined][:pid_dir].object_id
       subject[:event_queue].object_id.should_not == @source[:event_queue].object_id
       subject[:event_queue][:connection].object_id.should_not == @source[:event_queue][:connection].object_id
       subject[:event_queue][:connection][:host].object_id.should_not == @source[:event_queue][:connection][:host].object_id

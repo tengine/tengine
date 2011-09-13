@@ -2,14 +2,58 @@
 
 <p id="notice"><%= notice %></p>
 
+<%= form_for(:finder, :html => {:method => :get}) do |f| %>
+<table>
+ <tr>
+  <th style="text-align:right"><%= f.label :event_type_name, Tengine::Core::Event.human_attribute_name(:event_type_name) %></th>
+  <td style="text-align:left;"><%= f.text_field :event_type_name %></td>
+ </tr>
+ <tr>
+  <th style="text-align:right"><%= f.label :key, Tengine::Core::Event.human_attribute_name(:key) %></th>
+  <td style="text-align:left;"><%= f.text_field :key %></td>
+ </tr>
+ <tr>
+  <th style="text-align:right"><%= f.label :source_name, Tengine::Core::Event.human_attribute_name(:source_name) %></th>
+  <td style="text-align:left;"><%= f.text_field :source_name %></td>
+ </tr>
+  <tr>
+  <th style="text-align:right"><%= f.label :occurred_at, Tengine::Core::Event.human_attribute_name(:occurred_at) %></th>
+  <td style="text-align:left;">
+    <%= f.text_field :occurred_at_start, :style=>"width:12em;" %> -
+    <%= f.text_field :occurred_at_end  , :style=>"width:12em;" %>
+  </td>
+ </tr>
+ <tr>
+  <th style="text-align:right"><%= f.label :level, Tengine::Core::Event.human_attribute_name(:level) %></th>
+  <td style="text-align:left;"><%= f.check_box_group :level %></td>
+ </tr>
+ <tr>
+  <th style="text-align:right"><%= f.label :confirmed, Tengine::Core::Event.human_attribute_name(:confirmed) %></th>
+  <td style="text-align:left;"><%= f.text_field :confirmed %></td>
+ </tr>
+ <tr>
+  <th style="text-align:right"><%= f.label :sender_name, Tengine::Core::Event.human_attribute_name(:sender_name) %></th>
+  <td style="text-align:left;"><%= f.text_field :sender_name %></td>
+ </tr>
+ <tr>
+  <th style="text-align:right"><%= f.label :reflesh_interval, "リフレッシュ間隔(秒)" %></th>
+  <td style="text-align:left;"><%= f.text_field :reflesh_interval %>  ※指定した間隔で画面をリフレッシュします。0もしくは、空欄の場合リフレッシュしません。</td>
+ </tr>
+ <tr>
+  <td colspan="2"><%= f.submit '検索', :id => 'input-submit' %></td>
+ </tr>
+</table>
+<% end %>
+
+
 <table>
   <tr>
     <th><%= Tengine::Core::Event.human_attribute_name(:event_type_name) %></th>
     <th><%= Tengine::Core::Event.human_attribute_name(:key) %></th>
     <th><%= Tengine::Core::Event.human_attribute_name(:source_name) %></th>
     <th><%= Tengine::Core::Event.human_attribute_name(:occurred_at) %></th>
-    <th><%= Tengine::Core::Event.human_attribute_name(:notification_level) %></th>
-    <th><%= Tengine::Core::Event.human_attribute_name(:notification_confirmed) %></th>
+    <th><%= Tengine::Core::Event.human_attribute_name(:level) %></th>
+    <th><%= Tengine::Core::Event.human_attribute_name(:confirmed) %></th>
     <th><%= Tengine::Core::Event.human_attribute_name(:sender_name) %></th>
     <th><%= Tengine::Core::Event.human_attribute_name(:properties) %></th>
     <th></th>
@@ -22,9 +66,9 @@
     <td><%= event.event_type_name %></td>
     <td><%= event.key %></td>
     <td><%= event.source_name %></td>
-    <td><%= event.occurred_at %></td>
-    <td><%= event.notification_level %></td>
-    <td><%= event.notification_confirmed %></td>
+    <td><%= event.occurred_at if event.occurred_at %></td>
+    <td><%= event.level %></td>
+    <td><%= event.confirmed %></td>
     <td><%= event.sender_name %></td>
     <td><pre><%= event.properties_yaml %></pre></td>
     <td><%= link_to_show event %></td>

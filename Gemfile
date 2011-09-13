@@ -6,13 +6,15 @@ gem 'rails', '~> 3.1'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
+gem "selectable_attr", "~> 0.3"
+gem "selectable_attr_rails", "~> 0.3"
 
 gem "mongoid", "~> 2.2"
 gem "bson_ext", "~> 1.3"
 
 gem "kaminari", "~> 0.12"
 
-gem "tengine_event", "~> 0.1"
+gem "tengine_event", "~> 0.2"
 
 gem "daemons", "~> 1.1"
 
@@ -55,3 +57,6 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
+gem 'capistrano'
+gem 'capistrano-ext'
+gem 'capistrano_colors'

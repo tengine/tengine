@@ -17,8 +17,9 @@ module Tengine::Core::MethodTraceable
           disabled = Tengine::Core::MethodTraceable.disabled
           begin
             Tengine::Core::stdout_logger.info("\#{self.class.name}##{symbol} called") unless disabled
-            #{original_method}(*args, &block)
+            result = #{original_method}(*args, &block)
             Tengine::Core::stdout_logger.info("\#{self.class.name}##{symbol} complete") unless disabled
+            return result
           rescue Exception => e
             unless e.instance_variable_get(:@__traced__) || disabled
               Tengine::Core::stderr_logger.error("\#{self.class.name}##{symbol} failure. [\#{e.class.name}] \#{e.message}\n  " << e.backtrace.join("\n  "))

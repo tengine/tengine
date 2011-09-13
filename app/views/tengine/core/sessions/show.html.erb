@@ -8,8 +8,18 @@
 </p>
 
 <p>
+  <b><%= Tengine::Core::Session.human_attribute_name(:lock_version) %>:</b>
+  <%= @session.lock_version %>
+</p>
+
+<p>
   <b><%= Tengine::Core::Session.human_attribute_name(:properties) %>:</b>
   <pre><%= @session.properties_yaml %></pre>
+</p>
+
+<p>
+  <b><%= Tengine::Core::Session.human_attribute_name(:system_properties) %>:</b>
+  <pre><%= @session.system_properties_yaml %></pre>
 </p>
 
 

@@ -12,8 +12,16 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :lock_version %><br />
+    <%= f.number_field :lock_version %>
+  </div>
+  <div class="field">
     <%= f.label :properties_yaml %><br />
     <%= f.text_area :properties_yaml %>
+  </div>
+  <div class="field">
+    <%= f.label :system_properties_yaml %><br />
+    <%= f.text_area :system_properties_yaml %>
   </div>
   <div class="actions">
     <%= f.submit %>
