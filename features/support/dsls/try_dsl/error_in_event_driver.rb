@@ -8,6 +8,6 @@ Tengine.driver :driver01 do
     puts "handler01"
   end
 
-  raise StandardError, "StandardError in EventDriver" # ブロック内のStandardError
+  File.open("") # ブロック内のStandardError
 
 end
