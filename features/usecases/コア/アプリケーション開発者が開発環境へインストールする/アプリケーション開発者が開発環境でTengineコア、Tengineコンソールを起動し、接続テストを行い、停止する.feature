@@ -35,8 +35,9 @@
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコンソールプロセス"の起動を行うために"rails -e production"というコマンドを実行する
-      ならば "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+      もし "Tengineコンソールプロセス"の起動を行うために"rails s -e test"というコマンドを実行する
+      ならば "Tengineコンソールプロセス"のPIDファイル"./tmp/pids/server.pid"からPIDを確認できること
+      かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       もし "イベント通知画面"を表示する
       ならば "イベント通知画面"を表示していること
@@ -617,7 +618,7 @@
       ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
-      もし "Tengineコンソールプロセスの起動"を行うために"rails -e production"というコマンドを実行する
+      もし "Tengineコンソールプロセスの起動"を行うために"rails s -e test"というコマンドを実行する
       ならば "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       もし "イベント通知画面"を表示する
