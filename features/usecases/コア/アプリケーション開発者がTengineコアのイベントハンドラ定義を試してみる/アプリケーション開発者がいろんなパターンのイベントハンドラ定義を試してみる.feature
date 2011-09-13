@@ -888,7 +888,7 @@
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./feature/support/config/tengine_log.yml -T ./features/support/dsls/uc53_submit_outside_of_handler.rb"というコマンドを実行する
 
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
-    ならば "アプリケーションログファイル"に"exception occured. submit is not available outside of event handler block."と記述されていること
+    ならば "アプリケーションログファイル"に"submit is not available outside of event handler block."と記述されていること
 
 
   シナリオ: 22.[正常系]eventをイベントハンドラ外で使用するイベントハンドラ定義ファイルを指定したときのログを確認する
@@ -897,7 +897,7 @@
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./feature/support/config/tengine_log.yml -T ./features/support/dsls/uc61_event_outside_of_handler.rb"というコマンドを実行する
 		
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
-    ならば "アプリケーションログファイル"に"exception occured. event is not available outside of event handler block."と記述されていること
+    ならば "アプリケーションログファイル"に"event is not available outside of event handler block."と記述されていること
 
 
   シナリオ: 23.[正常系]sessionをイベントドライバ外で使用するイベントハンドラ定義ファイルを指定したときのログを確認する
@@ -906,7 +906,7 @@
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./feature/support/config/tengine_log.yml -T ./features/support/dsls/uc63_session_outside_of_driver.rb"というコマンドを実行する
 
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
-    ならば "アプリケーションログファイル"に"exception occured. session is not available outside of event driver block."と記述されていること
+    ならば "アプリケーションログファイル"に"session is not available outside of event driver block."と記述されていること
 
 
   シナリオ: 24.[正常系]アプリケーション開発者がシンタックスエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
