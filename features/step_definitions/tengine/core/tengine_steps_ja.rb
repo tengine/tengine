@@ -112,27 +112,25 @@ end
     match = line.match(word)
     break if match
   end
-  message_out = false
   unless match
     time_out(20) do
       while line = @h[name][:io].gets
-        puts line
-        @h[name][:stdout] << line
-        message_out = line.match(word)
-        if message_out
+         @h[name][:stdout] << line
+         match = line.match(word)
+         if match
           # puts "match:#{word}"
           break
         end
       end
     end
   end
-  message_out.should be_true
+  match.should be_true
 end
 
 ならば /^"([^"]*)"の標準出力からPIDを確認できること$/ do |name|
   # TODO Tengineコアをフォアグラウンド起動した際に標準出力が決まっていないので、PIDの取得部分は暫定的に正規表現で数値を引っこ抜いている
   if name == "Tengineコアプロセス"
-    pid_regexp = /PID:(\d+)/
+    pid_regexp = /(\d+)/
   elsif name == "Tengineコンソールプロセス"
     pid_regexp = /pid=(\d+)/
   end
