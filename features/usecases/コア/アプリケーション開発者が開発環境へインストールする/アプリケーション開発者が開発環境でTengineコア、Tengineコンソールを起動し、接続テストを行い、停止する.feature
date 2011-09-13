@@ -33,7 +33,7 @@
 
       もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+      かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       もし "Tengineコンソールプロセス"の起動を行うために"rails s -e production"というコマンドを実行する
       ならば "Tengineコンソールプロセス"のPIDファイル"./tmp/pids/server.pid"からPIDを確認できること
@@ -41,10 +41,10 @@
 
       もし "イベント通知画面"を表示する
       ならば "イベント通知画面"を表示していること
-      ならば 以下の行が表示されること
-      | 種別名             |
-      | bar             |
-      | foo             |
+      かつ 以下の行が表示されること
+      | 種別名 |
+      | bar   |
+      | foo   |
 
       もし "Tengineコアプロセス"を Ctrl+c で停止する
       ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
