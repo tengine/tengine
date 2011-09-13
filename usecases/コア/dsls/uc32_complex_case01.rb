@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'tengine/core'
 
-Tengine.driver :driver32 do
+driver :driver32 do
 
   # サーバAからのイベントAが2回以上発生、かつサーバBからのイベントBが３回発生した場合に処理を実行する
 

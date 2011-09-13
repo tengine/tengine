@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'tengine/core'
 
-Tengine.driver :driver06 do
+driver :driver06 do
 
   # イベントがN回発生してからずっと処理を実行する
   #

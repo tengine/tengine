@@ -8,7 +8,7 @@ ack_policy(:at_first, :event50)
 driver :driver50 do
 
   on:event50 do
-    puts "handler50"
+    puts "handler50 " << (ack? ? "acknowledged" : "unacknowledged")
     submit # submitしても無視されます
   end
 
