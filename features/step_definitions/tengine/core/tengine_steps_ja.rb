@@ -302,14 +302,14 @@ end
 end
 
 ならば /^以下の行が表示されること$/ do |expected_table|
-  actual = tableish('table tr', 'td,th')
+  actual = tableish('table.list tr', 'td,th')
   expected_table.diff!(actual, :surplus_row => false)
 end
 
 ならば /^一件も表示されていないこと$/ do
   # イベントドライバ一覧のテーブルを取得
   # actual.class # => Array
-  actual = tableish('table tr', 'td,th')
+  actual = tableish('table.list tr', 'td,th')
   # ヘッダのみとれるのsizeは1になる
   actual.size.should == 1
 end
@@ -318,7 +318,7 @@ end
 ならば /^一件以上表示されていること$/ do
   # イベントドライバ一覧のテーブルを取得
   # actual.class # => Array
-  actual = tableish('table tr', 'td,th')
+  actual = tableish('table.list tr', 'td,th')
   # ヘッダが含まれるのでsizeは1より多くなるべき
   actual.size.should > 1
 end
@@ -326,7 +326,7 @@ end
 ならば /^一件表示されていること$/ do
   # イベントドライバ一覧のテーブルを取得
   # actual.class # => Array
-  actual = tableish('table tr', 'td,th')
+  actual = tableish('table.list tr', 'td,th')
   # ヘッダが含まれるのでsizeは2になるべき
   actual.size.should == 2
 end
