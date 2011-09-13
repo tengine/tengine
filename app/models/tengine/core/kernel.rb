@@ -171,6 +171,7 @@ class Tengine::Core::Kernel
         begin
           handler.process_event(event, &block)
         rescue Exception => e
+          Tengine.logger.debug("[#{e.class.name}] #{e.message}\n  " << e.backtrace.join("\n  "))
           dsl_env.fire("#{event.event_type_name}.error.tengined",
             :properties => {
               :original_event => event.to_json,
