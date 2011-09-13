@@ -45,5 +45,8 @@ module Tengine::Core::DslLoader
     @__session_wrapper__ ||= Tengine::Core::SessionWrapper.new(@__session__)
   end
 
+  def submit
+    raise Tengine::Core::DslError, "submit is not available outside of event handler block."
+  end
 
 end

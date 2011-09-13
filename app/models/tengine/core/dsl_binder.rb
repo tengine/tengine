@@ -9,9 +9,6 @@ module Tengine::Core::DslBinder
     args.each{|arg| @__kernel__.add_ack_policy(arg, policy)}
   end
 
-  def ack?; @__kernel__.ack?; end
-  def submit; @__kernel__.submit; end
-
   def driver(name, options = {}, &block)
     drivers = Tengine::Core::Driver.where(:name => name, :version => config.dsl_version)
     # 指定した version の driver が見つからなかった場合にはデプロイされていないのでエラー
@@ -64,5 +61,15 @@ module Tengine::Core::DslBinder
       raise "no evnet"
     end
   end
+
+  def ack?
+    @__kernel__.ack?
+  end
+
+  def submit
+    raise Tengine::Core::DslError, "submit is not available outside of event handler block." unless @__kernel__.processing_event?
+    @__kernel__.submit
+  end
+
 
 end
