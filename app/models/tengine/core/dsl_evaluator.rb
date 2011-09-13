@@ -12,6 +12,15 @@ module Tengine::Core::DslEvaluator
     end
   end
 
+  def __safety_event__(event)
+    @__event__ = event
+    begin
+      yield if block_given?
+    ensure
+      @__event__ = nil
+    end
+  end
+
   def __safety_driver__(driver)
     @__driver__ = driver
     @__session__ = driver.session

@@ -57,4 +57,12 @@ module Tengine::Core::DslBinder
     end
   end
 
+  def event
+    if @__kernel__.processing_event?
+      @__session_in_processing_event__ ||= Tengine::Core::EventWrapper.new(@__event__)
+    else
+      raise "no evnet"
+    end
+  end
+
 end

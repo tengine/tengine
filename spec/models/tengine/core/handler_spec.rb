@@ -18,6 +18,7 @@ describe Tengine::Core::Handler do
       end
       # @handler.should_receive(:instance_eval).with(&mock_block)
       mock_caller.should_receive(:__safety_driver__).and_yield
+      mock_caller.should_receive(:__safety_event__).and_yield
       mock_caller.should_receive(:instance_eval)
       @handler.process_event(mock_event, &mock_block)
     end
