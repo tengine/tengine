@@ -127,8 +127,7 @@ class Tengine::Core::Kernel
     EM.defer do
       @heartbeat_timer = EM.add_periodic_timer(config.heartbeat_period) do
         Tengine::Core.stdout_logger.debug("sending heartbeat") if config[:verbose]
-        @sender ||= Tengine::Event::Sender.new(mq)
-        @sender.fire(GR_HEARTBEAT_EVENT_TYPE_NAME, GR_HEARTBEAT_ATTRIBUTES.dup)
+        sender.fire(GR_HEARTBEAT_EVENT_TYPE_NAME, GR_HEARTBEAT_ATTRIBUTES.dup)
       end
     end
   end
@@ -211,6 +210,10 @@ class Tengine::Core::Kernel
     @status_filepath ||= File.expand_path("tengined_#{Process.pid}.status", config.status_dir)
     @status = status
     File.open(@status_filepath, "w"){|f| f.write(status.to_s)}
+  end
+
+  def sender
+    @sender ||= Tengine::Event::Sender.new(mq)
   end
 
   def mq
