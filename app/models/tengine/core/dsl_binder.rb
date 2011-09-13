@@ -46,6 +46,7 @@ module Tengine::Core::DslBinder
   end
 
   def session
+    raise Tengine::Core::DslError, "session is not available outside of event driver block." unless @__session__
     if @__kernel__.processing_event?
       @__session_in_processing_event__ ||= Tengine::Core::SessionWrapper.new(@__session__)
     else
@@ -55,11 +56,8 @@ module Tengine::Core::DslBinder
   end
 
   def event
-    if @__kernel__.processing_event?
-      @__session_in_processing_event__ ||= Tengine::Core::EventWrapper.new(@__event__)
-    else
-      raise Tengine::Core::DslError, "event is not available outside of event handler block."
-    end
+    raise Tengine::Core::DslError, "event is not available outside of event handler block." unless @__kernel__.processing_event?
+    @__session_in_processing_event__ ||= Tengine::Core::EventWrapper.new(@__event__)
   end
 
   def ack?

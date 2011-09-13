@@ -42,15 +42,16 @@ module Tengine::Core::DslLoader
   end
 
   def session
+    raise Tengine::Core::DslError, "session is not available outside of event driver block." unless @__session__
     @__session_wrapper__ ||= Tengine::Core::SessionWrapper.new(@__session__)
-  end
-
-  def submit
-    raise Tengine::Core::DslError, "submit is not available outside of event handler block."
   end
 
   def event
     raise Tengine::Core::DslError, "event is not available outside of event handler block."
+  end
+
+  def submit
+    raise Tengine::Core::DslError, "submit is not available outside of event handler block."
   end
 
 
