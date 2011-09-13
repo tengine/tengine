@@ -35,4 +35,15 @@ module Tengine::Core::DslEvaluator
       remove_method(:&, :and)
     end
   end
+
+  def __safety_driver__(driver)
+    @__driver__ = driver
+    @__session__ = driver.session
+    begin
+      yield if block_given?
+    ensure
+      @__driver__ = nil
+      @__session__ = nil
+    end
+  end
 end

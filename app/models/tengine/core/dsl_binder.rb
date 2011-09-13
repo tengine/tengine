@@ -15,13 +15,13 @@ module Tengine::Core::DslBinder
   def driver(name, options = {}, &block)
     drivers = Tengine::Core::Driver.where(:name => name, :version => config.dsl_version)
     # 指定した version の driver が見つからなかった場合にはデプロイされていないのでエラー
-    if drivers.count == 1
-      @__driver__ = drivers.first
-      yield if block_given?
+    driver = drivers.first
+    if driver
+      __safety_driver__(driver, &block)
     else
       raise Tengine::Core::VersionError, "version mismatch. #{config.dsl_version}"
     end
-    @__driver__
+    driver
   end
 
   def on(event_type_name, options = {}, &block)
@@ -47,4 +47,14 @@ module Tengine::Core::DslBinder
     }
     Tengine::Event.fire(event_type_name, options)
   end
+
+  def session
+    if @__kernel__.processing_event?
+      @__session_in_processing_event__ ||= Tengine::Core::SessionWrapper.new(@__session__)
+    else
+      # onの外ではDslLoaderがデータの操作を行うので、DslBinderはイベント処理中じゃなかったら更新はしません。
+      @__session_wrapper__ ||= Tengine::Core::SessionWrapper.new(@__session__, :ignore_update => true)
+    end
+  end
+
 end

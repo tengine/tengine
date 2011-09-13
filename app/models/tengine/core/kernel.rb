@@ -14,7 +14,7 @@ class Tengine::Core::Kernel
   def initialize(config)
     @status = :initialized
     @config = config
-    @working = false
+    @processing_event = false
   end
 
   def start(&block)
@@ -34,7 +34,7 @@ class Tengine::Core::Kernel
       EM.cancel_timer(@heartbeat_timer) if @heartbeat_timer
       if mq.queue.default_consumer
         mq.queue.unsubscribe
-        close_if_shutting_down if !@working || force
+        close_if_shutting_down if !@processing_event || force
       end
     else
       update_status(:shutting_down)
@@ -99,7 +99,7 @@ class Tengine::Core::Kernel
   end
 
   def process_message(headers, msg)
-    safety_working(headers) do
+    safety_processing_event(headers) do
       raw_event = parse_event(msg)
       if raw_event.nil?
         headers.ack
@@ -139,14 +139,16 @@ class Tengine::Core::Kernel
     end
   end
 
+  def processing_event?; @processing_event; end
+
   private
 
-  def safety_working(headers)
-    @working = true
+  def safety_processing_event(headers)
+    @processing_event = true
     begin
       yield if block_given?
     ensure
-      @working = false
+      @processing_event = false
     end
   end
 
