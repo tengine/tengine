@@ -23,7 +23,7 @@ end
     @h[name] = {:io => io, :stdout => []}
   end
   if name == "Tengineコンソール"
-    io = IO.popen("rails s")
+    io = IO.popen("rails s -e test")
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
   end
@@ -90,6 +90,8 @@ end
 end
 
 もし /^"([^"]*)"の起動を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
+  IO.popen("rm -rf ./tmp/pids/server.pid") if name == "Tengineコンソールプロセス"
+
   puts "command:#{command}"
   io = IO.popen(command)
   @h ||= {}
@@ -112,7 +114,7 @@ end
   end
   message_out = false
   unless match
-    time_out(10) do
+    time_out(20) do
       while line = @h[name][:io].gets
         puts line
         @h[name][:stdout] << line
@@ -135,7 +137,7 @@ end
     pid_regexp = /pid=(\d+)/
   end
   get_pid = false
-  time_out(5) {
+  time_out(20) {
     while line = @h[name][:io].gets
       @h[name][:stdout] << line
       get_pid = line.match(pid_regexp)
@@ -150,7 +152,15 @@ end
 end
 
 ならば /^"([^"]*)"のPIDファイル"([^"]*)"からPIDを確認できること$/ do |name, file_path|
-  @h[name][:pid] = `cat #{file_path}`.chomp
+  @h ||= {}
+  @h[name] ||= {}
+  while  true
+    sleep 1
+    if File.exist?(file_path) 
+      @h[name][:pid] = `cat #{file_path}`.chomp
+      break
+    end
+  end
   @h[name][:pid].should_not be_empty
 end
 
@@ -162,7 +172,7 @@ end
   exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z > /dev/null"
   puts "start confirm command: #{exec_command}"
   process_started = false
-  time_out(5) do
+  time_out(10) do
     while true
       process_started = system(exec_command)
       break if process_started
@@ -340,14 +350,14 @@ end
 end
 
 ならば /^以下の行が表示されること$/ do |expected_table|
-  actual = tableish('table tr', 'td,th')
+  actual = tableish('table.list tr', 'td,th')
   expected_table.diff!(actual, :surplus_row => false)
 end
 
 ならば /^一件も表示されていないこと$/ do
   # イベントドライバ一覧のテーブルを取得
   # actual.class # => Array
-  actual = tableish('table tr', 'td,th')
+  actual = tableish('table.list tr', 'td,th')
   # ヘッダのみとれるのsizeは1になる
   actual.size.should == 1
 end
@@ -356,7 +366,7 @@ end
 ならば /^一件以上表示されていること$/ do
   # イベントドライバ一覧のテーブルを取得
   # actual.class # => Array
-  actual = tableish('table tr', 'td,th')
+  actual = tableish('table.list tr', 'td,th')
   # ヘッダが含まれるのでsizeは1より多くなるべき
   actual.size.should > 1
 end
@@ -364,7 +374,7 @@ end
 ならば /^一件表示されていること$/ do
   # イベントドライバ一覧のテーブルを取得
   # actual.class # => Array
-  actual = tableish('table tr', 'td,th')
+  actual = tableish('table.list tr', 'td,th')
   # ヘッダが含まれるのでsizeは2になるべき
   actual.size.should == 2
 end
