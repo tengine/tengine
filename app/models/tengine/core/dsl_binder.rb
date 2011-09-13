@@ -58,7 +58,7 @@ module Tengine::Core::DslBinder
     if @__kernel__.processing_event?
       @__session_in_processing_event__ ||= Tengine::Core::EventWrapper.new(@__event__)
     else
-      raise "no evnet"
+      raise Tengine::Core::DslError, "event is not available outside of event handler block."
     end
   end
 

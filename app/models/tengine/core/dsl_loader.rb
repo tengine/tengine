@@ -49,4 +49,9 @@ module Tengine::Core::DslLoader
     raise Tengine::Core::DslError, "submit is not available outside of event handler block."
   end
 
+  def event
+    raise Tengine::Core::DslError, "event is not available outside of event handler block."
+  end
+
+
 end
