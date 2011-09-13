@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Tengine::Core::DslLoader do
 
-  describe :evaluate do
+  describe :__evaluate__ do
     before do
       Tengine::Core::Driver.delete_all
       Tengine::Core::HandlerPath.delete_all
@@ -23,7 +23,7 @@ describe Tengine::Core::DslLoader do
         end
 
         it "イベントハンドラ定義を評価して、ドライバとハンドラを登録する" do
-          @loader.evaluate
+          @loader.__evaluate__
           # $LOAD_PATH.include?(@config[:dsl_store_path]).should be_true
           # driver01 = Tengine::Core::Driver.find(:conditions => {:name => "driver01"})
           Tengine::Core::Driver.count.should == 1
@@ -54,7 +54,7 @@ describe Tengine::Core::DslLoader do
         end
 
         it "イベントハンドラ定義を評価して、ドライバとハンドラを登録する" do
-          @loader.evaluate
+          @loader.__evaluate__
           Tengine::Core::Driver.count.should == 1
           driver01 = Tengine::Core::Driver.first
           driver01.should_not be_nil
@@ -92,7 +92,7 @@ describe Tengine::Core::DslLoader do
         # driver03にevent03が複数定義されているための警告メッセージ
         # Tengine::Core.stdout_logger.should_receive(:warn).with("driver\"driver03\"には、同一のevent_type_name\"event03\"が複数存在します")
 
-        @loader.evaluate
+        @loader.__evaluate__
 
         Tengine::Core::Driver.count.should == 3
         drivers = Tengine::Core::Driver.all
@@ -147,7 +147,7 @@ describe Tengine::Core::DslLoader do
       end
 
       it "イベントハンドラ定義を評価して、ドライバとハンドラを登録する" do
-        @loader.evaluate
+        @loader.__evaluate__
         Tengine::Core::Driver.count.should == 1
         driver = Tengine::Core::Driver.first
         driver.should_not be_nil

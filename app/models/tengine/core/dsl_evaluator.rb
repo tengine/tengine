@@ -2,17 +2,30 @@
 module Tengine::Core::DslEvaluator
   attr_accessor :config
 
-  def evaluate
-    setup_core_ext
+  def __evaluate__
+    __setup_core_ext__
     begin
       Tengine::Core.stdout_logger.debug("dsl_file_paths:\n  " << config.dsl_file_paths.join("\n  "))
       config.dsl_file_paths.each { |f| self.instance_eval(File.read(f), f) }
     ensure
-      teardown_core_ext
+      __teardown_core_ext__
     end
   end
 
-  def setup_core_ext
+  def __safety_driver__(driver)
+    @__driver__ = driver
+    @__session__ = driver.session
+    begin
+      yield if block_given?
+    ensure
+      @__driver__ = nil
+      @__session__ = nil
+    end
+  end
+
+  private
+
+  def __setup_core_ext__
     Symbol.class_eval do
       def and(other)
         Tengine::Core::DslFilterDef.new(
@@ -27,23 +40,11 @@ module Tengine::Core::DslEvaluator
       end
       alias_method :&, :and
     end
-
   end
 
-  def teardown_core_ext
+  def __teardown_core_ext__
     Symbol.class_eval do
       remove_method(:&, :and)
-    end
-  end
-
-  def __safety_driver__(driver)
-    @__driver__ = driver
-    @__session__ = driver.session
-    begin
-      yield if block_given?
-    ensure
-      @__driver__ = nil
-      @__session__ = nil
     end
   end
 end

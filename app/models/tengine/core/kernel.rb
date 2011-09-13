@@ -52,7 +52,7 @@ class Tengine::Core::Kernel
   end
 
   def bind
-    dsl_env.evaluate
+    dsl_env.__evaluate__
     Tengine::Core::stdout_logger.debug("Hanlder bindings:\n" << dsl_env.to_a.inspect)
     Tengine::Core::HandlerPath.default_driver_version = config.dsl_version
   end
