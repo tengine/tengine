@@ -17,7 +17,7 @@ class FeatureCombination
        "ならば \"Tengineコア\"が起動していること"
      ],
      "Tengineプロセスの停止" => [
-       "もし \"Tengineコア\"の起動を行うために\"tengined -k stop\"",
+       "もし \"Tengineコア\"の起動を行うために\"tengined -k stop\"というコマンドを実行する",
        "ならば \"Tengineコア\"が起動していること"
      ],
      "DBパッケージの更新" => [
@@ -63,23 +63,23 @@ class FeatureCombination
      "イベントドライバの無効化" => [
        "もし \"イベントドライバ一覧画面\"を表示する",
        "ならば \"イベントドライバ一覧画面\"を表示していること",
-       "かつ 以下の行の表示がされていること",
+       "かつ 以下の行が表示されること",
        "|  driver70  |#{version}|有効|",
        "",
        "もし \"無効\"ボタンをクリックする",
        "ならば \"イベントドライバ一覧画面\"を表示していること",
-       "かつ 以下の行の表示がされていること",
+       "かつ 以下の行が表示されること",
        "|  driver70  |#{version}|無効|"
      ],
      "イベントドライバの有効化" => [
        "もし \"イベントドライバ一覧画面\"を表示する",
        "ならば \"イベントドライバ一覧画面\"を表示していること",
-       "かつ 以下の行の表示がされていること",
+       "かつ 以下の行が表示されること",
        "|  driver71  |#{version}|無効|",
        "",
        "もし \"有効\"ボタンをクリックする",
        "ならば \"イベントドライバ一覧画面\"を表示していること",
-       "かつ 以下の行の表示がされていること",
+       "かつ 以下の行が表示されること",
        "|  driver71  |#{version}|有効|"
      ],
      "イベントハンドラ定義のデプロイ" => [
@@ -88,7 +88,7 @@ class FeatureCombination
        "",
        "もし \"イベントハンドラ一覧画面\"を表示する",
        "ならば \"イベントドライバ一覧画面\"を表示していること",
-       "かつ 以下の行の表示がされていること",
+       "かつ 以下の行が表示されること",
        "|  driver70  |#{version}|有効|",
        "|  driver71  |#{version}|無効|",
      ],
@@ -98,7 +98,7 @@ class FeatureCombination
        "",
        "もし \"イベントハンドラ一覧画面\"を表示する",
        "ならば \"イベントドライバ一覧画面\"を表示していること",
-       "かつ 以下の行の表示がされていること",
+       "かつ 以下の行が表示されること",
        "|  driver70  |#{version}|有効|",
        "|  driver71  |#{version}|無効|",
      ]
@@ -140,9 +140,9 @@ class FeatureCombination
     do_tengine_update = usecase.include?("Tengineコアパッケージの更新")
     do_tengine_rollback = usecase.include?("Tengineコアパッケージのロールバック")
     if do_tengine_update
-      prerequisites << "TengineコアパッケージがバージョンAで起動している"
+      prerequisites << "Tengineコアパッケージがバージョン\"A\"で起動している"
     elsif do_tengine_rollback
-      prerequisites << "TengineコアパッケージがバージョンBで起動している"
+      prerequisites << "Tengineコアパッケージがバージョン\"B\"で起動している"
     end
     do_recovery_file = usecase.include?("DBのリカバリ(物理)")
     prerequisites << "\"tmp/end_to_end_test/backupdb/\"にDBの物理バックアップファイルが存在する" if do_recovery_file

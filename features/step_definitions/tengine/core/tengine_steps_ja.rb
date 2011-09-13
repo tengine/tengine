@@ -17,6 +17,16 @@ tengine_yaml = YAML::load(IO.read('./features/support/config/tengine.yml'))
 end
 
 前提 /^"([^"]*)"が起動している$/ do |name|
+  if name == "Tengineコアプロセス"
+    io = IO.popen("bin/tengined")
+    @h ||= {}
+    @h[name] = {:io => io, :stdout => []}
+  end
+  if name == "Tengineコンソール"
+    io = IO.popen("rails s")
+    @h ||= {}
+    @h[name] = {:io => io, :stdout => []}
+  end
   if name == "DBプロセス"
     unless system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
       raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
@@ -27,6 +37,24 @@ end
     end
   end
 end
+
+前提 /^"([^"]*)"がオプション"([^"]*)"で起動している$/ do |name,option|
+  if name == "Tengineコアプロセス"
+    io = IO.popen("bin/tengined #{option}")
+    @h ||= {}
+    @h[name] = {:io => io, :stdout => []}
+　elsif name == "DBプロセス"
+    unless system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
+      raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
+    end
+  elsif name == "キュープロセス"
+    unless system('ps aux | grep -v grep | grep -e rabbitmq')
+      raise "RabbitMQの起動に失敗しました" unless system('rabbitmq-server -detached')
+    end
+  end
+end
+
+
 
 前提 /^"([^"]*)"が停止している$/ do |name|
   if name == "DBプロセス"
@@ -82,20 +110,21 @@ end
     match = line.match(word)
     break if match
   end
-
+  message_out = false
   unless match
     time_out(10) do
       while line = @h[name][:io].gets
         puts line
         @h[name][:stdout] << line
-        if line.match(word) then
+        message_out = line.match(word)
+        if message_out
           # puts "match:#{word}"
           break
         end
       end
     end
   end
-
+  message_out.should be_true
 end
 
 ならば /^"([^"]*)"の標準出力からPIDを確認できること$/ do |name|
@@ -105,17 +134,19 @@ end
   elsif name == "Tengineコンソールプロセス"
     pid_regexp = /pid=(\d+)/
   end
-
+  get_pid = false
   time_out(5) {
     while line = @h[name][:io].gets
       @h[name][:stdout] << line
-      if line.match(pid_regexp) then
+      get_pid = line.match(pid_regexp)
+      if get_pid then
         pid = line.match(pid_regexp)[1]
         @h[name][:pid] = pid
         break
       end
     end
   }
+  get_pid.should be_true
 end
 
 ならば /^"([^"]*)"のPIDファイル"([^"]*)"からPIDを確認できること$/ do |name, file_path|
@@ -130,12 +161,15 @@ end
   # よって、指定するps コマンドには"-o stat"というオプションが必須になります。
   exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z > /dev/null"
   puts "start confirm command: #{exec_command}"
+  process_started = false
   time_out(5) do
     while true
-      break if system(exec_command)
+      process_started = system(exec_command)
+      break if process_started
       sleep 1
     end
   end
+  process_started.should be_true
 end
 
 ならば /^"([^"]*)"が起動していること$/ do |name|
@@ -166,12 +200,15 @@ end
   # よって、指定するps コマンドには"-o stat"というオプションが必須になります。
   exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z > /dev/null"
   puts "stop confirm command: #{exec_command}"
+  process_stop = false
   time_out(5) do
     while true
-      break unless system(exec_command)
+      process_stop = system(exec_command)
+      break unless process_stop
       sleep 1
     end
   end
+  process_stop.should be_false
 end
 
 ならば /^"([^"]*)"が停止していること$/ do |name|
@@ -200,8 +237,6 @@ end
   exec_command = "kill -INT #{pid} > /dev/null"
   #exec_command = "kill -KILL #{pid} > /dev/null"
   puts "kill commando: #{exec_command}"
-  system(exec_command)
-
 end
 
 もし /^"([^"]*)"を強制停止する$/ do |name|
@@ -264,7 +299,7 @@ end
   もし %{"#{field}"に"#{value}"と入力する}
 end
 
-ならば /^"([^\"]*)"に以下の行が表示されること$/ do |arg1, expected_table|
+ならば /^"([^"]*)"に以下の行が表示されること$/ do |arg1, expected_table|
   Then %{I should see the following drivers:}, expected_table
 end
 
@@ -290,7 +325,7 @@ end
   actual.size.should > 1
 end
 
-ならば /^一件以上されていること$/ do
+ならば /^一件表示されていること$/ do
   # イベントドライバ一覧のテーブルを取得
   # actual.class # => Array
   actual = tableish('table tr', 'td,th')
@@ -401,6 +436,16 @@ end
   FileUtils.copy("/data/mongo/master",backup_path)
 end
 
+前提 /^"([^"]*)"ファイルに書き込み権限がない$/ do |arg1|
+   rails "権限の変更に失敗しました" unless system("chmod -w #{path}")
+end
+
+前提 /^"([^"]*)"ファイルに書き込み権限がある$/ do |arg1|
+   rails "権限の変更に失敗しました" unless system("chmod +r #{path}")
+end
+
+
+
 
 def time_out(time, &block)
   begin
@@ -456,3 +501,164 @@ def unbind_queue(queue_name, exchange_name, options = {})
   end
 end
 
+=======
+#############
+# pending一覧
+#############
+
+前提 /^(\d+)バージョンのイベントハンドラ定義がイベントハンドラストアに登録されている$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^イベントハンドラ定義のデプロイをする$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+ならば /^イベントハンドラ定義のデプロイがされること$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^イベントハンドラ定義のロールバックをする$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+ならば /^イベントハンドラ定義のロールバックがされること$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^DBのリストアをする$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+ならば /^DBがリストアされていること$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+前提 /^"([^"]*)"にDBのバックアップファイルが存在する$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^DBのリカバリをする$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+ならば /^DBのリカバリがされていること$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^DBのロールバックをする$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+ならば /^DBのロールバックがされていること$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^Tengineコアパッケージをバージョン\(\.\*\)から\(\.\*\)に更新する$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+ならば /^Tengineコアパッケージをバージョン\(\.\*\)から\(\.\*\)に更新されていること$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^Tengineコアパッケージをバージョン\(\.\*\)から\(\.\*\)にロールバックする$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+ならば /^Tengineコアパッケージがバージョン\(\.\*\)で起動していること$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^DBを"([^"]*)"から物理バックアップする$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+ならば /^"([^"]*)"にDBの物理バックアップファイルが存在すること$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+ならば /^DBが物理リストアされていること$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+前提 /^DBパッケージがバージョン(\d+)\.(\d+)\.(\d+)で起動している$/ do |arg1, arg2, arg3|
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^DBパッケージをバージョン\(\.\*\)から\(\.\*\)に更新する$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+ならば /^DBパッケージをバージョン\(\.\*\)から\(\.\*\)に更新されていること$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^DBパッケージをバージョン\(\.\*\)から\(\.\*\)にロールバックする$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+ならば /^DBパッケージをバージョン\(\.\*\)から\(\.\*\)にロールバックされていること$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^DBのマイグレーションをする$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+ならば /^DBのマイグレーションがされていること$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+前提 /^"([^"]*)"で"([^"]*)"が停止している$/ do |arg1, arg2|
+  pending # express the regexp above with the code you wish you had
+end
+
+前提 /^"([^"]*)"で"([^"]*)"が起動している$/ do |arg1, arg2|
+  pending # express the regexp above with the code you wish you had
+end
+
+#############
+# pending・ネットワーク一覧
+#############
+
+もし /^コアが動作しているサーバとキューが動作しているサーバ間のネットワークが接続する$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+ならば /^コアが動作しているサーバとキューが動作しているサーバ間のネットワークが接続していること$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^コアが動作しているサーバとDBが動作しているサーバ間のネットワークが切断する$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^コアが動作しているサーバとDBが動作しているサーバ間のネットワークが接続する$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+ならば /^コアが動作しているサーバとDBが動作しているサーバ間のネットワークが接続していること$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+もし /^コアが動作しているサーバとキューが動作しているサーバ間のネットワークが切断する$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+
+#############
+# pending・パッケージ一覧
+#############
+
+前提 /^(.*)パッケージがバージョン(.*)で起動している$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+#############
+# pending・サーバ設定
+#############
+
+前提 /^Tengine周辺のサーバの時刻が同期されている$/ do
+  pending # express the regexp above with the code you wish you had
+end

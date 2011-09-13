@@ -9,14 +9,14 @@ Tengine.driver :driver50 do
 
   on:event50 do
     # ackされていないmessageの確認
-    io=IO.popen("rabbitmqctl list_queues messages_unacknowledged")
-    lines = Array.new
-    lines << line while line=io.gets
-    io.close
-
-    puts "#{event.key}:handler50:#{lines[1]}"
+    IO.popen("rabbitmqctl list_queues messages_unacknowledged") { |io|
+      @unacked_message_count=io.readlines[1].to_i
+    }
 
     submit # submitしても無視されます
+
+    puts "#{event.key}:handler50:#{@unacked_message_count}"
+
   end
 
 end
