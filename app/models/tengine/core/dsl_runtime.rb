@@ -35,6 +35,32 @@ module Tengine::Core::DslRuntime # Kernelにincludeされます
     @ack_called
   end
 
+
+  def submit
+    if @submitted_handlers
+      @submitted_handlers << @handler
+    end
+  end
+
+  def all_submitted?
+    return false if @submitted_handlers.nil? || @handlers.nil?
+    (@handlers - @submitted_handlers).empty?
+  end
+
+
+  def processing_event?; @processing_event; end
+
+  private
+
+  def safety_processing_event(headers)
+    @processing_event = true
+    begin
+      yield if block_given?
+    ensure
+      @processing_event = false
+    end
+  end
+
   def safty_handlers(handlers)
     @handlers = handlers
     @submitted_handlers = (@ack_policy == :after_all_handler_submit ? [] : nil)
@@ -53,17 +79,6 @@ module Tengine::Core::DslRuntime # Kernelにincludeされます
     ensure
       @handler = nil
     end
-  end
-
-  def submit
-    if @submitted_handlers
-      @submitted_handlers << @handler
-    end
-  end
-
-  def all_submitted?
-    return false if @submitted_handlers.nil? || @handlers.nil?
-    (@handlers - @submitted_handlers).empty?
   end
 
 end

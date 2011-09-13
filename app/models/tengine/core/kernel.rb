@@ -138,19 +138,7 @@ class Tengine::Core::Kernel
     end
   end
 
-  def processing_event?; @processing_event; end
-
   private
-
-  def safety_processing_event(headers)
-    @processing_event = true
-    begin
-      yield if block_given?
-    ensure
-      @processing_event = false
-    end
-  end
-
 
   def parse_event(msg)
     begin
@@ -206,7 +194,6 @@ class Tengine::Core::Kernel
     mq.connection.close{ EM.stop_event_loop }
   end
 
-
   STATUS_LIST = [
     :initialized,        # 初期化済み
     :starting,           # 起動中
@@ -229,12 +216,11 @@ class Tengine::Core::Kernel
     @mq ||= Tengine::Mq::Suite.new(config[:event_queue])
   end
 
-
   # 自動でログ出力する
   extend Tengine::Core::MethodTraceable
-  method_trace(:start, :stop, :bind, :wait_for_activation, :activate, :subscribe_queue,
+  method_trace(:start, :stop, :bind, :wait_for_activation, :activate, :subscribe_queue, :update_status,
     :process_message, :parse_event, :save_event, :find_handlers, :delegate, :close_if_shutting_down,
-    :update_status)
+    :enable_heartbeat)
 end
 
 
