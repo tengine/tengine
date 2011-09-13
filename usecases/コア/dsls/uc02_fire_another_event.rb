@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'tengine/core'
 
-Tengine.driver :driver02 do
+driver :driver02 do
 
   # イベントが発生したら新たなイベントを発火する
   on:event02_1 do

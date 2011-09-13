@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'tengine/core'
 
-Tengine.driver :driver31 do
+driver :driver31 do
 
   # サーバAからのイベントと発生、かつサーバBからのイベントBが発生した場合に処理を実行する
 
