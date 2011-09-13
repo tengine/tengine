@@ -28,10 +28,10 @@
 
   シナリオ: [正常系]アプリケーション開発者が開発環境で接続テストを行いTengineコア、Tengineコンソールを起動する
 
-      もし "接続テスト"を行うために"bin/tengined -k test -f ./feature/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Success!"と出力されている
+      もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
+      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./feature/support/config/tengine.yml"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -64,7 +64,7 @@
       もし "DBプロセス"が起動している
 			ならば "DBプロセス"が起動していること
 
-      もし "接続テスト"を行うために"bin/tengined -k test -f ./feature/support/config/tengine.yml"というコマンドを実行する
+      もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Success!"と出力されていること
 
       # 以下基本コースに戻る
@@ -73,13 +73,13 @@
   シナリオ: 2.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_キュープロセスが起動していない
       前提 "キュープロセス"が停止している
 
-      もし "接続テスト"を行うために"bin/tengined -k test -f ./feature/support/config/tengine.yml"というコマンドを実行する
+      もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること 
 
       もし "キュープロセス"が起動している
 			ならば "キュープロセス"が起動していること
 
-      もし "接続テスト"を行うために"bin/tengined -k test -f ./feature/support/config/tengine.yml"というコマンドを実行する
+      もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Success!"と出力されていること
 
       # 以下基本コースに戻る
@@ -101,8 +101,8 @@
       # イベントハンドラ定義の中で、クラスを上書きするような定義をすることでこれを実現する。
       # TODO イベントハンドラ定義を作成する必要がある
 
-      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./feature/support/dsls/include_bug_core.rb"が存在すること
-      もし "接続テスト"を行うために"bin/tengined -k test -f tengine.yml -T ./feature/support/dsls/include_bug_core.rb"というコマンドを実行する
+      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./features/support/dsls/include_bug_core.rb"が存在すること
+      もし "接続テスト"を行うために"bin/tengined -k test -f tengine.yml -T ./features/support/dsls/include_bug_core.rb"というコマンドを実行する
       ならば "接続テスト"の標準出力に"inquire of Tengine User Group or Tengine Support Service."と出力されていること 
 #      もし サーバ構成レポート収集ツールでサーバ構成の内容を収集する
 #      ならば サーバ構成レポートが作成されていること
@@ -115,8 +115,8 @@
       # イベントハンドラ定義の中で、クラスを上書きするような定義をすることでこれを実現する。
       # TODO イベントハンドラ定義を作成する必要がある
 
-      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./feature/support/dsls/include_bug_connection_test.rb"が存在すること
-      もし "接続テスト"を行うために"bin/tengined -k test -f ./feature/support/config/tengine.yml -T ./feature/support/dsls/include_bug_connection_test.rb"というコマンドを実行する
+      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./features/support/dsls/include_bug_connection_test.rb"が存在すること
+      もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml -T ./features/support/dsls/include_bug_connection_test.rb"というコマンドを実行する
       ならば "接続テスト"の標準出力に"inquire of Tengine User Group or Tengine Support Service."と出力されていること 
 #      もし サーバ構成レポート収集ツールでサーバ構成の内容を収集する
 #      ならば サーバ構成レポートが作成されていること
@@ -278,7 +278,7 @@
   シナリオ: 1.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_DBプロセスが起動していない
       前提 "DBプロセス"が停止している
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./feature/support/config/tengine.yml"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to database."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -286,7 +286,7 @@
 			もし "DBプロセス"が起動している
 			ならば 
 			
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./feature/support/config/tengine.yml"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -298,8 +298,8 @@
       # イベントハンドラ定義の中で、クラスを上書きするような定義をすることでこれを実現する。
       # TODO イベントハンドラ定義を作成する必要がある
 
-      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./feature/event_handler_def/include_bug_core.rb"が存在すること
-      もし "Tengineコアプロセス"を行うために"bin/tengined -k start -f ./feature/support/config/tengine.yml -T ./feature/support/dsls/include_bug_core.rb"というコマンドを実行する
+      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./features/event_handler_def/include_bug_core.rb"が存在すること
+      もし "Tengineコアプロセス"を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./features/support/dsls/include_bug_core.rb"というコマンドを実行する
       ならば "Tengineコアプロセウ"の標準出力に"inquire of Tengine User Group or Tengine Support Service."と出力されていること 
 #      もし サーバ構成レポート収集ツールでサーバ構成の内容を収集する
 #      ならば サーバ構成レポートが作成されていること
@@ -609,10 +609,10 @@
   シナリオ: [異常系]Tengineコアのプロセスの停止に失敗し、強制停止を行う
       前提 処理が終了しないイベントハンドラ定義ファイル"./features/usecases/コア/dsls/hang_up.rb"が存在すること
 
-      もし "接続テスト"を行うために"bin/tengined -k test -f ./feature/support/config/tengine.yml"というコマンドを実行する
+      もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Success!"と出力されていること
 
-      もし "Tengineコアプロセスの起動"を行うために"bin/tengined -k start -f ./feature/support/config/tengine.yml -T ./features/usecases/コア/dsls/hung_up.rb"というコマンドを実行する
+      もし "Tengineコアプロセスの起動"を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./features/usecases/コア/dsls/hung_up.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
