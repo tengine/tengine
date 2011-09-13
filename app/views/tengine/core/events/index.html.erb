@@ -55,14 +55,16 @@
     <th><%= Tengine::Core::Event.human_attribute_name(:level) %></th>
     <th><%= Tengine::Core::Event.human_attribute_name(:confirmed) %></th>
     <th><%= Tengine::Core::Event.human_attribute_name(:sender_name) %></th>
-    <th><%= Tengine::Core::Event.human_attribute_name(:properties) %></th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
-<% @events.each do |event| %>
-  <tr class="<%= cycle("even", "odd") %>" >
+<% @events.each do |event| 
+  row_class = cycle("even", "odd")
+ properties_yaml = event.properties_yaml
+%>
+  <tr class="<%= row_class %>" >
     <td><%= event.event_type_name %></td>
     <td><%= event.key %></td>
     <td><%= event.source_name %></td>
@@ -70,11 +72,16 @@
     <td><%= event.level %></td>
     <td><%= event.confirmed %></td>
     <td><%= event.sender_name %></td>
-    <td><pre><%= event.properties_yaml %></pre></td>
     <td><%= link_to_show event %></td>
     <td><%= link_to_edit edit_tengine_core_event_path(event) %></td>
     <td><%= link_to_destroy event, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
+<% unless properties_yaml == "--- {}\n" -%>
+  <tr class="<%= row_class %>" >
+    <td colspan="1"></td>
+    <td colspan="9"><pre><%= properties_yaml %></pre></td>
+  </tr>
+<% end %>
 <% end %>
 </table>
 
