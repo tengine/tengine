@@ -36,12 +36,12 @@ end
       raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
     end
   elsif name == "キュープロセス"
-    io = IO.popen("sudo rabbitmqctl status")
+    io = IO.popen("rabbitmqctl status")
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
     contains = contains_message_from_stdout(name,"running_applications")
     unless contains
-      raise "RabbitMQの起動に失敗しました" unless system('sudo rabbitmq-server -detached')
+      raise "RabbitMQの起動に失敗しました" unless system('rabbitmq-server -detached')
     end
   end
 end
