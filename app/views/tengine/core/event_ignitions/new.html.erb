@@ -22,11 +22,11 @@
   </div>
   <div class="field">
     <%= f.label :level %><br />
-    <%= radio_button_tag "event[level]", 1 %> debug
-    <%= radio_button_tag "event[level]", 2 %> info
-    <%= radio_button_tag "event[level]", 3 %> warn
-    <%= radio_button_tag "event[level]", 4 %> error
-    <%= radio_button_tag "event[level]", 5 %> fatal
+    <label> <%= radio_button_tag "event[level]", 1 %> debug</label>
+    <label><%= radio_button_tag "event[level]", 2 %> info</label>
+    <label><%= radio_button_tag "event[level]", 3 %> warn</label>
+    <label><%= radio_button_tag "event[level]", 4 %> error</label>
+    <label><%= radio_button_tag "event[level]", 5 %> fatal</label>
   </div>
   <div class="field">
     <%= f.label :sender_name %><br />
@@ -37,7 +37,7 @@
     <%= f.text_area :properties %>
   </div>
   <div class="actions">
-    <%= submit_tag %>
+    <%= submit_tag I18n.t :create, :scope => [:helpers, :submit] %>
   </div>
 <% end %>
 
