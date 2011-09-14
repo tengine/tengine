@@ -104,7 +104,13 @@ class Tengine::Core::Kernel
         headers.ack
         return
       end
+
       event = save_event(raw_event)
+      unless event
+        headers.ack
+        return
+      end
+
       ack_policy = ack_policy_for(event)
       safety_processing_headers(headers, event, ack_policy) do
         ack if ack_policy == :at_first
@@ -145,12 +151,29 @@ class Tengine::Core::Kernel
     end
   end
 
+  def fire_failed_event(raw_event)
+    EM.next_tick do
+      Tengine.logger.debug("sending #{raw_event.event_type_name}failed.tengined event.") if config[:verbose]
+      event_attributes = {
+        :level => Tengine::Event::LEVELS_INV[:error],
+        :properties => { :original_event => raw_event }
+      }
+      sender.fire("#{raw_event.event_type_name}.failed.tengined", event_attributes)
+    end
+  end
+
   # 受信したイベントを登録
   def save_event(raw_event)
     event = Tengine::Core::Event.create!(
       raw_event.attributes.update(:confirmed => (raw_event.level <= config.confirmation_threshold)))
     Tengine.logger.debug("saved a event #{event.inspect}")
     event
+  rescue Mongo::OperationFailure => e
+    Tengine.logger.warn("same key's event has already stored. \n[#{e.class.name}] #{e.message}")
+    # Model.exists?だと上手くいかない時があるのでModel.whereを使っています
+    # fire_failed_event(raw_event) if Tengine::Core::Event.exists?(confitions: { key: raw_event.key, sender_name: raw_event.sender_name })
+    fire_failed_event(raw_event) if Tengine::Core::Event.where(:key => raw_event.key, :sender_name => raw_event.sender_name).count > 0
+    return nil
   rescue Exception => e
     Tengine.logger.error("failed to save a event #{event.inspect}\n[#{e.class.name}] #{e.message}")
     raise e
@@ -223,7 +246,7 @@ class Tengine::Core::Kernel
   # 自動でログ出力する
   extend Tengine::Core::MethodTraceable
   method_trace(:start, :stop, :bind, :wait_for_activation, :activate, :subscribe_queue, :update_status,
-    :process_message, :parse_event, :save_event, :find_handlers, :delegate, :close_if_shutting_down,
+    :process_message, :parse_event, :fire_failed_event, :save_event, :find_handlers, :delegate, :close_if_shutting_down,
     :enable_heartbeat)
 end
 
