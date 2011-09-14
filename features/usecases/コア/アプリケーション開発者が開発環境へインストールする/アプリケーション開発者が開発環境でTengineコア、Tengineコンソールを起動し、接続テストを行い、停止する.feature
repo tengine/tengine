@@ -513,12 +513,12 @@
 
 			
   シナリオ: 21.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログファイルを指定したが書き込み権限がない
-      前提 "/tmp/ap_not_writable.log"ファイルに書き込み権限がない
-      かつ "/tmp/ap.log"ファイルに書き込み権限がある
+      前提 "./tmp/ap_not_writable.log"ファイルに書き込み権限がない
+      かつ "./tmp/ap.log"ファイルに書き込み権限がある
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --application-log-output /tmp/ap_not_writable.log"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --application-log-output ./tmp/ap_not_writable.log"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      ならば "Tengineコアプロセス"の標準出力に"permission denied. can't create o write file path: /tmp/ap.log"と出力されていること
+      ならば "Tengineコアプロセス"の標準出力に"permission denied. can't create o write file path: ./tmp/ap_not_writable.log"と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --application-log-output /tmp/ap.log"というコマンドを実行する
