@@ -271,7 +271,7 @@ run do
     config = Tengine::Core::Config.new(@hash)
     config.setup_loggers
   rescue Exception
-    puts "[#{$!.class.name}] #{$!.message}\n  " << $!.backrace.join("\n  ")
+    puts "[#{$!.class.name}] #{$!.message}\n  " << $!.backtrace.join("\n  ")
     raise
   end
 
