@@ -197,7 +197,7 @@ end
   exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z"
   puts "stop confirm command: #{exec_command}"
   process_stop = ""
-  time_out(5) do
+  time_out(10) do
     while true
       process_stop = `#{exec_command}`.chomp
       break if process_stop.empty?
@@ -509,12 +509,14 @@ end
   FileUtils.copy("/data/mongo/master",backup_path)
 end
 
-前提 /^"([^"]*)"ファイルに書き込み権限がない$/ do |arg1|
-   rails "権限の変更に失敗しました" unless system("chmod -w #{path}")
+前提 /^"([^"]*)"ファイルに書き込み権限がない$/ do |file_path|
+   FileUtils.touch(file_path) unless File.exists?(file_path)
+   raise "権限の変更に失敗しました" unless system("chmod -w #{file_path}")
 end
 
-前提 /^"([^"]*)"ファイルに書き込み権限がある$/ do |arg1|
-   rails "権限の変更に失敗しました" unless system("chmod +r #{path}")
+前提 /^"([^"]*)"ファイルに書き込み権限がある$/ do |file_path|
+   FileUtils.touch(file_path) unless File.exists?(file_path)
+   raise "権限の変更に失敗しました" unless system("chmod +r #{file_path}")
 end
 
 def view_time_format
