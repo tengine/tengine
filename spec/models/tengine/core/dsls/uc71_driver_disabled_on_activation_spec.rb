@@ -26,7 +26,7 @@ describe "uc71_driver_disabled_on_activation" do
     driver.enabled_on_activation.should == false
     @kernel.bind
     #
-    @kernel.dsl_env.should_not_receive(:puts).with("handler71")
+    @kernel.context.should_not_receive(:puts).with("handler71")
     mock_headers = mock(:headers)
     mock_headers.should_receive(:ack)
     raw_event = Tengine::Event.new(:event_type_name => "event71")

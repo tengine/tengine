@@ -21,7 +21,7 @@ describe "uc80_raise_io_error" do
     mock_headers = mock(:headers)
     mock_headers.should_receive(:ack)
     raw_event = Tengine::Event.new(:event_type_name => "event80")
-    @kernel.dsl_env.should_receive(:fire).with("event80.error.tengined",
+    @kernel.context.should_receive(:fire).with("event80.error.tengined",
       :properties => {
         :original_event => instance_of(String),
         :error_class_name => "IOError",

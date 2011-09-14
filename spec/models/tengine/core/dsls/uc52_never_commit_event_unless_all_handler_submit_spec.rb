@@ -15,10 +15,10 @@ describe "uc52_commit_event_after_all_handler_submit" do
   end
 
   it "一つsubmitしないハンドラがあるのでackされません" do
-    dsl_env = @kernel.dsl_env
-    dsl_env.should_receive(:puts).with("handler52_alt1_1 unacknowledged")
-    dsl_env.should_receive(:puts).with("handler52_alt1_2 unacknowledged")
-    dsl_env.should_receive(:puts).with("handler52_alt1_3 unacknowledged")
+    context = @kernel.context
+    context.should_receive(:puts).with("handler52_alt1_1 unacknowledged")
+    context.should_receive(:puts).with("handler52_alt1_2 unacknowledged")
+    context.should_receive(:puts).with("handler52_alt1_3 unacknowledged")
     mock_headers = mock(:headers)
     mock_headers.should_not_receive(:ack)
     raw_event = Tengine::Event.new(:event_type_name => "event52_alt1")

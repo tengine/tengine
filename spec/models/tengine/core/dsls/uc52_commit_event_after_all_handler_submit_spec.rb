@@ -15,10 +15,10 @@ describe "uc52_commit_event_after_all_handler_submit" do
   end
 
   it "必ずACKされている" do
-    dsl_env = @kernel.dsl_env
-    dsl_env.should_receive(:puts).with("handler52_1 unacknowledged")
-    dsl_env.should_receive(:puts).with("handler52_2 unacknowledged")
-    dsl_env.should_receive(:puts).with("handler52_3 unacknowledged")
+    context = @kernel.context
+    context.should_receive(:puts).with("handler52_1 unacknowledged")
+    context.should_receive(:puts).with("handler52_2 unacknowledged")
+    context.should_receive(:puts).with("handler52_3 unacknowledged")
     mock_headers = mock(:headers)
     @kernel.after_delegate = lambda do
       # ハンドラへの処理の委譲後（=すべてのハンドラの実行終了後）ackが呼び出されるはず

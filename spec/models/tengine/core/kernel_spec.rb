@@ -25,7 +25,7 @@ describe Tengine::Core::Kernel do
 
       it "event_type_nameからblockを検索することができる" do
         @kernel.bind
-        @kernel.dsl_env.__block_for__(@handler1).should_not be_nil
+        @kernel.context.__block_for__(@handler1).should_not be_nil
       end
     end
 
@@ -177,7 +177,7 @@ describe Tengine::Core::Kernel do
         Tengine::Core::HandlerPath.should_receive(:find_handlers).with("event01").and_return([@handler1])
         @handler1.should_receive(:match?).with(@event1).and_return(true)
 
-        @kernel.dsl_env.should_receive(:puts).with("handler01")
+        @kernel.context.should_receive(:puts).with("handler01")
 
         @header.should_receive(:ack)
 

@@ -23,7 +23,7 @@ describe "uc08_if_both_a_and_b_occurs" do
     @kernel.process_message(mock_headers, raw_event.to_json)
     raw_event = Tengine::Event.new(:event_type_name => "event08_a")
     @kernel.process_message(mock_headers, raw_event.to_json)
-    @kernel.dsl_env.should_receive(:puts).with("handler08")
+    @kernel.context.should_receive(:puts).with("handler08")
     raw_event = Tengine::Event.new(:event_type_name => "event_08_b")
     @kernel.process_message(mock_headers, raw_event.to_json)
   end

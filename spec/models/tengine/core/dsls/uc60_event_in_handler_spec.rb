@@ -20,7 +20,7 @@ describe "uc62_session_in_driver" do
     mock_headers = mock(:headers)
     mock_headers.should_receive(:ack)
     raw_event = Tengine::Event.new(:event_type_name => "event60")
-    @kernel.dsl_env.should_receive(:puts).with(/^handler60: \[.*\]$/)
+    @kernel.context.should_receive(:puts).with(/^handler60: \[.*\]$/)
     @kernel.process_message(mock_headers, raw_event.to_json)
   end
 end

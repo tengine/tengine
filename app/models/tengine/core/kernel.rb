@@ -43,17 +43,18 @@ class Tengine::Core::Kernel
     update_status(:terminated)
   end
 
-  def dsl_env
-    unless @dsl_env
-      @dsl_env = Tengine::Core::DslContext.new(self)
-      @dsl_env.config = config
+  def dsl_context
+    unless @dsl_context
+      @dsl_context = Tengine::Core::DslContext.new(self)
+      @dsl_context.config = config
     end
-    @dsl_env
+    @dsl_context
   end
+  alias_method :context, :dsl_context
 
   def bind
-    dsl_env.__evaluate__
-    Tengine::Core::stdout_logger.debug("Hanlder bindings:\n" << dsl_env.to_a.inspect)
+    dsl_context.__evaluate__
+    Tengine::Core::stdout_logger.debug("Hanlder bindings:\n" << dsl_context.to_a.inspect)
     Tengine::Core::HandlerPath.default_driver_version = config.dsl_version
   end
 
@@ -167,12 +168,12 @@ class Tengine::Core::Kernel
     before_delegate.call if before_delegate.respond_to?(:call)
     handlers.each do |handler|
       safety_handler(handler) do
-        block = dsl_env.__block_for__(handler)
+        block = dsl_context.__block_for__(handler)
         begin
           handler.process_event(event, &block)
         rescue Exception => e
           Tengine.logger.debug("[#{e.class.name}] #{e.message}\n  " << e.backtrace.join("\n  "))
-          dsl_env.fire("#{event.event_type_name}.error.tengined",
+          dsl_context.fire("#{event.event_type_name}.error.tengined",
             :properties => {
               :original_event => event.to_json,
               :error_class_name => e.class.name,
