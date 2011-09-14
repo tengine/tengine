@@ -1,4 +1,10 @@
+# -*- coding: utf-8 -*-
 require File.expand_path('../boot', __FILE__)
+
+if ENV['DIRECT_CORE']
+  # tengine_console と同じディレクトリに tengine_core もあることを前提にしています
+  $LOAD_PATH.unshift(File.expand_path("../../tengine_core/lib", File.dirname(__FILE__)))
+end
 
 # Pick the frameworks you want:
 # require "active_record/railtie"

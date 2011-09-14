@@ -15,6 +15,7 @@ gem "bson_ext", "~> 1.3"
 gem "kaminari", "~> 0.12"
 
 gem "tengine_event", "~> 0.2"
+gem "tengine_core", "~> 0.0"
 
 gem "daemons", "~> 1.1"
 
