@@ -59,6 +59,7 @@
 
   シナリオ: 1.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBプロセスが起動していない
       前提 "DBプロセス"が停止している
+      ならば "DBプロセス"が停止していること
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること 
@@ -74,24 +75,13 @@
 
   シナリオ: 2.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_キュープロセスが起動していない
       前提 "キュープロセス"が停止している
+      ならば "キュープロセス"が停止していること
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること 
 
       もし "キュープロセス"の起動を行うために"rabbitmq-server -detached"というコマンドを実行する
       ならば "キュープロセス"が起動していること
-
-      もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
-
-      # 以下基本コースに戻る
-
-  シナリオ: 3.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_イベント発火を行ったがイベントの受信ができない
-      # subscribeするキューと、publishするexchengeがバインディングされていない状況をでテストを行う。
-      # 上の状況を設定ファイルで作り出す。具体的にはpublishするexchangeをテスト用に用意し、そちらにメッセージを送信する。
- 
-      もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/timeout_tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"timeout error."と出力されていること 
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
@@ -127,21 +117,19 @@
       # シナリオ終了
 
   シナリオ: 6.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_設定ファイルが不正
-      前提 yamlファイルとして不正なTengineコアの設定ファイルinvalid_tengine.ymlが存在する
+      前提 yamlファイルとして不正なTengineコアの設定ファイル"./features/support/config/invalid_tengine.yml"が存在すること
 
-      もし "接続テスト"を行うために"bin/tengined -k test -f ./tmp/end_to_end_test/config/invalid_tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Exception occurred when loading configuration file: ./tmp/end_to_end_test/config/invalid_tengine.yml."と出力されていること
+      もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/invalid_tengine.yml"というコマンドを実行する
+      ならば "接続テスト"の標準出力に"Exception occurred when loading configuration file: ./features/support/config/invalid_tengine.yml."と出力されていること
 
-      もし Tengineコアの設定ファイル"./tmp/end_to_end_test/config/invalid_tengine.yml"を修正する
-
-      もし "接続テスト"を行うために"bin/tengined -k test -f ./tmp/end_to_end_test/config/tengine.yml"というコマンドを実行する
+      もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
   シナリオ: 7.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_起動オプションに存在しないオプション
 
-      もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml -Q"というコマンドを実行する
+      もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml -Q 2>&1"というコマンドを実行する
       ならば "接続テスト"の標準出力に"tengined: invalid option: -Q"と出力されていること
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
@@ -151,14 +139,14 @@
 
 
   シナリオ: 8.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_存在しないTengineコアの設定ファイル指定
-      前提 Tengineコアの設定ファイル"./tmp/end_to_end_test/config/not_found_tengine.yml"が存在しないこと
-			
-      もし "接続テスト"を行うために"bin/tengined -k test --config ./tmp/end_to_end_test/config/not_found_tengine.yml"というコマンドを実行する
-      ならば "接続テスト"の標準出力に"Exception occurred when loading configuration file: ./tmp/end_to_end_test/config/not_found_tengine.yml."と出力されていること
+      前提 Tengineコアの設定ファイル"./features/support/config/not_found_tengine.yml"が存在しないこと
 
-      もし Tengineコアの設定ファイル"./tmp/end_to_end_test/config/not_found_tengine.yml"を作成する
-			
-      もし "接続テスト"を行うために"bin/tengined -k test --config ./tmp/end_to_end_test/config/not_found_tengine.yml"というコマンドを実行する
+      # 存在しないファイルを指定するのでエラーが発生する
+      もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/not_found_tengine.yml"というコマンドを実行する
+      ならば "接続テスト"の標準出力に"Exception occurred when loading configuration file: ./features/support/config/not_found_tengine.yml."と出力されていること
+
+      # 正しいファイル名を指定する
+      もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
@@ -265,7 +253,7 @@
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml --event-queue-conn-pass xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
-			
+
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 

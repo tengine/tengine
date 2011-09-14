@@ -63,11 +63,11 @@ end
 前提 /^"([^"]*)"が停止している$/ do |name|
   if name == "DBプロセス"
     if system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
-     raise "MongoDBの停止に失敗しました"  unless system("mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js")
+      raise "MongoDBの停止に失敗しました"  unless system("mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js")
     end
   elsif name == "キュープロセス"
     if system('ps aux | grep -v grep | grep -e rabbitmq')
-     raise "RabbitMQの停止に失敗しました" unless system('rabbitmqctl stop')
+      raise "RabbitMQの停止に失敗しました" unless system('rabbitmqctl stop')
     end
   elsif name == "Tengineコアプロセス"
     # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
@@ -76,7 +76,7 @@ end
     pids = IO.popen("cat tmp/tengine_pids/tengine.*").to_a
     pids.each do |pid|
       if system('ps -eo pid #{pid}}')
-         raise "Tengineコアの停止に失敗しました" unless system("kill -KILL #{pid}")
+        raise "Tengineコアの停止に失敗しました" unless system("kill -KILL #{pid}")
       end
     end
   elsif name == "Tengineコンソールプロセス"
@@ -108,7 +108,6 @@ end
 end
 
 ならば /^"([^"]*)"の標準出力に"([^"]*)"と出力されていること$/ do |name, word|
-
   # 既に表示されていないか
   match = nil
   @h[name][:stdout].each do |line|
@@ -179,20 +178,26 @@ end
 
 ならば /^"([^"]*)"が起動していること$/ do |name|
   result = ""
-  if name == "DBプロセス"
-    result = `ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"`.chomp
-  elsif name == "キュープロセス"
-    result = `ps aux | grep -v grep | grep -e rabbitmq`.chomp
-  elsif name == "Tengineコアプロセス"
-    # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
-    # 例：tmp/tengine_pids/tengine.0.3948
-    # ファイルの中はpidが記述されている
-    pids = IO.popen("cat tmp/tengine_pids/tengine.*").to_a
-    pids.each do |pid|
-      result = `ps -eo pid #{pid}}`.chomp
+  time_out(10) do
+    while true
+      if name == "DBプロセス"
+        result = `ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"`.chomp
+      elsif name == "キュープロセス"
+        result = `ps aux | grep -v grep | grep -e rabbitmq`.chomp
+      elsif name == "Tengineコアプロセス"
+        # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
+        # 例：tmp/tengine_pids/tengine.0.3948
+        # ファイルの中はpidが記述されている
+        pids = IO.popen("cat tmp/tengine_pids/tengine.*").to_a
+        pids.each do |pid|
+          result = `ps -eo pid #{pid}}`.chomp
+        end
+      elsif name == "Tengineコンソールプロセス"
+        result = `ps -eo pid | grep \`cat tmp/pids/server.pid\``.chomp
+      end
+      break unless result.empty?
+      sleep 1
     end
-  elsif name == "Tengineコンソールプロセス"
-    result = `ps -eo pid | grep \`cat tmp/pids/server.pid\``.chomp
   end
   # systemメソッドの戻り値が空でないことで起動を判断する
   result.should_not be_empty
@@ -218,20 +223,25 @@ end
 
 ならば /^"([^"]*)"が停止していること$/ do |name|
   result = ""
-  if name == "DBプロセス"
-    result = `ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"`.chomp
-  elsif name == "キュープロセス"
-    result = `ps aux | grep -v grep | grep -e rabbitmq`.chomp
-  elsif name == "Tengineコアプロセス"
-    # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
-    # 例：tmp/tengine_pids/tengine.0.3948
-    # ファイルの中はpidが記述されている
-    pids = IO.popen("cat tmp/tengine_pids/tengine.*").to_a
-    pids.each do |pid|
-      result = `ps -eo pid #{pid}}`.chomp
+  time_out(10) do
+    while true
+      if name == "DBプロセス"
+        result = `ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"`.chomp
+      elsif name == "キュープロセス"
+        result = `ps aux | grep -v grep | grep -e rabbitmq`.chomp
+      elsif name == "Tengineコアプロセス"
+        # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
+        # 例：tmp/tengine_pids/tengine.0.3948
+        # ファイルの中はpidが記述されている
+        pids = IO.popen("cat tmp/tengine_pids/tengine.*").to_a
+        pids.each do |pid|
+          result = `ps -eo pid #{pid}}`.chomp
+        end
+      elsif name == "Tengineコンソールプロセス"
+        result = `ps -eo pid | grep \`cat tmp/pids/server.pid\``.chomp
+      end
+      break if result.empty?
     end
-  elsif name == "Tengineコンソールプロセス"
-    result = `ps -eo pid | grep \`cat tmp/pids/server.pid\``.chomp
   end
   # systemメソッドの戻り値が空であることで停止を判断する
   result.should be_empty
