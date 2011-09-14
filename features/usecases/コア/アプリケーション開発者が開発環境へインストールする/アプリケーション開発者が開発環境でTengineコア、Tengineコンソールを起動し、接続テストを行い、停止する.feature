@@ -477,7 +477,7 @@
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action load specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k load --tengined-load-path ./features/support/dsls/simple.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k load --tengined-load-path ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -491,55 +491,27 @@
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action start specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --tengined-load-path ./features/support/dsls/simple.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --tengined-load-path ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
 			
-  シナリオ: 18.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_enabelで--tengined-load-pathを指定していない
+  シナリオ: 18.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_enableで--tengined-load-pathを指定していない
 
       もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k enable"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action enable specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k enable --tengined-load-path ./features/support/dsls/simple.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k enable --tengined-load-path ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
 			
-  シナリオ: 19.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_stopで--tengined-load-pathを指定していない
-
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k stop"というコマンドを実行する
-      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action stop specified."と出力されていること
-      かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k stop --tengined-load-path ./features/support/dsls/simple.rb"というコマンドを実行する
-      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
-      # 以下基本コースに戻る
-
-			
-  シナリオ: 20.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_force-stopで--tengined-load-pathを指定していない
-
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k force-stop"というコマンドを実行する
-      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action force-stop specified."と出力されていること
-      かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k force-stop --tengined-load-path ./features/support/dsls/simple.rb"というコマンドを実行する
-      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
-      # 以下基本コースに戻る
-
-
   シナリオ: 21.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログファイルを指定したが書き込み権限がない
       前提 "/tmp/ap_not_writable.log"ファイルに書き込み権限がない
       かつ "/tmp/ap.log"ファイルに書き込み権限がある
