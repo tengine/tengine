@@ -111,7 +111,7 @@ describe "Tengine::Core::Bootstrap" do
       mock_config = mock(:config)
       bootstrap.should_receive(:config).and_return(mock_config)
       mock_dsl_dummy_env = mock(:dsl_dummy_env)
-      Tengine::Core::DslDummyEnv.should_receive(:new).and_return(mock_dsl_dummy_env)
+      Tengine::Core::DslDummyContext.should_receive(:new).and_return(mock_dsl_dummy_env)
       mock_dsl_dummy_env.should_receive(:extend).with(Tengine::Core::DslLoader)
       mock_dsl_dummy_env.should_receive(:config=).with(mock_config)
       mock_dsl_dummy_env.should_receive(:__evaluate__)

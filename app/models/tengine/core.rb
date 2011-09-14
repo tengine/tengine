@@ -12,7 +12,7 @@ module Tengine::Core
   # autoload :Filter,       'tengine/core/filter'
   autoload :DslLoader,    'tengine/core/dsl_loader'
   autoload :DslBinder,    'tengine/core/dsl_binder'
-  autoload :DslEnv,       'tengine/core/dsl_env'
+  autoload :DslContext,       'tengine/core/dsl_context'
   # autoload :DslFilterDef, 'tengine/core/dsl_filter_def'
 
   autoload :IoToLogger,   'tengine/core/io_to_logger'

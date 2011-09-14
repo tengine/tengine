@@ -45,7 +45,7 @@ class Tengine::Core::Kernel
 
   def dsl_env
     unless @dsl_env
-      @dsl_env = Tengine::Core::DslEnv.new(self)
+      @dsl_env = Tengine::Core::DslContext.new(self)
       @dsl_env.config = config
     end
     @dsl_env

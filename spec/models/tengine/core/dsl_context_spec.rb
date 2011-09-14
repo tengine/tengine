@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Tengine::Core::DslEnv do
+describe Tengine::Core::DslContext do
 end

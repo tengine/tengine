@@ -29,7 +29,7 @@ class Tengine::Core::Bootstrap
   end
 
   def load_dsl
-    obj = Tengine::Core::DslDummyEnv.new
+    obj = Tengine::Core::DslDummyContext.new
     obj.extend(Tengine::Core::DslLoader)
     obj.config = config
     obj.__evaluate__
