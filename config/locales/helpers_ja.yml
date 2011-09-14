@@ -1,0 +1,13 @@
+ja:
+  helpers:
+    label:
+      event:
+        event_type_name: "種別名"
+        key: "イベントキー"
+        source_name: "発生源名"
+        occurred_at: "発生時刻"
+        level: "通知レベル"
+        confirmed: "通知確認済み"
+        sender_name: "送信者名"
+        properties: "プロパティ"
+        properties_yaml: "プロパティ(YAML形式)"
