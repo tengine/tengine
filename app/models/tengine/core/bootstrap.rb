@@ -32,7 +32,7 @@ class Tengine::Core::Bootstrap
     obj = Tengine::Core::DslDummyEnv.new
     obj.extend(Tengine::Core::DslLoader)
     obj.config = config
-    obj.evaluate
+    obj.__evaluate__
   end
 
   def start_kernel(&block)

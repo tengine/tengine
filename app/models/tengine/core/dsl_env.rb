@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 class Tengine::Core::DslEnv
+  include Tengine::Core::DslBinder
+
   attr_accessor :__block_bindings__
 
   def initialize(kernel)

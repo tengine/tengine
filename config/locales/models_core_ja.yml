@@ -1,6 +1,7 @@
 ja:
   mongoid:
     models:
+      tengine/event: "イベント発火"
       tengine/core/event: "イベント"
       tengine/core/driver: "ドライバ"
       tengine/core/handler: "ハンドラ"
@@ -8,6 +9,7 @@ ja:
       tengine/core/session: "セッション"
 
     attributes:
+      # tengine/event については helpers_ja.yml を参照してください
       tengine/core/event:
         event_type_name: "種別名"
         key: "イベントキー"
@@ -16,8 +18,8 @@ ja:
         level: "通知レベル"
         confirmed: "通知確認済み"
         sender_name: "送信者名"
-        properties: "付加情報"
-        properties_yaml: "付加情報(YAML形式)"
+        properties: "プロパティ"
+        properties_yaml: "プロパティ(YAML形式)"
       tengine/core/driver:
         name: "名称"
         version: "バージョン"
@@ -36,6 +38,9 @@ ja:
         driver: "ドライバ"
         driver_id: "ドライバ"
       tengine/core/session:
-        properties: "付加情報"
-        properties_yaml: "付加情報(YAML形式)"
+        properties: "プロパティ"
+        properties_yaml: "プロパティ(YAML形式)"
+        system_properties: "システムプロパティ"
+        system_properties_yaml: "システムプロパティ(YAML形式)"
         driver: "ドライバ"
+        lock_version: "バージョン"

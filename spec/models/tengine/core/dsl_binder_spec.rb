@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Tengine::Core::DslBinder do
 
-  describe :evaluate do
+  describe :__evaluate__ do
     before do
       Tengine::Core::Driver.delete_all
       Tengine::Core::HandlerPath.delete_all
@@ -27,7 +27,7 @@ describe Tengine::Core::DslBinder do
 
       it "イベントハンドラ定義を評価して、ドライバとハンドラを保持する" do
         @driver.handlers.count.should == 1
-        @binder.evaluate
+        @binder.__evaluate__
         @binder.should_receive(:puts).with("handler01")
         @binder.__block_bindings__[@handler1.id.to_s].call
       end
@@ -37,7 +37,7 @@ describe Tengine::Core::DslBinder do
         @driver.save!
         @driver.handlers.count.should == 2
 
-        @binder.evaluate
+        @binder.__evaluate__
       end
     end
 
@@ -72,7 +72,7 @@ describe Tengine::Core::DslBinder do
       end
 
       it "イベントハンドラ定義を評価して、ドライバとハンドラを保持する" do
-        @binder.evaluate
+        @binder.__evaluate__
 
         @binder.should_receive(:puts).with("handler01")
         @binder.__block_bindings__[@handler1.id.to_s].call

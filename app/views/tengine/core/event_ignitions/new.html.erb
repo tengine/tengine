@@ -1,4 +1,4 @@
-<h1>イベント発火</h1>
+<h1><%= page_title Tengine::Event, :new %></h1>
 
 <p id="notice"><%= notice %></p>
 
@@ -22,7 +22,11 @@
   </div>
   <div class="field">
     <%= f.label :level %><br />
-    <%= f.number_field :level %>
+    <%= radio_button_tag "event[level]", 1 %> debug
+    <%= radio_button_tag "event[level]", 2 %> info
+    <%= radio_button_tag "event[level]", 3 %> warn
+    <%= radio_button_tag "event[level]", 4 %> error
+    <%= radio_button_tag "event[level]", 5 %> fatal
   </div>
   <div class="field">
     <%= f.label :sender_name %><br />
@@ -33,8 +37,7 @@
     <%= f.text_area :properties %>
   </div>
   <div class="actions">
-    <%= submit_tag "発火" %>
-    <%#= f.submit %>
+    <%= submit_tag %>
   </div>
 <% end %>
 
