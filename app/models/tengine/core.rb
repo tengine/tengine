@@ -18,7 +18,10 @@ module Tengine::Core
   autoload :IoToLogger,   'tengine/core/io_to_logger'
   autoload :MethodTraceable, 'tengine/core/method_traceable'
 
-  class DslError < ::Tengine::DslError
+  # developmentで動かすと
+  #   ActionController::RoutingError (uninitialized constant Tengine::DslError)
+  # が発生してしまうため StandardError から継承するように変更しました
+  class DslError < StandardError # ::Tengine::DslError
   end
 
   class << self
