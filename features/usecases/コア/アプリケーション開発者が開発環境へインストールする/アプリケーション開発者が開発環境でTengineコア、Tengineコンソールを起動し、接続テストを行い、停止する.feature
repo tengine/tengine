@@ -89,7 +89,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 4.[異常系]Tengineコアの接続テストに失敗し、Tengineサポート窓口へ問い合わせる_Tengineコアのコードにバグ
+  シナリオ: 3.[異常系]Tengineコアの接続テストに失敗し、Tengineサポート窓口へ問い合わせる_Tengineコアのコードにバグ
       # アプリケーション開発者が解決できない問題を発生させるために、Tengineコアのクラスにバグを埋め込む。
       # イベントハンドラ定義の中で、クラスを上書きするような定義をすることでこれを実現する。
       # TODO イベントハンドラ定義を作成する必要がある
@@ -103,7 +103,7 @@
       # シナリオ終了
 
 
-  シナリオ: 5.[異常系]Tengineコアの接続テストに失敗し、Tengineサポート窓口へ問い合わせる_接続テストのコードにバグ
+  シナリオ: 4.[異常系]Tengineコアの接続テストに失敗し、Tengineサポート窓口へ問い合わせる_接続テストのコードにバグ
       # アプリケーション開発者が解決できない問題を発生させるために、接続テストのクラスにバグを埋め込む。
       # イベントハンドラ定義の中で、クラスを上書きするような定義をすることでこれを実現する。
       # TODO イベントハンドラ定義を作成する必要がある
@@ -116,7 +116,7 @@
       もし "Tengineサポート窓口"へ問い合わせる
       # シナリオ終了
 
-  シナリオ: 6.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_設定ファイルが不正
+  シナリオ: 5.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_設定ファイルが不正
       前提 yamlファイルとして不正なTengineコアの設定ファイル"./features/support/config/invalid_tengine.yml"が存在すること
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/invalid_tengine.yml"というコマンドを実行する
@@ -127,7 +127,7 @@
 
       # 以下基本コースに戻る
 
-  シナリオ: 7.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_起動オプションに存在しないオプション
+  シナリオ: 6.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_起動オプションに存在しないオプション
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml -Q 2>&1"というコマンドを実行する
       ならば "接続テスト"の標準出力に"tengined: invalid option: -Q"と出力されていること
@@ -138,7 +138,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 8.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_存在しないTengineコアの設定ファイル指定
+  シナリオ: 7.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_存在しないTengineコアの設定ファイル指定
       前提 Tengineコアの設定ファイル"./features/support/config/not_found_tengine.yml"が存在しないこと
 
       # 存在しないファイルを指定するのでエラーが発生する
@@ -152,7 +152,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 9.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-host
+  シナリオ: 8.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-host
 			
       もし "接続テスト"を行うために"bin/tengined -k test --db-host xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
@@ -162,7 +162,7 @@
 
       # 以下基本コースに戻る
 
-  シナリオ: 10.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-port
+  シナリオ: 9.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-port
 			
       もし "接続テスト"を行うために"bin/tengined -k test --db-port 9999"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
@@ -173,7 +173,7 @@
       # 以下基本コースに戻る
 
 			
-  シナリオ: 11.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-username
+  シナリオ: 10.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-username
 			
       もし "接続テスト"を行うために"bin/tengined -k test --db-username xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
@@ -184,7 +184,7 @@
       # 以下基本コースに戻る
 
 			
-  シナリオ: 12.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-password
+  シナリオ: 11.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-password
 			
       もし "接続テスト"を行うために"bin/tengined -k test --db-password xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
@@ -194,7 +194,7 @@
 
       # 以下基本コースに戻る
 
-  シナリオ: 13.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-database
+  シナリオ: 12.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-database
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml --db-database xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
@@ -205,7 +205,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 14.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-host
+  シナリオ: 13.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-host
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml --event-queue-conn-host xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
@@ -216,7 +216,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 15.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-port
+  シナリオ: 14.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-port
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml --event-queue-conn-port 9999"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
@@ -227,7 +227,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 16.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-vhost
+  シナリオ: 15.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-vhost
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml --event-queue-conn-vhost xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
@@ -238,7 +238,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 17.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-user
+  シナリオ: 16.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-user
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml --event-queue-conn-user xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
@@ -249,7 +249,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 18.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-pass
+  シナリオ: 17.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-pass
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml --event-queue-conn-pass xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
@@ -512,7 +512,7 @@
       # 以下基本コースに戻る
 
 			
-  シナリオ: 21.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログファイルを指定したが書き込み権限がない
+  シナリオ: 19.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログファイルを指定したが書き込み権限がない
       前提 "./tmp/ap_not_writable.log"ファイルに書き込み権限がない
       かつ "./tmp/ap.log"ファイルに書き込み権限がある
 
@@ -528,7 +528,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 22.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログローテーションを指定したが認識できない
+  シナリオ: 20.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログローテーションを指定したが認識できない
       もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --application-log-rotation yearly"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"invalid value of application-log-rotation : yearly"と出力されていること
@@ -541,7 +541,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 23.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログローテーションサイズを指定したが認識できない
+  シナリオ: 21.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログローテーションサイズを指定したが認識できない
       もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --application-log-rotation-size hoge"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"invalid value of application-log-rotation-size : hoge"と出力されていること
@@ -554,7 +554,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 24.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログレベルを指定したが認識できない
+  シナリオ: 22.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログレベルを指定したが認識できない
       もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --application-log-level hoge"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"invalid value of application-log-level : hoge"と出力されていること
