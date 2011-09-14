@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class Tengine::Core::DslEnv
+class Tengine::Core::DslContext
   include Tengine::Core::DslBinder
 
   attr_accessor :__block_bindings__
