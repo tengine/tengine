@@ -60,7 +60,7 @@
   シナリオ: 1.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBプロセスが起動していない
       前提 "DBプロセス"が停止している
 
-      もし "接続テスト"を行うために"bin/tengined -k test -f ./tmp/end_to_end_test/config/tengine.yml"というコマンドを実行する
+      もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること 
 
       もし "DBプロセス"の起動を行うために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
