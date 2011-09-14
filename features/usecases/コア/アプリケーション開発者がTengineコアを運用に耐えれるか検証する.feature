@@ -20,7 +20,7 @@
     ならば "イベント通知画面"を表示していること
     かつ 一件も表示されていないこと
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tendined -T features/support/dsls -f features/support/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T features/support/dsls -f features/support/config/tengine.yml"というコマンドを実行する
     ならば "Tengineコアプロセス"が起動していること
 
     もし "イベント通知画面"を表示する
@@ -45,7 +45,7 @@
     かつ "検索する"ボタンをクリックする
     ならば 一件も表示されていないこと
 
-    もし "キュープロセス"の起動を行うために"sudo rabbitmq-server"というコマンドを実行する
+    もし "キュープロセス"の起動を行うために"rabbitmq-server"というコマンドを実行する
     ならば "キュー"が起動していること
 
     もし "イベント通知画面"を表示する
@@ -114,7 +114,7 @@
      #接続した時刻を記録
     ならば コアが動作しているサーバとDBが動作しているサーバ間のネットワークが接続していること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tendined -T features/support/dsls -f features/support/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T features/support/dsls -f features/support/config/tengine.yml"というコマンドを実行する
     ならば "Tengineコアプロセス"が起動していること
 
     もし "イベント通知画面"を表示する
