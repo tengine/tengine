@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 require 'tengine/core'
 
-# 起動確認などを行うためのシンプルなイベントハンドラ定義です。
-Tengine.driver :driver_simple do
+# イベント処理が終わらないイベント定義
+driver :driver_hang_up do
 
-  # イベントに対応する処理の実行する
-  on:event_simple do
-    puts "handler_simple"
+  on:event_hang_up do
+    puts "handler_hang_up"
+    # sleepさせているので実際は10分で戻ります
+    sleep 600
   end
 
 end

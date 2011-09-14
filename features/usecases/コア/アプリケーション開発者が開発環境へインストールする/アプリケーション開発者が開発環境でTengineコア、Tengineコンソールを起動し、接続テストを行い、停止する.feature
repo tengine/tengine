@@ -597,41 +597,33 @@
   ######################################
   # Tengineコアの停止に失敗
   #####################################
+  @selenium
   シナリオ: [異常系]Tengineコアのプロセスの停止に失敗し、強制停止を行う
-      前提 処理が終了しないイベントハンドラ定義ファイル"./features/usecases/コア/dsls/hang_up.rb"が存在すること
+      前提 処理が終了しないイベントハンドラ定義ファイル"./usecases/コア/dsls/uc93_hang_up.rb"が存在すること
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
-      もし "Tengineコアプロセスの起動"を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./features/usecases/コア/dsls/hung_up.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc93_hang_up.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
-      もし "Tengineコンソールプロセスの起動"を行うために"rails s -e production"というコマンドを実行する
+      もし "Tengineコンソールプロセス"の起動を行うために"rails s -e production"というコマンドを実行する
       ならば "Tengineコンソールプロセス"のPIDファイル"./tmp/pids/server.pid"からPIDを確認できること
       ならば "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "イベント通知画面"を表示する
-      もし "イベント通知画面"を表示する
-      ならば "イベント通知画面"を表示していること
-      ならば 以下の行が表示されること
-      |種別名  |
-      |connection_test|
-
-      もし "種別名"に"hung_up"と入力する
-      かつ "発生源名"に"tengine_console"と入力する
-      かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
-      かつ "通知レベル"から"info"を選択する
-      かつ "送信者名"に"tengine_console"と入力する
+      もし "イベント発火画面"を表示する
+      ならば "イベント発火画面"を表示していること
+      もし "種別名"に"event_hang_up"と入力する
       かつ "発火"ボタンをクリックする
-      ならば "hung_upを発火しました"と表示されていること
+      ならば "event_hang_upを発火しました"と表示されていること
 			
       かつ "Tengineコアプロセス"を Ctrl+c で停止する
-      ならば "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+      ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 			
       もし "Tengineコアプロセス"を強制停止する
-      ならば "Tengineコンソールプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+      ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       もし "Tengineコンソールプロセス"を Ctrl+c で停止する
       ならば "Tengineコンソールプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
