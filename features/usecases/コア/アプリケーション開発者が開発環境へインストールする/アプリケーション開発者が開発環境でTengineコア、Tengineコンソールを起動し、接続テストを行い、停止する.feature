@@ -89,13 +89,16 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 4.[異常系]Tengineコアの接続テストに失敗し、Tengineサポート窓口へ問い合わせる_Tengineコアのコードにバグ
+  @manual
+  シナリオ: 3.[異常系]Tengineコアの接続テストに失敗し、Tengineサポート窓口へ問い合わせる_Tengineコアのコードにバグ
+      # 接続テストの場合、tenginedコマンドで-Tオプションが使用できないので、イベントハンドラ定義を使用してバグを埋め込むことができない
+      # そのため、現時点では自動化はできない
+
       # アプリケーション開発者が解決できない問題を発生させるために、Tengineコアのクラスにバグを埋め込む。
       # イベントハンドラ定義の中で、クラスを上書きするような定義をすることでこれを実現する。
-      # TODO イベントハンドラ定義を作成する必要がある
 
-      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./features/support/dsls/include_bug_core.rb"が存在すること
-      もし "接続テスト"を行うために"bin/tengined -k test -f tengine.yml -T ./features/support/dsls/include_bug_core.rb"というコマンドを実行する
+      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./usecases/コア/dsls/uc95_include_bug_core.rb"が存在すること
+      もし "接続テスト"を行うために"bin/tengined -k test -f tengine.yml -T ./usecases/コア/dsls/uc95_include_bug_core.rb"というコマンドを実行する
       ならば "接続テスト"の標準出力に"inquire of Tengine User Group or Tengine Support Service."と出力されていること 
 #      もし サーバ構成レポート収集ツールでサーバ構成の内容を収集する
 #      ならば サーバ構成レポートが作成されていること
@@ -103,7 +106,11 @@
       # シナリオ終了
 
 
-  シナリオ: 5.[異常系]Tengineコアの接続テストに失敗し、Tengineサポート窓口へ問い合わせる_接続テストのコードにバグ
+  @manual
+  シナリオ: 4.[異常系]Tengineコアの接続テストに失敗し、Tengineサポート窓口へ問い合わせる_接続テストのコードにバグ
+      # 接続テストの場合、tenginedコマンドで-Tオプションが使用できないので、イベントハンドラ定義を使用してバグを埋め込むことができない
+      # そのため、現時点では自動化はできない
+
       # アプリケーション開発者が解決できない問題を発生させるために、接続テストのクラスにバグを埋め込む。
       # イベントハンドラ定義の中で、クラスを上書きするような定義をすることでこれを実現する。
       # TODO イベントハンドラ定義を作成する必要がある
@@ -116,7 +123,7 @@
       もし "Tengineサポート窓口"へ問い合わせる
       # シナリオ終了
 
-  シナリオ: 6.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_設定ファイルが不正
+  シナリオ: 5.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_設定ファイルが不正
       前提 yamlファイルとして不正なTengineコアの設定ファイル"./features/support/config/invalid_tengine.yml"が存在すること
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/invalid_tengine.yml"というコマンドを実行する
@@ -127,7 +134,7 @@
 
       # 以下基本コースに戻る
 
-  シナリオ: 7.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_起動オプションに存在しないオプション
+  シナリオ: 6.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_起動オプションに存在しないオプション
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml -Q 2>&1"というコマンドを実行する
       ならば "接続テスト"の標準出力に"tengined: invalid option: -Q"と出力されていること
@@ -138,7 +145,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 8.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_存在しないTengineコアの設定ファイル指定
+  シナリオ: 7.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_存在しないTengineコアの設定ファイル指定
       前提 Tengineコアの設定ファイル"./features/support/config/not_found_tengine.yml"が存在しないこと
 
       # 存在しないファイルを指定するのでエラーが発生する
@@ -152,7 +159,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 9.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-host
+  シナリオ: 8.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-host
 			
       もし "接続テスト"を行うために"bin/tengined -k test --db-host xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
@@ -162,7 +169,7 @@
 
       # 以下基本コースに戻る
 
-  シナリオ: 10.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-port
+  シナリオ: 9.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-port
 			
       もし "接続テスト"を行うために"bin/tengined -k test --db-port 9999"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
@@ -173,7 +180,7 @@
       # 以下基本コースに戻る
 
 			
-  シナリオ: 11.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-username
+  シナリオ: 10.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-username
 			
       もし "接続テスト"を行うために"bin/tengined -k test --db-username xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
@@ -184,7 +191,7 @@
       # 以下基本コースに戻る
 
 			
-  シナリオ: 12.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-password
+  シナリオ: 11.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-password
 			
       もし "接続テスト"を行うために"bin/tengined -k test --db-password xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
@@ -194,7 +201,7 @@
 
       # 以下基本コースに戻る
 
-  シナリオ: 13.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-database
+  シナリオ: 12.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-database
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml --db-database xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
@@ -205,7 +212,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 14.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-host
+  シナリオ: 13.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-host
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml --event-queue-conn-host xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
@@ -216,7 +223,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 15.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-port
+  シナリオ: 14.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-port
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml --event-queue-conn-port 9999"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
@@ -227,7 +234,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 16.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-vhost
+  シナリオ: 15.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-vhost
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml --event-queue-conn-vhost xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
@@ -238,7 +245,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 17.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-user
+  シナリオ: 16.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-user
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml --event-queue-conn-user xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
@@ -249,7 +256,7 @@
       # 以下基本コースに戻る
 
 
-  シナリオ: 18.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-pass
+  シナリオ: 17.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-pass
 			
       もし "接続テスト"を行うために"bin/tengined -k test --config ./features/support/config/tengine.yml --event-queue-conn-pass xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
@@ -268,10 +275,11 @@
 
   シナリオ: 1.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_DBプロセスが起動していない
       前提 "DBプロセス"が停止している
+      ならば "DBプロセス"が停止していること
 
       もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      ならば "Tengineコアプロセス"の標準出力に"can't connect to database."と出力されていること
+      かつ "Tengineコアプロセス"の標準出力に"can't connect to database."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       もし "DBプロセス"の起動を行うために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
@@ -287,11 +295,10 @@
   シナリオ: 2.[異常系]Tengineコアのプロセス起動に失敗し、Tengineサポート窓口へ問い合わせる_Tengineコアのコードにバグ
       # アプリケーション開発者が解決できない問題を発生させるために、Tengineコアのクラスにバグを埋め込む。
       # イベントハンドラ定義の中で、クラスを上書きするような定義をすることでこれを実現する。
-      # TODO イベントハンドラ定義を作成する必要がある
 
-      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./features/event_handler_def/include_bug_core.rb"が存在すること
-      もし "Tengineコアプロセス"を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./features/support/dsls/include_bug_core.rb"というコマンドを実行する
-      ならば "Tengineコアプロセウ"の標準出力に"inquire of Tengine User Group or Tengine Support Service."と出力されていること 
+      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./usecases/コア/dsls/uc95_include_bug_core.rb"が存在すること
+      もし "Tengineコアプロセス"を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc95_include_bug_core.rb"というコマンドを実行する
+      ならば "Tengineコアプロセス"の標準出力に"inquire of Tengine User Group or Tengine Support Service."と出力されていること 
 #      もし サーバ構成レポート収集ツールでサーバ構成の内容を収集する
 #      ならば サーバ構成レポートが作成されていること
       もし "Tengineサポート窓口"へ問い合わせる
@@ -299,16 +306,16 @@
 
 
   シナリオ: 3.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_設定ファイルが不正
-      前提 yamlファイルとして不正なTengineコアの設定ファイルinvalid_tengine.ymlが存在する
+      前提 yamlファイルとして不正なTengineコアの設定ファイル"./features/support/config/invalid_tengine.yml"が存在する
 			
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./tmp/end_to_end_test/config/invalid_tengine.yml"というコマンドを実行する
+      # 不正なファイルを指定して実行
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/invalid_tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      ならば "Tengineコアプロセス"の標準出力に"Exception occurred when loading configuration file: ./tmp/end_to_end_test/config/invalid_tengine.yml."と出力されていること
+      ならば "Tengineコアプロセス"の標準出力に"Exception occurred when loading configuration file: ./features/support/config/invalid_tengine.yml."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし Tengineコアの設定ファイル"./tmp/end_to_end_test/config/invalid_tengine.yml"を修正する
-
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./tmp/end_to_end_test/config/invalid_tengine.yml"というコマンドを実行する
+      # 正しいファイルを指定して実行
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -317,7 +324,7 @@
 
   シナリオ: 4.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_起動オプションに存在しないオプション
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -Q"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -Q 2>&1"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"tengined: invalid option: -Q"と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -330,14 +337,14 @@
 
   シナリオ: 5.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_存在しないTengineコアの設定ファイル指定
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./tmp/end_to_end_test/config/not_found_tengine.yml"というコマンドを実行する
-      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      ならば "Tengineコアプロセス"の標準出力に"Exception occurred when loading configuration file: ./tmp/end_to_end_test/config/not_found_tengine.yml."と出力されていること
-      かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+      # 指定ファイルが存在しないので起動しない
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/not_found_tengine.yml"というコマンドを実行する
+      # ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+      ならば "Tengineコアプロセス"の標準出力に"Exception occurred when loading configuration file: ./features/support/config/not_found_tengine.yml."と出力されていること
+      # かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし Tengineコアの設定ファイル"./tmp/end_to_end_test/config/not_found_tengine.yml"を作成する
-
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./tmp/end_to_end_test/config/not_found_tengine.yml"というコマンドを実行する
+      # 正しいファイルを指定して実行
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -346,12 +353,12 @@
 
   シナリオ: 6.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-host
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --db-host xxx"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --db-host xxx"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      ならば "Tengineコアプロセス"の標準出力に"can't connect to database."と出力されていること
+      かつ "Tengineコアプロセス"の標準出力に"can't connect to database."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -360,12 +367,12 @@
 
   シナリオ: 7.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-port
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --db-port 9999"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --db-port 9999"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to database."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -374,12 +381,12 @@
 
   シナリオ: 8.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-username
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --db-username xxx"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --db-username xxx"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to database."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -388,12 +395,12 @@
 
   シナリオ: 9.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-password
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --db-password xxx"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --db-password xxx"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to database."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -402,12 +409,12 @@
 
   シナリオ: 10.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-database
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --db-database xxx"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --db-database xxx"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to database."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -416,7 +423,7 @@
 
   シナリオ: 11.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-host
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --event-queue-conn-host xxx"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --event-queue-conn-host xxx"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
 			# Warning 扱いのためTengineコアプロセスは起動する
@@ -427,7 +434,7 @@
 			
   シナリオ: 12.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-port
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --event-queue-conn-port 9999"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --event-queue-conn-port 9999"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
 			# Warning 扱いのためTengineコアプロセスは起動する
@@ -438,7 +445,7 @@
 			
   シナリオ: 13.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-vhost
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --event-queue-conn-vhost xxx"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --event-queue-conn-vhost xxx"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
 			# Warning 扱いのためTengineコアプロセスは起動する
@@ -449,7 +456,7 @@
 			
   シナリオ: 14.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-user
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --event-queue-conn-user xxx"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --event-queue-conn-user xxx"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
 			# Warning 扱いのためTengineコアプロセスは起動する
@@ -460,7 +467,7 @@
 			
   シナリオ: 15.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-pass
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --event-queue-conn-pass xxx"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --event-queue-conn-pass xxx"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
 			# Warning 扱いのためTengineコアプロセスは起動する
@@ -476,7 +483,7 @@
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action load specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k load --tengined-load-path ./features/support/dsls/simple.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k load --tengined-load-path ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -485,109 +492,81 @@
 
   シナリオ: 17.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_startで--tengined-load-pathを指定していない
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action start specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --tengined-load-path ./features/support/dsls/simple.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --tengined-load-path ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
 			
-  シナリオ: 18.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_enabelで--tengined-load-pathを指定していない
+  シナリオ: 18.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_enableで--tengined-load-pathを指定していない
 
       もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k enable"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action enable specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k enable --tengined-load-path ./features/support/dsls/simple.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k enable --tengined-load-path ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
 			
-  シナリオ: 19.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_stopで--tengined-load-pathを指定していない
+  シナリオ: 19.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログファイルを指定したが書き込み権限がない
+      前提 "./tmp/ap_not_writable.log"ファイルに書き込み権限がない
+      かつ "./tmp/ap.log"ファイルに書き込み権限がある
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k stop"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --application-log-output ./tmp/ap_not_writable.log"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action stop specified."と出力されていること
+      ならば "Tengineコアプロセス"の標準出力に"permission denied. can't create o write file path: ./tmp/ap_not_writable.log"と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k stop --tengined-load-path ./features/support/dsls/simple.rb"というコマンドを実行する
-      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
-      # 以下基本コースに戻る
-
-			
-  シナリオ: 20.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_force-stopで--tengined-load-pathを指定していない
-
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k force-stop"というコマンドを実行する
-      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action force-stop specified."と出力されていること
-      かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k force-stop --tengined-load-path ./features/support/dsls/simple.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --application-log-output /tmp/ap.log"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
 
-  シナリオ: 21.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログファイルを指定したが書き込み権限がない
-      前提 "/tmp/ap_not_writable.log"ファイルに書き込み権限がない
-      かつ "/tmp/ap.log"ファイルに書き込み権限がある
-
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --application-log-output /tmp/ap_not_writable.log"というコマンドを実行する
-      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      ならば "Tengineコアプロセス"の標準出力に"permission denied. can't create o write file path: /tmp/ap.log"と出力されていること
-      かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --application-log-output /tmp/ap.log"というコマンドを実行する
-      ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-      かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
-      # 以下基本コースに戻る
-
-
-  シナリオ: 22.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログローテーションを指定したが認識できない
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --application-log-rotation yearly"というコマンドを実行する
+  シナリオ: 20.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログローテーションを指定したが認識できない
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --application-log-rotation yearly"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"invalid value of application-log-rotation : yearly"と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --application-log-rotation monthly"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --application-log-rotation monthly"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
 
-  シナリオ: 23.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログローテーションサイズを指定したが認識できない
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --application-log-rotation-size hoge"というコマンドを実行する
+  シナリオ: 21.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログローテーションサイズを指定したが認識できない
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --application-log-rotation-size hoge"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"invalid value of application-log-rotation-size : hoge"と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --application-log-rotation-size 10"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --application-log-rotation-size 10"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
 
-  シナリオ: 24.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログレベルを指定したが認識できない
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --application-log-level hoge"というコマンドを実行する
+  シナリオ: 22.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログレベルを指定したが認識できない
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --application-log-level hoge"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"invalid value of application-log-level : hoge"と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --application-log-level error"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start --config ./features/support/config/tengine.yml --application-log-level error"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -597,41 +576,33 @@
   ######################################
   # Tengineコアの停止に失敗
   #####################################
+  @selenium
   シナリオ: [異常系]Tengineコアのプロセスの停止に失敗し、強制停止を行う
-      前提 処理が終了しないイベントハンドラ定義ファイル"./features/usecases/コア/dsls/hang_up.rb"が存在すること
+      前提 処理が終了しないイベントハンドラ定義ファイル"./usecases/コア/dsls/uc93_hang_up.rb"が存在すること
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
-      もし "Tengineコアプロセスの起動"を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./features/usecases/コア/dsls/hung_up.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc93_hang_up.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
-      もし "Tengineコンソールプロセスの起動"を行うために"rails s -e production"というコマンドを実行する
+      もし "Tengineコンソールプロセス"の起動を行うために"rails s -e production"というコマンドを実行する
       ならば "Tengineコンソールプロセス"のPIDファイル"./tmp/pids/server.pid"からPIDを確認できること
       ならば "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "イベント通知画面"を表示する
-      もし "イベント通知画面"を表示する
-      ならば "イベント通知画面"を表示していること
-      ならば 以下の行が表示されること
-      |種別名  |
-      |connection_test|
-
-      もし "種別名"に"hung_up"と入力する
-      かつ "発生源名"に"tengine_console"と入力する
-      かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
-      かつ "通知レベル"から"info"を選択する
-      かつ "送信者名"に"tengine_console"と入力する
+      もし "イベント発火画面"を表示する
+      ならば "イベント発火画面"を表示していること
+      もし "種別名"に"event_hang_up"と入力する
       かつ "発火"ボタンをクリックする
-      ならば "hung_upを発火しました"と表示されていること
+      ならば "event_hang_upを発火しました"と表示されていること
 			
       かつ "Tengineコアプロセス"を Ctrl+c で停止する
-      ならば "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+      ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 			
       もし "Tengineコアプロセス"を強制停止する
-      ならば "Tengineコンソールプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+      ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       もし "Tengineコンソールプロセス"を Ctrl+c で停止する
       ならば "Tengineコンソールプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
