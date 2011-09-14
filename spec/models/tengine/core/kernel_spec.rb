@@ -143,6 +143,8 @@ describe Tengine::Core::Kernel do
         end
 
         it "confirmation_threshold以下なら登録されたイベントはconfirmedがtrue" do
+          @mock_raw_event.stub!(:key).and_return("uniq_key")
+          @mock_raw_event.stub!(:sender_name).and_return("localhost")
           @mock_raw_event.stub!(:attributes).and_return(:event_type_name => :foo, :key => "uniq_key", :level => Tengine::Event::LEVELS_INV[:info])
           @mock_raw_event.stub!(:level).and_return(Tengine::Event::LEVELS_INV[:info])
           count = lambda{ Tengine::Core::Event.where(:event_type_name => :foo, :confirmed => true).count }
@@ -150,10 +152,65 @@ describe Tengine::Core::Kernel do
         end
 
         it "confirmation_threshold以下なら登録されたイベントはconfirmedがfalse" do
+          @mock_raw_event.stub!(:key).and_return("uniq_key")
+          @mock_raw_event.stub!(:sender_name).and_return("localhost")
           @mock_raw_event.stub!(:attributes).and_return(:event_type_name => :foo, :key => "uniq_key", :level => Tengine::Event::LEVELS_INV[:warn])
           @mock_raw_event.stub!(:level).and_return(Tengine::Event::LEVELS_INV[:warn])
           count = lambda{ Tengine::Core::Event.where(:event_type_name => :foo, :confirmed => false).count }
           expect{ @kernel.start }.should change(count, :call).by(1) # イベントが登録されていることを検証
+        end
+      end
+
+      context "イベントストアへの登録有無" do
+        it "keyが同じ、sender_nameが異なる場合は、イベントストアへ登録を行わずACKを返却" do
+          @header.should_receive(:ack)
+          raw_event = Tengine::Event.new(:key => "uuid1", :sender_name => "another_host", :event_type_name => "event1")
+          lambda {
+            Tengine::Core::Event.create!(raw_event.attributes.update(:confirmed => (raw_event.level <= @kernel.config.confirmation_threshold)))
+          }.should raise_error(Mongo::OperationFailure)
+          @kernel.process_message(@header, raw_event.to_json)
+        end
+
+        it "keyが異なる場合は、イベントストアへ登録を行い、ACKを返却" do
+          @header.should_receive(:ack)
+          raw_event = Tengine::Event.new(:key => "uuid99", :sender_name => "another_host", :event_type_name => "event1")
+          Tengine::Core::Event.should_receive(:create!).and_return(Tengine::Core::Event.new(raw_event.attributes))
+          @kernel.process_message(@header, raw_event.to_json)
+        end
+      end
+
+      context "イベント処理失敗イベントの発火" do
+        before do
+          # eventmachine と mq の mock を生成
+          EM.should_receive(:run).and_yield
+          mock_sub_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
+          Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_sub_mq)
+          mock_sub_mq.should_receive(:queue).exactly(2).times.and_return(@mock_queue)
+          @mock_queue.should_receive(:subscribe).with(:ack => true, :nowait => true).and_yield(@header, :message)
+
+          # subscribe してみる
+          @raw_event = Tengine::Event.new(:key => "uuid1", :sender_name => "localhost", :event_type_name => "event1")
+          Tengine::Event.should_receive(:parse).with(:message).and_return(@raw_event)
+          @header.should_receive(:ack)
+        end
+
+        it "既に登録されているイベントとkey, sender_nameが一致するイベントを受信した場合、発火" do
+          # @raw_event = Tengine::Event.new(:key => "uuid1", :sender_name => "localhost", :event_type_name => "event1")
+
+          EM.should_receive(:next_tick).and_yield
+          mock_mq = Tengine::Mq::Suite.new(@kernel.config[:event_queue])
+          Tengine::Mq::Suite.should_receive(:new).with(@kernel.config[:event_queue]).and_return(mock_mq)
+          mock_sender = mock(:sender)
+          Tengine::Event::Sender.should_receive(:new).with(mock_mq).and_return(mock_sender)
+          mock_sender.should_receive(:fire).with("#{@raw_event.event_type_name}.failed.tengined",
+                                            {
+                                              :level => Tengine::Event::LEVELS_INV[:error],
+                                              :properties => { :original_event => @raw_event }
+                                            })
+          # @kernel.__send__(:do_save?, @raw_event)
+          @kernel.start
+          events = Tengine::Core::Event.where(:key => @raw_event.key, :sender_name => @raw_event.sender_name)
+          events.count.should == 1
         end
       end
 
@@ -167,11 +224,13 @@ describe Tengine::Core::Kernel do
 
         # subscribe してみる
         mock_raw_event = mock(:row_event)
-        mock_raw_event.should_receive(:attributes).and_return(:event_type_name => :event01, :key => "uuid1")
+        mock_raw_event.stub!(:key).and_return("uuid")
+        mock_raw_event.stub!(:sender_name).and_return("localhost")
+        mock_raw_event.should_receive(:attributes).and_return(:event_type_name => :event01, :key => "uuid")
         mock_raw_event.stub!(:level).and_return(Tengine::Event::LEVELS_INV[:info])
         Tengine::Event.should_receive(:parse).with(:message).and_return(mock_raw_event)
         # イベントの登録
-        Tengine::Core::Event.should_receive(:create!).with(:event_type_name => :event01, :key => "uuid1", :confirmed => true).and_return(@event1)
+        Tengine::Core::Event.should_receive(:create!).with(:event_type_name => :event01, :key => "uuid", :confirmed => true).and_return(@event1)
 
         # ハンドラの実行を検証
         Tengine::Core::HandlerPath.should_receive(:find_handlers).with("event01").and_return([@handler1])
