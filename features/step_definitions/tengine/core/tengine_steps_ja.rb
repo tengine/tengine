@@ -211,7 +211,7 @@ end
   exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z"
   puts "stop confirm command: #{exec_command}"
   process_stop = ""
-  time_out(5) do
+  time_out(10) do
     while true
       process_stop = `#{exec_command}`.chomp
       break if process_stop.empty?
