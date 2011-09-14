@@ -36,12 +36,12 @@ end
       raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
     end
   elsif name == "キュープロセス"
-    io = IO.popen("rabbitmqctl status")
+    io = IO.popen("sudo rabbitmqctl status")
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
     contains = contains_message_from_stdout(name,"running_applications")
     unless contains
-      raise "RabbitMQの起動に失敗しました" unless system('rabbitmq-server -detached')
+      raise "RabbitMQの起動に失敗しました" unless system('sudo rabbitmq-server -detached')
     end
   end
 end
@@ -237,13 +237,14 @@ end
   pid = @h[name][:pid]
   exec_command = "kill -INT #{pid} > /dev/null"
   #exec_command = "kill -KILL #{pid} > /dev/null"
-  system(exec_command)
+#  system(exec_command)
+  IO.popen(exec_command)
   puts "kill commando: #{exec_command}"
 end
 
 もし /^"([^"]*)"を強制停止する$/ do |name|
   pid = @h[name][:pid]
-  exec_command = "kill KILL #{pid} > /dev/null"
+  exec_command = "kill -KILL #{pid} > /dev/null"
   system(exec_command)
   puts "kill commando: #{exec_command}"
 end
