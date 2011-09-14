@@ -51,6 +51,7 @@ end
     io = IO.popen("bin/tengined #{option}")
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
+sleep 10
   elsif name == "DBプロセス"
     unless system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
       raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
@@ -160,6 +161,7 @@ end
   raise "#{name}が起動していません" if pids.empty?
   raise "#{name}が2つ以上起動しています。:pids => #{pids}" if 1 < pids.size
   @h[name][:start_time] = tengine_core_process_start_time(pids[0]) 
+  @h[name][:pid] = pids[0]
 end
 
 ならば /^"([^"]*)"が起動していること$/ do |name|
@@ -527,7 +529,9 @@ def tengine_core_process_pids(status)
   pids = []
   command = "bin/tengined -k status | grep #{status} | awk '{print $1}'"
   IO.popen(command) do |io|
-    pid = io.gets.chomp
+    line = io.gets
+    break unless line
+    pid = line.chomp
     pids << pid
   end
   return pids
@@ -808,5 +812,10 @@ end
 #############
 
 前提 /^Tengine周辺のサーバの時刻が同期されている$/ do
-  pending # express the regexp above with the code you wish you had
+#  pending # express the regexp above with the code you wish you had
 end
+
+もし /^(.*)秒間眠る$/ do |time|
+  sleep time.to_i
+end
+
