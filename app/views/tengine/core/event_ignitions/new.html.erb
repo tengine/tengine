@@ -22,7 +22,11 @@
   </div>
   <div class="field">
     <%= f.label :level %><br />
-    <%= f.number_field :level %>
+    <%= radio_button_tag "event[level]", 1 %> debug
+    <%= radio_button_tag "event[level]", 2 %> info
+    <%= radio_button_tag "event[level]", 3 %> warn
+    <%= radio_button_tag "event[level]", 4 %> error
+    <%= radio_button_tag "event[level]", 5 %> fatal
   </div>
   <div class="field">
     <%= f.label :sender_name %><br />

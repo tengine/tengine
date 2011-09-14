@@ -8,6 +8,7 @@ class Tengine::Core::EventIgnitionsController < ApplicationController
     @event.source_name = nil
     @event.sender_name = nil
     @event.level = nil
+    @event.occurred_at = nil
 
     respond_to do |format|
       format.html # new.html.erb
@@ -22,9 +23,8 @@ class Tengine::Core::EventIgnitionsController < ApplicationController
     options = ""
     options = options << " key:\"#{event[:key]}\"" unless event[:key].blank?
     options = options << " source_name:\"#{event[:source_name]}\"" unless event[:source_name].blank?
-    options = options << " occurred_at:\"#{event[:occurred_at]}\"" unless event[:occurred_at].blank?
-    options = options << " notification_level:\"#{event[:notification_level]}\"" unless event[:notification_level].blank?
-    options = options << " notification_confirmed:\"#{event[:notification_confirmed]}\"" unless event[:notification_confirmed].blank?
+    options = options << " occurred_at:\"#{Time.parse(event[:occurred_at]).utc.to_s}\"" unless event[:occurred_at].blank?
+    options = options << " level_key:\"#{Tengine::Core::Event.level_key_by_id(event[:level]).to_s}\"" unless event[:level].blank?
     options = options << " sender_name:\"#{event[:sender_name]}\"" unless event[:sender_name].blank?
     # TODO Hash としてセットできずにエラーになる
     # options = options << " properties:\"#{event[:properties]}\"" unless event[:properties].blank?

@@ -6,13 +6,13 @@ class Tengine::Core::DriversController < ApplicationController
 
     # 検索ボタン押下の遷移でない且つ、セッション上に検索フォームの情報がある場合は、セッション情報を利用する
     if params[:commit].blank? && session[:driver_finder]
-      @finder = session[:driver_finder]
+      @finder = Tengine::Core::Driver::Finder.new(session[:driver_finder])
     else
-      @finder = Tengine::Core::Driver::Finder.new(params[:finder] || {}, params[:page])
-      session[:driver_finder]  = @finder
+      @finder = Tengine::Core::Driver::Finder.new(params[:finder])
+      session[:driver_finder]  = @finder.attributes
     end
 
-    @drivers = @finder.paginate
+    @drivers = @finder.paginate(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
