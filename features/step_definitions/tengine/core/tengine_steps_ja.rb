@@ -153,7 +153,7 @@ end
 
 # Tengieコアはバックグラウンドで起動している前提です
 前提 /^"([^"]*)"から"([^"]*)"の"起動時刻"を確認する$/ do |file, name|
-  raise "サポート外の定義です。" unless file == "アプリケーションログファイル" && "Tengineコアプロセス"
+  raise "サポート外の定義です。" unless (file == "アプリケーションログファイル" && name == "Tengineコアプロセス")
   @h ||= {}
   @h[name] ||= {}
   pids = tengine_core_process_running_pids
