@@ -14,7 +14,7 @@ class Tengine::Core::Kernel
   def initialize(config)
     @status = :initialized
     @config = config
-    @working = false
+    @processing_event = false
   end
 
   def start(&block)
@@ -34,7 +34,7 @@ class Tengine::Core::Kernel
       EM.cancel_timer(@heartbeat_timer) if @heartbeat_timer
       if mq.queue.default_consumer
         mq.queue.unsubscribe
-        close_if_shutting_down if !@working || force
+        close_if_shutting_down if !@processing_event || force
       end
     else
       update_status(:shutting_down)
@@ -46,14 +46,13 @@ class Tengine::Core::Kernel
   def dsl_env
     unless @dsl_env
       @dsl_env = Tengine::Core::DslEnv.new(self)
-      @dsl_env.extend(Tengine::Core::DslBinder)
       @dsl_env.config = config
     end
     @dsl_env
   end
 
   def bind
-    dsl_env.evaluate
+    dsl_env.__evaluate__
     Tengine::Core::stdout_logger.debug("Hanlder bindings:\n" << dsl_env.to_a.inspect)
     Tengine::Core::HandlerPath.default_driver_version = config.dsl_version
   end
@@ -99,24 +98,25 @@ class Tengine::Core::Kernel
   end
 
   def process_message(headers, msg)
-    safety_working(headers) do
+    safety_processing_event(headers) do
       raw_event = parse_event(msg)
       if raw_event.nil?
         headers.ack
         return
       end
+
       event = save_event(raw_event)
+      unless event
+        headers.ack
+        return
+      end
+
       ack_policy = ack_policy_for(event)
       safety_processing_headers(headers, event, ack_policy) do
         ack if ack_policy == :at_first
         handlers = find_handlers(event)
         safty_handlers(handlers) do
-          begin
-            delegate(event, handlers)
-          rescue Exception => e
-            puts "[#{e.class.name}] #{e.message}"
-            return
-          end
+          delegate(event, handlers)
           ack if all_submitted?
         end
       end
@@ -133,23 +133,12 @@ class Tengine::Core::Kernel
     EM.defer do
       @heartbeat_timer = EM.add_periodic_timer(config.heartbeat_period) do
         Tengine::Core.stdout_logger.debug("sending heartbeat") if config[:verbose]
-        @sender ||= Tengine::Event::Sender.new(mq)
-        @sender.fire(GR_HEARTBEAT_EVENT_TYPE_NAME, GR_HEARTBEAT_ATTRIBUTES.dup)
+        sender.fire(GR_HEARTBEAT_EVENT_TYPE_NAME, GR_HEARTBEAT_ATTRIBUTES.dup)
       end
     end
   end
 
   private
-
-  def safety_working(headers)
-    @working = true
-    begin
-      yield if block_given?
-    ensure
-      @working = false
-    end
-  end
-
 
   def parse_event(msg)
     begin
@@ -162,12 +151,29 @@ class Tengine::Core::Kernel
     end
   end
 
+  def fire_failed_event(raw_event)
+    EM.next_tick do
+      Tengine.logger.debug("sending #{raw_event.event_type_name}failed.tengined event.") if config[:verbose]
+      event_attributes = {
+        :level => Tengine::Event::LEVELS_INV[:error],
+        :properties => { :original_event => raw_event }
+      }
+      sender.fire("#{raw_event.event_type_name}.failed.tengined", event_attributes)
+    end
+  end
+
   # 受信したイベントを登録
   def save_event(raw_event)
     event = Tengine::Core::Event.create!(
       raw_event.attributes.update(:confirmed => (raw_event.level <= config.confirmation_threshold)))
     Tengine.logger.debug("saved a event #{event.inspect}")
     event
+  rescue Mongo::OperationFailure => e
+    Tengine.logger.warn("same key's event has already stored. \n[#{e.class.name}] #{e.message}")
+    # Model.exists?だと上手くいかない時があるのでModel.whereを使っています
+    # fire_failed_event(raw_event) if Tengine::Core::Event.exists?(confitions: { key: raw_event.key, sender_name: raw_event.sender_name })
+    fire_failed_event(raw_event) if Tengine::Core::Event.where(:key => raw_event.key, :sender_name => raw_event.sender_name).count > 0
+    return nil
   rescue Exception => e
     Tengine.logger.error("failed to save a event #{event.inspect}\n[#{e.class.name}] #{e.message}")
     raise e
@@ -184,13 +190,20 @@ class Tengine::Core::Kernel
     before_delegate.call if before_delegate.respond_to?(:call)
     handlers.each do |handler|
       safety_handler(handler) do
-        # block の取得
         block = dsl_env.__block_for__(handler)
-        # イベントハンドラへのディスパッチ
-        # TODO: ログ出力する
-        # logger.info("dispatching the event key:#{event.key} to #{handler.inspect}")
-        # puts("dispatching the event key:#{event.key} to #{handler.inspect}")
-        handler.process_event(event, &block)
+        begin
+          handler.process_event(event, &block)
+        rescue Exception => e
+          Tengine.logger.debug("[#{e.class.name}] #{e.message}\n  " << e.backtrace.join("\n  "))
+          dsl_env.fire("#{event.event_type_name}.error.tengined",
+            :properties => {
+              :original_event => event.to_json,
+              :error_class_name => e.class.name,
+              :error_message => e.message,
+              :error_backtrace => e.backtrace,
+              :block_source_location => '%s:%d' % block.source_location,
+            })
+        end
       end
     end
     after_delegate.call if after_delegate.respond_to?(:call)
@@ -204,7 +217,6 @@ class Tengine::Core::Kernel
     # puts "connection closing..."
     mq.connection.close{ EM.stop_event_loop }
   end
-
 
   STATUS_LIST = [
     :initialized,        # 初期化済み
@@ -224,16 +236,19 @@ class Tengine::Core::Kernel
     File.open(@status_filepath, "w"){|f| f.write(status.to_s)}
   end
 
+  def sender
+    @sender ||= Tengine::Event::Sender.new(mq)
+  end
+
   def mq
     @mq ||= Tengine::Mq::Suite.new(config[:event_queue])
   end
 
-
   # 自動でログ出力する
   extend Tengine::Core::MethodTraceable
-  method_trace(:start, :stop, :bind, :wait_for_activation, :activate, :subscribe_queue,
-    :process_message, :parse_event, :save_event, :find_handlers, :delegate, :close_if_shutting_down,
-    :update_status)
+  method_trace(:start, :stop, :bind, :wait_for_activation, :activate, :subscribe_queue, :update_status,
+    :process_message, :parse_event, :fire_failed_event, :save_event, :find_handlers, :delegate, :close_if_shutting_down,
+    :enable_heartbeat)
 end
 
 
