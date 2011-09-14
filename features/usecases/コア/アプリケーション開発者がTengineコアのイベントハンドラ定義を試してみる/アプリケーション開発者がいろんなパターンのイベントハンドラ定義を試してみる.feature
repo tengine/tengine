@@ -66,6 +66,7 @@
     かつ "Tengineコアプロセス"が停止している
     かつ "Tengineコンソールプロセス"が起動している
 
+  @selenium
   シナリオ: [正常系]アプリケーション開発者がイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_1/dir_2/dsl_a.rb"が存在すること
 
@@ -83,6 +84,7 @@
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     
+  @selenium
   シナリオ: [正常系]アプリケーション開発者がディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_1/dir_2"が存在すること
 
@@ -99,6 +101,7 @@
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ: [正常系]アプリケーション開発者がイベントハンドラ実行時にエラーとなるイベントハンドラ定義を指定してTengineコアを起動する
   前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/error_on_execute.rb"が存在すること
 
@@ -123,6 +126,7 @@
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ: [正常系]アプリケーション開発者がイベントドライバが1つもないイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/no_event_driver.rb"が存在すること
 
@@ -139,6 +143,7 @@
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ: [正常系]アプリケーション開発者がイベントハンドラが1つもないイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/no_event_handler.rb"が存在すること
 
@@ -155,6 +160,7 @@
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ: [正常系]アプリケーション開発者がイベントドライバ内に一般的なエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/error_in_event_driver.rb"が存在すること
    
@@ -164,6 +170,7 @@
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ: [正常系]アプリケーション開発者がイベントドライバ外に一般的なエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/error_not_in_event_driver.rb"が存在すること
 
@@ -173,6 +180,7 @@
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ: [正常系]アプリケーション開発者がシンタックスエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsls/syntax_error.rb"が存在すること
 
@@ -182,6 +190,7 @@
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     
+  @selenium
   シナリオ:  [正常系]イベントを受け取ったらすぐにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc50_commit_event_at_first.rb"が存在すること
 
@@ -222,6 +231,7 @@
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ:  [正常系]ハンドラを実行して最初にSubmitされたときにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc51_commit_event_at_first_submit.rb"が存在すること
 
@@ -264,6 +274,7 @@
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ:  [正常系]ハンドラを実行して全てsubmitされたときにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc52_commit_event_after_all_handler_submit.rb"が存在すること
 
@@ -319,6 +330,7 @@
     ならば "アプリケーションログファイル"に"submit is not available outside of event handler block."と記述されていること
 
 
+  @selenium
   シナリオ:  [正常系]ack_policyによって実行回数が1回になるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc54_ack_check_at_first.rb"が存在すること
 
@@ -363,6 +375,7 @@
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ:  [正常系]ack_policyによって実行回数が2回になるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc55_ack_check_at_first_submit.rb"が存在すること
 
@@ -409,6 +422,7 @@
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ:  [正常系]ack_policyによって実行回数が3回になるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc56_ack_check_after_all_handler_submit.rb"が存在すること
 
@@ -457,6 +471,7 @@
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ:  [正常系]eventを使ってイベントの情報を取得するイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc60_event_in_handler.rb"が存在すること
 
@@ -513,6 +528,7 @@
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ:  [正常系]sessionを使ってセッション情報を取得するイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc62_session_in_driver.rb"が存在すること
 
@@ -561,6 +577,7 @@
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ: [正常系]アプリケーション開発者がアクティベーション時に有効になるようなイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc70_driver_enabled_on_activation.rb"が存在すること
 
@@ -578,6 +595,7 @@
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     
+  @selenium
   シナリオ: [正常系]アプリケーション開発者がアクティベーション時に無効になるようなイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc71_driver_disabled_on_activation.rb"が存在すること
 
@@ -596,7 +614,7 @@
 
     
   シナリオ: [正常系]アプリケーション開発者が存在しないイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dsl_not_exist.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dsl_not_exist.rb"が存在しないこと
 
     もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dsl_not_exist.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
@@ -605,7 +623,7 @@
 
 
   シナリオ: [正常系]アプリケーション開発者が存在しないディレクトリを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_not_exist.rb"が存在しないこと
+    前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_not_exist"が存在しないこと
 
     もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_not_exist"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
@@ -613,6 +631,7 @@
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ: [正常系]アプリケーション開発者が中にファイルが存在しないディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_1/dir_3"が存在しないこと
 
@@ -629,6 +648,7 @@
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
+  @selenium
   シナリオ: [正常系]階層になったディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_1"が存在すること
 
