@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module Tengine::Core::DslRuntime # Kernelにincludeされます
+module Tengine::Core::KernelRuntime # Kernelにincludeされます
 
   def safety_processing_headers(headers, event, ack_policy)
     @ack_called = false

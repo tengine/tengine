@@ -6,7 +6,7 @@ require 'selectable_attr'
 
 class Tengine::Core::Kernel
   include ::SelectableAttr::Base
-  include Tengine::Core::DslRuntime
+  include Tengine::Core::KernelRuntime
 
   attr_reader :config, :status
   attr_accessor :before_delegate, :after_delegate
