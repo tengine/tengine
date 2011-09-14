@@ -43,7 +43,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -87,7 +87,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -132,7 +132,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -186,7 +186,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc02_fire_another_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc02_fire_another_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -238,7 +238,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc03_2handlers_for_1event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc03_2handlers_for_1event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -289,7 +289,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc04_unless_the_event_occurs.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc04_unless_the_event_occurs.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -334,7 +334,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc04_unless_the_event_occurs.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc04_unless_the_event_occurs.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -391,7 +391,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -453,7 +453,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -519,7 +519,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -598,7 +598,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -682,7 +682,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -741,7 +741,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -808,7 +808,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -839,7 +839,7 @@
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -884,7 +884,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -915,7 +915,7 @@
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -960,7 +960,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -991,7 +991,7 @@
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1037,7 +1037,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1105,7 +1105,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1152,7 +1152,7 @@
 
     # Tengineコンソールプロセスは停止していないので起動は行わない
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1180,7 +1180,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1217,7 +1217,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1257,7 +1257,7 @@
     もし "DBプロセス"の起動を行うために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
     ならば "DBプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1283,7 +1283,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1319,7 +1319,7 @@
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1344,7 +1344,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1389,7 +1389,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc02_fire_another_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc02_fire_another_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1453,7 +1453,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc03_2handlers_for_1event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc03_2handlers_for_1event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1508,7 +1508,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1570,7 +1570,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1636,7 +1636,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1718,7 +1718,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
