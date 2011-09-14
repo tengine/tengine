@@ -36,7 +36,11 @@ end
       raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
     end
   elsif name == "キュープロセス"
-    unless system('ps aux | grep -v grep | grep -e rabbitmq')
+    io = IO.popen("rabbitmqctl status")
+    @h ||= {}
+    @h[name] = {:io => io, :stdout => []}
+    contains = contains_message_from_stdout(name,"running_applications")
+    unless contains
       raise "RabbitMQの起動に失敗しました" unless system('rabbitmq-server -detached')
     end
   end
@@ -108,25 +112,7 @@ end
 end
 
 ならば /^"([^"]*)"の標準出力に"([^"]*)"と出力されていること$/ do |name, word|
-  # 既に表示されていないか
-  match = nil
-  @h[name][:stdout].each do |line|
-    puts "既に:#{line}"
-    match = line.match(word)
-    break if match
-  end
-  unless match
-    time_out(20) do
-      while line = @h[name][:io].gets
-         @h[name][:stdout] << line
-         match = line.match(word)
-         if match
-          # puts "match:#{word}"
-          break
-        end
-      end
-    end
-  end
+  match = contains_message_from_stdout(name, word)
   match.should be_true
 end
 
@@ -211,7 +197,7 @@ end
   exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z"
   puts "stop confirm command: #{exec_command}"
   process_stop = ""
-  time_out(5) do
+  time_out(10) do
     while true
       process_stop = `#{exec_command}`.chomp
       break if process_stop.empty?
@@ -522,12 +508,14 @@ end
   FileUtils.copy("/data/mongo/master",backup_path)
 end
 
-前提 /^"([^"]*)"ファイルに書き込み権限がない$/ do |arg1|
-   rails "権限の変更に失敗しました" unless system("chmod -w #{path}")
+前提 /^"([^"]*)"ファイルに書き込み権限がない$/ do |file_path|
+   FileUtils.touch(file_path) unless File.exists?(file_path)
+   raise "権限の変更に失敗しました" unless system("chmod -w #{file_path}")
 end
 
-前提 /^"([^"]*)"ファイルに書き込み権限がある$/ do |arg1|
-   rails "権限の変更に失敗しました" unless system("chmod +r #{path}")
+前提 /^"([^"]*)"ファイルに書き込み権限がある$/ do |file_path|
+   FileUtils.touch(file_path) unless File.exists?(file_path)
+   raise "権限の変更に失敗しました" unless system("chmod +r #{file_path}")
 end
 
 def view_time_format
@@ -637,6 +625,28 @@ def get_pid_from_file(name, file_path)
       break
     end
   end
+end
+
+def contains_message_from_stdout(name,word)
+  match = nil
+  @h[name][:stdout].each do |line|
+    puts "既に:#{line}"
+    match = line.match(word)
+    break if match
+  end
+  unless match
+    time_out(20) do
+      while line = @h[name][:io].gets
+         @h[name][:stdout] << line
+         match = line.match(word)
+         if match
+          # puts "match:#{word}"
+          break
+        end
+      end
+    end
+  end
+ match
 end
 
 #############
