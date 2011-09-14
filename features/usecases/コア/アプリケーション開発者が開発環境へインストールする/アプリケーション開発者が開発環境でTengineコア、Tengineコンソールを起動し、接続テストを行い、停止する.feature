@@ -94,8 +94,8 @@
       # イベントハンドラ定義の中で、クラスを上書きするような定義をすることでこれを実現する。
       # TODO イベントハンドラ定義を作成する必要がある
 
-      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./features/support/dsls/include_bug_core.rb"が存在すること
-      もし "接続テスト"を行うために"bin/tengined -k test -f tengine.yml -T ./features/support/dsls/include_bug_core.rb"というコマンドを実行する
+      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./usecases/コア/dsls/uc95_include_bug_core.rb"が存在すること
+      もし "接続テスト"を行うために"bin/tengined -k test -f tengine.yml -T ./usecases/コア/dsls/uc95_include_bug_core.rb"というコマンドを実行する
       ならば "接続テスト"の標準出力に"inquire of Tengine User Group or Tengine Support Service."と出力されていること 
 #      もし サーバ構成レポート収集ツールでサーバ構成の内容を収集する
 #      ならば サーバ構成レポートが作成されていること
@@ -290,9 +290,9 @@
       # イベントハンドラ定義の中で、クラスを上書きするような定義をすることでこれを実現する。
       # TODO イベントハンドラ定義を作成する必要がある
 
-      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./features/event_handler_def/include_bug_core.rb"が存在すること
-      もし "Tengineコアプロセス"を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./features/support/dsls/include_bug_core.rb"というコマンドを実行する
-      ならば "Tengineコアプロセウ"の標準出力に"inquire of Tengine User Group or Tengine Support Service."と出力されていること 
+      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./usecases/コア/dsls/uc95_include_bug_core.rb"が存在すること
+      もし "Tengineコアプロセス"を行うために"bin/tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc95_include_bug_core.rb"というコマンドを実行する
+      ならば "Tengineコアプロセス"の標準出力に"inquire of Tengine User Group or Tengine Support Service."と出力されていること 
 #      もし サーバ構成レポート収集ツールでサーバ構成の内容を収集する
 #      ならば サーバ構成レポートが作成されていること
       もし "Tengineサポート窓口"へ問い合わせる
@@ -571,7 +571,7 @@
   # Tengineコアの停止に失敗
   #####################################
   シナリオ: [異常系]Tengineコアのプロセスの停止に失敗し、強制停止を行う
-      前提 処理が終了しないイベントハンドラ定義ファイル"./features/usecases/コア/dsls/hang_up.rb"が存在すること
+      前提 処理が終了しないイベントハンドラ定義ファイル"./usecases/コア/dsls/uc93_hang_up.rb"が存在すること
 
       もし "接続テスト"を行うために"bin/tengined -k test -f ./features/support/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
