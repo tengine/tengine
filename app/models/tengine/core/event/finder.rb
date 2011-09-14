@@ -3,31 +3,35 @@ class Tengine::Core::Event::Finder
 
   include ::SelectableAttr::Base
 
-  attr_accessor :event_type_name
-  attr_accessor :key
-  attr_accessor :source_name
-  attr_accessor :occurred_at_start
-  attr_accessor :occurred_at_end
-  attr_accessor :level_ids
-  attr_accessor :confirmed
-  attr_accessor :sender_name
-  attr_accessor :properties
+  ATTRIBUTE_NAMES = [
+    :event_type_name,
+    :key,
+    :source_name,
+    :occurred_at_start,
+    :occurred_at_end,
+    :level_ids,
+    :confirmed,
+    :sender_name,
+    :properties,
+    :reflesh_interval, # 更新間隔
+  ].freeze
 
-  # 更新間隔
-  attr_accessor :reflesh_interval
+  ATTRIBUTE_NAMES.each{|name| attr_accessor(name)}
 
   # 通知レベル
   multi_selectable_attr :level, :enum => Tengine::Core::Event.level_enum
 
-
-  def initialize(attrs = {}, page = {})
+  def initialize(attrs = {})
     attrs = {
       level_ids: default_level_ids
     }.update(attrs || {})
     attrs.each do |attr, v|
       send("#{attr}=", v) unless v.blank?
     end
-    @page = page
+  end
+
+  def attributes
+    ATTRIBUTE_NAMES.inject({}){|d, name| d[name] = send(name); d}
   end
 
   # デフォルトでは通知レベルがすべて選択された状態にする
@@ -39,8 +43,8 @@ class Tengine::Core::Event::Finder
     return result
   end
 
-  def paginate
-    scope(Tengine::Core::Event).page(@page)
+  def paginate(page)
+    scope(Tengine::Core::Event).page(page)
   end
 
   def scope(criteria)

@@ -42,8 +42,8 @@ module ApplicationHelper
 
   private
   def model_class_name(class_or_name)
-    class_or_name.respond_to?(:human_name) ?
-      class_or_name.human_name : class_or_name
+    class_or_name.respond_to?(:human_name) ? class_or_name.human_name :
+      I18n.t("mongoid.models.tengine/event", :default => class_or_name.to_s)
   end
 
   def model_name(model)

@@ -1,20 +1,28 @@
 # -*- coding: utf-8 -*-
 class Tengine::Core::Driver::Finder
 
-  attr_accessor :name
-  attr_accessor :version
-  attr_accessor :enabled
-  attr_accessor :enabled_on_activation
+  ATTRIBUTE_NAMES = [
+    :name,
+    :version,
+    :enabled,
+    :enabled_on_activation
+  ].freeze
 
-  def initialize(attrs = {}, page = {})
+  ATTRIBUTE_NAMES.each{|name| attr_accessor(name)}
+
+  def initialize(attrs = {})
+    attrs ||= {}
     attrs.each do |attr, v| 
       send("#{attr}=", v) unless v.blank?
     end
-    @page = page
   end
 
-  def paginate
-    scope(Tengine::Core::Driver).page(@page)
+  def attributes
+    ATTRIBUTE_NAMES.inject({}){|d, name| d[name] = send(name); d}
+  end
+
+  def paginate(page)
+    scope(Tengine::Core::Driver).page(page)
   end
 
   def scope(criteria)
