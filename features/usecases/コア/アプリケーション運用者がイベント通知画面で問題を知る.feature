@@ -19,8 +19,7 @@
   シナリオ: アプリケーション運用者がTengine運用中にイベント通知画面からTengineで問題が発生したと通知を受けるが、正常に動作している
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
-# TODO 採用    かつ "Tengineコアプロセス"がオプション" -T usecases/コア/dsls/uc01_execute_processing_for_event.rb -D -G 3"で起動している
-    かつ "Tengineコアプロセス"がオプション" -T uc01_execute_processing_for_event.rb -D -G 3"で起動している
+    かつ "Tengineコアプロセス"がオプション" -T usecases/コア/dsls/uc01_execute_processing_for_event.rb -D -G 3"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
 		
     #イベントハンドラ定義なしでOK
@@ -62,8 +61,7 @@
   シナリオ: 2.アプリケーション運用者がTengineコアのキューの接続先設定を間違えて起動する
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している		
-#   かつ "Tengineコアプロセス"がオプション"-T usecases/コア/dsls/uc01_execute_processing_for_event.rb -D -G 3 --event-queue-conn-port 999"で起動している
-    かつ "Tengineコアプロセス"がオプション"-T uc01_execute_processing_for_event.rb -D "で起動している
+    かつ "Tengineコアプロセス"がオプション"-T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 3 --event-queue-conn-port 999"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
 
     もし "イベント通知画面"を表示する
@@ -76,11 +74,9 @@
     もし "Tengineコアプロセス"の停止を行うために"tengined -k stop"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-# TODO 採用 もし "Tengineコアプロセス"の起動を行うために"tengined -T usecases/コア/dsls/uc01_execute_processing_for_event.rb -f features/support/config/tengine.yml -D -G 3"というコマンドを実行する
-    #もし "Tengineコアプロセス"の起動を行うために"tengined -T uc01_execute_processing_for_event.rb -D -G 3"というコマンドを実行する
+    #もし "Tengineコアプロセス"の起動を行うために"tengined -T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 3"というコマンドを実行する
 		もし "Tengineコアプロセス"がオプション"-T uc01_execute_processing_for_event.rb -D -G 1"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
-#    ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
     ならば "Tengineコアプロセス"が起動していることをPIDを用いて"tengined -k status | grep running | grep PID"というコマンドで確認できること
 
     もし "イベント通知画面"を表示する
@@ -97,10 +93,10 @@
     かつ "キュープロセス"が起動している
     かつ "Tengineコアプロセス"が起動している
     #イベントハンドラ内で自身のTengineコアプロセスを殺すようなイベントハンドラを読み込む
-    かつ "Tengineコアプロセス1"がオプション"-T uc96_self_kill.rb -D -G 1"で起動している
+    かつ "Tengineコアプロセス1"がオプション"-T usecases/core/dsls/uc96_self_kill.rb -D -G 3"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス1"の"起動時刻"を確認する
     #↑と同じ設定でもう1プロセス立ち上げる
-    かつ "Tengineコアプロセス2"がオプション"-T ./uc96_self_kill.rb -D "で起動している
+    かつ "Tengineコアプロセス2"がオプション"-T usecases/core/dsls/uc96_self_kill.rb -D -G 3"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス2"の"起動時刻"を確認する
     
     もし "イベント通知画面"を表示する
