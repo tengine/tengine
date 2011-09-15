@@ -18,7 +18,7 @@ end
 
 前提 /^"([^"]*)"が起動している$/ do |name|
   if name == "Tengineコアプロセス"
-    io = IO.popen("tengined")
+    io = IO.popen("tengined -k start -f features/config/tengine.yml")
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
     pid_regexp = /<(\d+)>/
@@ -32,7 +32,7 @@ end
     get_pid_from_file(name, "./tmp/pids/server.pid")
   end
   if name == "DBプロセス"
-    unless system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
+    unless system("ps aux|grep -v \"grep\" | grep -e \"mongod.*--port.*21039\"")
       raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
     end
   elsif name == "キュープロセス"
@@ -44,6 +44,7 @@ end
       raise "RabbitMQの起動に失敗しました" unless system('rabbitmq-server -detached')
     end
   end
+  sleep 5
 end
 
 前提 /^"([^"]*)"がオプション"([^"]*)"で起動している$/ do |name,option|
@@ -109,6 +110,7 @@ end
   io = IO.popen(command)
   @h ||= {}
   @h[name] = {:io => io, :stdout => []}
+  sleep 5
 end
 
 もし /^"([^"]*)"の停止を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|

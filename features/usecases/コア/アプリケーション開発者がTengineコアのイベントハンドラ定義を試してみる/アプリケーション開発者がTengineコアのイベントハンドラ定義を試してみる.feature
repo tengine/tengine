@@ -14,10 +14,10 @@
     かつ "キュープロセス"が起動している
     かつ "Tengineコアプロセス"が停止している
     かつ "Tengineコンソールプロセス"が停止している
-    かつ ファイル"./usecases/コア/dsls/uc01_execute_processing_for_event.rb"が存在すること
-    かつ ファイル"./usecases/コア/dsls/uc02_fire_another_event.rb"が存在すること
-    かつ ファイル"./usecases/コア/dsls/uc03_2handlers_for_1event.rb"が存在すること
-    かつ ファイル"./usecases/コア/dsls/uc04_unless_the_event_occurs.rb"が存在すること
+    かつ ファイル"./usecases/core/dsls/uc01_execute_processing_for_event.rb"が存在すること
+    かつ ファイル"./usecases/core/dsls/uc02_fire_another_event.rb"が存在すること
+    かつ ファイル"./usecases/core/dsls/uc03_2handlers_for_1event.rb"が存在すること
+    かつ ファイル"./usecases/core/dsls/uc04_unless_the_event_occurs.rb"が存在すること
 
 # 検証で使用するイベントハンドラ定義ファイルでは、以下のようにイベントのKEYを加えた文言を出力する
 # # -*- coding: utf-8 -*-
@@ -35,7 +35,7 @@
 
 #
 # イベントに対応する処理の実行するシナリオ
-# ./usecases/コア/dsls/uc01_execute_processing_for_event.rb
+# ./usecases/core/dsls/uc01_execute_processing_for_event.rb
 #
   @selenium
   シナリオ:  [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントに対応する処理の実行する
@@ -43,7 +43,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -68,8 +68,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 		
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -87,7 +87,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -113,8 +113,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-		|種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event00|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+		|種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event00|tengine_console|2011/09/01 12:00:00|2     |true     |tengine_console|--- {}|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
@@ -132,7 +132,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -163,8 +163,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -178,7 +178,7 @@
 
 #
 # イベントが発生したら新たなイベントを発火するシナリオ
-# ./usecases/コア/dsls/uc02_fire_another_event.rb
+# ./usecases/core/dsls/uc02_fire_another_event.rb
 #
   @selenium
   シナリオ: [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントが発生したら新たなイベントを発火する
@@ -186,7 +186,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc02_fire_another_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc02_fire_another_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -212,9 +212,9 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event02_1|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
-    |event02_2|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event02_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event02_2|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
 	  ならば "アプリケーションログファイル"に以下の順で記述されていること
@@ -230,7 +230,7 @@
 
 #
 # イベントに対して処理Aと処理Bを実行するシナリオ
-# ./usecases/コア/dsls/uc03_2handlers_for_1event.rb
+# ./usecases/core/dsls/uc03_2handlers_for_1event.rb
 #
   @selenium
   シナリオ: [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントに対して処理Aと処理Bを実行する
@@ -238,7 +238,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc03_2handlers_for_1event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc03_2handlers_for_1event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -264,8 +264,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event03|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event03|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
 	  ならば "アプリケーションログファイル"に以下の順で記述されていること		
@@ -281,7 +281,7 @@
 
 #
 # 特定のイベント以外のイベントに対して処理を実行するシナリオ
-# ./usecases/コア/dsls/uc04_unless_the_event_occurs.rb
+# ./usecases/core/dsls/uc04_unless_the_event_occurs.rb
 #
   @selenium
   シナリオ: [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_特定のイベント以外のイベントに対して処理を実行する_処理が実行される場合
@@ -289,7 +289,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc04_unless_the_event_occurs.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc04_unless_the_event_occurs.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -315,8 +315,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event02|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event02|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler04"と記述されていること
@@ -334,7 +334,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc04_unless_the_event_occurs.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc04_unless_the_event_occurs.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -360,8 +360,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event04|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event04|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler04"と記述されていないこと
@@ -391,7 +391,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -431,8 +431,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -453,7 +453,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -497,8 +497,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -519,7 +519,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -577,8 +577,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -598,7 +598,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -660,8 +660,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -682,7 +682,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -722,8 +722,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -741,7 +741,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -789,8 +789,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -808,7 +808,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -839,7 +839,7 @@
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -865,8 +865,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -884,7 +884,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -915,7 +915,7 @@
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -941,8 +941,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -960,7 +960,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -991,7 +991,7 @@
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1018,8 +1018,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1037,7 +1037,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1086,8 +1086,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1105,7 +1105,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1135,8 +1135,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
@@ -1152,15 +1152,15 @@
 
     # Tengineコンソールプロセスは停止していないので起動は行わない
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1180,7 +1180,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1217,7 +1217,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1247,8 +1247,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
@@ -1257,15 +1257,15 @@
     もし "DBプロセス"の起動を行うために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
     ならば "DBプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1283,7 +1283,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1313,21 +1313,21 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1344,7 +1344,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1370,8 +1370,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event00|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event00|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
@@ -1389,7 +1389,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc02_fire_another_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc02_fire_another_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1420,8 +1420,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event02_1|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event02_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler02_1"と記述されていること
@@ -1433,9 +1433,9 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event02_1|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
-    |event02_2|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event02_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event02_2|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     かつ "アプリケーションログファイル"に"#{イベントキー}:handler02_2"と記述されていること
@@ -1453,7 +1453,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc03_2handlers_for_1event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc03_2handlers_for_1event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1479,8 +1479,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event03|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event03|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler03_1"と記述されていること
@@ -1508,7 +1508,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1548,8 +1548,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1570,7 +1570,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1614,8 +1614,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1636,7 +1636,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1659,8 +1659,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"を表示していること
@@ -1683,8 +1683,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"を表示していること
@@ -1696,8 +1696,8 @@
     かつ "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |true      |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true      |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1718,7 +1718,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1741,8 +1741,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"を表示していること
@@ -1769,8 +1769,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"を表示していること
@@ -1782,8 +1782,8 @@
     かつ "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event01|tengine_console|2011/09/01 12:00:00|info     |true      |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true      |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること

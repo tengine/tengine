@@ -97,8 +97,8 @@
       # アプリケーション開発者が解決できない問題を発生させるために、Tengineコアのクラスにバグを埋め込む。
       # イベントハンドラ定義の中で、クラスを上書きするような定義をすることでこれを実現する。
 
-      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./usecases/コア/dsls/uc95_include_bug_core.rb"が存在すること
-      もし "接続テスト"を行うために"tengined -k test -f tengine.yml -T ./usecases/コア/dsls/uc95_include_bug_core.rb"というコマンドを実行する
+      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./usecases/core/dsls/uc95_include_bug_core.rb"が存在すること
+      もし "接続テスト"を行うために"tengined -k test -f tengine.yml -T ./usecases/core/dsls/uc95_include_bug_core.rb"というコマンドを実行する
       ならば "接続テスト"の標準出力に"inquire of Tengine User Group or Tengine Support Service."と出力されていること 
 #      もし サーバ構成レポート収集ツールでサーバ構成の内容を収集する
 #      ならば サーバ構成レポートが作成されていること
@@ -296,8 +296,8 @@
       # アプリケーション開発者が解決できない問題を発生させるために、Tengineコアのクラスにバグを埋め込む。
       # イベントハンドラ定義の中で、クラスを上書きするような定義をすることでこれを実現する。
 
-      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./usecases/コア/dsls/uc95_include_bug_core.rb"が存在すること
-      もし "Tengineコアプロセス"を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc95_include_bug_core.rb"というコマンドを実行する
+      前提 Tengineコアのクラスに不具合を埋め込むイベントハンドラ定義ファイル"./usecases/core/dsls/uc95_include_bug_core.rb"が存在すること
+      もし "Tengineコアプロセス"を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc95_include_bug_core.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力に"inquire of Tengine User Group or Tengine Support Service."と出力されていること 
 #      もし サーバ構成レポート収集ツールでサーバ構成の内容を収集する
 #      ならば サーバ構成レポートが作成されていること
@@ -483,7 +483,7 @@
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action load specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"tengined -k load --tengined-load-path ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k load --tengined-load-path ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -497,7 +497,7 @@
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action start specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --tengined-load-path ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --tengined-load-path ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -511,7 +511,7 @@
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action enable specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"tengined -k enable --tengined-load-path ./usecases/コア/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k enable --tengined-load-path ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -578,12 +578,12 @@
   #####################################
   @selenium
   シナリオ: [異常系]Tengineコアのプロセスの停止に失敗し、強制停止を行う
-      前提 処理が終了しないイベントハンドラ定義ファイル"./usecases/コア/dsls/uc93_hang_up.rb"が存在すること
+      前提 処理が終了しないイベントハンドラ定義ファイル"./usecases/core/dsls/uc93_hang_up.rb"が存在すること
 
       もし "接続テスト"を行うために"tengined -k test -f ./features/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
-      もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc93_hang_up.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc93_hang_up.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
