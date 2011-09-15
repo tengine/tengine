@@ -68,9 +68,9 @@
 
   @selenium
   シナリオ: [正常系]アプリケーション開発者がイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_1/dir_2/dsl_a.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"./uc90_try_dsl/dir_1/dir_2/dsl_a.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_1/dir_2/dsl_a.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./uc90_try_dsl/dir_1/dir_2/dsl_a.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -88,7 +88,7 @@
   シナリオ: [正常系]アプリケーション開発者がディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_1/dir_2"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_1/dir_2"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_1/dir_2"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
     もし "イベントドライバ一覧画面"を表示する
@@ -105,7 +105,7 @@
   シナリオ: [正常系]アプリケーション開発者がイベントハンドラ実行時にエラーとなるイベントハンドラ定義を指定してTengineコアを起動する
   前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/error_on_execute.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/error_on_execute.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/error_on_execute.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -130,7 +130,7 @@
   シナリオ: [正常系]アプリケーション開発者がイベントドライバが1つもないイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/no_event_driver.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/no_event_driver.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/no_event_driver.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"warning"と出力されていること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -147,7 +147,7 @@
   シナリオ: [正常系]アプリケーション開発者がイベントハンドラが1つもないイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/no_event_handler.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/no_event_handler.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/no_event_handler.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"warning"と出力されていること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -164,7 +164,7 @@
   シナリオ: [正常系]アプリケーション開発者がイベントドライバ内に一般的なエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/error_in_event_driver.rb"が存在すること
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/error_in_event_driver.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/error_in_event_driver.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -174,7 +174,7 @@
   シナリオ: [正常系]アプリケーション開発者がイベントドライバ外に一般的なエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/error_not_in_event_driver.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/error_not_in_event_driver.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/error_not_in_event_driver.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -184,7 +184,7 @@
   シナリオ: [正常系]アプリケーション開発者がシンタックスエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsls/syntax_error.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/syntax_error.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/syntax_error.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -194,7 +194,7 @@
   シナリオ:  [正常系]イベントを受け取ったらすぐにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc50_commit_event_at_first.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./usecases/コア/dsls/uc50_commit_event_at_first.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./usecases/コア/dsls/uc50_commit_event_at_first.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること    
 
@@ -235,7 +235,7 @@
   シナリオ:  [正常系]ハンドラを実行して最初にSubmitされたときにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc51_commit_event_at_first_submit.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./usecases/コア/dsls/uc51_commit_event_at_first_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./usecases/コア/dsls/uc51_commit_event_at_first_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること    
     # アプリケーションログがファイル"./tmp/stdout.log"に出力される設定になっていることを確認する。
@@ -278,7 +278,7 @@
   シナリオ:  [正常系]ハンドラを実行して全てsubmitされたときにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc52_commit_event_after_all_handler_submit.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./usecases/コア/dsls/uc52_commit_event_after_all_handler_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./usecases/コア/dsls/uc52_commit_event_after_all_handler_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
     # アプリケーションログがファイル"./tmp/stdout.log"に出力される設定になっていることを確認する。
@@ -323,7 +323,7 @@
   シナリオ: [正常系]submitをイベントハンドラ外で使用するイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc53_submit_outside_of_handler.rb"が存在すること
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc53_submit_outside_of_handler.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc53_submit_outside_of_handler.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
@@ -334,7 +334,7 @@
   シナリオ:  [正常系]ack_policyによって実行回数が1回になるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc54_ack_check_at_first.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./usecases/コア/dsls/uc54_ack_check_at_first.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./usecases/コア/dsls/uc54_ack_check_at_first.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
     # アプリケーションログがファイル"./tmp/stdout.log"に出力される設定になっていることを確認する。
@@ -379,7 +379,7 @@
   シナリオ:  [正常系]ack_policyによって実行回数が2回になるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc55_ack_check_at_first_submit.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./usecases/コア/dsls/uc55_ack_check_at_first_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./usecases/コア/dsls/uc55_ack_check_at_first_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
     # アプリケーションログがファイル"./tmp/stdout.log"に出力される設定になっていることを確認する。
@@ -426,7 +426,7 @@
   シナリオ:  [正常系]ack_policyによって実行回数が3回になるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc56_ack_check_after_all_handler_submit.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./usecases/コア/dsls/uc56_ack_check_after_all_handler_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./usecases/コア/dsls/uc56_ack_check_after_all_handler_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
     # アプリケーションログがファイル"./tmp/stdout.log"に出力される設定になっていることを確認する。
@@ -475,7 +475,7 @@
   シナリオ:  [正常系]eventを使ってイベントの情報を取得するイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc60_event_in_handler.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc60_event_in_handler.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc60_event_in_handler.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -522,7 +522,7 @@
   シナリオ: [正常系]eventをイベントハンドラ外で使用するイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc61_event_outside_of_handler.rb"が存在すること
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc61_event_outside_of_handler.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc61_event_outside_of_handler.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"event is not available outside of event handler block."と出力されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -532,7 +532,7 @@
   シナリオ:  [正常系]sessionを使ってセッション情報を取得するイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc62_session_in_driver.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc62_session_in_driver.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc62_session_in_driver.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -571,7 +571,7 @@
   シナリオ: [正常系]sessionをイベントドライバ外で使用するイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc63_session_outside_of_driver.rb"が存在すること
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc63_session_outside_of_driver.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc63_session_outside_of_driver.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"session is not available outside of event driver block."と出力されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -581,7 +581,7 @@
   シナリオ: [正常系]アプリケーション開発者がアクティベーション時に有効になるようなイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc70_driver_enabled_on_activation.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc70_driver_enabled_on_activation.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc70_driver_enabled_on_activation.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -599,7 +599,7 @@
   シナリオ: [正常系]アプリケーション開発者がアクティベーション時に無効になるようなイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc71_driver_disabled_on_activation.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc71_driver_disabled_on_activation.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc71_driver_disabled_on_activation.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -616,7 +616,7 @@
   シナリオ: [正常系]アプリケーション開発者が存在しないイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dsl_not_exist.rb"が存在しないこと
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dsl_not_exist.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dsl_not_exist.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -625,7 +625,7 @@
   シナリオ: [正常系]アプリケーション開発者が存在しないディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_not_exist"が存在しないこと
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_not_exist"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_not_exist"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -635,7 +635,7 @@
   シナリオ: [正常系]アプリケーション開発者が中にファイルが存在しないディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_1/dir_3"が存在しないこと
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./features/event_handler_def_test_dir/dir_4/dir_3/"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./features/event_handler_def_test_dir/dir_4/dir_3/"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"worning"と出力されていること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること    
@@ -652,7 +652,7 @@
   シナリオ: [正常系]階層になったディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_1"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_1"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_1"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること    
 
@@ -671,7 +671,7 @@
   シナリオ: [正常系]アプリケーション開発者が読込権限がないイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_7/dsl_f_unreadable.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_7/dsl_f_unreadable.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_7/dsl_f_unreadable.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -680,7 +680,7 @@
   シナリオ: [正常系]アプリケーション開発者が読込権限がないディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_8/dir_9_unreadable"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_8/dir_9_unreadable"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_8/dir_9_unreadable"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -689,7 +689,7 @@
   シナリオ: [正常系]アプリケーション開発者が読込権限があるイベントハンドラ定義ファイルと読込権限がないイベントハンドラ定義ファイルが混在しているディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_7"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_7"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_7"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -698,7 +698,7 @@
   シナリオ: [正常系]アプリケーション開発者が読込権限があるディレクトリと読込権限がないディレクトリが混在しているディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_8"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_8"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_8"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -707,7 +707,7 @@
   シナリオ: [正常系]アプリケーション開発者が読込権限があるディレクトリに読込権限がないイベントハンドラ定義ファイルがあるディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_11/dir_14"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_11/dir_14"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_11/dir_14"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
     かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
@@ -716,7 +716,7 @@
   シナリオ: [正常系]読込権限が複雑に設定されている階層になったディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_11"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_11"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_11"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力に"error"と出力されていること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -730,7 +730,7 @@
 
   シナリオ: 1.[正常系]Tengineコアを起動したときのログを確認する
 
-      もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine_log.yml"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml"というコマンドを実行する
 
       もし "プロセスログ(標準)ファイル""./tmp/proc_stdout.log"を参照する
       ならば "プロセスログ(標準)ファイル"に"tengined.0: process with pid PID started."と記述されていること
@@ -745,7 +745,7 @@
   シナリオ: 2.[異常系]DBプロセスが起動していないときのログを確認する
       前提 "DBプロセス"が停止している
 
-      もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine_log.yml"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml"というコマンドを実行する
 			
       もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
       ならば "プロセスログ(標準エラー)ファイル"に"can't connect to database."と記述されていること
@@ -754,15 +754,15 @@
   シナリオ: 3.[異常系]設定ファイルが不正なときのログを確認する
       前提 yamlファイルとして不正なTengineコアの設定ファイルinvalid_tengine.ymlが存在する
 			
-      もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/invalid_tengine.yml"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/invalid_tengine.yml"というコマンドを実行する
 
       もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
-      ならば "プロセスログ(標準エラー)ファイル"に"Exception occurred when loading configuration file: ./features/support/config/invalid_tengine_log.yml."と記述されていること
+      ならば "プロセスログ(標準エラー)ファイル"に"Exception occurred when loading configuration file: ./features/config/invalid_tengine_log.yml."と記述されていること
 
 
   シナリオ: 4.[異常系]起動オプションに存在しないオプションを指定した時のログを確認する
 
-      もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine_log.yml -Q"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -Q"というコマンドを実行する
 
       もし "プロセスログ(標準エラー)ファイル""./tmp/proc_stderr.log"を参照する
       ならば "プロセスログ(標準エラー)ファイル"に"tengined: invalid option: -Q"と記述されていること
@@ -851,7 +851,7 @@
   シナリオ: 15.[正常系]存在しないイベントハンドラ定義ファイルを指定したときのログを確認する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dsl_not_exist.rb"が存在しないこと
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine_log.yml -T ./usecases/コア/dsls/uc90_try_dsl/dsl_not_exist.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/コア/dsls/uc90_try_dsl/dsl_not_exist.rb"というコマンドを実行する
 
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
     ならば "アプリケーションログファイル"に"./usecases/コア/dsls/uc90_try_dsl/dsl_not_exist.rb is not found."と記述されていること
@@ -860,7 +860,7 @@
   シナリオ: 16.[正常系]存在しないディレクトリを指定したときのログを確認する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_not_exist"が存在しないこと
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine_log.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_not_exist"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_not_exist"というコマンドを実行する
 		
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
     ならば "アプリケーションログファイル"に"./usecases/コア/dsls/uc90_try_dsl/dir_not_exist is not found."と記述されていること
@@ -869,7 +869,7 @@
   シナリオ: 17.[正常系]読込権限がないイベントハンドラ定義ファイルを指定したときのログを確認する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_7/dsl_f_unreadable.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine_log.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_7/dsl_f_unreadable.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_7/dsl_f_unreadable.rb"というコマンドを実行する
 		
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
     ならば "アプリケーションログファイル"に"permission denied."と記述されていること
@@ -878,7 +878,7 @@
   シナリオ: 18.[正常系]読込権限がないディレクトリを指定したときのログを確認する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_8/dir_9_unreadable"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine_log.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_8/dir_9_unreadable"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_8/dir_9_unreadable"というコマンドを実行する
 		
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
     ならば "アプリケーションログファイル"に"permission denied."と記述されていること
@@ -887,7 +887,7 @@
   シナリオ: 19.[正常系]イベントドライバ内に一般的なエラーとなるイベントハンドラ定義ファイルを指定したときのログを確認する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/error_in_event_driver.rb"が存在すること
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine_log.yml -T ./usecases/コア/dsls/uc90_try_dsl/error_in_event_driver.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/コア/dsls/uc90_try_dsl/error_in_event_driver.rb"というコマンドを実行する
 
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
     ならば "アプリケーションログファイル"に"exception occured. No such file or directory - "と記述されていること
@@ -895,7 +895,7 @@
   シナリオ: 20.[正常系]イベントドライバ外に一般的なエラーとなるイベントハンドラ定義ファイルを指定したときのログを確認する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/error_not_in_event_driver.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine_log.yml -T ./usecases/コア/dsls/uc90_try_dsl/error_not_in_event_driver.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/コア/dsls/uc90_try_dsl/error_not_in_event_driver.rb"というコマンドを実行する
 
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
     ならば "アプリケーションログファイル"に"exception occured. No such file or directory - "と記述されていること
@@ -904,7 +904,7 @@
   シナリオ: 21.[正常系]submitをイベントハンドラ外で使用するイベントハンドラ定義ファイルを指定したときのログを確認する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc53_submit_outside_of_handler.rb"が存在すること
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine_log.yml -T ./usecases/コア/dsls/uc53_submit_outside_of_handler.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/コア/dsls/uc53_submit_outside_of_handler.rb"というコマンドを実行する
 
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
     ならば "アプリケーションログファイル"に"submit is not available outside of event handler block."と記述されていること
@@ -913,7 +913,7 @@
   シナリオ: 22.[正常系]eventをイベントハンドラ外で使用するイベントハンドラ定義ファイルを指定したときのログを確認する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc61_event_outside_of_handler.rb"が存在すること
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine_log.yml -T ./usecases/コア/dsls/uc61_event_outside_of_handler.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/コア/dsls/uc61_event_outside_of_handler.rb"というコマンドを実行する
 		
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
     ならば "アプリケーションログファイル"に"event is not available outside of event handler block."と記述されていること
@@ -922,7 +922,7 @@
   シナリオ: 23.[正常系]sessionをイベントドライバ外で使用するイベントハンドラ定義ファイルを指定したときのログを確認する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc63_session_outside_of_driver.rb"が存在すること
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine_log.yml -T ./usecases/コア/dsls/uc63_session_outside_of_driver.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/コア/dsls/uc63_session_outside_of_driver.rb"というコマンドを実行する
 
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
     ならば "アプリケーションログファイル"に"session is not available outside of event driver block."と記述されていること
@@ -931,7 +931,7 @@
   シナリオ: 24.[正常系]アプリケーション開発者がシンタックスエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsls/syntax_error.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/support/config/tengine_log.yml -T ./usecases/コア/dsls/uc90_try_dsl/syntax_error.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/コア/dsls/uc90_try_dsl/syntax_error.rb"というコマンドを実行する
 
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
     ならば "アプリケーションログファイル"に"syntax error"と記述されていること
