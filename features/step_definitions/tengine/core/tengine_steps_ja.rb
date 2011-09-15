@@ -18,7 +18,7 @@ end
 
 前提 /^"([^"]*)"が起動している$/ do |name|
   if name == "Tengineコアプロセス"
-    io = IO.popen("bin/tengined")
+    io = IO.popen("tengined")
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
     pid_regexp = /<(\d+)>/
@@ -48,10 +48,9 @@ end
 
 前提 /^"([^"]*)"がオプション"([^"]*)"で起動している$/ do |name,option|
   if name == "Tengineコアプロセス"
-    io = IO.popen("bin/tengined #{option}")
+    io = IO.popen("tengined #{option}")
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
-sleep 10
   elsif name == "DBプロセス"
     unless system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
       raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
@@ -154,7 +153,7 @@ end
 
 # Tengieコアはバックグラウンドで起動している前提です
 前提 /^"([^"]*)"から"([^"]*)"の"起動時刻"を確認する$/ do |file, name|
-  raise "サポート外の定義です。" unless (file == "アプリケーションログファイル" && name == "Tengineコアプロセス")
+  raise "サポート外の定義です。" unless (file == "アプリケーションログファイル" && /Tengineコアプロセス/ =~ name)
   @h ||= {}
   @h[name] ||= {}
   pids = tengine_core_process_running_pids
@@ -162,6 +161,8 @@ end
   raise "#{name}が2つ以上起動しています。:pids => #{pids}" if 1 < pids.size
   @h[name][:start_time] = tengine_core_process_start_time(pids[0]) 
   @h[name][:pid] = pids[0]
+puts "起動時刻 => #{@h[name][:start_time]}"
+puts "PID => #{@h[name][:pid]}"
 end
 
 ならば /^"([^"]*)"が起動していること$/ do |name|
@@ -173,10 +174,10 @@ end
       elsif name == "キュープロセス"
         result = `ps aux | grep -v grep | grep -e rabbitmq`.chomp
       elsif name == "Tengineコアプロセス"
-        # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
-        # 例：tmp/tengine_pids/tengine.0.3948
+        # Tengineコアのpidファイル => tmp/tengined_pids/tengined.[0からの連番].[pid]
+        # 例：tmp/tengined_pids/tengined.0.3948
         # ファイルの中はpidが記述されている
-        pids = IO.popen("cat tmp/tengine_pids/tengine.*").to_a
+        pids = IO.popen("cat tmp/tengined_pids/tengined.*").to_a
         pids.each do |pid|
           result = `ps -eo pid #{pid}}`.chomp
         end
@@ -527,7 +528,7 @@ end
 
 def tengine_core_process_pids(status)
   pids = []
-  command = "bin/tengined -k status | grep #{status} | awk '{print $1}'"
+  command = "tengined -k status | grep #{status} | awk '{print $1}'"
   IO.popen(command) do |io|
     line = io.gets
     break unless line
