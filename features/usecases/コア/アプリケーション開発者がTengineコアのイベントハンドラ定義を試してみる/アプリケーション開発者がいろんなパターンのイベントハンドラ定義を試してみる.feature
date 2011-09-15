@@ -68,9 +68,9 @@
 
   @selenium
   シナリオ: [正常系]アプリケーション開発者がイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./uc90_try_dsl/dir_1/dir_2/dsl_a.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"./usecases/コア/dsls/uc90_try_dsl/dir_1/dir_2/dsl_a.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./uc90_try_dsl/dir_1/dir_2/dsl_a.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/コア/dsls/uc90_try_dsl/dir_1/dir_2/dsl_a.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
