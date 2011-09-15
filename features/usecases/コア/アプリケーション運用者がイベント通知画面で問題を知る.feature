@@ -6,12 +6,13 @@
 
   背景:
     前提 日本語でアクセスする
-    かつ GR Heartbeatの発火間隔が20と設定されている
+    かつ GR Heartbeatの発火間隔が3と設定されている
     かつ "Tengineコアプロセス"が停止している
     かつ "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
     かつ "Tengineコンソールプロセス"が起動している
     かつ Tengine周辺のサーバの時刻が同期されている
+		かつ "Tengineコアプロセス"のpidファイルが残っていない
 
   #パターンが思いつかないです・・・
 	@selenium
@@ -62,7 +63,7 @@
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している		
 #   かつ "Tengineコアプロセス"がオプション"-T usecases/コア/dsls/uc01_execute_processing_for_event.rb -D -G 3 --event-queue-conn-port 999"で起動している
-    かつ "Tengineコアプロセス"がオプション"-T uc01_execute_processing_for_event.rb -D "で起動してるい
+    かつ "Tengineコアプロセス"がオプション"-T uc01_execute_processing_for_event.rb -D "で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
 
     もし "イベント通知画面"を表示する
@@ -77,9 +78,10 @@
 
 # TODO 採用 もし "Tengineコアプロセス"の起動を行うために"tengined -T usecases/コア/dsls/uc01_execute_processing_for_event.rb -f features/support/config/tengine.yml -D -G 3"というコマンドを実行する
     #もし "Tengineコアプロセス"の起動を行うために"tengined -T uc01_execute_processing_for_event.rb -D -G 3"というコマンドを実行する
-		もし "Tengineコアプロセス"がオプション"-T uc01_execute_processing_for_event.rb -D -G 3"で起動している
+		もし "Tengineコアプロセス"がオプション"-T uc01_execute_processing_for_event.rb -D -G 1"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
-    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+#    ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+    ならば "Tengineコアプロセス"が起動していることをPIDを用いて"tengined -k status | grep running | grep PID"というコマンドで確認できること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
@@ -95,18 +97,18 @@
     かつ "キュープロセス"が起動している
     かつ "Tengineコアプロセス"が起動している
     #イベントハンドラ内で自身のTengineコアプロセスを殺すようなイベントハンドラを読み込む
-    かつ "Tengineコアプロセス1"がオプション"-T ./uc96_self_kill.rb -D "で起動している
+    かつ "Tengineコアプロセス1"がオプション"-T uc96_self_kill.rb -D -G 1"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス1"の"起動時刻"を確認する
     #↑と同じ設定でもう1プロセス立ち上げる
     かつ "Tengineコアプロセス2"がオプション"-T ./uc96_self_kill.rb -D "で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス2"の"起動時刻"を確認する
-
+    
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
-
+		
     もし "イベント通知画面"を表示している
     かつ "種別名"に"gr_heart_beat.tengined"と入力する
-    かつ "発生時刻(開始)"に"Tengineコアプロセス"の"#{開始時刻}"を入力する
+    かつ "発生時刻(開始)"に"Tengineコアプロセス1"の"#{開始時刻}"を入力する
     かつ "検索"ボタンをクリックする
     ならば 一件以上表示されていること
 
@@ -131,13 +133,13 @@
     ならば 一件表示されていること
 
     もし "イベント通知画面"を表示している
-    かつ "イベント種別名"に"failed_kill_event.failed.tengined"と入力する
+    かつ "種別名"に"failed_kill_event.failed.tengined"と入力する
     かつ "発生時刻(開始)"に"イベント種別:kill_event"の"#{イベント発火時刻}"を入力する
     かつ "検索"ボタンをクリックする
     ならば 一件表示されていること
 
     もし "イベント通知画面"を表示している
-    かつ "イベント種別名"に"gr_heart_beat.tengined"と入力する
+    かつ "種別名"に"gr_heart_beat.tengined"と入力する
     もし "発生時刻(開始)"に"イベント種別:kill_event"の"#{イベント発火時刻}"を入力する
     かつ "検索"ボタンをクリックする
     ならば 一件も表示されていないこと

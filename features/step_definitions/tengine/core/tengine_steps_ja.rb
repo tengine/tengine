@@ -47,8 +47,11 @@ end
 end
 
 前提 /^"([^"]*)"がオプション"([^"]*)"で起動している$/ do |name,option|
-  if name == "Tengineコアプロセス"
-    io = IO.popen("tengined #{option}")
+  if /Tengineコアプロセス/ =~ name
+    command = "tengined #{option}"
+    puts command
+    io = IO.popen(command)
+    io = nil
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
   elsif name == "DBプロセス"
@@ -59,6 +62,8 @@ end
     unless system('ps aux | grep -v grep | grep -e rabbitmq')
       raise "RabbitMQの起動に失敗しました" unless system('rabbitmq-server -detached')
     end
+  else
+    raise "#{name}はサポート外です。"
   end
 end
 
@@ -158,11 +163,11 @@ end
   @h[name] ||= {}
   pids = tengine_core_process_running_pids
   raise "#{name}が起動していません" if pids.empty?
-  raise "#{name}が2つ以上起動しています。:pids => #{pids}" if 1 < pids.size
-  @h[name][:start_time] = tengine_core_process_start_time(pids[0]) 
-  @h[name][:pid] = pids[0]
-puts "起動時刻 => #{@h[name][:start_time]}"
-puts "PID => #{@h[name][:pid]}"
+#  raise "#{name}が2つ以上起動しています。:pids => #{pids}" if 1 < pids.size
+  @h[name][:start_time] = tengine_core_process_start_time(pids.last) 
+  @h[name][:pid] = pids.last
+  puts "起動時刻 => #{@h[name][:start_time]}"
+  puts "PID => #{@h[name][:pid]}"
 end
 
 ならば /^"([^"]*)"が起動していること$/ do |name|
@@ -261,7 +266,7 @@ end
 end
 
 もし /^発火間隔だけ待機する$/ do
-  sleep @tengined_heartbeat_period
+  sleep @tengined_heartbeat_period.to_i
 end
 
 #############
@@ -526,17 +531,37 @@ def view_time_format
   "%Y-%m-%d %H:%M:%S"
 end
 
+# 起動した順番のpidの配列を返す
 def tengine_core_process_pids(status)
   pids = []
-  command = "tengined -k status | grep #{status} | awk '{print $1}'"
+  lines = []
+  # 出力結果の例：
+  # tengined.0:58812
+  # tengined.1:58834
+  command = "ps aux | grep tengined | awk '{print $11\":\"$2}'"
+  puts command
   IO.popen(command) do |io|
-    line = io.gets
-    break unless line
-    pid = line.chomp
+    while io.gets()
+     line = $_
+     puts "pid line => #{line}"
+     if /^tengined/ =~ line
+       lines << line 
+     end
+    end
+  end
+
+#  lines = ["tengined.0:58812", "tengined.1:58834"]
+  lines.sort! do |a, b|
+     a.split(':')[0] <=> b.split(':')[0]
+  end
+  lines.each do |line|
+    pid = line.split(':')[1].chomp
     pids << pid
   end
+
   return pids
 end
+
 
 def tengine_core_process_running_pids
   tengine_core_process_pids "running"
@@ -818,5 +843,10 @@ end
 
 もし /^(.*)秒間眠る$/ do |time|
   sleep time.to_i
+end
+
+前提 /^"Tengineコアプロセス"のpidファイルが残っていない$/ do
+  `rm tmp/tengined_pids/tengined.*`
+  `rm tmp/tengined_status/tengined*`
 end
 
