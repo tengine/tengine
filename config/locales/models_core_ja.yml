@@ -43,4 +43,4 @@ ja:
         system_properties: "システムプロパティ"
         system_properties_yaml: "システムプロパティ(YAML形式)"
         driver: "ドライバ"
-        lock_version: "バージョン"
+        lock_version: "ロックバージョン"
