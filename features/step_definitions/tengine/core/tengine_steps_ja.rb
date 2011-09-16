@@ -23,15 +23,13 @@ end
     @h[name] = {:io => io, :stdout => []}
     pid_regexp = /<(\d+)>/
     get_pid_from_stdout name,pid_regexp
-  end
-  if name == "Tengineコンソール"
-    IO.popen("rm -rf ./tmp/pids/server.pid")
+  elsif name == "Tengineコンソールプロセス"
+    system("rm -rf ./tmp/pids/server.pid")
     io = IO.popen("rails s -e production")
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
     get_pid_from_file(name, "./tmp/pids/server.pid")
-  end
-  if name == "DBプロセス"
+  elsif name == "DBプロセス"
     unless system("ps aux|grep -v \"grep\" | grep -e \"mongod.*--port.*21039\"")
       raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
     end
@@ -43,6 +41,8 @@ end
     unless contains
       raise "RabbitMQの起動に失敗しました" unless system('rabbitmq-server -detached')
     end
+  else 
+    raise "#{name}がありません"
   end
   sleep 5
 end
