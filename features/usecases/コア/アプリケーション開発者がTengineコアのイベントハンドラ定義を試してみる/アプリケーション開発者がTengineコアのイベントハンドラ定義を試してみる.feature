@@ -114,7 +114,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
 		|種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event00|tengine_console|2011/09/01 12:00:00|2     |true     |tengine_console|--- {}|
+    |event00|tengine_console|2011/09/01 12:00:00|2     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
