@@ -283,7 +283,7 @@
   シナリオ:  [正常系]ハンドラを実行して全てsubmitされたときにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc52_commit_event_after_all_handler_submit.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./usecases/core/dsls/uc52_commit_event_after_all_handler_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml --application-log-output ./tmp/ap.log -T ./usecases/core/dsls/uc52_commit_event_after_all_handler_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
     # アプリケーションログがファイル"./tmp/stdout.log"に出力される設定になっていることを確認する。
@@ -291,9 +291,10 @@
     もし "イベントドライバ一覧画面"を表示する
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行が表示されること
-    |  driver52_1  |
-		|  driver52_2  |
-    |  driver52_3  |
+		|名称|
+    |driver52_1|
+		|driver52_2|
+    |driver52_3|
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
@@ -311,17 +312,14 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event52|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻                  |通知レベル|送信者名        |
+    |event52|tengine_console|2011-09-01 12:00:00 +0900|2       |tengine_console|
 
-    もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
+    もし "アプリケーションログファイル""./tmp/ap.log"を参照する
 	  ならば "アプリケーションログファイル"に以下の順で記述されていること
-    |#{イベントキー}:handler52_1:1|
-    |             :handler52_2:1|
-    |             :handler52_3:1|
-    かつ "Tengineコアプロセス"の標準出力に"#{イベントキー}:handler52_1"と出力されていること
-    かつ "Tengineコアプロセス"の標準出力に"#{イベントキー}:handler52_2"と出力されていること
-		かつ "Tengineコアプロセス"の標準出力に"#{イベントキー}:handler52_3"と出力されていること
+    |#{イベントキー}:handler52_1|
+    |#{イベントキー}:handler52_2|
+    |#{イベントキー}:handler52_3|
 		# ログファイルの記載内容は"{発火されたイベントのキー}:{イベントドライバ名}"となっている。
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
@@ -760,7 +758,7 @@
 
 
   シナリオ: 3.[異常系]設定ファイルが不正なときのログを確認する
-      前提 yamlファイルとして不正なTengineコアの設定ファイルinvalid_tengine.ymlが存在する
+      前提 環境設定ファイル"./features/config/invalid_tengine.yml"が存在すること
 			
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/invalid_tengine.yml"というコマンドを実行する
 

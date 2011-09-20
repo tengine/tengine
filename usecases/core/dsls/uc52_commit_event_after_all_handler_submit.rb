@@ -7,21 +7,21 @@ ack_policy(:after_all_handler_submit, :event52)
 
 driver :driver52_1 do
   on:event52 do
-    puts "handler52_1"
+    puts "#{event.key}:handler52_1"
     submit
   end
 end
 
 driver :driver52_2 do
   on:event52 do
-    puts "handler52_2"
+    puts "#{event.key}:handler52_2"
     submit
   end
 end
 
 driver :driver52_3 do
   on:event52 do
-    puts "handler52_3"
+    puts "#{event.key}:handler52_3"
     submit
   end
 end
