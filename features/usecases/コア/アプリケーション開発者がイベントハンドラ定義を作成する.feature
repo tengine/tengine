@@ -8,7 +8,7 @@
   #  require 'tengine/core'
   #  require 'fileutils'
   #
-  #  Tengine.driver :driver_exsample do
+  #  driver :driver_exsample do
   #    # イベントが発生したら新たなイベントを発火する
   #    on :event1 do
   #      fire(:event2)
@@ -21,6 +21,8 @@
   #  end
 
   # テストコード
+  #  require 'spec_helper'
+  #
   #  describe :driver_example do
   #    it ":event1 が発火すると、./tmp/e2e_test/event2.txtが作成される" do
   #      # driver_example は event1 を受けてイベントハンドリングする
@@ -59,6 +61,8 @@
     かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"に以下の記述をする
     """
     # -*- coding: utf-8 -*-
+    require 'spec_helper'
+    
     describe :driver_example do
       it ":event1 が発火すると、./tmp/e2e_test/event2.txtが作成される" do
         # driver_example は event1 を受けてイベントハンドリングする
@@ -83,7 +87,7 @@
     require 'tengine/core'
     require 'fileutils'
 
-    Tengine.driver :driver_exsample do
+    driver :driver_exsample do
       # イベントが発生したら新たなイベントを発火する
       on :event1 do
         fire(:event2)
@@ -120,6 +124,8 @@
     かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"に以下の記述をする
     """
     # -*- coding: utf-8 -*-
+    require 'spec_helper'
+    
     describe :driver_example do
       it ":event1 が発火すると、./tmp/e2e_test/event2.txtが作成される" do
         # driver_example は event1 を受けてイベントハンドリングする
@@ -149,14 +155,14 @@
     require 'tengine/core'
     require 'fileutils'
 
-    Tengine.driver :driver_exsample do
+    driver :driver_exsample do
       # イベントが発生したら新たなイベントを発火する
       on :event1 do
         fire(:event2)
       end
     end
 
-    # :event2を　Tengine.driverの外に記述する
+    # :event2を　driverの外に記述する
     on :event2 do
       # event2 が発火したらファイルを作成する
       FileUtils.touch "./tmp/e2e_test/event2.txt"
@@ -177,7 +183,7 @@
     require 'tengine/core'
     require 'fileutils'
 
-    Tengine.driver :driver_exsample do
+    driver :driver_exsample do
       # イベントが発生したら新たなイベントを発火する
       on :event1 do
         fire(:event2)
@@ -214,6 +220,8 @@
     かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"に以下の記述をする
     """
     # -*- coding: utf-8 -*-
+    require 'spec_helper'
+    
     describe :driver_example do
       it ":event1 が発火すると、./tmp/e2e_test/event2.txtが作成される" do
         # driver_example は event1 を受けてイベントハンドリングする
@@ -243,14 +251,14 @@
     require 'tengine/core'
     require 'fileutils'
 
-    Tengine.driver :driver_exsample do
+    driver :driver_exsample do
       # イベントが発生したら新たなイベントを発火する
       on :event1 do
         fire(:event2)
       end
     end
 
-    # :event2を　Tengine.driverの外に記述する
+    # :event2を　driverの外に記述する
     on :event2 do
       # ファイルを作成するのではなく、出力するだけ
       # FileUtils.touch "./tmp/e2e_test/event2.txt"
@@ -272,7 +280,7 @@
     require 'tengine/core'
     require 'fileutils'
 
-    Tengine.driver :driver_exsample do
+    driver :driver_exsample do
       # イベントが発生したら新たなイベントを発火する
       on :event1 do
         fire(:event2)
@@ -313,6 +321,8 @@
     かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"に以下の記述をする
     """
     # -*- coding: utf-8 -*-
+    require 'spec_helper'
+    
     describe :driver_example do
       it ":event1 が発火すると、./tmp/e2e_test/event2.txtが作成される" do
         # driver_example は event1 を受けてイベントハンドリングする
@@ -341,7 +351,7 @@
     require 'tengine/core'
     require 'fileutils'
 
-    Tengine.driver :driver_exsample do
+    driver :driver_exsample do
       # イベントが発生したら新たなイベントを発火する
       on :event1 do
         fire(:event2)
@@ -361,6 +371,8 @@
     もし イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"に以下の記述をする
     """
     # -*- coding: utf-8 -*-
+    require 'spec_helper'
+    
     describe :driver_example do
       it ":event1 が発火すると、./tmp/e2e_test/event2.txtが作成される" do
         # driver_example は event1 を受けてイベントハンドリングする
