@@ -484,9 +484,9 @@ end
   File.open(file_path, 'w') {|f| f.puts(text) }
 end
 
-前提 /^yamlファイルとして不正なTengineコアの設定ファイルinvalid_tengine.ymlが存在する$/ do
-  FileUtils.cp("./features/config/invalid_tengine.yml", "./tmp/end_to_end_test/config/invalid_tengine.yml")
-end
+#前提 /^yamlファイルとして不正なTengineコアの設定ファイル"([^"]*)"が存在する$/ do
+#  FileUtils.cp("./features/config/invalid_tengine.yml", "./tmp/end_to_end_test/config/invalid_tengine.yml")
+#end
 
 前提 /.*イベントハンドラ定義"([^"]*)"が登録されている$/ do |event_handler_def|
   reise "#{event_handler_def} のloadに失敗しました。" unless system("tengined -k load -f tengine.yml -T #{event_handler_def}")

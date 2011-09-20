@@ -306,7 +306,7 @@
 
 
   シナリオ: 3.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_設定ファイルが不正
-      前提 yamlファイルとして不正なTengineコアの設定ファイル"./features/config/invalid_tengine.yml"が存在する
+      前提 yamlファイルとして不正なTengineコアの設定ファイル"./features/config/invalid_tengine.yml"が存在すること
 			
       # 不正なファイルを指定して実行
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/invalid_tengine.yml"というコマンドを実行する
