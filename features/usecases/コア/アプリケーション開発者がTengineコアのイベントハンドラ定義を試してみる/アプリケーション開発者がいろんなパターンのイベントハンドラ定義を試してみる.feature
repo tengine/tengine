@@ -170,19 +170,17 @@
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc90_try_dsl/error_in_event_driver.rb"が存在すること
    
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/error_in_event_driver.rb 2>&1"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"No such file or directory"と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
+		
 
   @selenium
   シナリオ: [正常系]アプリケーション開発者がイベントドライバ外に一般的なエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc90_try_dsl/error_not_in_event_driver.rb"が存在すること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/error_not_in_event_driver.rb 2>&1"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"No such file or directory"と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   @selenium
@@ -190,10 +188,9 @@
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc90_try_dsl/syntax_error.rb"が存在すること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/syntax_error.rb 2>&1"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"syntax error"と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
+		
     
   @selenium
   シナリオ:  [正常系]イベントを受け取ったらすぐにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
@@ -330,10 +327,8 @@
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc53_submit_outside_of_handler.rb"が存在すること
    
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc53_submit_outside_of_handler.rb 2>&1"というコマンドを実行する
-    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
-    もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
-    ならば "アプリケーションログファイル"に"submit is not available outside of event handler block."と記述されていること
+    ならば "Tengineコアプロセス"が停止していること
+    かつ "Tengineコアプロセス"の標準出力に"submit is not available outside of event handler block."と出力されていること
 
 
   @selenium
@@ -529,9 +524,8 @@
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc61_event_outside_of_handler.rb"が存在すること
    
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc61_event_outside_of_handler.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"event is not available outside of event handler block."と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   @selenium
@@ -578,9 +572,8 @@
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc63_session_outside_of_driver.rb"が存在すること
    
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc63_session_outside_of_driver.rb 2>&1"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"session is not available outside of event driver block."と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   @selenium
