@@ -7,11 +7,9 @@ driver :kill_event do
   on:kill_event do
     puts "kill_event"
     pid = $$
-    `echo ${pid} > tmp/kill_me_process`
-sleep 600
-#    puts "kill event pid : #{pid}"
-#    `kill -9 #{pid}`
-#    exit(1)
+    puts "kill event pid : #{pid}"
+    `kill -9 #{pid}`
+
   end
 
 end

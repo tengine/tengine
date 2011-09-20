@@ -19,7 +19,7 @@
   シナリオ: アプリケーション運用者がTengine運用中にイベント通知画面からTengineで問題が発生したと通知を受けるが、正常に動作している
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
-    かつ "Tengineコアプロセス"がオプション" -T usecases/コア/dsls/uc01_execute_processing_for_event.rb -D -G 3"で起動している
+    かつ "Tengineコアプロセス"がオプション" -T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 3"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
 		
     #イベントハンドラ定義なしでOK
@@ -58,10 +58,10 @@
 
 		
 	@selenium
-  シナリオ: 2.アプリケーション運用者がTengineコアのキューの接続先設定を間違えて起動する
+  シナリオ: アプリケーション運用者がTengineコアのキューの接続先設定を間違えて起動する
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している		
-    かつ "Tengineコアプロセス"がオプション"-T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 3 --event-queue-conn-port 999"で起動している
+    かつ "Tengineコアプロセス"がオプション"-T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 3 --event-queue-queue-name wrong_tengine_event_queue "で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
 
     もし "イベント通知画面"を表示する
@@ -88,10 +88,9 @@
 
 
 	@selenium
-  シナリオ: 3.アプリケーション運用者がTengine運用中にイベント通知画面からTengineで問題が発生したと通知を受ける
+  シナリオ: アプリケーション運用者がTengine運用中にイベント通知画面からTengineで問題が発生したと通知を受ける
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
-    かつ "Tengineコアプロセス"が起動している
     #イベントハンドラ内で自身のTengineコアプロセスを殺すようなイベントハンドラを読み込む
     かつ "Tengineコアプロセス1"がオプション"-T usecases/core/dsls/uc96_self_kill.rb -D -G 3"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス1"の"起動時刻"を確認する
