@@ -19,7 +19,7 @@
   シナリオ: アプリケーション運用者がTengine運用中にイベント通知画面からTengineで問題が発生したと通知を受けるが、正常に動作している
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
-    かつ "Tengineコアプロセス"がオプション" -T usecases/コア/dsls/uc01_execute_processing_for_event.rb -D -G 3"で起動している
+    かつ "Tengineコアプロセス"がオプション" -T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 3"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
 		
     #イベントハンドラ定義なしでOK
