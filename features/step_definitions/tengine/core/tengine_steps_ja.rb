@@ -471,7 +471,13 @@ end
 end
 
 もし /^(.*ファイル)"([^"]*)"を作成する$/ do |name, file_path|
+  dirname = File.dirname(file_path)
+  Dir.mkdir(dirname) unless FileTest.exists?(dirname)
   FileUtils.touch(file_path)
+end
+
+もし /^(.*ファイル)"([^"]*)"を削除する$/ do |name, file_path|
+  FileUtils.rm(file_path) if FileTest.exists?(file_path)
 end
 
 もし /^(.*ファイル)"([^"]*)"に以下の記述をする$/ do |name, file_path, text|
