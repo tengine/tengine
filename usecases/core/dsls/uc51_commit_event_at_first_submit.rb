@@ -8,14 +8,14 @@ ack_policy(:at_first_submit, :event51)
 driver :driver51_1 do
   # 最初に実行されるハンドラではsubmitしないので、ACKされない
   on:event51 do
-    puts "handler51_1"
+    puts "#{event.key}:handler51_1"
   end
 end
 
 driver :driver51_2 do
   # このハンドラでsubmitするので、ACKする
   on:event51 do
-    puts "handler51_2"
+    puts "#{event.key}:handler51_2"
     submit
   end
 end
@@ -23,7 +23,7 @@ end
 driver :driver51_3 do
   # このハンドラでsubmitするが、すでにACKしているのでACKしない
   on:event51 do
-    puts "handler51_3"
+    puts "#{event.key}:handler51_3"
     submit
   end
 end

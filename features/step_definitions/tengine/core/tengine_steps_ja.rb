@@ -18,9 +18,11 @@ end
 
 前提 /^"([^"]*)"が起動している$/ do |name|
   if name == "Tengineコアプロセス"
-    io = IO.popen("tengined -k start -f features/config/tengine.yml")
+    command = "tengined -k start -f features/config/tengine.yml"
+    io = IO.popen(command)
     @h ||= {}
-    @h[name] = {:io => io, :stdout => []}
+#    @h[name] = {:io => io, :stdout => [] }
+    @h[name] = {:io => io, :stdout => [] ,:command => command}
     pid_regexp = /<(\d+)>/
     get_pid_from_stdout name,pid_regexp
   elsif name == "Tengineコンソールプロセス"
@@ -108,7 +110,7 @@ end
   puts "command:#{command}"
   io = IO.popen(command)
   @h ||= {}
-  @h[name] = {:io => io, :stdout => []}
+  @h[name] = {:io => io, :stdout => [], :command => command}
 end
 
 もし /^"([^"]*)"の起動を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
@@ -117,7 +119,7 @@ end
   puts "command:#{command}"
   io = IO.popen(command)
   @h ||= {}
-  @h[name] = {:io => io, :stdout => []}
+  @h[name] = {:io => io, :stdout => [], :command => command}
   sleep 5
 end
 
@@ -133,13 +135,25 @@ end
 
 ならば /^"([^"]*)"の標準出力からPIDを確認できること$/ do |name|
   if name == "Tengineコアプロセス"
-    pid_regexp = /tengined\<(\d+)\>/
+    get_pid = get_pid_from_ps name
+    get_pid.should be_true
   elsif name == "Tengineコンソールプロセス"
     pid_regexp = /pid=(\d+)/
+    get_pid = get_pid_from_stdout name,pid_regexp
+    get_pid.should be_true
   end
-  get_pid = get_pid_from_stdout name,pid_regexp
-  get_pid.should be_true
 end
+
+
+#ならば /^"([^"]*)"の標準出力からPIDを確認できること$/ do |name|
+#  if name == "Tengineコアプロセス"
+#    pid_regexp = /tengined\<(\d+)\>/
+#  elsif name == "Tengineコンソールプロセス"
+#    pid_regexp = /pid=(\d+)/
+#  end
+#  get_pid = get_pid_from_stdout name,pid_regexp
+#  get_pid.should be_true
+#end
 
 ならば /^"([^"]*)"のPIDファイル"([^"]*)"からPIDを確認できること$/ do |name, file_path|
   @h ||= {}
@@ -342,7 +356,7 @@ end
 
 # 取得した値を入力する場合に使う
 もし /^"([^"]*)"に"([^"]*)"を入力する$/ do |field, value|
-  value = @event_key if value == '"#{イベントキー}"'
+  value = @event_key if value == '#{イベントキー}'
   もし %{"#{field}"に"#{value}"と入力する}
 end
 
@@ -507,16 +521,22 @@ end
 end
 
 もし /^(.*ファイル)"([^"]*)"を作成する$/ do |name, file_path|
+  dirname = File.dirname(file_path)
+  Dir.mkdir(dirname) unless FileTest.exists?(dirname)
   FileUtils.touch(file_path)
+end
+
+もし /^(.*ファイル)"([^"]*)"を削除する$/ do |name, file_path|
+  FileUtils.rm(file_path) if FileTest.exists?(file_path)
 end
 
 もし /^(.*ファイル)"([^"]*)"に以下の記述をする$/ do |name, file_path, text|
   File.open(file_path, 'w') {|f| f.puts(text) }
 end
 
-前提 /^yamlファイルとして不正なTengineコアの設定ファイルinvalid_tengine.ymlが存在する$/ do
-  FileUtils.cp("./features/config/invalid_tengine.yml", "./tmp/end_to_end_test/config/invalid_tengine.yml")
-end
+#前提 /^yamlファイルとして不正なTengineコアの設定ファイル"([^"]*)"が存在する$/ do
+#  FileUtils.cp("./features/config/invalid_tengine.yml", "./tmp/end_to_end_test/config/invalid_tengine.yml")
+#end
 
 前提 /.*イベントハンドラ定義"([^"]*)"が登録されている$/ do |event_handler_def|
   reise "#{event_handler_def} のloadに失敗しました。" unless system("tengined -k load -f tengine.yml -T #{event_handler_def}")
@@ -696,6 +716,19 @@ def get_pid_from_file(name, file_path)
       break
     end
   end
+end
+
+# psコマンドを利用してPIDを取得する
+def get_pid_from_ps(name)
+  get_pid = false
+  p "cmd:#{@h[name][:command]}"
+  IO.popen("ps aux | grep \"" + @h[name][:command]  + "\" | grep -v grep ") { |io|
+    if line = io.gets
+      @h[name][:pid] = line.split(" ")[1]
+      get_pid = true
+    end
+  }
+  get_pid
 end
 
 def contains_message_from_stdout(name,word)
