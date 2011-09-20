@@ -551,6 +551,8 @@ def tengine_core_process_pids(status)
      end
     end
   end
+ 
+ puts lines
 
 #  lines = ["tengined.0:58812", "tengined.1:58834"]
   lines.sort! do |a, b|
