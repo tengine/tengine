@@ -5,7 +5,7 @@ driver :driver14 do
 
   # 同じイベントの発生源から イベントa と イベントb が発生した場合のみ処理を実行する
   on (:event14_a & :event14_b).at_same_source do
-    puts "#{event.id}:handler14"
+    puts "#{event.key}:handler14"
   end
 
 end
