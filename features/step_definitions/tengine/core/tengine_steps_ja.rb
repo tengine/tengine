@@ -549,6 +549,16 @@ end
    raise "権限の変更に失敗しました" unless system("chmod +r #{file_path}")
 end
 
+前提 /^"([^"]*)"ファイルの読込権限がないこと$/ do |file_path|
+   FileUtils.touch(file_path) unless File.exists?(file_path)
+   raise "権限の変更に失敗しました" unless system("chmod -r #{file_path}")
+end
+
+前提 /^"([^"]*)"ファイルの読込権限があること$/ do |file_path|
+   FileUtils.touch(file_path) unless File.exists?(file_path)
+   raise "権限の変更に失敗しました" unless system("chmod +r #{file_path}")
+end
+
 def view_time_format
   "%Y-%m-%d %H:%M:%S"
 end
