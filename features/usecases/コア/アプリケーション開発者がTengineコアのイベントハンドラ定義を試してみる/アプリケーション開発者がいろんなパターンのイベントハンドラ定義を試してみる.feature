@@ -170,19 +170,17 @@
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc90_try_dsl/error_in_event_driver.rb"が存在すること
    
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/error_in_event_driver.rb 2>&1"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"No such file or directory"と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
+		
 
   @selenium
   シナリオ: [正常系]アプリケーション開発者がイベントドライバ外に一般的なエラーとなるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc90_try_dsl/error_not_in_event_driver.rb"が存在すること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/error_not_in_event_driver.rb 2>&1"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"No such file or directory"と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   @selenium
@@ -190,10 +188,9 @@
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc90_try_dsl/syntax_error.rb"が存在すること
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/syntax_error.rb 2>&1"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"syntax error"と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
+		
     
   @selenium
   シナリオ:  [正常系]イベントを受け取ったらすぐにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
@@ -330,10 +327,8 @@
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc53_submit_outside_of_handler.rb"が存在すること
    
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc53_submit_outside_of_handler.rb 2>&1"というコマンドを実行する
-    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-
-    もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
-    ならば "アプリケーションログファイル"に"submit is not available outside of event handler block."と記述されていること
+    ならば "Tengineコアプロセス"が停止していること
+    かつ "Tengineコアプロセス"の標準出力に"submit is not available outside of event handler block."と出力されていること
 
 
   @selenium
@@ -529,9 +524,8 @@
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc61_event_outside_of_handler.rb"が存在すること
    
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc61_event_outside_of_handler.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"event is not available outside of event handler block."と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   @selenium
@@ -564,8 +558,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |付加情報|
-    |event62|tengine_console|2011/09/01 12:00:00|info     |false     |tengine_console|--- {}|
+    |種別名  |発生源名        |発生時刻                  |通知レベル|送信者名        |
+    |event62|tengine_console|2011-09-01 12:00:00 +0900|2        |tengine_console|
 
     もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:101"と記述されていること
@@ -578,9 +572,8 @@
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc63_session_outside_of_driver.rb"が存在すること
    
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc63_session_outside_of_driver.rb 2>&1"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"session is not available outside of event driver block."と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   @selenium
@@ -623,18 +616,16 @@
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc90_try_dsl/dsl_not_exist.rb"が存在しないこと
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/dsl_not_exist.rb 2>&1"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"No such file or directory"と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者が存在しないディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc90_try_dsl/dir_not_exist"が存在しないこと
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_not_exist 2>&1"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"No such file or directory"と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   @selenium
@@ -676,55 +667,56 @@
 
   シナリオ: [正常系]アプリケーション開発者が読込権限がないイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc90_try_dsl/dir_7/dsl_f_unreadable.rb"が存在すること
+    かつ "./usecases/core/dsls/uc90_try_dsl/dir_7/dsl_f_unreadable.rb"ファイルの読込権限がないこと
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_7/dsl_f_unreadable.rb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"permission denied"と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限がないディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc90_try_dsl/dir_8/dir_9_unreadable"が存在すること
+    かつ "./usecases/core/dsls/uc90_try_dsl/dir_8/dir_9_unreadable"ファイルの読込権限がないこと
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_8/dir_9_unreadable"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"permission denied"と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限があるイベントハンドラ定義ファイルと読込権限がないイベントハンドラ定義ファイルが混在しているディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc90_try_dsl/dir_7"が存在すること
+    かつ "./usecases/core/dsls/uc90_try_dsl/dir_7/dsl_f_unreadable.rb"ファイルの読込権限がないこと
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_7"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"permission denied"と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限があるディレクトリと読込権限がないディレクトリが混在しているディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc90_try_dsl/dir_8"が存在すること
+    かつ "./usecases/core/dsls/uc90_try_dsl/dir_8/dir_9_unreadable"ファイルの読込権限がないこと
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_8"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"permission denied"と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限があるディレクトリに読込権限がないイベントハンドラ定義ファイルがあるディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc90_try_dsl/dir_11/dir_14"が存在すること
+    かつ "./usecases/core/dsls/uc90_try_dsl/dir_11/dir_14/dsl_l_unreadable.rb"ファイルの読込権限がないこと
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_11/dir_14"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"permission denied"と出力されていること
-    かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
 
   シナリオ: [正常系]読込権限が複雑に設定されている階層になったディレクトリを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc90_try_dsl/dir_11"が存在すること
+    かつ "./usecases/core/dsls/uc90_try_dsl/dir_11/dir_12_unreadable"ファイルの読込権限がないこと
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_11"というコマンドを実行する
+    ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"permission denied"と出力されていること
-    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
   ######################################
   # ログファイル
