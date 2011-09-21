@@ -62,7 +62,11 @@ end
       raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
     end
   elsif name == "キュープロセス"
-    unless system('ps aux | grep -v grep | grep -e rabbitmq')
+    io = IO.popen("rabbitmqctl status")
+    @h ||= {}
+    @h[name] = {:io => io, :stdout => []}
+    contains = contains_message_from_stdout(name,"running_applications")
+    unless contains
       raise "RabbitMQの起動に失敗しました" unless system('rabbitmq-server -detached')
     end
   else
@@ -78,7 +82,11 @@ end
       raise "MongoDBの停止に失敗しました"  unless system("mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js")
     end
   elsif name == "キュープロセス"
-    if system('ps aux | grep -v grep | grep -e rabbitmq')
+    io = IO.popen("rabbitmqctl status")
+    @h ||= {}
+    @h[name] = {:io => io, :stdout => []}
+    contains = contains_message_from_stdout(name,"running_applications")
+    unless contains
       raise "RabbitMQの停止に失敗しました" unless system('rabbitmqctl stop')
     end
   elsif name == "Tengineコアプロセス"
@@ -193,7 +201,10 @@ end
       if name == "DBプロセス"
         result = `ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"`.chomp
       elsif name == "キュープロセス"
-        result = `ps aux | grep -v grep | grep -e rabbitmq`.chomp
+        io = IO.popen("rabbitmqctl status")
+        @h ||= {}
+        @h[name] = {:io => io, :stdout => []}
+        result = "ok" if contains_message_from_stdout(name,"running_applications")
       elsif name == "Tengineコアプロセス"
         # Tengineコアのpidファイル => tmp/tengined_pids/tengined.[0からの連番].[pid]
         # 例：tmp/tengined_pids/tengined.0.3948
@@ -204,8 +215,10 @@ end
         end
       elsif name == "Tengineコンソールプロセス"
         result = `ps -eo pid | grep \`cat tmp/pids/server.pid\``.chomp
+      else
+        raise "#{name}は不正な指定です。"
       end
-      break unless result.empty?
+      break unless result.blank?
       sleep 1
     end
   end
@@ -238,7 +251,10 @@ end
       if name == "DBプロセス"
         result = `ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"`.chomp
       elsif name == "キュープロセス"
-        result = `ps aux | grep -v grep | grep -e rabbitmq`.chomp
+        io = IO.popen("rabbitmqctl status")
+        @h ||= {}
+        @h[name] = {:io => io, :stdout => []}
+        result = "ok" if contains_message_from_stdout(name,"running_applications")
       elsif name == "Tengineコアプロセス"
         # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
         # 例：tmp/tengine_pids/tengine.0.3948
@@ -250,12 +266,29 @@ end
       elsif name == "Tengineコンソールプロセス"
         result = `ps -eo pid | grep \`cat tmp/pids/server.pid\``.chomp
       end
-      break if result.empty?
+      break if result.blank?
     end
   end
   # systemメソッドの戻り値が空であることで停止を判断する
   result.should be_empty
 end
+
+ならば /^"([^"]*)"が起動していることと、起動時刻を確認する$/ do |name|
+  もし %{"#{name}"が起動していること}
+  @h ||= {}
+  @h[name] ||= {}
+  @h[name][:start_time] = Time.now
+  puts "起動時刻 => #{@h[name][:start_time]}"
+end
+
+ならば /^"([^"]*)"が停止していることと、停止時刻を確認する$/ do |name|
+  もし %{"#{name}"が停止していること}
+  @h ||= {}
+  @h[name] ||= {}
+  @h[name][:stop_time] = Time.now
+  puts "停止時刻 => #{@h[name][:stop_time]}"
+end
+
 
 もし /^"([^"]*)"を Ctrl\+c で停止する$/ do |name|
   pid = @h[name][:pid]
@@ -333,9 +366,12 @@ end
   # 発生時刻には入力項目が2つあり、日本語指定では入力できなかったので暫定対応
   field = "finder_occurred_at_start" if field == "発生時刻(開始)"
 
-  if value == '#{開始時刻}'
+  if /(起動|開始)時刻/ =~ value
     raise "#{name}の開始時刻が取得できませんでした。" unless @h[name][:start_time]
     value = @h[name][:start_time].strftime(view_time_format)
+  elsif value == '#{停止時刻}'
+    raise "#{name}の停止時刻が取得できませんでした。" unless @h[name][:stop_time]
+    value = @h[name][:stop_time].strftime(view_time_format)
   elsif value == '#{イベント発火時刻}'
     raise "#{name}のイベント発火時刻が取得できませんでした。" unless @h[name][:event_ignition_time]
     value = @h[name][:event_ignition_time].strftime(view_time_format)
@@ -498,9 +534,9 @@ end
   File.open(file_path, 'w') {|f| f.puts(text) }
 end
 
-前提 /^yamlファイルとして不正なTengineコアの設定ファイルinvalid_tengine.ymlが存在する$/ do
-  FileUtils.cp("./features/config/invalid_tengine.yml", "./tmp/end_to_end_test/config/invalid_tengine.yml")
-end
+#前提 /^yamlファイルとして不正なTengineコアの設定ファイル"([^"]*)"が存在する$/ do
+#  FileUtils.cp("./features/config/invalid_tengine.yml", "./tmp/end_to_end_test/config/invalid_tengine.yml")
+#end
 
 前提 /.*イベントハンドラ定義"([^"]*)"が登録されている$/ do |event_handler_def|
   reise "#{event_handler_def} のloadに失敗しました。" unless system("tengined -k load -f tengine.yml -T #{event_handler_def}")
