@@ -1,0 +1,96 @@
+ユースケース名:
+  アプリケーション運用者が本番環境を変更する
+
+背景:
+  アプリケーション運用者は、本番環境をメンテナンスするときは、計画停止の計画を作成し、本番環境に変更を行なう。
+  アプリケーション運用者は、本番環境で動作しているサーバやアプリケーションに問題が発生したときは、対処方法を確認し、本番環境に変更を行なう。
+
+特記事項:
+  このユースケースは、代替ケースの考慮漏れを防ぐため、作業の組み合わせをERBで自動生成している。
+  そのため、一部例外的な表記を行っている部分がある。
+  このユースケースは、ユースケースを読む人がわかりやすいように、代替コースを冗長に記載している。
+  これによって、テスト作成者がfeatureを作成する際に、1代替コースが1シナリオになるため、記載が簡単になる。
+
+概要:
+  このユースケースは、アプリケーション運用者が本番環境を変更する際、どのような作業を行なうかの組み合わせを表現したものである。
+  作業の組み合わせの作成は、以下の手順で行なう
+	1. 考えられる作業を「目的語」の「作業を表す名詞」という単位で列挙する
+	2. 考えられる作業に前後関係の制限をかけたうえで、前後関係が考慮された作業の組み合わせを作成する
+	3. 前後関係が考慮された作業の組み合わせに、作業の組み合わせの制限をかけることで、ありえない作業の優先順位のためにを除外する
+
+  考えられる作業
+    DBサービスの起動
+    DBサービスの停止
+    Tengineプロセスの起動
+    Tengineプロセスの停止
+    DBパッケージの更新
+    DBパッケージのロールバック
+    Tengineコアパッケージの更新
+    Tengineコアパッケージのロールバック
+    DBのリストア
+    DBのリストア(物理ファイル)
+		DBのバックアップ(物理ファイル)
+    DBのリカバリ
+    DBのマイグレーション
+    DBのロールバック
+    イベントドライバの有効化
+    イベントドライバの無効化
+    イベントハンドラ定義のデプロイ
+    イベントハンドラ定義のロールバック
+
+  作業の前後関係の制限
+    https://docs.google.com/a/nautilus-technologies.com/spreadsheet/ccc?key=0AvhuCMg6dEBidFZGbkh5aG1lQ2RBOWM4MkNZNUVWdFE#gid=0
+    の「作業の前後関係の制限」シートを参照
+
+  作業の組み合わせの制限
+    https://docs.google.com/a/nautilus-technologies.com/spreadsheet/ccc?key=0AvhuCMg6dEBidFZGbkh5aG1lQ2RBOWM4MkNZNUVWdFE#gid=0
+    の「作業の組み合わせの制限」シートを参照
+
+事前条件:
+  本番環境変更手順書
+  * Tengineが提供するものではない
+
+成功時保証:
+  なし
+
+最低保証:
+  なし
+
+登場するコンポーネント:
+  テストのパターンが自動生成されるので、ここでまとめることができない
+
+参照するドキュメント:
+  アプリケーション運用者向けTengineマニュアル
+
+登場するパッケージ:
+  キュー
+  DB
+  Tengineコア
+
+基本コース:
+1. 問題の対応を行なう[代替コース*]
+[代替コース*]は以後記載される代替コースすべてを指す
+<%
+  $: << File.dirname(__FILE__)
+  require 'combination'
+  combination = Combination.new
+  patterns = combination.result_node(11)
+  alt_course_origin = "A"
+  patterns.each do |pattern|
+    course_name = "代替コース" << (alt_course_origin) << ":"
+    alt_course_origin = alt_course_origin.next
+    prerequisites = combination.get_prerequisites(pattern)
+%>
+<%= course_name %>
+前提条件
+<% prerequisites.each do |prerequisite|-%>
+<%= "#{prerequisite}" %>
+<% end -%>
+<% pattern.each_with_index do |step, index|%>
+<%= "#{index+1}. アプリケーション運用者は#{step}を行う" -%>
+<% end %>
+<%= pattern.length + 1 %>. ユースケースは終了する
+<% end %>
+
+注記:
+  なし
