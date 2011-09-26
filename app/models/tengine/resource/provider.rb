@@ -9,4 +9,6 @@ class Tengine::Resource::Provider
     c.has_many :virtual_server_imagess , :class_name => "Tengine::Resource::VirtualServerImage"
   end
 
+  validates_presence_of :name
+
 end
