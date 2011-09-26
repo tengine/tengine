@@ -138,8 +138,18 @@ class Tengine::Resource::Credential
   def connect(*args, &block)
     conn_opts = self.auth_values.symbolize_keys
     case auth_type_key
-    when :ssh_password then
+    when :ssh_password   then connect_with_ssh_password(conn_opts, *args, &block)
+    when :ssh_public_key then connect_with_ssh_pk(conn_opts, *args, &block)
+    when :ec2_access_key then connect_with_ec2_access_key(conn_opts, *args, &block)
+    else
+      raise NotImplementedError, "#{auth_type_key} isn't supported."
+    end
+  end
+
+  private
+
       # ssh パスワード認証
+  def connect_with_ssh_password(conn_opts, *args, &block)
       ssh_args = [args.first, conn_opts.delete(:username), conn_opts]
       logger.info("Net::SSH.start(*#{ssh_args.inspect})")
       begin
@@ -156,8 +166,10 @@ class Tengine::Resource::Credential
         logger.error("[#{$!.class.name}] #{$!.to_s}\n  " << $!.backtrace.join("\n  "))
         raise
       end
-    when :ssh_public_key then
+  end
+
       # ssh 公開鍵認証
+  def connect_with_ssh_pk(conn_opts, *args, &block)
       tmp_private_key_files(conn_opts.delete(:private_keys)) do |pk_paths|
         conn_opts[:keys] = pk_paths
         ssh_args = [args.first, conn_opts.delete(:username), conn_opts]
@@ -184,8 +196,10 @@ class Tengine::Resource::Credential
           raise
         end
       end
-    when :ec2_access_key then
+  end
+
       # ec2 アクセス鍵認証
+  def connect_with_ec2_access_key(conn_opts, *args, &block)
       runtime_options = args.extract_options!
       klass = (ENV['EC2_DUMMY'] == "true") ? Tengine::Resource::Credential::Ec2::Dummy : RightAws::Ec2
       region = runtime_options[:region] || conn_opts.delete(:default_region)
@@ -198,12 +212,8 @@ class Tengine::Resource::Credential
         }
         )
       block.call(connection)
-    else
-      raise NotImplementedError, "#{auth_type_key} isn't supported."
-    end
   end
 
-  private
 
   def tmp_private_key_files(private_keys)
     # Tempfileを使おうと思いましたが、なぜか"not a private key"というエラーが出てしまうので、諦めました。
