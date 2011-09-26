@@ -1,4 +1,6 @@
 TengineConsole::Application.routes.draw do
+  namespace :tengine do  namespace :resource do resources :servers end end
+
   get "tengine/core/event_ignitions/new"
 
   post "tengine/core/event_ignitions/fire"
