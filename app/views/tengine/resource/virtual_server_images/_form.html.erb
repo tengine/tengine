@@ -1,0 +1,33 @@
+<%= form_for(@virtual_server_image, as:"virtual_server_image") do |f| %>
+  <% if @virtual_server_image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= I18n.t('activerecord.errors.template.header', :count => @virtual_server_image.errors.size, :model => @virtual_server_image.class.human_name) %></h2>
+
+      <ul>
+      <% @virtual_server_image.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :provider_id %><br />
+    <%= f.text_field :provider_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :provided_name %><br />
+    <%= f.text_field :provided_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

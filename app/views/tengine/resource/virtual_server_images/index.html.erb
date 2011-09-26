@@ -1,0 +1,35 @@
+<h1><%= page_title Tengine::Resource::VirtualServerImage, :list %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th><%= Tengine::Resource::VirtualServerImage.human_attribute_name(:provider) %></th>
+    <th><%= Tengine::Resource::VirtualServerImage.human_attribute_name(:name) %></th>
+    <th><%= Tengine::Resource::VirtualServerImage.human_attribute_name(:description) %></th>
+    <th><%= Tengine::Resource::VirtualServerImage.human_attribute_name(:provided_name) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @virtual_server_images.each do |virtual_server_image| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= virtual_server_image.provider %></td>
+    <td><%= virtual_server_image.name %></td>
+    <td><%= virtual_server_image.description %></td>
+    <td><%= virtual_server_image.provided_name %></td>
+    <td><%= link_to_show virtual_server_image %></td>
+    <td><%= link_to_edit edit_tengine_resource_virtual_server_image_path(virtual_server_image) %></td>
+    <td><%= link_to_destroy virtual_server_image, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= paginate @virtual_server_images %>
+
+<br />
+
+<%= link_to_new Tengine::Resource::VirtualServerImage, new_tengine_resource_virtual_server_image_path %>
