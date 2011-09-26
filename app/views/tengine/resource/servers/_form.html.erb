@@ -19,10 +19,14 @@
     <%= f.label :description %><br />
     <%= f.text_field :description %>
   </div>
+
+<% if @server.respond_to?(:host_id) -%>
   <div class="field">
     <%= f.label :host_id %><br />
     <%= f.text_field :host_id %>
   </div>
+<% end -%>
+
   <div class="field">
     <%= f.label :provided_name %><br />
     <%= f.text_field :provided_name %>
@@ -51,10 +55,14 @@
     <%= f.label :properties_yaml %><br />
     <%= f.text_area :properties_yaml %>
   </div>
+
+<% if @server.respond_to?(:provided_image_name) -%>
   <div class="field">
     <%= f.label :provided_image_name %><br />
     <%= f.text_field :provided_image_name %>
   </div>
+<% end -%>
+
   <div class="actions">
     <%= f.submit %>
   </div>

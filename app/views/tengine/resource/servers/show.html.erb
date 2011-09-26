@@ -12,10 +12,12 @@
   <%= @server.description %>
 </p>
 
+<% if @server.respond_to?(:host_id) -%>
 <p>
   <b><%= Tengine::Resource::Server.human_attribute_name(:host) %>:</b>
   <%= @server.host %>
 </p>
+<% end -%>
 
 <p>
   <b><%= Tengine::Resource::Server.human_attribute_name(:provided_name) %>:</b>
@@ -52,10 +54,12 @@
   <pre><%= @server.properties_yaml %></pre>
 </p>
 
+<% if @server.respond_to?(:provided_image_name) -%>
 <p>
   <b><%= Tengine::Resource::Server.human_attribute_name(:provided_image_name) %>:</b>
   <%= @server.provided_image_name %>
 </p>
+<% end -%>
 
 
 <%= link_to_edit edit_tengine_resource_server_path(@server) %> |
