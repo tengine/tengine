@@ -1,4 +1,6 @@
 TengineConsole::Application.routes.draw do
+  namespace :tengine do  namespace :resource do resources :credentials end end
+
   namespace :tengine do  namespace :resource do resources :virtual_server_images end end
 
   namespace :tengine do  namespace :resource do resources :providers end end
