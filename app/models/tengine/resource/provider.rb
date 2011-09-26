@@ -11,4 +11,8 @@ class Tengine::Resource::Provider
 
   validates_presence_of :name
 
+  def update_physical_servers      ; raise NotImplementedError end
+  def update_virtual_servers       ; raise NotImplementedError end
+  def update_virtual_server_imagess; raise NotImplementedError end
+
 end
