@@ -14,15 +14,14 @@
     かつ Tengine周辺のサーバの時刻が同期されている
 		かつ "Tengineコアプロセス"のpidファイルが残っていない
 
+  # ユースケースの代替コースAに対応するシナリオです。
 	@selenium
-  シナリオ: アプリケーション運用者がTengine運用中にイベント通知画面からTengineで問題が発生したと通知を受けるが、正常に動作している
+  シナリオ: [正常系]アプリケーション運用者がイベント通知画面でTengineに問題があると表示されているのに、GR Heartbeatからは原因が分からない
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
-    かつ "Tengineコアプロセス"がオプション" -T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 3"で起動している
+    かつ "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 3"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
 		
-    #イベントハンドラ定義なしでOK
-
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
 
@@ -35,32 +34,43 @@
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "種別名"に"kill_event"と入力する
+		# このシナリオではTengineからGRHeartbeatからは原因が分からない何らかのエラーが通知される想定ですが、ここでは画面から発生させます。
+    もし "種別名"に"tengine_error_event"と入力する
     かつ "発生源名"に"tengine_console"と入力する
-    かつ "発生時刻"に"イベント種別:kill_event"のイベント発火時刻として現在の時刻を入力し記録しておく
-    かつ "info"を選択する
+    かつ "発生時刻"に"イベント種別:tengine_error_event"のイベント発火時刻として現在の時刻を入力し記録しておく
+    かつ "error"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "登録する"ボタンをクリックする
-    ならば "kill_eventを発火しました"と表示されていること
+    ならば "tengine_error_eventを発火しました"と表示されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
 
     もし "イベント通知画面"を表示している
-    かつ "種別名"に"kill_event"と入力する
-		もし "発生時刻(開始)"に"イベント種別:kill_event"の"#{イベント発火時刻}"を入力する
+    かつ "種別名"に"tengine_error_event"と入力する
+		もし "発生時刻(開始)"に"イベント種別:tengine_error_event"の"#{イベント発火時刻}"を入力する
     かつ "検索"ボタンをクリックする
     かつ 一件以上表示されていること
+
+		# エラー発生後もGRHeartbeatが送られていることを確認する
+    もし "イベント通知画面"を表示している
+    かつ "種別名"に"gr_heart_beat.tengined"と入力する
+		もし "発生時刻(開始)"に"イベント種別:tengine_error_event"の"#{イベント発火時刻}"を入力する
+    かつ "検索"ボタンをクリックする
+    かつ 一件以上表示されていること
+		
+		# GRHeartbeatからは原因が分からないため、ログ等他の調査を用いて原因を調査します。
 
     もし "Tengineコアプロセス"の停止を行うために"tengined -k stop"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-		
+  # ユースケースの代替コースA1に対応するシナリオです。
 	@selenium
-  シナリオ: アプリケーション運用者がTengineコアのキューの接続先設定を間違えて起動する
+  シナリオ: アプリケーション運用者がTengineコアを起動した段階で問題があること分かる_原因はDBの接続先設定を間違えて起動していた
     前提 "DBプロセス"が起動している
-    かつ "キュープロセス"が起動している		
-    かつ "Tengineコアプロセス"がオプション"-T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 3 --event-queue-queue-name wrong_tengine_event_queue "で起動している
+    かつ "キュープロセス"が起動している
+		#  オプション"-f ./features/config/tengine.yml" を指定していないため、DBの接続先が不正になります
+    かつ "Tengineコアプロセス"がオプション"-T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 1"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
 
     もし "イベント通知画面"を表示する
@@ -68,13 +78,13 @@
     かつ "種別名"に"gr_heart_beat.tengined"と入力する
 		かつ "発生時刻(開始)"に"Tengineコアプロセス"の"#{開始時刻}"を入力する
     かつ "検索"ボタンをクリックする
+		# アプリケーション運用者はGRHeartbeatが表示されないため環境がおかしいことに気が付きます。
     かつ 一件も表示されていないこと
 
     もし "Tengineコアプロセス"の停止を行うために"tengined -k stop"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-    #もし "Tengineコアプロセス"の起動を行うために"tengined -T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 3"というコマンドを実行する
-		もし "Tengineコアプロセス"がオプション"-T uc01_execute_processing_for_event.rb -D -G 1"で起動している
+    もし "Tengineコアプロセス"の起動を行うために"tengined -f ./features/config/tengine.yml -T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 1"というコマンドを実行する
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
     ならば "Tengineコアプロセス"が起動していることをPIDを用いて"tengined -k status | grep running | grep PID"というコマンドで確認できること
 
@@ -85,16 +95,16 @@
     かつ "検索"ボタンをクリックする
     ならば 一件以上表示されていること
 
-
+  # ユースケースの代替コースA2に対応するシナリオです。
 	@selenium
-  シナリオ: アプリケーション運用者がTengine運用中にイベント通知画面からTengineで問題が発生したと通知を受ける
+  シナリオ: [正常系]アプリケーション運用者がTengine運用中にイベント通知画面からTengineで問題が発生したと通知を受ける
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
     #イベントハンドラ内で自身のTengineコアプロセスを殺すようなイベントハンドラを読み込む
-    かつ "Tengineコアプロセス1"がオプション"-T usecases/core/dsls/uc96_self_kill.rb -D -G 3"で起動している
+    かつ "Tengineコアプロセス1"がオプション"-f ./features/config/tengine.yml -T usecases/core/dsls/uc96_self_kill.rb -D -G 3"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス1"の"起動時刻"を確認する
     #↑と同じ設定でもう1プロセス立ち上げる
-    かつ "Tengineコアプロセス2"がオプション"-T usecases/core/dsls/uc96_self_kill.rb -D -G 3"で起動している
+    かつ "Tengineコアプロセス2"がオプション"-f ./features/config/tengine.yml -T usecases/core/dsls/uc96_self_kill.rb -D -G 3"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス2"の"起動時刻"を確認する
     
     もし "イベント通知画面"を表示する
@@ -139,3 +149,47 @@
     ならば 一件以上表示されていること
 
 
+  # ユースケースの代替コースBに対応するシナリオです。ユースケースが未記入のためコメントアウトします。
+# 	@selenium
+#   シナリオ: [正常系]アプリケーション運用者がイベント通知画面から問題を通知され、通知内容からアプリケーションに問題があると分かり、調査を行う
+#     前提 "DBプロセス"が起動している
+#     かつ "キュープロセス"が起動している
+#     かつ "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 3"で起動している
+#     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
+# 		
+#     #イベントハンドラ定義なしでOK
+# 
+#     もし "イベント通知画面"を表示する
+#     ならば "イベント通知画面"を表示していること
+# 
+#     もし "イベント通知画面"を表示している
+#     かつ "種別名"に"gr_heart_beat.tengined"と入力する
+# 		かつ "発生時刻(開始)"に"Tengineコアプロセス"の"#{開始時刻}"を入力する
+#     かつ "検索"ボタンをクリックする
+#     ならば 一件以上表示されていること    
+# 
+#     もし "イベント発火画面"を表示する
+#     ならば "イベント発火画面"を表示していること
+# 
+# 		# このシナリオではアプリケーションからエラーが通知される想定ですが、ここでは画面から発生させます。
+#     もし "種別名"に"app_error_event"と入力する
+#     かつ "発生源名"に"tengine_console"と入力する
+#     かつ "発生時刻"に"イベント種別:app_error_event"のイベント発火時刻として現在の時刻を入力し記録しておく
+#     かつ "error"を選択する
+#     かつ "送信者名"に"tengine_console"と入力する
+#     かつ "登録する"ボタンをクリックする
+#     ならば "app_error_eventを発火しました"と表示されていること
+# 
+#     もし "イベント通知画面"を表示する
+#     ならば "イベント通知画面"を表示していること
+# 
+#     もし "イベント通知画面"を表示している
+#     かつ "種別名"に"app_error_event"と入力する
+# 		もし "発生時刻(開始)"に"イベント種別:app_error_event"の"#{イベント発火時刻}"を入力する
+#     かつ "検索"ボタンをクリックする
+#     かつ 一件以上表示されていること
+# 
+# 		# エラーのイベントが発生したので、アプリケーション運用者が、通知された問題の調査を行う
+# 
+#     もし "Tengineコアプロセス"の停止を行うために"tengined -k stop"というコマンドを実行する
+#     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
