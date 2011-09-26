@@ -21,7 +21,7 @@
 
 <% @servers.each do |server| %>
   <tr class="<%= cycle("even", "odd") %>" >
-    <td><%= server.respond_to?(:provider) ? server.provider.name : "<No provider found>" %></td>
+    <td><%= (server.respond_to?(:provider) && server.provider) ? server.provider.name : "<No provider found>" %></td>
     <td><%= server.name %></td>
     <td><%= server.description %></td>
     <td><%= server.provided_name %></td>
