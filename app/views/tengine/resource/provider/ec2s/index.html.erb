@@ -1,0 +1,33 @@
+<h1><%= page_title Tengine::Resource::Provider::Ec2, :list %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th><%= Tengine::Resource::Provider::Ec2.human_attribute_name(:name) %></th>
+    <th><%= Tengine::Resource::Provider::Ec2.human_attribute_name(:description) %></th>
+    <th><%= Tengine::Resource::Provider::Ec2.human_attribute_name(:credential) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ec2s.each do |ec2| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= ec2.name %></td>
+    <td><%= ec2.description %></td>
+    <td><%= ec2.credential %></td>
+    <td><%= link_to_show ec2 %></td>
+    <td><%= link_to_edit edit_tengine_resource_provider_ec2_path(ec2) %></td>
+    <td><%= link_to_destroy ec2, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= paginate @ec2s %>
+
+<br />
+
+<%= link_to_new Tengine::Resource::Provider::Ec2, new_tengine_resource_provider_ec2_path %>

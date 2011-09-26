@@ -1,4 +1,6 @@
 TengineConsole::Application.routes.draw do
+  namespace :tengine do  namespace :resource do  namespace :provider do resources :ec2s end end end
+
   namespace :tengine do  namespace :resource do resources :virtual_servers end end
 
   namespace :tengine do  namespace :resource do resources :physical_servers end end
