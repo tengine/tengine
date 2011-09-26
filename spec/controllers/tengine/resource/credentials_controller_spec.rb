@@ -24,7 +24,14 @@ describe Tengine::Resource::CredentialsController do
   # Tengine::Resource::Credential. As you add validations to Tengine::Resource::Credential, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :name => "ssh-private_key",
+      :auth_type_key => :ssh_password,
+      :auth_values => {
+        :username => 'user1',
+        :password => "password1",
+      }
+    }
   end
 
   describe "GET index" do
