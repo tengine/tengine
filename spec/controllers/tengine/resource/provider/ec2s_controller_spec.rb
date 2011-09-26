@@ -20,11 +20,17 @@ require 'spec_helper'
 
 describe Tengine::Resource::Provider::Ec2sController do
 
+  before(:all) do
+    @credential = Tengine::Resource::Credential.create!(:name => "ec2-access-key1",
+      :auth_type_key => :ec2_access_key,
+      :auth_values => {:access_key => 'ACCESS_KEY1', :secret_access_key => "SECRET_ACCESS_KEY1", :default_region => "us-west-1"})
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Tengine::Resource::Provider::Ec2. As you add validations to Tengine::Resource::Provider::Ec2, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {:name => "ec2 us-west-1", :credential => @credential}
   end
 
   describe "GET index" do
