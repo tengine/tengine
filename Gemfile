@@ -38,6 +38,7 @@ group :test, :development do
 
   # gem "rcov", ">= 0"
   gem "simplecov", "~> 0.4"
+	gem 'net-ping', "~> 1.5"
 end
 
 
