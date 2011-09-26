@@ -15,9 +15,6 @@ end
 
 def setup_ec2_stub(images = setup_ec2_images)
   mock_ec2 = mock(:ec2)
-  RightAws::Ec2.should_receive(:new).
-    with('ACCESS_KEY1', "SECRET_ACCESS_KEY1", :region => "us-west-1", :logger => Rails.logger).
-    and_return(mock_ec2)
   mock_ec2.stub!(:describe_regions).and_return([
       "eu-west-1", "us-east-1", "us-west-1", "ap-southeast-1"
     ])

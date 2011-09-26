@@ -270,7 +270,9 @@ describe Tengine::Resource::Credential do
         credential.for_launch?.should == true
 
         images = setup_ec2_images
-        setup_ec2_stub(images)
+        RightAws::Ec2.should_receive(:new).
+          with('ACCESS_KEY1', "SECRET_ACCESS_KEY1", :region => "us-west-1", :logger => Rails.logger).
+          and_return(setup_ec2_stub(images))
         credential.launch_options.should == {
           "current_region" => "us-west-1",
           "regions" => [
