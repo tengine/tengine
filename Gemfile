@@ -64,3 +64,13 @@ gem 'jquery-rails', "~> 1.0.14"
 gem 'capistrano'       , "~> 2.8.0"
 gem 'capistrano-ext'   , "~> 1.2.1"
 gem 'capistrano_colors', "~> 0.5.5"
+
+
+
+
+
+###### for tengine_resource
+
+# http://rightaws.rubyforge.org/
+# http://github.com/rightscale/right_aws
+gem "right_aws", "~> 2.1.0"
