@@ -148,16 +148,45 @@ class Tengine::Resource::Credential
 
   private
 
-      # ssh パスワード認証
+  # ssh パスワード認証
   def connect_with_ssh_password(conn_opts, *args, &block)
+    ssh_args = [args.first, conn_opts.delete(:username), conn_opts]
+    logger.info("Net::SSH.start(*#{ssh_args.inspect})")
+    begin
+      Net::SSH.start(*ssh_args, &block)
+    rescue Net::SSH::AuthenticationFailed
+      # SSH認証関連のエラー
+      # (username/passwordの認証に失敗した際に発生します)
+      raise_connection_error($!, "Authentication failed.")
+    rescue SocketError
+      # 接続関連のエラー
+      # (接続先が見つからないなどの際に発生します)
+      raise_connection_error($!, "Unknown host error.")
+    rescue Exception
+      logger.error("[#{$!.class.name}] #{$!.to_s}\n  " << $!.backtrace.join("\n  "))
+      raise
+    end
+  end
+
+  # ssh 公開鍵認証
+  def connect_with_ssh_pk(conn_opts, *args, &block)
+    tmp_private_key_files(conn_opts.delete(:private_keys)) do |pk_paths|
+      conn_opts[:keys] = pk_paths
       ssh_args = [args.first, conn_opts.delete(:username), conn_opts]
       logger.info("Net::SSH.start(*#{ssh_args.inspect})")
       begin
         Net::SSH.start(*ssh_args, &block)
       rescue Net::SSH::AuthenticationFailed
         # SSH認証関連のエラー
-        # (username/passwordの認証に失敗した際に発生します)
+        # (usernameの認証に失敗した際に発生します)
         raise_connection_error($!, "Authentication failed.")
+      rescue OpenSSL::PKey::PKeyError
+        # OpenSSL の公開鍵関連のエラー
+        # (鍵交換の失敗や鍵認証の失敗、鍵認証のパスフレーズの不一致の際に発生します)
+        # 以下の鍵交換と認証方式でのエラーの全てが想定されます
+        #  > OpenSSL::PKey::PKeyError.descendants
+        #  => [OpenSSL::PKey::ECError, OpenSSL::PKey::DHError, OpenSSL::PKey::RSAError, OpenSSL::PKey::DSAError]
+        raise_connection_error($!, $!.to_s)
       rescue SocketError
         # 接続関連のエラー
         # (接続先が見つからないなどの際に発生します)
@@ -166,52 +195,23 @@ class Tengine::Resource::Credential
         logger.error("[#{$!.class.name}] #{$!.to_s}\n  " << $!.backtrace.join("\n  "))
         raise
       end
+    end
   end
 
-      # ssh 公開鍵認証
-  def connect_with_ssh_pk(conn_opts, *args, &block)
-      tmp_private_key_files(conn_opts.delete(:private_keys)) do |pk_paths|
-        conn_opts[:keys] = pk_paths
-        ssh_args = [args.first, conn_opts.delete(:username), conn_opts]
-        logger.info("Net::SSH.start(*#{ssh_args.inspect})")
-        begin
-          Net::SSH.start(*ssh_args, &block)
-        rescue Net::SSH::AuthenticationFailed
-          # SSH認証関連のエラー
-          # (usernameの認証に失敗した際に発生します)
-          raise_connection_error($!, "Authentication failed.")
-        rescue OpenSSL::PKey::PKeyError
-          # OpenSSL の公開鍵関連のエラー
-          # (鍵交換の失敗や鍵認証の失敗、鍵認証のパスフレーズの不一致の際に発生します)
-          # 以下の鍵交換と認証方式でのエラーの全てが想定されます
-          #  > OpenSSL::PKey::PKeyError.descendants
-          #  => [OpenSSL::PKey::ECError, OpenSSL::PKey::DHError, OpenSSL::PKey::RSAError, OpenSSL::PKey::DSAError]
-          raise_connection_error($!, $!.to_s)
-        rescue SocketError
-          # 接続関連のエラー
-          # (接続先が見つからないなどの際に発生します)
-          raise_connection_error($!, "Unknown host error.")
-        rescue Exception
-          logger.error("[#{$!.class.name}] #{$!.to_s}\n  " << $!.backtrace.join("\n  "))
-          raise
-        end
-      end
-  end
-
-      # ec2 アクセス鍵認証
+  # ec2 アクセス鍵認証
   def connect_with_ec2_access_key(conn_opts, *args, &block)
-      runtime_options = args.extract_options!
-      klass = (ENV['EC2_DUMMY'] == "true") ? Tengine::Resource::Credential::Ec2::Dummy : RightAws::Ec2
-      region = runtime_options[:region] || conn_opts.delete(:default_region)
-      connection = klass.new(
-        conn_opts.delete(:access_key),
-        conn_opts.delete(:secret_access_key),
-        {
-          :logger => Rails.logger,
-          :region => region
-        }
-        )
-      block.call(connection)
+    runtime_options = args.extract_options!
+    klass = (ENV['EC2_DUMMY'] == "true") ? Tengine::Resource::Credential::Ec2::Dummy : RightAws::Ec2
+    region = runtime_options[:region] || conn_opts.delete(:default_region)
+    connection = klass.new(
+      conn_opts.delete(:access_key),
+      conn_opts.delete(:secret_access_key),
+      {
+        :logger => Rails.logger,
+        :region => region
+      }
+      )
+    block.call(connection)
   end
 
 
