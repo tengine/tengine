@@ -7,7 +7,7 @@ driver :driver06 do
   #
   # 5回より多く(5回目はハンドリングしない)
   on :event06.more_than(5).times do
-    puts "#{event.id}:handler06"
+    puts "#{event.key}:handler06"
   end
 
 end

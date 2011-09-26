@@ -12,7 +12,7 @@ driver :driver95 do
 
   # イベントに対応する処理の実行する
   on:event95 do
-    puts "#{event.id}:handler95"
+    puts "#{event.key}:handler95"
   end
 
 end

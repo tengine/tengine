@@ -7,7 +7,7 @@ driver :driver32 do
 
   # 「2回以上」は「1回より多く」です
   on :event32_a.at("res:server_a").more_than(1).times & :event32_b.at("res:server_b").exactly(3).times do
-    puts "#{event.id}:handler32"
+    puts "#{event.key}:handler32"
   end
 
 end

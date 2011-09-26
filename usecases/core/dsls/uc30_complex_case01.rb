@@ -7,7 +7,7 @@ driver :driver30 do
   # (= サーバAからのイベントAとイベントBが発生した場合に処理を実行する)
 
   on :event30_a.at("res:server_a") & :event30_b.at("res:server_a") do
-    puts "#{event.id}:handler30_1"
+    puts "#{event.key}:handler30_1"
   end
 
 end

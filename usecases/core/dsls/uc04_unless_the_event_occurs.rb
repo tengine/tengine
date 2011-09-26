@@ -5,7 +5,7 @@ driver :driver04 do
 
   # 特定のイベント以外のイベントに対して処理を実行する
   on !:event04 do
-    puts "#{event.id}:handler04"
+    puts "#{event.key}:handler04"
   end
 
 end
