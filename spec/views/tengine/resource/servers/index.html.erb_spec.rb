@@ -4,6 +4,7 @@ describe "tengine/resource/servers/index.html.erb" do
   before(:each) do
     mock_pagination(assign(:servers, [
       stub_model(Tengine::Resource::Server,{
+        :provider => stub_model(Tengine::Resource::Provider, :name => "EC2 test account"),
         :name => "Name",
         :description => "Description",
         # :host => nil,
@@ -17,6 +18,7 @@ describe "tengine/resource/servers/index.html.erb" do
         :provided_image_name => "Provided Image Name"
       }),
       stub_model(Tengine::Resource::Server, {
+        :provider => stub_model(Tengine::Resource::Provider, :name => "EC2 test account"),
         :name => "Name",
         :description => "Description",
         # :host => nil,
@@ -34,6 +36,7 @@ describe "tengine/resource/servers/index.html.erb" do
 
   it "renders a list of tengine_resource_servers" do
     render
+    assert_select "tr>td", :text => "EC2 test account".to_s, :count => 2
     assert_select "tr>td", :text => "Name".to_s, :count => 2
     assert_select "tr>td", :text => "Description".to_s, :count => 2
     # assert_select "tr>td", :text => nil.to_s, :count => 2

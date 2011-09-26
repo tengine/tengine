@@ -3,6 +3,7 @@ require 'spec_helper'
 describe "tengine/resource/servers/show.html.erb" do
   before(:each) do
     @server = assign(:server, stub_model(Tengine::Resource::Server, {
+      :provider => stub_model(Tengine::Resource::Provider, :name => "EC2 test account"),
       :name => "Name",
       :description => "Description",
       # :host => nil,
@@ -19,6 +20,7 @@ describe "tengine/resource/servers/show.html.erb" do
 
   it "renders attributes in <p>" do
     render
+    rendered.should match(/EC2 test account/)
     rendered.should match(/Name/)
     rendered.should match(/Description/)
     # rendered.should match(//)

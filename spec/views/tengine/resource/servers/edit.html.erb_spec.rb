@@ -3,6 +3,7 @@ require 'spec_helper'
 describe "tengine/resource/servers/edit.html.erb" do
   before(:each) do
     @server = assign(:server, stub_model(Tengine::Resource::Server, {
+      :provider => stub_model(Tengine::Resource::Provider, :name => "EC2 test account"),
       :name => "MyString",
       :description => "MyString",
       # :host => nil,
@@ -22,6 +23,7 @@ describe "tengine/resource/servers/edit.html.erb" do
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => tengine_resource_servers_path(@server), :method => "post" do
+      assert_select "div.field", :text => /Provider:\n\s*EC2 test account/
       assert_select "input#server_name", :name => "server[name]"
       assert_select "input#server_description", :name => "server[description]"
       # assert_select "input#server_host_id", :name => "server[host_id]"

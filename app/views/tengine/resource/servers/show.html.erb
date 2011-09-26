@@ -3,6 +3,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:provider) %>:</b>
+  <%= @server.provider.name %>
+</p>
+
+<p>
   <b><%= Tengine::Resource::Server.human_attribute_name(:name) %>:</b>
   <%= @server.name %>
 </p>

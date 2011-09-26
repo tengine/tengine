@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= Tengine::Resource::Server.human_attribute_name(:provider) %>:<br/>
+    <%= @server.provider.name %>
+  </div>
+
+  <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
