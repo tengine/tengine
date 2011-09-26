@@ -318,6 +318,15 @@ end
   sleep @tengined_heartbeat_period.to_i
 end
 
+もし /^リカバリ間隔が(.*)と設定されている$/ do |tengined_retry_interval|
+  @tengined_retry_interval = tengined_retry_interval
+end
+
+もし /^リカバリ間隔だけ待機する$/ do
+  sleep @tengined_heartbeat_period.to_i
+end
+
+
 #############
 # キュー関連
 #############
