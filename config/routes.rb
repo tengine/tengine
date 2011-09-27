@@ -1,4 +1,20 @@
 TengineConsole::Application.routes.draw do
+  namespace :tengine do  namespace :job do resources :edges end end
+
+  namespace :tengine do  namespace :job do resources :vertices end end
+
+  namespace :tengine do  namespace :job do resources :jobs end end
+
+  namespace :tengine do  namespace :job do resources :expansions end end
+
+  namespace :tengine do  namespace :job do resources :script_actuals end end
+
+  namespace :tengine do  namespace :job do resources :script_templates end end
+
+  namespace :tengine do  namespace :job do resources :jobnet_actuals end end
+
+  namespace :tengine do  namespace :job do resources :jobnet_templates end end
+
   namespace :tengine do  namespace :resource do  namespace :provider do resources :ec2s end end end
 
   namespace :tengine do  namespace :resource do resources :virtual_servers end end

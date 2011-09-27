@@ -1,0 +1,77 @@
+<h1><%= page_title Tengine::Job::JobnetActual, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:name) %>:</b>
+  <%= @jobnet_actual.name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:server_name) %>:</b>
+  <%= @jobnet_actual.server_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:credential_name) %>:</b>
+  <%= @jobnet_actual.credential_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:killing_signals) %>:</b>
+  <%= @jobnet_actual.killing_signals_text %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:killing_signal_interval) %>:</b>
+  <%= @jobnet_actual.killing_signal_interval %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:description) %>:</b>
+  <%= @jobnet_actual.description %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:dsl_version) %>:</b>
+  <%= @jobnet_actual.dsl_version %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:lock_version) %>:</b>
+  <%= @jobnet_actual.lock_version %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:was_expansion) %>:</b>
+  <%= @jobnet_actual.was_expansion %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:phase_cd) %>:</b>
+  <%= @jobnet_actual.phase_cd %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:started_at) %>:</b>
+  <%= @jobnet_actual.started_at %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:finished_at) %>:</b>
+  <%= @jobnet_actual.finished_at %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:stopped_at) %>:</b>
+  <%= @jobnet_actual.stopped_at %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:stop_reason) %>:</b>
+  <%= @jobnet_actual.stop_reason %>
+</p>
+
+
+<%= link_to_edit edit_tengine_job_jobnet_actual_path(@jobnet_actual) %> |
+<%= link_to_back_list tengine_job_jobnet_actuals_path %>
