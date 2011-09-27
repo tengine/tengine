@@ -9,6 +9,7 @@ describe "tengine/job/jobnet_actuals/edit.html.erb" do
       :killing_signals => ["abc", "123"],
       :killing_signal_interval => 1,
       :description => "MyString",
+      :jobnet_type_cd => 1,
       :dsl_version => "MyString",
       :lock_version => 1,
       :was_expansion => false,
@@ -28,6 +29,7 @@ describe "tengine/job/jobnet_actuals/edit.html.erb" do
       assert_select "input#jobnet_actual_killing_signals_text", :name => "jobnet_actual[killing_signals_text]"
       assert_select "input#jobnet_actual_killing_signal_interval", :name => "jobnet_actual[killing_signal_interval]"
       assert_select "input#jobnet_actual_description", :name => "jobnet_actual[description]"
+      assert_select "input#jobnet_actual_jobnet_type_cd", :name => "jobnet_actual[jobnet_type_cd]"
       assert_select "input#jobnet_actual_dsl_version", :name => "jobnet_actual[dsl_version]"
       assert_select "input#jobnet_actual_lock_version", :name => "jobnet_actual[lock_version]"
       assert_select "input#jobnet_actual_was_expansion", :name => "jobnet_actual[was_expansion]"

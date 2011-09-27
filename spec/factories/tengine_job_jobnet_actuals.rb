@@ -8,13 +8,14 @@ FactoryGirl.define do
     killing_signals(["abc", "123"])
     killing_signal_interval(1)
     description("MyString")
+    jobnet_type_cd(1)
     dsl_version("MyString")
     lock_version(1)
     was_expansion(false)
     phase_cd(1)
-    started_at("2011-09-27 18:59:54")
-    finished_at("2011-09-27 18:59:54")
-    stopped_at("2011-09-27 18:59:54")
+    started_at("2011-09-28 00:28:57")
+    finished_at("2011-09-28 00:28:57")
+    stopped_at("2011-09-28 00:28:57")
     stop_reason("MyString")
   end
 end

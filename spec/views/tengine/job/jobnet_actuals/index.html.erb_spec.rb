@@ -10,10 +10,11 @@ describe "tengine/job/jobnet_actuals/index.html.erb" do
         :killing_signals => ["abc", "123"],
         :killing_signal_interval => 1,
         :description => "Description",
+        :jobnet_type_cd => 2,
         :dsl_version => "Dsl Version",
-        :lock_version => 2,
+        :lock_version => 3,
         :was_expansion => false,
-        :phase_cd => 3,
+        :phase_cd => 4,
         :stop_reason => "Stop Reason"
       ),
       stub_model(Tengine::Job::JobnetActual,
@@ -23,10 +24,11 @@ describe "tengine/job/jobnet_actuals/index.html.erb" do
         :killing_signals => ["abc", "123"],
         :killing_signal_interval => 1,
         :description => "Description",
+        :jobnet_type_cd => 2,
         :dsl_version => "Dsl Version",
-        :lock_version => 2,
+        :lock_version => 3,
         :was_expansion => false,
-        :phase_cd => 3,
+        :phase_cd => 4,
         :stop_reason => "Stop Reason"
       )
     ]))
@@ -41,10 +43,11 @@ describe "tengine/job/jobnet_actuals/index.html.erb" do
     assert_select "tr>td", :text => "abc,123", :count => 2
     assert_select "tr>td", :text => 1.to_s, :count => 2
     assert_select "tr>td", :text => "Description".to_s, :count => 2
-    assert_select "tr>td", :text => "Dsl Version".to_s, :count => 2
     assert_select "tr>td", :text => 2.to_s, :count => 2
-    assert_select "tr>td", :text => false.to_s, :count => 2
+    assert_select "tr>td", :text => "Dsl Version".to_s, :count => 2
     assert_select "tr>td", :text => 3.to_s, :count => 2
+    assert_select "tr>td", :text => false.to_s, :count => 2
+    assert_select "tr>td", :text => 4.to_s, :count => 2
     assert_select "tr>td", :text => "Stop Reason".to_s, :count => 2
   end
 end

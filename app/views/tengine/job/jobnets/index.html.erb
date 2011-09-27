@@ -10,6 +10,7 @@
     <th><%= Tengine::Job::Jobnet.human_attribute_name(:killing_signals) %></th>
     <th><%= Tengine::Job::Jobnet.human_attribute_name(:killing_signal_interval) %></th>
     <th><%= Tengine::Job::Jobnet.human_attribute_name(:description) %></th>
+    <th><%= Tengine::Job::Jobnet.human_attribute_name(:jobnet_type_cd) %></th>
     <th><%= Tengine::Job::Jobnet.human_attribute_name(:dsl_version) %></th>
     <th><%= Tengine::Job::Jobnet.human_attribute_name(:lock_version) %></th>
     <th></th>
@@ -25,6 +26,7 @@
     <td><%= jobnet.killing_signals_text %></td>
     <td><%= jobnet.killing_signal_interval %></td>
     <td><%= jobnet.description %></td>
+    <td><%= jobnet.jobnet_type_cd %></td>
     <td><%= jobnet.dsl_version %></td>
     <td><%= jobnet.lock_version %></td>
     <td><%= link_to_show jobnet %></td>

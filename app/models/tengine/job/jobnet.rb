@@ -1,6 +1,7 @@
 class Tengine::Job::Jobnet < Tengine::Job::Job
   include Tengine::Job::Root
   field :description, :type => String
+  field :jobnet_type_cd, :type => Integer
 
   embeds_many :edges, :class_name => "Tengine::Job::Edge", :inverse_of => :owner
 

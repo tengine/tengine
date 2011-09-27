@@ -10,8 +10,9 @@ describe "tengine/job/jobnets/index.html.erb" do
         :killing_signals => ["abc", "123"],
         :killing_signal_interval => 1,
         :description => "Description",
+        :jobnet_type_cd => 2,
         :dsl_version => "Dsl Version",
-        :lock_version => 2
+        :lock_version => 3
       ),
       stub_model(Tengine::Job::Jobnet,
         :name => "Name",
@@ -20,8 +21,9 @@ describe "tengine/job/jobnets/index.html.erb" do
         :killing_signals => ["abc", "123"],
         :killing_signal_interval => 1,
         :description => "Description",
+        :jobnet_type_cd => 2,
         :dsl_version => "Dsl Version",
-        :lock_version => 2
+        :lock_version => 3
       )
     ]))
   end
@@ -35,7 +37,8 @@ describe "tengine/job/jobnets/index.html.erb" do
     assert_select "tr>td", :text => "abc,123", :count => 2
     assert_select "tr>td", :text => 1.to_s, :count => 2
     assert_select "tr>td", :text => "Description".to_s, :count => 2
-    assert_select "tr>td", :text => "Dsl Version".to_s, :count => 2
     assert_select "tr>td", :text => 2.to_s, :count => 2
+    assert_select "tr>td", :text => "Dsl Version".to_s, :count => 2
+    assert_select "tr>td", :text => 3.to_s, :count => 2
   end
 end
