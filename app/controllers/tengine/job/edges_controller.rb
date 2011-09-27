@@ -1,8 +1,26 @@
 class Tengine::Job::EdgesController < ApplicationController
+  before_filter :prepare_jobnet
+
+  private
+  def prepare_jobnet
+    @jobnet = Tengine::Job::Jobnet.find(params[:jobnet_id])
+  end
+  def redirect_to(*args)
+    obj = args.first
+    case obj
+    when Tengine::Job::Edge then
+      super(tengine_job_jobnet_edge_url(@jobnet, args.shift), *args)
+    else
+      super(*args)
+    end
+  end
+
+  public
+
   # GET /tengine/job/edges
   # GET /tengine/job/edges.json
   def index
-    @edges = Tengine::Job::Edge.all(:sort => [[:_id]]).page(params[:page])
+    @edges = @jobnet.edges(:sort => [[:_id]]).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +31,7 @@ class Tengine::Job::EdgesController < ApplicationController
   # GET /tengine/job/edges/1
   # GET /tengine/job/edges/1.json
   def show
-    @edge = Tengine::Job::Edge.find(params[:id])
+    @edge = @jobnet.edges.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +42,7 @@ class Tengine::Job::EdgesController < ApplicationController
   # GET /tengine/job/edges/new
   # GET /tengine/job/edges/new.json
   def new
-    @edge = Tengine::Job::Edge.new
+    @edge = @jobnet.edges.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +52,13 @@ class Tengine::Job::EdgesController < ApplicationController
 
   # GET /tengine/job/edges/1/edit
   def edit
-    @edge = Tengine::Job::Edge.find(params[:id])
+    @edge = @jobnet.edges.find(params[:id])
   end
 
   # POST /tengine/job/edges
   # POST /tengine/job/edges.json
   def create
-    @edge = Tengine::Job::Edge.new(params[:edge])
+    @edge = @jobnet.edges.new(params[:edge])
 
     respond_to do |format|
       if @edge.save
@@ -56,7 +74,7 @@ class Tengine::Job::EdgesController < ApplicationController
   # PUT /tengine/job/edges/1
   # PUT /tengine/job/edges/1.json
   def update
-    @edge = Tengine::Job::Edge.find(params[:id])
+    @edge = @jobnet.edges.find(params[:id])
 
     respond_to do |format|
       if @edge.update_attributes(params[:edge])
@@ -72,7 +90,7 @@ class Tengine::Job::EdgesController < ApplicationController
   # DELETE /tengine/job/edges/1
   # DELETE /tengine/job/edges/1.json
   def destroy
-    @edge = Tengine::Job::Edge.find(params[:id])
+    @edge = @jobnet.edges.find(params[:id])
     @edge.destroy
 
     respond_to do |format|

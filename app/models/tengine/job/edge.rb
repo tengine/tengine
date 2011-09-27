@@ -1,6 +1,6 @@
 class Tengine::Job::Edge
   include Mongoid::Document
-  # embedded_in :owner, :class_name => "Tengine::Job::Jobnet", :inverse_of => :edges
+  embedded_in :owner, :class_name => "Tengine::Job::Jobnet", :inverse_of => :edges
 
   field :status_cd, :type => Integer
   field :origin_id, :type => BSON::ObjectId

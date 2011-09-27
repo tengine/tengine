@@ -20,6 +20,11 @@ require 'spec_helper'
 
 describe Tengine::Job::EdgesController do
 
+  before do
+    Tengine::Job::Vertex.delete_all
+    @jobnet = Tengine::Job::JobnetTemplate.create!(:name => "root_jobnet1")
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Tengine::Job::Edge. As you add validations to Tengine::Job::Edge, be sure to
   # update the return value of this method accordingly.
@@ -29,9 +34,8 @@ describe Tengine::Job::EdgesController do
 
   describe "GET index" do
     it "assigns all tengine_job_edges as @tengine_job_edges" do
-      Tengine::Job::Edge.delete_all
-      edge = Tengine::Job::Edge.create! valid_attributes
-      get :index
+      edge = @jobnet.edges.create! valid_attributes
+      get :index, :jobnet_id => @jobnet.id
       edges = assigns(:edges)
       edges.to_a.should eq([edge])
     end
@@ -39,59 +43,61 @@ describe Tengine::Job::EdgesController do
 
   describe "GET show" do
     it "assigns the requested edge as @edge" do
-      edge = Tengine::Job::Edge.create! valid_attributes
-      get :show, :id => edge.id.to_s
+      edge = @jobnet.edges.create! valid_attributes
+      get :show, :id => edge.id.to_s, :jobnet_id => @jobnet.id
       assigns(:edge).should eq(edge)
     end
   end
 
   describe "GET new" do
     it "assigns a new edge as @edge" do
-      get :new
+      get :new, :jobnet_id => @jobnet.id
       assigns(:edge).should be_a_new(Tengine::Job::Edge)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested edge as @edge" do
-      edge = Tengine::Job::Edge.create! valid_attributes
-      get :edit, :id => edge.id.to_s
+      edge = @jobnet.edges.create! valid_attributes
+      get :edit, :id => edge.id.to_s, :jobnet_id => @jobnet.id
       assigns(:edge).should eq(edge)
     end
   end
 
   describe "POST create" do
     describe "with valid params" do
-      it "creates a new Tengine::Job::Edge" do
-        expect {
-          post :create, :edge => valid_attributes
-        }.to change(Tengine::Job::Edge, :count).by(1)
+      it "creates a new @jobnet.edges" do
+        count = @jobnet.edges.count
+        post :create, :edge => valid_attributes, :jobnet_id => @jobnet.id
+        @jobnet.reload
+        @jobnet.edges.count.should == count + 1
       end
 
       it "assigns a newly created edge as @edge" do
-        post :create, :edge => valid_attributes
+        post :create, :edge => valid_attributes, :jobnet_id => @jobnet.id
         assigns(:edge).should be_a(Tengine::Job::Edge)
         assigns(:edge).should be_persisted
       end
 
       it "redirects to the created edge" do
-        post :create, :edge => valid_attributes
-        response.should redirect_to(Tengine::Job::Edge.last)
+        post :create, :edge => valid_attributes, :jobnet_id => @jobnet.id
+        @jobnet.reload
+        response.should redirect_to(tengine_job_jobnet_edge_url(@jobnet, @jobnet.edges.last))
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved edge as @edge" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::Edge.any_instance.stub(:save).and_return(false)
-        post :create, :edge => {}
+        @jobnet.edges.any_instance.stub(:save).and_return(false)
+        post :create, :edge => {}, :jobnet_id => @jobnet.id
         assigns(:edge).should be_a_new(Tengine::Job::Edge)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::Edge.any_instance.stub(:save).and_return(false)
-        post :create, :edge => {}
+        @jobnet.edges.any_instance.stub(:save).and_return(false)
+        post :create, :edge => {}, :jobnet_id => @jobnet.id
         response.should render_template("new")
       end
     end
@@ -100,42 +106,42 @@ describe Tengine::Job::EdgesController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested edge" do
-        edge = Tengine::Job::Edge.create! valid_attributes
+        edge = @jobnet.edges.create! valid_attributes
         # Assuming there are no other tengine_job_edges in the database, this
-        # specifies that the Tengine::Job::Edge created on the previous line
+        # specifies that the @jobnet.edges created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Tengine::Job::Edge.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => edge.id, :edge => {'these' => 'params'}
+        @jobnet.edges.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        put :update, :id => edge.id, :edge => {'these' => 'params'}, :jobnet_id => @jobnet.id
       end
 
       it "assigns the requested edge as @edge" do
-        edge = Tengine::Job::Edge.create! valid_attributes
-        put :update, :id => edge.id, :edge => valid_attributes
+        edge = @jobnet.edges.create! valid_attributes
+        put :update, :id => edge.id, :edge => valid_attributes, :jobnet_id => @jobnet.id
         assigns(:edge).should eq(edge)
       end
 
       it "redirects to the edge" do
-        edge = Tengine::Job::Edge.create! valid_attributes
-        put :update, :id => edge.id, :edge => valid_attributes
-        response.should redirect_to(edge)
+        edge = @jobnet.edges.create! valid_attributes
+        put :update, :id => edge.id, :edge => valid_attributes, :jobnet_id => @jobnet.id
+        response.should redirect_to(tengine_job_jobnet_edge_url(@jobnet, edge))
       end
     end
 
     describe "with invalid params" do
       it "assigns the edge as @edge" do
-        edge = Tengine::Job::Edge.create! valid_attributes
+        edge = @jobnet.edges.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::Edge.any_instance.stub(:save).and_return(false)
-        put :update, :id => edge.id.to_s, :edge => {}
+        @jobnet.edges.any_instance.stub(:save).and_return(false)
+        put :update, :id => edge.id.to_s, :edge => {}, :jobnet_id => @jobnet.id
         assigns(:edge).should eq(edge)
       end
 
       it "re-renders the 'edit' template" do
-        edge = Tengine::Job::Edge.create! valid_attributes
+        edge = @jobnet.edges.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::Edge.any_instance.stub(:save).and_return(false)
-        put :update, :id => edge.id.to_s, :edge => {}
+        @jobnet.edges.any_instance.stub(:save).and_return(false)
+        put :update, :id => edge.id.to_s, :edge => {}, :jobnet_id => @jobnet.id
         response.should render_template("edit")
       end
     end
@@ -143,15 +149,16 @@ describe Tengine::Job::EdgesController do
 
   describe "DELETE destroy" do
     it "destroys the requested edge" do
-      edge = Tengine::Job::Edge.create! valid_attributes
-      expect {
-        delete :destroy, :id => edge.id.to_s
-      }.to change(Tengine::Job::Edge, :count).by(-1)
+      edge = @jobnet.edges.create! valid_attributes
+      count = @jobnet.edges.count
+      delete :destroy, :id => edge.id.to_s, :jobnet_id => @jobnet.id
+      @jobnet.reload
+      @jobnet.edges.count.should == count - 1
     end
 
     it "redirects to the tengine_job_edges list" do
-      edge = Tengine::Job::Edge.create! valid_attributes
-      delete :destroy, :id => edge.id.to_s
+      edge = @jobnet.edges.create! valid_attributes
+      delete :destroy, :id => edge.id.to_s, :jobnet_id => @jobnet.id
       response.should redirect_to(tengine_job_edges_url)
     end
   end
