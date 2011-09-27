@@ -5,49 +5,42 @@
   は[イベントハンドラ定義を作成]したい
 
   # 正常系でテストするイベントハンドラ定義
-  #  require 'tengine/core'
-  #  require 'fileutils'
-  #
-  #  driver :driver_exsample do
-  #    # イベントが発生したら新たなイベントを発火する
-  #    on :event1 do
-  #      fire(:event2)
-  #    end
-  #
-  #    on :event2 do
-  #      # event2 が発火したらファイルを作成する
-  #      FileUtils.touch "./tmp/e2e_test/event2.txt"
-  #    end
-  #  end
+  # # -*- coding: utf-8 -*-
+  # require 'tengine/core'
+  # require 'fileutils'
+  # 
+  # driver :driver_example do
+  #   # event1を受け取るとevent2を発火する
+  #   on:event1 do
+  #     fire("event2")
+  #   end
+  # end
 
   # テストコード
-  #  require 'spec_helper'
-  #
-  #  describe :driver_example do
-  #    it ":event1 が発火すると、./tmp/e2e_test/event2.txtが作成される" do
-  #      # driver_example は event1 を受けてイベントハンドリングする
-  #      driver_example.should_handle_event(:event1)
-  #      # driver_example は event2 を受けてイベントハンドリングする
-  #      driver_example.should_handle_event(:event2)
-  #      # event1 を発火する
-  #      fire(:event1)
-  #      # ファイルが作成されていること
-  #      File.exists?("./tmp/e2e_test/event2.txt").should be_true
-  #    end
-  #  end
+  # # -*- coding: utf-8 -*-
+  # require 'spec_helper'
+  # 
+  # describe :driver_example do
+  #   target_dsl 'sample_dsl.rb'
+  #   driver :driver_example
+  # 
+  #   it "event1 を受け取るとevent2が発火すること" do
+  #     tengine.should_fire("event2")
+  #     tengine.receive("event1")
+  #   end
+  # end
+
 
   背景:
     前提 "DBパッケージ"のインストールおよびセットアップが完了している
     かつ "キューパッケージ"のインストールおよびセットアップが完了している
     かつ "Tengineコアパッケージ"のインストールおよびセットアップが完了している
-    # かつ "DBプロセス"が起動している
-    # かつ "キュープロセス"が起動している
 
     # 作成するイベントハンドラ定義とテストファイル、イベントハンドラが作成する一時ファイルを削除する 
-    前提 イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"が存在しない
-    かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"が存在しない
-    かつ イベントハンドラが作成した一時ファイル"./tmp/e2e_test/event2.txt"が存在しない
-
+    前提 イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"が存在しない
+    かつ イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"が存在しない
+    かつ イベントハンドラが作成した一時ファイル"./tmp/end_to_end_test/event2.txt"が存在しない
+		かつ Tengineを使ったアプリケーションのプロジェクトを"./tmp/end_to_end_test/sample_app"に新規で作成する
 
   シナリオ: [正常系] アプリケーション開発者がイベントハンドラ定義を開発する
     # シナリオの概要
@@ -57,57 +50,43 @@
     # 3. イベントハンドラ定義作成
     # 4. テスト実行 -> 成功
 
-    もし イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"を作成する
-    かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"に以下の記述をする
+    もし イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"を作成する
+    かつ イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"に以下の記述をする
     """
-    # -*- coding: utf-8 -*-
-    require 'spec_helper'
-    
-    describe :driver_example do
-      it ":event1 が発火すると、./tmp/e2e_test/event2.txtが作成される" do
-        # driver_example は event1 を受けてイベントハンドリングする
-        driver_example.should_handle_event(:event1)
-        # driver_example は event2 を受けてイベントハンドリングする
-        driver_example.should_handle_event(:event2)
-        # event1 を発火する
-        fire(:event1)
-        # ファイルが作成されていること
-        File.exists?("./tmp/e2e_test/event2.txt").should be_true
-      end
-    end
+# -*- coding: utf-8 -*-
+require 'spec_helper'
+
+describe :driver_example do
+  target_dsl 'sample_dsl.rb'
+  driver :driver_example
+
+  it "event1 を受け取るとevent2が発火すること" do
+    tengine.should_fire("event2")
+    tengine.receive("event1")
+  end
+end
     """
     # イベントハンドラ定義がないのでテストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec ./tmp/e2e_test/uca0_create_dsl_spec.rb"というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
 
-    もし イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"を作成する
-    かつ イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"に以下の記述をする
+    もし イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"を作成する
+    かつ イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"に以下の記述をする
     """
-    # -*- coding: utf-8 -*-
-    require 'tengine/core'
-    require 'fileutils'
+# -*- coding: utf-8 -*-
+require 'tengine/core'
+require 'fileutils'
 
-    driver :driver_exsample do
-      # イベントが発生したら新たなイベントを発火する
-      on :event1 do
-        fire(:event2)
-      end
-
-      on :event2 do
-        # event2 が発火したらファイルを作成する
-        FileUtils.touch "./tmp/e2e_test/event2.txt"
-      end
-    end
+driver :driver_example do
+  # event1を受け取るとevent2を発火する
+  on:event1 do
+    fire("event2")
+  end
+end
     """
     # テストに成功
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec ./tmp/e2e_test/uca0_create_dsl_spec.rb"というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 0 failures"と出力されていること
-    かつ イベントハンドラが作成したファイル"./tmp/e2e_test/event2.txt"が存在すること
-
-    # 作成したファイルの削除
-    もし イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"を削除する
-    かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"を削除する
-    かつ イベントハンドラが作成した一時ファイル"./tmp/e2e_test/event2.txt"を削除する
 
 
   シナリオ: [異常系] イベントハンドラ定義のテストで失敗_イベントハンドラ定義に文法上の誤りがある
@@ -120,27 +99,25 @@
     # 5. イベントハンドラ定義修正
     # 6. テスト実行 -> 成功
 
-    もし イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"を作成する
-    かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"に以下の記述をする
+
+    もし イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"を作成する
+    かつ イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"に以下の記述をする
     """
-    # -*- coding: utf-8 -*-
-    require 'spec_helper'
-    
-    describe :driver_example do
-      it ":event1 が発火すると、./tmp/e2e_test/event2.txtが作成される" do
-        # driver_example は event1 を受けてイベントハンドリングする
-        driver_example.should_handle_event(:event1)
-        # driver_example は event2 を受けてイベントハンドリングする
-        driver_example.should_handle_event(:event2)
-        # event1 を発火する
-        fire(:event1)
-        # ファイルが作成されていること
-        File.exists?("./tmp/e2e_test/event2.txt").should be_true
-      end
-    end
+# -*- coding: utf-8 -*-
+require 'spec_helper'
+
+describe :driver_example do
+  target_dsl 'sample_dsl.rb'
+  driver :driver_example
+
+  it "event1 を受け取るとevent2が発火すること" do
+    tengine.should_fire("event2")
+    tengine.receive("event1")
+  end
+end
     """
     # イベントハンドラ定義がないのでテストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec ./tmp/e2e_test/uca0_create_dsl_spec.rb"というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
 
 
@@ -148,62 +125,43 @@
     # ここから異常系シナリオ
     # イベントハンドラ定義の文法を誤って記述
     #
-    もし イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"を作成する
-    かつ イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"に以下の記述をする
+    もし イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"を作成する
+    かつ イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"に以下の記述をする
     """
-    # -*- coding: utf-8 -*-
-    require 'tengine/core'
-    require 'fileutils'
+# -*- coding: utf-8 -*-
+require 'tengine/core'
+require 'fileutils'
 
-    driver :driver_exsample do
-      # イベントが発生したら新たなイベントを発火する
-      on :event1 do
-        fire(:event2)
-      end
-    end
-
-    # :event2を　driverの外に記述する
-    on :event2 do
-      # event2 が発火したらファイルを作成する
-      FileUtils.touch "./tmp/e2e_test/event2.txt"
-    end
+driver :driver_example do
+end
+# driverの外に記述する
+on:event1 do
+  fire("event2")
+end
     """
     # テストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec ./tmp/e2e_test/uca0_create_dsl_spec.rb"というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
-    かつ イベントハンドラが作成したファイル"./tmp/e2e_test/event2.txt"が存在しないこと
     #
     # ここまで異常系シナリオ
     #
 
-
-    もし イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"に以下の記述をする
+    もし イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"に以下の記述をする
     """
-    # -*- coding: utf-8 -*-
-    require 'tengine/core'
-    require 'fileutils'
+# -*- coding: utf-8 -*-
+require 'tengine/core'
+require 'fileutils'
 
-    driver :driver_exsample do
-      # イベントが発生したら新たなイベントを発火する
-      on :event1 do
-        fire(:event2)
-      end
-
-      on :event2 do
-        # event2 が発火したらファイルを作成する
-        FileUtils.touch "./tmp/e2e_test/event2.txt"
-      end
-    end
+driver :driver_example do
+  # event1を受け取るとevent2を発火する
+  on:event1 do
+    fire("event2")
+  end
+end
     """
     # テストに成功
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec ./tmp/e2e_test/uca0_create_dsl_spec.rb"というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 0 failures"と出力されていること
-    かつ イベントハンドラが作成したファイル"./tmp/e2e_test/event2.txt"が存在すること
-
-    # 作成したファイルの削除
-    もし イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"を削除する
-    かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"を削除する
-    かつ イベントハンドラが作成した一時ファイル"./tmp/e2e_test/event2.txt"を削除する
 
 
   シナリオ: [異常系] イベントハンドラ定義のテストで失敗_振る舞いが不正_イベントハンドラ定義に誤りがある
@@ -216,27 +174,24 @@
     # 5. イベントハンドラ定義修正
     # 6. テスト実行 -> 成功
 
-    もし イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"を作成する
-    かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"に以下の記述をする
+    もし イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"を作成する
+    かつ イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"に以下の記述をする
     """
-    # -*- coding: utf-8 -*-
-    require 'spec_helper'
-    
-    describe :driver_example do
-      it ":event1 が発火すると、./tmp/e2e_test/event2.txtが作成される" do
-        # driver_example は event1 を受けてイベントハンドリングする
-        driver_example.should_handle_event(:event1)
-        # driver_example は event2 を受けてイベントハンドリングする
-        driver_example.should_handle_event(:event2)
-        # event1 を発火する
-        fire(:event1)
-        # ファイルが作成されていること
-        File.exists?("./tmp/e2e_test/event2.txt").should be_true
-      end
-    end
+# -*- coding: utf-8 -*-
+require 'spec_helper'
+
+describe :driver_example do
+  target_dsl 'sample_dsl.rb'
+  driver :driver_example
+
+  it "event1 を受け取るとevent2が発火すること" do
+    tengine.should_fire("event2")
+    tengine.receive("event1")
+  end
+end
     """
     # イベントハンドラ定義がないのでテストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec ./tmp/e2e_test/uca0_create_dsl_spec.rb"というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
 
 
@@ -245,64 +200,45 @@
     # 誤ったイベントハンドラ定義を記述
     #
     もし イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"を作成する
-    かつ イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"に以下の記述をする
+    かつ イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"に以下の記述をする
     """
-    # -*- coding: utf-8 -*-
-    require 'tengine/core'
-    require 'fileutils'
+# -*- coding: utf-8 -*-
+require 'tengine/core'
+require 'fileutils'
 
-    driver :driver_exsample do
-      # イベントが発生したら新たなイベントを発火する
-      on :event1 do
-        fire(:event2)
-      end
-    end
-
-    # :event2を　driverの外に記述する
-    on :event2 do
-      # ファイルを作成するのではなく、出力するだけ
-      # FileUtils.touch "./tmp/e2e_test/event2.txt"
-      puts "./tmp/e2e_test/event2.txt"
-    end
+driver :driver_example do
+  # 正しい振る舞いのevent2の発火ではなく、誤ってevent3を発火するような記述をしてしまった。
+  on:event1 do
+    fire("event3")
+  end
+end
     """
     # テストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec ./tmp/e2e_test/uca0_create_dsl_spec.rb"というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
-    かつ イベントハンドラが作成したファイル"./tmp/e2e_test/event2.txt"が存在しないこと
     #
     # ここまで異常系シナリオ
     #
 
 
-    もし イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"に以下の記述をする
+    もし イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"に以下の記述をする
     """
-    # -*- coding: utf-8 -*-
-    require 'tengine/core'
-    require 'fileutils'
+# -*- coding: utf-8 -*-
+require 'tengine/core'
+require 'fileutils'
 
-    driver :driver_exsample do
-      # イベントが発生したら新たなイベントを発火する
-      on :event1 do
-        fire(:event2)
-      end
-
-      on :event2 do
-        # event2 が発火したらファイルを作成する
-        FileUtils.touch "./tmp/e2e_test/event2.txt"
-      end
-    end
+driver :driver_example do
+  # event1を受け取るとevent2を発火する
+  on:event1 do
+    fire("event2")
+  end
+end
     """
     # テストに成功
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec ./tmp/e2e_test/uca0_create_dsl_spec.rb"というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 0 failures"と出力されていること
-    かつ イベントハンドラが作成したファイル"./tmp/e2e_test/event2.txt"が存在すること
 
-    # 作成したファイルの削除
-    もし イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"を削除する
-    かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"を削除する
-    かつ イベントハンドラが作成した一時ファイル"./tmp/e2e_test/event2.txt"を削除する
-
-
+  @target
   シナリオ: [異常系] イベントハンドラ定義のテストで失敗_振る舞いが不正_テストコードに誤りがある
     # シナリオの概要
     # テストファーストを考慮して、はじめに失敗をさせています
@@ -317,84 +253,71 @@
     # ここまで異常系シナリオ
     # 誤ったテストコードを記述する
     #
-    もし イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"を作成する
-    かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"に以下の記述をする
+    もし イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"を作成する
+    かつ イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"に以下の記述をする
     """
-    # -*- coding: utf-8 -*-
-    require 'spec_helper'
-    
-    describe :driver_example do
-      it ":event1 が発火すると、./tmp/e2e_test/event2.txtが作成される" do
-        # driver_example は event1 を受けてイベントハンドリングする
-        driver_example.should_handle_event(:event1)
-        # driver_example は event2 を受けてイベントハンドリングする
-        driver_example.should_handle_event(:event2)
-        # event1 を発火する
-        fire(:event1)
-        # ファイルが作成されて「いない」こと
-        File.exists?("./tmp/e2e_test/event2.txt").should be_fale
-      end
-    end
+# -*- coding: utf-8 -*-
+require 'spec_helper'
+
+describe :driver_example do
+  target_dsl 'sample_dsl.rb'
+  driver :driver_example
+
+  it "event1 を受け取るとevent2が発火すること" do
+	  # 正しくは event2 が発火されるところを、テストコードに誤って event3 が発火されると記述してしまった。
+    tengine.should_fire("event3")
+    tengine.receive("event1")
+  end
+end
     """
     # イベントハンドラ定義がないのでテストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec ./tmp/e2e_test/uca0_create_dsl_spec.rb"というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
     #
     # ここまで異常系シナリオ
     #
 
 
-    もし イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"を作成する
-    かつ イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"に以下の記述をする
+    もし イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"を作成する
+    かつ イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"に以下の記述をする
     """
-    # -*- coding: utf-8 -*-
-    require 'tengine/core'
-    require 'fileutils'
+# -*- coding: utf-8 -*-
+require 'tengine/core'
+require 'fileutils'
 
-    driver :driver_exsample do
-      # イベントが発生したら新たなイベントを発火する
-      on :event1 do
-        fire(:event2)
-      end
-
-      on :event2 do
-        # event2 が発火したらファイルを作成する
-        FileUtils.touch "./tmp/e2e_test/event2.txt"
-      end
-    end
+driver :driver_example do
+  # event1を受け取るとevent2を発火する
+  on:event1 do
+    fire("event2")
+  end
+end
     """
     # テストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec ./tmp/e2e_test/uca0_create_dsl_spec.rb"というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
-    かつ イベントハンドラが作成したファイル"./tmp/e2e_test/event2.txt"が存在すること
 
-    もし イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"に以下の記述をする
+    もし イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"に以下の記述をする
     """
-    # -*- coding: utf-8 -*-
-    require 'spec_helper'
-    
-    describe :driver_example do
-      it ":event1 が発火すると、./tmp/e2e_test/event2.txtが作成される" do
-        # driver_example は event1 を受けてイベントハンドリングする
-        driver_example.should_handle_event(:event1)
-        # driver_example は event2 を受けてイベントハンドリングする
-        driver_example.should_handle_event(:event2)
-        # event1 を発火する
-        fire(:event1)
-        # ファイルが作成されていること
-        File.exists?("./tmp/e2e_test/event2.txt").should be_true
-      end
-    end
+# -*- coding: utf-8 -*-
+require 'spec_helper'
+
+describe :driver_example do
+  target_dsl 'sample_dsl.rb'
+  driver :driver_example
+
+  it "event1 を受け取るとevent2が発火すること" do
+    tengine.should_fire("event2")
+    tengine.receive("event1")
+  end
+end
     """
     # テストに成功
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec ./tmp/e2e_test/uca0_create_dsl_spec.rb"というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 0 failures"と出力されていること
-    かつ イベントハンドラが作成したファイル"./tmp/e2e_test/event2.txt"が存在すること
 
     # 作成したファイルの削除
-    もし イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"を削除する
-    かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"を削除する
-    かつ イベントハンドラが作成した一時ファイル"./tmp/e2e_test/event2.txt"を削除する
+    もし イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"を削除する
+    かつ イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"を削除する
 
 
   シナリオ: [異常系] イベントハンドラ定義のテストで失敗_振る舞いが不正_イベントハンドラ定義に循環参照がある
@@ -407,30 +330,14 @@
     # 5. イベントハンドラ定義修正
     # 6. テスト実行 -> 成功
 
-    もし イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"を作成する
-    かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"に以下の記述をする
+    もし イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"を作成する
+    かつ イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"に以下の記述をする
     """
-    # Todo
-    # specをどのように書くか?
-
-    # -*- coding: utf-8 -*-
-    require 'spec_helper'
-    
-    describe :driver_example do
-      it ":event1 が発火すると、./tmp/e2e_test/event2.txtが作成される" do
-        # driver_example は event1 を受けてイベントハンドリングする
-        driver_example.should_handle_event(:event1)
-        # driver_example は event2 を受けてイベントハンドリングする
-        driver_example.should_handle_event(:event2)
-        # event1 を発火する
-        fire(:event1)
-        # ファイルが作成されていること
-        File.exists?("./tmp/e2e_test/event2.txt").should be_true
-      end
-    end
+    # TODO
+    # specをどのように書くかテスティングフレームワークエクステンションの検討と実装が必要です。
     """
     # イベントハンドラ定義がないのでテストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec ./tmp/e2e_test/uca0_create_dsl_spec.rb"というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
 
 
@@ -438,62 +345,46 @@
     # ここから異常系シナリオ
     # 循環参照があるイベントハンドラ定義を記述
     #
-    もし イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"を作成する
-    かつ イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"に以下の記述をする
+    もし イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"を作成する
+    かつ イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"に以下の記述をする
     """
-    # -*- coding: utf-8 -*-
-    require 'tengine/core'
-    require 'fileutils'
+# -*- coding: utf-8 -*-
+require 'tengine/core'
+require 'fileutils'
 
-    driver :driver_exsample do
-      # イベントが発生したら新たなイベントを発火する
-      on :event1 do
-        fire(:event2)
-      end
-
-      # イベントが発生したら新たなイベントを発火する
-      on :event2 do
-        fire(:event1)
-      end
-
-      # event1 -> event2 -> event1 -> … と循環する
-    end
-
+driver :driver_example do
+  # event1 を受け取ると、イベント処理が循環します。
+  on:event1 do
+    fire("event1")
+  end
+end
     """
     # テストで警告が出力
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec ./tmp/e2e_test/uca0_create_dsl_spec.rb"というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 0 failure"と出力されていること
     かつ "イベントハンドラ定義のテスト"の標準出力に"[warn] Circular reference"と出力されていること
-    かつ イベントハンドラが作成したファイル"./tmp/e2e_test/event2.txt"が存在しないこと
     #
     # ここまで異常系シナリオ
     #
 
 
-    もし イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"に以下の記述をする
+    もし イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"に以下の記述をする
     """
-    # -*- coding: utf-8 -*-
-    require 'tengine/core'
-    require 'fileutils'
+# -*- coding: utf-8 -*-
+require 'tengine/core'
+require 'fileutils'
 
-    driver :driver_exsample do
-      # イベントが発生したら新たなイベントを発火する
-      on :event1 do
-        fire(:event2)
-      end
-
-      on :event2 do
-        # event2 が発火したらファイルを作成する
-        FileUtils.touch "./tmp/e2e_test/event2.txt"
-      end
-    end
+driver :driver_example do
+  # 循環しないように発火するイベント種別を修正します。
+  on:event1 do
+    fire("event2")
+  end
+end
     """
     # テストに成功
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec ./tmp/e2e_test/uca0_create_dsl_spec.rb"というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 0 failures"と出力されていること
-    かつ イベントハンドラが作成したファイル"./tmp/e2e_test/event2.txt"が存在すること
 
     # 作成したファイルの削除
-    もし イベントハンドラ定義ファイル"./tmp/e2e_test/uca0_create_dsl.rb"を削除する
-    かつ イベントハンドラ定義のテストファイル"./tmp/e2e_test/uca0_create_dsl_spec.rb"を削除する
-    かつ イベントハンドラが作成した一時ファイル"./tmp/e2e_test/event2.txt"を削除する
+    もし イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"を削除する
+    かつ イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"を削除する
