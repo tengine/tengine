@@ -1414,7 +1414,7 @@
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
     |event99_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
     ならば "キュープロセス"が停止していること
-    かつ "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
+    かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler99_1"と記述されていること
@@ -1811,14 +1811,14 @@
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
     |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
     かつ "キュープロセス"が停止していること
-    かつ "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
+    かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler97_1"と記述されていること
 
     もし "キュープロセス"の起動を行うために"rabbitmq-server -detached"というコマンドを実行する
     ならば "キュープロセス"が起動していること
-    かつ "Tengineコアプロセス"の標準出力に"connect to queue server."と出力されていること
+    かつ "Tengineコアプロセス"の標準出力に"mq.connection.after_recovery: recovered successfully."と出力されていること
 
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
@@ -1872,7 +1872,7 @@
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
     |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
     かつ "キュープロセス"が停止していること
-    かつ "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
+    かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler97_1"と記述されていること
@@ -1929,14 +1929,14 @@
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
     |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
     かつ "キュープロセス"が停止していること
-    かつ "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
+    かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler97_1"と記述されていること
  
     もし "キュープロセス"の起動を行うために"rabbitmq-server -detached"というコマンドを実行する
     ならば "キュープロセス"が起動していること
-    かつ "Tengineコアプロセス"の標準出力に"connect to queue server."と出力されていること
+    かつ "Tengineコアプロセス"の標準出力に"mq.connection.after_recovery: recovered successfully."と出力されていること
 
     もし リトライ間隔だけ待機する
     かつ "イベント通知画面"を表示する
@@ -1993,7 +1993,7 @@
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
     |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
     かつ "キュープロセス"が停止していること
-    かつ "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
+    かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler97_1"と記述されていること
