@@ -46,7 +46,7 @@ end
   else 
     raise "#{name}がありません"
   end
-  sleep 5
+  sleep 5 # TODO sleepさせるのやめたいです。
 end
 
 前提 /^"([^"]*)"がオプション"([^"]*)"で起動している$/ do |name,option|
@@ -57,6 +57,7 @@ end
     io = nil
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
+    sleep 5 # TODO sleepさせるのやめたいです。
   elsif name == "DBプロセス"
     unless system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
       raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
@@ -318,6 +319,15 @@ end
   sleep @tengined_heartbeat_period.to_i
 end
 
+もし /^リカバリ間隔が(.*)と設定されている$/ do |tengined_retry_interval|
+  @tengined_retry_interval = tengined_retry_interval
+end
+
+もし /^リカバリ間隔だけ待機する$/ do
+  sleep @tengined_heartbeat_period.to_i
+end
+
+
 #############
 # キュー関連
 #############
@@ -384,6 +394,7 @@ end
   @h[name] ||= {}
   now = Time.now
   @h[name][:event_ignition_time] = now
+  puts "発火時刻 => #{@h[name][:event_ignition_time]}"
   value = now.strftime(view_time_format)
   もし %{"#{field}"に"#{value}"と入力する}
 end
@@ -642,9 +653,11 @@ def tengine_core_process_start_time(pid)
   # tengined起動でTengineコアが初めて出力するロガーの初期化を開始としています。
   startline = "Tengine::Core::Config#setup_loggers complete"
   command = "cat log/tengined.*_#{pid}_stdout.log | grep '#{startline}' | tail -n 1 | awk '{print $1}'"
+  puts "tengine_core_process_start_time command => #{command}"
   IO.popen(command) do |io|
     start_time = io.gets
   end
+  puts "tengine_core_process_start_time start_time => #{start_time}"
   Time.parse(start_time)
 end
 
@@ -933,3 +946,14 @@ end
   `rm tmp/tengined_status/tengined*`
 end
 
+前提 /^Tengineを使ったアプリケーションのプロジェクトを"([^"]*)"に新規で作成する$/ do |path|
+  FileUtils.rm_rf(path) if FileTest.exists?(path)
+  # プロジェクトのディレクトリ構造を作成します。
+  FileUtils.mkdir_p(path)
+  FileUtils.mkdir_p("#{path}/app")
+  FileUtils.mkdir_p("#{path}/spec/support")
+
+  # tengine_icmp_monitor からテスティングフレームエクステンションをコピーします。
+  # tengine_consoleと、tengine_icmp_monitor が同じディレクトリに配置されている前提になります。
+  FileUtils.cp("../tengine_icmp_monitor/spec/support/tengine_core.rb", "#{path}/spec/support")
+end
