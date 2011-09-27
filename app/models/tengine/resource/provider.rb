@@ -6,7 +6,7 @@ class Tengine::Resource::Provider
   with_options(:inverse_of => :provider, :dependent => :destroy) do |c|
     c.has_many :physical_servers       , :class_name => "Tengine::Resource::PhysicalServer"
     c.has_many :virtual_servers        , :class_name => "Tengine::Resource::VirtualServer"
-    c.has_many :virtual_server_imagess , :class_name => "Tengine::Resource::VirtualServerImage"
+    c.has_many :virtual_server_images  , :class_name => "Tengine::Resource::VirtualServerImage"
   end
 
   validates_presence_of :name
@@ -33,5 +33,19 @@ class Tengine::Resource::Provider
     self.physical_servers.not_in(:_id => found_ids).each do |server|
       server.update_attributes(:status => "not_found")
     end
+  end
+
+  def update_virtual_servers_by(hashs)
+    found_ids = []
+    hashs.each do |hash|
+      server = self.virtual_servers.where(:provided_name => hash[:provided_name]).first
+      if server
+        server.update_attributes(hash)
+      else
+        server = self.virtual_servers.create!(hash.merge(:name => hash[:provided_name]))
+      end
+      found_ids << server.id
+    end
+    self.virtual_servers.not_in(:_id => found_ids).destroy_all
   end
 end
