@@ -1,0 +1,42 @@
+<h1><%= page_title Tengine::Job::Script, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Job::Script.human_attribute_name(:name) %>:</b>
+  <%= @script.name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Script.human_attribute_name(:server_name) %>:</b>
+  <%= @script.server_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Script.human_attribute_name(:credential_name) %>:</b>
+  <%= @script.credential_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Script.human_attribute_name(:killing_signals) %>:</b>
+  <%= @script.killing_signals_text %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Script.human_attribute_name(:killing_signal_interval) %>:</b>
+  <%= @script.killing_signal_interval %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Script.human_attribute_name(:script) %>:</b>
+  <%= @script.script %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Script.human_attribute_name(:has_chained_children) %>:</b>
+  <%= @script.has_chained_children %>
+</p>
+
+
+<%= link_to_edit edit_tengine_job_script_path(@script) %> |
+<%= link_to_back_list tengine_job_scripts_path %>
