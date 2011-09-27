@@ -29,7 +29,7 @@ describe Tengine::Job::ScriptsController do
 
   describe "GET index" do
     it "assigns all tengine_job_scripts as @tengine_job_scripts" do
-      Tengine::Job::Script.delete_all
+      Tengine::Job::Vertex.delete_all
       script = Tengine::Job::Script.create! valid_attributes
       get :index
       scripts = assigns(:scripts)

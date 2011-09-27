@@ -29,7 +29,7 @@ describe Tengine::Job::JobnetsController do
 
   describe "GET index" do
     it "assigns all tengine_job_jobnets as @tengine_job_jobnets" do
-      Tengine::Job::Jobnet.delete_all
+      Tengine::Job::Vertex.delete_all
       jobnet = Tengine::Job::Jobnet.create! valid_attributes
       get :index
       jobnets = assigns(:jobnets)
