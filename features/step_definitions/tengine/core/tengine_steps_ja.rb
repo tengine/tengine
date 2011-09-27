@@ -946,3 +946,14 @@ end
   `rm tmp/tengined_status/tengined*`
 end
 
+前提 /^Tengineを使ったアプリケーションのプロジェクトを"([^"]*)"に新規で作成する$/ do |path|
+  FileUtils.rm_rf(path) if FileTest.exists?(path)
+  # プロジェクトのディレクトリ構造を作成します。
+  FileUtils.mkdir_p(path)
+  FileUtils.mkdir_p("#{path}/app")
+  FileUtils.mkdir_p("#{path}/spec/support")
+
+  # tengine_icmp_monitor からテスティングフレームエクステンションをコピーします。
+  # tengine_consoleと、tengine_icmp_monitor が同じディレクトリに配置されている前提になります。
+  FileUtils.cp("../tengine_icmp_monitor/spec/support/tengine_core.rb", "#{path}/spec/support")
+end
