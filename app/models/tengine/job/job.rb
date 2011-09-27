@@ -1,9 +1,7 @@
-class Tengine::Job::Job
-  include Mongoid::Document
+class Tengine::Job::Job < Tengine::Job::Vertex
+  include Tengine::Job::Connectable
+  include Tengine::Job::Stoppable
+
   field :name, :type => String
-  field :server_name, :type => String
-  field :credential_name, :type => String
-  field :killing_signals, :type => Array
-  array_text_accessor :killing_signals
-  field :killing_signal_interval, :type => Integer
+
 end

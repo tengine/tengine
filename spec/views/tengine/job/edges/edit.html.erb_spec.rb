@@ -4,8 +4,8 @@ describe "tengine/job/edges/edit.html.erb" do
   before(:each) do
     @edge = assign(:edge, stub_model(Tengine::Job::Edge,
       :status_cd => 1,
-      :origin_id => "MyString",
-      :destination_id => "MyString"
+      :origin_id => BSON::ObjectId.new,
+      :destination_id => BSON::ObjectId.new
     ))
   end
 
