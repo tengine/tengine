@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+require(File.expand_path("../config/environment", File.dirname(__FILE__)))
+
+Tengine::Resource::Credential.delete_all
+credential = Tengine::Resource::Credential.create!({
+  :name => "ec2 credential tokyo",
+  :auth_type_key => :ec2_access_key,
+  :auth_values => {
+    :access_key => `cat ~/.ec2/access_key`.strip,
+    :secret_access_key => `cat ~/.ec2/secret_access_key`.strip,
+    :default_region => "ap-northeast-1",
+  },
+})
+
+Tengine::Resource::Provider::Ec2.delete_all
+provider = Tengine::Resource::Provider::Ec2.create!(:name => "ec2 tokyo", :credential => credential)
+
+Tengine::Resource::PhysicalServer.delete_all
+Tengine::Resource::VirtualServer.delete_all
+
+provider.update_physical_servers
+
+loop do
+  puts "%s now updating virtual servers" % Time.now.iso8601
+  provider.update_virtual_servers
+  sleep(30)
+end
