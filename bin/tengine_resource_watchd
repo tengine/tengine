@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 require(File.expand_path("../config/environment", File.dirname(__FILE__)))
 
+Mongoid.observers = Tengine::Resource::Observer
+Mongoid.instantiate_observers
+
 Tengine::Resource::Credential.delete_all
 credential = Tengine::Resource::Credential.create!({
   :name => "ec2 credential tokyo",
@@ -19,10 +22,15 @@ provider = Tengine::Resource::Provider::Ec2.create!(:name => "ec2 tokyo", :crede
 Tengine::Resource::PhysicalServer.delete_all
 Tengine::Resource::VirtualServer.delete_all
 
-provider.update_physical_servers
+require 'eventmachine'
 
-loop do
-  puts "%s now updating virtual servers" % Time.now.iso8601
-  provider.update_virtual_servers
-  sleep(30)
+EM.run do
+  EM.next_tick do
+    provider.update_physical_servers
+    provider.update_virtual_servers
+  end
+  EM.add_periodic_timer(30) do
+    puts "%s now updating virtual servers" % Time.now.iso8601
+    provider.update_virtual_servers
+  end
 end
