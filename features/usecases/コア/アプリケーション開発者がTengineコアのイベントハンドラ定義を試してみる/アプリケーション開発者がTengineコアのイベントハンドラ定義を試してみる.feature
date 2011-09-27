@@ -70,9 +70,7 @@
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
     |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
-		
-    もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    かつ "Tengineコアプロセス"の標準出力に"#{イベントキー}:handler01"と出力されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -113,11 +111,9 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-		|種別名  |発生源名        |発生時刻                  |通知レベル|通知確認済み|送信者名        |
+    |種別名  |発生源名        |発生時刻                  |通知レベル|通知確認済み|送信者名        |
     |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
-
-    もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
+    かつ "Tengineコアプロセス"の標準出力に"#{イベントキー}:handler01"と出力されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1389,7 +1385,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc02_fire_another_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc99_stop_rabbitmq_and_fire_another_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1397,12 +1393,12 @@
     ならば "イベントドライバ一覧画面"を表示していること
     かつ 以下の行が表示されること
     |名称    |
-    |driver02|
+    |driver99|
 
     もし "イベント発火画面"を表示する
     ならば "イベント発火画面"を表示していること
 
-    もし "種別名"に"event02_1"と入力する
+    もし "種別名"に"event99_1"と入力する
     かつ RailsConsoleで"Tengine::Event.uuid_gen.generate"と実行し生成したイベントキーを確認する
     かつ "イベントキー"に"#{イベントキー}"を入力する
     かつ "発生源名"に"tengine_console"と入力する
@@ -1410,35 +1406,19 @@
     かつ "info"を選択する
     かつ "送信者名"に"tengine_console"と入力する
     かつ "登録する"ボタンをクリックする
-    ならば "event02_1を発火しました"と表示されていること
+    ならば "event99_1を発火しました"と表示されていること
 
-    # 自動でテストを行う為には、イベントハンドラ定義を修正して、fireする直前にキューを落とすよう修正する必要があると思われます
-    もし イベントを受信してから、event02_1で起動するイベントハンドラのputsを実行するまでにイベントキューを落とす
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"を表示していること
+    ならば 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event99_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
     ならば "キュープロセス"が停止していること
-    かつ "Tengineコアプロセス"の標準出力に"キューとの接続が切断されました"と出力されていること
-
-    もし "イベント通知画面"を表示する
-    ならば "イベント通知画面"を表示していること
-    ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event02_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    かつ "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler02_1"と記述されていること
-
-    もし "キュープロセス"の起動を行うために"rabbitmq-server -detached"というコマンドを実行する
-    ならば "キュープロセス"が起動していること
-    かつ "Tengineコアプロセス"の標準出力に"キューと接続しました"と出力されていること
-
-    もし "イベント通知画面"を表示する
-    ならば "イベント通知画面"を表示していること
-    ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event02_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
-    |event02_2|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
-
-    もし "アプリケーションログファイル""log/application.log"を参照する
-    かつ "アプリケーションログファイル"に"#{イベントキー}:handler02_2"と記述されていること
+    ならば "アプリケーションログファイル"に"#{イベントキー}:handler99_1"と記述されていること
+    かつ "アプリケーションログファイル"に"send event failure: cant's connect to queue server."と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1787,6 +1767,261 @@
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+    もし "Tengineコンソールプロセス"を Ctrl+c で停止する
+    ならば "Tengineコンソールプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+
+  @selenium
+  シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントハンドリングでイベントを発火する前にキューが落ちた_リトライ設定回数内にキューが起動する
+    もし "Tengineコンソールプロセス"の起動を行うために"rails s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc97_stop_rabbitmq_and_fire.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行が表示されること
+    |名称    |
+    |driver97|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "種別名"に"event97_1"と入力する
+    かつ RailsConsoleで"Tengine::Event.uuid_gen.generate"と実行し生成したイベントキーを確認する
+    かつ "イベントキー"に"#{イベントキー}"を入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
+    かつ "登録する"ボタンをクリックする
+    ならば "event97_1を発火しました"と表示されていること
+
+ 
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"を表示していること
+    かつ 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    かつ "キュープロセス"が停止していること
+    かつ "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
+
+    もし "アプリケーションログファイル""log/application.log"を参照する
+    ならば "アプリケーションログファイル"に"#{イベントキー}:handler97_1"と記述されていること
+
+    もし "キュープロセス"の起動を行うために"rabbitmq-server -detached"というコマンドを実行する
+    ならば "キュープロセス"が起動していること
+    かつ "Tengineコアプロセス"の標準出力に"connect to queue server."と出力されていること
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"を表示していること
+    ならば 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_2|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+
+    もし "アプリケーションログファイル""log/application.log"を参照する
+    かつ "アプリケーションログファイル"に"#{イベントキー}:handler97_2"と記述されていること
+
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+    もし "Tengineコンソールプロセス"を Ctrl+c で停止する
+    ならば "Tengineコンソールプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+  @selenium
+  シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントハンドリングでイベントを発火する前にキューが落ちた_リトライ設定回数内にキューが起動しない
+    もし "Tengineコンソールプロセス"の起動を行うために"rails s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc97_stop_rabbitmq_and_fire.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行が表示されること
+    |名称    |
+    |driver97|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "種別名"に"event97_1"と入力する
+    かつ RailsConsoleで"Tengine::Event.uuid_gen.generate"と実行し生成したイベントキーを確認する
+    かつ "イベントキー"に"#{イベントキー}"を入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
+    かつ "登録する"ボタンをクリックする
+    ならば "event97_1を発火しました"と表示されていること
+
+ 
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"を表示していること
+    かつ 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    かつ "キュープロセス"が停止していること
+    かつ "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
+
+    もし "アプリケーションログファイル""log/application.log"を参照する
+    ならば "アプリケーションログファイル"に"#{イベントキー}:handler97_1"と記述されていること
+ 
+    もし リトライ間隔だけ待機する
+    もし "アプリケーションログファイル""log/application.log"を参照する
+    ならば "アプリケーションログファイル"に"send event failure: can't connect to queue server."と記述されていること
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"を表示していること
+    ならば 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+    もし "Tengineコンソールプロセス"を Ctrl+c で停止する
+    ならば "Tengineコンソールプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+  @selenium
+  シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントハンドリングでイベントを発火する前にキューが落ちた_リトライ設定回数内にキューが起動する_コールバックを利用
+    もし "Tengineコンソールプロセス"の起動を行うために"rails s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc98_stop_rabbitmq_and_fire_use_callback.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行が表示されること
+    |名称    |
+    |driver98|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "種別名"に"event98_1"と入力する
+    かつ RailsConsoleで"Tengine::Event.uuid_gen.generate"と実行し生成したイベントキーを確認する
+    かつ "イベントキー"に"#{イベントキー}"を入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
+    かつ "登録する"ボタンをクリックする
+    ならば "event98_1を発火しました"と表示されていること
+
+ 
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"を表示していること
+    かつ 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    かつ "キュープロセス"が停止していること
+    かつ "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
+
+    もし "アプリケーションログファイル""log/application.log"を参照する
+    ならば "アプリケーションログファイル"に"#{イベントキー}:handler97_1"と記述されていること
+ 
+    もし "キュープロセス"の起動を行うために"rabbitmq-server -detached"というコマンドを実行する
+    ならば "キュープロセス"が起動していること
+    かつ "Tengineコアプロセス"の標準出力に"connect to queue server."と出力されていること
+
+    もし リトライ間隔だけ待機する
+    かつ "イベント通知画面"を表示する
+    ならば "イベント通知画面"を表示していること
+    かつ 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_2|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+
+    もし "アプリケーションログファイル""log/application.log"を参照する
+    かつ "アプリケーションログファイル"に"#{イベントキー}:send_event_failure"と記述されていること
+    #仕様が確定していないので、確定後記載しなおす。
+    かつ "アプリケーションログファイル"に"#{イベントキー}:handler97_2"と記述されていること
+
+    もし "Tengineコアプロセス"を Ctrl+c で停止する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+    もし "Tengineコンソールプロセス"を Ctrl+c で停止する
+    ならば "Tengineコンソールプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+  @selenium
+  シナリオ: [異常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントハンドリングでイベントを発火する前にキューが落ちた_リトライ設定回数内にキューが起動しない_コールバック利用
+    もし "Tengineコンソールプロセス"の起動を行うために"rails s -e production"というコマンドを実行する
+    ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
+    かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc98_stop_rabbitmq_and_fire_use_callback.rb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
+    かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+
+    もし "イベントドライバ一覧画面"を表示する
+    ならば "イベントドライバ一覧画面"を表示していること
+    かつ 以下の行が表示されること
+    |名称    |
+    |driver98|
+
+    もし "イベント発火画面"を表示する
+    ならば "イベント発火画面"を表示していること
+
+    もし "種別名"に"event98_1"と入力する
+    かつ RailsConsoleで"Tengine::Event.uuid_gen.generate"と実行し生成したイベントキーを確認する
+    かつ "イベントキー"に"#{イベントキー}"を入力する
+    かつ "発生源名"に"tengine_console"と入力する
+    かつ "発生時刻"に"2011/09/01 12:00:00"と入力する
+    かつ "info"を選択する
+    かつ "送信者名"に"tengine_console"と入力する
+    かつ "登録する"ボタンをクリックする
+    ならば "event98_1を発火しました"と表示されていること
+
+ 
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"を表示していること
+    かつ 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    かつ "キュープロセス"が停止していること
+    かつ "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
+
+    もし "アプリケーションログファイル""log/application.log"を参照する
+    ならば "アプリケーションログファイル"に"#{イベントキー}:handler97_1"と記述されていること
+ 
+    もし リトライ間隔だけ待機する
+    かつ "アプリケーションログファイル""log/application.log"を参照する
+    ならば "アプリケーションログファイル"に"try:1,falure event:failur_event"と記述されていること
+    かつ "アプリケーションログファイル"に"try:2,falure event:failur_event"と記述されていないこと
+    かつ "アプリケーションログファイル"に"try:3,falure event:failur_event"と記述されていないこと
+    かつ "アプリケーションログファイル"に"send event failure: can't connect to queue server."と記述されていないこと
+
+    もし リトライ間隔だけ待機する
+    かつ "アプリケーションログファイル""log/application.log"を参照する
+    ならば "アプリケーションログファイル"に"try:2,falure event:failur_event"と記述されていること
+    かつ "アプリケーションログファイル"に"try:3,falure event:failur_event"と記述されていないこと
+    かつ "アプリケーションログファイル"に"send event failure: can't connect to queue server."と記述されていないこと
+
+
+    もし リトライ間隔だけ待機する
+    かつ "アプリケーションログファイル""log/application.log"を参照する
+    ならば "アプリケーションログファイル"に"try:3,falure event:failur_event"と記述されていること
+    かつ "アプリケーションログファイル"に"send event failure: can't connect to queue server."と記述されていること
+
+    もし "イベント通知画面"を表示する
+    ならば "イベント通知画面"を表示していること
+    ならば 以下の行が表示されること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
+    |event98_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
