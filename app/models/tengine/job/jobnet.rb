@@ -83,7 +83,6 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
     def new_edge(*args); @client.new_edge(*args); end
     def prepare_end(*args, &block); @client.prepare_end(*args, &block); end
 
-
     def process
       build_start_edges
       build_edge_by_redirections
@@ -109,6 +108,14 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
     end
 
     def build_edge_by_redirections
+      prepare_to_build_edge_by_redirections
+      build_forks_and_edges
+      build_joins_and_edges
+      build_fork_to_join_edges
+      build_normal_edges
+    end
+
+    def prepare_to_build_edge_by_redirections
       # 各vertexがstartあるいはendとしてそれぞれ何回使われているのかを集計
       start_vertex_counts = @redirections.inject({}){|d, (_start, _)| d[_start] ||= 0; d[_start] += 1; d}
       end_vertex_counts   = @redirections.inject({}){|d, (_, _end)| d[_end  ] ||= 0; d[_end  ] += 1; d}
@@ -122,14 +129,14 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
           @fork_to_join << [_start, _end]
         end
       end
-
       # puts "=" * 100
       # puts "fork origins     : " << @fork_origins.inspect
       # puts "join_destinations: " << @join_destinations.inspect
       # puts "fork_to_join     : " << @fork_to_join.inspect
-
       @no_edge_redirections = @redirections.dup
+    end
 
+    def build_forks_and_edges
       # 1. Forkを生成して特異edge以外を繋ぐ
       @fork_origin_to_fork = {}
       @fork_origins.each do |fork_origin|
@@ -142,7 +149,9 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
           each{|(_, _end)| new_edge(fork, child_by_name(_end))}
         @no_edge_redirections.delete_if{|_start, _| _start == fork_origin}
       end
+    end
 
+    def build_joins_and_edges
       # 2. Joinを生成して特異edge以外を繋ぐ
       @join_destination_to_join = {}
       @join_destinations.each do |join_destination|
@@ -155,20 +164,23 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
         new_edge(join, child_by_name(join_destination))
         @no_edge_redirections.delete_if{|_, _end| _end == join_destination}
       end
+    end
 
+    def build_fork_to_join_edges
       # 3. 特異edgeの両端になるforkとjoinは生成されているのでそれらを繋ぐ
       @fork_to_join.each do |fork_origin, join_destination|
         new_edge(
           @fork_origin_to_fork[fork_origin],
           @join_destination_to_join[join_destination])
       end
+    end
 
+    def build_normal_edges
       # 4. Fork、Join、特異edgeなどに関係しなかった普通のedgeを繋ぎます
       @no_edge_redirections.each do |(_start, _end)|
         new_edge(child_by_name(_start), child_by_name(_end))
       end
     end
-
 
     def build_end_edges(_end, redirections)
       end_points = select_end_points(redirections)
