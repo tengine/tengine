@@ -9,8 +9,7 @@ describe "tengine/job/scripts/index.html.erb" do
         :credential_name => "Credential Name",
         :killing_signals => ["abc", "123"],
         :killing_signal_interval => 1,
-        :script => "Script",
-        :has_chained_children => false
+        :script => "Script"
       ),
       stub_model(Tengine::Job::Script,
         :name => "Name",
@@ -18,8 +17,7 @@ describe "tengine/job/scripts/index.html.erb" do
         :credential_name => "Credential Name",
         :killing_signals => ["abc", "123"],
         :killing_signal_interval => 1,
-        :script => "Script",
-        :has_chained_children => false
+        :script => "Script"
       )
     ]))
   end
@@ -33,6 +31,5 @@ describe "tengine/job/scripts/index.html.erb" do
     assert_select "tr>td", :text => "abc,123", :count => 2
     assert_select "tr>td", :text => 1.to_s, :count => 2
     assert_select "tr>td", :text => "Script".to_s, :count => 2
-    assert_select "tr>td", :text => false.to_s, :count => 2
   end
 end

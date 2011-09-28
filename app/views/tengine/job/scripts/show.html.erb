@@ -32,11 +32,6 @@
   <%= @script.script %>
 </p>
 
-<p>
-  <b><%= Tengine::Job::Script.human_attribute_name(:has_chained_children) %>:</b>
-  <%= @script.has_chained_children %>
-</p>
-
 
 <%= link_to_edit edit_tengine_job_script_path(@script) %> |
 <%= link_to_back_list tengine_job_scripts_path %>

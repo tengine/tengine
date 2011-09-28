@@ -9,10 +9,11 @@ describe "tengine/job/jobnets/index.html.erb" do
         :credential_name => "Credential Name",
         :killing_signals => ["abc", "123"],
         :killing_signal_interval => 1,
+        :script => "Script",
         :description => "Description",
-        :jobnet_type_cd => 2,
+        :jobnet_type_cd => 1,
         :dsl_version => "Dsl Version",
-        :lock_version => 3
+        :lock_version => 1
       ),
       stub_model(Tengine::Job::Jobnet,
         :name => "Name",
@@ -20,10 +21,11 @@ describe "tengine/job/jobnets/index.html.erb" do
         :credential_name => "Credential Name",
         :killing_signals => ["abc", "123"],
         :killing_signal_interval => 1,
+        :script => "Script",
         :description => "Description",
-        :jobnet_type_cd => 2,
+        :jobnet_type_cd => 1,
         :dsl_version => "Dsl Version",
-        :lock_version => 3
+        :lock_version => 1
       )
     ]))
   end
@@ -36,9 +38,10 @@ describe "tengine/job/jobnets/index.html.erb" do
     assert_select "tr>td", :text => "Credential Name".to_s, :count => 2
     assert_select "tr>td", :text => "abc,123", :count => 2
     assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select "tr>td", :text => "Script".to_s, :count => 2
     assert_select "tr>td", :text => "Description".to_s, :count => 2
-    assert_select "tr>td", :text => 2.to_s, :count => 2
+    assert_select "tr>td", :text => 1.to_s, :count => 2
     assert_select "tr>td", :text => "Dsl Version".to_s, :count => 2
-    assert_select "tr>td", :text => 3.to_s, :count => 2
+    assert_select "tr>td", :text => 1.to_s, :count => 2
   end
 end

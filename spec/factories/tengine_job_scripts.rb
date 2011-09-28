@@ -8,6 +8,5 @@ FactoryGirl.define do
     killing_signals(["abc", "123"])
     killing_signal_interval(1)
     script("MyString")
-    has_chained_children(false)
   end
 end

@@ -7,6 +7,7 @@ FactoryGirl.define do
     credential_name("MyString")
     killing_signals(["abc", "123"])
     killing_signal_interval(1)
+    script("MyString")
     description("MyString")
     jobnet_type_cd(1)
     dsl_version("MyString")
