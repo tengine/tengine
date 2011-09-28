@@ -9,19 +9,27 @@ module Tengine::Job::DslLoader
       :description => args.first || name,
     }.update(options)
     auto_sequence = options.delete(:auto_sequence)
-    result = Tengine::Job::JobnetTemplate.new(options)
-    result.children << Tengine::Job::Start.new
+    result = __with_redirection__(options) do
+      Tengine::Job::JobnetTemplate.new(options)
+    end
     @jobnet.children << result if @jobnet
     __stack_instance_variable__(:@auto_sequence,  auto_sequence || @auto_sequence) do
-      __stack_instance_variable__(:@jobnet, result, &block)
-      __build_edges__(result)
+      __stack_instance_variable__(:@redirections,  []) do
+        __stack_instance_variable__(:@jobnet, result, &block)
+        result.build_edges(@auto_sequence, @boot_job_names, @redirections)
+      end
     end
-    result.save!
+    result.save! if result.parent.nil?
     result
   end
 
   def auto_sequence
     @auto_sequence = true
+  end
+
+  def boot_jobs(*boot_job_names)
+    @auto_sequence = false
+    @boot_job_names = boot_job_names
   end
 
   def job(name, *args)
@@ -31,7 +39,10 @@ module Tengine::Job::DslLoader
       :description => description,
       :script => script
     }.update(options)
-    @jobnet.children << result = Tengine::Job::ScriptTemplate.new(options)
+    result = __with_redirection__(options) do
+      Tengine::Job::ScriptTemplate.new(options)
+    end
+    @jobnet.children << result
     result
   end
 
@@ -41,9 +52,12 @@ module Tengine::Job::DslLoader
     jobnet(name, description, options, &block)
   end
 
-  def hadoop_job(name)
-    result = Tengine::Job::JobnetTemplate.new(:name => name)
-    result.children << start  = Tengine::Job::Start.new
+  def hadoop_job(name, options = {})
+    result = __with_redirection__(options) do
+      Tengine::Job::JobnetTemplate.new(:name => name)
+    end
+    # result.children << start  = Tengine::Job::Start.new
+    start = result.children.first
     result.children << fork   = Tengine::Job::Fork.new
     result.children << map    = Tengine::Job::Job.new(:name => "Map")
     result.children << reduce = Tengine::Job::Job.new(:name => "Reduce")
@@ -72,13 +86,26 @@ module Tengine::Job::DslLoader
     return script, description, options
   end
 
-  def __build_edges__(target, auto_sequence = @auto_sequence)
-    if target.children.length == 1 # 最初に追加したStartだけなら。
-      target.children.delete_all
-      return
+  def __build_edges__(target)
+    target.prepare_start_and_end do
+      if @auto_sequence
+        target.build_sequencial_edges
+      else
+        target.build_edge_by_redirections(@boot_job_names, @redirection)
+      end
     end
-    target.prepare_start_and_end
-    target.build_sequencial_edges if auto_sequence
   end
+
+
+  def __with_redirection__(options)
+    destination_names = Array(options.delete(:to) || options.delete(:redirect_to))
+    result = yield
+    destination_names.each do |dest_name|
+      @redirections << [result.name, dest_name]
+    end
+    result
+  end
+
+
 
 end

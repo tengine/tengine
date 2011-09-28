@@ -31,9 +31,9 @@ describe Tengine::Job::JobnetTemplate do
         jobnet12.children << job121   = Tengine::Job::ScriptTemplate.new(:name => "job121", :script => "job121.sh")
         jobnet12.children << job122   = Tengine::Job::ScriptTemplate.new(:name => "job122", :script => "job122.sh")
 
-        jobnet1.prepare_start_and_end
-        jobnet11.prepare_start_and_end
-        jobnet12.prepare_start_and_end
+        jobnet1.prepare_end
+        jobnet11.prepare_end
+        jobnet12.prepare_end
 
         jobnet1.build_sequencial_edges
         jobnet11.build_sequencial_edges
@@ -104,9 +104,9 @@ describe Tengine::Job::JobnetTemplate do
         finally.children << job121   = Tengine::Job::ScriptTemplate.new(:name => "job121", :script => "job121.sh")
         finally.children << job122   = Tengine::Job::ScriptTemplate.new(:name => "job122", :script => "job122.sh")
 
-        jobnet1.prepare_start_and_end
-        jobnet11.prepare_start_and_end
-        finally.prepare_start_and_end
+        jobnet1.prepare_end
+        jobnet11.prepare_end
+        finally.prepare_end
 
         jobnet1.build_sequencial_edges
         jobnet11.build_sequencial_edges
