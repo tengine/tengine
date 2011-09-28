@@ -2,6 +2,7 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
   include SelectableAttr::Base
 
   include Tengine::Job::Root
+  field :script, :type => String
   field :description, :type => String
   field :jobnet_type_cd, :type => Integer, :default => 1
 
