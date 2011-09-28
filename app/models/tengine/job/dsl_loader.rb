@@ -73,6 +73,11 @@ module Tengine::Job::DslLoader
     result
   end
 
+  def finally(&block)
+    jobnet("finally", :job_type_key => :finally, &block)
+  end
+
+
   private
   def __parse_job_args__(name, args)
     options = args.extract_options!

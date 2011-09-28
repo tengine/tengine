@@ -265,6 +265,57 @@ describe Tengine::Job::DslLoader do
       end
     end
 
+    context "0005_finally.rb" do
+      before{
+        Tengine::Job::JobnetTemplate.delete_all
+        load_dsl("0005_finally.rb")
+      }
+
+      it do
+        root_jobnet = Tengine::Job::JobnetTemplate.by_name("jobnet0005")
+        root_jobnet.should be_a(Tengine::Job::JobnetTemplate)
+        root_jobnet.tap do |j|
+          j.name.should == "jobnet0005"
+          j.description.should == "ジョブネット0005"
+          j.server_name.should == "i-11111111"
+          j.credential_name.should == "goku-ssh-pk1"
+        end
+        root_jobnet.children.map(&:class).should == [
+          Tengine::Job::Start         , # 0
+          Tengine::Job::ScriptTemplate, # 1
+          Tengine::Job::ScriptTemplate, # 2
+          Tengine::Job::ScriptTemplate, # 3
+          Tengine::Job::JobnetTemplate, # 4
+          Tengine::Job::End           , # 5
+        ]
+        root_jobnet.children[1].tap{|j| j.name.should == "job1"; j.description.should == "ジョブ1"; j.script.should == "job1.sh"}
+        root_jobnet.children[2].tap{|j| j.name.should == "job2"; j.description.should == "ジョブ2"; j.script.should == "job2.sh"}
+        root_jobnet.children[3].tap{|j| j.name.should == "job3"; j.description.should == "ジョブ3"; j.script.should == "job3.sh"}
+        root_jobnet.children[4].tap{|j| j.name.should == "finally"; j.description.should == "finally"}
+
+        root_jobnet.edges.map{|edge| [edge.origin, edge.destination]}.should == [
+          [root_jobnet.children[0], root_jobnet.children[1]],
+          [root_jobnet.children[1], root_jobnet.children[2]],
+          [root_jobnet.children[2], root_jobnet.children[3]],
+          [root_jobnet.children[3], root_jobnet.children[4]],
+          [root_jobnet.children[4], root_jobnet.children[5]],
+        ]
+
+        finally_jobnet = root_jobnet.children[4]
+        finally_jobnet.children.map(&:class).should == [
+          Tengine::Job::Start         , # 0
+          Tengine::Job::ScriptTemplate, # 1
+          Tengine::Job::ScriptTemplate, # 2
+          Tengine::Job::End           , # 3
+        ]
+        finally_jobnet.edges.map{|edge| [edge.origin, edge.destination]}.should == [
+          [finally_jobnet.children[0], finally_jobnet.children[1]],
+          [finally_jobnet.children[1], finally_jobnet.children[2]],
+          [finally_jobnet.children[2], finally_jobnet.children[3]],
+        ]
+      end
+    end
+
   end
 
 end
