@@ -57,11 +57,7 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
       prepare_end
       build_sequencial_edges
     else
-      build_start_edges(boot_job_names)
-      build_edge_by_redirections(redirections.dup)
-      prepare_end do |_end|
-        build_end_edges(_end, boot_job_names.map{|jn| [:start, jn]} + redirections)
-      end
+      Builder.new(self, boot_job_names, redirections).process
     end
   end
 
@@ -75,6 +71,27 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
       end
       current = child
     end
+  end
+
+  class Builder
+
+  attr_reader :client, :boot_job_names, :redirections
+
+  def initialize(client, boot_job_names, redirections)
+    @client, @boot_job_names, @redirections = client, boot_job_names, redirections.dup
+  end
+  def children; @client.children; end
+  def child_by_name(*args); @client.child_by_name(*args); end
+  def new_edge(*args); @client.new_edge(*args); end
+  def prepare_end(*args, &block); @client.prepare_end(*args, &block); end
+
+
+  def process
+      build_start_edges(boot_job_names)
+      build_edge_by_redirections(redirections.dup)
+      prepare_end do |_end|
+        build_end_edges(_end, boot_job_names.map{|jn| [:start, jn]} + redirections)
+      end
   end
 
   def build_start_edges(boot_job_names)
@@ -174,9 +191,12 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
     vertexes
   end
 
+  end
+
   def new_edge(origin, destination)
     origin_id = origin.is_a?(Tengine::Job::Vertex) ? origin.id : origin
     destination_id = destination.is_a?(Tengine::Job::Vertex) ? destination.id : destination
     edges.new(:origin_id => origin_id, :destination_id => destination_id)
   end
+
 end
