@@ -56,7 +56,7 @@ module Tengine::Job::DslLoader
     result = __with_redirection__(options) do
       Tengine::Job::JobnetTemplate.new(:name => name)
     end
-    # result.children << start  = Tengine::Job::Start.new
+    # result.children << start  = Tengine::Job::Start.new # 生成時に自動的に追加されます
     start = result.children.first
     result.children << fork   = Tengine::Job::Fork.new
     result.children << map    = Tengine::Job::Job.new(:name => "Map")
@@ -85,17 +85,6 @@ module Tengine::Job::DslLoader
     end
     return script, description, options
   end
-
-  def __build_edges__(target)
-    target.prepare_start_and_end do
-      if @auto_sequence
-        target.build_sequencial_edges
-      else
-        target.build_edge_by_redirections(@boot_job_names, @redirection)
-      end
-    end
-  end
-
 
   def __with_redirection__(options)
     destination_names = Array(options.delete(:to) || options.delete(:redirect_to))

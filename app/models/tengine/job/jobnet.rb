@@ -58,7 +58,7 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
       build_sequencial_edges
     else
       build_start_edges(boot_job_names)
-      build_edge_by_redirections(redirections)
+      build_edge_by_redirections(redirections.dup)
       prepare_end do |_end|
         build_end_edges(_end, boot_job_names.map{|jn| [:start, jn]} + redirections)
       end
@@ -71,7 +71,7 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
     self.children.each do |child|
       next if child.is_a?(Tengine::Job::Jobnet) && (child.jobnet_type_key != :normal)
       if current
-        self.edges.new(:origin_id => current.id, :destination_id =>child.id)
+        self.new_edge(current, child)
       end
       current = child
     end
@@ -82,55 +82,74 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
     case boot_job_names.length
     when 0 then raise "Must be a bug!!!"
     when 1 then
-      edges.new(:origin_id => start.id,
-        :destination_id => child_by_name(boot_job_names.first).id)
+      new_edge(start, child_by_name(boot_job_names.first))
     else
       fork = Tengine::Job::Fork.new
       children << fork
-      edges.new(:origin_id => start.id, :destination_id => fork.id)
+      new_edge(start, fork)
       boot_job_names.each do |boot_job_name|
-        j = child_by_name(boot_job_name)
-        edges.new(:origin_id => fork.id, :destination_id => j.id)
+        new_edge(fork, child_by_name(boot_job_name))
       end
     end
   end
 
   def build_edge_by_redirections(redirections)
-    fork_node_counts = redirections.inject({}) do |d, (_start, _end)|
-      d[_start] ||= 0; d[_start] += 1; d
-    end
-    join_node_counts = redirections.inject({}) do |d, (_start, _end)|
-      d[_end  ] ||= 0; d[_end  ] += 1; d
-    end
-    fork_node_counts.delete_if{|k,v| v < 2}
-    join_node_counts.delete_if{|k,v| v < 2}
-    # puts "fork:" << fork_node_counts.inspect
-    # puts "join:" << join_node_counts.inspect
-    fork_node_counts.keys.each do |fork_from|
-      fork = Tengine::Job::Fork.new
-      children << fork
-      edges.new(
-        :origin_id => child_by_name(fork_from).id,
-        :destination_id => fork.id)
-      redirections.each do |(_start, _end)|
-        next unless _start == fork_from
-        edges.new(
-          :origin_id => fork.id,
-          :destination_id => child_by_name(_end).id)
+    # 各vertexがstartあるいはendとしてそれぞれ何回使われているのかを集計
+    start_vertex_counts = redirections.inject({}){|d, (_start, _)| d[_start] ||= 0; d[_start] += 1; d}
+    end_vertex_counts   = redirections.inject({}){|d, (_, _end)| d[_end  ] ||= 0; d[_end  ] += 1; d}
+    # ２回以上startに使われているやつはforkの元、２回以上endに使われているやつはjoinの先になる
+    fork_origins = start_vertex_counts.delete_if{|_,v| v < 2}.keys
+    join_destinations = end_vertex_counts.delete_if{|_,v| v < 2}.keys
+    # ForkからJoinへedgeで結ばれる箇所を「特異edge」と呼び、特別扱いする
+    fork_to_join = []
+    redirections.each do |(_start, _end)|
+      if fork_origins.include?(_start) && join_destinations.include?(_end)
+        fork_to_join << [_start, _end]
       end
     end
-    join_node_counts.keys.each do |join_to|
-      join = Tengine::Job::Join.new
-      children << join
-      redirections.each do |(_start, _end)|
-        next unless _end == join_to
-        edges.new(
-          :origin_id => child_by_name(_start).id,
-          :destination_id => join.id)
-      end
-      edges.new(
-        :origin_id => join.id,
-        :destination_id => child_by_name(join_to).id)
+
+    # puts "=" * 100
+    # puts "fork origins     : " << fork_origins.inspect
+    # puts "join_destinations: " << join_destinations.inspect
+    # puts "fork_to_join     : " << fork_to_join.inspect
+
+    # 1. Forkを生成して特異edge以外を繋ぐ
+    fork_origin_to_fork = {}
+    no_edge_redirections = redirections.dup
+    fork_origins.each do |fork_origin|
+      children << fork = Tengine::Job::Fork.new
+      fork_origin_to_fork[fork_origin] = fork
+      new_edge(child_by_name(fork_origin), fork)
+      redirections.
+        delete_if{|r| fork_to_join.include?(r)}.
+        select{|(_start,_)| _start == fork_origin}.
+        each{|(_, _end)| new_edge(fork, child_by_name(_end))}
+      no_edge_redirections.delete_if{|_start, _| _start == fork_origin}
+    end
+
+    # 2. Joinを生成して特異edge以外を繋ぐ
+    join_destination_to_join = {}
+    join_destinations.each do |join_destination|
+      children << join = Tengine::Job::Join.new
+      join_destination_to_join[join_destination] = join
+      redirections.
+        delete_if{|r| fork_to_join.include?(r)}.
+        select{|(_, _end)| _end == join_destination}.
+        each{|(_start, _)| new_edge(child_by_name(_start), join)}
+      new_edge(join, child_by_name(join_destination))
+      no_edge_redirections.delete_if{|_, _end| _end == join_destination}
+    end
+
+    # 3. 特異edgeの両端になるforkとjoinは生成されているのでそれらを繋ぐ
+    fork_to_join.each do |fork_origin, join_destination|
+      new_edge(
+        fork_origin_to_fork[fork_origin],
+        join_destination_to_join[join_destination])
+    end
+
+    # 4. Fork、Join、特異edgeなどに関係しなかった普通のedgeを繋ぎます
+    no_edge_redirections.each do |(_start, _end)|
+      new_edge(child_by_name(_start), child_by_name(_end))
     end
   end
 
@@ -138,24 +157,26 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
     end_points = select_end_points(redirections)
     case end_points.length
     when 0 then raise "Must be a bug!!!"
-    when 1 then edges.new(:origin_id => child_by_name(end_points.first).id,
-        :destination_id => _end.id)
+    when 1 then new_edge(child_by_name(end_points.first), _end)
     else
       join = Tengine::Job::Join.new
       children << join
-      end_points.each do |end_point|
-        j = child_by_name(end_point)
-        edges.new(:origin_id => j.id, :destination_id => join.id)
-      end
-      edges.new(:origin_id =>join.id, :destination_id => _end.id)
+      end_points.each{|point| new_edge(child_by_name(point), join)}
+      new_edge(join, _end)
     end
   end
 
   def select_end_points(redirections)
-    nodes = redirections.flatten.uniq
+    vertexes = redirections.flatten.uniq
     redirections.each do |(_start, _end)|
-      nodes.delete(_start)
+      vertexes.delete(_start)
     end
-    nodes
+    vertexes
+  end
+
+  def new_edge(origin, destination)
+    origin_id = origin.is_a?(Tengine::Job::Vertex) ? origin.id : origin
+    destination_id = destination.is_a?(Tengine::Job::Vertex) ? destination.id : destination
+    edges.new(:origin_id => origin_id, :destination_id => destination_id)
   end
 end

@@ -202,6 +202,69 @@ describe Tengine::Job::DslLoader do
       end
     end
 
+    context "0004_complex_fork_and_join.rb" do
+      before{
+        Tengine::Job::JobnetTemplate.delete_all
+        load_dsl("0004_complex_fork_and_join.rb")
+      }
+
+      it do
+        root_jobnet = Tengine::Job::JobnetTemplate.by_name("jobnet0004")
+        root_jobnet.should be_a(Tengine::Job::JobnetTemplate)
+        root_jobnet.tap do |j|
+          j.name.should == "jobnet0004"
+          j.description.should == "jobnet0004"
+          j.server_name.should == "i-11111111"
+          j.credential_name.should == "goku-ssh-pk1"
+        end
+        root_jobnet.children.map(&:class).should == [
+          Tengine::Job::Start         , # 0
+          Tengine::Job::ScriptTemplate, # 1
+          Tengine::Job::ScriptTemplate, # 2
+          Tengine::Job::ScriptTemplate, # 3
+          Tengine::Job::ScriptTemplate, # 4
+          Tengine::Job::ScriptTemplate, # 5
+          Tengine::Job::ScriptTemplate, # 6
+          Tengine::Job::ScriptTemplate, # 7
+          Tengine::Job::Fork          , # 8
+          Tengine::Job::Fork          , # 9
+          Tengine::Job::Fork          , # 10
+          Tengine::Job::Join          , # 11
+          Tengine::Job::Join          , # 12
+          Tengine::Job::End           , # 13
+        ]
+        (1..7).each do |idx|
+          root_jobnet.children[idx].tap{|j|
+            j.name.should == "job#{idx}"
+            j.description.should == "job#{idx}"
+            j.script.should == "echo 'job#{idx}'"
+          }
+        end
+
+        root_jobnet.edges.map{|edge| [edge.origin, edge.destination]}.should == [
+          [root_jobnet.children[ 0], root_jobnet.children[ 8]],
+          [root_jobnet.children[ 8], root_jobnet.children[ 1]],
+          [root_jobnet.children[ 8], root_jobnet.children[ 2]],
+
+          [root_jobnet.children[ 2], root_jobnet.children[ 9]],
+          [root_jobnet.children[ 9], root_jobnet.children[ 7]],
+
+
+          [root_jobnet.children[ 3], root_jobnet.children[10]],
+          [root_jobnet.children[10], root_jobnet.children[ 4]],
+          [root_jobnet.children[11], root_jobnet.children[ 6]],
+          [root_jobnet.children[ 9], root_jobnet.children[11]],
+          [root_jobnet.children[10], root_jobnet.children[11]],
+          [root_jobnet.children[ 1], root_jobnet.children[ 3]],
+          [root_jobnet.children[ 4], root_jobnet.children[ 5]],
+          [root_jobnet.children[ 6], root_jobnet.children[12]],
+          [root_jobnet.children[ 7], root_jobnet.children[12]],
+          [root_jobnet.children[ 5], root_jobnet.children[12]],
+          [root_jobnet.children[12], root_jobnet.children[13]],
+        ]
+      end
+    end
+
   end
 
 end
