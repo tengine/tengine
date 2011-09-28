@@ -316,6 +316,42 @@ describe Tengine::Job::DslLoader do
       end
     end
 
+    context "0006_expansion.rb" do
+      before{
+        Tengine::Job::JobnetTemplate.delete_all
+        load_dsl("0006_expansion.rb")
+      }
+
+      it do
+        root_jobnet = Tengine::Job::JobnetTemplate.by_name("jobnet0006")
+        root_jobnet.should be_a(Tengine::Job::JobnetTemplate)
+        root_jobnet.tap do |j|
+          j.name.should == "jobnet0006"
+          j.description.should == "jobnet0006"
+          j.server_name.should == nil
+          j.credential_name.should == nil
+        end
+        root_jobnet.children.map(&:class).should == [
+          Tengine::Job::Start    , # 0
+          Tengine::Job::Expansion, # 1
+          Tengine::Job::Expansion, # 2
+          Tengine::Job::End      , # 3
+        ]
+        root_jobnet.children[1].tap{|j| j.name.should == "jobnet0006_01" }
+        root_jobnet.children[2].tap{|j| j.name.should == "jobnet0006_02" }
+
+        root_jobnet.edges.map{|edge| [edge.origin, edge.destination]}.should == [
+          [root_jobnet.children[0], root_jobnet.children[1]],
+          [root_jobnet.children[1], root_jobnet.children[2]],
+          [root_jobnet.children[2], root_jobnet.children[3]],
+        ]
+        # expansion実行スケジュール登録時に参照するルートジョブネットをコピーするので
+        # テンプレートでは子要素を持ちません。
+        root_jobnet.children[1].children.should be_empty
+        root_jobnet.children[2].children.should be_empty
+      end
+    end
+
   end
 
 end

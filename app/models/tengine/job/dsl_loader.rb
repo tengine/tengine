@@ -77,6 +77,16 @@ module Tengine::Job::DslLoader
     jobnet("finally", :job_type_key => :finally, &block)
   end
 
+  def expansion(root_jobnet_name, options = {})
+    options = {
+      :name => root_jobnet_name,
+    }.update(options)
+    result = __with_redirection__(options) do
+      Tengine::Job::Expansion.new(options)
+    end
+    @jobnet.children << result
+    result
+  end
 
   private
   def __parse_job_args__(name, args)
