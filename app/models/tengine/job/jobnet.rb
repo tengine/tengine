@@ -73,11 +73,18 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
     end
   end
 
+  def new_edge(origin, destination)
+    origin_id = origin.is_a?(Tengine::Job::Vertex) ? origin.id : origin
+    destination_id = destination.is_a?(Tengine::Job::Vertex) ? destination.id : destination
+    edges.new(:origin_id => origin_id, :destination_id => destination_id)
+  end
+
   class Builder
 
     def initialize(client, boot_job_names, redirections)
       @client, @boot_job_names, @redirections = client, boot_job_names, redirections.dup
     end
+
     def children; @client.children; end
     def child_by_name(*args); @client.child_by_name(*args); end
     def new_edge(*args); @client.new_edge(*args); end
@@ -108,11 +115,11 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
     end
 
     def build_edge_by_redirections
-      prepare_to_build_edge_by_redirections
-      build_forks_and_edges
-      build_joins_and_edges
-      build_fork_to_join_edges
-      build_normal_edges
+      prepare_to_build_edge_by_redirections # 処理の準備
+      build_forks_and_edges      # Forkを生成して特異edge以外を繋ぐ
+      build_joins_and_edges      # Joinを生成して特異edge以外を繋ぐ
+      build_fork_to_join_edges   # 特異edgeの両端になるforkとjoinは生成されているのでそれらを繋ぐ
+      build_normal_edges         # Fork、Join、特異edgeなどに関係しなかった普通のedgeを繋ぐ
     end
 
     def prepare_to_build_edge_by_redirections
@@ -137,7 +144,6 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
     end
 
     def build_forks_and_edges
-      # 1. Forkを生成して特異edge以外を繋ぐ
       @fork_origin_to_fork = {}
       @fork_origins.each do |fork_origin|
         children << fork = Tengine::Job::Fork.new
@@ -152,7 +158,6 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
     end
 
     def build_joins_and_edges
-      # 2. Joinを生成して特異edge以外を繋ぐ
       @join_destination_to_join = {}
       @join_destinations.each do |join_destination|
         children << join = Tengine::Job::Join.new
@@ -167,7 +172,6 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
     end
 
     def build_fork_to_join_edges
-      # 3. 特異edgeの両端になるforkとjoinは生成されているのでそれらを繋ぐ
       @fork_to_join.each do |fork_origin, join_destination|
         new_edge(
           @fork_origin_to_fork[fork_origin],
@@ -176,7 +180,6 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
     end
 
     def build_normal_edges
-      # 4. Fork、Join、特異edgeなどに関係しなかった普通のedgeを繋ぎます
       @no_edge_redirections.each do |(_start, _end)|
         new_edge(child_by_name(_start), child_by_name(_end))
       end
@@ -203,12 +206,6 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
       vertexes
     end
 
-  end
-
-  def new_edge(origin, destination)
-    origin_id = origin.is_a?(Tengine::Job::Vertex) ? origin.id : origin
-    destination_id = destination.is_a?(Tengine::Job::Vertex) ? destination.id : destination
-    edges.new(:origin_id => origin_id, :destination_id => destination_id)
   end
 
 end
