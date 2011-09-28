@@ -4,5 +4,7 @@ module Tengine::Job::Connectable
   included do
     field :server_name, :type => String
     field :credential_name, :type => String
+
+    include Tengine::Job::MmCompatibility::Connectable
   end
 end

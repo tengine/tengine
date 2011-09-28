@@ -14,17 +14,25 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
 
   embeds_many :edges, :class_name => "Tengine::Job::Edge", :inverse_of => :owner
 
-  def build_sequencial_edges
-    self.edges.clear
+  class << self
+    def by_name(name)
+      first(:conditions => {:name => name})
+    end
+  end
+
+  def prepare_start_and_end
     unless self.children.first.is_a?(Tengine::Job::Start)
       self.children.unshift(Tengine::Job::Start.new)
     end
     unless self.children.last.is_a?(Tengine::Job::End)
       self.children.push(Tengine::Job::End.new)
     end
+  end
+
+  def build_sequencial_edges
+    self.edges.clear
     current = nil
     self.children.each do |child|
-      child.build_sequencial_edges if child.respond_to?(:build_sequencial_edges)
       next if child.is_a?(Tengine::Job::Jobnet) && (child.jobnet_type_key != :normal)
       if current
         self.edges.new(:origin_id => current.id, :destination_id =>child.id)
