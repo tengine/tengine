@@ -32,6 +32,8 @@ describe Tengine::Job::JobnetTemplate do
         jobnet12.children << job122   = Tengine::Job::ScriptTemplate.new(:name => "job122", :script => "job122.sh")
 
         jobnet1.build_sequencial_edges
+        jobnet1.save!
+
         jobnet1.children.map(&:class).should == [
           Tengine::Job::Start,
           Tengine::Job::JobnetTemplate,
@@ -96,6 +98,8 @@ describe Tengine::Job::JobnetTemplate do
         finally.children << job122   = Tengine::Job::ScriptTemplate.new(:name => "job122", :script => "job122.sh")
 
         jobnet1.build_sequencial_edges
+        jobnet1.save!
+
         jobnet1.children.map(&:class).should == [
           Tengine::Job::Start,
           Tengine::Job::JobnetTemplate,
@@ -132,6 +136,91 @@ describe Tengine::Job::JobnetTemplate do
         ]
       end
     end
+  end
+
+  context "並列処理" do
+
+    describe :join do
+      # job1 ---|
+      #         |--- job4 ---|
+      # job2 ---|            |
+      #                      |--- job5
+      # job3 ----------------|
+      #
+      # とMMでは書いていたものはこんな感じになります。
+      #
+      #          |--- job1 ---|
+      #          |            J--- job4 ---|
+      # start ---F--- job2 ---|            |
+      #          |                         J--- job5 --- end
+      #          |--- job3 ----------------|
+      it do
+        jobnet1 = Tengine::Job::JobnetTemplate.new(:name => "jobnet1")
+        jobnet1.children << _start = Tengine::Job::Start.new
+        jobnet1.children << fork1  = Tengine::Job::Fork.new
+        jobnet1.children << job1   = Tengine::Job::ScriptTemplate.new(:name => "job1", :script => "job1.sh")
+        jobnet1.children << job2   = Tengine::Job::ScriptTemplate.new(:name => "job2", :script => "job2.sh")
+        jobnet1.children << join1  = Tengine::Job::Join.new
+        jobnet1.children << job3   = Tengine::Job::ScriptTemplate.new(:name => "job3", :script => "job3.sh")
+        jobnet1.children << job4   = Tengine::Job::ScriptTemplate.new(:name => "job4", :script => "job4.sh")
+        jobnet1.children << join2  = Tengine::Job::Join.new
+        jobnet1.children << job5   = Tengine::Job::ScriptTemplate.new(:name => "job5", :script => "job5.sh")
+        jobnet1.children << _end   = Tengine::Job::End.new
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => _start.id, :destination_id => fork1.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => fork1.id, :destination_id => job1.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => fork1.id, :destination_id => job2.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => fork1.id, :destination_id => job3.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => job1.id, :destination_id => join1.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => job2.id, :destination_id => join1.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => join1.id, :destination_id => job4.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => job3.id, :destination_id => join2.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => job4.id, :destination_id => join2.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => join2.id, :destination_id => job5.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => job5.id, :destination_id => _end.id)
+        jobnet1.save!
+      end
+    end
+
+    describe :fork do
+      #         |--- job2
+      # job1 ---|              |--- job4
+      #         |--- job3 ---- |
+      #                        |--- job5
+      #
+      # とMMでは書いていたものはこんな感じになります。
+      #
+      #                   |--- job2--------------------|
+      #                   |                            |
+      # start --- job1 ---F              |--- job4 --- J---end
+      #                   |--- job3 ---- F             |
+      #                                  |--- job5 ----|
+      it do
+        jobnet1 = Tengine::Job::JobnetTemplate.new(:name => "jobnet1")
+        jobnet1.children << _start = Tengine::Job::Start.new
+        jobnet1.children << job1   = Tengine::Job::ScriptTemplate.new(:name => "job1", :script => "job1.sh")
+        jobnet1.children << fork1  = Tengine::Job::Fork.new
+        jobnet1.children << job2   = Tengine::Job::ScriptTemplate.new(:name => "job2", :script => "job2.sh")
+        jobnet1.children << job3   = Tengine::Job::ScriptTemplate.new(:name => "job3", :script => "job3.sh")
+        jobnet1.children << fork2  = Tengine::Job::Fork.new
+        jobnet1.children << job4   = Tengine::Job::ScriptTemplate.new(:name => "job4", :script => "job4.sh")
+        jobnet1.children << job5   = Tengine::Job::ScriptTemplate.new(:name => "job5", :script => "job5.sh")
+        jobnet1.children << join1  = Tengine::Job::Join.new
+        jobnet1.children << _end   = Tengine::Job::End.new
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => _start.id, :destination_id => job1.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => job1.id, :destination_id => fork1.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => fork1.id, :destination_id => job2.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => fork1.id, :destination_id => job3.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => job3.id, :destination_id => fork2.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => fork2.id, :destination_id => job4.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => fork2.id, :destination_id => job5.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => job2.id, :destination_id => join1.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => job4.id, :destination_id => join1.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => job5.id, :destination_id => join1.id)
+        jobnet1.edges << Tengine::Job::Edge.new(:origin_id => join1.id, :destination_id => _end.id)
+        jobnet1.save!
+      end
+    end
+
   end
 
 end
