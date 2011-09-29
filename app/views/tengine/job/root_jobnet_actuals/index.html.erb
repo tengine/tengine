@@ -44,7 +44,7 @@
     <td><%= root_jobnet_actual.stop_reason %></td>
     <td><%= root_jobnet_actual.dsl_version %></td>
     <td><%= root_jobnet_actual.lock_version %></td>
-    <td><%= root_jobnet_actual.template %></td>
+    <td><%= root_jobnet_actual.template ? root_jobnet_actual.template.name : nil %></td>
     <td><%= link_to_show root_jobnet_actual %></td>
     <td><%= link_to_edit edit_tengine_job_root_jobnet_actual_path(root_jobnet_actual) %></td>
     <td><%= link_to_destroy root_jobnet_actual, confirm: 'Are you sure?', method: :delete %></td>
