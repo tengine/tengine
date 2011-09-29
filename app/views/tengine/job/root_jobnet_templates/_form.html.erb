@@ -1,0 +1,57 @@
+<%= form_for(@root_jobnet_template, as:"root_jobnet_template") do |f| %>
+  <% if @root_jobnet_template.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= I18n.t('activerecord.errors.template.header', :count => @root_jobnet_template.errors.size, :model => @root_jobnet_template.class.human_name) %></h2>
+
+      <ul>
+      <% @root_jobnet_template.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :server_name %><br />
+    <%= f.text_field :server_name %>
+  </div>
+  <div class="field">
+    <%= f.label :credential_name %><br />
+    <%= f.text_field :credential_name %>
+  </div>
+  <div class="field">
+    <%= f.label :killing_signals_text %><br />
+    <%= f.text_field :killing_signals_text %>
+  </div>
+  <div class="field">
+    <%= f.label :killing_signal_interval %><br />
+    <%= f.number_field :killing_signal_interval %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :script %><br />
+    <%= f.text_field :script %>
+  </div>
+  <div class="field">
+    <%= f.label :jobnet_type_cd %><br />
+    <%= f.number_field :jobnet_type_cd %>
+  </div>
+  <div class="field">
+    <%= f.label :dsl_version %><br />
+    <%= f.text_field :dsl_version %>
+  </div>
+  <div class="field">
+    <%= f.label :lock_version %><br />
+    <%= f.number_field :lock_version %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
