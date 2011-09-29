@@ -8,8 +8,8 @@ describe "tengine/job/script_actuals/show.html.erb" do
       :credential_name => "Credential Name",
       :killing_signals => ["abc", "123"],
       :killing_signal_interval => 1,
+      :description => "Description",
       :script => "Script",
-      :has_chained_children => false,
       :executing_pid => "Executing Pid",
       :exit_status => "Exit Status",
       :phase_cd => 1,
@@ -25,8 +25,8 @@ describe "tengine/job/script_actuals/show.html.erb" do
     rendered.should match(/Credential Name/)
     rendered.should match(/#{Regexp.escape(CGI.escapeHTML("abc,123"))}/)
     rendered.should match(/1/)
+    rendered.should match(/Description/)
     rendered.should match(/Script/)
-    rendered.should match(/false/)
     rendered.should match(/Executing Pid/)
     rendered.should match(/Exit Status/)
     rendered.should match(/1/)

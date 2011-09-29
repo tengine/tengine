@@ -9,8 +9,8 @@ describe "tengine/job/script_actuals/index.html.erb" do
         :credential_name => "Credential Name",
         :killing_signals => ["abc", "123"],
         :killing_signal_interval => 1,
+        :description => "Description",
         :script => "Script",
-        :has_chained_children => false,
         :executing_pid => "Executing Pid",
         :exit_status => "Exit Status",
         :phase_cd => 2,
@@ -22,8 +22,8 @@ describe "tengine/job/script_actuals/index.html.erb" do
         :credential_name => "Credential Name",
         :killing_signals => ["abc", "123"],
         :killing_signal_interval => 1,
+        :description => "Description",
         :script => "Script",
-        :has_chained_children => false,
         :executing_pid => "Executing Pid",
         :exit_status => "Exit Status",
         :phase_cd => 2,
@@ -40,8 +40,8 @@ describe "tengine/job/script_actuals/index.html.erb" do
     assert_select "tr>td", :text => "Credential Name".to_s, :count => 2
     assert_select "tr>td", :text => "abc,123", :count => 2
     assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select "tr>td", :text => "Description".to_s, :count => 2
     assert_select "tr>td", :text => "Script".to_s, :count => 2
-    assert_select "tr>td", :text => false.to_s, :count => 2
     assert_select "tr>td", :text => "Executing Pid".to_s, :count => 2
     assert_select "tr>td", :text => "Exit Status".to_s, :count => 2
     assert_select "tr>td", :text => 2.to_s, :count => 2

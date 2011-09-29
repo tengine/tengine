@@ -7,7 +7,8 @@ describe "tengine/job/expansions/edit.html.erb" do
       :server_name => "MyString",
       :credential_name => "MyString",
       :killing_signals => ["abc", "123"],
-      :killing_signal_interval => 1
+      :killing_signal_interval => 1,
+      :description => "MyString"
     ))
   end
 
@@ -21,6 +22,7 @@ describe "tengine/job/expansions/edit.html.erb" do
       assert_select "input#expansion_credential_name", :name => "expansion[credential_name]"
       assert_select "input#expansion_killing_signals_text", :name => "expansion[killing_signals_text]"
       assert_select "input#expansion_killing_signal_interval", :name => "expansion[killing_signal_interval]"
+      assert_select "input#expansion_description", :name => "expansion[description]"
     end
   end
 end

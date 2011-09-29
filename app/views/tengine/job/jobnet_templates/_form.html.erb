@@ -36,16 +36,12 @@
     <%= f.text_field :description %>
   </div>
   <div class="field">
+    <%= f.label :script %><br />
+    <%= f.text_field :script %>
+  </div>
+  <div class="field">
     <%= f.label :jobnet_type_cd %><br />
     <%= f.number_field :jobnet_type_cd %>
-  </div>
-  <div class="field">
-    <%= f.label :dsl_version %><br />
-    <%= f.text_field :dsl_version %>
-  </div>
-  <div class="field">
-    <%= f.label :lock_version %><br />
-    <%= f.number_field :lock_version %>
   </div>
   <div class="actions">
     <%= f.submit %>

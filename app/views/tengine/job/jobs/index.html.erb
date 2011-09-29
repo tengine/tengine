@@ -9,6 +9,7 @@
     <th><%= Tengine::Job::Job.human_attribute_name(:credential_name) %></th>
     <th><%= Tengine::Job::Job.human_attribute_name(:killing_signals) %></th>
     <th><%= Tengine::Job::Job.human_attribute_name(:killing_signal_interval) %></th>
+    <th><%= Tengine::Job::Job.human_attribute_name(:description) %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -21,6 +22,7 @@
     <td><%= job.credential_name %></td>
     <td><%= job.killing_signals_text %></td>
     <td><%= job.killing_signal_interval %></td>
+    <td><%= job.description %></td>
     <td><%= link_to_show job %></td>
     <td><%= link_to_edit edit_tengine_job_job_path(job) %></td>
     <td><%= link_to_destroy job, confirm: 'Are you sure?', method: :delete %></td>

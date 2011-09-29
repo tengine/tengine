@@ -9,8 +9,8 @@
     <th><%= Tengine::Job::ScriptActual.human_attribute_name(:credential_name) %></th>
     <th><%= Tengine::Job::ScriptActual.human_attribute_name(:killing_signals) %></th>
     <th><%= Tengine::Job::ScriptActual.human_attribute_name(:killing_signal_interval) %></th>
+    <th><%= Tengine::Job::ScriptActual.human_attribute_name(:description) %></th>
     <th><%= Tengine::Job::ScriptActual.human_attribute_name(:script) %></th>
-    <th><%= Tengine::Job::ScriptActual.human_attribute_name(:has_chained_children) %></th>
     <th><%= Tengine::Job::ScriptActual.human_attribute_name(:executing_pid) %></th>
     <th><%= Tengine::Job::ScriptActual.human_attribute_name(:exit_status) %></th>
     <th><%= Tengine::Job::ScriptActual.human_attribute_name(:phase_cd) %></th>
@@ -30,8 +30,8 @@
     <td><%= script_actual.credential_name %></td>
     <td><%= script_actual.killing_signals_text %></td>
     <td><%= script_actual.killing_signal_interval %></td>
+    <td><%= script_actual.description %></td>
     <td><%= script_actual.script %></td>
-    <td><%= script_actual.has_chained_children %></td>
     <td><%= script_actual.executing_pid %></td>
     <td><%= script_actual.exit_status %></td>
     <td><%= script_actual.phase_cd %></td>

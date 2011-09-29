@@ -7,6 +7,7 @@ FactoryGirl.define do
     credential_name("MyString")
     killing_signals(["abc", "123"])
     killing_signal_interval(1)
+    description("MyString")
     script("MyString")
   end
 end

@@ -7,14 +7,14 @@ FactoryGirl.define do
     credential_name("MyString")
     killing_signals(["abc", "123"])
     killing_signal_interval(1)
+    description("MyString")
     script("MyString")
-    has_chained_children(false)
     executing_pid("MyString")
     exit_status("MyString")
     phase_cd(1)
-    started_at("2011-09-27 19:00:11")
-    finished_at("2011-09-27 19:00:11")
-    stopped_at("2011-09-27 19:00:11")
+    started_at("2011-09-29 09:55:32")
+    finished_at("2011-09-29 09:55:32")
+    stopped_at("2011-09-29 09:55:32")
     stop_reason("MyString")
   end
 end

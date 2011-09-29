@@ -8,6 +8,7 @@ describe "tengine/job/scripts/edit.html.erb" do
       :credential_name => "MyString",
       :killing_signals => ["abc", "123"],
       :killing_signal_interval => 1,
+      :description => "MyString",
       :script => "MyString"
     ))
   end
@@ -22,6 +23,7 @@ describe "tengine/job/scripts/edit.html.erb" do
       assert_select "input#script_credential_name", :name => "script[credential_name]"
       assert_select "input#script_killing_signals_text", :name => "script[killing_signals_text]"
       assert_select "input#script_killing_signal_interval", :name => "script[killing_signal_interval]"
+      assert_select "input#script_description", :name => "script[description]"
       assert_select "input#script_script", :name => "script[script]"
     end
   end

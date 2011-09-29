@@ -36,16 +36,12 @@
     <%= f.text_field :description %>
   </div>
   <div class="field">
+    <%= f.label :script %><br />
+    <%= f.text_field :script %>
+  </div>
+  <div class="field">
     <%= f.label :jobnet_type_cd %><br />
     <%= f.number_field :jobnet_type_cd %>
-  </div>
-  <div class="field">
-    <%= f.label :dsl_version %><br />
-    <%= f.text_field :dsl_version %>
-  </div>
-  <div class="field">
-    <%= f.label :lock_version %><br />
-    <%= f.number_field :lock_version %>
   </div>
   <div class="field">
     <%= f.label :was_expansion %><br />
@@ -57,15 +53,15 @@
   </div>
   <div class="field">
     <%= f.label :started_at %><br />
-    <%= f.time_select :started_at %>
+    <%= f.datetime_select :started_at %>
   </div>
   <div class="field">
     <%= f.label :finished_at %><br />
-    <%= f.time_select :finished_at %>
+    <%= f.datetime_select :finished_at %>
   </div>
   <div class="field">
     <%= f.label :stopped_at %><br />
-    <%= f.time_select :stopped_at %>
+    <%= f.datetime_select :stopped_at %>
   </div>
   <div class="field">
     <%= f.label :stop_reason %><br />

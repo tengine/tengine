@@ -27,6 +27,11 @@
   <%= @expansion.killing_signal_interval %>
 </p>
 
+<p>
+  <b><%= Tengine::Job::Expansion.human_attribute_name(:description) %>:</b>
+  <%= @expansion.description %>
+</p>
+
 
 <%= link_to_edit edit_tengine_job_expansion_path(@expansion) %> |
 <%= link_to_back_list tengine_job_expansions_path %>

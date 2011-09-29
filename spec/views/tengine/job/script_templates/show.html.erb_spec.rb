@@ -8,8 +8,8 @@ describe "tengine/job/script_templates/show.html.erb" do
       :credential_name => "Credential Name",
       :killing_signals => ["abc", "123"],
       :killing_signal_interval => 1,
-      :script => "Script",
-      :has_chained_children => false
+      :description => "Description",
+      :script => "Script"
     ))
   end
 
@@ -21,7 +21,7 @@ describe "tengine/job/script_templates/show.html.erb" do
     rendered.should match(/Credential Name/)
     rendered.should match(/#{Regexp.escape(CGI.escapeHTML("abc,123"))}/)
     rendered.should match(/1/)
+    rendered.should match(/Description/)
     rendered.should match(/Script/)
-    rendered.should match(/false/)
   end
 end

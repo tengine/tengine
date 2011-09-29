@@ -9,9 +9,8 @@ describe "tengine/job/jobnet_templates/new.html.erb" do
       :killing_signals => ["abc", "123"],
       :killing_signal_interval => 1,
       :description => "MyString",
-      :jobnet_type_cd => 1,
-      :dsl_version => "MyString",
-      :lock_version => 1
+      :script => "MyString",
+      :jobnet_type_cd => 1
     ).as_new_record)
   end
 
@@ -26,9 +25,8 @@ describe "tengine/job/jobnet_templates/new.html.erb" do
       assert_select "input#jobnet_template_killing_signals_text", :name => "jobnet_template[killing_signals_text]"
       assert_select "input#jobnet_template_killing_signal_interval", :name => "jobnet_template[killing_signal_interval]"
       assert_select "input#jobnet_template_description", :name => "jobnet_template[description]"
+      assert_select "input#jobnet_template_script", :name => "jobnet_template[script]"
       assert_select "input#jobnet_template_jobnet_type_cd", :name => "jobnet_template[jobnet_type_cd]"
-      assert_select "input#jobnet_template_dsl_version", :name => "jobnet_template[dsl_version]"
-      assert_select "input#jobnet_template_lock_version", :name => "jobnet_template[lock_version]"
     end
   end
 end

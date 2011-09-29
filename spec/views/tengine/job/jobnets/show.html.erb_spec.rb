@@ -8,11 +8,9 @@ describe "tengine/job/jobnets/show.html.erb" do
       :credential_name => "Credential Name",
       :killing_signals => ["abc", "123"],
       :killing_signal_interval => 1,
-      :script => "Script",
       :description => "Description",
-      :jobnet_type_cd => 1,
-      :dsl_version => "Dsl Version",
-      :lock_version => 1
+      :script => "Script",
+      :jobnet_type_cd => 1
     ))
   end
 
@@ -24,10 +22,8 @@ describe "tengine/job/jobnets/show.html.erb" do
     rendered.should match(/Credential Name/)
     rendered.should match(/#{Regexp.escape(CGI.escapeHTML("abc,123"))}/)
     rendered.should match(/1/)
-    rendered.should match(/Script/)
     rendered.should match(/Description/)
-    rendered.should match(/1/)
-    rendered.should match(/Dsl Version/)
+    rendered.should match(/Script/)
     rendered.should match(/1/)
   end
 end

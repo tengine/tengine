@@ -7,7 +7,8 @@ describe "tengine/job/jobs/show.html.erb" do
       :server_name => "Server Name",
       :credential_name => "Credential Name",
       :killing_signals => ["abc", "123"],
-      :killing_signal_interval => 1
+      :killing_signal_interval => 1,
+      :description => "Description"
     ))
   end
 
@@ -19,5 +20,6 @@ describe "tengine/job/jobs/show.html.erb" do
     rendered.should match(/Credential Name/)
     rendered.should match(/#{Regexp.escape(CGI.escapeHTML("abc,123"))}/)
     rendered.should match(/1/)
+    rendered.should match(/Description/)
   end
 end

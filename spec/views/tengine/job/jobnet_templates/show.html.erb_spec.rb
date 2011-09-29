@@ -9,9 +9,8 @@ describe "tengine/job/jobnet_templates/show.html.erb" do
       :killing_signals => ["abc", "123"],
       :killing_signal_interval => 1,
       :description => "Description",
-      :jobnet_type_cd => 1,
-      :dsl_version => "Dsl Version",
-      :lock_version => 1
+      :script => "Script",
+      :jobnet_type_cd => 1
     ))
   end
 
@@ -24,8 +23,7 @@ describe "tengine/job/jobnet_templates/show.html.erb" do
     rendered.should match(/#{Regexp.escape(CGI.escapeHTML("abc,123"))}/)
     rendered.should match(/1/)
     rendered.should match(/Description/)
-    rendered.should match(/1/)
-    rendered.should match(/Dsl Version/)
+    rendered.should match(/Script/)
     rendered.should match(/1/)
   end
 end

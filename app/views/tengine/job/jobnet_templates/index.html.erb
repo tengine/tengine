@@ -10,9 +10,8 @@
     <th><%= Tengine::Job::JobnetTemplate.human_attribute_name(:killing_signals) %></th>
     <th><%= Tengine::Job::JobnetTemplate.human_attribute_name(:killing_signal_interval) %></th>
     <th><%= Tengine::Job::JobnetTemplate.human_attribute_name(:description) %></th>
+    <th><%= Tengine::Job::JobnetTemplate.human_attribute_name(:script) %></th>
     <th><%= Tengine::Job::JobnetTemplate.human_attribute_name(:jobnet_type_cd) %></th>
-    <th><%= Tengine::Job::JobnetTemplate.human_attribute_name(:dsl_version) %></th>
-    <th><%= Tengine::Job::JobnetTemplate.human_attribute_name(:lock_version) %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -26,9 +25,8 @@
     <td><%= jobnet_template.killing_signals_text %></td>
     <td><%= jobnet_template.killing_signal_interval %></td>
     <td><%= jobnet_template.description %></td>
+    <td><%= jobnet_template.script %></td>
     <td><%= jobnet_template.jobnet_type_cd %></td>
-    <td><%= jobnet_template.dsl_version %></td>
-    <td><%= jobnet_template.lock_version %></td>
     <td><%= link_to_show jobnet_template %></td>
     <td><%= link_to_edit edit_tengine_job_jobnet_template_path(jobnet_template) %></td>
     <td><%= link_to_destroy jobnet_template, confirm: 'Are you sure?', method: :delete %></td>

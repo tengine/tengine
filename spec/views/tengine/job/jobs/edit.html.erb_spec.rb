@@ -7,7 +7,8 @@ describe "tengine/job/jobs/edit.html.erb" do
       :server_name => "MyString",
       :credential_name => "MyString",
       :killing_signals => ["abc", "123"],
-      :killing_signal_interval => 1
+      :killing_signal_interval => 1,
+      :description => "MyString"
     ))
   end
 
@@ -21,6 +22,7 @@ describe "tengine/job/jobs/edit.html.erb" do
       assert_select "input#job_credential_name", :name => "job[credential_name]"
       assert_select "input#job_killing_signals_text", :name => "job[killing_signals_text]"
       assert_select "input#job_killing_signal_interval", :name => "job[killing_signal_interval]"
+      assert_select "input#job_description", :name => "job[description]"
     end
   end
 end

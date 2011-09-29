@@ -10,9 +10,8 @@
     <th><%= Tengine::Job::JobnetActual.human_attribute_name(:killing_signals) %></th>
     <th><%= Tengine::Job::JobnetActual.human_attribute_name(:killing_signal_interval) %></th>
     <th><%= Tengine::Job::JobnetActual.human_attribute_name(:description) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:script) %></th>
     <th><%= Tengine::Job::JobnetActual.human_attribute_name(:jobnet_type_cd) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:dsl_version) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:lock_version) %></th>
     <th><%= Tengine::Job::JobnetActual.human_attribute_name(:was_expansion) %></th>
     <th><%= Tengine::Job::JobnetActual.human_attribute_name(:phase_cd) %></th>
     <th><%= Tengine::Job::JobnetActual.human_attribute_name(:started_at) %></th>
@@ -32,9 +31,8 @@
     <td><%= jobnet_actual.killing_signals_text %></td>
     <td><%= jobnet_actual.killing_signal_interval %></td>
     <td><%= jobnet_actual.description %></td>
+    <td><%= jobnet_actual.script %></td>
     <td><%= jobnet_actual.jobnet_type_cd %></td>
-    <td><%= jobnet_actual.dsl_version %></td>
-    <td><%= jobnet_actual.lock_version %></td>
     <td><%= jobnet_actual.was_expansion %></td>
     <td><%= jobnet_actual.phase_cd %></td>
     <td><%= jobnet_actual.started_at %></td>

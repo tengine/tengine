@@ -9,6 +9,7 @@
     <th><%= Tengine::Job::Script.human_attribute_name(:credential_name) %></th>
     <th><%= Tengine::Job::Script.human_attribute_name(:killing_signals) %></th>
     <th><%= Tengine::Job::Script.human_attribute_name(:killing_signal_interval) %></th>
+    <th><%= Tengine::Job::Script.human_attribute_name(:description) %></th>
     <th><%= Tengine::Job::Script.human_attribute_name(:script) %></th>
     <th></th>
     <th></th>
@@ -22,6 +23,7 @@
     <td><%= script.credential_name %></td>
     <td><%= script.killing_signals_text %></td>
     <td><%= script.killing_signal_interval %></td>
+    <td><%= script.description %></td>
     <td><%= script.script %></td>
     <td><%= link_to_show script %></td>
     <td><%= link_to_edit edit_tengine_job_script_path(script) %></td>

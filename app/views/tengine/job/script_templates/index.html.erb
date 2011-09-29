@@ -9,8 +9,8 @@
     <th><%= Tengine::Job::ScriptTemplate.human_attribute_name(:credential_name) %></th>
     <th><%= Tengine::Job::ScriptTemplate.human_attribute_name(:killing_signals) %></th>
     <th><%= Tengine::Job::ScriptTemplate.human_attribute_name(:killing_signal_interval) %></th>
+    <th><%= Tengine::Job::ScriptTemplate.human_attribute_name(:description) %></th>
     <th><%= Tengine::Job::ScriptTemplate.human_attribute_name(:script) %></th>
-    <th><%= Tengine::Job::ScriptTemplate.human_attribute_name(:has_chained_children) %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -23,8 +23,8 @@
     <td><%= script_template.credential_name %></td>
     <td><%= script_template.killing_signals_text %></td>
     <td><%= script_template.killing_signal_interval %></td>
+    <td><%= script_template.description %></td>
     <td><%= script_template.script %></td>
-    <td><%= script_template.has_chained_children %></td>
     <td><%= link_to_show script_template %></td>
     <td><%= link_to_edit edit_tengine_job_script_template_path(script_template) %></td>
     <td><%= link_to_destroy script_template, confirm: 'Are you sure?', method: :delete %></td>

@@ -8,14 +8,16 @@ describe "tengine/job/expansions/index.html.erb" do
         :server_name => "Server Name",
         :credential_name => "Credential Name",
         :killing_signals => ["abc", "123"],
-        :killing_signal_interval => 1
+        :killing_signal_interval => 1,
+        :description => "Description"
       ),
       stub_model(Tengine::Job::Expansion,
         :name => "Name",
         :server_name => "Server Name",
         :credential_name => "Credential Name",
         :killing_signals => ["abc", "123"],
-        :killing_signal_interval => 1
+        :killing_signal_interval => 1,
+        :description => "Description"
       )
     ]))
   end
@@ -28,5 +30,6 @@ describe "tengine/job/expansions/index.html.erb" do
     assert_select "tr>td", :text => "Credential Name".to_s, :count => 2
     assert_select "tr>td", :text => "abc,123", :count => 2
     assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select "tr>td", :text => "Description".to_s, :count => 2
   end
 end
