@@ -38,6 +38,8 @@ group :test, :development do
 
   # gem "rcov", ">= 0"
   gem "simplecov", "~> 0.5.3"
+
+  gem 'therubyracer', "~> 0.9.4"
 end
 
 
