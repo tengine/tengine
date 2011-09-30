@@ -80,7 +80,7 @@ end
 前提 /^"([^"]*)"が停止している$/ do |name|
   if name == "DBプロセス"
     if system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
-      raise "MongoDBの停止に失敗しました"  unless system("mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js")
+      raise "MongoDBの停止に失敗しました"  unless system("mongo localhost:21039/admin features/step_definitions/mongodb/shutdown")
     end
   elsif name == "キュープロセス"
     io = IO.popen("rabbitmqctl status")
