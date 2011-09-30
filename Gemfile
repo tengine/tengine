@@ -19,6 +19,7 @@ gem "kaminari", "~> 0.12.4"
 
 gem "tengine_event", "~> 0.2.5"
 gem "tengine_core", "~> 0.1.0"
+gem "tengine_job", "~> 0.0.1"
 
 gem "daemons", "~> 1.1.4"
 
