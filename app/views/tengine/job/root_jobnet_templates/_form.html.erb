@@ -48,6 +48,10 @@
     <%= f.text_field :category_id %>
   </div>
   <div class="field">
+    <%= f.label :lock_version %><br />
+    <%= f.number_field :lock_version %>
+  </div>
+  <div class="field">
     <%= f.label :dsl_filepath %><br />
     <%= f.text_field :dsl_filepath %>
   </div>
@@ -58,10 +62,6 @@
   <div class="field">
     <%= f.label :dsl_version %><br />
     <%= f.text_field :dsl_version %>
-  </div>
-  <div class="field">
-    <%= f.label :lock_version %><br />
-    <%= f.number_field :lock_version %>
   </div>
   <div class="actions">
     <%= f.submit %>

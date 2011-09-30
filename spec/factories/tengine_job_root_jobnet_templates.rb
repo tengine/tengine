@@ -11,9 +11,9 @@ FactoryGirl.define do
     script("MyString")
     jobnet_type_cd(1)
     category(nil)
+    lock_version(1)
     dsl_filepath("MyString")
     dsl_lineno(1)
     dsl_version("MyString")
-    lock_version(1)
   end
 end

@@ -15,9 +15,6 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
       :phase_cd => 1,
       :stop_reason => "Stop Reason",
       :category => nil,
-      :dsl_filepath => "Dsl Filepath",
-      :dsl_lineno => 1,
-      :dsl_version => "Dsl Version",
       :lock_version => 1,
       :template => nil
     ))
@@ -38,9 +35,6 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
     rendered.should match(/1/)
     rendered.should match(/Stop Reason/)
     rendered.should match(//)
-    rendered.should match(/Dsl Filepath/)
-    rendered.should match(/1/)
-    rendered.should match(/Dsl Version/)
     rendered.should match(/1/)
     rendered.should match(//)
   end

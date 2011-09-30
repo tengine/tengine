@@ -48,6 +48,11 @@
 </p>
 
 <p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:lock_version) %>:</b>
+  <%= @root_jobnet_template.lock_version %>
+</p>
+
+<p>
   <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_filepath) %>:</b>
   <%= @root_jobnet_template.dsl_filepath %>
 </p>
@@ -60,11 +65,6 @@
 <p>
   <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_version) %>:</b>
   <%= @root_jobnet_template.dsl_version %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:lock_version) %>:</b>
-  <%= @root_jobnet_template.lock_version %>
 </p>
 
 

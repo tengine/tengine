@@ -14,10 +14,10 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
         :script => "Script",
         :jobnet_type_cd => 2,
         :category => category,
+        :lock_version => 3,
         :dsl_filepath => "Dsl Filepath",
-        :dsl_lineno => 3,
-        :dsl_version => "Dsl Version",
-        :lock_version => 4
+        :dsl_lineno => 4,
+        :dsl_version => "Dsl Version"
       ),
       stub_model(Tengine::Job::RootJobnetTemplate,
         :name => "Name",
@@ -29,10 +29,10 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
         :script => "Script",
         :jobnet_type_cd => 2,
         :category => category,
+        :lock_version => 3,
         :dsl_filepath => "Dsl Filepath",
-        :dsl_lineno => 3,
-        :dsl_version => "Dsl Version",
-        :lock_version => 4
+        :dsl_lineno => 4,
+        :dsl_version => "Dsl Version"
       )
     ]))
   end
@@ -48,10 +48,10 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
     assert_select "tr>td", :text => "Description".to_s, :count => 2
     assert_select "tr>td", :text => "Script".to_s, :count => 2
     assert_select "tr>td", :text => 2.to_s, :count => 2
-    assert_select "tr>td", :text => "category".to_s, :count => 2
-    assert_select "tr>td", :text => "Dsl Filepath".to_s, :count => 2
+    assert_select "tr>td", :text => "category", :count => 2
     assert_select "tr>td", :text => 3.to_s, :count => 2
-    assert_select "tr>td", :text => "Dsl Version".to_s, :count => 2
+    assert_select "tr>td", :text => "Dsl Filepath".to_s, :count => 2
     assert_select "tr>td", :text => 4.to_s, :count => 2
+    assert_select "tr>td", :text => "Dsl Version".to_s, :count => 2
   end
 end
