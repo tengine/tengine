@@ -11,6 +11,9 @@ describe "tengine/job/root_jobnet_templates/show.html.erb" do
       :description => "Description",
       :script => "Script",
       :jobnet_type_cd => 1,
+      :category => nil,
+      :dsl_filepath => "Dsl Filepath",
+      :dsl_lineno => 1,
       :dsl_version => "Dsl Version",
       :lock_version => 1
     ))
@@ -26,6 +29,9 @@ describe "tengine/job/root_jobnet_templates/show.html.erb" do
     rendered.should match(/1/)
     rendered.should match(/Description/)
     rendered.should match(/Script/)
+    rendered.should match(/1/)
+    rendered.should match(//)
+    rendered.should match(/Dsl Filepath/)
     rendered.should match(/1/)
     rendered.should match(/Dsl Version/)
     rendered.should match(/1/)

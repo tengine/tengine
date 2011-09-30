@@ -11,6 +11,9 @@ describe "tengine/job/root_jobnet_templates/new.html.erb" do
       :description => "MyString",
       :script => "MyString",
       :jobnet_type_cd => 1,
+      :category => nil,
+      :dsl_filepath => "MyString",
+      :dsl_lineno => 1,
       :dsl_version => "MyString",
       :lock_version => 1
     ).as_new_record)
@@ -29,6 +32,9 @@ describe "tengine/job/root_jobnet_templates/new.html.erb" do
       assert_select "input#root_jobnet_template_description", :name => "root_jobnet_template[description]"
       assert_select "input#root_jobnet_template_script", :name => "root_jobnet_template[script]"
       assert_select "input#root_jobnet_template_jobnet_type_cd", :name => "root_jobnet_template[jobnet_type_cd]"
+      assert_select "input#root_jobnet_template_category_id", :name => "root_jobnet_template[category_id]"
+      assert_select "input#root_jobnet_template_dsl_filepath", :name => "root_jobnet_template[dsl_filepath]"
+      assert_select "input#root_jobnet_template_dsl_lineno", :name => "root_jobnet_template[dsl_lineno]"
       assert_select "input#root_jobnet_template_dsl_version", :name => "root_jobnet_template[dsl_version]"
       assert_select "input#root_jobnet_template_lock_version", :name => "root_jobnet_template[lock_version]"
     end

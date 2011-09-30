@@ -14,6 +14,9 @@ describe "tengine/job/root_jobnet_actuals/new.html.erb" do
       :was_expansion => false,
       :phase_cd => 1,
       :stop_reason => "MyString",
+      :category => nil,
+      :dsl_filepath => "MyString",
+      :dsl_lineno => 1,
       :dsl_version => "MyString",
       :lock_version => 1,
       :template => nil
@@ -36,6 +39,9 @@ describe "tengine/job/root_jobnet_actuals/new.html.erb" do
       assert_select "input#root_jobnet_actual_was_expansion", :name => "root_jobnet_actual[was_expansion]"
       assert_select "input#root_jobnet_actual_phase_cd", :name => "root_jobnet_actual[phase_cd]"
       assert_select "input#root_jobnet_actual_stop_reason", :name => "root_jobnet_actual[stop_reason]"
+      assert_select "input#root_jobnet_actual_category_id", :name => "root_jobnet_actual[category_id]"
+      assert_select "input#root_jobnet_actual_dsl_filepath", :name => "root_jobnet_actual[dsl_filepath]"
+      assert_select "input#root_jobnet_actual_dsl_lineno", :name => "root_jobnet_actual[dsl_lineno]"
       assert_select "input#root_jobnet_actual_dsl_version", :name => "root_jobnet_actual[dsl_version]"
       assert_select "input#root_jobnet_actual_lock_version", :name => "root_jobnet_actual[lock_version]"
       assert_select "input#root_jobnet_actual_template_id", :name => "root_jobnet_actual[template_id]"

@@ -43,6 +43,21 @@
 </p>
 
 <p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:category) %>:</b>
+  <%= @root_jobnet_template.category %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_filepath) %>:</b>
+  <%= @root_jobnet_template.dsl_filepath %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_lineno) %>:</b>
+  <%= @root_jobnet_template.dsl_lineno %>
+</p>
+
+<p>
   <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_version) %>:</b>
   <%= @root_jobnet_template.dsl_version %>
 </p>

@@ -73,6 +73,21 @@
 </p>
 
 <p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:category) %>:</b>
+  <%= @root_jobnet_actual.category %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:dsl_filepath) %>:</b>
+  <%= @root_jobnet_actual.dsl_filepath %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:dsl_lineno) %>:</b>
+  <%= @root_jobnet_actual.dsl_lineno %>
+</p>
+
+<p>
   <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:dsl_version) %>:</b>
   <%= @root_jobnet_actual.dsl_version %>
 </p>

@@ -18,6 +18,9 @@
     <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at) %></th>
     <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:stopped_at) %></th>
     <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:stop_reason) %></th>
+    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:category) %></th>
+    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:dsl_filepath) %></th>
+    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:dsl_lineno) %></th>
     <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:dsl_version) %></th>
     <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:lock_version) %></th>
     <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:template) %></th>
@@ -42,9 +45,12 @@
     <td><%= root_jobnet_actual.finished_at %></td>
     <td><%= root_jobnet_actual.stopped_at %></td>
     <td><%= root_jobnet_actual.stop_reason %></td>
+    <td><%= root_jobnet_actual.category %></td>
+    <td><%= root_jobnet_actual.dsl_filepath %></td>
+    <td><%= root_jobnet_actual.dsl_lineno %></td>
     <td><%= root_jobnet_actual.dsl_version %></td>
     <td><%= root_jobnet_actual.lock_version %></td>
-    <td><%= root_jobnet_actual.template ? root_jobnet_actual.template.name : nil %></td>
+    <td><%= root_jobnet_actual.template %></td>
     <td><%= link_to_show root_jobnet_actual %></td>
     <td><%= link_to_edit edit_tengine_job_root_jobnet_actual_path(root_jobnet_actual) %></td>
     <td><%= link_to_destroy root_jobnet_actual, confirm: 'Are you sure?', method: :delete %></td>
