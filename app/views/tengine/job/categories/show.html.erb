@@ -3,6 +3,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <b><%= Tengine::Job::Category.human_attribute_name(:dsl_version) %>:</b>
+  <%= @category.dsl_version %>
+</p>
+
+<p>
   <b><%= Tengine::Job::Category.human_attribute_name(:parent) %>:</b>
   <%= @category.parent %>
 </p>

@@ -4,6 +4,7 @@
 
 <table>
   <tr>
+    <th><%= Tengine::Job::Category.human_attribute_name(:dsl_version) %></th>
     <th><%= Tengine::Job::Category.human_attribute_name(:parent) %></th>
     <th><%= Tengine::Job::Category.human_attribute_name(:name) %></th>
     <th><%= Tengine::Job::Category.human_attribute_name(:caption) %></th>
@@ -14,6 +15,7 @@
 
 <% @categories.each do |category| %>
   <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= category.dsl_version %></td>
     <td><%= category.parent %></td>
     <td><%= category.name %></td>
     <td><%= category.caption %></td>

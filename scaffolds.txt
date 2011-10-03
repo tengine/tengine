@@ -1,3 +1,5 @@
+rails g scaffold Tengine::Job::Category dsl_version:string parent:references name:string caption:string
+
 rails g scaffold Tengine::Job::Edge               status_cd:integer origin_id:string destination_id:string
 rails g scaffold Tengine::Job::Vertex         
 rails g scaffold Tengine::Job::Job                name:string server_name:string credential_name:string killing_signals:array killing_signal_interval:integer description:string 
