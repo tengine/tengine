@@ -20,9 +20,6 @@ FEATURES = [
   { key: "05",
     name: "#{DESCRIPTION_PREFIX} {アプリケーション開発者が開発環境へインストールする}",
     path: "" },
-  { key: "06",
-    name: "#{DESCRIPTION_PREFIX} {アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる}",
-    path: "" },
 ]
 
 E2E_OPTS = ["--format", "pretty", "--strict", "--tags", "~@wip", "--tags", "~@manual", "-r", "features"]
