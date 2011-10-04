@@ -41,7 +41,7 @@ describe Tengine::Core::EventsController do
     it "assigns the requested event as @event" do
       event = Tengine::Core::Event.find_or_create_by valid_attributes
       get :show, :id => event.id.to_s
-      assigns(:event).should eq(null)
+      assigns(:event).should eq(event)
     end
   end
 
