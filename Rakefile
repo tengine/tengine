@@ -15,6 +15,6 @@ E2E_OPTS = ["--format", "pretty", "--strict", "--tags", "~@wip", "--tags", "~@ma
 FEATURE_DIR = "features/usecases"
 
 Cucumber::Rake::Task.new("cucumber:uc01", "uc01") do |task|
-  usecase_file = "features/usecases/コア/アプリケーション運用者がイベント通知画面で問題を知る.feature".force_encoding('ASCII-8BIT')
+  usecase_file = "features/usecases/コア/アプリケーション運用者がイベント通知画面で問題を知る.feature"
   task.cucumber_opts = E2E_OPTS + [usecase_file]
 end
