@@ -137,7 +137,6 @@
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/no_event_driver.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"の標準出力に"event handler is not found"と出力されていること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -154,7 +153,6 @@
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/no_event_handler.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
-    かつ "Tengineコアプロセス"の標準出力に"event handler is not found"と出力されていること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
     もし "イベントドライバ一覧画面"を表示する
@@ -223,7 +221,7 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻                  |通知レベル|送信者名        |
-    |event50|tengine_console|2011-09-01 12:00:00 +0900|2       |tengine_console|
+    |event50|tengine_console|2011-09-01 12:00:00 +0900|info       |tengine_console|
     かつ "Tengineコアプロセス"の標準出力に"#{イベントキー}:handler50"と出力されていること
 		# ログファイルの記載内容は"{発火されたイベントのキー}:{イベントドライバ名}"となっている。
 
@@ -310,7 +308,7 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻                  |通知レベル|送信者名        |
-    |event52|tengine_console|2011-09-01 12:00:00 +0900|2       |tengine_console|
+    |event52|tengine_console|2011-09-01 12:00:00 +0900|info       |tengine_console|
 
     もし "アプリケーションログファイル""./tmp/ap.log"を参照する
 	  ならば "アプリケーションログファイル"に以下の順で記述されていること
@@ -335,7 +333,7 @@
   シナリオ:  [正常系]ack_policyによって実行回数が1回になるイベントハンドラ定義ファイルを指定してTengineコアを起動する
     前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc54_ack_check_at_first.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc54_ack_check_at_first.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml --application-log-output ./tmp/app.log --process-stdout-log-output ./tmp/stdout.log --process-stderr-log-output ./tmp/stderr.log -T ./usecases/core/dsls/uc54_ack_check_at_first.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
     # アプリケーションログがファイル"./tmp/stdout.log"に出力される設定になっていることを確認する。
@@ -364,9 +362,9 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻                  |通知レベル|送信者名        |
-    |event54|tengine_console|2011-09-01 12:00:00 +0900|2        |tengine_console|
+    |event54|tengine_console|2011-09-01 12:00:00 +0900|info     |tengine_console|
 
-    もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
+    もし "アプリケーションログファイル""./tmp/app.log"を参照する
 	  ならば "アプリケーションログファイル"に以下の順で記述されていること
     |#{イベントキー}:handler54_1:1:0|
     |             :handler54_2:1:0|
@@ -409,7 +407,7 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻                  |通知レベル|送信者名        |
-    |event55|tengine_console|2011-09-01 12:00:00 +0900|2        |tengine_console|
+    |event55|tengine_console|2011-09-01 12:00:00 +0900|info     |tengine_console|
 
     もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
 		ならば "アプリケーションログファイル"に以下の順で記述されていること
@@ -456,7 +454,7 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻                  |通知レベル|送信者名        |
-    |event56|tengine_console|2011-09-01 12:00:00 +0900|2         |tengine_console|
+    |event56|tengine_console|2011-09-01 12:00:00 +0900|info     |tengine_console|
 
     もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
 	  ならば "アプリケーションログファイル"に以下の順で記述されていること
@@ -503,7 +501,7 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻                  |通知レベル|送信者名         |
-    |event60|tengine_console|2011-09-01 12:00:00 +0900|2        |tengine_console|
+    |event60|tengine_console|2011-09-01 12:00:00 +0900|info    |tengine_console|
 
     もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
 	  ならば "アプリケーションログファイル"に以下の順で記述されていること
@@ -559,7 +557,7 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻                  |通知レベル|送信者名        |
-    |event62|tengine_console|2011-09-01 12:00:00 +0900|2        |tengine_console|
+    |event62|tengine_console|2011-09-01 12:00:00 +0900|info    |tengine_console|
 
     もし "アプリケーションログファイル""./tmp/stdout.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:101"と記述されていること
@@ -671,7 +669,7 @@
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_7/dsl_f_unreadable.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していること
-    かつ "Tengineコアプロセス"の標準出力に"permission denied"と出力されていること
+    かつ "Tengineコアプロセス"の標準出力に"Permission denied"と出力されていること
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限がないディレクトリを指定してTengineコアを起動する
@@ -680,7 +678,7 @@
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_8/dir_9_unreadable"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していること
-    かつ "Tengineコアプロセス"の標準出力に"permission denied"と出力されていること
+    かつ "Tengineコアプロセス"の標準出力に"Permission denied"と出力されていること
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限があるイベントハンドラ定義ファイルと読込権限がないイベントハンドラ定義ファイルが混在しているディレクトリを指定してTengineコアを起動する
@@ -689,7 +687,7 @@
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_7"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していること
-    かつ "Tengineコアプロセス"の標準出力に"permission denied"と出力されていること
+    かつ "Tengineコアプロセス"の標準出力に"Permission denied"と出力されていること
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限があるディレクトリと読込権限がないディレクトリが混在しているディレクトリを指定してTengineコアを起動する
@@ -698,7 +696,7 @@
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_8"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していること
-    かつ "Tengineコアプロセス"の標準出力に"permission denied"と出力されていること
+    かつ "Tengineコアプロセス"の標準出力に"Permission denied"と出力されていること
 
 
   シナリオ: [正常系]アプリケーション開発者が読込権限があるディレクトリに読込権限がないイベントハンドラ定義ファイルがあるディレクトリを指定してTengineコアを起動する
@@ -707,7 +705,7 @@
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_11/dir_14"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していること
-    かつ "Tengineコアプロセス"の標準出力に"permission denied"と出力されていること
+    かつ "Tengineコアプロセス"の標準出力に"Permission denied"と出力されていること
 
 
   シナリオ: [正常系]読込権限が複雑に設定されている階層になったディレクトリを指定してTengineコアを起動する
@@ -716,7 +714,7 @@
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_11"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していること
-    かつ "Tengineコアプロセス"の標準出力に"permission denied"と出力されていること
+    かつ "Tengineコアプロセス"の標準出力に"Permission denied"と出力されていること
 
   ######################################
   # ログファイル
@@ -869,8 +867,8 @@
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_7/dsl_f_unreadable.rb"というコマンドを実行する
 		
-    もし "アプリケーションログファイル""./tmp/app.log"を参照する
-    ならば "アプリケーションログファイル"に"permission denied."と記述されていること
+    もし "アプリケーションログファイル""./tmp/proc_stderr.log"を参照する
+    ならば "アプリケーションログファイル"に"Permission denied"と記述されていること
 
 
   シナリオ: 18.[正常系]読込権限がないディレクトリを指定したときのログを確認する
@@ -879,7 +877,7 @@
     もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/core/dsls/uc90_try_dsl/dir_8/dir_9_unreadable"というコマンドを実行する
 		
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
-    ならば "アプリケーションログファイル"に"permission denied."と記述されていること
+    ならば "アプリケーションログファイル"に"Permission denied."と記述されていること
 
 		
   シナリオ: 19.[正常系]イベントドライバ内に一般的なエラーとなるイベントハンドラ定義ファイルを指定したときのログを確認する

@@ -80,7 +80,7 @@ end
 前提 /^"([^"]*)"が停止している$/ do |name|
   if name == "DBプロセス"
     if system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
-      raise "MongoDBの停止に失敗しました"  unless system("mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js")
+      raise "MongoDBの停止に失敗しました"  unless system("mongo localhost:21039/admin features/step_definitions/mongodb/shutdown")
     end
   elsif name == "キュープロセス"
     io = IO.popen("rabbitmqctl status")
@@ -471,8 +471,8 @@ end
 
 ならば /^"([^"]*)ファイル"に"([^"]*)"と記述されていること$/ do |name, text|
   # イベントキーを表すキーワードが含まれていたら置換する
-  text = text.gsub(/\#{イベントキー}/, @event_key)
-  @h[name][:read_lines].grep(/#{text}/).should_not be_empty
+  text = text.gsub(/\#{イベントキー}/, @event_key) unless @event_key == nil
+  @h[name][:read_lines].grep(/^.*#{text}/).should_not be_empty
 end
 
 # expected_tableに指定された1番目のデータを探し、そこを起点に次のデータを探します。
@@ -502,7 +502,7 @@ end
   expected_table.each_cells_row do |cells|
     value = cells.value(0)
     # イベントキーは置換します
-    expected_lines << value.gsub(/\#{イベントキー}/, @event_key)
+    expected_lines << value.gsub(/\#{イベントキー}/, @event_key) unless @event_key == nil
   end
   actual_lines = []
   search_lines = expected_lines.dup
@@ -520,7 +520,7 @@ end
 end
 
 ならば /^"([^"]*)ファイル"に"([^"]*)"と記述されていないこと$/ do |name, text|
-  @h[name][:read_lines].grep(/#{text}/).should be_empty
+  @h[name][:read_lines].grep(/^.*#{text}/).should be_empty
 end
 
 もし /^Tengineコアの設定ファイル"([^"]*)"を作成する$/ do |config_file_path|
@@ -758,14 +758,14 @@ def contains_message_from_stdout(name,word)
   match = nil
   @h[name][:stdout].each do |line|
     puts "既に:#{line}"
-    match = line.match(word)
+    match = line.match(/^.*#{word}/)
     break if match
   end
   unless match
     time_out(20) do
       while line = @h[name][:io].gets
          @h[name][:stdout] << line
-         match = line.match(word)
+         match = line.match(/^.*#{text}/)
          if match
           # puts "match:#{word}"
           break
