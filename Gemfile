@@ -40,6 +40,7 @@ group :test, :development do
   gem "simplecov", "~> 0.5.3"
 
   gem 'therubyracer', "~> 0.9.4"
+	gem "ci_reporter", "~>1.6.5"
 end
 
 
