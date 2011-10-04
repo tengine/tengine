@@ -19,6 +19,7 @@ gem "kaminari", "~> 0.12.4"
 
 gem "tengine_event", "~> 0.2.5"
 gem "tengine_core", "~> 0.1.2"
+gem "tengine_resource", "~> 0.0.1"
 gem "tengine_job", "~> 0.0.2"
 
 gem "daemons", "~> 1.1.4"
@@ -65,13 +66,3 @@ gem 'jquery-rails', "~> 1.0.14"
 gem 'capistrano'       , "~> 2.8.0"
 gem 'capistrano-ext'   , "~> 1.2.1"
 gem 'capistrano_colors', "~> 0.5.5"
-
-
-
-
-
-###### for tengine_resource
-
-# http://rightaws.rubyforge.org/
-# http://github.com/rightscale/right_aws
-gem "right_aws", "~> 2.1.0"
