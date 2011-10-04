@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # mac-mini or rubycenter server in gemserver
-source "http://dev.tenginefw.com/gemserver"
 source 'http://rubygems.org'
 
 # すぐにパッチが出る事を予想しています。リリース近くなったらバージョンを固定します。
@@ -17,8 +16,8 @@ gem "bson_ext", "~> 1.3.1"
 
 gem "kaminari", "~> 0.12.4"
 
-gem "tengine_event", "~> 0.2.4"
-gem "tengine_core", "~> 0.0.15"
+gem "tengine_event", '~> 0.2.4', :git => "git@github.com:tengine/tengine_event.git", :branch => "develop"
+gem "tengine_core" , '~> 0.1.0', :git => "git@github.com:tengine/tengine_core.git" , :branch => "develop"
 
 gem "daemons", "~> 1.1.4"
 
