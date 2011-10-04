@@ -762,7 +762,7 @@ def contains_message_from_stdout(name,word)
     break if match
   end
   unless match
-    time_out(20) do
+    time_out(30) do
       while line = @h[name][:io].gets
          @h[name][:stdout] << line
          match = line.match(word)
