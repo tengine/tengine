@@ -28,7 +28,6 @@ FEATURE_DIR = "features/usecases"
 
 FEATURES.each do |f|
   Cucumber::Rake::Task.new("end_to_end_test:#{f[:key]}", f[:name]) do |task|
-#    file_or_dir = "コア/アプリケーション運用者がイベント通知画面で問題を知る.feature"
     feature_file = "#{FEATURE_DIR}/#{f[:path]}"
     task.cucumber_opts = E2E_OPTS + [feature_file]
   end
