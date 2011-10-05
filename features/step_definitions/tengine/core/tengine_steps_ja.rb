@@ -2,7 +2,6 @@
 require 'timeout'
 require 'amqp'
 
-
 tengine_yaml = YAML::load(IO.read('./features/config/tengine.yml'))
 @mq_server = tengine_yaml["event_queue"]["conn"]
 @tengine_event_queue_opts = tengine_yaml["event_queue"]["queue"]
@@ -21,7 +20,6 @@ end
     command = "tengined -k start -f features/config/tengine.yml"
     io = IO.popen(command)
     @h ||= {}
-#    @h[name] = {:io => io, :stdout => [] }
     @h[name] = {:io => io, :stdout => [] ,:command => command}
     pid_regexp = /<(\d+)>/
     get_pid_from_stdout name,pid_regexp
@@ -757,15 +755,16 @@ end
 def contains_message_from_stdout(name,word)
   match = nil
   @h[name][:stdout].each do |line|
-    puts "既に:#{line}"
+    #puts "既に:#{line}"
     match = line.match(/^.*#{word}/)
     break if match
   end
   unless match
     time_out(20) do
       while line = @h[name][:io].gets
+         #puts line
          @h[name][:stdout] << line
-         match = line.match(/^.*#{text}/)
+         match = line.match(/^.*#{word}/)
          if match
           # puts "match:#{word}"
           break
