@@ -68,8 +68,8 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |
     かつ "Tengineコアプロセス"の標準出力に"#{イベントキー}:handler01"と出力されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
@@ -112,7 +112,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻                  |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
     かつ "Tengineコアプロセス"の標準出力に"#{イベントキー}:handler01"と出力されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
@@ -160,7 +160,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -209,8 +209,8 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event02_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
-    |event02_2|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event02_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
+    |event02_2|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
 	  ならば "アプリケーションログファイル"に以下の順で記述されていること
@@ -261,7 +261,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event03|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event03|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
 	  ならば "アプリケーションログファイル"に以下の順で記述されていること		
@@ -312,7 +312,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event02|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event02|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler04"と記述されていること
@@ -357,7 +357,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event04|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event04|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler04"と記述されていないこと
@@ -428,7 +428,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -494,7 +494,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -574,7 +574,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -657,7 +657,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -719,7 +719,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -786,7 +786,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -862,7 +862,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -938,7 +938,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1015,7 +1015,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1083,7 +1083,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1132,7 +1132,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
@@ -1156,7 +1156,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1244,7 +1244,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
@@ -1261,7 +1261,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1310,7 +1310,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
@@ -1323,7 +1323,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1367,7 +1367,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
@@ -1412,7 +1412,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event99_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event99_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
     ならば "キュープロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
@@ -1460,7 +1460,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event03|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event03|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler03_1"と記述されていること
@@ -1529,7 +1529,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1595,7 +1595,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1640,7 +1640,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"を表示していること
@@ -1664,7 +1664,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"を表示していること
@@ -1677,7 +1677,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true      |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true      |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1722,7 +1722,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"を表示していること
@@ -1750,7 +1750,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"を表示していること
@@ -1763,7 +1763,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true      |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true      |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
@@ -1809,7 +1809,7 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
     かつ "キュープロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
@@ -1824,8 +1824,8 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
-    |event97_2|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
+    |event97_2|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     かつ "アプリケーションログファイル"に"#{イベントキー}:handler97_2"と記述されていること
@@ -1870,7 +1870,7 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
     かつ "キュープロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
@@ -1885,7 +1885,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1927,7 +1927,7 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
     かつ "キュープロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
@@ -1943,8 +1943,8 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
-    |event97_2|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
+    |event97_2|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
     かつ "アプリケーションログファイル"に"#{イベントキー}:send_event_failure"と記述されていること
@@ -1991,7 +1991,7 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
     かつ "キュープロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
@@ -2021,7 +2021,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event98_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event98_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
