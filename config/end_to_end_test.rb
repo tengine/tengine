@@ -22,7 +22,7 @@ FEATURES = [
     path: "コア/アプリケーション開発者が開発環境へインストールする" },
   { key: "06",
     name: "#{DESCRIPTION_PREFIX} {アプリケーション開発者が開発環境へインストールする}",
-    path: "コア/アプリケーション開発者が開発環境へインストールする/アプリケーション開発者が開発環境でTengineコア、Tengineコンソールを起動し、接続テストを行い、停止する2.feature" },
+    path: "コア/アプリケーション開発者が開発環境へインストールする/アプリケーション開発者が開発環境でTengineコア、Tengineコンソールを起動し、接続テストを行い、停止する2.feature" },
 ]
 
 E2E_OPTS = ["--format", "junit", "--out", "tmp/end_to_end_test_reports", "--strict", "--tags", "~@wip", "--tags", "~@manual", "-r", "features"]
