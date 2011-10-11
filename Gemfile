@@ -17,9 +17,9 @@ gem "bson_ext", "~> 1.3.1"
 gem "kaminari", "~> 0.12.4"
 
 gem "tengine_event"   , "~> 0.2.6", :branch => "develop", :git => "git@github.com:tengine/tengine_event.git"
-gem "tengine_core"    , "~> 0.1.6", :branch => "develop", :git => "git@github.com:tengine/tengine_core.git" 
+gem "tengine_core"    , "~> 0.1.6", :branch => "develop", :git => "git@github.com:tengine/tengine_core.git"
 gem "tengine_resource", "~> 0.0.3", :branch => "develop", :git => "git@github.com:tengine/tengine_resource.git"
-gem "tengine_job"     , "~> 0.0.2", :branch => "develop", :git => "git@github.com:tengine/tengine_job.git"
+gem "tengine_job"     , "~> 0.0.3", :branch => "develop", :git => "git@github.com:tengine/tengine_job.git"
 
 gem "daemons", "~> 1.1.4"
 

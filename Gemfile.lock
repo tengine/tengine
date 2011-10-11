@@ -26,11 +26,12 @@ GIT
 
 GIT
   remote: git@github.com:tengine/tengine_job.git
-  revision: 5a943ac6767efb664f3423c34629abe41a23e4f0
+  revision: 95614395ad58756f8a0961c34eec8899d86ba387
   branch: develop
   specs:
-    tengine_job (0.0.2)
-      tengine_core (~> 0.1.2)
+    tengine_job (0.0.3)
+      tengine_core (~> 0.1.6)
+      tengine_resource (~> 0.0.3)
 
 GIT
   remote: git@github.com:tengine/tengine_resource.git
@@ -303,7 +304,7 @@ DEPENDENCIES
   simplecov (~> 0.5.3)
   tengine_core (~> 0.1.6)!
   tengine_event (~> 0.2.6)!
-  tengine_job (~> 0.0.2)!
+  tengine_job (~> 0.0.3)!
   tengine_resource (~> 0.0.3)!
   therubyracer (~> 0.9.4)
   uglifier (~> 1.0.3)
