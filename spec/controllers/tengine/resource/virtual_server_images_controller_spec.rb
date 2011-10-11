@@ -24,12 +24,17 @@ describe Tengine::Resource::VirtualServerImagesController do
   # Tengine::Resource::VirtualServerImage. As you add validations to Tengine::Resource::VirtualServerImage, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :name => "image1"
+    }
+  end
+
+  before do
+    Tengine::Resource::VirtualServerImage.delete_all
   end
 
   describe "GET index" do
     it "assigns all tengine_resource_virtual_server_images as @tengine_resource_virtual_server_images" do
-      Tengine::Resource::VirtualServerImage.delete_all
       virtual_server_image = Tengine::Resource::VirtualServerImage.create! valid_attributes
       get :index
       virtual_server_images = assigns(:virtual_server_images)

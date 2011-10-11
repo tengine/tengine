@@ -29,6 +29,10 @@ describe Tengine::Resource::ProvidersController do
     }
   end
 
+  before do
+    Tengine::Resource::Provider.delete_all
+  end
+
   describe "GET index" do
     it "assigns all tengine_resource_providers as @tengine_resource_providers" do
       Tengine::Resource::Provider.delete_all

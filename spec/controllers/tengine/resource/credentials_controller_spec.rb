@@ -34,9 +34,12 @@ describe Tengine::Resource::CredentialsController do
     }
   end
 
+  before do
+    Tengine::Resource::Credential.delete_all
+  end
+
   describe "GET index" do
     it "assigns all tengine_resource_credentials as @tengine_resource_credentials" do
-      Tengine::Resource::Credential.delete_all
       credential = Tengine::Resource::Credential.create! valid_attributes
       get :index
       credentials = assigns(:credentials)

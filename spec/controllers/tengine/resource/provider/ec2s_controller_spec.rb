@@ -21,6 +21,7 @@ require 'spec_helper'
 describe Tengine::Resource::Provider::Ec2sController do
 
   before(:all) do
+    Tengine::Resource::Credential.delete_all
     @credential = Tengine::Resource::Credential.create!(:name => "ec2-access-key1",
       :auth_type_key => :ec2_access_key,
       :auth_values => {:access_key => 'ACCESS_KEY1', :secret_access_key => "SECRET_ACCESS_KEY1", :default_region => "us-west-1"})
@@ -30,12 +31,15 @@ describe Tengine::Resource::Provider::Ec2sController do
   # Tengine::Resource::Provider::Ec2. As you add validations to Tengine::Resource::Provider::Ec2, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {:name => "ec2 us-west-1", :credential => @credential}
+    {:name => "ec2_us-west-1", :credential => @credential}
+  end
+
+  before do
+    Tengine::Resource::Provider::Ec2.delete_all
   end
 
   describe "GET index" do
     it "assigns all tengine_resource_provider_ec2s as @tengine_resource_provider_ec2s" do
-      Tengine::Resource::Provider::Ec2.delete_all
       ec2 = Tengine::Resource::Provider::Ec2.create! valid_attributes
       get :index
       ec2s = assigns(:ec2s)

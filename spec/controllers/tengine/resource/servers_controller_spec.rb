@@ -24,12 +24,17 @@ describe Tengine::Resource::ServersController do
   # Tengine::Resource::Server. As you add validations to Tengine::Resource::Server, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :name => "server1"
+    }
+  end
+
+  before do
+    Tengine::Resource::Server.delete_all
   end
 
   describe "GET index" do
     it "assigns all tengine_resource_servers as @tengine_resource_servers" do
-      Tengine::Resource::Server.delete_all
       server = Tengine::Resource::Server.create! valid_attributes
       get :index
       servers = assigns(:servers)
