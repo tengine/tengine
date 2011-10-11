@@ -22,7 +22,7 @@
 
 <% @executions.each do |execution| %>
   <tr class="<%= cycle("even", "odd") %>" >
-    <td><%= execution.root_jobnet %></td>
+    <td><%= execution.root_jobnet ? execution.root_jobnet.name : nil %></td>
     <td><%= execution.target_actual_ids_text %></td>
     <td><%= execution.phase_cd %></td>
     <td><%= execution.started_at %></td>
