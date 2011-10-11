@@ -80,7 +80,7 @@ end
 前提 /^"([^"]*)"が停止している$/ do |name|
   if name == "DBプロセス"
     if system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
-      raise "MongoDBの停止に失敗しました"  unless system("mongo localhost:21039/admin features/step_definitions/mongodb/shutdown.js")
+      raise "MongoDBの停止に失敗しました"  unless system("mongo localhost:21039/admin features/step_definitions/mongodb/shutdown")
     end
   elsif name == "キュープロセス"
     io = IO.popen("rabbitmqctl status")
@@ -762,7 +762,7 @@ def contains_message_from_stdout(name,word)
     break if match
   end
   unless match
-    time_out(20) do
+    time_out(30) do
       while line = @h[name][:io].gets
          @h[name][:stdout] << line
          match = line.match(word)

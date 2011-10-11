@@ -8,3 +8,6 @@
 db/*.sqlite3
 log/*.log
 tmp/
+
+# ci_reporter
+spec/reports/
