@@ -25,6 +25,15 @@ GIT
       uuid (~> 2.3.4)
 
 GIT
+  remote: git@github.com:tengine/tengine_job.git
+  revision: b144900f0037e5f4644657e6e2d5826c3e40155c
+  branch: develop
+  specs:
+    tengine_job (0.0.4)
+      tengine_core (~> 0.1.6)
+      tengine_resource (~> 0.0.3)
+
+GIT
   remote: git@github.com:tengine/tengine_resource.git
   revision: 06173b5173f027c05e498e7ce98554c0b153f7b4
   branch: develop
@@ -295,6 +304,7 @@ DEPENDENCIES
   simplecov (~> 0.5.3)
   tengine_core (~> 0.1.6)!
   tengine_event (~> 0.2.6)!
+  tengine_job (~> 0.0.4)!
   tengine_resource (~> 0.0.3)!
   therubyracer (~> 0.9.4)
   uglifier (~> 1.0.3)
