@@ -41,8 +41,11 @@ group :test, :development do
   # gem "rcov", ">= 0"
   gem "simplecov", "~> 0.5.3"
 
-  gem 'therubyracer', "~> 0.9.4"
-  gem "ci_reporter", "~>1.6.5"
+  if RUBY_PLATFORM =~ /linux/ then
+    gem 'therubyracer', "~> 0.9.4"
+  end
+	gem "ci_reporter", "~>1.6.5"
+
 end
 
 
