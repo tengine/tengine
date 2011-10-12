@@ -12,6 +12,8 @@
     <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:description) %></th>
     <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:script) %></th>
     <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:jobnet_type_cd) %></th>
+    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:executing_pid) %></th>
+    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:exit_status) %></th>
     <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:was_expansion) %></th>
     <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:phase_cd) %></th>
     <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:started_at) %></th>
@@ -36,6 +38,8 @@
     <td><%= root_jobnet_actual.description %></td>
     <td><%= root_jobnet_actual.script %></td>
     <td><%= root_jobnet_actual.jobnet_type_cd %></td>
+    <td><%= root_jobnet_actual.executing_pid %></td>
+    <td><%= root_jobnet_actual.exit_status %></td>
     <td><%= root_jobnet_actual.was_expansion %></td>
     <td><%= root_jobnet_actual.phase_cd %></td>
     <td><%= root_jobnet_actual.started_at %></td>

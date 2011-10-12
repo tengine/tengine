@@ -11,6 +11,8 @@ describe "tengine/job/jobnet_actuals/show.html.erb" do
       :description => "Description",
       :script => "Script",
       :jobnet_type_cd => 1,
+      :executing_pid => "Executing Pid",
+      :exit_status => "Exit Status",
       :was_expansion => false,
       :phase_cd => 1,
       :stop_reason => "Stop Reason"
@@ -28,6 +30,8 @@ describe "tengine/job/jobnet_actuals/show.html.erb" do
     rendered.should match(/Description/)
     rendered.should match(/Script/)
     rendered.should match(/1/)
+    rendered.should match(/Executing Pid/)
+    rendered.should match(/Exit Status/)
     rendered.should match(/false/)
     rendered.should match(/1/)
     rendered.should match(/Stop Reason/)

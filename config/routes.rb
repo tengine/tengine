@@ -9,8 +9,6 @@ TengineConsole::Application.routes.draw do
 
   namespace :tengine do  namespace :job do resources :jobnets end end
 
-  namespace :tengine do  namespace :job do resources :scripts end end
-
   namespace :tengine do
     namespace :job do
       resources :jobnets do
@@ -26,10 +24,6 @@ TengineConsole::Application.routes.draw do
   namespace :tengine do  namespace :job do resources :jobs end end
 
   namespace :tengine do  namespace :job do resources :expansions end end
-
-  namespace :tengine do  namespace :job do resources :script_actuals end end
-
-  namespace :tengine do  namespace :job do resources :script_templates end end
 
   namespace :tengine do  namespace :job do resources :jobnet_actuals end end
 

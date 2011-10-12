@@ -11,6 +11,8 @@ describe "tengine/job/root_jobnet_actuals/edit.html.erb" do
       :description => "MyString",
       :script => "MyString",
       :jobnet_type_cd => 1,
+      :executing_pid => "MyString",
+      :exit_status => "MyString",
       :was_expansion => false,
       :phase_cd => 1,
       :stop_reason => "MyString",
@@ -33,6 +35,8 @@ describe "tengine/job/root_jobnet_actuals/edit.html.erb" do
       assert_select "input#root_jobnet_actual_description", :name => "root_jobnet_actual[description]"
       assert_select "input#root_jobnet_actual_script", :name => "root_jobnet_actual[script]"
       assert_select "input#root_jobnet_actual_jobnet_type_cd", :name => "root_jobnet_actual[jobnet_type_cd]"
+      assert_select "input#root_jobnet_actual_executing_pid", :name => "root_jobnet_actual[executing_pid]"
+      assert_select "input#root_jobnet_actual_exit_status", :name => "root_jobnet_actual[exit_status]"
       assert_select "input#root_jobnet_actual_was_expansion", :name => "root_jobnet_actual[was_expansion]"
       assert_select "input#root_jobnet_actual_phase_cd", :name => "root_jobnet_actual[phase_cd]"
       assert_select "input#root_jobnet_actual_stop_reason", :name => "root_jobnet_actual[stop_reason]"

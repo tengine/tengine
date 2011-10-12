@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe "tengine/job/root_jobnet_actuals/index.html.erb" do
   before(:each) do
-    category = stub_model(Tengine::Job::Category, :to_s => "category")
-    template = stub_model(Tengine::Job::RootJobnetTemplate, :to_s => "root_jobnet_template")
     mock_pagination(assign(:root_jobnet_actuals, [
       stub_model(Tengine::Job::RootJobnetActual,
         :name => "Name",
@@ -13,13 +11,15 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
         :killing_signal_interval => 1,
         :description => "Description",
         :script => "Script",
-        :jobnet_type_cd => 2,
+        :jobnet_type_cd => 1,
+        :executing_pid => "Executing Pid",
+        :exit_status => "Exit Status",
         :was_expansion => false,
-        :phase_cd => 3,
+        :phase_cd => 1,
         :stop_reason => "Stop Reason",
-        :category => category,
-        :lock_version => 4,
-        :template => template
+        :category => nil,
+        :lock_version => 1,
+        :template => nil
       ),
       stub_model(Tengine::Job::RootJobnetActual,
         :name => "Name",
@@ -29,13 +29,15 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
         :killing_signal_interval => 1,
         :description => "Description",
         :script => "Script",
-        :jobnet_type_cd => 2,
+        :jobnet_type_cd => 1,
+        :executing_pid => "Executing Pid",
+        :exit_status => "Exit Status",
         :was_expansion => false,
-        :phase_cd => 3,
+        :phase_cd => 1,
         :stop_reason => "Stop Reason",
-        :category => category,
-        :lock_version => 4,
-        :template => template
+        :category => nil,
+        :lock_version => 1,
+        :template => nil
       )
     ]))
   end
@@ -50,12 +52,14 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
     assert_select "tr>td", :text => 1.to_s, :count => 2
     assert_select "tr>td", :text => "Description".to_s, :count => 2
     assert_select "tr>td", :text => "Script".to_s, :count => 2
-    assert_select "tr>td", :text => 2.to_s, :count => 2
+    assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select "tr>td", :text => "Executing Pid".to_s, :count => 2
+    assert_select "tr>td", :text => "Exit Status".to_s, :count => 2
     assert_select "tr>td", :text => false.to_s, :count => 2
-    assert_select "tr>td", :text => 3.to_s, :count => 2
+    assert_select "tr>td", :text => 1.to_s, :count => 2
     assert_select "tr>td", :text => "Stop Reason".to_s, :count => 2
-    assert_select "tr>td", :text => "category".to_s, :count => 2
-    assert_select "tr>td", :text => 4.to_s, :count => 2
-    assert_select "tr>td", :text => "root_jobnet_template".to_s, :count => 2
+    assert_select "tr>td", :text => nil.to_s, :count => 2
+    assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select "tr>td", :text => nil.to_s, :count => 2
   end
 end

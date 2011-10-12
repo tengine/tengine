@@ -43,6 +43,16 @@
 </p>
 
 <p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:executing_pid) %>:</b>
+  <%= @root_jobnet_actual.executing_pid %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:exit_status) %>:</b>
+  <%= @root_jobnet_actual.exit_status %>
+</p>
+
+<p>
   <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:was_expansion) %>:</b>
   <%= @root_jobnet_actual.was_expansion %>
 </p>
