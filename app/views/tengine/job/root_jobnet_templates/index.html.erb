@@ -2,52 +2,63 @@
 
 <p id="notice"><%= notice %></p>
 
-<table>
-  <tr>
-    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:name) %></th>
-    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:server_name) %></th>
-    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:credential_name) %></th>
-    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:killing_signals) %></th>
-    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:killing_signal_interval) %></th>
-    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:description) %></th>
-    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:script) %></th>
-    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:jobnet_type_cd) %></th>
-    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:category) %></th>
-    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:lock_version) %></th>
-    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_filepath) %></th>
-    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_lineno) %></th>
-    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_version) %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="right-content">
+  <!-- category tree -->
+</div>
 
-<% @root_jobnet_templates.each do |root_jobnet_template| %>
-  <tr class="<%= cycle("even", "odd") %>" >
-    <td><%= root_jobnet_template.name %></td>
-    <td><%= root_jobnet_template.server_name %></td>
-    <td><%= root_jobnet_template.credential_name %></td>
-    <td><%= root_jobnet_template.killing_signals_text %></td>
-    <td><%= root_jobnet_template.killing_signal_interval %></td>
-    <td><%= root_jobnet_template.description %></td>
-    <td><%= root_jobnet_template.script %></td>
-    <td><%= root_jobnet_template.jobnet_type_cd %></td>
-    <td><%= root_jobnet_template.category %></td>
-    <td><%= root_jobnet_template.lock_version %></td>
-    <td><%= root_jobnet_template.dsl_filepath %></td>
-    <td><%= root_jobnet_template.dsl_lineno %></td>
-    <td><%= root_jobnet_template.dsl_version %></td>
-    <td><%= link_to_show root_jobnet_template %></td>
-    <td><%= link_to_edit edit_tengine_job_root_jobnet_template_path(root_jobnet_template) %></td>
-    <td><%= link_to_destroy root_jobnet_template, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+<div class="left-content">
+  
+  <div class="search-box">
+    <%= form_for(:finder, :html => {:method => :get}) do |f| %>
+    <fieldset>
+      <legend><%= I18n.t(:search_caption,:scope => [:views, :pages]) %></legend>
+      <table>
+       <tr>
+         <th><%= f.label :id, Tengine::Job::RootJobnetTemplate.human_attribute_name(:id) %></th>
+         <td><%= f.text_field :id %></td>
+       </tr>
+       <tr>
+        <th><%= f.label :name, Tengine::Job::RootJobnetTemplate.human_attribute_name(:name) %></th>
+        <td><%= f.text_field :name %></td>
+       </tr>
+       <tr>
+        <th><%= f.label :description, Tengine::Job::RootJobnetTemplate.human_attribute_name(:description) %></th>
+        <td><%= f.text_field :description %></td>
+       </tr>
+     </table>
 
-<br />
+      <div class="align-right">
+        <%= f.submit(I18n.t(:search, :scope => [:views, :links])) %>
+        <%= tag :input, { "type" => "reset", "name" => "reset", "value" => I18n.t(:reset, :scope => [:views, :links]) } %>
+      </div>
+    </fieldset>
+    <% end %>
+  </div>
+  
+  <div class="wscrollable">
+    <table>
+      <tr>
+        <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:id) %></th>
+        <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:name) %></th>
+        <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:description) %></th>
+        <th><%= I18n.t(:operation, :scope => [:views, :pages]) %></th>
+      </tr>
+    
+    <% @root_jobnet_templates.each do |root_jobnet_template| %>
+      <tr class="<%= cycle("even", "odd") %>" >
+        <td><%= root_jobnet_template.id %></td>
+        <td><%= root_jobnet_template.name %></td>
+        <td><%= root_jobnet_template.description %></td>
+        <td>
+          <%= link_to_show root_jobnet_template %>
+          <%= link_to I18n.t(:run, :scope => [:views, :links]), edit_tengine_job_root_jobnet_template_path(root_jobnet_template) %>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+  
+  <%= paginate @root_jobnet_templates %>
 
-<%= paginate @root_jobnet_templates %>
+</div>
 
-<br />
-
-<%= link_to_new Tengine::Job::RootJobnetTemplate, new_tengine_job_root_jobnet_template_path %>
