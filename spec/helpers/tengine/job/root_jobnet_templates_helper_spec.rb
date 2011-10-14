@@ -11,4 +11,19 @@ require 'spec_helper'
 #   end
 # end
 describe Tengine::Job::RootJobnetTemplatesHelper do
+  describe "sort_order" do
+    it "sort query_parameter not found" do
+      helper.sort_order(@request, :test).should == {:test => "asc"}
+    end
+
+    it "sort query_parameter is :asc" do
+      @request.query_parameters[:sort] = {:test => :asc}
+      helper.sort_order(@request, :test).should == {:test => "desc"}
+    end
+
+    it "sort query_parameter is :desc" do
+      @request.query_parameters[:sort] = {:test => :desc}
+      helper.sort_order(@request, :test).should == {:test => "asc"}
+    end
+  end
 end
