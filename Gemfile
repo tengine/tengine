@@ -46,8 +46,6 @@ group :test, :development do
   if RUBY_PLATFORM =~ /linux/ then
     gem 'therubyracer', "~> 0.9.4"
   end
-	gem "ci_reporter", "~>1.6.5"
-
 end
 
 
