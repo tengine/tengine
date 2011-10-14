@@ -19,7 +19,7 @@
   シナリオ: [正常系]アプリケーション運用者がイベント通知画面でTengineに問題があると表示されているのに、GR Heartbeatからは原因が分からない
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
-    かつ "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 3"で起動している
+    かつ "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb -D -G 3"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
 		
     もし "イベント通知画面"を表示する
@@ -70,7 +70,7 @@
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
 		#  オプション"-f ./features/config/tengine.yml" を指定していないため、DBの接続先が不正になります
-    かつ "Tengineコアプロセス"がオプション"-T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 1"で起動している
+    かつ "Tengineコアプロセス"がオプション"-T ../tengine_core/examples/uc01_execute_processing_for_event.rb -D -G 1"で起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
 
     もし "イベント通知画面"を表示する
@@ -84,7 +84,7 @@
     もし "Tengineコアプロセス"の停止を行うために"tengined -k stop"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -f ./features/config/tengine.yml -T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 1"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb -D -G 1"というコマンドを実行する
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
     ならば "Tengineコアプロセス"が起動していることをPIDを用いて"tengined -k status | grep running | grep PID"というコマンドで確認できること
 
@@ -154,7 +154,7 @@
 #   シナリオ: [正常系]アプリケーション運用者がイベント通知画面から問題を通知され、通知内容からアプリケーションに問題があると分かり、調査を行う
 #     前提 "DBプロセス"が起動している
 #     かつ "キュープロセス"が起動している
-#     かつ "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 3"で起動している
+#     かつ "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb -D -G 3"で起動している
 #     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
 # 		
 #     #イベントハンドラ定義なしでOK

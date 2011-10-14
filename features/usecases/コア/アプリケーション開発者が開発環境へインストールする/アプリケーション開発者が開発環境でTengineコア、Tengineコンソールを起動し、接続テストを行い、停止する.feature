@@ -483,7 +483,7 @@
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action load specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"tengined -k load --tengined-load-path ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k load --tengined-load-path ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -497,7 +497,7 @@
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action start specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --tengined-load-path ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --tengined-load-path ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -511,7 +511,7 @@
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action enable specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"tengined -k enable --tengined-load-path ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k enable --tengined-load-path ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 

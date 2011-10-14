@@ -40,7 +40,7 @@
   シナリオ: アプリケーション開発者がキューが停止した際にGR Heartbeatがイベント通知画面に表示されないことと、キューが再起動した際にTengineコアがキューに対して再接続することを確認する
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
-    かつ "Tengineコアプロセス"がオプション" -T usecases/core/dsls/uc01_execute_processing_for_event.rb -D -G 5"で起動している
+    かつ "Tengineコアプロセス"がオプション" -T ../tengine_core/examples/uc01_execute_processing_for_event.rb -D -G 5"で起動している
     かつ "Tengineコンソールプロセス"が起動している
     かつ Tengine周辺のサーバの時刻が同期されている
     かつ "Tengineコアプロセス"のpidファイルが残っていない
@@ -188,7 +188,7 @@
   シナリオ: アプリケーション開発者がキューがイベント発火画面でリトライを設定してイベントを発火しようとした際に、キューが落ちていて、指定されたリトライ回数内にイベントが送信できた
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
-    かつ "Tengineコアプロセス"がオプション" -T usecases/core/dsls/uc01_execute_processing_for_event.rb -D"で起動している
+    かつ "Tengineコアプロセス"がオプション" -T ../tengine_core/examples/uc01_execute_processing_for_event.rb -D"で起動している
     かつ "Tengineコンソールプロセス"が起動している
     かつ "Tengineコアプロセス"のpidファイルが残っていない
 
@@ -227,7 +227,7 @@
   シナリオ: アプリケーション開発者がキューがイベント発火画面でリトライを設定してイベントを発火しようとした際に、キューが落ちていて、指定されたリトライ回数内にイベントが送信できなかった
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
-    かつ "Tengineコアプロセス"がオプション" -T usecases/core/dsls/uc01_execute_processing_for_event.rb -D"で起動している
+    かつ "Tengineコアプロセス"がオプション" -T ../tengine_core/examples/uc01_execute_processing_for_event.rb -D"で起動している
     かつ "Tengineコンソールプロセス"が起動している
     かつ "Tengineコアプロセス"のpidファイルが残っていない
 

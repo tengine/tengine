@@ -192,9 +192,9 @@
     
   @selenium
   シナリオ:  [正常系]イベントを受け取ったらすぐにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc50_commit_event_at_first.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"../tengine_core/examples/uc50_commit_event_at_first.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc50_commit_event_at_first.rb 2>&1"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc50_commit_event_at_first.rb 2>&1"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること    
 
@@ -231,9 +231,9 @@
 
   @wip
   シナリオ:  [正常系]ハンドラを実行して最初にSubmitされたときにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc51_commit_event_at_first_submit.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"../tengine_core/examples/uc51_commit_event_at_first_submit.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ./usecases/core/dsls/uc51_commit_event_at_first_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml --process-stdout-log-output ./tmp/stdout.log -T ../tengine_core/examples/uc51_commit_event_at_first_submit.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること    
     # アプリケーションログがファイル"./tmp/stdout.log"に出力される設定になっていることを確認する。
@@ -276,9 +276,9 @@
 
   @selenium
   シナリオ:  [正常系]ハンドラを実行して全てsubmitされたときにackを返すイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc52_commit_event_after_all_handler_submit.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"../tengine_core/examples/uc52_commit_event_after_all_handler_submit.rb "が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml --application-log-output ./tmp/ap.log -T ./usecases/core/dsls/uc52_commit_event_after_all_handler_submit.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml --application-log-output ./tmp/ap.log -T ../tengine_core/examples/uc52_commit_event_after_all_handler_submit.rb "というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
     # アプリケーションログがファイル"./tmp/stdout.log"に出力される設定になっていることを確認する。
@@ -322,9 +322,9 @@
 
 
   シナリオ: [正常系]submitをイベントハンドラ外で使用するイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc53_submit_outside_of_handler.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"../tengine_core/failure_examples/uc53_submit_outside_of_handler.rb"が存在すること
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc53_submit_outside_of_handler.rb 2>&1"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/failure_examples/uc53_submit_outside_of_handler.rb 2>&1"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"submit is not available outside of event handler block."と出力されていること
 
@@ -472,9 +472,9 @@
 
   @selenium
   シナリオ:  [正常系]eventを使ってイベントの情報を取得するイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc60_event_in_handler.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"../tengine_core/examples/uc60_event_in_handler.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc60_event_in_handler.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc60_event_in_handler.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -519,18 +519,18 @@
     
     
   シナリオ: [正常系]eventをイベントハンドラ外で使用するイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc61_event_outside_of_handler.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"../tengine_core/failure_examples/uc61_event_outside_of_handler.rb"が存在すること
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc61_event_outside_of_handler.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/failure_examples/uc61_event_outside_of_handler.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"event is not available outside of event handler block."と出力されていること
 
 
   @selenium
   シナリオ:  [正常系]sessionを使ってセッション情報を取得するイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc62_session_in_driver.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"../tengine_core/examples/uc62_session_in_driver.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc62_session_in_driver.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc62_session_in_driver.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -567,18 +567,18 @@
     
     
   シナリオ: [正常系]sessionをイベントドライバ外で使用するイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc63_session_outside_of_driver.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"../tengine_core/failure_examples/uc63_session_outside_of_driver.rb"が存在すること
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc63_session_outside_of_driver.rb 2>&1"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/failure_examples/uc63_session_outside_of_driver.rb 2>&1"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"session is not available outside of event driver block."と出力されていること
 
 
   @selenium
   シナリオ: [正常系]アプリケーション開発者がアクティベーション時に有効になるようなイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc70_driver_enabled_on_activation.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"../tengine_core/examples/uc70_driver_enabled_on_activation.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc70_driver_enabled_on_activation.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc70_driver_enabled_on_activation.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -594,9 +594,9 @@
     
   @selenium
   シナリオ: [正常系]アプリケーション開発者がアクティベーション時に無効になるようなイベントハンドラ定義ファイルを指定してTengineコアを起動する
-    前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc71_driver_disabled_on_activation.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"../tengine_core/examples/uc71_driver_disabled_on_activation.rb"が存在すること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc71_driver_disabled_on_activation.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc71_driver_disabled_on_activation.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
@@ -898,27 +898,27 @@
 
 
   シナリオ: 21.[正常系]submitをイベントハンドラ外で使用するイベントハンドラ定義ファイルを指定したときのログを確認する
-    前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc53_submit_outside_of_handler.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"../tengine_core/failure_examples/uc53_submit_outside_of_handler.rb"が存在すること
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/core/dsls/uc53_submit_outside_of_handler.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ../tengine_core/failure_examples/uc53_submit_outside_of_handler.rb"というコマンドを実行する
 
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
     ならば "アプリケーションログファイル"に"submit is not available outside of event handler block."と記述されていること
 
 
   シナリオ: 22.[正常系]eventをイベントハンドラ外で使用するイベントハンドラ定義ファイルを指定したときのログを確認する
-    前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc61_event_outside_of_handler.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"../tengine_core/failure_examples/uc61_event_outside_of_handler.rb"が存在すること
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/core/dsls/uc61_event_outside_of_handler.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ../tengine_core/failure_examples/uc61_event_outside_of_handler.rb"というコマンドを実行する
 		
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
     ならば "アプリケーションログファイル"に"event is not available outside of event handler block."と記述されていること
 
 
   シナリオ: 23.[正常系]sessionをイベントドライバ外で使用するイベントハンドラ定義ファイルを指定したときのログを確認する
-    前提 イベントハンドラ定義ファイル"./usecases/core/dsls/uc63_session_outside_of_driver.rb"が存在すること
+    前提 イベントハンドラ定義ファイル"../tengine_core/failure_examples/uc63_session_outside_of_driver.rb"が存在すること
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ./usecases/core/dsls/uc63_session_outside_of_driver.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine_log.yml -T ../tengine_core/failure_examples/uc63_session_outside_of_driver.rb"というコマンドを実行する
 
     もし "アプリケーションログファイル""./tmp/app.log"を参照する
     ならば "アプリケーションログファイル"に"session is not available outside of event driver block."と記述されていること
