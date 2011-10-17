@@ -1,23 +1,20 @@
 # -*- coding: utf-8 -*-
-set :application, "tengine"
-
-#####################
+##############################
 # deploy stage
-#####################
+##############################
 set :stages, %w(development staging production)
-set :default_stage, "production"
+set :default_stage, "staging"
 require 'capistrano/ext/multistage'
 
+set :application, "tengique"
 
-#####################
-# setting roles
-#####################
-# role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-# role :app, "your app-server here"                          # This may be the same as your `Web` server
-# role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-# role :db,  "your slave db-server here"
-# server 単位で role の設定が書けるようになってました
-server "192.168.1.54", :web, :app, :mq, :db
+
+##############################
+# setting server and roles
+##############################
+role :app,            "core1.tenginefw.com", "core2.tenginefw.com"
+role :load_dsl,       "core1.tenginefw.com"
+role :enable_drivers, "core1.tenginefw.com"
 
 set :use_sudo,    false
 set :user,        'root'
@@ -27,35 +24,34 @@ set :ssh_options, {
 }
 
 
-#####################
+##############################
 # setting scm
-#####################
+##############################
 set :scm, :git
 set :scm_verbose, true
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`, and `file://`
 
-set :repository,  'ssh://git@cloud-dev.ec-one.com/tengine_console.git'  # rubyセンターへ変更予定
+set :repository,  'git@github.com:tengine/tengine_icmp_monitor.git'
 set :branch,      'develop'
 
-set :deploy_to,   "$HOME/#{application}"
+set :deploy_to,   "/var/lib/#{application}"
 # set :deploy_via,  :remote_cache
 set :deploy_via,  :copy   # ローカル環境でSCMリポジトリからソースを取得して、サーバへ固めてコピーしてdeployする
 set :copy_cache,  true
 set :keep_releases, 3
 
-set :bundle_roles, :app
 
-
-#####################
+##############################
 # tasks
-#####################
+##############################
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
 desc "hello task"
-task :hello, :roles => [:app, :web, :db] do
+task :hello do
   run "echo HelloWorld! $HOSTNAME"
 end
+
 
 namespace :app do
   desc "setup shared directories"
@@ -87,66 +83,100 @@ namespace :app do
   end
 end
 
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+### デプロイ手順 ###
+# 1. cap production ROLE=app deploy:setup
+# 2. cap production ROLE=app deploy:update
+# 3. cap production ROLE=app deploy:bundle
+# 4. cap production deploy:start
+
+set :num_proc,         '2' # 起動するカーネルのプロセス数
+set :load_dir,         "#{current_path}/app"
+set :load_path,        "#{load_dir}"
+set :config_file_path, "#{shared_path}/config/tengined.yml"
+
+### 自動ロールバック
+# 1. エラーが起きたことがわかる
+# 2. Tengineコアが起動していたら、強制停止
+
 namespace :deploy do
-  task :deploy, :roles => :app do
-    # tengineコアサーバでイベントハンドラ定義の
-    run "cap deploy:~"
+  task :start do
+    load_dsl
+
+    transaction do
+      num_proc.to_i.times { start_kernel }
+      wait_until_waiting_activation
+      enable_drivers
+    end
+
+    activate
+  end
+  after "deploy:start", "deploy:cleanup"
+
+  task :load_dsl, :roles => :load_dsl do
+    run "cd #{current_path} && tengined -k load -T #{load_path} -f #{config_file_path} --tengined-skip-enablement"
   end
 
-  task :start, :roles => :app do
-    run "tengined -D -T ./spec_dsl"
-  end
+  task :start_kernel, :roles => :app do
+    on_rollback do
+      force_stop
+      abort "=== could not start kernel process. ==="
+    end
 
-  task :stop do
-    deploy.stop_app
-    deploy.stop_mq
-    deploy.stop_db
-  end
-
-  task :stop_app, :roles => :app do
-  end
-  task :stop_mq, :roles => :mq do
-  end
-  task :stop_db, :roles => :db do
-  end
-
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-  end
-
-  desc "[internal][override] This is called by update_code"
-  task :finalize_update, :except => { :no_release => true } do
-    run "chmod -R g+w #{latest_release}" if fetch(:group_writable, true)
-
-    # mkdir -p is making sure that the directories are there for some SCM's that don't
-    # save empty folders
-    run <<-CMD
-      rm -rf #{latest_release}/log #{latest_release}/public/system #{latest_release}/tmp/pids &&
-      mkdir -p #{latest_release}/public &&
-      mkdir -p #{latest_release}/tmp &&
-      ln -s #{shared_path}/log #{latest_release}/log &&
-      ln -s #{shared_path}/system #{latest_release}/public/system &&
-      ln -s #{shared_path}/pids #{latest_release}/tmp/pids
+    run (<<-CMD).split.join(" ")
+      cd #{current_path} && tengined -D -T #{load_path} --tengined-skip-load -f #{config_file_path} --tengined-wait-activation
     CMD
-
-    # rails3.1だとimageファイル系のファイルの配置が変わってるので上書きします
-    # 以下を $RAIL_ROOT/app/assets を指定するようにしてもよいですが、まずは deploy 毎に最新取得する対象にしておきます。
-    #
-    # if fetch(:normalize_asset_timestamps, true)
-    #   stamp = Time.now.utc.strftime("%Y%m%d%H%M.%S")
-    #   asset_paths = fetch(:public_children, %w(images stylesheets javascripts)).map { |p| "#{latest_release}/public/#{p}" }.join(" ")
-    #   run "find #{asset_paths} -exec touch -t #{stamp} {} ';'; true", :env => { "TZ" => "UTC" }
-    # end
   end
+
+  task :wait_until_waiting_activation, :roles => :app do
+    # waiting_activationになるまで待つ, terminatedは無視
+    #   STATUS_LIST = [ # Tengine::Core::Kernel
+    #     :initialized,        # 初期化済み
+    #     :starting,           # 起動中
+    #     :waiting_activation, # 稼働要求待ち
+    #     :running,            # 稼働中
+    #     :shutting_down,      # 停止中
+    #     :terminated,         # 停止済
+    #   ].freeze
+
+    on_rollback do
+      force_stop
+      abort "=== could not start kernel process. ==="
+    end
+    # waiting_activationが起動プロセス数分あること
+    run (<<-CMD).split.join(" ")
+      cd #{current_path} && \
+      echo Waiting for being waiting_activation... && \
+      echo ex\\) \\{ pid \\=\\> status \\} && \
+      ruby -e 'begin stats=IO.popen("tengined -k status"){|io| io.read}.split("\\n").map(&:strip).inject({}){|m, e| i=e.split; m[i[0]]=i[1]; m}; res=stats.select{|k,v| v.to_sym == :waiting_activation}.count == #{num_proc}; puts stats.reject{|k,v| v.to_sym == :terminated}; sleep 3 end until res'
+    CMD
+  end
+
+  task :enable_drivers, :roles => :enable_drivers do
+    on_rollback do
+      force_stop
+      abort "=== could not start kernel process. ==="
+    end
+    run "cd #{current_path} && tengined -k enable -T #{load_path} -f #{config_file_path}"
+  end
+
+  task :activate, :roles => :app do
+    run "cd #{current_path} && tengined -k activate -f #{config_file_path}"
+  end
+
+  task :bundle, :roles => :app do
+    run "cd #{current_path} && bundle"
+  end
+
+  task :stop, :roles => :app do
+    run "cd #{current_path} && tengined -k stop -f #{config_file_path}"
+  end
+
+  task :force_stop, :roles => :app do
+    run "cd #{current_path} && tengined -k force_stop -f #{config_file_path}"
+  end
+
 end
+
 
 # capistrano force stop for 'ctl+c'
 Signal.trap(:INT) do
