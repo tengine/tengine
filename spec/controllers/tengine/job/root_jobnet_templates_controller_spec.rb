@@ -29,147 +29,352 @@ describe Tengine::Job::RootJobnetTemplatesController do
   end
 
   describe "GET index" do
-    before(:each) do
-      Tengine::Job::Vertex.delete_all
-      Tengine::Job::Category.delete_all
-      Tengine::Job::RootJobnetTemplate.delete_all
-      category = stub_model(Tengine::Job::Category, :to_s => "category")
-      Tengine::Job::RootJobnetTemplate.create!(
-        #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
-        :name => "9Name1",
-        :server_name => "Server Name1",
-        :credential_name => "Credential Name1",
-        :killing_signals => ["abc", "123"],
-        :killing_signal_interval => 1,
-        :description => "9Description1",
-        :script => "Script1",
-        :jobnet_type_cd => 2,
-        :category => category,
-        :lock_version => 3,
-        :dsl_filepath => "Dsl Filepath1",
-        :dsl_lineno => 4,
-        :dsl_version => "Dsl Version1"
-      )
-      Tengine::Job::RootJobnetTemplate.create!(
-        #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
-        :name => "2Name1",
-        :server_name => "Server Name1",
-        :credential_name => "Credential Name1",
-        :killing_signals => ["abc", "123"],
-        :killing_signal_interval => 1,
-        :description => "2Description1",
-        :script => "Script1",
-        :jobnet_type_cd => 2,
-        :category => category,
-        :lock_version => 3,
-        :dsl_filepath => "Dsl Filepath1",
-        :dsl_lineno => 4,
-        :dsl_version => "Dsl Version1"
-      )
-      Tengine::Job::RootJobnetTemplate.create!(
-        #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
-        :name => "1Name2",
-        :server_name => "Server Name2",
-        :credential_name => "Credential Name2",
-        :killing_signals => ["abc", "123"],
-        :killing_signal_interval => 1,
-        :description => "3Description2",
-        :script => "Script2",
-        :jobnet_type_cd => 2,
-        :category => category,
-        :lock_version => 3,
-        :dsl_filepath => "Dsl Filepath2",
-        :dsl_lineno => 4,
-        :dsl_version => "Dsl Version2"
-      )
-      Tengine::Job::RootJobnetTemplate.create!(
-        #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
-        :name => "3Name3",
-        :server_name => "Server Name3",
-        :credential_name => "Credential Name3",
-        :killing_signals => ["abc", "123"],
-        :killing_signal_interval => 1,
-        :description => "1Description3",
-        :script => "Script3",
-        :jobnet_type_cd => 2,
-        :category => category,
-        :lock_version => 3,
-        :dsl_filepath => "Dsl Filepath3",
-        :dsl_lineno => 4,
-        :dsl_version => "Dsl Version3"
-      )
-    end
+    describe "&sort" do
+      before(:each) do
+        Tengine::Job::Vertex.delete_all
+        Tengine::Job::Category.delete_all
+        Tengine::Job::RootJobnetTemplate.delete_all
+        category = stub_model(Tengine::Job::Category, :to_s => "category")
+        Tengine::Job::RootJobnetTemplate.create!(
+          #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
+          :name => "9Name1",
+          :server_name => "Server Name1",
+          :credential_name => "Credential Name1",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "9Description1",
+          :script => "Script1",
+          :jobnet_type_cd => 2,
+          :category => category,
+          :lock_version => 3,
+          :dsl_filepath => "Dsl Filepath1",
+          :dsl_lineno => 4,
+          :dsl_version => "Dsl Version1"
+        )
+        Tengine::Job::RootJobnetTemplate.create!(
+          #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
+          :name => "2Name1",
+          :server_name => "Server Name1",
+          :credential_name => "Credential Name1",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "2Description1",
+          :script => "Script1",
+          :jobnet_type_cd => 2,
+          :category => category,
+          :lock_version => 3,
+          :dsl_filepath => "Dsl Filepath1",
+          :dsl_lineno => 4,
+          :dsl_version => "Dsl Version1"
+        )
+        Tengine::Job::RootJobnetTemplate.create!(
+          #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
+          :name => "1Name2",
+          :server_name => "Server Name2",
+          :credential_name => "Credential Name2",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "3Description2",
+          :script => "Script2",
+          :jobnet_type_cd => 2,
+          :category => category,
+          :lock_version => 3,
+          :dsl_filepath => "Dsl Filepath2",
+          :dsl_lineno => 4,
+          :dsl_version => "Dsl Version2"
+        )
+        Tengine::Job::RootJobnetTemplate.create!(
+          #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
+          :name => "3Name3",
+          :server_name => "Server Name3",
+          :credential_name => "Credential Name3",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "1Description3",
+          :script => "Script3",
+          :jobnet_type_cd => 2,
+          :category => category,
+          :lock_version => 3,
+          :dsl_filepath => "Dsl Filepath3",
+          :dsl_lineno => 4,
+          :dsl_version => "Dsl Version3"
+        )
+      end
 
-    it "assigns all tengine_job_root_jobnet_templates as @tengine_job_root_jobnet_templates" do
-      Tengine::Job::RootJobnetTemplate.delete_all
-      root_jobnet_template = Tengine::Job::RootJobnetTemplate.create! valid_attributes
-      get :index
-      root_jobnet_templates = assigns(:root_jobnet_templates)
-      root_jobnet_templates.to_a.should eq([root_jobnet_template])
-    end
+      it "assigns all tengine_job_root_jobnet_templates as @tengine_job_root_jobnet_templates" do
+        Tengine::Job::RootJobnetTemplate.delete_all
+        root_jobnet_template = Tengine::Job::RootJobnetTemplate.create! valid_attributes
+        get :index
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        root_jobnet_templates.to_a.should eq([root_jobnet_template])
+      end
 
-    # BSON::ObjectIdの大きい順、小さい順に値を指定できていないためコメントアウトしています。
-    #it "GET index, sort by id asc" do
-    #  get :index, :sort => {:id => "asc"}
-    #  root_jobnet_templates = assigns(:root_jobnet_templates)
-    #  [
-    #    BSON::ObjectId("4e955633c3406b3a9f000003"),
-    #    BSON::ObjectId("4e955633c3406b3a9f000002"),
-    #    BSON::ObjectId("4e955633c3406b3a9f000001"),
-    #    BSON::ObjectId("4e955633c3406b3a9f000000"),
-    #  ].each_with_index do |expected, i|
-    #    root_jobnet_templates[i].id.should eq(expected)
-    #  end
-    #end
+      # BSON::ObjectIdの大きい順、小さい順に値を指定できていないためコメントアウトしています。
+      #it "GET index, sort by id asc" do
+      #  get :index, :sort => {:id => "asc"}
+      #  root_jobnet_templates = assigns(:root_jobnet_templates)
+      #  [
+      #    BSON::ObjectId("4e955633c3406b3a9f000003"),
+      #    BSON::ObjectId("4e955633c3406b3a9f000002"),
+      #    BSON::ObjectId("4e955633c3406b3a9f000001"),
+      #    BSON::ObjectId("4e955633c3406b3a9f000000"),
+      #  ].each_with_index do |expected, i|
+      #    root_jobnet_templates[i].id.should eq(expected)
+      #  end
+      #end
 
-    #it "GET index, sort by id desc" do
-    #  get :index, :sort => {:id => "desc"}
-    #  root_jobnet_templates = assigns(:root_jobnet_templates)
-    #  [
-    #    BSON::ObjectId("4e955633c3406b3a9f000000"),
-    #    BSON::ObjectId("4e955633c3406b3a9f000001"),
-    #    BSON::ObjectId("4e955633c3406b3a9f000002"),
-    #    BSON::ObjectId("4e955633c3406b3a9f000003"),
-    #  ].each_with_index do |expected, i|
-    #    root_jobnet_templates[i].id.should eq(expected)
-    #  end
-    #end
+      #it "GET index, sort by id desc" do
+      #  get :index, :sort => {:id => "desc"}
+      #  root_jobnet_templates = assigns(:root_jobnet_templates)
+      #  [
+      #    BSON::ObjectId("4e955633c3406b3a9f000000"),
+      #    BSON::ObjectId("4e955633c3406b3a9f000001"),
+      #    BSON::ObjectId("4e955633c3406b3a9f000002"),
+      #    BSON::ObjectId("4e955633c3406b3a9f000003"),
+      #  ].each_with_index do |expected, i|
+      #    root_jobnet_templates[i].id.should eq(expected)
+      #  end
+      #end
 
-    it "GET index, sort by name asc" do
-      get :index, :sort => {:name => "asc"}
-      root_jobnet_templates = assigns(:root_jobnet_templates)
-      %w( 1Name2 2Name1 3Name3 9Name1).each_with_index do |expected, i|
-        root_jobnet_templates[i].name.should eq(expected)
+      it "GET index, sort by name asc" do
+        get :index, :sort => {:name => "asc"}
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        %w( 1Name2 2Name1 3Name3 9Name1).each_with_index do |expected, i|
+          root_jobnet_templates[i].name.should eq(expected)
+        end
+      end
+
+      it "GET index, sort by name desc" do
+        get :index, :sort => {:name => "desc"}
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        %w(9Name1 3Name3 2Name1 1Name2).each_with_index do |expected, i|
+          root_jobnet_templates[i].name.should eq(expected)
+        end
+      end
+
+      it "GET index, sort by description asc" do
+        get :index, :sort => {:desc => "asc"}
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        %w(
+          1Description3 2Description1 3Description2 9Description1
+        ).each_with_index do |expected, i|
+          root_jobnet_templates[i].description.should eq(expected)
+        end
+      end
+
+      it "GET index, sort by description desc" do
+        get :index, :sort => {:desc => "desc"}
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        %w(
+          9Description1 3Description2 2Description1 1Description3
+        ).each_with_index do |expected, i|
+          root_jobnet_templates[i].description.should eq(expected)
+        end
       end
     end
 
-    it "GET index, sort by name desc" do
-      get :index, :sort => {:name => "desc"}
-      root_jobnet_templates = assigns(:root_jobnet_templates)
-      %w(9Name1 3Name3 2Name1 1Name2).each_with_index do |expected, i|
-        root_jobnet_templates[i].name.should eq(expected)
+    describe "&finder" do
+      before do
+        Tengine::Job::Category.delete_all
+        Tengine::Job::Vertex.delete_all
+        Tengine::Job::RootJobnetTemplate.delete_all
+        category = stub_model(Tengine::Job::Category, :to_s => "category")
+        Tengine::Job::RootJobnetTemplate.create!(
+          :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+          :name => "jobnet_foo_test",
+          :server_name => "Server Name",
+          :credential_name => "Credential Name",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "jobnet_foo_test description",
+          :script => "Script",
+          :jobnet_type_cd => 2,
+          :category => category,
+          :lock_version => 3,
+          :dsl_filepath => "Dsl Filepath",
+          :dsl_lineno => 4,
+          :dsl_version => "Dsl Version"
+        )
+        Tengine::Job::RootJobnetTemplate.create!(
+          :id => BSON::ObjectId("4e955633c3406b3a9f000002"),
+          :name => "jobnet_bar_test",
+          :server_name => "Server Name",
+          :credential_name => "Credential Name",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "jobnet_bar_test description",
+          :script => "Script",
+          :jobnet_type_cd => 2,
+          :category => category,
+          :lock_version => 3,
+          :dsl_filepath => "Dsl Filepath",
+          :dsl_lineno => 4,
+          :dsl_version => "Dsl Version"
+        )
+        Tengine::Job::RootJobnetTemplate.create!(
+          :id => BSON::ObjectId("4e955633c3406b3a9f000003"),
+          :name => "jobnet_baz_bar_test",
+          :server_name => "Server Name",
+          :credential_name => "Credential Name",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "jobnet_baz_bar_test description",
+          :script => "Script",
+          :jobnet_type_cd => 2,
+          :category => category,
+          :lock_version => 3,
+          :dsl_filepath => "Dsl Filepath",
+          :dsl_lineno => 4,
+          :dsl_version => "Dsl Version"
+        )
+      end
+
+      it "検索フォームに何も入力せずに検索したとき3件表示されること" do
+        get :index, :finder => {:id => "", :name => "", :description => "",}
+
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        root_jobnet_templates.count.should == 3
+      end
+
+      it "検索フォームにIDが「4e955633c3406b3a9f000009」で検索したときテンプレートジョブネットが1件も表示されないこと" do
+        get :index, :finder => {:id => "", :name => "", :description => "",}
+
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        root_jobnet_templates.count.should == 3
+      end
+
+      it "検索フォームにIDが「4e955633c3406b3a9f000001」で検索したとき指定したIDに一致するテンプレートジョブネットが1件表示されること" do
+        get :index, :finder => {
+          :id => "4e955633c3406b3a9f000001", :name => "", :description => "",
+        }
+
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        root_jobnet_templates.count.should == 1
+        root_jobnet_templates.first.id.to_s.should == "4e955633c3406b3a9f000001"
+      end
+
+      it "検索フォームにNameが「foo」で検索したときNameにfooが含まれるテンプレートジョブネットが1件表示されること" do
+        get :index, :finder => {
+          :id => "", :name => "foo", :description => "",
+        }
+
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        root_jobnet_templates.count.should == 1
+        root_jobnet_templates.first.name.should =~ /foo/
+      end
+
+      it "検索フォームにNameが「bar」で検索したときNameにbarが含まれるテンプレートジョブネットが2件表示されること" do
+        get :index, :finder => {
+          :id => "", :name => "bar", :description => "",
+        }
+
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        root_jobnet_templates.count.should == 2
+        root_jobnet_templates[0].name.should =~ /bar/
+        root_jobnet_templates[1].name.should =~ /bar/
+      end
+
+      it "検索フォームにDescriptionが「foo」で検索したときDescriptionにfooが含まれるテンプレートジョブネットが1件表示されること" do
+        get :index, :finder => {
+          :id => "", :name => "", :description => "foo",
+        }
+
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        root_jobnet_templates.count.should == 1
+        root_jobnet_templates.first.description.should =~ /foo/
+      end
+
+      it "検索フォームにDescriptionが「bar」で検索したときDescriptionにbarが含まれるテンプレートジョブネットが2件表示されること" do
+        get :index, :finder => {
+          :id => "", :name => "", :description => "bar",
+        }
+
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        root_jobnet_templates.count.should == 2
+        root_jobnet_templates[0].description.should =~ /bar/
+        root_jobnet_templates[1].description.should =~ /bar/
+      end
+
+      it "検索フォームにIDが「4e955633c3406b3a9f000001」でNameが「foo」で検索したとき指定したIDに一致しNameにfooを含むテンプレートジョブネットが1件表示されること" do
+        get :index, :finder => {
+          :id => "4e955633c3406b3a9f000001", :name => "foo", :description => "",
+        }
+
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        root_jobnet_templates.count.should == 1
+        root_jobnet_templates.first.id.to_s.should == "4e955633c3406b3a9f000001"
+        root_jobnet_templates.first.name.should =~ /foo/
+      end
+
+      it "検索フォームにIDが「4e955633c3406b3a9f000001」でDescriptionが「foo」で検索したとき指定したIDに一致しDescriptionにfooを含むテンプレートジョブネットが1件表示されること" do
+        get :index, :finder => {
+          :id => "4e955633c3406b3a9f000001", :name => "", :description => "foo",
+        }
+
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        root_jobnet_templates.count.should == 1
+        root_jobnet_templates.first.id.to_s.should == "4e955633c3406b3a9f000001"
+        root_jobnet_templates.first.description.should =~ /foo/
+      end
+
+      it "検索フォームにNameが「bar」でDescriptionが「baz」で検索したときNameにbarを含みDescriptionにbazを含むテンプレートジョブネットが1件表示されること" do
+        get :index, :finder => {
+          :id => "", :name => "bar", :description => "baz",
+        }
+
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        root_jobnet_templates.count.should == 1
+        root_jobnet_templates.first.name.should =~ /bar/
+        root_jobnet_templates.first.description.should =~ /baz/
+      end
+
+      it "検索フォームにIDが「4e955633c3406b3a9f000003」でNameが「bar」でDescriptionが「baz」で検索したとき指定したIDに一致しNameにbarを含みDescriptionにbazを含むテンプレートジョブネットが1件表示されること" do
+        get :index, :finder => {
+          :id => "4e955633c3406b3a9f000003",
+          :name => "bar",
+          :description => "baz",
+        }
+
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        root_jobnet_templates.count.should == 1
+        root_jobnet_templates.first.id.to_s.should == "4e955633c3406b3a9f000003"
+        root_jobnet_templates.first.name.should =~ /bar/
+        root_jobnet_templates.first.description.should =~ /baz/
+      end
+
+      context "Nameの降順でソートされていた場合" do
+        it "検索フォームにNameが「bar」で検索したときNameにbarを含むテンプレートジョブネットが2件Nameの降順でソートされて表示されること" do
+          get :index,
+            :finder => { :id => "", :name => "bar", :description => "", },
+            :sort   => {:name => "desc"}
+
+          root_jobnet_templates = assigns(:root_jobnet_templates)
+          root_jobnet_templates.count.should == 2
+          %w(jobnet_baz_bar_test jobnet_bar_test).each_with_index do |expected, i|
+            root_jobnet_templates[i].name.should =~ /bar/
+            root_jobnet_templates[i].name.should == expected
+          end
+        end
       end
     end
 
-    it "GET index, sort by description asc" do
-      get :index, :sort => {:desc => "asc"}
-      root_jobnet_templates = assigns(:root_jobnet_templates)
-      %w(
-        1Description3 2Description1 3Description2 9Description1
-      ).each_with_index do |expected, i|
-        root_jobnet_templates[i].description.should eq(expected)
+    describe "@query_param" do
+      it "クエリーパラメータがないとき@query_paramはidを昇順にソートするクエリーパラメータが入っていること" do
+        get :index
+
+        query_param = assigns(:query_param)
+        query_param.should == {"sort" => {"id" => "asc"}}
+      end
+
+      it "クエリーパラメータがあるとき@query_paramはクエリーパラメータと同じ値であること" do
+        q = {"sort" => {"name" => "asc"}, "finder" => {"name" => "foo"}}
+        get :index, q
+
+        query_param = assigns(:query_param)
+        query_param.should == q
       end
     end
 
-    it "GET index, sort by description desc" do
-      get :index, :sort => {:desc => "desc"}
-      root_jobnet_templates = assigns(:root_jobnet_templates)
-      %w(
-        9Description1 3Description2 2Description1 1Description3
-      ).each_with_index do |expected, i|
-        root_jobnet_templates[i].description.should eq(expected)
-      end
-    end
   end
 
   describe "GET show" do

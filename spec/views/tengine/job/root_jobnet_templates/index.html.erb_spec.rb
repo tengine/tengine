@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
+require 'ostruct'
 
 describe "tengine/job/root_jobnet_templates/index.html.erb" do
   before(:each) do
+    Tengine::Job::Category.delete_all
+    Tengine::Job::Vertex.delete_all
     category = stub_model(Tengine::Job::Category, :to_s => "category")
     mock_pagination(assign(:root_jobnet_templates, [
       stub_model(Tengine::Job::RootJobnetTemplate,
@@ -38,6 +41,8 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
         :dsl_version => "Dsl Version"
       )
     ]))
+
+    @query_param = {}
   end
 
   it "renders a list of tengine_job_root_jobnet_templates" do
@@ -154,5 +159,59 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
         Tengine::Job::RootJobnetTemplate.human_attribute_name(:description),
         :href=>tengine_job_root_jobnet_templates_path(:sort=>{:desc=>:asc}))
     end
+
   end
+
+  it "検索フォームに値が入っていないこと" do
+    render
+
+    assert_select "input[id='finder_id']", :text => "", :count => 1
+    assert_select "input[id='finder_name']", :text => "", :count => 1
+    assert_select "input[id='finder_description']", :text => "", :count => 1
+  end
+
+  context "id,name,descriptionで検索したとき" do
+    before do
+      @finder = OpenStruct.new(
+        :id =>"search id",
+        :name => "search name",
+        :description => "search description"
+      )
+    end
+
+    it "検索フォームに検索にしようした値が入力されていること" do
+      render
+
+      assert_select "input[value='search id']", :count => 1
+      assert_select "input[value='search name']", :count => 1
+      assert_select "input[value='search description']", :count => 1
+    end
+  end
+
+  context "nameで検索したとき" do
+    before do
+      @query_param = {:finder => { :name => "foo" }}
+    end
+
+    it "ソートのリンクに検索のクエリーパラメータがついていること" do
+      render
+
+      rendered.should have_link(
+        Tengine::Job::RootJobnetTemplate.human_attribute_name(:id),
+        :href=>tengine_job_root_jobnet_templates_path(
+          @query_param.merge(:sort => {:id => :asc}))
+      )
+      rendered.should have_link(
+        Tengine::Job::RootJobnetTemplate.human_attribute_name(:name),
+        :href=>tengine_job_root_jobnet_templates_path(
+          @query_param.merge(:sort => {:name => :asc}))
+      )
+      rendered.should have_link(
+        Tengine::Job::RootJobnetTemplate.human_attribute_name(:description),
+        :href=>tengine_job_root_jobnet_templates_path(
+          @query_param.merge(:sort => {:desc => :asc}))
+      )
+    end
+  end
+
 end
