@@ -5,9 +5,9 @@ require 'ostruct'
 describe "tengine/job/root_jobnet_templates/index.html.erb" do
   before(:each) do
     Tengine::Job::Category.delete_all
-    Tengine::Job::Vertex.delete_all
+    Tengine::Job::RootJobnetTemplate.delete_all
     category = stub_model(Tengine::Job::Category, :to_s => "category")
-    mock_pagination(assign(:root_jobnet_templates, [
+    templates = [
       stub_model(Tengine::Job::RootJobnetTemplate,
         :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
         :name => "Name",
@@ -40,7 +40,8 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
         :dsl_lineno => 4,
         :dsl_version => "Dsl Version"
       )
-    ]))
+    ]
+    assign(:root_jobnet_templates, Kaminari.paginate_array(templates).page(1).per(5))
 
     @query_param = {}
   end
@@ -214,4 +215,69 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
     end
   end
 
+  context "ページが2ページ以上のとき" do
+    before(:each) do
+      Tengine::Job::Category.delete_all
+      Tengine::Job::RootJobnetTemplate.delete_all
+      category = stub_model(Tengine::Job::Category, :to_s => "category")
+      templates = assign(:root_jobnet_templates, Kaminari.paginate_array([
+        stub_model(Tengine::Job::RootJobnetTemplate,
+          :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+          :name => "Name",
+          :server_name => "Server Name",
+          :credential_name => "Credential Name",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "Description",
+          :script => "Script",
+          :jobnet_type_cd => 2,
+          :category => category,
+          :lock_version => 3,
+          :dsl_filepath => "Dsl Filepath",
+          :dsl_lineno => 4,
+          :dsl_version => "Dsl Version"
+        ),
+        stub_model(Tengine::Job::RootJobnetTemplate,
+          :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+          :name => "Name",
+          :server_name => "Server Name",
+          :credential_name => "Credential Name",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "Description",
+          :script => "Script",
+          :jobnet_type_cd => 2,
+          :category => category,
+          :lock_version => 3,
+          :dsl_filepath => "Dsl Filepath",
+          :dsl_lineno => 4,
+          :dsl_version => "Dsl Version"
+        ),
+        stub_model(Tengine::Job::RootJobnetTemplate,
+          :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+          :name => "Name",
+          :server_name => "Server Name",
+          :credential_name => "Credential Name",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "Description",
+          :script => "Script",
+          :jobnet_type_cd => 2,
+          :category => category,
+          :lock_version => 3,
+          :dsl_filepath => "Dsl Filepath",
+          :dsl_lineno => 4,
+          :dsl_version => "Dsl Version"
+        )
+      ]).page(2).per(2))
+
+      @query_param = {}
+    end
+
+    it "件数が表示されていること" do
+      render
+
+      rendered.should have_content("全3件中3〜3件を表示")
+    end
+  end
 end

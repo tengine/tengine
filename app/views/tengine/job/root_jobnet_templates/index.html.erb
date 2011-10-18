@@ -35,6 +35,8 @@
     <% end %>
   </div>
 
+  <%= paginate @root_jobnet_templates, :items => @root_jobnet_templates %>
+
   <div class="wscrollable">
     <table>
       <tr>
@@ -58,7 +60,7 @@
     </table>
   </div>
   
-  <%= paginate @root_jobnet_templates %>
+  <%= paginate @root_jobnet_templates, :items => @root_jobnet_templates %>
 
 </div>
 

@@ -15,3 +15,10 @@ ja:
       successfully_created: "%{model}が登録されました。"
       successfully_updated: "%{model}が更新されました。"
       successfully_destroyed: "%{model}が削除されました。"
+    pagination:
+      caption: "全%{total_number}件中%{first_number}〜%{last_number}件を表示"
+      first: "最初へ"
+      last: "最後へ"
+      previous: "前へ"
+      next: "次へ"
+      truncate: "..."
