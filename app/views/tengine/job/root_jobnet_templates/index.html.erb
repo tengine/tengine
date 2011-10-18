@@ -38,9 +38,9 @@
   <div class="wscrollable">
     <table>
       <tr>
-        <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:id), tengine_job_root_jobnet_templates_path(@query_param.merge(:sort=>sort_order(request, :id))) %></th>
-        <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:name), tengine_job_root_jobnet_templates_path(@query_param.merge(:sort=>sort_order(request, :name))) %></th>
-        <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:description), tengine_job_root_jobnet_templates_path(@query_param.merge(:sort=>sort_order(request, :desc))) %></th>
+        <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:id), tengine_job_root_jobnet_templates_path(@query_param.merge(sort_param(:id))), :class => sort_class(:id) %></th>
+        <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:name), tengine_job_root_jobnet_templates_path(@query_param.merge(sort_param(:name))), :class => sort_class(:name) %></th>
+        <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:description), tengine_job_root_jobnet_templates_path(@query_param.merge(sort_param(:desc))), :class => sort_class(:desc) %></th>
         <th><%= I18n.t(:operation, :scope => [:views, :pages]) %></th>
       </tr>
     
