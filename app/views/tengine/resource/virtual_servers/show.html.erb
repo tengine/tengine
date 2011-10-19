@@ -1,0 +1,62 @@
+<h1><%= page_title Tengine::Resource::VirtualServer, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:name) %>:</b>
+  <%= @virtual_server.name %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:description) %>:</b>
+  <%= @virtual_server.description %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:host) %>:</b>
+  <%= @virtual_server.host %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_name) %>:</b>
+  <%= @virtual_server.provided_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:status) %>:</b>
+  <%= @virtual_server.status %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:public_hostname) %>:</b>
+  <%= @virtual_server.public_hostname %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:public_ipv4) %>:</b>
+  <%= @virtual_server.public_ipv4 %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:local_hostname) %>:</b>
+  <%= @virtual_server.local_hostname %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:local_ipv4) %>:</b>
+  <%= @virtual_server.local_ipv4 %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:properties) %>:</b>
+  <pre><%= @virtual_server.properties_yaml %></pre>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_image_name) %>:</b>
+  <%= @virtual_server.provided_image_name %>
+</p>
+
+
+<%= link_to_edit edit_tengine_resource_virtual_server_path(@virtual_server) %> |
+<%= link_to_back_list tengine_resource_virtual_servers_path %>

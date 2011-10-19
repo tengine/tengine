@@ -1,0 +1,27 @@
+<h1><%= page_title Tengine::Resource::VirtualServerImage, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServerImage.human_attribute_name(:provider) %>:</b>
+  <%= @virtual_server_image.provider %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServerImage.human_attribute_name(:name) %>:</b>
+  <%= @virtual_server_image.name %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServerImage.human_attribute_name(:description) %>:</b>
+  <%= @virtual_server_image.description %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServerImage.human_attribute_name(:provided_name) %>:</b>
+  <%= @virtual_server_image.provided_name %>
+</p>
+
+
+<%= link_to_edit edit_tengine_resource_virtual_server_image_path(@virtual_server_image) %> |
+<%= link_to_back_list tengine_resource_virtual_server_images_path %>

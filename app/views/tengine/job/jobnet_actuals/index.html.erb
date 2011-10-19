@@ -1,0 +1,59 @@
+<h1><%= page_title Tengine::Job::JobnetActual, :list %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:name) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:server_name) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:credential_name) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:killing_signals) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:killing_signal_interval) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:description) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:script) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:jobnet_type_cd) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:executing_pid) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:exit_status) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:was_expansion) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:phase_cd) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:started_at) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:finished_at) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:stopped_at) %></th>
+    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:stop_reason) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @jobnet_actuals.each do |jobnet_actual| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= jobnet_actual.name %></td>
+    <td><%= jobnet_actual.server_name %></td>
+    <td><%= jobnet_actual.credential_name %></td>
+    <td><%= jobnet_actual.killing_signals_text %></td>
+    <td><%= jobnet_actual.killing_signal_interval %></td>
+    <td><%= jobnet_actual.description %></td>
+    <td><%= jobnet_actual.script %></td>
+    <td><%= jobnet_actual.jobnet_type_cd %></td>
+    <td><%= jobnet_actual.executing_pid %></td>
+    <td><%= jobnet_actual.exit_status %></td>
+    <td><%= jobnet_actual.was_expansion %></td>
+    <td><%= jobnet_actual.phase_cd %></td>
+    <td><%= jobnet_actual.started_at %></td>
+    <td><%= jobnet_actual.finished_at %></td>
+    <td><%= jobnet_actual.stopped_at %></td>
+    <td><%= jobnet_actual.stop_reason %></td>
+    <td><%= link_to_show jobnet_actual %></td>
+    <td><%= link_to_edit edit_tengine_job_jobnet_actual_path(jobnet_actual) %></td>
+    <td><%= link_to_destroy jobnet_actual, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= paginate @jobnet_actuals %>
+
+<br />
+
+<%= link_to_new Tengine::Job::JobnetActual, new_tengine_job_jobnet_actual_path %>

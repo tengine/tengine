@@ -1,0 +1,53 @@
+<h1><%= page_title Tengine::Job::RootJobnetTemplate, :list %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:name) %></th>
+    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:server_name) %></th>
+    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:credential_name) %></th>
+    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:killing_signals) %></th>
+    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:killing_signal_interval) %></th>
+    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:description) %></th>
+    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:script) %></th>
+    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:jobnet_type_cd) %></th>
+    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:category) %></th>
+    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:lock_version) %></th>
+    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_filepath) %></th>
+    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_lineno) %></th>
+    <th><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_version) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @root_jobnet_templates.each do |root_jobnet_template| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= root_jobnet_template.name %></td>
+    <td><%= root_jobnet_template.server_name %></td>
+    <td><%= root_jobnet_template.credential_name %></td>
+    <td><%= root_jobnet_template.killing_signals_text %></td>
+    <td><%= root_jobnet_template.killing_signal_interval %></td>
+    <td><%= root_jobnet_template.description %></td>
+    <td><%= root_jobnet_template.script %></td>
+    <td><%= root_jobnet_template.jobnet_type_cd %></td>
+    <td><%= root_jobnet_template.category %></td>
+    <td><%= root_jobnet_template.lock_version %></td>
+    <td><%= root_jobnet_template.dsl_filepath %></td>
+    <td><%= root_jobnet_template.dsl_lineno %></td>
+    <td><%= root_jobnet_template.dsl_version %></td>
+    <td><%= link_to_show root_jobnet_template %></td>
+    <td><%= link_to_edit edit_tengine_job_root_jobnet_template_path(root_jobnet_template) %></td>
+    <td><%= link_to_destroy root_jobnet_template, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= paginate @root_jobnet_templates %>
+
+<br />
+
+<%= link_to_new Tengine::Job::RootJobnetTemplate, new_tengine_job_root_jobnet_template_path %>

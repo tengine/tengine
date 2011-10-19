@@ -18,11 +18,13 @@ describe "<%= class_name.underscore.pluralize %>/index.html.<%= options[:templat
 
   it "renders a list of <%= ns_table_name %>" do
     render
+<% unless webrat? -%>
+    # Run the generator again with the --webrat flag if you want to use webrat matchers
+<% end -%>
 <% for attribute in output_attributes -%>
 <% if webrat? -%>
     rendered.should have_selector("tr>td", :content => <%= value_for(attribute) %>.to_s, :count => 2)
 <% else -%>
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
 <%    case attribute.type -%>
 <%    when :array then -%>
     assert_select "tr>td", :text => <%= attribute.default.join(",").inspect %>, :count => 2

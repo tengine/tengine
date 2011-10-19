@@ -1,0 +1,17 @@
+<%= form_for(@vertex, as:"vertex") do |f| %>
+  <% if @vertex.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= I18n.t('activerecord.errors.template.header', :count => @vertex.errors.size, :model => @vertex.class.human_name) %></h2>
+
+      <ul>
+      <% @vertex.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,29 @@
+<%= form_for(@ec2, as:"ec2") do |f| %>
+  <% if @ec2.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= I18n.t('activerecord.errors.template.header', :count => @ec2.errors.size, :model => @ec2.class.human_name) %></h2>
+
+      <ul>
+      <% @ec2.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :credential_id %><br />
+    <%= f.text_field :credential_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

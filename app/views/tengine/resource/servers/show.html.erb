@@ -1,0 +1,71 @@
+<h1><%= page_title Tengine::Resource::Server, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:provider) %>:</b>
+  <%= @server.provider.name %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:name) %>:</b>
+  <%= @server.name %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:description) %>:</b>
+  <%= @server.description %>
+</p>
+
+<% if @server.respond_to?(:host_id) -%>
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:host) %>:</b>
+  <%= @server.host %>
+</p>
+<% end -%>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:provided_name) %>:</b>
+  <%= @server.provided_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:status) %>:</b>
+  <%= @server.status %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:public_hostname) %>:</b>
+  <%= @server.public_hostname %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:public_ipv4) %>:</b>
+  <%= @server.public_ipv4 %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:local_hostname) %>:</b>
+  <%= @server.local_hostname %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:local_ipv4) %>:</b>
+  <%= @server.local_ipv4 %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:properties) %>:</b>
+  <pre><%= @server.properties_yaml %></pre>
+</p>
+
+<% if @server.respond_to?(:provided_image_name) -%>
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:provided_image_name) %>:</b>
+  <%= @server.provided_image_name %>
+</p>
+<% end -%>
+
+
+<%= link_to_edit edit_tengine_resource_server_path(@server) %> |
+<%= link_to_back_list tengine_resource_servers_path %>

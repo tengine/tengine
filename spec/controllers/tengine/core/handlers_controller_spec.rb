@@ -27,7 +27,10 @@ describe Tengine::Core::HandlersController do
   # Tengine::Core::Handler. As you add validations to Tengine::Core::Handler, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :filepath => "path/to/driver.rb",
+      :lineno => 100,
+    }
   end
 
   before do

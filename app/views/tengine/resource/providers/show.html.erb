@@ -1,0 +1,17 @@
+<h1><%= page_title Tengine::Resource::Provider, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Resource::Provider.human_attribute_name(:name) %>:</b>
+  <%= @provider.name %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Provider.human_attribute_name(:description) %>:</b>
+  <%= @provider.description %>
+</p>
+
+
+<%= link_to_edit edit_tengine_resource_provider_path(@provider) %> |
+<%= link_to_back_list tengine_resource_providers_path %>

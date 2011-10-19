@@ -1,0 +1,72 @@
+<h1><%= page_title Tengine::Job::RootJobnetTemplate, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:name) %>:</b>
+  <%= @root_jobnet_template.name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:server_name) %>:</b>
+  <%= @root_jobnet_template.server_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:credential_name) %>:</b>
+  <%= @root_jobnet_template.credential_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:killing_signals) %>:</b>
+  <%= @root_jobnet_template.killing_signals_text %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:killing_signal_interval) %>:</b>
+  <%= @root_jobnet_template.killing_signal_interval %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:description) %>:</b>
+  <%= @root_jobnet_template.description %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:script) %>:</b>
+  <%= @root_jobnet_template.script %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:jobnet_type_cd) %>:</b>
+  <%= @root_jobnet_template.jobnet_type_cd %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:category) %>:</b>
+  <%= @root_jobnet_template.category %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:lock_version) %>:</b>
+  <%= @root_jobnet_template.lock_version %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_filepath) %>:</b>
+  <%= @root_jobnet_template.dsl_filepath %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_lineno) %>:</b>
+  <%= @root_jobnet_template.dsl_lineno %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_version) %>:</b>
+  <%= @root_jobnet_template.dsl_version %>
+</p>
+
+
+<%= link_to_edit edit_tengine_job_root_jobnet_template_path(@root_jobnet_template) %> |
+<%= link_to_back_list tengine_job_root_jobnet_templates_path %>

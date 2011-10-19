@@ -1,0 +1,47 @@
+<h1><%= page_title Tengine::Resource::Server, :list %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th><%= Tengine::Resource::Server.human_attribute_name(:provider) %></th>
+    <th><%= Tengine::Resource::Server.human_attribute_name(:name) %></th>
+    <th><%= Tengine::Resource::Server.human_attribute_name(:description) %></th>
+    <th><%= Tengine::Resource::Server.human_attribute_name(:provided_name) %></th>
+    <th><%= Tengine::Resource::Server.human_attribute_name(:status) %></th>
+    <th><%= Tengine::Resource::Server.human_attribute_name(:public_hostname) %></th>
+    <th><%= Tengine::Resource::Server.human_attribute_name(:public_ipv4) %></th>
+    <th><%= Tengine::Resource::Server.human_attribute_name(:local_hostname) %></th>
+    <th><%= Tengine::Resource::Server.human_attribute_name(:local_ipv4) %></th>
+    <th><%= Tengine::Resource::Server.human_attribute_name(:properties) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @servers.each do |server| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= (server.respond_to?(:provider) && server.provider) ? server.provider.name : "<No provider found>" %></td>
+    <td><%= server.name %></td>
+    <td><%= server.description %></td>
+    <td><%= server.provided_name %></td>
+    <td><%= server.status %></td>
+    <td><%= server.public_hostname %></td>
+    <td><%= server.public_ipv4 %></td>
+    <td><%= server.local_hostname %></td>
+    <td><%= server.local_ipv4 %></td>
+    <td><pre><%= server.properties_yaml %></pre></td>
+    <td><%= link_to_show server %></td>
+    <td><%= link_to_edit edit_tengine_resource_server_path(server) %></td>
+    <td><%= link_to_destroy server, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= paginate @servers %>
+
+<br />
+
+<%= link_to_new Tengine::Resource::Server, new_tengine_resource_server_path %>

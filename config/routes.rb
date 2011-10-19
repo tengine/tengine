@@ -1,4 +1,48 @@
 TengineConsole::Application.routes.draw do
+  namespace :tengine do  namespace :job do resources :executions end end
+
+  namespace :tengine do  namespace :job do resources :categories end end
+
+  namespace :tengine do  namespace :job do resources :root_jobnet_actuals end end
+
+  namespace :tengine do  namespace :job do resources :root_jobnet_templates end end
+
+  namespace :tengine do  namespace :job do resources :jobnets end end
+
+  namespace :tengine do
+    namespace :job do
+      resources :jobnets do
+        resources :edges
+      end
+    end
+  end
+
+  namespace :tengine do  namespace :job do resources :edges end end
+
+  namespace :tengine do  namespace :job do resources :vertices end end
+
+  namespace :tengine do  namespace :job do resources :jobs end end
+
+  namespace :tengine do  namespace :job do resources :expansions end end
+
+  namespace :tengine do  namespace :job do resources :jobnet_actuals end end
+
+  namespace :tengine do  namespace :job do resources :jobnet_templates end end
+
+  namespace :tengine do  namespace :resource do  namespace :provider do resources :ec2s end end end
+
+  namespace :tengine do  namespace :resource do resources :virtual_servers end end
+
+  namespace :tengine do  namespace :resource do resources :physical_servers end end
+
+  namespace :tengine do  namespace :resource do resources :credentials end end
+
+  namespace :tengine do  namespace :resource do resources :virtual_server_images end end
+
+  namespace :tengine do  namespace :resource do resources :providers end end
+
+  namespace :tengine do  namespace :resource do resources :servers end end
+
   get "tengine/core/event_ignitions/new"
 
   post "tengine/core/event_ignitions/fire"

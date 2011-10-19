@@ -1,0 +1,49 @@
+<h1><%= page_title Tengine::Job::Execution, :list %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th><%= Tengine::Job::Execution.human_attribute_name(:root_jobnet) %></th>
+    <th><%= Tengine::Job::Execution.human_attribute_name(:target_actual_ids) %></th>
+    <th><%= Tengine::Job::Execution.human_attribute_name(:phase_cd) %></th>
+    <th><%= Tengine::Job::Execution.human_attribute_name(:started_at) %></th>
+    <th><%= Tengine::Job::Execution.human_attribute_name(:finished_at) %></th>
+    <th><%= Tengine::Job::Execution.human_attribute_name(:preparation_command) %></th>
+    <th><%= Tengine::Job::Execution.human_attribute_name(:actual_base_timeout_alert) %></th>
+    <th><%= Tengine::Job::Execution.human_attribute_name(:actual_base_timeout_termination) %></th>
+    <th><%= Tengine::Job::Execution.human_attribute_name(:estimated_time) %></th>
+    <th><%= Tengine::Job::Execution.human_attribute_name(:keeping_stdout) %></th>
+    <th><%= Tengine::Job::Execution.human_attribute_name(:keeping_stderr) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @executions.each do |execution| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= execution.root_jobnet ? execution.root_jobnet.name : nil %></td>
+    <td><%= execution.target_actual_ids_text %></td>
+    <td><%= execution.phase_cd %></td>
+    <td><%= execution.started_at %></td>
+    <td><%= execution.finished_at %></td>
+    <td><%= execution.preparation_command %></td>
+    <td><%= execution.actual_base_timeout_alert %></td>
+    <td><%= execution.actual_base_timeout_termination %></td>
+    <td><%= execution.estimated_time %></td>
+    <td><%= execution.keeping_stdout %></td>
+    <td><%= execution.keeping_stderr %></td>
+    <td><%= link_to_show execution %></td>
+    <td><%= link_to_edit edit_tengine_job_execution_path(execution) %></td>
+    <td><%= link_to_destroy execution, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= paginate @executions %>
+
+<br />
+
+<%= link_to_new Tengine::Job::Execution, new_tengine_job_execution_path %>

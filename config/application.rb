@@ -5,6 +5,14 @@ if ENV['DIRECT_CORE']
   # tengine_console と同じディレクトリに tengine_core もあることを前提にしています
   $LOAD_PATH.unshift(File.expand_path("../../tengine_core/lib", File.dirname(__FILE__)))
 end
+if ENV['DIRECT_RESOURCE']
+  # tengine_console と同じディレクトリに tengine_resource もあることを前提にしています
+  $LOAD_PATH.unshift(File.expand_path("../../tengine_resource/lib", File.dirname(__FILE__)))
+end
+if ENV['DIRECT_JOB']
+  # tengine_console と同じディレクトリに tengine_job もあることを前提にしています
+  $LOAD_PATH.unshift(File.expand_path("../../tengine_job/lib", File.dirname(__FILE__)))
+end
 
 # Pick the frameworks you want:
 # require "active_record/railtie"

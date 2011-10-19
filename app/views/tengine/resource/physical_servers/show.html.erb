@@ -1,0 +1,57 @@
+<h1><%= page_title Tengine::Resource::PhysicalServer, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:provider) %>:</b>
+  <%= @physical_server.provider %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:name) %>:</b>
+  <%= @physical_server.name %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:description) %>:</b>
+  <%= @physical_server.description %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:provided_name) %>:</b>
+  <%= @physical_server.provided_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:status) %>:</b>
+  <%= @physical_server.status %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:public_hostname) %>:</b>
+  <%= @physical_server.public_hostname %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:public_ipv4) %>:</b>
+  <%= @physical_server.public_ipv4 %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:local_hostname) %>:</b>
+  <%= @physical_server.local_hostname %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:local_ipv4) %>:</b>
+  <%= @physical_server.local_ipv4 %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:properties) %>:</b>
+  <pre><%= @physical_server.properties_yaml %></pre>
+</p>
+
+
+<%= link_to_edit edit_tengine_resource_physical_server_path(@physical_server) %> |
+<%= link_to_back_list tengine_resource_physical_servers_path %>

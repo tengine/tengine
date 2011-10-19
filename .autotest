@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+# -*- ruby -*-
+
+# http://somethingnew2.com/blog/archives/ruby/
+# $ cp ~/.rvm/gems/ruby-1.9.2-head@tengine_console/gems/ZenTest-4.5.0/example_dot_autotest.rb .autotest
+
+# require 'autotest/autoupdate'
+# require 'autotest/bundler'
+# require 'autotest/isolate'
+# require 'autotest/once'
+# require 'autotest/rcov'
+# require 'autotest/restart'
+# require 'autotest/timestamp'
+
+# Autotest::AutoUpdate.sleep_time = o
+# Autotest::AutoUpdate.update_cmd = o
+# Autotest::Isolate.dir = o
+# Autotest::RCov.command = o
+# Autotest::RCov.pattern = o
+# Autotest::RCov.options = o
+
+
+# 自動実行対象外のディレクトリを定義しています
+# http://stackoverflow.com/questions/2690418/excluding-a-folder-from-autotesting
+# http://blog.davidchelimsky.net/2008/03/05/limiting-scope-of-autotest/
+Autotest.add_hook :initialize do |at|
+  %w{spec/models/tengine/job/dsls}.each {|exception| at.add_exception(exception)}
+end

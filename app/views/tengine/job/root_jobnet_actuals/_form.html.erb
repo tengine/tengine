@@ -1,0 +1,93 @@
+<%= form_for(@root_jobnet_actual, as:"root_jobnet_actual") do |f| %>
+  <% if @root_jobnet_actual.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= I18n.t('activerecord.errors.template.header', :count => @root_jobnet_actual.errors.size, :model => @root_jobnet_actual.class.human_name) %></h2>
+
+      <ul>
+      <% @root_jobnet_actual.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :server_name %><br />
+    <%= f.text_field :server_name %>
+  </div>
+  <div class="field">
+    <%= f.label :credential_name %><br />
+    <%= f.text_field :credential_name %>
+  </div>
+  <div class="field">
+    <%= f.label :killing_signals_text %><br />
+    <%= f.text_field :killing_signals_text %>
+  </div>
+  <div class="field">
+    <%= f.label :killing_signal_interval %><br />
+    <%= f.number_field :killing_signal_interval %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :script %><br />
+    <%= f.text_field :script %>
+  </div>
+  <div class="field">
+    <%= f.label :jobnet_type_cd %><br />
+    <%= f.number_field :jobnet_type_cd %>
+  </div>
+  <div class="field">
+    <%= f.label :executing_pid %><br />
+    <%= f.text_field :executing_pid %>
+  </div>
+  <div class="field">
+    <%= f.label :exit_status %><br />
+    <%= f.text_field :exit_status %>
+  </div>
+  <div class="field">
+    <%= f.label :was_expansion %><br />
+    <%= f.check_box :was_expansion %>
+  </div>
+  <div class="field">
+    <%= f.label :phase_cd %><br />
+    <%= f.number_field :phase_cd %>
+  </div>
+  <div class="field">
+    <%= f.label :started_at %><br />
+    <%= f.datetime_select :started_at %>
+  </div>
+  <div class="field">
+    <%= f.label :finished_at %><br />
+    <%= f.datetime_select :finished_at %>
+  </div>
+  <div class="field">
+    <%= f.label :stopped_at %><br />
+    <%= f.datetime_select :stopped_at %>
+  </div>
+  <div class="field">
+    <%= f.label :stop_reason %><br />
+    <%= f.text_field :stop_reason %>
+  </div>
+  <div class="field">
+    <%= f.label :category_id %><br />
+    <%= f.text_field :category_id %>
+  </div>
+  <div class="field">
+    <%= f.label :lock_version %><br />
+    <%= f.number_field :lock_version %>
+  </div>
+  <div class="field">
+    <%= f.label :template_id %><br />
+    <%= f.text_field :template_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

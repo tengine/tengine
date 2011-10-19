@@ -1,0 +1,102 @@
+<h1><%= page_title Tengine::Job::RootJobnetActual, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:name) %>:</b>
+  <%= @root_jobnet_actual.name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:server_name) %>:</b>
+  <%= @root_jobnet_actual.server_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:credential_name) %>:</b>
+  <%= @root_jobnet_actual.credential_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:killing_signals) %>:</b>
+  <%= @root_jobnet_actual.killing_signals_text %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:killing_signal_interval) %>:</b>
+  <%= @root_jobnet_actual.killing_signal_interval %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:description) %>:</b>
+  <%= @root_jobnet_actual.description %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:script) %>:</b>
+  <%= @root_jobnet_actual.script %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:jobnet_type_cd) %>:</b>
+  <%= @root_jobnet_actual.jobnet_type_cd %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:executing_pid) %>:</b>
+  <%= @root_jobnet_actual.executing_pid %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:exit_status) %>:</b>
+  <%= @root_jobnet_actual.exit_status %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:was_expansion) %>:</b>
+  <%= @root_jobnet_actual.was_expansion %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:phase_cd) %>:</b>
+  <%= @root_jobnet_actual.phase_cd %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:started_at) %>:</b>
+  <%= @root_jobnet_actual.started_at %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at) %>:</b>
+  <%= @root_jobnet_actual.finished_at %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:stopped_at) %>:</b>
+  <%= @root_jobnet_actual.stopped_at %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:stop_reason) %>:</b>
+  <%= @root_jobnet_actual.stop_reason %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:category) %>:</b>
+  <%= @root_jobnet_actual.category %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:lock_version) %>:</b>
+  <%= @root_jobnet_actual.lock_version %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:template) %>:</b>
+  <%= @root_jobnet_actual.template %>
+</p>
+
+
+<%= link_to_edit edit_tengine_job_root_jobnet_actual_path(@root_jobnet_actual) %> |
+<%= link_to_back_list tengine_job_root_jobnet_actuals_path %>

@@ -24,7 +24,14 @@ describe Tengine::Core::DriversController do
   # Tengine::Core::Driver. As you add validations to Tengine::Core::Driver, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :name => "driver100",
+      :version => "100",
+    }
+  end
+
+  before do
+    Tengine::Core::Driver.delete_all
   end
 
   describe "GET index" do
