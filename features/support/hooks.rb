@@ -12,11 +12,10 @@ After do |s|
   system("ps -e |grep tengined|grep -v grep |awk '{print $1}' |xargs kill -9")
   system("ps -e |grep \"mongod --port 21039\" |grep -v grep|awk '{print $1}' |xargs kill -2")
 end
-at_exit do
- examples =  Dir::entries("../tengine_core/exanples")
- failure_examples =  Dir::entries("../tengine_core/failure_examples")
- only_features =  Dir::entries("uscases/core/dsls")
- dsls = examples + failure_examples + only_features
- 
- 
-end
+
+#at_exit do
+# examples =  Dir::entries("../tengine_core/examples")
+# failure_examples =  Dir::entries("../tengine_core/failure_examples")
+# only_features =  Dir::entries("uscases/core/dsls")
+# dsls = examples + failure_examples + only_features 
+#end
