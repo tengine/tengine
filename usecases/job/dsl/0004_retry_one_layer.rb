@@ -1,18 +1,22 @@
 # -*- coding: utf-8 -*-
 
-# [jobnet0004]
-#                   |--- job2-------
-#                   |              |
-# start --- job1 ----              |--- job4 ----- end
-#                   |--- job3 ------
-# 
-jobnet("jobnet0004", :instance_name => "i-11111111", :credential_name => "goku-ssh-pk1") do
-  boot_jobs("job1")
-  job("job1", "echo 'job1'", :to => ["job2", "job3"])
-  job("job2", "echo 'job2'", :to => "job4")
-  job("job3", "echo 'job3'", :to => "job4")
-  job("job4", "echo 'job4'")
+# [jn0004]
+#               |-->[j2]-->
+#               |         |
+# [S1]-->[j1]-->          |-->[j4]-->[E1]
+#               |-->[j3]-->
+#                     _________finally________
+#                    {                        }
+#                    {[S2]-->[jn0004_f]-->[E2]}
+#                    {________________________}
+#                     
+jobnet("jn0004", :instance_name => "i-11111111", :credential_name => "goku-ssh-pk1") do
+  boot_jobs("j1")
+  job("j1", "echo 'j1'", :to => ["j2", "j3"])
+  job("j2", "echo 'j2'", :to => "j4")
+  job("j3", "echo 'j3'", :to => "j4")
+  job("j4", "echo 'j4'")
   finally do
-    job("jobnet0004_finally", "echo 'jobnet0004_finally'")
+    job("jn0004_f", "echo 'jn0004_f'")
   end
 end
