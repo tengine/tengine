@@ -309,7 +309,7 @@ end
   pending # express the regexp above with the code you wish you had
 end
 
-前提 /^GR Heartbeatの発火間隔が(.*)と設定されている$/ do |tengined_heartbeat_period|
+前提 /^tenginedハートビートの発火間隔が(.*)と設定されている$/ do |tengined_heartbeat_period|
   @tengined_heartbeat_period = tengined_heartbeat_period
 end
 
