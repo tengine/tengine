@@ -171,6 +171,14 @@ describe Tengine::Job::RootJobnetTemplatesController do
           root_jobnet_templates[i].description.should eq(expected)
         end
       end
+
+      it "GET index, ソートのクエリーパラメータが指定されていないときnameの昇順で一覧がソートされていること" do
+        get :index
+        root_jobnet_templates = assigns(:root_jobnet_templates)
+        %w( 1Name2 2Name1 3Name3 9Name1).each_with_index do |expected, i|
+          root_jobnet_templates[i].name.should eq(expected)
+        end
+      end
     end
 
     describe "&finder" do
@@ -357,24 +365,6 @@ describe Tengine::Job::RootJobnetTemplatesController do
         end
       end
     end
-
-    describe "@query_param" do
-      it "クエリーパラメータがないとき@query_paramはidを昇順にソートするクエリーパラメータが入っていること" do
-        get :index
-
-        query_param = assigns(:query_param)
-        query_param.should == {"sort" => {"id" => "asc"}}
-      end
-
-      it "クエリーパラメータがあるとき@query_paramはクエリーパラメータと同じ値であること" do
-        q = {"sort" => {"name" => "asc"}, "finder" => {"name" => "foo"}}
-        get :index, q
-
-        query_param = assigns(:query_param)
-        query_param.should == q
-      end
-    end
-
   end
 
   describe "GET show" do

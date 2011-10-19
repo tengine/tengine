@@ -13,37 +13,37 @@ require 'spec_helper'
 # end
 describe Tengine::Job::RootJobnetTemplatesHelper do
   describe "sort_param" do
-    it "ソートのクエリーパラメータがないときtestの降順のクエリーパラメータが付加されること" do
-      helper.sort_param(:test).should == {"sort" => {"test" => "desc"}}
+    it "ソートのクエリーパラメータがないときtestの昇順のクエリーパラメータが返ってくること" do
+      helper.sort_param(:test).should == {"sort" => {"test" => "asc"}}
     end
 
-    it "testのソートのクエリーパラメータがないときtestの降順のクエリーパラメータが付加されること" do
-      helper.sort_param(:test).should == {"sort" => {"test" => "desc"}}
+    it "testのソートのクエリーパラメータがないときtestの昇順のクエリーパラメータが返ってくること" do
+      helper.sort_param(:test).should == {"sort" => {"test" => "asc"}}
     end
 
-    it "testの昇順のソートのクエリーパラメータがあるときtestの降順のクエリーパラメータが付加されること" do
+    it "testの昇順のソートのクエリーパラメータがあるときtestの降順のクエリーパラメータが返ってくること" do
       @request.query_parameters[:sort] = {"test" => "asc"}
       helper.sort_param(:test).should == {"sort" => {"test" => "desc"}}
     end
 
-    it "testの降順のソートのクエリーパラメータがあるときtestの昇順のクエリーパラメータが付加されること" do
+    it "testの降順のソートのクエリーパラメータがあるときtestの昇順のクエリーパラメータが返ってくること" do
       @request.query_parameters[:sort] = {"test" => "desc"}
       helper.sort_param(:test).should == {"sort" => {"test" => "asc"}}
     end
 
-    it "testのクエリーパラメータがascでもdescでもないときtestの昇順のクエリーパラメータが付加されること" do
+    it "testのクエリーパラメータがascでもdescでもないときtestの昇順のクエリーパラメータが返ってくること" do
       @request.query_parameters[:sort] = {"test" => "foo"}
       helper.sort_param(:test).should == {"sort" => {"test" => "asc"}}
     end
   end
 
   describe "sort_class" do
-    it "ソートのクエリーパラメータがないときascが返ってくること" do
-      helper.sort_class(:test).should == "asc"
+    it "ソートのクエリーパラメータがないとき空文字列が返ってくること" do
+      helper.sort_class(:test).should == ""
     end
 
-    it "testのソートのクエリーパラメータがないときascが返ってくること" do
-      helper.sort_class(:test).should == "asc"
+    it "testのソートのクエリーパラメータがないとき空文字列が返ってくること" do
+      helper.sort_class(:test).should == ""
     end
 
     it "testの昇順のソートのクエリーパラメータがあるときascが返ってくること" do
@@ -56,9 +56,9 @@ describe Tengine::Job::RootJobnetTemplatesHelper do
       helper.sort_class(:test).should == "desc"
     end
 
-    it "testのクエリーパラメータがascでもdescでもないときasc返ってくること" do
+    it "testのクエリーパラメータがascでもdescでもないとき空文字列が返ってくること" do
       @request.query_parameters[:sort] = {"test" => "foo"}
-      helper.sort_class(:test).should == "asc"
+      helper.sort_class(:test).should == ""
     end
   end
 end

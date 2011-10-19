@@ -42,8 +42,6 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       )
     ]
     assign(:root_jobnet_templates, Kaminari.paginate_array(templates).page(1).per(5))
-
-    @query_param = {}
   end
 
   it "renders a list of tengine_job_root_jobnet_templates" do
@@ -54,28 +52,28 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
     assert_select "tr>td", :text => "Description".to_s, :count => 2
   end
 
-  it "idのソートのリンクに降順のクエリーパラメータが付加されていてclassがascとなっていること" do
+  it "idのソートのリンクに昇順のクエリーパラメータが付加されていてclassが空文字列となっていること" do
     render
 
-    href = tengine_job_root_jobnet_templates_path(:sort=>{:id=>:desc})
-    rendered.should have_xpath("//a[@class='asc'][@href='#{href}']",
+    href = tengine_job_root_jobnet_templates_path(:sort=>{:id=>"asc"})
+    rendered.should have_xpath("//a[@class=''][@href='#{href}']",
       :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:id))
   end
 
-  it "nameのソートのリンクに降順のクエリーパラメータが付加されていること" do
+  it "nameのソートのリンクに昇順のクエリーパラメータが付加されていてclassが空文字列となっていること" do
     render
 
-    rendered.should have_link(
-      Tengine::Job::RootJobnetTemplate.human_attribute_name(:name),
-      :href=>tengine_job_root_jobnet_templates_path(:sort=>{:name=>:desc}))
+    href = tengine_job_root_jobnet_templates_path(:sort=>{:name=>"asc"})
+    rendered.should have_xpath("//a[@class=''][@href='#{href}']",
+      :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:name))
   end
 
-  it "descriptionのソートのリンクに降順のクエリーパラメータが付加されていること" do
+  it "descriptionのソートのリンクに昇順のクエリーパラメータが付加されていてclassが空文字列となっていること" do
     render
 
-    rendered.should have_link(
-      Tengine::Job::RootJobnetTemplate.human_attribute_name(:description),
-      :href=>tengine_job_root_jobnet_templates_path(:sort=>{:desc=>:desc}))
+    href = tengine_job_root_jobnet_templates_path(:sort=>{:desc=>"asc"})
+    rendered.should have_xpath("//a[@class=''][@href='#{href}']",
+      :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:description))
   end
 
   context "idの昇順で一覧を表示しているとき" do
@@ -89,6 +87,14 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       href = tengine_job_root_jobnet_templates_path(:sort=>{:id=>:desc})
       rendered.should have_xpath("//a[@class='asc'][@href='#{href}']",
         :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:id))
+    end
+
+    it "nameのソートのリンクに昇順のクエリーパラメータが付加されていてclassが空文字列となっていること" do
+      render
+
+      href = tengine_job_root_jobnet_templates_path(:sort=>{:name=>"asc"})
+      rendered.should have_xpath("//a[@class=''][@href='#{href}']",
+        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:name))
     end
   end
 
@@ -104,6 +110,14 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       rendered.should have_xpath("//a[@class='desc'][@href='#{href}']",
         :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:id))
     end
+
+    it "nameのソートのリンクに昇順のクエリーパラメータが付加されていてclassが空文字列となっていること" do
+      render
+
+      href = tengine_job_root_jobnet_templates_path(:sort=>{:name=>"asc"})
+      rendered.should have_xpath("//a[@class=''][@href='#{href}']",
+        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:name))
+    end
   end
 
   context "nameの昇順で一覧を表示しているとき" do
@@ -111,12 +125,12 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       @request.query_parameters[:sort] = {"name" => "asc"}
     end
 
-    it "nameのソートのリンクに降順のクエリーパラメータが付加されていること" do
+    it "nameのソートのリンクに降順のクエリーパラメータが付加されていてclassがascになっていること" do
       render
 
-      rendered.should have_link(
-        Tengine::Job::RootJobnetTemplate.human_attribute_name(:name),
-        :href=>tengine_job_root_jobnet_templates_path(:sort=>{:name=>:desc}))
+      href = tengine_job_root_jobnet_templates_path(:sort=>{:name=>"desc"})
+      rendered.should have_xpath("//a[@class='asc'][@href='#{href}']",
+        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:name))
     end
   end
 
@@ -125,12 +139,12 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       @request.query_parameters[:sort] = {"name" => "desc"}
     end
 
-    it "nameのソートのリンクに昇順のクエリーパラメータが付加されていること" do
+    it "nameのソートのリンクに昇順のクエリーパラメータが付加されていてclassがdescになっていること" do
       render
 
-      rendered.should have_link(
-        Tengine::Job::RootJobnetTemplate.human_attribute_name(:name),
-        :href=>tengine_job_root_jobnet_templates_path(:sort=>{:name=>:asc}))
+      href = tengine_job_root_jobnet_templates_path(:sort=>{:name=>"asc"})
+      rendered.should have_xpath("//a[@class='desc'][@href='#{href}']",
+        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:name))
     end
   end
 
@@ -139,12 +153,12 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       @request.query_parameters[:sort] = {"desc" => "asc"}
     end
 
-    it "descriptionのソートのリンクに降順のクエリーパラメータが付加されていること" do
+    it "descriptionのソートのリンクに降順のクエリーパラメータが付加されていてclassがascになっていること" do
       render
 
-      rendered.should have_link(
-        Tengine::Job::RootJobnetTemplate.human_attribute_name(:description),
-        :href=>tengine_job_root_jobnet_templates_path(:sort=>{:desc=>:desc}))
+      href = tengine_job_root_jobnet_templates_path(:sort=>{:desc=>"desc"})
+      rendered.should have_xpath("//a[@class='asc'][@href='#{href}']",
+        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:description))
     end
   end
 
@@ -153,12 +167,12 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       @request.query_parameters[:sort] = {"desc" => "desc"}
     end
 
-    it "descriptionのソートのリンクに昇順のクエリーパラメータが付加されていること" do
+    it "descriptionのソートのリンクに昇順のクエリーパラメータが付加されていてclassがdescになっていること" do
       render
 
-      rendered.should have_link(
-        Tengine::Job::RootJobnetTemplate.human_attribute_name(:description),
-        :href=>tengine_job_root_jobnet_templates_path(:sort=>{:desc=>:asc}))
+      href = tengine_job_root_jobnet_templates_path(:sort=>{:desc=>"asc"})
+      rendered.should have_xpath("//a[@class='desc'][@href='#{href}']",
+        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:description))
     end
 
   end
@@ -191,7 +205,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
   context "nameで検索したとき" do
     before do
-      @query_param = {:finder => { :name => "foo" }}
+      @request.query_parameters[:finder] = { :name => "foo" }
     end
 
     it "ソートのリンクに検索のクエリーパラメータがついていること" do
@@ -200,22 +214,22 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       rendered.should have_link(
         Tengine::Job::RootJobnetTemplate.human_attribute_name(:id),
         :href=>tengine_job_root_jobnet_templates_path(
-          @query_param.merge(:sort => {:id => :desc}))
+          @request.query_parameters.merge(:sort => {:id => :asc}))
       )
       rendered.should have_link(
         Tengine::Job::RootJobnetTemplate.human_attribute_name(:name),
         :href=>tengine_job_root_jobnet_templates_path(
-          @query_param.merge(:sort => {:name => :desc}))
+          @request.query_parameters.merge(:sort => {:name => :asc}))
       )
       rendered.should have_link(
         Tengine::Job::RootJobnetTemplate.human_attribute_name(:description),
         :href=>tengine_job_root_jobnet_templates_path(
-          @query_param.merge(:sort => {:desc => :desc}))
+          @request.query_parameters.merge(:sort => {:desc => :asc}))
       )
     end
   end
 
-  context "ページが2ページ以上のとき" do
+  context "ページの2ページ目を表示したとき" do
     before(:each) do
       Tengine::Job::Category.delete_all
       Tengine::Job::RootJobnetTemplate.delete_all
@@ -271,13 +285,40 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
         )
       ]).page(2).per(2))
 
-      @query_param = {}
+      @request.query_parameters[:page] = 2
     end
 
     it "件数が表示されていること" do
       render
 
       rendered.should have_content("全3件中3〜3件を表示")
+    end
+
+    context "nameで検索していたとき" do
+      before do
+        @request.query_parameters[:finder] = { :name => "foo" }
+      end
+
+      it "ソートのリンクに検索のクエリーパラメータのみ付加されていること" do
+        render
+
+        query_param = {:finder => @request.query_parameters[:finder]}
+        rendered.should have_link(
+          Tengine::Job::RootJobnetTemplate.human_attribute_name(:id),
+          :href=>tengine_job_root_jobnet_templates_path(
+            query_param.merge(:sort => {:id => :asc}))
+        )
+        rendered.should have_link(
+          Tengine::Job::RootJobnetTemplate.human_attribute_name(:name),
+          :href=>tengine_job_root_jobnet_templates_path(
+            query_param.merge(:sort => {:name => :asc}))
+        )
+        rendered.should have_link(
+          Tengine::Job::RootJobnetTemplate.human_attribute_name(:description),
+          :href=>tengine_job_root_jobnet_templates_path(
+            query_param.merge(:sort => {:desc => :asc}))
+        )
+      end
     end
   end
 end

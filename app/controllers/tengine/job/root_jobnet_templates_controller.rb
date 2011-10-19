@@ -4,12 +4,9 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
   # GET /tengine/job/root_jobnet_templates
   # GET /tengine/job/root_jobnet_templates.json
   def index
-    @query_param = {}
     conds = {}
 
     if sort_param = params[:sort]
-      @query_param[:sort] = sort_param
-
       order = []
       sort_param.each do |k, v|
         v = (v.to_s == "desc") ? :desc : :asc
@@ -25,13 +22,12 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
       end
       conds[:sort] = order
     else
-      @query_param[:sort] = request.query_parameters[:sort] = {:id => "asc"}
-      conds[:sort] = [[:id, :asc]]
+      default_sort = {:name => "asc"}
+      request.query_parameters[:sort] = default_sort
+      conds[:sort] = default_sort.to_a
     end
 
     if search_param = params[:finder]
-      @query_param[:finder] = search_param
-
       @finder = ::OpenStruct.new search_param
       conds[:conditions] = {}
       [:id, :name, :description].each do |field|
@@ -44,7 +40,6 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
 
     @root_jobnet_templates = \
       Tengine::Job::RootJobnetTemplate.all(conds).page(params[:page])
-
 
     respond_to do |format|
       format.html # index.html.erb
