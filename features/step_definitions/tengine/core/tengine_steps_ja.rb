@@ -560,6 +560,13 @@ end
   File.open(file_path, 'w') {|f| f.puts(text) }
 end
 
+前提 /^(.*ファイル)"([^"]*)"が以下の内容で存在する$/ do |name, file_path, text|
+  dirname = File.dirname(file_path)
+  Dir.mkdir(dirname) unless FileTest.exists?(dirname)
+  FileUtils.touch(file_path)
+  File.open(file_path, 'w') {|f| f.puts(text) }
+end
+
 #前提 /^yamlファイルとして不正なTengineコアの設定ファイル"([^"]*)"が存在する$/ do
 #  FileUtils.cp("./features/config/invalid_tengine.yml", "./tmp/end_to_end_test/config/invalid_tengine.yml")
 #end
@@ -983,8 +990,4 @@ end
   FileUtils.mkdir_p(path)
   FileUtils.mkdir_p("#{path}/app")
   FileUtils.mkdir_p("#{path}/spec/support")
-
-  # tengine_icmp_monitor からテスティングフレームエクステンションをコピーします。
-  # tengine_consoleと、tengine_icmp_monitor が同じディレクトリに配置されている前提になります。
-  FileUtils.cp("../tengine_icmp_monitor/spec/support/tengine_core.rb", "#{path}/spec/support")
 end
