@@ -270,7 +270,8 @@ end
         io = IO.popen("rabbitmqctl status")
         @h ||= {}
         @h[name] = {:io => io, :stdout => []}
-        result = "ok" if contains_message_from_stdout(name,"running_applications")
+        # 起動している場合は標準出力に "running_applications" の文字列が出力される
+        result = "running" if contains_message_from_stdout(name,"running_applications")
       elsif name == "Tengineコアプロセス"
         # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
         # 例：tmp/tengine_pids/tengine.0.3948
@@ -975,14 +976,10 @@ end
 #  pending # express the regexp above with the code you wish you had
 end
 
-もし /^(.*)秒間眠る$/ do |time|
+もし /^(.*)秒間待機する$/ do |time|
   sleep time.to_i
 end
 
-前提 /^"Tengineコアプロセス"のpidファイルが残っていない$/ do
-  `rm tmp/tengined_pids/tengined.*`
-  `rm tmp/tengined_status/tengined*`
-end
 
 前提 /^Tengineを使ったアプリケーションのプロジェクトを"([^"]*)"に新規で作成する$/ do |path|
   FileUtils.rm_rf(path) if FileTest.exists?(path)
