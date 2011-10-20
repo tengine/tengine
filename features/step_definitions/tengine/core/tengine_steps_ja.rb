@@ -89,19 +89,36 @@ end
       raise "RabbitMQの停止に失敗しました" unless system('rabbitmqctl stop')
     end
   elsif name == "Tengineコアプロセス"
-    # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
-    # 例：tmp/tengine_pids/tengine.0.3948
-    # ファイルの中はpidが記述されている
-    pids = IO.popen("cat tmp/tengine_pids/tengine.*").to_a
-    pids.each do |pid|
-      if system('ps -eo pid #{pid}}')
-        raise "Tengineコアの停止に失敗しました" unless system("kill -KILL #{pid}")
-      end
-    end
+#    # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
+#    # 例：tmp/tengine_pids/tengine.0.3948
+#    # ファイルの中はpidが記述されている
+#    pids = IO.popen("cat tmp/tengine_pids/tengine.*").to_a
+#    pids.each do |pid|
+#      if system('ps -eo pid #{pid}}')
+#        raise "Tengineコアの停止に失敗しました" unless system("kill -KILL #{pid}")
+#      end
+#    end
+
+    # 起動しているTengineコアプロセスを全てkillする
+    tengine_core_process_kill_all
   elsif name == "Tengineコンソールプロセス"
     if system('ps -eo pid | grep `cat tmp/pids/server.pid`')
       raise "Tengineコアの停止に失敗しました" unless system('kill -KILL `cat tmp/pids/server.pid`')
     end
+  end
+end
+
+# ファイルは ./tmp/tengined_pids, ./tmp/tengined_status, ./tmp/tengined_activations ディレクトリ以下のファイルを想定
+# 明示的にパスを指定して起動されたTengineコアプロセスのファイルについては対象外です。
+前提 /^"([^"]*)"の"([^"]*)ファイル"が存在しない$/ do |name, file_name|
+  if file_name == "pid"
+    system('rm -fr ./tmp/tengined_pids/*')
+  elsif file_name == "status"
+    system('rm -fr ./tmp/tengined_status/*')
+  elsif file_name == "activation"
+    system('rm -fr ./tmp/tengined_activations/*')
+  else
+    raise "#{file_name}ファイルは、サポート外のファイルです。"
   end
 end
 
@@ -543,6 +560,13 @@ end
   File.open(file_path, 'w') {|f| f.puts(text) }
 end
 
+前提 /^(.*ファイル)"([^"]*)"が以下の内容で存在する$/ do |name, file_path, text|
+  dirname = File.dirname(file_path)
+  Dir.mkdir(dirname) unless FileTest.exists?(dirname)
+  FileUtils.touch(file_path)
+  File.open(file_path, 'w') {|f| f.puts(text) }
+end
+
 #前提 /^yamlファイルとして不正なTengineコアの設定ファイル"([^"]*)"が存在する$/ do
 #  FileUtils.cp("./features/config/invalid_tengine.yml", "./tmp/end_to_end_test/config/invalid_tengine.yml")
 #end
@@ -609,10 +633,13 @@ def view_time_format
 end
 
 # 起動した順番のpidの配列を返す
+# 注意：このメソッドはTengineコアプロセスがデーモンモードで起動していることを想定しています。
+#      デーモンモードと、そうでない場合では、 ps が出力する COMMAND の値に差異があるためです。
+#     
 def tengine_core_process_pids(status)
   pids = []
   lines = []
-  # 出力結果の例：
+  # 出力結果の例：（デーモンモードで起動した場合のみ）
   # tengined.0:58812
   # tengined.1:58834
   command = "ps aux | grep tengined | awk '{print $11\":\"$2}'"
@@ -628,8 +655,8 @@ def tengine_core_process_pids(status)
   end
  
  puts lines
+# => ["tengined.0:58812", "tengined.1:58834"]
 
-#  lines = ["tengined.0:58812", "tengined.1:58834"]
   lines.sort! do |a, b|
      a.split(':')[0] <=> b.split(':')[0]
   end
@@ -657,6 +684,18 @@ def tengine_core_process_start_time(pid)
   end
   puts "tengine_core_process_start_time start_time => #{start_time}"
   Time.parse(start_time)
+end
+
+# 全てのTengineコアプロセスをkillします
+def tengine_core_process_kill_all
+  pids = tengine_core_process_running_pids
+  pids.each do |pid|
+    if system('ps -eo pid #{pid}}')
+      command = "kill -KILL #{pid}"
+      puts "tengine_core_process_kill_all command => #{command}"
+      raise "Tengineコアの停止に失敗しました" unless system(command)
+    end
+  end
 end
 
 def time_out(time, &block)
@@ -951,8 +990,4 @@ end
   FileUtils.mkdir_p(path)
   FileUtils.mkdir_p("#{path}/app")
   FileUtils.mkdir_p("#{path}/spec/support")
-
-  # tengine_icmp_monitor からテスティングフレームエクステンションをコピーします。
-  # tengine_consoleと、tengine_icmp_monitor が同じディレクトリに配置されている前提になります。
-  FileUtils.cp("../tengine_icmp_monitor/spec/support/tengine_core.rb", "#{path}/spec/support")
 end
