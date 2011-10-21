@@ -21,7 +21,9 @@
   # require 'spec_helper'
   # 
   # describe :driver_example do
-  #   target_dsl 'sample_dsl.rb'
+  #   include Tengine::RSpec::Extension
+  #
+  #   target_dsl File.expand_path("../app/sample_dsl.rb", File.dirname(__FILE__))
   #   driver :driver_example
   # 
   #   it "event1 を受け取るとevent2が発火すること" do
@@ -40,8 +42,48 @@
     前提 イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"が存在しない
     かつ イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"が存在しない
     かつ イベントハンドラが作成した一時ファイル"./tmp/end_to_end_test/event2.txt"が存在しない
-		かつ Tengineを使ったアプリケーションのプロジェクトを"./tmp/end_to_end_test/sample_app"に新規で作成する
+    かつ Tengineを使ったアプリケーションのプロジェクトを"./tmp/end_to_end_test/sample_app"に新規で作成する
+    かつ spec_helperファイル"./tmp/end_to_end_test/sample_app/spec/spec_helper.rb"が以下の内容で存在する
+    """
+# -*- coding: utf-8 -*-
+require "bundler/setup"
 
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+require 'rspec'
+
+require 'tengine_core'
+require 'tengine/rspec'
+config = nil
+begin
+  config = Tengine::Core::Config.new(@hash)
+  config.setup_loggers
+rescue Exception
+  puts "[#{$!.class.name}] #{$!.message}\n  " << $!.backtrace.join("\n  ")
+  raise
+end
+
+require 'mongoid'
+Mongoid::Document.module_eval do
+  include Tengine::Core::CollectionAccessible
+end
+Mongoid.config.from_hash(config[:db])
+Tengine::Core::MethodTraceable.disabled = true
+
+# Requires supporting files with custom matchers and macros, etc,
+# in ./support/ and its subdirectories.
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
+
+require 'logger'
+log_path = File.expand_path("../test.log", File.dirname(__FILE__))
+Tengine.logger = Logger.new(log_path)
+Tengine.logger.level = Logger::DEBUG
+Tengine::Core.stdout_logger = Logger.new(log_path)
+Tengine::Core.stdout_logger.level = Logger::DEBUG
+Tengine::Core.stderr_logger = Logger.new(log_path)
+Tengine::Core.stderr_logger.level = Logger::DEBUG
+    """
+
+  @u03-f01-s01
   シナリオ: [正常系] アプリケーション開発者がイベントハンドラ定義を開発する
     # シナリオの概要
     # テストファーストを考慮して、はじめに失敗をさせています
@@ -49,7 +91,7 @@
     # 2. テスト実行 -> 失敗
     # 3. イベントハンドラ定義作成
     # 4. テスト実行 -> 成功
-
+    
     もし イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"を作成する
     かつ イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"に以下の記述をする
     """
@@ -57,7 +99,9 @@
 require 'spec_helper'
 
 describe :driver_example do
-  target_dsl 'sample_dsl.rb'
+  include Tengine::RSpec::Extension
+  
+  target_dsl File.expand_path("../app/sample_dsl.rb", File.dirname(__FILE__))
   driver :driver_example
 
   it "event1 を受け取るとevent2が発火すること" do
@@ -67,7 +111,7 @@ describe :driver_example do
 end
     """
     # イベントハンドラ定義がないのでテストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/spec_helper.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
 
     もし イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"を作成する
@@ -85,10 +129,10 @@ driver :driver_example do
 end
     """
     # テストに成功
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/spec_helper.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 0 failures"と出力されていること
 
-
+  @u03-f01-s02
   シナリオ: [異常系] イベントハンドラ定義のテストで失敗_イベントハンドラ定義に文法上の誤りがある
     # シナリオの概要
     # テストファーストを考慮して、はじめに失敗をさせています
@@ -99,7 +143,6 @@ end
     # 5. イベントハンドラ定義修正
     # 6. テスト実行 -> 成功
 
-
     もし イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"を作成する
     かつ イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"に以下の記述をする
     """
@@ -107,7 +150,9 @@ end
 require 'spec_helper'
 
 describe :driver_example do
-  target_dsl 'sample_dsl.rb'
+  include Tengine::RSpec::Extension
+
+  target_dsl File.expand_path("../app/sample_dsl.rb", File.dirname(__FILE__))
   driver :driver_example
 
   it "event1 を受け取るとevent2が発火すること" do
@@ -117,7 +162,7 @@ describe :driver_example do
 end
     """
     # イベントハンドラ定義がないのでテストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/spec_helper.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
 
 
@@ -140,7 +185,7 @@ on:event1 do
 end
     """
     # テストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/spec_helper.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
     #
     # ここまで異常系シナリオ
@@ -160,10 +205,10 @@ driver :driver_example do
 end
     """
     # テストに成功
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/spec_helper.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 0 failures"と出力されていること
 
-
+  @u03-f01-s03
   シナリオ: [異常系] イベントハンドラ定義のテストで失敗_振る舞いが不正_イベントハンドラ定義に誤りがある
     # シナリオの概要
     # テストファーストを考慮して、はじめに失敗をさせています
@@ -173,7 +218,7 @@ end
     # 4. テスト実行 -> 失敗
     # 5. イベントハンドラ定義修正
     # 6. テスト実行 -> 成功
-
+    
     もし イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"を作成する
     かつ イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"に以下の記述をする
     """
@@ -181,7 +226,9 @@ end
 require 'spec_helper'
 
 describe :driver_example do
-  target_dsl 'sample_dsl.rb'
+  include Tengine::RSpec::Extension
+  
+  target_dsl File.expand_path("../app/sample_dsl.rb", File.dirname(__FILE__))
   driver :driver_example
 
   it "event1 を受け取るとevent2が発火すること" do
@@ -191,7 +238,7 @@ describe :driver_example do
 end
     """
     # イベントハンドラ定義がないのでテストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/spec_helper.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
 
 
@@ -214,7 +261,7 @@ driver :driver_example do
 end
     """
     # テストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/spec_helper.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
     #
     # ここまで異常系シナリオ
@@ -235,10 +282,10 @@ driver :driver_example do
 end
     """
     # テストに成功
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/spec_helper.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 0 failures"と出力されていること
 
-  @target
+  @u03-f01-s04
   シナリオ: [異常系] イベントハンドラ定義のテストで失敗_振る舞いが不正_テストコードに誤りがある
     # シナリオの概要
     # テストファーストを考慮して、はじめに失敗をさせています
@@ -248,7 +295,7 @@ end
     # 4. テスト実行 -> 失敗
     # 5. テストコード修正
     # 6. テスト実行 -> 成功
-
+    
     #
     # ここまで異常系シナリオ
     # 誤ったテストコードを記述する
@@ -260,18 +307,20 @@ end
 require 'spec_helper'
 
 describe :driver_example do
-  target_dsl 'sample_dsl.rb'
+  include Tengine::RSpec::Extension
+  
+  target_dsl File.expand_path("../app/sample_dsl.rb", File.dirname(__FILE__))
   driver :driver_example
 
   it "event1 を受け取るとevent2が発火すること" do
-	  # 正しくは event2 が発火されるところを、テストコードに誤って event3 が発火されると記述してしまった。
+    # 正しくは event2 が発火されるところを、テストコードに誤って event3 が発火されると記述してしまった。
     tengine.should_fire("event3")
     tengine.receive("event1")
   end
 end
     """
     # イベントハンドラ定義がないのでテストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/spec_helper.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
     #
     # ここまで異常系シナリオ
@@ -293,7 +342,7 @@ driver :driver_example do
 end
     """
     # テストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/spec_helper.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
 
     もし イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"に以下の記述をする
@@ -302,7 +351,9 @@ end
 require 'spec_helper'
 
 describe :driver_example do
-  target_dsl 'sample_dsl.rb'
+  include Tengine::RSpec::Extension
+  
+  target_dsl File.expand_path("../app/sample_dsl.rb", File.dirname(__FILE__))
   driver :driver_example
 
   it "event1 を受け取るとevent2が発火すること" do
@@ -312,14 +363,15 @@ describe :driver_example do
 end
     """
     # テストに成功
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/spec_helper.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 0 failures"と出力されていること
 
     # 作成したファイルの削除
     もし イベントハンドラ定義ファイル"./tmp/end_to_end_test/sample_app/app/sample_dsl.rb"を削除する
     かつ イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"を削除する
 
-
+  @pending
+  @u03-f01-s05
   シナリオ: [異常系] イベントハンドラ定義のテストで失敗_振る舞いが不正_イベントハンドラ定義に循環参照がある
     # シナリオの概要
     # テストファーストを考慮して、はじめに失敗をさせています
@@ -329,7 +381,7 @@ end
     # 4. テスト実行 -> 警告
     # 5. イベントハンドラ定義修正
     # 6. テスト実行 -> 成功
-
+    
     もし イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"を作成する
     かつ イベントハンドラ定義のテストファイル"./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb"に以下の記述をする
     """
@@ -337,7 +389,7 @@ end
     # specをどのように書くかテスティングフレームワークエクステンションの検討と実装が必要です。
     """
     # イベントハンドラ定義がないのでテストに失敗
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/spec_helper.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 1 failure"と出力されていること
 
 
@@ -360,7 +412,7 @@ driver :driver_example do
 end
     """
     # テストで警告が出力
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/spec_helper.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 0 failure"と出力されていること
     かつ "イベントハンドラ定義のテスト"の標準出力に"[warn] Circular reference"と出力されていること
     #
@@ -382,7 +434,7 @@ driver :driver_example do
 end
     """
     # テストに成功
-    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/support/tengine_core.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
+    かつ "イベントハンドラ定義のテスト"を行うために"rspec -r ./tmp/end_to_end_test/sample_app/spec/spec_helper.rb ./tmp/end_to_end_test/sample_app/spec/sample_dsl_spec.rb "というコマンドを実行する
     ならば "イベントハンドラ定義のテスト"の標準出力に"1 example, 0 failures"と出力されていること
 
     # 作成したファイルの削除

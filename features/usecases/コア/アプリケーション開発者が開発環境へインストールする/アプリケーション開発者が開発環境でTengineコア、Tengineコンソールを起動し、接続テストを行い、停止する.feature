@@ -26,8 +26,8 @@
       かつ "Tengineコアプロセス"が停止している
       かつ "Tengineコンソールプロセス"が停止している
 
+  @selenium
   シナリオ: [正常系]アプリケーション開発者が開発環境で接続テストを行いTengineコア、Tengineコンソールを起動する
-
       もし "接続テスト"を行うために"tengined -k test -f ./features/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
@@ -56,7 +56,7 @@
   #####################################
   # Tengineコアの接続テストに失敗
   #####################################
-
+  @selenium
   シナリオ: 1.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBプロセスが起動していない
       前提 "DBプロセス"が停止している
       ならば "DBプロセス"が停止していること
@@ -72,7 +72,7 @@
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 2.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_キュープロセスが起動していない
       前提 "キュープロセス"が停止している
       ならば "キュープロセス"が停止していること
@@ -123,6 +123,7 @@
       もし "Tengineサポート窓口"へ問い合わせる
       # シナリオ終了
 
+  @selenium
   シナリオ: 5.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_設定ファイルが不正
       前提 yamlファイルとして不正なTengineコアの設定ファイル"./features/config/invalid_tengine.yml"が存在すること
 
@@ -134,6 +135,7 @@
 
       # 以下基本コースに戻る
 
+  @selenium
   シナリオ: 6.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_起動オプションに存在しないオプション
 
       もし "接続テスト"を行うために"tengined -k test -f ./features/config/tengine.yml -Q 2>&1"というコマンドを実行する
@@ -144,7 +146,7 @@
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 7.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_存在しないTengineコアの設定ファイル指定
       前提 Tengineコアの設定ファイル"./features/config/not_found_tengine.yml"が存在しないこと
 
@@ -158,106 +160,108 @@
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 8.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-host
-			
+      
       もし "接続テスト"を行うために"tengined -k test --db-host xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config ./features/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
+  @selenium
   シナリオ: 9.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-port
-			
+      
       もし "接続テスト"を行うために"tengined -k test --db-port 9999"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config ./features/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
-			
+  @selenium
   シナリオ: 10.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-username
-			
+
       もし "接続テスト"を行うために"tengined -k test --db-username xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config ./features/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
-			
+  @selenium
   シナリオ: 11.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-password
-			
+      
       もし "接続テスト"を行うために"tengined -k test --db-password xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config _end_test/config/not_found_tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
+  @selenium
   シナリオ: 12.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-database
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config ./features/config/tengine.yml --db-database xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to database."と出力されていること
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config ./features/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 13.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-host
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config ./features/config/tengine.yml --event-queue-conn-host xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config ./features/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 14.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-port
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config ./features/config/tengine.yml --event-queue-conn-port 9999"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config ./features/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 15.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-vhost
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config ./features/config/tengine.yml --event-queue-conn-vhost xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config ./features/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 16.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-user
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config ./features/config/tengine.yml --event-queue-conn-user xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config ./features/config/tengine.yml"というコマンドを実行する
       ならば "接続テスト"の標準出力に"Connection test success."と出力されていること
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 17.[異常系]Tengineコアの接続テストに失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-pass
-			
+      
       もし "接続テスト"を行うために"tengined -k test --config ./features/config/tengine.yml --event-queue-conn-pass xxx"というコマンドを実行する
       ならば "接続テスト"の標準出力に"can't connect to queue server."と出力されていること
 
@@ -267,12 +271,12 @@
       # 以下基本コースに戻る
 
 
-			
+      
   #####################################
   # Tengineコアのプロセス起動に失敗
   #####################################
 
-
+  @selenium
   シナリオ: 1.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_DBプロセスが起動していない
       前提 "DBプロセス"が停止している
       ならば "DBプロセス"が停止していること
@@ -284,14 +288,14 @@
 
       もし "DBプロセス"の起動を行うために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
       ならば "DBプロセス"が起動していること
-		
+    
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 2.[異常系]Tengineコアのプロセス起動に失敗し、Tengineサポート窓口へ問い合わせる_Tengineコアのコードにバグ
       # アプリケーション開発者が解決できない問題を発生させるために、Tengineコアのクラスにバグを埋め込む。
       # イベントハンドラ定義の中で、クラスを上書きするような定義をすることでこれを実現する。
@@ -304,10 +308,10 @@
       もし "Tengineサポート窓口"へ問い合わせる
       # シナリオ終了
 
-
+  @selenium
   シナリオ: 3.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_設定ファイルが不正
       前提 yamlファイルとして不正なTengineコアの設定ファイル"./features/config/invalid_tengine.yml"が存在すること
-			
+      
       # 不正なファイルを指定して実行
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/invalid_tengine.yml"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
@@ -321,7 +325,7 @@
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 4.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_起動オプションに存在しないオプション
 
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -Q 2>&1"というコマンドを実行する
@@ -335,6 +339,7 @@
 
       # 以下基本コースに戻る
 
+  @selenium
   シナリオ: 5.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_存在しないTengineコアの設定ファイル指定
 
       # 指定ファイルが存在しないので起動しない
@@ -350,7 +355,7 @@
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 6.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-host
 
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --db-host xxx"というコマンドを実行する
@@ -364,7 +369,7 @@
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 7.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-port
 
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --db-port 9999"というコマンドを実行する
@@ -378,7 +383,7 @@
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 8.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-username
 
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --db-username xxx"というコマンドを実行する
@@ -392,7 +397,7 @@
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 9.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-password
 
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --db-password xxx"というコマンドを実行する
@@ -406,7 +411,7 @@
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 10.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_DBのhostが見つからない:--db-database
 
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --db-database xxx"というコマンドを実行する
@@ -420,62 +425,62 @@
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 11.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-host
 
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --event-queue-conn-host xxx"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
-			# Warning 扱いのためTengineコアプロセスは起動する
+      # Warning 扱いのためTengineコアプロセスは起動する
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
-			
+  @selenium
   シナリオ: 12.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-port
 
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --event-queue-conn-port 9999"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
-			# Warning 扱いのためTengineコアプロセスは起動する
+      # Warning 扱いのためTengineコアプロセスは起動する
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
-			
+  @selenium
   シナリオ: 13.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-vhost
 
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --event-queue-conn-vhost xxx"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
-			# Warning 扱いのためTengineコアプロセスは起動する
+      # Warning 扱いのためTengineコアプロセスは起動する
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
-			
+  @selenium
   シナリオ: 14.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-user
 
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --event-queue-conn-user xxx"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
-			# Warning 扱いのためTengineコアプロセスは起動する
+      # Warning 扱いのためTengineコアプロセスは起動する
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
-			
+  @selenium
   シナリオ: 15.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_queueのhostが見つからない:--event-queue-conn-pass
 
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --event-queue-conn-pass xxx"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       ならば "Tengineコアプロセス"の標準出力に"can't connect to queue server."と出力されていること
-			# Warning 扱いのためTengineコアプロセスは起動する
+      # Warning 扱いのためTengineコアプロセスは起動する
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 16.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_loadで--tengined-load-pathを指定していない
 
       もし "Tengineコアプロセス"の起動を行うために"tengined -k load"というコマンドを実行する
@@ -483,13 +488,13 @@
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action load specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"tengined -k load --tengined-load-path ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k load --tengined-load-path ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 17.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_startで--tengined-load-pathを指定していない
 
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml"というコマンドを実行する
@@ -497,13 +502,13 @@
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action start specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --tengined-load-path ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --tengined-load-path ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
-			
+  @selenium     
   シナリオ: 18.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_enableで--tengined-load-pathを指定していない
 
       もし "Tengineコアプロセス"の起動を行うために"tengined -k enable"というコマンドを実行する
@@ -511,13 +516,13 @@
       ならば "Tengineコアプロセス"の標準出力に"--tengined-load-path is required if --action enable specified."と出力されていること
       かつ "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
-      もし "Tengineコアプロセス"の起動を行うために"tengined -k enable --tengined-load-path ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+      もし "Tengineコアプロセス"の起動を行うために"tengined -k enable --tengined-load-path ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
       かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 
       # 以下基本コースに戻る
 
-			
+  @selenium     
   シナリオ: 19.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログファイルを指定したが書き込み権限がない
       前提 "./tmp/ap_not_writable.log"ファイルに書き込み権限がない
       かつ "./tmp/ap.log"ファイルに書き込み権限がある
@@ -533,7 +538,7 @@
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 20.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログローテーションを指定したが認識できない
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --application-log-rotation yearly"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
@@ -546,7 +551,7 @@
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 21.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログローテーションサイズを指定したが認識できない
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --application-log-rotation-size hoge"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
@@ -559,7 +564,7 @@
 
       # 以下基本コースに戻る
 
-
+  @selenium
   シナリオ: 22.[異常系]Tengineコアのプロセス起動に失敗し、問題を取り除いた後インストールを続行する_ログレベルを指定したが認識できない
       もし "Tengineコアプロセス"の起動を行うために"tengined -k start --config ./features/config/tengine.yml --application-log-level hoge"というコマンドを実行する
       ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
@@ -597,10 +602,10 @@
       もし "種別名"に"event_hang_up"と入力する
       かつ "登録する"ボタンをクリックする
       ならば "event_hang_upを発火しました"と表示されていること
-			
+      
       かつ "Tengineコアプロセス"を Ctrl+c で停止する
       ならば "Tengineコアプロセス"が起動していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
-			
+      
       もし "Tengineコアプロセス"を強制停止する
       ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
 

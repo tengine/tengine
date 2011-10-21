@@ -14,9 +14,9 @@
     かつ "キュープロセス"が起動している
     かつ "Tengineコアプロセス"が停止している
     かつ "Tengineコンソールプロセス"が停止している
-    かつ ファイル"./usecases/core/dsls/uc01_execute_processing_for_event.rb"が存在すること
-    かつ ファイル"./usecases/core/dsls/uc02_fire_another_event.rb"が存在すること
-    かつ ファイル"./usecases/core/dsls/uc03_2handlers_for_1event.rb"が存在すること
+    かつ ファイル"../tengine_core/examples/uc01_execute_processing_for_event.rb"が存在すること
+    かつ ファイル"../tengine_core/examples/uc02_fire_another_event.rb"が存在すること
+    かつ ファイル"../tengine_core/examples/uc03_2handlers_for_1event.rb"が存在すること
     かつ ファイル"./usecases/core/dsls/uc04_unless_the_event_occurs.rb"が存在すること
 
 # 検証で使用するイベントハンドラ定義ファイルでは、以下のようにイベントのKEYを加えた文言を出力する
@@ -27,7 +27,7 @@
 #
 #   # イベントに対応する処理の実行する
 #   on:event01 do
-#     puts "#{event.key}:handler01"
+#     puts "handler01"
 #   end
 #
 # end
@@ -35,7 +35,7 @@
 
 #
 # イベントに対応する処理の実行するシナリオ
-# ./usecases/core/dsls/uc01_execute_processing_for_event.rb
+# ../tengine_core/examples/uc01_execute_processing_for_event.rb
 #
   @selenium
   シナリオ:  [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントに対応する処理の実行する
@@ -43,7 +43,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -68,9 +68,9 @@
     もし "イベント通知画面"を表示する
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
-    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
-    かつ "Tengineコアプロセス"の標準出力に"#{イベントキー}:handler01"と出力されていること
+    |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |
+    かつ "Tengineコアプロセス"の標準出力に"handler01"と出力されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -85,7 +85,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -112,8 +112,8 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻                  |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
-    かつ "Tengineコアプロセス"の標準出力に"#{イベントキー}:handler01"と出力されていること
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
+    かつ "Tengineコアプロセス"の標準出力に"handler01"と出力されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -128,7 +128,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -160,10 +160,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -174,7 +174,7 @@
 
 #
 # イベントが発生したら新たなイベントを発火するシナリオ
-# ./usecases/core/dsls/uc02_fire_another_event.rb
+# ../tengine_core/examples/uc02_fire_another_event.rb
 #
   @selenium
   シナリオ: [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントが発生したら新たなイベントを発火する
@@ -182,7 +182,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc02_fire_another_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc02_fire_another_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -209,13 +209,13 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event02_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
-    |event02_2|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event02_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
+    |event02_2|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
 	  ならば "アプリケーションログファイル"に以下の順で記述されていること
-    |#{イベントキー}:handler02_1|
-    |             :handler02_2|
+    |handler02_1|
+    |handler02_2|
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -226,7 +226,7 @@
 
 #
 # イベントに対して処理Aと処理Bを実行するシナリオ
-# ./usecases/core/dsls/uc03_2handlers_for_1event.rb
+# ../tengine_core/examples/uc03_2handlers_for_1event.rb
 #
   @selenium
   シナリオ: [正常系] アプリケーション開発者がTengineコアのイベントハンドラ定義を作成・実行する_イベントに対して処理Aと処理Bを実行する
@@ -234,7 +234,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc03_2handlers_for_1event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc03_2handlers_for_1event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -261,12 +261,12 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event03|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event03|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
 	  ならば "アプリケーションログファイル"に以下の順で記述されていること		
-    |#{イベントキー}:handler03_1|
-    |             :handler03_2|
+    |handler03_1|
+    |handler03_2|
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -312,10 +312,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event02|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event02|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler04"と記述されていること
+    ならば "アプリケーションログファイル"に"handler04"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -357,10 +357,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event04|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event04|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler04"と記述されていないこと
+    ならば "アプリケーションログファイル"に"handler04"と記述されていないこと
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -387,7 +387,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -428,10 +428,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -449,7 +449,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -494,10 +494,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -515,7 +515,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -574,10 +574,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -594,7 +594,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -657,10 +657,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -678,7 +678,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -719,10 +719,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -737,7 +737,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -786,10 +786,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -804,7 +804,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -835,7 +835,7 @@
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -862,10 +862,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -880,7 +880,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -911,7 +911,7 @@
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -938,10 +938,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -956,7 +956,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -987,7 +987,7 @@
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1015,10 +1015,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1033,7 +1033,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1083,10 +1083,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1101,7 +1101,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1132,10 +1132,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
+    ならば "アプリケーションログファイル"に"handler01"と記述されていないこと
 
     # DB接続に失敗してTengineコアプロセスが停止している
     もし "プロセスログファイル""log/stdout.log"を参照する
@@ -1148,7 +1148,7 @@
 
     # Tengineコンソールプロセスは停止していないので起動は行わない
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1156,10 +1156,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1176,7 +1176,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1213,7 +1213,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1244,16 +1244,16 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
+    ならば "アプリケーションログファイル"に"handler01"と記述されていないこと
 
     # 復旧させるためにDBの起動、Tengineの起動して処理を再度行う
     もし "DBプロセス"の起動を行うために"mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet"というコマンドを実行する
     ならば "DBプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1261,10 +1261,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1279,7 +1279,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1310,12 +1310,12 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
+    ならば "アプリケーションログファイル"に"handler01"と記述されていないこと
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1323,10 +1323,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1340,7 +1340,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1367,10 +1367,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていないこと
+    ならば "アプリケーションログファイル"に"handler01"と記述されていないこと
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1412,12 +1412,12 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event99_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event99_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
     ならば "キュープロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler99_1"と記述されていること
+    ならば "アプリケーションログファイル"に"handler99_1"と記述されていること
     かつ "アプリケーションログファイル"に"send event failure: cant's connect to queue server."と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
@@ -1433,7 +1433,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc03_2handlers_for_1event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc03_2handlers_for_1event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1460,11 +1460,11 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event03|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event03|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler03_1"と記述されていること
-    かつ "アプリケーションログファイル"に"#{イベントキー}:handler03_2"と記述されていること
+    ならば "アプリケーションログファイル"に"handler03_1"と記述されていること
+    かつ "アプリケーションログファイル"に"handler03_2"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1488,7 +1488,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1529,10 +1529,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1550,7 +1550,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1595,10 +1595,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1616,7 +1616,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1640,7 +1640,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"を表示していること
@@ -1664,7 +1664,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"を表示していること
@@ -1677,10 +1677,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true      |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true      |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1698,7 +1698,7 @@
     ならば "Tengineコンソールプロセス"のPIDファイル"tmp/pids/server.pid"からPIDを確認できること
     かつ "Tengineコンソールプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ./usecases/core/dsls/uc01_execute_processing_for_event.rb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -k start -f ./features/config/tengine.yml -T ../tengine_core/examples/uc01_execute_processing_for_event.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認できること
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 
@@ -1722,7 +1722,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"を表示していること
@@ -1750,7 +1750,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "編集"ボタンをクリックする
     ならば "イベント編集画面"を表示していること
@@ -1763,10 +1763,10 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event01|tengine_console|2011-09-01 12:00:00 +0900|2     |true      |tengine_console|
+    |event01|tengine_console|2011-09-01 12:00:00 +0900|info     |true      |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler01"と記述されていること
+    ならば "アプリケーションログファイル"に"handler01"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1809,12 +1809,12 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
     かつ "キュープロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler97_1"と記述されていること
+    ならば "アプリケーションログファイル"に"handler97_1"と記述されていること
 
     もし "キュープロセス"の起動を行うために"rabbitmq-server -detached"というコマンドを実行する
     ならば "キュープロセス"が起動していること
@@ -1824,11 +1824,11 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
-    |event97_2|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
+    |event97_2|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    かつ "アプリケーションログファイル"に"#{イベントキー}:handler97_2"と記述されていること
+    かつ "アプリケーションログファイル"に"handler97_2"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1870,12 +1870,12 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
     かつ "キュープロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler97_1"と記述されていること
+    ならば "アプリケーションログファイル"に"handler97_1"と記述されていること
  
     もし リトライ間隔だけ待機する
     もし "アプリケーションログファイル""log/application.log"を参照する
@@ -1885,7 +1885,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1927,12 +1927,12 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
     かつ "キュープロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler97_1"と記述されていること
+    ならば "アプリケーションログファイル"に"handler97_1"と記述されていること
  
     もし "キュープロセス"の起動を行うために"rabbitmq-server -detached"というコマンドを実行する
     ならば "キュープロセス"が起動していること
@@ -1943,13 +1943,13 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
-    |event97_2|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
+    |event97_2|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    かつ "アプリケーションログファイル"に"#{イベントキー}:send_event_failure"と記述されていること
+    かつ "アプリケーションログファイル"に"send_event_failure"と記述されていること
     #仕様が確定していないので、確定後記載しなおす。
-    かつ "アプリケーションログファイル"に"#{イベントキー}:handler97_2"と記述されていること
+    かつ "アプリケーションログファイル"に"handler97_2"と記述されていること
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
@@ -1991,12 +1991,12 @@
     ならば "イベント通知画面"を表示していること
     かつ 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event97_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
     かつ "キュープロセス"が停止していること
     かつ "Tengineコアプロセス"の標準出力に"mq.connection.on_tcp_connection_loss: now reconnecting"と出力されていること
 
     もし "アプリケーションログファイル""log/application.log"を参照する
-    ならば "アプリケーションログファイル"に"#{イベントキー}:handler97_1"と記述されていること
+    ならば "アプリケーションログファイル"に"handler97_1"と記述されていること
  
     もし リトライ間隔だけ待機する
     かつ "アプリケーションログファイル""log/application.log"を参照する
@@ -2021,7 +2021,7 @@
     ならば "イベント通知画面"を表示していること
     ならば 以下の行が表示されること
     |種別名  |発生源名        |発生時刻            |通知レベル|通知確認済み|送信者名        |
-    |event98_1|tengine_console|2011-09-01 12:00:00 +0900|2     |true     |tengine_console|
+    |event98_1|tengine_console|2011-09-01 12:00:00 +0900|info     |true     |tengine_console|
 
     もし "Tengineコアプロセス"を Ctrl+c で停止する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること

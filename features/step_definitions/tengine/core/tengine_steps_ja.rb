@@ -2,7 +2,6 @@
 require 'timeout'
 require 'amqp'
 
-
 tengine_yaml = YAML::load(IO.read('./features/config/tengine.yml'))
 @mq_server = tengine_yaml["event_queue"]["conn"]
 @tengine_event_queue_opts = tengine_yaml["event_queue"]["queue"]
@@ -21,7 +20,6 @@ end
     command = "tengined -k start -f features/config/tengine.yml"
     io = IO.popen(command)
     @h ||= {}
-#    @h[name] = {:io => io, :stdout => [] }
     @h[name] = {:io => io, :stdout => [] ,:command => command}
     pid_regexp = /<(\d+)>/
     get_pid_from_stdout name,pid_regexp
@@ -91,19 +89,36 @@ end
       raise "RabbitMQの停止に失敗しました" unless system('rabbitmqctl stop')
     end
   elsif name == "Tengineコアプロセス"
-    # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
-    # 例：tmp/tengine_pids/tengine.0.3948
-    # ファイルの中はpidが記述されている
-    pids = IO.popen("cat tmp/tengine_pids/tengine.*").to_a
-    pids.each do |pid|
-      if system('ps -eo pid #{pid}}')
-        raise "Tengineコアの停止に失敗しました" unless system("kill -KILL #{pid}")
-      end
-    end
+#    # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
+#    # 例：tmp/tengine_pids/tengine.0.3948
+#    # ファイルの中はpidが記述されている
+#    pids = IO.popen("cat tmp/tengine_pids/tengine.*").to_a
+#    pids.each do |pid|
+#      if system('ps -eo pid #{pid}}')
+#        raise "Tengineコアの停止に失敗しました" unless system("kill -KILL #{pid}")
+#      end
+#    end
+
+    # 起動しているTengineコアプロセスを全てkillする
+    tengine_core_process_kill_all
   elsif name == "Tengineコンソールプロセス"
     if system('ps -eo pid | grep `cat tmp/pids/server.pid`')
       raise "Tengineコアの停止に失敗しました" unless system('kill -KILL `cat tmp/pids/server.pid`')
     end
+  end
+end
+
+# ファイルは ./tmp/tengined_pids, ./tmp/tengined_status, ./tmp/tengined_activations ディレクトリ以下のファイルを想定
+# 明示的にパスを指定して起動されたTengineコアプロセスのファイルについては対象外です。
+前提 /^"([^"]*)"の"([^"]*)ファイル"が存在しない$/ do |name, file_name|
+  if file_name == "pid"
+    system('rm -fr ./tmp/tengined_pids/*')
+  elsif file_name == "status"
+    system('rm -fr ./tmp/tengined_status/*')
+  elsif file_name == "activation"
+    system('rm -fr ./tmp/tengined_activations/*')
+  else
+    raise "#{file_name}ファイルは、サポート外のファイルです。"
   end
 end
 
@@ -255,7 +270,8 @@ end
         io = IO.popen("rabbitmqctl status")
         @h ||= {}
         @h[name] = {:io => io, :stdout => []}
-        result = "ok" if contains_message_from_stdout(name,"running_applications")
+        # 起動している場合は標準出力に "running_applications" の文字列が出力される
+        result = "running" if contains_message_from_stdout(name,"running_applications")
       elsif name == "Tengineコアプロセス"
         # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
         # 例：tmp/tengine_pids/tengine.0.3948
@@ -311,7 +327,7 @@ end
   pending # express the regexp above with the code you wish you had
 end
 
-前提 /^GR Heartbeatの発火間隔が(.*)と設定されている$/ do |tengined_heartbeat_period|
+前提 /^tenginedハートビートの発火間隔が(.*)と設定されている$/ do |tengined_heartbeat_period|
   @tengined_heartbeat_period = tengined_heartbeat_period
 end
 
@@ -471,8 +487,8 @@ end
 
 ならば /^"([^"]*)ファイル"に"([^"]*)"と記述されていること$/ do |name, text|
   # イベントキーを表すキーワードが含まれていたら置換する
-  text = text.gsub(/\#{イベントキー}/, @event_key)
-  @h[name][:read_lines].grep(/#{text}/).should_not be_empty
+  text = text.gsub(/\#{イベントキー}/, @event_key) unless @event_key == nil
+  @h[name][:read_lines].grep(/^.*#{text}/).should_not be_empty
 end
 
 # expected_tableに指定された1番目のデータを探し、そこを起点に次のデータを探します。
@@ -502,7 +518,7 @@ end
   expected_table.each_cells_row do |cells|
     value = cells.value(0)
     # イベントキーは置換します
-    expected_lines << value.gsub(/\#{イベントキー}/, @event_key)
+    expected_lines << value.gsub(/\#{イベントキー}/, @event_key) unless @event_key == nil
   end
   actual_lines = []
   search_lines = expected_lines.dup
@@ -520,7 +536,7 @@ end
 end
 
 ならば /^"([^"]*)ファイル"に"([^"]*)"と記述されていないこと$/ do |name, text|
-  @h[name][:read_lines].grep(/#{text}/).should be_empty
+  @h[name][:read_lines].grep(/^.*#{text}/).should be_empty
 end
 
 もし /^Tengineコアの設定ファイル"([^"]*)"を作成する$/ do |config_file_path|
@@ -542,6 +558,13 @@ end
 end
 
 もし /^(.*ファイル)"([^"]*)"に以下の記述をする$/ do |name, file_path, text|
+  File.open(file_path, 'w') {|f| f.puts(text) }
+end
+
+前提 /^(.*ファイル)"([^"]*)"が以下の内容で存在する$/ do |name, file_path, text|
+  dirname = File.dirname(file_path)
+  Dir.mkdir(dirname) unless FileTest.exists?(dirname)
+  FileUtils.touch(file_path)
   File.open(file_path, 'w') {|f| f.puts(text) }
 end
 
@@ -611,10 +634,13 @@ def view_time_format
 end
 
 # 起動した順番のpidの配列を返す
+# 注意：このメソッドはTengineコアプロセスがデーモンモードで起動していることを想定しています。
+#      デーモンモードと、そうでない場合では、 ps が出力する COMMAND の値に差異があるためです。
+#     
 def tengine_core_process_pids(status)
   pids = []
   lines = []
-  # 出力結果の例：
+  # 出力結果の例：（デーモンモードで起動した場合のみ）
   # tengined.0:58812
   # tengined.1:58834
   command = "ps aux | grep tengined | awk '{print $11\":\"$2}'"
@@ -630,8 +656,8 @@ def tengine_core_process_pids(status)
   end
  
  puts lines
+# => ["tengined.0:58812", "tengined.1:58834"]
 
-#  lines = ["tengined.0:58812", "tengined.1:58834"]
   lines.sort! do |a, b|
      a.split(':')[0] <=> b.split(':')[0]
   end
@@ -659,6 +685,18 @@ def tengine_core_process_start_time(pid)
   end
   puts "tengine_core_process_start_time start_time => #{start_time}"
   Time.parse(start_time)
+end
+
+# 全てのTengineコアプロセスをkillします
+def tengine_core_process_kill_all
+  pids = tengine_core_process_running_pids
+  pids.each do |pid|
+    if system('ps -eo pid #{pid}}')
+      command = "kill -KILL #{pid}"
+      puts "tengine_core_process_kill_all command => #{command}"
+      raise "Tengineコアの停止に失敗しました" unless system(command)
+    end
+  end
 end
 
 def time_out(time, &block)
@@ -757,15 +795,16 @@ end
 def contains_message_from_stdout(name,word)
   match = nil
   @h[name][:stdout].each do |line|
-    puts "既に:#{line}"
-    match = line.match(word)
+    #puts "既に:#{line}"
+    match = line.match(/^.*#{word}/)
     break if match
   end
   unless match
     time_out(30) do
       while line = @h[name][:io].gets
+         #puts line
          @h[name][:stdout] << line
-         match = line.match(word)
+         match = line.match(/^.*#{word}/)
          if match
           # puts "match:#{word}"
           break
@@ -937,14 +976,10 @@ end
 #  pending # express the regexp above with the code you wish you had
 end
 
-もし /^(.*)秒間眠る$/ do |time|
+もし /^(.*)秒間待機する$/ do |time|
   sleep time.to_i
 end
 
-前提 /^"Tengineコアプロセス"のpidファイルが残っていない$/ do
-  `rm tmp/tengined_pids/tengined.*`
-  `rm tmp/tengined_status/tengined*`
-end
 
 前提 /^Tengineを使ったアプリケーションのプロジェクトを"([^"]*)"に新規で作成する$/ do |path|
   FileUtils.rm_rf(path) if FileTest.exists?(path)
@@ -952,8 +987,4 @@ end
   FileUtils.mkdir_p(path)
   FileUtils.mkdir_p("#{path}/app")
   FileUtils.mkdir_p("#{path}/spec/support")
-
-  # tengine_icmp_monitor からテスティングフレームエクステンションをコピーします。
-  # tengine_consoleと、tengine_icmp_monitor が同じディレクトリに配置されている前提になります。
-  FileUtils.cp("../tengine_icmp_monitor/spec/support/tengine_core.rb", "#{path}/spec/support")
 end
