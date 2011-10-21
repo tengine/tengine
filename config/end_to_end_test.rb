@@ -22,7 +22,7 @@ FEATURES = [
     path: "コア/アプリケーション開発者が開発環境へインストールする" },
 ]
 
-E2E_OPTS = ["--format", "junit", "--out", "tmp/end_to_end_test_reports", "--strict", "--tags", "~@wip", "--tags", "~@manual", "-r", "features"]
+E2E_OPTS = ["--format", "junit", "--out", "tmp/end_to_end_test_reports", "--strict", "--tags", "~@wip", "--tags", "~@manual", "--tags", "~@pending", "-r", "features"]
 
 FEATURE_DIR = "features/usecases"
 

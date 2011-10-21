@@ -33,7 +33,7 @@ class Tengine::Core::EventIgnitionsController < ApplicationController
     if system(fire_command)
       flash[:notice] = "#{event_type_name}を発火しました"
     else
-      flash[:notice] = "#{event_type_name}を発火に失敗しました"
+      flash[:notice] = "#{event_type_name}の発火に失敗しました"
     end
 
     respond_to do |format|

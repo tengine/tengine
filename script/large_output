@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+case ARGV.length
+when 0, 1, 2, 3 then
+  puts <<EOS
+USAGE:
+#{File.basename(__FILE__)} stdout/stderr/filename puts/print string_each_line line_count
+#{File.basename(__FILE__)} stdout/stderr/filename puts/print string_each_line line_count additional_line
+EOS
+else
+  outtype, method_name, line, count, additional_line = *ARGV
+end
+out =
+  case outtype
+  when 'stdout' then STDOUT
+  when 'stderr' then STDERR
+  else File.open(outtype, "a")
+  end
+count.to_i.times{ out.send(method_name, line) }
+out.puts additional_line
