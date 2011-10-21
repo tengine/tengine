@@ -73,6 +73,9 @@ end
   end
 end
 
+前提 /^DBにユーザ"e2e"が存在し、パスワードは"password"である$/ do
+  raise "DBへのユーザ追加に失敗しました。"  unless system("mongo localhost:21039/tengine_production features/step_definitions/mongodb/add_e2e_user")
+end
 
 
 前提 /^"([^"]*)"が停止している$/ do |name|
@@ -85,26 +88,20 @@ end
     @h ||= {}
     @h[name] = {:io => io, :stdout => []}
     contains = contains_message_from_stdout(name,"running_applications")
-    unless contains
-      raise "RabbitMQの停止に失敗しました" unless system('rabbitmqctl stop')
+    if contains
+      command = "rabbitmqctl stop"
+      puts "command: #{command}"
+      raise "RabbitMQの停止に失敗しました" unless system(command)
     end
   elsif name == "Tengineコアプロセス"
-#    # Tengineコアのpidファイル => tmp/tengine_pids/tengine.[0からの連番].[pid]
-#    # 例：tmp/tengine_pids/tengine.0.3948
-#    # ファイルの中はpidが記述されている
-#    pids = IO.popen("cat tmp/tengine_pids/tengine.*").to_a
-#    pids.each do |pid|
-#      if system('ps -eo pid #{pid}}')
-#        raise "Tengineコアの停止に失敗しました" unless system("kill -KILL #{pid}")
-#      end
-#    end
-
     # 起動しているTengineコアプロセスを全てkillする
     tengine_core_process_kill_all
   elsif name == "Tengineコンソールプロセス"
     if system('ps -eo pid | grep `cat tmp/pids/server.pid`')
       raise "Tengineコアの停止に失敗しました" unless system('kill -KILL `cat tmp/pids/server.pid`')
     end
+  else
+    raise "#{name}はサポート外です。"
   end
 end
 
@@ -123,6 +120,7 @@ end
 end
 
 もし /^"([^"]*)"を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
+  command = "#{command} 2>&1"
   puts "command:#{command}"
   io = IO.popen(command)
   @h ||= {}
@@ -131,7 +129,7 @@ end
 
 もし /^"([^"]*)"の起動を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
   IO.popen("rm -rf ./tmp/pids/server.pid") if name == "Tengineコンソールプロセス"
-
+  command = "#{command} 2>&1"
   puts "command:#{command}"
   io = IO.popen(command)
   @h ||= {}
@@ -140,6 +138,7 @@ end
 end
 
 もし /^"([^"]*)"の停止を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
+  command = "#{command} 2>&1"
   puts "command:#{command}"
   `#{command}`
 end
@@ -151,7 +150,9 @@ end
 
 ならば /^"([^"]*)"の標準出力からPIDを確認できること$/ do |name|
   if name == "Tengineコアプロセス"
-    get_pid = get_pid_from_ps name
+#    get_pid = get_pid_from_ps name
+    pid_regexp = /tengined<(\d+)>/
+    get_pid = get_pid_from_stdout(name, pid_regexp)
     get_pid.should be_true
   elsif name == "Tengineコンソールプロセス"
     pid_regexp = /pid=(\d+)/
@@ -160,16 +161,6 @@ end
   end
 end
 
-
-#ならば /^"([^"]*)"の標準出力からPIDを確認できること$/ do |name|
-#  if name == "Tengineコアプロセス"
-#    pid_regexp = /tengined\<(\d+)\>/
-#  elsif name == "Tengineコンソールプロセス"
-#    pid_regexp = /pid=(\d+)/
-#  end
-#  get_pid = get_pid_from_stdout name,pid_regexp
-#  get_pid.should be_true
-#end
 
 ならば /^"([^"]*)"のPIDファイル"([^"]*)"からPIDを確認できること$/ do |name, file_path|
   @h ||= {}
@@ -782,9 +773,11 @@ end
 # psコマンドを利用してPIDを取得する
 def get_pid_from_ps(name)
   get_pid = false
-  p "cmd:#{@h[name][:command]}"
-  IO.popen("ps aux | grep \"" + @h[name][:command]  + "\" | grep -v grep ") { |io|
+  command = "ps aux | grep \"" + @h[name][:command]  + "\" | grep -v grep "
+  puts "command:#{command}"
+  IO.popen(command) { |io|
     if line = io.gets
+      puts " => #{line}"
       @h[name][:pid] = line.split(" ")[1]
       get_pid = true
     end
@@ -795,18 +788,18 @@ end
 def contains_message_from_stdout(name,word)
   match = nil
   @h[name][:stdout].each do |line|
-    #puts "既に:#{line}"
-    match = line.match(/^.*#{word}/)
+#    puts "既に:#{line}"
+    match = line.match(/^.*#{word}.*/)
     break if match
   end
   unless match
     time_out(30) do
       while line = @h[name][:io].gets
-         #puts line
+#         puts line
          @h[name][:stdout] << line
-         match = line.match(/^.*#{word}/)
+         match = line.match(/^.*#{word}.*/)
          if match
-          # puts "match:#{word}"
+           puts "match:#{word}"
           break
         end
       end
