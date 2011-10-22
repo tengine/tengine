@@ -148,6 +148,11 @@ end
   match.should be_true
 end
 
+ならば /^約"([^"]*)"秒以内に"([^"]*)"の標準出力に"([^"]*)"と出力されていること$/  do |time, name, word|
+  match = contains_message_from_stdout(name, word, {timeout:time.to_i})
+  match.should be_true
+end
+
 ならば /^"([^"]*)"の標準出力からPIDを確認できること$/ do |name|
   if name == "Tengineコアプロセス"
 #    get_pid = get_pid_from_ps name
@@ -785,7 +790,8 @@ def get_pid_from_ps(name)
   get_pid
 end
 
-def contains_message_from_stdout(name,word)
+def contains_message_from_stdout(name,word, options = {})
+  timeout = options[:timeout] || 30
   match = nil
   @h[name][:stdout].each do |line|
 #    puts "既に:#{line}"
@@ -793,7 +799,7 @@ def contains_message_from_stdout(name,word)
     break if match
   end
   unless match
-    time_out(30) do
+    time_out(timeout) do
       while line = @h[name][:io].gets
 #         puts line
          @h[name][:stdout] << line
