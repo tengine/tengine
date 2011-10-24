@@ -22,4 +22,41 @@ module Tengine::Job::RootJobnetTemplatesHelper
     order = (current_order == "asc") ? "desc" : "asc"
     return {"sort" => {sym => order}}
   end
+
+  def category_tree(root_categories, tree_id, link_params, link_options={})
+    return "" if root_categories.blank?
+
+    params = link_params
+    all_link = link_to(I18n.t(:all, :scope => [:views, :pages, :category]),
+                  params, link_options)
+    root_categories = [root_categories].flatten
+
+    tree = %|<ul id="#{tree_id}"><li>#{ERB::Util.html_escape(all_link)}<ul>|
+    root_categories.each do |root_category|
+      stack = []
+      category = root_category
+      sibling_index = 0
+      while !(stack.empty? && category.nil?)
+        while !(category.nil?)
+          children = category.children
+          stack << [category, sibling_index]
+          c = stack.last.first
+          tree << "<li>#{ERB::Util.html_escape(link_to(c.caption, params.merge(:category=>c.id), link_options))}"
+          tree << "<ul>" if children.count != 0
+          category = children.first
+        end
+        _stack = stack.last
+        sibling_index = _stack[1] = _stack[1]+1
+        unless category = _stack[0].children[sibling_index]
+          parent_category = stack.pop.first
+          tree << "</ul>" if parent_category.children.count != 0
+          tree << "</li>"
+        end
+        sibling_index = 0
+      end
+    end
+    tree << "</ul></li></ul>"
+
+    return tree
+  end
 end

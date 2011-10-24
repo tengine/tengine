@@ -109,6 +109,14 @@ describe Tengine::Job::RootJobnetTemplatesController do
         root_jobnet_templates.to_a.should eq([root_jobnet_template])
       end
 
+      it "assigns all tengine_job_root_jobnet_templates as @root_jobnet_templates" do
+        Tengine::Job::Category.delete_all
+        category = Tengine::Job::Category.create! valid_attributes
+        get :index
+        root_categories = assigns(:root_categories)
+        root_categories.to_a.should eq([category])
+      end
+
       # BSON::ObjectIdの大きい順、小さい順に値を指定できていないためコメントアウトしています。
       #it "GET index, sort by id asc" do
       #  get :index, :sort => {:id => "asc"}

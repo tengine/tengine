@@ -42,6 +42,29 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       )
     ]
     assign(:root_jobnet_templates, Kaminari.paginate_array(templates).page(1).per(5))
+
+    children = []
+    @foo = stub_model(Tengine::Job::Category,
+      :id => BSON::ObjectId("4e855633c3406b3a9f000001"),
+      :dsl_verion => 0,
+      :name => "foo",
+      :caption => "ふー",
+      :parent_id => nil,
+      :children => children
+    )
+    @baz = stub_model(Tengine::Job::Category,
+      :id => BSON::ObjectId("4e855633c3406b3a9f000002"),
+      :dsl_verion => 0,
+      :name => "baz",
+      :caption => "ばず",
+      :parent => @foo,
+      :children => [],
+    )
+    children << @baz
+    assign(:root_categories, [@foo])
+
+    @request.params[:controller] = "tengine/job/root_jobnet_templates"
+    @request.params[:action] = "index"
   end
 
   it "renders a list of tengine_job_root_jobnet_templates" do
@@ -76,9 +99,16 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:description))
   end
 
+  it "カテゴリのツリーが表示されていること" do
+    render
+
+    rendered.should have_xpath("//ul[@id='category']")
+  end
+
   context "idの昇順で一覧を表示しているとき" do
     before(:each) do
       @request.query_parameters[:sort] = {"id" => "asc"}
+      @request.params[:sort] = {"id" => "asc"}
     end
 
     it "idのソートのリンクに降順のクエリーパラメータが付加されていてclassがascになっていること" do
@@ -95,6 +125,16 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       href = tengine_job_root_jobnet_templates_path(:sort=>{:name=>"asc"})
       rendered.should have_xpath("//a[@class=''][@href='#{href}']",
         :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:name))
+    end
+
+    it "カテゴリのツリーのリンクにsortパラメータがついていないこと" do
+      render
+
+      params = @request.params.select{|k, v| k.to_s != "sort"}
+      rendered.should have_link(@foo.caption,
+        :href=>tengine_job_root_jobnet_templates_path(
+          params.merge(:category => @foo.id))
+      )
     end
   end
 
@@ -206,6 +246,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
   context "nameで検索したとき" do
     before do
       @request.query_parameters[:finder] = { :name => "foo" }
+      @request.params[:finder] = { :name => "foo" }
     end
 
     it "ソートのリンクに検索のクエリーパラメータがついていること" do
@@ -225,6 +266,15 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
         Tengine::Job::RootJobnetTemplate.human_attribute_name(:description),
         :href=>tengine_job_root_jobnet_templates_path(
           @request.query_parameters.merge(:sort => {:desc => :asc}))
+      )
+    end
+
+    it "カテゴリのツリーのリンクに検索のパラメータがついていること" do
+      render
+
+      rendered.should have_link(
+        @foo.caption,
+        :href=>tengine_job_root_jobnet_templates_path(@request.params.merge(:category=>@foo.id))
       )
     end
   end
@@ -285,13 +335,46 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
         )
       ]).page(2).per(2))
 
+      children = []
+      @foo = stub_model(Tengine::Job::Category,
+        :id => BSON::ObjectId("4e855633c3406b3a9f000001"),
+        :dsl_verion => 0,
+        :name => "foo",
+        :caption => "ふー",
+        :parent_id => nil,
+        :children => children
+      )
+      @baz = stub_model(Tengine::Job::Category,
+        :id => BSON::ObjectId("4e855633c3406b3a9f000002"),
+        :dsl_verion => 0,
+        :name => "baz",
+        :caption => "ばず",
+        :parent => @foo,
+        :children => [],
+      )
+      children << @baz
+      assign(:root_categories, [@foo])
+
       @request.query_parameters[:page] = 2
+      @request.params[:controller] = "tengine/job/root_jobnet_templates"
+      @request.params[:action] = "index"
+      @request.params[:page] = 2
     end
 
     it "件数が表示されていること" do
       render
 
       rendered.should have_content("全3件中3〜3件を表示")
+    end
+
+    it "カテゴリのツリーのリンクにページのパラメータがついていないこと" do
+      render
+
+      params = @request.params.select{|k, v| k.to_s != "page"}
+      rendered.should have_link(
+        @foo.caption,
+        :href=>tengine_job_root_jobnet_templates_path(params.merge(:category=>@foo.id))
+      )
     end
 
     context "nameで検索していたとき" do

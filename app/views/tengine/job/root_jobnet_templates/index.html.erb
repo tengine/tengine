@@ -3,7 +3,8 @@
 <p id="notice"><%= notice %></p>
 
 <div class="right-content">
-  <!-- category tree -->
+  <% params_without_page_and_sort = request.params.select{|k,v| k.to_s != 'page' && k.to_s != 'sort' } -%>
+  <%== category_tree(@root_categories, "category", params_without_page_and_sort) %>
 </div>
 
 <div class="left-content">

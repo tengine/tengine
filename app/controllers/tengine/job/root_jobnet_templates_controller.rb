@@ -40,6 +40,7 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
 
     @root_jobnet_templates = \
       Tengine::Job::RootJobnetTemplate.all(conds).page(params[:page])
+    @root_categories = Tengine::Job::Category.all(:conditions => {:parent_id => nil})
 
     respond_to do |format|
       format.html # index.html.erb
