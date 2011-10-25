@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 Before do |s|
   ENV.delete("RAILS_ENV") #RAILS_ENVの値を削除しないとrails s -e productionで起動してもtestの設定で起動してしまう
-  system("ps -e |grep \"mongod --port 21039\" |grep -v grep|awk '{print $1}' |xargs kill -2")
+  system("ps -e |grep \"mongod --port 21039\" |grep -v grep|awk '{print $1}' |xargs kill -9")
+  system("rm -rf ~/tmp/mongodb_test/mongod.lock")
   system("ps -e |grep \"ruby script/rails s -e production\" |grep -v grep|awk '{print $1}'|xargs kill -9")
   system("rm -rf  ~/tmp/mongodb_test/tengine_production.*")
 end
@@ -10,7 +11,8 @@ After do |s|
   system("ps aux | grep 'script/rails' | grep -v grep | awk '{print $2}' | xargs kill -9")
 
   system("ps -e |grep tengined|grep -v grep |awk '{print $1}' |xargs kill -9")
-  system("ps -e |grep \"mongod --port 21039\" |grep -v grep|awk '{print $1}' |xargs kill -2")
+  system("ps -e |grep \"mongod --port 21039\" |grep -v grep|awk '{print $1}' |xargs kill -9")
+  system("rm -rf ~/tmp/mongodb_test/mongod.lock")
 end
 
 #at_exit do
