@@ -41,7 +41,7 @@ jobnet("jn0005", :instance_name => "test_server1", :credential_name => "test_cre
     boot_jobs("jn0005_fjn")
     jobnet("jn0005_fjn", :to => "jn0005_f") do
       boot_jobs("jn0005_f1")
-      job("jn0005_f1", "echo jn0005_f1", :to => ["jn0005_finally_2"])
+      job("jn0005_f1", "echo jn0005_f1", :to => ["jn0005_f2"])
       job("jn0005_f2", "echo jn0005_f2")
       finally do
         job("jn0005_fif","echo 'jn0005_fif'")
