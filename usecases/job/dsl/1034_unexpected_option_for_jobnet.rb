@@ -1,4 +1,4 @@
-jobnet("jobnet1034", :instance_name => "i-11111111", :credential_name => "goku-ssh-pk1" ,:hoge => "hoge") do
+jobnet("jobnet1034", :instance_name => "test_server1", :credential_name => "test_credential1" ,:hoge => "hoge") do
   auto_sequence
   job("job1", "echo 'job1'")
 end

@@ -17,7 +17,7 @@
 #                                                                                           _______finally_______
 #                                                                                          {[S10]-->[jn_f]-->[E10]}
 #
-jobnet("jn0006", :instance_name => "i-11111111", :credential_name => "goku-ssh-pk1") do
+jobnet("jn0006", :instance_name => "test_server1", :credential_name => "test_credential1") do
   boot_jobs("jn1")
   jobnet("jn1", :to => "jn2") do
    boot_jobs("j11")

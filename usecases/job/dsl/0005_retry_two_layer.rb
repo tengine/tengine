@@ -22,7 +22,7 @@
 #  {        {_________________________________________}                    }
 #  { ______________________________________________________________________}
 
-jobnet("jn0005", :instance_name => "i-11111111", :credential_name => "goku-ssh-pk1") do
+jobnet("jn0005", :instance_name => "test_server1", :credential_name => "test_credential1") do
   boot_jobs("j1")
   job("j1", "echo 'job1'", :to => ["j2", "jn4"])
   job("j2", "echo 'job2'", :to => "j4")
