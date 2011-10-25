@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+require 'tengine_job'
+
 # c.f -> http://bts.tenginefw.com/trac/monkey-magic/wiki/0.9.6/function_test_additional_scenario
 #
 jobnet('complicated_jobnet', '複雑なジョブネット', :vm_instance_name => "test_server1",:credential_name => "test_credential1") do  

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+require 'tengine_job'
+
 # [jn0004]
 #               |-->[j2]-->
 #               |         |
