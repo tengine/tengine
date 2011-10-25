@@ -150,7 +150,7 @@ def start_process(name, command)
   output, input, p = PTY.spawn(command)
   Thread.start {
     while line = begin
-                   outputs.gets          # FreeBSD returns nil.
+                   output.gets          # FreeBSD returns nil.
                  rescue Errno::EIO # GNU/Linux raises EIO.
                    nil
                  end
