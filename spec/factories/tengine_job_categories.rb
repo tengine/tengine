@@ -2,7 +2,6 @@
 
 FactoryGirl.define do
   factory :"tengine/job/category" do
-    dsl_version("MyString")
     parent(nil)
     name("MyString")
     caption("MyString")
