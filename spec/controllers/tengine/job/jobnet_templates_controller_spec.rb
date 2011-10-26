@@ -24,7 +24,7 @@ describe Tengine::Job::JobnetTemplatesController do
   # Tengine::Job::JobnetTemplate. As you add validations to Tengine::Job::JobnetTemplate, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {:name => "test1"}
   end
 
   describe "GET index" do
