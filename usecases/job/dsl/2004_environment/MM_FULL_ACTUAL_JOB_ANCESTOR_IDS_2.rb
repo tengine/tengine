@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-jobnet("child_root2", "ネストルートジョブネット2", :vm_instance_name => "i-centos", :credential_name => "nstore") do
+
+require 'tengine_job'
+
+jobnet("child_root2", "ネストルートジョブネット2", :vm_instance_name => "test_server1", :credential_name => "test_credential1") do
   auto_sequence
   jobnet("jobnet21") do
     auto_sequence

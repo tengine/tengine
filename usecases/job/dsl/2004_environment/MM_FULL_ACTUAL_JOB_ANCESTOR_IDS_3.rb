@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-jobnet("grandchild_root", "ネストルートジョブネット3（孫）", :vm_instance_name => "i-centos", :credential_name => "nstore") do
+
+require 'tengine_job'
+
+jobnet("grandchild_root", "ネストルートジョブネット3（孫）", :vm_instance_name => "test_server1", :credential_name => "test_credential1") do
   auto_sequence
   jobnet("jobnet31") do
     auto_sequence

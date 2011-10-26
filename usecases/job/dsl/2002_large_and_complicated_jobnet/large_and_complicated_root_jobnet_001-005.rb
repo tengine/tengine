@@ -1,3 +1,6 @@
+
+require 'tengine_job'
+
 # batch - SplyImp
 dsl_version("0.9.7")
 
@@ -19,17 +22,17 @@ BATCH_CONTEXT_PARAM_MAP.each {|k, v|
     BATCH_ARGUMENTS += ","
 }
 # workflow
-jobnet("#{BATCH_ID_QUALIFIER}.#{BATCH_ID_MODIFIER}", :instance_name => "i-centos", :credential_name => "nstore") do 
+jobnet("#{BATCH_ID_QUALIFIER}.#{BATCH_ID_MODIFIER}", :instance_name => "test_server1", :credential_name => "test_credential1") do 
     auto_sequence
     jobnet("SplyDataFormatCheck") do
       boot_jobs("nacs_ap_batch.sply")
-      job("nacs_ap_batch.sply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_001", :instance_name => "i-centos", :credential_name => "nstore")
+      job("nacs_ap_batch.sply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_001", :instance_name => "test_server1", :credential_name => "test_credential1")
     end
     finally do
       boot_jobs("nacs_ap_batch")
       jobnet("nacs_ap_batch") do
         auto_sequence
-        job("nacs_ap_batch.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_002", :instance_name => "i-centos", :credential_name => "nstore")
+        job("nacs_ap_batch.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_002", :instance_name => "test_server1", :credential_name => "test_credential1")
       end
     end
     jobnet("SplyMargeAndSeparate") do
@@ -39,8 +42,8 @@ jobnet("#{BATCH_ID_QUALIFIER}.#{BATCH_ID_MODIFIER}", :instance_name => "i-centos
             boot_jobs("bulkloader")
             jobnet("bulkloader") do
                 auto_sequence
-                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_004", :instance_name => "i-centos", :credential_name => "nstore")
-                job("bulkloader.nacscommon", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_005", :instance_name => "i-centos", :credential_name => "nstore")
+                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_004", :instance_name => "test_server1", :credential_name => "test_credential1")
+                job("bulkloader.nacscommon", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_005", :instance_name => "test_server1", :credential_name => "test_credential1")
             end
         end
         jobnet("STAGE_GRAPH") do
@@ -77,7 +80,7 @@ jobnet("#{BATCH_ID_QUALIFIER}.#{BATCH_ID_MODIFIER}", :instance_name => "i-centos
             boot_jobs("bulkloader")
             jobnet("bulkloader") do
                 auto_sequence
-                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_013", :instance_name => "i-centos", :credential_name => "nstore")
+                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_013", :instance_name => "test_server1", :credential_name => "test_credential1")
             end
         end
         job("CLEANUP", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_014")
@@ -86,7 +89,7 @@ jobnet("#{BATCH_ID_QUALIFIER}.#{BATCH_ID_MODIFIER}", :instance_name => "i-centos
                 boot_jobs("bulkloader")
                 jobnet("bulkloader") do
                     auto_sequence
-                    job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_015", :instance_name => "i-centos", :credential_name => "nstore")
+                    job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_015", :instance_name => "test_server1", :credential_name => "test_credential1")
                 end
             end
         end
@@ -98,8 +101,8 @@ jobnet("#{BATCH_ID_QUALIFIER}.#{BATCH_ID_MODIFIER}", :instance_name => "i-centos
             boot_jobs("bulkloader")
             jobnet("bulkloader") do
                 auto_sequence
-                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_004", :instance_name => "i-centos", :credential_name => "nstore")
-                job("bulkloader.nacscommon", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_005", :instance_name => "i-centos", :credential_name => "nstore")
+                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_004", :instance_name => "test_server1", :credential_name => "test_credential1")
+                job("bulkloader.nacscommon", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_005", :instance_name => "test_server1", :credential_name => "test_credential1")
             end
         end
         jobnet("STAGE_GRAPH") do
@@ -136,7 +139,7 @@ jobnet("#{BATCH_ID_QUALIFIER}.#{BATCH_ID_MODIFIER}", :instance_name => "i-centos
             boot_jobs("bulkloader")
             jobnet("bulkloader") do
                 auto_sequence
-                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_013", :instance_name => "i-centos", :credential_name => "nstore")
+                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_013", :instance_name => "test_server1", :credential_name => "test_credential1")
             end
         end
         job("CLEANUP", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_014")
@@ -145,7 +148,7 @@ jobnet("#{BATCH_ID_QUALIFIER}.#{BATCH_ID_MODIFIER}", :instance_name => "i-centos
                 boot_jobs("bulkloader")
                 jobnet("bulkloader") do
                     auto_sequence
-                    job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_015", :instance_name => "i-centos", :credential_name => "nstore")
+                    job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_015", :instance_name => "test_server1", :credential_name => "test_credential1")
                 end
             end
         end
@@ -157,8 +160,8 @@ jobnet("#{BATCH_ID_QUALIFIER}.#{BATCH_ID_MODIFIER}", :instance_name => "i-centos
             boot_jobs("bulkloader")
             jobnet("bulkloader") do
                 auto_sequence
-                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_004", :instance_name => "i-centos", :credential_name => "nstore")
-                job("bulkloader.nacscommon", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_005", :instance_name => "i-centos", :credential_name => "nstore")
+                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_004", :instance_name => "test_server1", :credential_name => "test_credential1")
+                job("bulkloader.nacscommon", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_005", :instance_name => "test_server1", :credential_name => "test_credential1")
             end
         end
         jobnet("STAGE_GRAPH") do
@@ -195,7 +198,7 @@ jobnet("#{BATCH_ID_QUALIFIER}.#{BATCH_ID_MODIFIER}", :instance_name => "i-centos
             boot_jobs("bulkloader")
             jobnet("bulkloader") do
                 auto_sequence
-                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_013", :instance_name => "i-centos", :credential_name => "nstore")
+                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_013", :instance_name => "test_server1", :credential_name => "test_credential1")
             end
         end
         job("CLEANUP", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_014")
@@ -204,7 +207,7 @@ jobnet("#{BATCH_ID_QUALIFIER}.#{BATCH_ID_MODIFIER}", :instance_name => "i-centos
                 boot_jobs("bulkloader")
                 jobnet("bulkloader") do
                     auto_sequence
-                    job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_015", :instance_name => "i-centos", :credential_name => "nstore")
+                    job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_015", :instance_name => "test_server1", :credential_name => "test_credential1")
                 end
             end
         end
@@ -216,8 +219,8 @@ jobnet("#{BATCH_ID_QUALIFIER}.#{BATCH_ID_MODIFIER}", :instance_name => "i-centos
             boot_jobs("bulkloader")
             jobnet("bulkloader") do
                 auto_sequence
-                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_004", :instance_name => "i-centos", :credential_name => "nstore")
-                job("bulkloader.nacscommon", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_005", :instance_name => "i-centos", :credential_name => "nstore")
+                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_004", :instance_name => "test_server1", :credential_name => "test_credential1")
+                job("bulkloader.nacscommon", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_005", :instance_name => "test_server1", :credential_name => "test_credential1")
             end
         end
         jobnet("STAGE_GRAPH") do
@@ -254,7 +257,7 @@ jobnet("#{BATCH_ID_QUALIFIER}.#{BATCH_ID_MODIFIER}", :instance_name => "i-centos
             boot_jobs("bulkloader")
             jobnet("bulkloader") do
                 auto_sequence
-                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_013", :instance_name => "i-centos", :credential_name => "nstore")
+                job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_013", :instance_name => "test_server1", :credential_name => "test_credential1")
             end
         end
         job("CLEANUP", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_014")
@@ -263,7 +266,7 @@ jobnet("#{BATCH_ID_QUALIFIER}.#{BATCH_ID_MODIFIER}", :instance_name => "i-centos
                 boot_jobs("bulkloader")
                 jobnet("bulkloader") do
                     auto_sequence
-                    job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_015", :instance_name => "i-centos", :credential_name => "nstore")
+                    job("bulkloader.nacssply", "~/mm_server/spec/models/job/mm_job.sh 2 job_function_test_015", :instance_name => "test_server1", :credential_name => "test_credential1")
                 end
             end
         end

@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-jobnet("u1pj1_jobnet_pattern3", "テスト用ジョブネットパターン3", :vm_instance_name => "u1pj1_localhost", :credential_name => "u1_credential_mm") do
+
+require 'tengine_job'
+
+jobnet("u1pj1_jobnet_pattern3", "テスト用ジョブネットパターン3", :vm_instance_name => "test_server1", :credential_name => "test_credential1") do
   boot_jobs("jobnet_pt31", "jobnet_pt32")
   jobnet("jobnet_pt31", :to => "jobnet_pt33") do
     auto_sequence

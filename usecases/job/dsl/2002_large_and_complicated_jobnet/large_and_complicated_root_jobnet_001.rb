@@ -1,3 +1,6 @@
+
+require 'tengine_job'
+
 # batch - SplyImp
 dsl_version("0.9.7")
 
@@ -18,7 +21,7 @@ BATCH_CONTEXT_PARAM_MAP.each {|k, v|
     BATCH_ARGUMENTS += ","
 }
 # workflow
-jobnet("#{BATCH_ID_QUALIFIER}.001", :instance_name => "i-centos", :credential_name => "nstore") do 
+jobnet("#{BATCH_ID_QUALIFIER}.001", :instance_name => "test_server1", :credential_name => "test_credential1") do 
     auto_sequence
     jobnet("STAGE_GRAPH") do
         boot_jobs("stage0001", "stage0002")
