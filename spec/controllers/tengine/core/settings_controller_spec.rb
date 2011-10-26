@@ -24,7 +24,7 @@ describe Tengine::Core::SettingsController do
   # Tengine::Core::Setting. As you add validations to Tengine::Core::Setting, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {:name => "dsl_version", :value => "1234567890"}
   end
 
   describe "GET index" do
@@ -39,6 +39,7 @@ describe Tengine::Core::SettingsController do
 
   describe "GET show" do
     it "assigns the requested setting as @setting" do
+      Tengine::Core::Setting.delete_all
       setting = Tengine::Core::Setting.create! valid_attributes
       get :show, :id => setting.id.to_s
       assigns(:setting).should eq(setting)
@@ -54,6 +55,7 @@ describe Tengine::Core::SettingsController do
 
   describe "GET edit" do
     it "assigns the requested setting as @setting" do
+      Tengine::Core::Setting.delete_all
       setting = Tengine::Core::Setting.create! valid_attributes
       get :edit, :id => setting.id.to_s
       assigns(:setting).should eq(setting)
@@ -61,6 +63,10 @@ describe Tengine::Core::SettingsController do
   end
 
   describe "POST create" do
+    before do
+      Tengine::Core::Setting.delete_all
+    end
+
     describe "with valid params" do
       it "creates a new Tengine::Core::Setting" do
         expect {
@@ -98,6 +104,10 @@ describe Tengine::Core::SettingsController do
   end
 
   describe "PUT update" do
+    before do
+      Tengine::Core::Setting.delete_all
+    end
+
     describe "with valid params" do
       it "updates the requested setting" do
         setting = Tengine::Core::Setting.create! valid_attributes
@@ -142,6 +152,10 @@ describe Tengine::Core::SettingsController do
   end
 
   describe "DELETE destroy" do
+    before do
+      Tengine::Core::Setting.delete_all
+    end
+
     it "destroys the requested setting" do
       setting = Tengine::Core::Setting.create! valid_attributes
       expect {
