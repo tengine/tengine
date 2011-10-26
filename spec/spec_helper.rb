@@ -38,4 +38,11 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   # config.use_transactional_fixtures = true
+
+  config.before(:all) do
+    unless Tengine::Core::Setting.first(:conditions => {:name => "dsl_version"})
+      Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1234567890")
+    end
+  end
+
 end
