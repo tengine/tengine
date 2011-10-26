@@ -1,3 +1,6 @@
+rails g scaffold Tengine::Core::Setting name:string value:string
+
+
 rails g scaffold Tengine::Job::Category dsl_version:string parent:references name:string caption:string
 
 rails g scaffold Tengine::Job::Edge               status_cd:integer origin_id:string destination_id:string

@@ -1,4 +1,6 @@
 TengineConsole::Application.routes.draw do
+  namespace :tengine do  namespace :core do resources :settings end end
+
   namespace :tengine do  namespace :job do resources :executions end end
 
   namespace :tengine do  namespace :job do resources :categories end end
