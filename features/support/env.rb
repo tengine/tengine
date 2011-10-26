@@ -88,3 +88,10 @@ module Cucumber
     end
   end
 end
+
+# features/support/lib を $LOAD_PATH に追加
+$LOAD_PATH << File.expand_path('lib', File.dirname(__FILE__))
+
+require 'mongodb_support'
+MongodbSupport.nodes end_to_end_test_yaml["db"]["nodes"]
+

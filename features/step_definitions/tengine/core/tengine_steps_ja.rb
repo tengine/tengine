@@ -2,6 +2,7 @@
 require 'timeout'
 require 'amqp'
 require 'pty'
+require 'mongodb_support'
 
 tengine_yaml = YAML::load(IO.read('./features/config/tengine.yml'))
 @mq_server = tengine_yaml["event_queue"]["conn"]
@@ -17,26 +18,27 @@ tengine_yaml = YAML::load(IO.read('./features/config/tengine.yml'))
 end
 
 前提 /^"([^"]*)"が起動している$/ do |name|
+  @h ||= {}
   if name == "Tengineコアプロセス"
     command = "tengined -k start -f features/config/tengine.yml"
     io = IO.popen(command)
-    @h ||= {}
+
     @h[name] = {:io => io, :stdout => [] ,:command => command}
     pid_regexp = /<(\d+)>/
     get_pid_from_stdout name,pid_regexp
   elsif name == "Tengineコンソールプロセス"
     system("rm -rf ./tmp/pids/server.pid")
     io = IO.popen("rails s -e production")
-    @h ||= {}
+
     @h[name] = {:io => io, :stdout => []}
     get_pid_from_file(name, "./tmp/pids/server.pid")
   elsif name == "DBプロセス"
-    unless system("ps aux|grep -v \"grep\" | grep -e \"mongod.*--port.*21039\"")
-      start_mongodb name
+    unless MongodbSupport.running?
+      MongodbSupport.start_mongodb(@h, name)
     end
   elsif name == "キュープロセス"
     io = IO.popen("rabbitmqctl status")
-    @h ||= {}
+
     @h[name] = {:io => io, :stdout => []}
     contains = contains_message_from_stdout(name,"running_applications")
     unless contains
@@ -58,8 +60,8 @@ end
     @h[name] = {:io => io, :stdout => []}
     sleep 5 # TODO sleepさせるのやめたいです。
   elsif name == "DBプロセス"
-    unless system("ps aux|grep -v \"grep\" | grep -e \"mongod.*--port.*21039\"")
-      start_mongodb name
+    unless MongodbSupport.running?
+      MongodbSupport.start_mongodb(@h, name)
     end
   elsif name == "キュープロセス"
     io = IO.popen("rabbitmqctl status")
@@ -75,14 +77,14 @@ end
 end
 
 前提 /^DBにユーザ"e2e"が存在し、パスワードは"password"である$/ do
-  raise "DBへのユーザ追加に失敗しました。"  unless system("mongo localhost:21039/tengine_production features/step_definitions/mongodb/add_e2e_user")
+  MongodbSupport.add_user
 end
 
 
 前提 /^"([^"]*)"が停止している$/ do |name|
   if name == "DBプロセス"
-    if system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
-      raise "MongoDBの停止に失敗しました"  unless system("mongo localhost:21039/admin features/step_definitions/mongodb/shutdown")
+    if MongodbSupport.running?
+      MongodbSupport.shutdown
     end
   elsif name == "キュープロセス"
     io = IO.popen("rabbitmqctl status")
@@ -135,7 +137,7 @@ end
 
   @h ||= {}
   if /DBプロセス/ =~ name
-    start_mongodb(name, command)
+    MongodbSupport.start_mongodb(@h, name)
   else
     start_process(name, command)
   end
@@ -149,27 +151,18 @@ def start_process(name, command)
 
   output, input, p = PTY.spawn(command)
   Thread.start {
-    while line = output.gets
+    while line = begin
+                   output.gets          # FreeBSD returns nil.
+                 rescue Errno::EIO # GNU/Linux raises EIO.
+                   nil
+                 end
+
 #      puts line 
       @h[name][:stdout] << line
     end
   }
 end
 
-def start_mongodb(name, command = nil)
-  command = command || 'mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet'
-  start_process(name, command)
-  sleep 2
-  pid = get_mongodb_pid
-  pid ? (@h[name][:pid] = pid) : (raise "MongoDBの起動に失敗しました")
-end
-
-
-def get_mongodb_pid
-  pid = `ps -e |grep \"mongod --port 21039\" |grep -v grep|awk '{print $1}'`.chomp
-puts "mongodb_pid:#{pid}"
-  pid.empty? ? nil : pid
-end
 
 もし /^"([^"]*)"の停止を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
   command = "#{command} 2>&1"
@@ -242,7 +235,7 @@ end
   time_out(10) do
     while true
       if name == "DBプロセス"
-        result = `ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"`.chomp
+        result = MongodbSupport.running? ? "running" : nil
       elsif name == "キュープロセス"
         io = IO.popen("rabbitmqctl status")
         @h ||= {}
@@ -296,7 +289,7 @@ end
   time_out(10) do
     while true
       if name == "DBプロセス"
-        result = `ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"`.chomp
+        result = MongodbSupport.running? ? "running" : nil
       elsif name == "キュープロセス"
         io = IO.popen("rabbitmqctl status")
         @h ||= {}

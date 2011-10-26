@@ -1,4 +1,7 @@
-jobnet("jobnet1012", :instance_name => "i-11111111", :credential_name => "goku-ssh-pk1") do
+
+require 'tengine_job'
+
+jobnet("jobnet1012", :instance_name => "test_server1", :credential_name => "test_credential1") do
   auto_sequence
   job("job1", "echo 'job1'")
   finally do

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+require 'tengine_job'
+
 # [jn0004]
 #               |-->[j2]-->
 #               |         |
@@ -10,7 +12,7 @@
 #                    {[S2]-->[jn0004_f]-->[E2]}
 #                    {________________________}
 #                     
-jobnet("jn0004", :instance_name => "i-11111111", :credential_name => "goku-ssh-pk1") do
+jobnet("jn0004", :instance_name => "test_server1", :credential_name => "test_credential1") do
   boot_jobs("j1")
   job("j1", "echo 'j1'", :to => ["j2", "j3"])
   job("j2", "echo 'j2'", :to => "j4")
