@@ -29,11 +29,16 @@ set :scm_prefer_prompt, true    # 毎回パスワードを入力する設定
 set :scm,               :none
 set :repository,        "."
 
+# default は, tar だが mac 標準の tar は bsdtar で gnutar ではないので zip にする
 set :copy_compression,  :zip
 set :deploy_via,        :copy
 set :deploy_to,         "/var/lib/#{application}"
+set :deploy_env,        "production"
 set :bundle_dir,        "./vendor/bundle"
+
 set :keep_releases,     3
+# rails3.0 以下のディレクトリ構成のエラーを無視する
+set :normalize_asset_timestamps, false
 
 ##############################
 # tasks
@@ -61,6 +66,12 @@ namespace :app do
   desc "Make symlink for shared/config/tengined.yml"
   task :symlinks do
     run "ln -nfs #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
+  end
+end
+
+namespace :bundle do
+  task :install, :roles => :app do
+    run "cd #{release_path} && bundle --path vendor/bundle --without development test"
   end
 end
 
