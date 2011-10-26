@@ -102,6 +102,8 @@ describe Tengine::Job::RootJobnetTemplatesHelper do
         @foo.save!
         @baz.save!
         @fizz.save!
+
+        @all_str = I18n.t("all", :scope => [:views, :category_tree])
       end
   
       it "ツリーが作成されること" do
@@ -113,7 +115,7 @@ describe Tengine::Job::RootJobnetTemplatesHelper do
         tree_html =<<-_tree_.strip.gsub(/\n?^\s+/, '')
         <ul id="treeview">
           <li>
-            #{link_to(I18n.t("all", :scope => [:views, :pages, :category]), params)}
+            #{link_to(@all_str, params)}
             <ul>
               <li>
                 #{link_to(@foo.caption, params.merge(:category=>@foo.id))}
@@ -143,7 +145,7 @@ describe Tengine::Job::RootJobnetTemplatesHelper do
         tree_html =<<-_tree_.strip.gsub(/\n?^\s+/, '')
         <ul id="treeview">
           <li>
-            #{link_to(I18n.t("all", :scope => [:views, :pages, :category]), params, link_opts)}
+            #{link_to(@all_str, params, link_opts)}
             <ul>
               <li>
                 #{link_to(@foo.caption, params.merge(:category=>@foo.id), link_opts)}
@@ -175,7 +177,7 @@ describe Tengine::Job::RootJobnetTemplatesHelper do
         tree_html =<<-_tree_.strip.gsub(/\n?^\s+/, '')
         <ul id="treeview">
           <li>
-            #{ERB::Util.html_escape(link_to(I18n.t("all", :scope => [:views, :pages, :category]), params))}
+            #{ERB::Util.html_escape(link_to(@all_str, params))}
             <ul>
               <li>
                 #{ERB::Util.html_escape(link_to(@foo.caption, params.merge(:category=>@foo.id)))}
@@ -227,6 +229,8 @@ describe Tengine::Job::RootJobnetTemplatesHelper do
         @baz.save!
         @bar.save!
         @fizz.save!
+
+        @all_str = I18n.t("all", :scope => [:views, :category_tree])
       end
   
       it "ツリーが作成されること" do
@@ -238,7 +242,7 @@ describe Tengine::Job::RootJobnetTemplatesHelper do
         tree_html =<<-_tree_.strip.gsub(/\n?^\s+/, '')
         <ul id="treeview">
           <li>
-            #{link_to(I18n.t("all", :scope => [:views, :pages, :category]), params)}
+            #{link_to(@all_str, params)}
             <ul>
               <li>
                 #{link_to(@foo.caption, params.merge(:category=>@foo.id))}

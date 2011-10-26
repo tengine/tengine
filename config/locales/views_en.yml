@@ -22,3 +22,5 @@ en:
       previous: "Previous"
       next: "Next"
       truncate: "..."
+    category_tree:
+      all: "All"

@@ -122,10 +122,10 @@ describe Tengine::Job::RootJobnetTemplatesController do
       #  get :index, :sort => {:id => "asc"}
       #  root_jobnet_templates = assigns(:root_jobnet_templates)
       #  [
-      #    BSON::ObjectId("4e955633c3406b3a9f000003"),
-      #    BSON::ObjectId("4e955633c3406b3a9f000002"),
-      #    BSON::ObjectId("4e955633c3406b3a9f000001"),
       #    BSON::ObjectId("4e955633c3406b3a9f000000"),
+      #    BSON::ObjectId("4e955633c3406b3a9f000001"),
+      #    BSON::ObjectId("4e955633c3406b3a9f000002"),
+      #    BSON::ObjectId("4e955633c3406b3a9f000003"),
       #  ].each_with_index do |expected, i|
       #    root_jobnet_templates[i].id.should eq(expected)
       #  end
@@ -135,10 +135,10 @@ describe Tengine::Job::RootJobnetTemplatesController do
       #  get :index, :sort => {:id => "desc"}
       #  root_jobnet_templates = assigns(:root_jobnet_templates)
       #  [
-      #    BSON::ObjectId("4e955633c3406b3a9f000000"),
-      #    BSON::ObjectId("4e955633c3406b3a9f000001"),
-      #    BSON::ObjectId("4e955633c3406b3a9f000002"),
       #    BSON::ObjectId("4e955633c3406b3a9f000003"),
+      #    BSON::ObjectId("4e955633c3406b3a9f000002"),
+      #    BSON::ObjectId("4e955633c3406b3a9f000001"),
+      #    BSON::ObjectId("4e955633c3406b3a9f000000"),
       #  ].each_with_index do |expected, i|
       #    root_jobnet_templates[i].id.should eq(expected)
       #  end
@@ -369,6 +369,158 @@ describe Tengine::Job::RootJobnetTemplatesController do
           %w(jobnet_baz_bar_test jobnet_bar_test).each_with_index do |expected, i|
             root_jobnet_templates[i].name.should =~ /bar/
             root_jobnet_templates[i].name.should == expected
+          end
+        end
+      end
+    end
+
+    describe "&category" do
+      before do
+        Tengine::Job::Category.delete_all
+        Tengine::Job::RootJobnetTemplate.delete_all
+        @foo = Tengine::Job::Category.create!(
+          :dsl_version => "1",
+          :name => "foo",
+          :caption => "ふー"
+        )
+        @bar = Tengine::Job::Category.create!(
+          :dsl_version => "1",
+          :name => "bar",
+          :caption => "ばー",
+          :parent_id => @foo.id
+        )
+        @foo.children << @bar
+        @foo.save!
+        @job1 = Tengine::Job::RootJobnetTemplate.create!(
+          :name => "jobnet_foo_test",
+          :server_name => "Server Name",
+          :credential_name => "Credential Name",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "jobnet_foo_test description",
+          :script => "Script",
+          :jobnet_type_cd => 2,
+          :category_id => @foo.id,
+          :lock_version => 3,
+          :dsl_filepath => "foo/jobnet_test_1.rb",
+          :dsl_lineno => 4,
+          :dsl_version => "1"
+        )
+        @job2 = Tengine::Job::RootJobnetTemplate.create!(
+          :name => "jobnet_bar_test",
+          :server_name => "Server Name",
+          :credential_name => "Credential Name",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "jobnet_bar_test description",
+          :script => "Script",
+          :jobnet_type_cd => 2,
+          :category_id => @bar.id,
+          :lock_version => 3,
+          :dsl_filepath => "foo/bar/jobnet_test_2.rb",
+          :dsl_lineno => 4,
+          :dsl_version => "1"
+        )
+        @job3 = Tengine::Job::RootJobnetTemplate.create!(
+          :name => "jobnet_baz_bar_foo_test",
+          :server_name => "Server Name",
+          :credential_name => "Credential Name",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "jobnet_baz_bar_test description",
+          :script => "Script",
+          :jobnet_type_cd => 2,
+          :category_id => @bar.id,
+          :lock_version => 3,
+          :dsl_filepath => "foo/bar/jobnet_test_3.rb",
+          :dsl_lineno => 4,
+          :dsl_version => "1"
+        )
+      end
+
+      context "categoryのクエリーパラメータがないとき" do
+        it "@categoryがnilであること" do
+          get :index
+
+          category = assigns(:category)
+          category.should == nil
+        end
+
+        it "@root_jobnet_templatesが3件であること" do
+          get :index
+
+          root_jobnet_templates = assigns(:root_jobnet_templates)
+          root_jobnet_templates.count.should == 3
+        end
+      end
+
+      context "categoryのクエリーパラメータで@fooのカテゴリが指定されているとき" do
+        it "@categoryが@fooであること" do
+          get :index, :category => @foo.id
+
+          category = assigns(:category)
+          category.should == @foo
+        end
+
+        it "@root_jobnet_templatesが3件であること" do
+          get :index, :category => @foo.id
+
+          root_jobnet_templates = assigns(:root_jobnet_templates)
+          root_jobnet_templates.count.should == 3
+        end
+
+        context "nameにbarを含むものだけに絞り込み検索をしnameの降順でソートしていたとき" do
+          it "@root_jobnet_templatesが2件でそれぞれ名前にbarを含みnameの降順でソートされていること" do
+            get :index,
+              :category => @foo.id,
+              :sort => {:name => "desc"},
+              :finder => { :id => "", :name => "bar", :description => "", }
+
+            root_jobnet_templates = assigns(:root_jobnet_templates)
+            root_jobnet_templates.count.should == 2
+            %w(jobnet_baz_bar_foo_test jobnet_bar_test).each_with_index do |expected, i|
+              root_jobnet_templates[i].name.should =~ /bar/
+              root_jobnet_templates[i].name.should == expected
+            end
+          end
+        end
+      end
+
+      context "categoryのクエリーパラメータで@barのカテゴリが指定されているとき" do
+        it "@categoryが@barであること" do
+          get :index, :category => @bar.id
+
+          category = assigns(:category)
+          category.should == @bar
+        end
+
+        it "@root_jobnet_templatesが2件であること" do
+          get :index, :category => @bar.id
+
+          root_jobnet_templates = assigns(:root_jobnet_templates)
+          root_jobnet_templates.count.should == 2
+        end
+
+        context "nameの降順のクエリーパラメータがついているとき" do
+          it "nameの降順でソートされていること" do
+            get :index, :category => @bar.id, :sort => {:name => "desc"}
+
+            root_jobnet_templates = assigns(:root_jobnet_templates)
+            %w(jobnet_baz_bar_foo_test jobnet_bar_test).each_with_index do |expected, i|
+              root_jobnet_templates[i].name.should == expected
+            end
+          end
+        end
+
+        context "nameにfooを含むものだけに絞り込み検索していたとき" do
+          it "@root_jobnet_templatesが1件であること" do
+            get :index,
+              :category => @bar.id,
+              :finder => { :id => "", :name => "foo", :description => "", }
+
+            root_jobnet_templates = assigns(:root_jobnet_templates)
+            root_jobnet_templates.count.should == 1
+            root_jobnet_templates.first.name =~ /foo/
           end
         end
       end

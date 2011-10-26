@@ -22,3 +22,5 @@ ja:
       previous: "前へ"
       next: "次へ"
       truncate: "..."
+    category_tree:
+      all: "全体"

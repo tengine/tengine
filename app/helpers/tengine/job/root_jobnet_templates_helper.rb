@@ -27,7 +27,7 @@ module Tengine::Job::RootJobnetTemplatesHelper
     return "" if root_categories.blank?
 
     params = link_params
-    all_link = link_to(I18n.t(:all, :scope => [:views, :pages, :category]),
+    all_link = link_to(I18n.t(:all, :scope => [:views, :category_tree]),
                   params, link_options)
     root_categories = [root_categories].flatten
 
@@ -38,10 +38,14 @@ module Tengine::Job::RootJobnetTemplatesHelper
       sibling_index = 0
       while !(stack.empty? && category.nil?)
         while !(category.nil?)
-          children = category.children
           stack << [category, sibling_index]
-          c = stack.last.first
-          tree << "<li>#{ERB::Util.html_escape(link_to(c.caption, params.merge(:category=>c.id), link_options))}"
+
+          last_category = stack.last.first
+          link = link_to(last_category.caption,
+            params.merge(:category => last_category.id), link_options)
+          tree << "<li>#{ERB::Util.html_escape(link)}"
+
+          children = category.children
           tree << "<ul>" if children.count != 0
           category = children.first
         end

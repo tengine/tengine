@@ -279,6 +279,44 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
     end
   end
 
+  context "クエリーパラメータにcategoryがあるとき" do
+    before do
+      @request.params[:category] = @foo.id
+      @request.query_parameters[:category] = @foo.id
+      @category = @foo
+    end
+
+    it "カテゴリツリーのリンクにそれぞれのカテゴリに応じたcategoryのクエリパラメータがついていること" do
+      render
+
+      params = @request.params.select{|k, v| k.to_s != "category"}
+      rendered.should have_link(
+        @baz.caption,
+        :href=>tengine_job_root_jobnet_templates_path(params.merge(:category=>@baz.id))
+      )
+      rendered.should have_link(
+        I18n.t(:all, :scope => [:views, :category_tree]),
+        :href=>tengine_job_root_jobnet_templates_path(params)
+      )
+    end
+
+    it "ソートのリンクにcategoryのクエリーパラメータがついていること" do
+      render
+
+      params = @request.params.merge(:sort=>{:name=>"asc"})
+      href = tengine_job_root_jobnet_templates_path(params)
+      rendered.should have_xpath("//a[@class=''][@href='#{href}']",
+        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:name))
+    end
+
+    it "検索フォームのhiddenフィールドにcategoryがあること" do
+      render
+
+      xpath = "//input[@type='hidden'][@name='category'][@value='#{@foo.id}']"
+      rendered.should have_xpath(xpath)
+    end
+  end
+
   context "ページの2ページ目を表示したとき" do
     before(:each) do
       Tengine::Job::Category.delete_all

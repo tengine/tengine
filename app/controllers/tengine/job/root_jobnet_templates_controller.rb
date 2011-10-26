@@ -29,7 +29,7 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
 
     if search_param = params[:finder]
       @finder = ::OpenStruct.new search_param
-      conds[:conditions] = {}
+      conds[:conditions] ||= {}
       [:id, :name, :description].each do |field|
         unless (value = @finder.send(field)).blank?
           value = /#{Regexp.escape(value)}/ unless field == :id
@@ -38,8 +38,20 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
       end
     end
 
+    # TODO: RootJobnetTemplateの取得方法が決まったらそれに合わせて修正する
     @root_jobnet_templates = \
       Tengine::Job::RootJobnetTemplate.all(conds).page(params[:page])
+
+    @category = nil
+    if category_id = params[:category]
+      @category = Tengine::Job::Category.first(:conditions => {:id => category_id})
+      categories = category_childrens(@category).collect(&:id)
+      unless categories.blank?
+        @root_jobnet_templates = \
+          @root_jobnet_templates.any_in({:category_id => categories})
+      end
+    end
+
     @root_categories = Tengine::Job::Category.all(:conditions => {:parent_id => nil})
 
     respond_to do |format|
@@ -116,6 +128,23 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tengine_job_root_jobnet_templates_url, notice: successfully_destroyed(@root_jobnet_template) }
       format.json { head :ok }
+    end
+  end
+
+  private
+
+  def category_childrens(category)
+    result = []
+    return result unless category
+    _category_childrens(result, category)
+    return result
+  end
+
+  def _category_childrens(result, category)
+    return unless category
+    result << category
+    category.children.each do |i|
+      _category_childrens(result, i)
     end
   end
 end

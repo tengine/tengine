@@ -3,7 +3,7 @@
 <p id="notice"><%= notice %></p>
 
 <div class="right-content">
-  <% params_without_page_and_sort = request.params.select{|k,v| k.to_s != 'page' && k.to_s != 'sort' } -%>
+  <% params_without_page_and_sort = request.params.select{|k,v| %w(finder).include?(k.to_s) } -%>
   <%== category_tree(@root_categories, "category", params_without_page_and_sort) %>
 </div>
 
@@ -27,6 +27,9 @@
         <td><%= f.text_field :description %></td>
        </tr>
      </table>
+     <% if @category -%>
+       <%= hidden_field_tag :category, @category.id %>
+     <% end -%>
 
       <div class="align-right">
         <%= f.submit(I18n.t(:search, :scope => [:views, :links])) %>
@@ -41,7 +44,7 @@
   <div class="wscrollable">
     <table>
       <tr>
-        <% query_without_page = request.query_parameters.select{|k,v| k.to_s != 'page' } -%>
+        <% query_without_page = request.query_parameters.select{|k,v| %w(category finder).include?(k.to_s) } -%>
         <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:id), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:id))), :class => sort_class(:id) %></th>
         <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:name), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name) %></th>
         <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:description), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:desc))), :class => sort_class(:desc) %></th>
