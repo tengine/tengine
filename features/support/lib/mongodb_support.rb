@@ -22,7 +22,7 @@ class MongodbSupport
 
     def kill
       @@NODES.each do |node|
-        command = "ps -e |grep -e \"mongod.*--port.*#{node['port']}\" | grep -v grep|awk '{print $1}' | xargs kill -9"
+        command = "ps axww | grep -e \"mongod.*--port.*#{node['port']}\" | grep -v grep|awk '{print $1}' | xargs kill -9"
         puts "command:#{command}"
         system(command)
       end
@@ -38,7 +38,7 @@ class MongodbSupport
 
     def running?
       # 一つ目のnodeのプロセスがあるかで判断
-      command = "ps aux|grep -v \"grep\" | grep -e \"mongod.*--port.*#{@@NODES.first['port']}\""
+      command = "ps axww |grep -v \"grep\" | grep -e \"mongod.*--port.*#{@@NODES.first['port']}\""
       puts "command:#{command}"
       system(command)
     end
@@ -57,7 +57,7 @@ puts "node:#{node}"
     end
 
     def get_mongodb_pid(port)
-      pid = `ps -e |grep -e \"mongod.*--port.*#{port}\" |grep -v grep|awk '{print $1}'`.chomp
+      pid = `ps axww |grep -e \"mongod.*--port.*#{port}\" |grep -v grep|awk '{print $1}'`.chomp
       puts "mongodb_pid:#{pid}"
       pid.empty? ? nil : pid
     end
