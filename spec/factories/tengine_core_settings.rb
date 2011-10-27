@@ -1,9 +1,8 @@
 # Read about factories at http://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :"tengine/job/category" do
-    parent(nil)
+  factory :"tengine/core/setting" do
     name("MyString")
-    caption("MyString")
+    value("MyString")
   end
 end
