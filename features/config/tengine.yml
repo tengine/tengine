@@ -1,14 +1,14 @@
 tengined:
   daemon: false
   activation_timeout: 300,
-  load_path: "./examples/"
+  load_path: "../tengine_core/examples/"
   log_dir: "./"                                  # 本番環境での例 "/var/log/tengined"
   pid_dir:        "./tmp/tengined_pids"          # 本番環境での例 "/var/run/tengined_pids"
   activation_dir: "./tmp/tengined_activations"   # 本番環境での例 "/var/run/tengined_activations"
 
 db:
   host: 'localhost'
-  port: 21039
+  port: 27027
   username:
   password:
   database: 'tengine_production'
