@@ -22,14 +22,20 @@ describe Tengine::Job::EdgesController do
 
   before do
     Tengine::Job::Vertex.delete_all
-    @jobnet = Tengine::Job::JobnetTemplate.create!(:name => "root_jobnet1")
+    @jobnet = Tengine::Job::JobnetTemplate.new(:name => "root_jobnet1")
+    @jobnet.children << @job1 = Tengine::Job::JobnetTemplate.new(:name => "job1", :script => "job_test job1")
+    @jobnet.children << @job2 = Tengine::Job::JobnetTemplate.new(:name => "job2", :script => "job_test job2")
+    @jobnet.save!
   end
 
   # This should return the minimal set of attributes required to create a valid
   # Tengine::Job::Edge. As you add validations to Tengine::Job::Edge, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :origin_id => @job1.id,
+      :destination_id => @job2.id,
+    }
   end
 
   describe "GET index" do

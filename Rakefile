@@ -8,5 +8,3 @@ require File.expand_path('../config/application', __FILE__)
 TengineConsole::Application.load_tasks
 
 require File.expand_path('../config/end_to_end_test', __FILE__)
-
-require 'ci/reporter/rake/rspec'

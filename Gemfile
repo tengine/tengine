@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# mac-mini or rubycenter server in gemserver
+# private gemserver
+source "http://bts.tenginefw.com/gemserver"
 source 'http://rubygems.org'
 
 # すぐにパッチが出る事を予想しています。リリース近くなったらバージョンを固定します。
@@ -16,10 +17,11 @@ gem "bson_ext", "~> 1.3.1"
 
 gem "kaminari", "~> 0.12.4"
 
-gem "tengine_event"   , "~> 0.2.6", :branch => "develop", :git => "git@github.com:tengine/tengine_event.git"
-gem "tengine_core"    , "~> 0.1.6", :branch => "develop", :git => "git@github.com:tengine/tengine_core.git"
-gem "tengine_resource", "~> 0.0.3", :branch => "develop", :git => "git@github.com:tengine/tengine_resource.git"
-gem "tengine_job"     , "~> 0.0.4", :branch => "develop", :git => "git@github.com:tengine/tengine_job.git"
+# 一般公開して、rubygems に登録するまでは、gemserver を使うようにします
+gem "tengine_event"   , "~> 0.2.8"  #, :branch => "develop", :git => "git@github.com:tengine/tengine_event.git"
+gem "tengine_core"    , "~> 0.1.14" #, :branch => "develop", :git => "git@github.com:tengine/tengine_core.git"
+gem "tengine_resource", "~> 0.0.4"  #, :branch => "develop", :git => "git@github.com:tengine/tengine_resource.git"
+gem "tengine_job"     , "~> 0.1.4"  #, :branch => "develop", :git => "git@github.com:tengine/tengine_job.git"
 
 gem "daemons", "~> 1.1.4"
 
@@ -44,8 +46,6 @@ group :test, :development do
   if RUBY_PLATFORM =~ /linux/ then
     gem 'therubyracer', "~> 0.9.4"
   end
-	gem "ci_reporter", "~>1.6.5"
-
 end
 
 

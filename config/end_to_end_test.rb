@@ -17,12 +17,20 @@ FEATURES = [
   { key: "04",
     name: "#{DESCRIPTION_PREFIX} {アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる}",
     path: "コア/アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる" },
+  { key: "04:01",
+    name: "#{DESCRIPTION_PREFIX} {アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる} アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる.feature",
+    path: "コア/アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる/アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる.feature"},
+  { key: "04:02",
+    name: "#{DESCRIPTION_PREFIX} {アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる} アプリケーション開発者がいろんなパターンのイベントハンドラ定義を試してみる.feature",
+    path: "コア/アプリケーション開発者がTengineコアのイベントハンドラ定義を試してみる/アプリケーション開発者がいろんなパターンのイベントハンドラ定義を試してみる.feature" },
+
+
   { key: "05",
     name: "#{DESCRIPTION_PREFIX} {アプリケーション開発者が開発環境へインストールする}",
     path: "コア/アプリケーション開発者が開発環境へインストールする" },
 ]
 
-E2E_OPTS = ["--format", "junit", "--out", "tmp/end_to_end_test_reports", "--strict", "--tags", "~@wip", "--tags", "~@manual", "-r", "features"]
+E2E_OPTS = ["--format", "junit", "--out", "tmp/end_to_end_test_reports", "--strict", "--tags", "~@wip", "--tags", "~@manual", "--tags", "~@pending", "-r", "features"]
 
 FEATURE_DIR = "features/usecases"
 
