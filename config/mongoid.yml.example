@@ -22,6 +22,7 @@ test:
 # set these environment variables on your prod server
 production:
   <<: *defaults
+  hosts:
     - - tgndb001
       - 27017
     - - tgndb002
