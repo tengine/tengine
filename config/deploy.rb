@@ -1,152 +1,162 @@
 # -*- coding: utf-8 -*-
-set :application, "tengine"
+require 'bundler/capistrano'
 
-#####################
+##############################
 # deploy stage
-#####################
+##############################
 set :stages, %w(development staging production)
-set :default_stage, "production"
+set :default_stage, "staging"
 require 'capistrano/ext/multistage'
 
-
-#####################
-# setting roles
-#####################
-# role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-# role :app, "your app-server here"                          # This may be the same as your `Web` server
-# role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-# role :db,  "your slave db-server here"
-# server 単位で role の設定が書けるようになってました
-server "192.168.1.54", :web, :app, :mq, :db
-
-set :use_sudo,    false
-set :user,        'root'
-set :password,    'password'
-set :ssh_options, {
-  :forward_agent => true
-}
+desc "hello task"
+task :hello do
+  run "echo HelloWorld! $HOSTNAME"
+end
 
 
-#####################
-# setting scm
-#####################
-set :scm, :git
-set :scm_verbose, true
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`, and `file://`
+### デプロイ手順(初回のみ) ###
+# 1. cap production deploy:setup
+# 2. cap production deploy:update
+# 3. cap production deploy:setup_apache
+# 4. cap production deploy:start
 
-set :repository,  'ssh://git@cloud-dev.ec-one.com/tengine_console.git'  # rubyセンターへ変更予定
-set :branch,      'develop'
-
-set :deploy_to,   "$HOME/#{application}"
-# set :deploy_via,  :remote_cache
-set :deploy_via,  :copy   # ローカル環境でSCMリポジトリからソースを取得して、サーバへ固めてコピーしてdeployする
-set :copy_cache,  true
-set :keep_releases, 3
-
-set :bundle_roles, :app
+### デプロイ手順(2回目移行) ###
+# 1. cap production deploy:stop
+# 2. cap production deploy:update
+# 3. cap production deploy:start
 
 
-#####################
+##############################
+# settings
+##############################
+set :application,       "tengine_console"
+
+# default は, tar だが mac 標準の tar は bsdtar で gnutar ではないので zip にする
+set :copy_compression,  :zip
+set :deploy_via,        :copy
+set :deploy_to,         "/var/lib/#{application}"
+set :deploy_env,        "production"
+set :bundle_dir,        "./vendor/bundle"
+
+# passenger-recipesの設定
+set :target_os,    :centos
+set :apache_user,  "apache"
+set :apache_group, "apache"
+
+
+##############################
 # tasks
-#####################
+##############################
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
-desc "hello task"
-task :hello, :roles => [:app, :web, :db] do
-  run "echo HelloWorld! $HOSTNAME"
-end
+after "deploy:setup",       "app:setup_shared"
+after "deploy:update_code", "app:symlinks"
+after "deploy:update_code", "app:change_owner"
 
 namespace :app do
   desc "setup shared directories"
   task :setup_shared do
-    # run "mkdir -p #{shared_path}/vendor/bundle"
-
-    run "mkdir -p #{shared_path}/tmp/tengined_pids"
-    run "mkdir -p #{shared_path}/tmp/tengined_status"
-    run "mkdir -p #{shared_path}/tmp/tengined_activations"
-
     run "mkdir -p #{shared_path}/config"
-
-    config_mongoid = "#{shared_path}/config/mongoid.yml"
-    put(IO.read("config/mongoid.yml.example"), config_mongoid, :via => :scp)
-    config_tengined = "#{shared_path}/config/tengined.yml"
-    put(IO.read("config/tengined.yml.example"), config_tengined, :via => :scp)
+    put(IO.read("config/tengined.yml.example"), "#{shared_path}/config/tengined.yml", :via => :scp)
+    put(IO.read("config/mongoid.yml.example"), "#{shared_path}/config/mongoid.yml", :via => :scp)
   end
 
-  desc "Make symlink for shared/config/tengined.yml"
+  desc "Make symlink for config_file"
   task :symlinks do
-    # run "ln -fs #{shared_path}/vendor/bundle #{release_path}/vendor/bundle"
-
-    run "ln -fs #{shared_path}/tmp/tengined_pids #{release_path}/tmp/tengined_pids"
-    run "ln -fs #{shared_path}/tmp/tengined_status #{release_path}/tmp/tengined_status"
-    run "ln -fs #{shared_path}/tmp/tengined_activations #{release_path}/tmp/tengined_activations"
-
+    run "ln -nfs #{shared_path}/config/tengined.yml #{release_path}/config/tengined.yml"
     run "ln -nfs #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
-    run "ln -nfs #{shared_path}/config/tengiened.yml #{release_path}/config/tengined.yml"
+  end
+
+  task :change_owner do
+    run "chown -R #{apache_user}:#{apache_group} #{deploy_to}/"
   end
 end
 
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+namespace :bundle do
+  task :install, :roles => :app do
+    run "cd #{release_path} && bundle --path vendor/bundle --without development test"
+  end
+end
+
+
+# apache & passenger
 namespace :deploy do
-  task :deploy, :roles => :app do
-    # tengineコアサーバでイベントハンドラ定義の
-    run "cap deploy:~"
+  # deploy:startなどを上書き
+  task(:start)   { apache.start }
+  task(:stop)    { apache.stop }
+  task(:restart) { apache.restart }
+  task(:setup_apache) {
+    apache.passenger.load_module
+    apache.passenger.make_config
+  }
+end
+
+
+namespace :apache do
+  set :apache_bin_path,  "/etc/init.d/httpd"
+  set :apache_conf_path, "/etc/httpd/conf.d"
+
+  %w(start stop reload).each do |command|
+    desc "apache #{command}"
+    task(command, :roles => [:web]) do
+      run "#{apache_bin_path} #{command}"
+      run "ps -ef | grep httpd | grep -v grep"
+    end
   end
 
-  task :start, :roles => :app do
-    run "tengined -D -T ./spec_dsl"
-  end
-
-  task :stop do
-    deploy.stop_app
-    deploy.stop_mq
-    deploy.stop_db
-  end
-
-  task :stop_app, :roles => :app do
-  end
-  task :stop_mq, :roles => :mq do
-  end
-  task :stop_db, :roles => :db do
-  end
-
-  task :restart, :roles => :app, :except => { :no_release => true } do
+  task :restart, roles => [:web] do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+    run "ps -ef | grep httpd | grep -v grep"
   end
 
-  desc "[internal][override] This is called by update_code"
-  task :finalize_update, :except => { :no_release => true } do
-    run "chmod -R g+w #{latest_release}" if fetch(:group_writable, true)
+  task :graceful, roles => [:web] do
+    run "apachectl graceful", :pty => true
+  end
 
-    # mkdir -p is making sure that the directories are there for some SCM's that don't
-    # save empty folders
-    run <<-CMD
-      rm -rf #{latest_release}/log #{latest_release}/public/system #{latest_release}/tmp/pids &&
-      mkdir -p #{latest_release}/public &&
-      mkdir -p #{latest_release}/tmp &&
-      ln -s #{shared_path}/log #{latest_release}/log &&
-      ln -s #{shared_path}/system #{latest_release}/public/system &&
-      ln -s #{shared_path}/pids #{latest_release}/tmp/pids
-    CMD
+  task :configtest, roles => [:web] do
+    run "apachectl configtest"
+  end
 
-    # rails3.1だとimageファイル系のファイルの配置が変わってるので上書きします
-    # 以下を $RAIL_ROOT/app/assets を指定するようにしてもよいですが、まずは deploy 毎に最新取得する対象にしておきます。
-    #
-    # if fetch(:normalize_asset_timestamps, true)
-    #   stamp = Time.now.utc.strftime("%Y%m%d%H%M.%S")
-    #   asset_paths = fetch(:public_children, %w(images stylesheets javascripts)).map { |p| "#{latest_release}/public/#{p}" }.join(" ")
-    #   run "find #{asset_paths} -exec touch -t #{stamp} {} ';'; true", :env => { "TZ" => "UTC" }
-    # end
+  namespace :passenger do
+    desc "make load module configrate"
+    task :load_module do
+      path = "#{apache_conf_path}/passenger.conf"
+      put(keep_indent(<<-EOS), path, :via => :scp)
+      LoadModule passenger_module /usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.9/ext/apache2/mod_passenger.so
+      PassengerRoot /usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.9
+      PassengerRuby /usr/local/bin/ruby
+      EOS
+    end
+
+    desc "make web configuration"
+    task :make_config do
+      server_name = capture("hostname")
+      path = "#{apache_conf_path}/#{application}.conf"
+      put(keep_indent(<<-EOS), path, :via => :scp)
+      <VirtualHost *:80>
+          ServerName #{server_name}
+          DocumentRoot #{current_path}/public
+          <Directory #{current_path}/public>
+              Allow from all
+              Options -MultiViews
+              RailsBaseURI /
+          </Directory>
+      </VirtualHost>
+      EOS
+    end
   end
 end
+
+
+
+# utility methods
+def keep_indent(msg)
+  lines = msg.split(/$/)
+  indent = lines.first.scan(/^\s*/).first
+  lines.map{|line| line.sub(/^#{indent}/, '')}.join
+end
+
 
 # capistrano force stop for 'ctl+c'
 Signal.trap(:INT) do
