@@ -15,15 +15,19 @@ end
 
 
 ### デプロイ手順(初回のみ) ###
-# 1. cap production deploy:setup
-# 2. cap production deploy:update
-# 3. cap production deploy:setup_apache
-# 4. cap production deploy:start
+# 1. bundle install
+# 2. bundle package
+# 3. cap production deploy:setup
+# 4. cap production deploy:update
+# 5. cap production deploy:setup_apache
+# 6. cap production deploy:start
 
 ### デプロイ手順(2回目移行) ###
-# 1. cap production deploy:stop
-# 2. cap production deploy:update
-# 3. cap production deploy:start
+# 1. bundle install
+# 2. bundle package
+# 4. cap production deploy:stop
+# 5. cap production deploy:update
+# 6. cap production deploy:start
 
 
 ##############################
