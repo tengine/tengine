@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 require 'timeout'
 require 'amqp'
+require 'pty'
+require 'mongodb_support'
 
 tengine_yaml = YAML::load(IO.read('./features/config/tengine.yml'))
 @mq_server = tengine_yaml["event_queue"]["conn"]
@@ -16,26 +18,27 @@ tengine_yaml = YAML::load(IO.read('./features/config/tengine.yml'))
 end
 
 前提 /^"([^"]*)"が起動している$/ do |name|
+  @h ||= {}
   if name == "Tengineコアプロセス"
     command = "tengined -k start -f features/config/tengine.yml"
     io = IO.popen(command)
-    @h ||= {}
+
     @h[name] = {:io => io, :stdout => [] ,:command => command}
     pid_regexp = /<(\d+)>/
     get_pid_from_stdout name,pid_regexp
   elsif name == "Tengineコンソールプロセス"
     system("rm -rf ./tmp/pids/server.pid")
     io = IO.popen("rails s -e production")
-    @h ||= {}
+
     @h[name] = {:io => io, :stdout => []}
     get_pid_from_file(name, "./tmp/pids/server.pid")
   elsif name == "DBプロセス"
-    unless system("ps aux|grep -v \"grep\" | grep -e \"mongod.*--port.*21039\"")
-      raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
+    unless MongodbSupport.running?
+      MongodbSupport.start_mongodb(@h, name)
     end
   elsif name == "キュープロセス"
     io = IO.popen("rabbitmqctl status")
-    @h ||= {}
+
     @h[name] = {:io => io, :stdout => []}
     contains = contains_message_from_stdout(name,"running_applications")
     unless contains
@@ -57,8 +60,8 @@ end
     @h[name] = {:io => io, :stdout => []}
     sleep 5 # TODO sleepさせるのやめたいです。
   elsif name == "DBプロセス"
-    unless system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
-      raise "MongoDBの起動に失敗しました" unless system('mongod --port 21039 --dbpath ~/tmp/mongodb_test/ --fork --logpath ~/tmp/mongodb_test/mongodb.log  --quiet')
+    unless MongodbSupport.running?
+      MongodbSupport.start_mongodb(@h, name)
     end
   elsif name == "キュープロセス"
     io = IO.popen("rabbitmqctl status")
@@ -74,14 +77,14 @@ end
 end
 
 前提 /^DBにユーザ"e2e"が存在し、パスワードは"password"である$/ do
-  raise "DBへのユーザ追加に失敗しました。"  unless system("mongo localhost:21039/tengine_production features/step_definitions/mongodb/add_e2e_user")
+  MongodbSupport.add_user
 end
 
 
 前提 /^"([^"]*)"が停止している$/ do |name|
   if name == "DBプロセス"
-    if system('ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"')
-      raise "MongoDBの停止に失敗しました"  unless system("mongo localhost:21039/admin features/step_definitions/mongodb/shutdown")
+    if MongodbSupport.running?
+      MongodbSupport.shutdown
     end
   elsif name == "キュープロセス"
     io = IO.popen("rabbitmqctl status")
@@ -131,21 +134,40 @@ end
   IO.popen("rm -rf ./tmp/pids/server.pid") if name == "Tengineコンソールプロセス"
   command = "#{command} 2>&1"
   puts "command:#{command}"
-  io = IO.popen(command)
+
   @h ||= {}
-  @h[name] = {:io => io, :stdout => [], :command => command}
+  if /DBプロセス/ =~ name
+    MongodbSupport.start_mongodb(@h, name)
+  else
+    start_process(name, command)
+  end
+
   sleep 5
 end
+
+def start_process(name, command)
+  @h ||= {}
+  @h[name] = {:stdout => [], :command => command}
+
+  output, input, p = PTY.spawn(command)
+  Thread.start {
+    while line = begin
+                   output.gets          # FreeBSD returns nil.
+                 rescue Errno::EIO # GNU/Linux raises EIO.
+                   nil
+                 end
+
+#      puts line 
+      @h[name][:stdout] << line
+    end
+  }
+end
+
 
 もし /^"([^"]*)"の停止を行うために"([^"]*)"というコマンドを実行する$/ do |name, command|
   command = "#{command} 2>&1"
   puts "command:#{command}"
   `#{command}`
-end
-
-ならば /^"([^"]*)"の標準出力に"([^"]*)"と出力されていること$/ do |name, word|
-  match = contains_message_from_stdout(name, word)
-  match.should be_true
 end
 
 ならば /^約"([^"]*)"秒以内に"([^"]*)"の標準出力に"([^"]*)"と出力されていること$/  do |time, name, word|
@@ -170,8 +192,9 @@ end
 ならば /^"([^"]*)"のPIDファイル"([^"]*)"からPIDを確認できること$/ do |name, file_path|
   @h ||= {}
   @h[name] ||= {}
-  get_pid_from_file(name,file_path)
+  pid = get_pid_from_file(name,file_path)
   @h[name][:pid].should_not be_empty
+  puts "pid:#{pid}"
 end
 
 ならば /^"([^"]*)"が起動していることをPIDを用いて"([^"]*)"というコマンドで確認できること$/ do |name,  command|
@@ -179,17 +202,18 @@ end
   # cucumberからのテストでforkしたプロセスは、killされた場合にゾンビプロセスが残ってしまうので
   # statusがZのプロセスは省く処理を入れます。
   # よって、指定するps コマンドには"-o stat"というオプションが必須になります。
-  exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z > /dev/null"
-  puts "start confirm command: #{exec_command}"
-  process_started = false
+#  exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z > /dev/null"
+  exec_command = "#{command.gsub(/PID/, pid)} > /dev/null"
+  puts "command: #{exec_command}"
+  status = false
   time_out(10) do
     while true
-      process_started = system(exec_command)
-      break if process_started
+      status = system(exec_command)
+      break if status
       sleep 1
     end
   end
-  process_started.should be_true
+  status.should be_true
 end
 
 # Tengieコアはバックグラウンドで起動している前提です
@@ -211,7 +235,7 @@ end
   time_out(10) do
     while true
       if name == "DBプロセス"
-        result = `ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"`.chomp
+        result = MongodbSupport.running? ? "running" : nil
       elsif name == "キュープロセス"
         io = IO.popen("rabbitmqctl status")
         @h ||= {}
@@ -243,17 +267,21 @@ end
   # cucumberからのテストでforkしたプロセスは、killされた場合にゾンビプロセスが残ってしまうので
   # statusがZのプロセスは省く処理を入れます。
   # よって、指定するps コマンドには"-o stat"というオプションが必須になります。
-  exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z"
-  puts "stop confirm command: #{exec_command}"
-  process_stop = ""
+
+#  exec_command = "#{command.gsub(/PID/, pid)} | grep -v Z"
+  exec_command = "#{command.gsub(/PID/, pid)} > /dev/null"
+  puts "command: #{exec_command}"
+  status = true
   time_out(10) do
     while true
-      process_stop = `#{exec_command}`.chomp
-      break if process_stop.empty?
+#      process_stop = `#{exec_command}`.chomp
+#      break if process_stop.empty?
+      status = system(exec_command)
+      break unless status
       sleep 1
     end
   end
-  process_stop.should be_empty
+  status.should be_false
 end
 
 ならば /^"([^"]*)"が停止していること$/ do |name|
@@ -261,7 +289,7 @@ end
   time_out(10) do
     while true
       if name == "DBプロセス"
-        result = `ps aux|grep -v "grep" | grep -e "mongod.*--port.*21039"`.chomp
+        result = MongodbSupport.running? ? "running" : nil
       elsif name == "キュープロセス"
         io = IO.popen("rabbitmqctl status")
         @h ||= {}
@@ -306,15 +334,13 @@ end
 もし /^"([^"]*)"を Ctrl\+c で停止する$/ do |name|
   pid = @h[name][:pid]
   exec_command = "kill -INT #{pid} > /dev/null"
-  #exec_command = "kill -KILL #{pid} > /dev/null"
-#  system(exec_command)
-  IO.popen(exec_command)
-  puts "kill commando: #{exec_command}"
+  puts "command: #{exec_command}"
+  system(exec_command)
 end
 
 もし /^"([^"]*)"を強制停止する$/ do |name|
   pid = @h[name][:pid]
-  exec_command = "kill -KILL #{pid} > /dev/null"
+  exec_command = "kill -KILL #{pid}"
   system(exec_command)
   puts "kill commando: #{exec_command}"
 end
@@ -448,6 +474,7 @@ end
 
 ならば /^"([^\"]*)画面"を表示していないこと$/ do |page_name|
   current_path = URI.parse(current_url).path
+  sleep 30
   current_path.should_not == path_to(page_name)
 end
 
@@ -481,11 +508,37 @@ end
   @event_key = Tengine::Event.uuid_gen.generate
 end
 
-ならば /^"([^"]*)ファイル"に"([^"]*)"と記述されていること$/ do |name, text|
-  # イベントキーを表すキーワードが含まれていたら置換する
+ならば /^"([^"]*)ファイル"に"([^"]*)"と出力されていること$/ do |name, text|
+  # TODO assert_output を使うようにする
   text = text.gsub(/\#{イベントキー}/, @event_key) unless @event_key == nil
   @h[name][:read_lines].grep(/^.*#{text}/).should_not be_empty
 end
+
+ならば /^"([^"]*)"の標準出力に"([^"]*)"と出力されていること$/ do |name, text|
+  text = text.gsub(/\#{イベントキー}/, @event_key) unless @event_key == nil
+  match = contains_message_from_stdout(name, text)
+  match.should be_true
+end
+
+ならば /^"([^"]*)ファイル"に"([^"]*)"と出力されていないこと$/ do |name, text|
+  text = text.gsub(/\#{イベントキー}/, @event_key) unless @event_key == nil
+  @h[name][:read_lines].grep(/^.*#{text}/).should be_empty
+end
+
+ならば /^"([^"]*)"の標準出力に"([^"]*)"と出力されていないこと$/ do |name, text|
+  text = text.gsub(/\#{イベントキー}/, @event_key) unless @event_key == nil
+  @h[name][:stdout].grep(/^.*#{text}/).should be_empty
+end
+
+
+ならば /^"([^"]*)ファイル"に以下の順で出力されていること$/ do |name, expected_table|
+  assert_output(@h[name][:read_lines], expected_table)
+end
+
+ならば /^"([^"]*)"の標準出力に以下の順で出力されていること$/ do |name, expected_table|
+  assert_output(@h[name][:stdout], expected_table)
+end
+
 
 # expected_tableに指定された1番目のデータを探し、そこを起点に次のデータを探します。
 # 定義されたデータ間に他のデータがあった場合は読飛ばします。
@@ -507,7 +560,8 @@ end
 #  2:aaa # <- 起点となる１番目のデータ
 #  3:ccc
 #
-ならば /^"([^"]*)ファイル"に以下の順で記述されていること$/ do |name, expected_table|
+# 引数 lines はログの1行分の文字列配列
+def assert_output(lines, expected_table) 
   raise "指定した列数が多いです。想定の列数は1です。" unless expected_table.headers.size == 1
   raise "イベントキーが取得できませんでした" unless @event_key
   expected_lines = []
@@ -519,7 +573,7 @@ end
   actual_lines = []
   search_lines = expected_lines.dup
   search_text = search_lines.shift
-  @h[name][:read_lines].each do |line|
+  lines.each do |line|
     if line.match(/#{search_text}/)
       actual_lines << search_text
       break if search_lines.empty?
@@ -531,9 +585,6 @@ end
   actual_lines.should == expected_lines
 end
 
-ならば /^"([^"]*)ファイル"に"([^"]*)"と記述されていないこと$/ do |name, text|
-  @h[name][:read_lines].grep(/^.*#{text}/).should be_empty
-end
 
 もし /^Tengineコアの設定ファイル"([^"]*)"を作成する$/ do |config_file_path|
   FileUtils.cp("./features/config/tengine.yml", config_file_path)
@@ -749,9 +800,13 @@ def unbind_queue(queue_name, exchange_name, options = {})
   end
 end
 
-def get_pid_from_stdout(name,pid_regexp)
+def get_pid_from_stdout(name,pid_regexp, options = {})
+  timeout = options[:timeout] || 20
+
   get_pid = false
-  time_out(20) {
+
+if @h[name][:io]
+  time_out(timeout) {
     while line = @h[name][:io].gets
       @h[name][:stdout] << line
       get_pid = line.match(pid_regexp)
@@ -762,17 +817,41 @@ def get_pid_from_stdout(name,pid_regexp)
       end
     end
   }
+else
+  puts "PTYから pid をとる"
+  time_out(timeout) {
+    count = 1
+#    while true
+      puts "count:#{count}"
+      @h[name][:stdout].each do |line|
+      puts " ====> #{line}"
+        get_pid = line.match(pid_regexp)
+        if get_pid then
+          pid = line.match(pid_regexp)[1]
+          @h[name][:pid] = pid
+          break
+        end
+      end
+      count = count + 1
+      sleep 1
+#    end
+  }
+end
+
   get_pid
 end
 
 def get_pid_from_file(name, file_path)
+  pid = nil
   while  true
     sleep 1
     if File.exist?(file_path) 
-      @h[name][:pid] = `cat #{file_path}`.chomp
+      pid = `cat #{file_path}`.chomp
+      @h[name][:pid] = pid
       break
     end
   end
+  pid
 end
 
 # psコマンドを利用してPIDを取得する
@@ -793,24 +872,52 @@ end
 def contains_message_from_stdout(name,word, options = {})
   timeout = options[:timeout] || 30
   match = nil
+
+# IOがあればこれまで通り
+if @h[name][:io]
   @h[name][:stdout].each do |line|
-#    puts "既に:#{line}"
+    puts "既に:#{line}"
     match = line.match(/^.*#{word}.*/)
     break if match
   end
   unless match
     time_out(timeout) do
       while line = @h[name][:io].gets
-#         puts line
-         @h[name][:stdout] << line
-         match = line.match(/^.*#{word}.*/)
-         if match
-           puts "match:#{word}"
+#        puts line  TODO
+        @h[name][:stdout] << line
+        match = line.match(/^.*#{word}.*/)
+        if match
+          puts "match:#{word}"
           break
         end
       end
     end
   end
+
+# なければPTYをつかってる
+else 
+
+  time_out(timeout) do
+  while true
+    @h[name][:stdout].each do |line|
+      puts line
+      @h[name][:stdout] << line
+      match = line.match(/^.*#{word}.*/)
+      if match
+        puts "match:#{word}"
+        break
+      end
+    end
+    if match
+      puts "match:#{word}"
+      break
+    end
+    sleep 1
+  end
+  end
+end
+
+
  match
 end
 

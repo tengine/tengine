@@ -8,7 +8,7 @@ tengined:
 
 db:
   host: 'localhost'
-  port: 21039
+  port: 27027
   username:
   password:
   database: 'tengine_production'
