@@ -7,6 +7,8 @@ defaults: &defaults
   persist_in_safe_mode: true
   # raise_not_found_error: true
   # reconnect_time: 3
+  read_secondary: false
+  max_retries_on_connection_failure: 3
 
 development:
   <<: *defaults
@@ -17,16 +19,18 @@ test:
   <<: *defaults
   host: localhost
   database: tengine_console_test
-  autocreate_indexes: true
 
 # set these environment variables on your prod server
 production:
   <<: *defaults
-  host: <%= ENV['MONGOID_HOST'] %>
-  port: <%= ENV['MONGOID_PORT'] %>
-  username: <%= ENV['MONGOID_USERNAME'] %>
-  password: <%= ENV['MONGOID_PASSWORD'] %>
-  database: <%= ENV['MONGOID_DATABASE'] %>
+  hosts:
+    - - tgndb001
+      - 27017
+    - - tgndb002
+      - 27017
+    - - tgndb003
+      - 27017
+  database: tengine_production
   # slaves:
   #   - host: slave1.local
   #     port: 27018
