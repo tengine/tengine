@@ -1,0 +1,17 @@
+<h1><%= page_title Tengine::Core::Setting, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Core::Setting.human_attribute_name(:name) %>:</b>
+  <%= @setting.name %>
+</p>
+
+<p>
+  <b><%= Tengine::Core::Setting.human_attribute_name(:value) %>:</b>
+  <%= @setting.value %>
+</p>
+
+
+<%= link_to_edit edit_tengine_core_setting_path(@setting) %> |
+<%= link_to_back_list tengine_core_settings_path %>
