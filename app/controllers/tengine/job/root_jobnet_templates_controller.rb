@@ -4,7 +4,8 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
   # GET /tengine/job/root_jobnet_templates
   # GET /tengine/job/root_jobnet_templates.json
   def index
-    conds = {}
+    @root_jobnet_templates = Tengine::Job::RootJobnetTemplate.where(
+      :dsl_version => Tengine::Core::Setting.dsl_version)
 
     if sort_param = params[:sort]
       order = []
@@ -12,7 +13,7 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
         v = (v.to_s == "desc") ? :desc : :asc
         k = case k.to_s
             when "id"
-              [:id, v]
+              [:_id, v]
             when "name"
               [:name, v]
             when "desc"
@@ -20,27 +21,27 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
             end
         order.push k
       end
-      conds[:sort] = order
     else
       default_sort = {:name => "asc"}
       request.query_parameters[:sort] = default_sort
-      conds[:sort] = default_sort.to_a
+      order = default_sort.to_a
     end
+    @root_jobnet_templates = @root_jobnet_templates.order_by(order)
 
     if search_param = params[:finder]
       @finder = ::OpenStruct.new search_param
-      conds[:conditions] ||= {}
+      finder = {}
       [:id, :name, :description].each do |field|
-        unless (value = @finder.send(field)).blank?
-          value = /#{Regexp.escape(value)}/ unless field == :id
-          conds[:conditions][field] = value
+        next if (value = @finder.send(field)).blank?
+        if field.to_s == "id"
+          finder[:_id] = value
+        else
+          value = /#{Regexp.escape(value)}/
+          finder[field] = value
         end
       end
+      @root_jobnet_templates = @root_jobnet_templates.where(finder)
     end
-
-    # TODO: RootJobnetTemplateの取得方法が決まったらそれに合わせて修正する
-    @root_jobnet_templates = \
-      Tengine::Job::RootJobnetTemplate.all(conds).page(params[:page])
 
     @category = nil
     if category_id = params[:category]
@@ -52,6 +53,7 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
       end
     end
 
+    @root_jobnet_templates = @root_jobnet_templates.page(params[:page])
     @root_categories = Tengine::Job::Category.all(:conditions => {:parent_id => nil})
 
     respond_to do |format|

@@ -25,13 +25,28 @@ describe Tengine::Job::RootJobnetTemplatesController do
   # Tengine::Job::RootJobnetTemplate. As you add validations to Tengine::Job::RootJobnetTemplate, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :name => "Name",
+      :server_name => "Server Name",
+      :credential_name => "Credential Name",
+      :killing_signals => ["abc", "123"],
+      :killing_signal_interval => 1,
+      :description => "Description",
+      :script => "Script",
+      :jobnet_type_cd => 2,
+      :lock_version => 3,
+      :dsl_filepath => "Dsl Filepath",
+      :dsl_lineno => 4,
+      :dsl_version => "1"
+    }
   end
 
   describe "GET index" do
     describe "&sort" do
       before(:each) do
-        Tengine::Job::Vertex.delete_all
+        Tengine::Core::Setting.where(:name => "dsl_version").delete_all
+        Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1")
+
         Tengine::Job::Category.delete_all
         Tengine::Job::RootJobnetTemplate.delete_all
         category = stub_model(Tengine::Job::Category, :to_s => "category")
@@ -49,7 +64,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :lock_version => 3,
           :dsl_filepath => "Dsl Filepath1",
           :dsl_lineno => 4,
-          :dsl_version => "Dsl Version1"
+          :dsl_version => "1"
         )
         Tengine::Job::RootJobnetTemplate.create!(
           #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
@@ -65,7 +80,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :lock_version => 3,
           :dsl_filepath => "Dsl Filepath1",
           :dsl_lineno => 4,
-          :dsl_version => "Dsl Version1"
+          :dsl_version => "1"
         )
         Tengine::Job::RootJobnetTemplate.create!(
           #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
@@ -81,7 +96,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :lock_version => 3,
           :dsl_filepath => "Dsl Filepath2",
           :dsl_lineno => 4,
-          :dsl_version => "Dsl Version2"
+          :dsl_version => "1"
         )
         Tengine::Job::RootJobnetTemplate.create!(
           #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
@@ -97,7 +112,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :lock_version => 3,
           :dsl_filepath => "Dsl Filepath3",
           :dsl_lineno => 4,
-          :dsl_version => "Dsl Version3"
+          :dsl_version => "1"
         )
       end
 
@@ -191,6 +206,9 @@ describe Tengine::Job::RootJobnetTemplatesController do
 
     describe "&finder" do
       before do
+        Tengine::Core::Setting.where(:name => "dsl_version").delete_all
+        Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1")
+
         Tengine::Job::Category.delete_all
         Tengine::Job::Vertex.delete_all
         Tengine::Job::RootJobnetTemplate.delete_all
@@ -209,7 +227,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :lock_version => 3,
           :dsl_filepath => "Dsl Filepath",
           :dsl_lineno => 4,
-          :dsl_version => "Dsl Version"
+          :dsl_version => "1"
         )
         Tengine::Job::RootJobnetTemplate.create!(
           :id => BSON::ObjectId("4e955633c3406b3a9f000002"),
@@ -225,7 +243,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :lock_version => 3,
           :dsl_filepath => "Dsl Filepath",
           :dsl_lineno => 4,
-          :dsl_version => "Dsl Version"
+          :dsl_version => "1"
         )
         Tengine::Job::RootJobnetTemplate.create!(
           :id => BSON::ObjectId("4e955633c3406b3a9f000003"),
@@ -241,7 +259,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :lock_version => 3,
           :dsl_filepath => "Dsl Filepath",
           :dsl_lineno => 4,
-          :dsl_version => "Dsl Version"
+          :dsl_version => "1"
         )
       end
 
@@ -376,6 +394,9 @@ describe Tengine::Job::RootJobnetTemplatesController do
 
     describe "&category" do
       before do
+        Tengine::Core::Setting.where(:name => "dsl_version").delete_all
+        Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1")
+
         Tengine::Job::Category.delete_all
         Tengine::Job::RootJobnetTemplate.delete_all
         @foo = Tengine::Job::Category.create!(
@@ -521,6 +542,91 @@ describe Tengine::Job::RootJobnetTemplatesController do
             root_jobnet_templates = assigns(:root_jobnet_templates)
             root_jobnet_templates.count.should == 1
             root_jobnet_templates.first.name =~ /foo/
+          end
+        end
+      end
+    end
+
+    describe "dsl_version" do
+      before(:each) do
+        Tengine::Job::Category.delete_all
+        Tengine::Job::RootJobnetTemplate.delete_all
+        category = stub_model(Tengine::Job::Category, :to_s => "category")
+        Tengine::Job::RootJobnetTemplate.create!(
+          :name => "9Name1",
+          :server_name => "Server Name1",
+          :credential_name => "Credential Name1",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "9Description1",
+          :script => "Script1",
+          :jobnet_type_cd => 2,
+          :category => category,
+          :lock_version => 3,
+          :dsl_filepath => "Dsl Filepath1",
+          :dsl_lineno => 4,
+          :dsl_version => "1"
+        )
+        Tengine::Job::RootJobnetTemplate.create!(
+          :name => "2Name1",
+          :server_name => "Server Name1",
+          :credential_name => "Credential Name1",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "2Description1",
+          :script => "Script1",
+          :jobnet_type_cd => 2,
+          :category => category,
+          :lock_version => 3,
+          :dsl_filepath => "Dsl Filepath1",
+          :dsl_lineno => 4,
+          :dsl_version => "2"
+        )
+        Tengine::Job::RootJobnetTemplate.create!(
+          :name => "1Name2",
+          :server_name => "Server Name2",
+          :credential_name => "Credential Name2",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "3Description2",
+          :script => "Script2",
+          :jobnet_type_cd => 2,
+          :category => category,
+          :lock_version => 3,
+          :dsl_filepath => "Dsl Filepath2",
+          :dsl_lineno => 4,
+          :dsl_version => "2"
+        )
+      end
+
+      context "設定のDSLバージョンが1のとき" do
+        before do
+          Tengine::Core::Setting.where(:name => "dsl_version").delete_all
+          Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1")
+        end
+
+        it "DSLバージョンが1のRootJobnetTemplateが取得できること" do
+          get :index
+
+          root_jobnet_templates = assigns(:root_jobnet_templates)
+          root_jobnet_templates.each do |jobnet|
+            jobnet.dsl_version.should == "1"
+          end
+        end
+      end
+
+      context "設定のDSLバージョンが2のとき" do
+        before do
+          Tengine::Core::Setting.where(:name => "dsl_version").delete_all
+          Tengine::Core::Setting.create!(:name => "dsl_version", :value => "2")
+        end
+
+        it "DSLバージョンが1のRootJobnetTemplateが取得できること" do
+          get :index
+
+          root_jobnet_templates = assigns(:root_jobnet_templates)
+          root_jobnet_templates.each do |jobnet|
+            jobnet.dsl_version.should == "2"
           end
         end
       end
