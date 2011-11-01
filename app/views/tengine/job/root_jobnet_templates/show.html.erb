@@ -2,8 +2,10 @@
 
 <div class="Section">
   <h2><%= "#{Tengine::Job::RootJobnetTemplate.human_attribute_name(:name)}: #{@root_jobnet_template.name}" %></h2>
-  <table>
+  <table class="TableInfoView">
     <colgroup>
+      <col class="Row1 RowTh">
+      <col class="Row2 RowTd">
     </colgroup>
     <tbody>
       <tr>
@@ -24,8 +26,10 @@
       </tr>
     </tbody>
   </table>
+</div><!-- /.Section -->
 
-  <% unless @jobnet_templates.blank? -%>
+<% unless @jobnet_templates.blank? -%>
+  <div class="Section">
     <h2><%= I18n.t(:component_jobs_caption, :scope => [:views, :pages]) %></h2>
     <table class="TableBase">
       <colgroup>
@@ -34,7 +38,6 @@
         <col class="Row3">
         <col class="Row4">
         <col class="Row5">
-        <col class="Row6">
       </colgroup>
       <thead>
         <tr>
@@ -66,10 +69,11 @@
         <% end -%>
       </tbody>
     </table>
-  <% end -%>
+  </div><!-- /.Section -->
+<% end -%>
 
-  <%= link_to I18n.t(:run, :scope => [:views, :links]), edit_tengine_job_root_jobnet_template_path(@root_jobnet_template) %> |
+<div class="Section">
+  <%= link_to I18n.t(:run, :scope => [:views, :links]), edit_tengine_job_root_jobnet_template_path(@root_jobnet_template) %>
   <%= link_to_back_list tengine_job_root_jobnet_templates_path %>
+</div><!-- /.Section -->
 
-</div>
-<!-- /.Section -->
