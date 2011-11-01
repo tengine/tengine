@@ -5,12 +5,18 @@ ja:
       show: ""
       edit: "編集"
       new: "新規作成"
+      operation: "操作"
+      search_caption: "表示対象絞り込み"
+      component_jobs_caption: "構成ジョブ"
     links:
       show: "表示"
       edit: "編集"
       destroy: "削除"
       new: "新規作成"
       back_list: "一覧に戻る"
+      run: "実行"
+      search: "検索"
+      reset: "リセット"
     notice:
       successfully_created: "%{model}が登録されました。"
       successfully_updated: "%{model}が更新されました。"
