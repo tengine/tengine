@@ -1,0 +1,17 @@
+ja:
+  mongoid:
+    models:
+      tengine/job/root_jobnet_template: "テンプレートジョブ"
+
+    attributes:
+      tengine/job/root_jobnet_template:
+        id: "ID"
+        name: "名称"
+        description: "表示名"
+        dsl_filepath: "DSLファイルパス"
+      tengine/job/jobnet_template:
+        id: "ID"
+        name: "名称"
+        script: "実行するスクリプト"
+        description: "表示名"
+        destinations: "次のジョブ"
