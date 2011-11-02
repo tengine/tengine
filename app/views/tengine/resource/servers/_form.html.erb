@@ -20,15 +20,11 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </div>
 
-<% if @server.respond_to?(:host_id) -%>
+<% if @server.respond_to?(:host_server_id) -%>
   <div class="field">
-    <%= f.label :host_id %><br />
-    <%= f.text_field :host_id %>
+    <%= f.label :host_server_id %><br />
+    <%= f.text_field :host_server_id %>
   </div>
 <% end -%>
 
@@ -37,34 +33,31 @@
     <%= f.text_field :provided_name %>
   </div>
   <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
     <%= f.label :status %><br />
     <%= f.text_field :status %>
   </div>
   <div class="field">
-    <%= f.label :public_hostname %><br />
-    <%= f.text_field :public_hostname %>
-  </div>
-  <div class="field">
-    <%= f.label :public_ipv4 %><br />
-    <%= f.text_field :public_ipv4 %>
-  </div>
-  <div class="field">
-    <%= f.label :local_hostname %><br />
-    <%= f.text_field :local_hostname %>
-  </div>
-  <div class="field">
-    <%= f.label :local_ipv4 %><br />
-    <%= f.text_field :local_ipv4 %>
+    <%= f.label :addresses_yaml %><br />
+    <%= f.text_area :addresses_yaml %>
   </div>
   <div class="field">
     <%= f.label :properties_yaml %><br />
     <%= f.text_area :properties_yaml %>
   </div>
-
-<% if @server.respond_to?(:provided_image_name) -%>
+<% if @server.respond_to?(:provided_image_id) -%>
   <div class="field">
-    <%= f.label :provided_image_name %><br />
-    <%= f.text_field :provided_image_name %>
+    <%= f.label :provided_image_id %><br />
+    <%= f.text_field :provided_image_id %>
+  </div>
+<% end -%>
+<% if @server.respond_to?(:provided_type_id) -%>
+  <div class="field">
+    <%= f.label :provided_type_id %><br />
+    <%= f.text_field :provided_type_id %>
   </div>
 <% end -%>
 

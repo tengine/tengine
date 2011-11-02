@@ -12,15 +12,10 @@
   <%= @server.name %>
 </p>
 
+<% if @server.respond_to?(:host_server_id) -%>
 <p>
-  <b><%= Tengine::Resource::Server.human_attribute_name(:description) %>:</b>
-  <%= @server.description %>
-</p>
-
-<% if @server.respond_to?(:host_id) -%>
-<p>
-  <b><%= Tengine::Resource::Server.human_attribute_name(:host) %>:</b>
-  <%= @server.host %>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:host_server) %>:</b>
+  <%= @server.host_server %>
 </p>
 <% end -%>
 
@@ -30,28 +25,18 @@
 </p>
 
 <p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:description) %>:</b>
+  <%= @server.description %>
+</p>
+
+<p>
   <b><%= Tengine::Resource::Server.human_attribute_name(:status) %>:</b>
   <%= @server.status %>
 </p>
 
 <p>
-  <b><%= Tengine::Resource::Server.human_attribute_name(:public_hostname) %>:</b>
-  <%= @server.public_hostname %>
-</p>
-
-<p>
-  <b><%= Tengine::Resource::Server.human_attribute_name(:public_ipv4) %>:</b>
-  <%= @server.public_ipv4 %>
-</p>
-
-<p>
-  <b><%= Tengine::Resource::Server.human_attribute_name(:local_hostname) %>:</b>
-  <%= @server.local_hostname %>
-</p>
-
-<p>
-  <b><%= Tengine::Resource::Server.human_attribute_name(:local_ipv4) %>:</b>
-  <%= @server.local_ipv4 %>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:addresses) %>:</b>
+  <pre><%= @server.addresses_yaml %></pre>
 </p>
 
 <p>
@@ -59,10 +44,17 @@
   <pre><%= @server.properties_yaml %></pre>
 </p>
 
-<% if @server.respond_to?(:provided_image_name) -%>
+<% if @server.respond_to?(:provided_image_id) -%>
 <p>
-  <b><%= Tengine::Resource::Server.human_attribute_name(:provided_image_name) %>:</b>
-  <%= @server.provided_image_name %>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:provided_image_id) %>:</b>
+  <%= @server.provided_image_id %>
+</p>
+<% end -%>
+
+<% if @server.respond_to?(:provided_type_id) -%>
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:provided_type_id) %>:</b>
+  <%= @server.provided_type_id %>
 </p>
 <% end -%>
 
