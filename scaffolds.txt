@@ -20,3 +20,12 @@ rails g scaffold Tengine::Job::Execution          root_jobnet:references target_
 rails destroy scaffold Tengine::Job::Script             name:string server_name:string credential_name:string killing_signals:array killing_signal_interval:integer description:string script:string
 rails destroy scaffold Tengine::Job::ScriptTemplate     name:string server_name:string credential_name:string killing_signals:array killing_signal_interval:integer description:string script:string 
 rails destroy scaffold Tengine::Job::ScriptActual       name:string server_name:string credential_name:string killing_signals:array killing_signal_interval:integer description:string script:string executing_pid:string exit_status:string        phase_cd:integer started_at:datetime finished_at:datetime stopped_at:datetime stop_reason:string
+
+
+rails g scaffold Tengine::Resource::Credential name:string description:string auth_type_cd:string auth_values:hash
+rails g scaffold Tengine::Resource::Provider      name:string description:string
+rails g scaffold Tengine::Resource::Provider::Ec2 name:string description:string credential:references
+rails g scaffold Tengine::Resource::Server             provider:references name:string description:string provided_name:string status:string public_hostname:string public_ipv4:string local_hostname:string local_ipv4:string properties:hash
+rails g scaffold Tengine::Resource::PhysicalServer     provider:references name:string description:string provided_name:string status:string public_hostname:string public_ipv4:string local_hostname:string local_ipv4:string properties:hash
+rails g scaffold Tengine::Resource::VirtualServer      provider:references name:string description:string provided_name:string status:string public_hostname:string public_ipv4:string local_hostname:string local_ipv4:string properties:hash provided_image_name:string host:refetences
+rails g scaffold Tengine::Resource::VirtualServerImage provider:references name:string description:string provided_name:string
