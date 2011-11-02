@@ -65,7 +65,16 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
   # GET /tengine/job/root_jobnet_templates/1
   # GET /tengine/job/root_jobnet_templates/1.json
   def show
-    @root_jobnet_template = Tengine::Job::RootJobnetTemplate.find(params[:id])
+    dsl_version = Tengine::Core::Setting.dsl_version
+    @root_jobnet_template = \
+      Tengine::Job::RootJobnetTemplate.where(:dsl_version => dsl_version).find(params[:id])
+    @jobnet_templates = []
+    visitor = Tengine::Job::Vertex::AllVisitor.new do |vertex|
+                if vertex.instance_of?(Tengine::Job::JobnetTemplate)
+                  @jobnet_templates << [vertex, (vertex.ancestors.size - 1)]
+                end
+              end
+    @root_jobnet_template.accept_visitor(visitor)
 
     respond_to do |format|
       format.html # show.html.erb
