@@ -1260,14 +1260,14 @@ end
   end
   raise "\"#{text}\"は出力されていません。" unless text_line_no
 
-  after_text_line_no = nil
+  after_line_no = nil
   lines.each_with_index do |line, index| 
     if line =~ /#{after_text}/
-      after_text_line_no = index
+      after_line_no = index
       break
     end
   end
-  raise "\"#{after_text}\"は出力されていません。" unless after_text_line_no
+  raise "\"#{after_text}\"は出力されていません。" unless after_line_no
 
   raise " \"#{before_text}\"と\"#{after_text}\"の間に\"#{text}\"は出力されていません。 " unless (before_line_no < text_line_no && text_line_no < after_line_no)
 

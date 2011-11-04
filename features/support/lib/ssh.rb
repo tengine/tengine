@@ -32,7 +32,6 @@ class Session
   def exec(command) 
     puts "[ssh:command] #{command}"
     data = @ssh.exec!(command)
-    puts "[stdout] #{data}"
     data
   end
 
