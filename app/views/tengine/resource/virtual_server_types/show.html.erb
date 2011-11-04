@@ -1,0 +1,27 @@
+<h1><%= page_title Tengine::Resource::VirtualServerType, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServerType.human_attribute_name(:provider) %>:</b>
+  <%= @virtual_server_type.provider %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServerType.human_attribute_name(:provided_id) %>:</b>
+  <%= @virtual_server_type.provided_id %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServerType.human_attribute_name(:properties) %>:</b>
+  <pre><%= @virtual_server_type.properties_yaml %></pre>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServerType.human_attribute_name(:caption) %>:</b>
+  <%= @virtual_server_type.caption %>
+</p>
+
+
+<%= link_to_edit edit_tengine_resource_virtual_server_type_path(@virtual_server_type) %> |
+<%= link_to_back_list tengine_resource_virtual_server_types_path %>
