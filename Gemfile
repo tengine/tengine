@@ -17,11 +17,10 @@ gem "bson_ext", "~> 1.3.1"
 
 gem "kaminari", "~> 0.12.4"
 
-# 一般公開して、rubygems に登録するまでは、gemserver を使うようにします
-gem "tengine_event"   , "~> 0.2.8"  #, :branch => "develop", :git => "git@github.com:tengine/tengine_event.git"
-gem "tengine_core"    , "~> 0.1.14" #, :branch => "develop", :git => "git@github.com:tengine/tengine_core.git"
-gem "tengine_resource", "~> 0.0.4"  #, :branch => "develop", :git => "git@github.com:tengine/tengine_resource.git"
-gem "tengine_job"     , "~> 0.1.4"  #, :branch => "develop", :git => "git@github.com:tengine/tengine_job.git"
+gem "tengine_event"   , "= 0.2.8"
+gem "tengine_core"    , "~> 0.1.18"
+gem "tengine_resource", "~> 0.0.10"
+gem "tengine_job"     , "~> 0.1.7"
 
 gem "daemons", "~> 1.1.4"
 
