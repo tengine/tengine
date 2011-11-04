@@ -4,17 +4,16 @@
 
 <table>
   <tr>
+    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provider) %></th>
     <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:name) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:description) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:host) %></th>
     <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_name) %></th>
+    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:description) %></th>
     <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:status) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:public_hostname) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:public_ipv4) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:local_hostname) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:local_ipv4) %></th>
+    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:addresses) %></th>
     <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:properties) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_image_name) %></th>
+    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_image_id) %></th>
+    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_type_id) %></th>
+    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:host_server) %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -22,17 +21,16 @@
 
 <% @virtual_servers.each do |virtual_server| %>
   <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= virtual_server.provider %></td>
     <td><%= virtual_server.name %></td>
-    <td><%= virtual_server.description %></td>
-    <td><%= virtual_server.host %></td>
     <td><%= virtual_server.provided_name %></td>
+    <td><%= virtual_server.description %></td>
     <td><%= virtual_server.status %></td>
-    <td><%= virtual_server.public_hostname %></td>
-    <td><%= virtual_server.public_ipv4 %></td>
-    <td><%= virtual_server.local_hostname %></td>
-    <td><%= virtual_server.local_ipv4 %></td>
+    <td><pre><%= virtual_server.addresses_yaml %></pre></td>
     <td><pre><%= virtual_server.properties_yaml %></pre></td>
-    <td><%= virtual_server.provided_image_name %></td>
+    <td><%= virtual_server.provided_image_id %></td>
+    <td><%= virtual_server.provided_type_id %></td>
+    <td><%= virtual_server.host_server %></td>
     <td><%= link_to_show virtual_server %></td>
     <td><%= link_to_edit edit_tengine_resource_virtual_server_path(virtual_server) %></td>
     <td><%= link_to_destroy virtual_server, confirm: 'Are you sure?', method: :delete %></td>

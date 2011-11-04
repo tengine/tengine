@@ -3,18 +3,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:provider) %>:</b>
+  <%= @virtual_server.provider %>
+</p>
+
+<p>
   <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:name) %>:</b>
   <%= @virtual_server.name %>
-</p>
-
-<p>
-  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:description) %>:</b>
-  <%= @virtual_server.description %>
-</p>
-
-<p>
-  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:host) %>:</b>
-  <%= @virtual_server.host %>
 </p>
 
 <p>
@@ -23,28 +18,18 @@
 </p>
 
 <p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:description) %>:</b>
+  <%= @virtual_server.description %>
+</p>
+
+<p>
   <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:status) %>:</b>
   <%= @virtual_server.status %>
 </p>
 
 <p>
-  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:public_hostname) %>:</b>
-  <%= @virtual_server.public_hostname %>
-</p>
-
-<p>
-  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:public_ipv4) %>:</b>
-  <%= @virtual_server.public_ipv4 %>
-</p>
-
-<p>
-  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:local_hostname) %>:</b>
-  <%= @virtual_server.local_hostname %>
-</p>
-
-<p>
-  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:local_ipv4) %>:</b>
-  <%= @virtual_server.local_ipv4 %>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:addresses) %>:</b>
+  <pre><%= @virtual_server.addresses_yaml %></pre>
 </p>
 
 <p>
@@ -53,8 +38,18 @@
 </p>
 
 <p>
-  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_image_name) %>:</b>
-  <%= @virtual_server.provided_image_name %>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_image_id) %>:</b>
+  <%= @virtual_server.provided_image_id %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_type_id) %>:</b>
+  <%= @virtual_server.provided_type_id %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::VirtualServer.human_attribute_name(:host_server) %>:</b>
+  <%= @virtual_server.host_server %>
 </p>
 
 
