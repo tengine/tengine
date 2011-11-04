@@ -865,87 +865,1084 @@
 	@1062
   シナリオ: [正常系]1062_dictionary.ymlの内容が間違っている_を試してみる
 
-
-	@pending
+  # ./usecases/job/dsl/
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1071 ルートジョブネットが複数のジョブ(並列)を含むジョブネット
+  # # [jobnet1071]
+  # #
+  # #        |-->[job1]-->|
+  # #        |            |
+  # # [S1]-->|            |-->[E1]
+  # #        |            |
+  # #        |-->[job2]-->|
+  # #
+  # #                     ______________finally_____________
+  # #                    {                                  }
+  # #                    {[S2]-->[jobnet1071_finally]-->[E2]}
+  # #                    {__________________________________}
+  # 
+  # jobnet("jobnet1071", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("job1","job2")
+  #   job("job1", "$HOME/tengine_job_test.sh 0 job1")
+  #   job("job2", "$HOME/tengine_job_test.sh 0 job2")
+  #   finally do
+  #     job("jobnet1071_finally","$HOME/tengine_job_test.sh 0 jobnet1071_finally")
+  #   end
+  # end
+	#  -------------------
 	@1071
   シナリオ: [正常系]1071_ルートジョブネットが複数のジョブ(並列)を含むジョブネット_を試してみる
 
-	@pending
+	# ./usecases/job/dsl/1072_rootjobnet_includes_one_jobnet_having_finally.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1072 ルートジョブネットがFinally付きのジョブネット１つ
+  # # [jobnet1072]
+  # #
+  # #        {-[jobnet1072-1]-------------------------}
+  # #        {                                        }
+  # # [S1]-->{        [S2]-->[job1]-->[E2]            }-->[E1]
+  # #        {                                        }
+  # #        {____________finally_____________________}
+  # #        {                                        }
+  # #        { [S3]-->[jobnet1072-1_finally]-->[E3]   }
+  # #        {                                        }
+  # #        {----------------------------------------}
+  # #
+  # #                     ______________finally_____________
+  # #                    {                                  }
+  # #                    {[S4]-->[jobnet1072_finally]-->[E4]}
+  # #                    {__________________________________}
+  # 
+  # jobnet("jobnet1072", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   jobnet("jobnet1072-1") do 
+  #     boot_jobs("job1")
+  #     job("job1", "$HOME/tengine_job_test.sh 0 job1")
+  #     finally do 
+  #       boot_jobs("jobnet1072-1_finally")
+  #       job("jobnet1072-1_finally", "$HOME/tengine_job_test.sh 0 jobnet1072-1_finally")
+  #     end
+  #   end
+  #   finally do
+  #     job("jobnet1072_finally","$HOME/tengine_job_test.sh 0 jobnet1072_finally")
+  #   end
+  # end
+	#  -------------------
 	@1072
   シナリオ: [正常系]1072_ルートジョブネットがFinally付きのジョブネット１つ_を試してみる
 	
-	@pending
+
+	# ./usecases/job/dsl/1073_rootjobnet_includes_serial_jobnets_having_finally.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1073 ルートジョブネットがFinally付きのジョブネット(直列)
+  # # [jobnet1073]
+  # #
+  # #
+  # #        {-[jobnet1073-1]-------}   {-[jobnet1073-2]-------}
+  # #        {                      }   {                      }
+  # # [S1]-->{  [S2]-->[j1]-->[E2]  }-->{  [S4]-->[j2]-->[E4]  }-->[E1]
+  # #        {                      }   {                      }
+  # #        {________finally_______}   {________finally_______}
+  # #        {                      }   {                      }
+  # #        { [S3]-->[jf1]-->[E3]  }   { [S5]-->[jf2]-->[E5]  }
+  # #        {                      }   {                      }
+  # #        {----------------------}   {----------------------}
+  # #
+  # #                     ______________finally_____________
+  # #                    {                                  }
+  # #                    {[S4]-->[jobnet1073_finally]-->[E4]}
+  # #                    {__________________________________}
+  # 
+  # jobnet("jobnet1073", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("jobnet1073-1")
+  #   jobnet("jobnet1073-1", to: => "jobnet1073-2") do 
+  #     boot_jobs("j1")
+  #     job("j1", "$HOME/tengine_job_test.sh 0 j1")
+  #     finally do 
+  #       boot_jobs("jf1")
+  #       job("jf1", "$HOME/tengine_job_test.sh 0 jf1")
+  #     end
+  #   end
+  #   jobnet("jobnet1073-2") do 
+  #     boot_jobs("j2")
+  #     job("j2", "$HOME/tengine_job_test.sh 0 j2")
+  #     finally do 
+  #       boot_jobs("jf2")
+  #       job("jf2", "$HOME/tengine_job_test.sh 0 jf2")
+  #     end
+  #   end
+  #   finally do
+  #     job("jobnet1073_finally","$HOME/tengine_job_test.sh 0 jobnet1073_finally")
+  #   end
+  # end
+	#  -------------------
 	@1073
   シナリオ: [正常系]1073_ルートジョブネットがFinally付きのジョブネット(直列)_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1074_rootjobnet_includes_parallel_jobnets_having_finally.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1074 ルートジョブネットがFinally付きのジョブネット(並列)
+  # # [jobnet1074]
+  # #
+  # #            {-[jobnet1074-1]-------}
+  # #            {                      }
+  # #        |-->{  [S2]-->[j1]-->[E2]  }-->|
+  # #        |   {                      }   |
+  # #        |   {________finally_______}   |
+  # #        |   {                      }   |
+  # #        |   { [S3]-->[jf1]-->[E3]  }   |
+  # #        |   {                      }   |
+  # #        |   {----------------------}   |
+  # #        |                              |
+  # # [S1]-->F                              J-->[E1]
+  # #        |                              |
+  # #        |   {-[jobnet1074-2]-------}   |
+  # #        |   {                      }   |
+  # #        |-->{  [S4]-->[j2]-->[E4]  }-->|
+  # #            {                      }
+  # #            {________finally_______}
+  # #            {                      }
+  # #            { [S5]-->[jf2]-->[E5]  }
+  # #            {                      }
+  # #            {----------------------}
+  # #
+  # #                     ______________finally_____________
+  # #                    {                                  }
+  # #                    {[S4]-->[jobnet1074_finally]-->[E4]}
+  # #                    {__________________________________}
+  # 
+  # jobnet("jobnet1074", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("jobnet1074-1","jobnet1074-2")
+  #   jobnet("jobnet1074-1") do 
+  #     boot_jobs("j1")
+  #     job("j1", "$HOME/tengine_job_test.sh 0 j1")
+  #     finally do 
+  #       boot_jobs("jf1")
+  #       job("jf1", "$HOME/tengine_job_test.sh 0 jf1")
+  #     end
+  #   end
+  #   jobnet("jobnet1074-2") do 
+  #     boot_jobs("j2")
+  #     job("j2", "$HOME/tengine_job_test.sh 0 j2")
+  #     finally do 
+  #       boot_jobs("jf2")
+  #       job("jf2", "$HOME/tengine_job_test.sh 0 jf2")
+  #     end
+  #   end
+  #   finally do
+  #     job("jobnet1074_finally","$HOME/tengine_job_test.sh 0 jobnet1074_finally")
+  #   end
+  # end
+	#  -------------------
 	@1074
   シナリオ: [正常系]1074_ルートジョブネットがFinally付きのジョブネット(並列)_を試してみる
+
 	
-	@pending
+	# ./usecases/job/dsl/1075_rootjobnet_includes_3_layers_jobnets_having_finally.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1075 ルートジョブネットがFinally付きのジョブネット入れ子3層
+  # # [jobnet1075]
+  # #
+  # #          {-[jobnet1075-1]------------------------------------------}
+  # #          {                                                         }
+  # #          {        {-[jobnet1075-2]------------------------}        }
+  # #          {        {                                       }        }
+  # #          {        {        {-[jobnet1075-3]------}        }        }
+  # #          {        {        {                     }        }        }
+  # #   [S1]-->{ [S2]-->{ [S4]-->{ [S6]-->[j3]-->[E6]  }-->[E4] }-->[E2] }-->[E1]
+  # #          {        {        {                     }        }        }
+  # #          {        {        {_______finally_______}        }        }
+  # #          {        {        {                     }        }        }
+  # #          {        {        { [S7]-->[jf3]-->[E7] }        }        }
+  # #          {        {        {_____________________}        }        }
+  # #          {        {                                       }        }
+  # #          {        {________________finally________________}        }
+  # #          {        {                                       }        }
+  # #          {        {          [S5]-->[jf2]-->[E5]          }        }
+  # #          {        {_______________________________________}        }
+  # #          {                                                         }
+  # #          {_________________________finally_________________________}
+  # #          {                                                         }
+  # #          {                   [S3]-->[jf1]-->[E3]                   }
+  # #          {---------------------------------------------------------}
+  # #
+  # #                      ______________finally_____________
+  # #                     {                                  }
+  # #                     {[S4]-->[jobnet1075_finally]-->[E4]}
+  # #                     {__________________________________}
+  # 
+  # jobnet("jobnet1075", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("jobnet1075-1")
+  #   jobnet("jobnet1075-1") do 
+  #     boot_jobs("jobnet1075-2")
+  #     jobnet("jobnet1075-2") do 
+  #       boot_jobs("jobnet1075-3")
+  #       jobnet("jobnet1075-3") do 
+  #         boot_jobs("j3""$HOME/tengine_job_test.sh 0 j3")
+  #         job("j3",)
+  #         finally do 
+  #           boot_jobs("jf3")
+  #           job("jf3", "$HOME/tengine_job_test.sh 0 j3")
+  #         end
+  #       end
+  #       finally do 
+  #         boot_jobs("jf2")
+  #         job("jf2", "$HOME/tengine_job_test.sh 0 jf2")
+  #       end
+  #     end
+  #     finally do 
+  #       boot_jobs("jf1")
+  #       job("jf1", "$HOME/tengine_job_test.sh 0 jf1")
+  #     end
+  #   end
+  #   finally do
+  #     job("jobnet1075_finally","$HOME/tengine_job_test.sh 0 jobnet1075_finally")
+  #   end
+  # end
+	#  -------------------
 	@1075
   シナリオ: [正常系]1075_ルートジョブネットがFinally付きのジョブネット入れ子3層_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1076_rootjobnet_includes_parallel_jobnets_having_finally_and_different_credentials.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1076 ルートジョブネットがクレデンシャルが違うジョブネット(並列)
+  # # [jobnet1076]
+  # #
+  # #            {-[jobnet1076-1]-------}
+  # #            {                      }
+  # #        |-->{  [S2]-->[j1]-->[E2]  }-->|
+  # #        |   {                      }   |
+  # #        |   {________finally_______}   |
+  # #        |   {                      }   |
+  # #        |   { [S3]-->[jf1]-->[E3]  }   |
+  # #        |   {                      }   |
+  # #        |   {----------------------}   |
+  # #        |                              |
+  # # [S1]-->F                              J-->[E1]
+  # #        |                              |
+  # #        |   {-[jobnet1076-2]-------}   |
+  # #        |   {                      }   |
+  # #        |-->{  [S4]-->[j2]-->[E4]  }-->|
+  # #            {                      }
+  # #            {________finally_______}
+  # #            {                      }
+  # #            { [S5]-->[jf2]-->[E5]  }
+  # #            {                      }
+  # #            {----------------------}
+  # #
+  # #                     ______________finally_____________
+  # #                    {                                  }
+  # #                    {[S4]-->[jobnet1076_finally]-->[E4]}
+  # #                    {__________________________________}
+  # 
+  # jobnet("jobnet1076", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("jobnet1076-1","jobnet1076-2")
+  #   jobnet("jobnet1076-1", :credential_name => "test_credential1-1") do 
+  #     boot_jobs("j1")
+  #     job("j1", "$HOME/tengine_job_test.sh 0 j1")
+  #     finally do 
+  #       boot_jobs("jf1")
+  #       job("jf1", "$HOME/tengine_job_test.sh 0 jf1")
+  #     end
+  #   end
+  #   jobnet("jobnet1076-2") do 
+  #     boot_jobs("j2")
+  #     job("j2", "$HOME/tengine_job_test.sh 0 j2")
+  #     finally do 
+  #       boot_jobs("jf2")
+  #       job("jf2", "$HOME/tengine_job_test.sh 0 jf2")
+  #     end
+  #   end
+  #   finally do
+  #     job("jobnet1076_finally","$HOME/tengine_job_test.sh 0 jobnet1076_finally")
+  #   end
+  # end
+	#  -------------------
 	@1076
   シナリオ: [正常系]1076_ルートジョブネットがクレデンシャルが違うジョブネット(並列)_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1077_rootjbonet_includes_parallel_jobnets_having_finally_and_different_server.rb
+	#  ------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1077 ルートジョブネットが仮想サーバが違うジョブネット(並列)
+  # # [jobnet1077]
+  # #
+  # #            {-[jobnet1077-1]-------}
+  # #            {                      }
+  # #        |-->{  [S2]-->[j1]-->[E2]  }-->|
+  # #        |   {                      }   |
+  # #        |   {________finally_______}   |
+  # #        |   {                      }   |
+  # #        |   { [S3]-->[jf1]-->[E3]  }   |
+  # #        |   {                      }   |
+  # #        |   {----------------------}   |
+  # #        |                              |
+  # # [S1]-->F                              J-->[E1]
+  # #        |                              |
+  # #        |   {-[jobnet1077-2]-------}   |
+  # #        |   {                      }   |
+  # #        |-->{  [S4]-->[j2]-->[E4]  }-->|
+  # #            {                      }
+  # #            {________finally_______}
+  # #            {                      }
+  # #            { [S5]-->[jf2]-->[E5]  }
+  # #            {                      }
+  # #            {----------------------}
+  # #
+  # #                     ______________finally_____________
+  # #                    {                                  }
+  # #                    {[S4]-->[jobnet1077_finally]-->[E4]}
+  # #                    {__________________________________}
+  # 
+  # jobnet("jobnet1077", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("jobnet1077-1","jobnet1077-2")
+  #   jobnet("jobnet1077-1", :instance_name => "test_server2", :credential_name => "test_credential2") do 
+  #     boot_jobs("j1")
+  #     job("j1", "$HOME/tengine_job_test.sh 0 j1")
+  #     finally do 
+  #       boot_jobs("jf1")
+  #       job("jf1", "$HOME/tengine_job_test.sh 0 jf1")
+  #     end
+  #   end
+  #   jobnet("jobnet1077-2", :instance_name => "test_server3", :credential_name => "test_credential3") do 
+  #     boot_jobs("j2")
+  #     job("j2", "$HOME/tengine_job_test.sh 0 j2")
+  #     finally do 
+  #       boot_jobs("jf2")
+  #       job("jf2", "$HOME/tengine_job_test.sh 0 jf2")
+  #     end
+  #   end
+  #   finally do
+  #     job("jobnet1077_finally","$HOME/tengine_job_test.sh 0 jobnet1077_finally")
+  #   end
+  # end
+	#  -------------------
 	@1077
   シナリオ: [正常系]1077_ルートジョブネットが仮想サーバが違うジョブネット(並列)_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1078_finally_includes_parallel_jobs.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1078 Finallyに複数のジョブ(並列)を含むジョブネット
+  # # [jobnet1078]
+  # #
+  # # [S1]-->[j1]-->[E1]
+  # #                     __________finally___________
+  # #                    {                            }
+  # #                    {       |-->[fj1]-->|        }
+  # #                    {       |           |        }
+  # #                    {[S4]-->F           J-->[E4] }
+  # #                    {       |           |        }
+  # #                    {       |-->[fj2]-->|        }
+  # #                    {____________________________}
+  # 
+  # jobnet("jobnet1078", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1","$HOME/tengine_job_test.sh 0 j1")
+  #   finally do
+  #     boot_jobs("fj1","fj2")
+  #     job("fj1","$HOME/tengine_job_test.sh 0 fj1")
+  #     job("fj2","$HOME/tengine_job_test.sh 0 fj2")
+  #   end
+  # end
+	#  -------------------
 	@1078
   シナリオ: [正常系]1078_Finallyに複数のジョブ(並列)を含むジョブネット_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1079_finally_includes_one_jobnet_having_finally.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1079 FinallyにFinally付きのジョブネット１つ
+  # # [jobnet1079]
+  # #
+  # # [S1]-->[j1]-->[E1]
+  # #                     _______________finally_________________
+  # #                    {                                       }
+  # #                    {         _[jobnet1079]________         }
+  # #                    {        {                     }        }
+  # #                    {        {                     }        }
+  # #                    { [S2]-->{ [S3]-->[j2]-->[E3]  }-->[E2] }
+  # #                    {        {                     }        }
+  # #                    {        {______finally________}        }
+  # #                    {        {                     }        }
+  # #                    {        { [S4]-->[fj1]-->[E4] }        }
+  # #                    {        {_____________________}        }
+  # #                    {                                       }
+  # #                    {_______________________________________}
+  # 
+  # jobnet("jobnet1079", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1","$HOME/tengine_job_test.sh 0 j1")
+  #   finally do
+  #     boot_jobs("jobnet1079")
+  #     jobnet("jobnet1079") do 
+  #       boot_jobs("j2")
+  #       job("j2","$HOME/tengine_job_test.sh 0 j2")
+  #       finally do 
+  #         boot_jobs("fj1")
+  #         job("fj1","$HOME/tengine_job_test.sh 0 fj1")
+  #       end
+  #     end
+  #   end
+  # end
+	#  -------------------
 	@1079
   シナリオ: [正常系]1079_FinallyにFinally付きのジョブネット１つ_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1080_finally_includes_serial_jobnets_having_finally.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1080 FinallyにFinally付きのジョブネット(直列)
+  # # [jobnet1080]
+  # #
+  # # [S1]-->[j1]-->[E1]
+  # #                     _______________finally___________________________________________
+  # #                    {                                                                 }
+  # #                    {         _[jobnet1080-1]______     _[jobnet1080-2_______         }
+  # #                    {        {                     }   {                     }        }
+  # #                    {        {                     }   {                     }        }
+  # #                    { [S2]-->{ [S3]-->[j2]-->[E3]  }-->{ [S5]-->[j3]-->[E5]  }-->[E2] }
+  # #                    {        {                     }   {                     }        }
+  # #                    {        {______finally________}   {______finally________}        }
+  # #                    {        {                     }   {                     }        }
+  # #                    {        { [S4]-->[fj1]-->[E4] }   { [S6]-->[fj2]-->[E6] }        }
+  # #                    {        {_____________________}   {_____________________}        }
+  # #                    {                                                                 }
+  # #                    {_________________________________________________________________}
+  # 
+  # jobnet("jobnet1080", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1","$HOME/tengine_job_test.sh 0 j1")
+  #   finally do
+  #     boot_jobs("jobnet1080-1")
+  #     jobnet("jobnet1080-1", :to => "jobnet1080-2") do 
+  #       boot_jobs("j2")
+  #       job("j2","$HOME/tengine_job_test.sh 0 j2")
+  #       finally do 
+  #         boot_jobs("fj1")
+  #         job("fj1","$HOME/tengine_job_test.sh 0 fj1")
+  #       end
+  #     end
+  #     jobnet("jobnet1080-2") do 
+  #       boot_jobs("j3")
+  #       job("j3","$HOME/tengine_job_test.sh 0 j3")
+  #       finally do 
+  #         boot_jobs("fj2")
+  #         job("fj2","$HOME/tengine_job_test.sh 0 fj2")
+  #       end
+  #     end
+  #   end
+  # end
+	#  -------------------
 	@1080
   シナリオ: [正常系]1080_FinallyにFinally付きのジョブネット(直列)_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1081_finally_includes_parallel_jobnets_having_finally.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1081 FinallyにFinally付きのジョブネット(並列)
+  # # [jobnet1081]
+  # #
+  # # [S1]-->[j1]-->[E1]
+  # #                     _______________finally________________________
+  # #                    {                                               }
+  # #                    {             _[jobnet1081-1]______             }
+  # #                    {            {                     }            }
+  # #                    {            {                     }            }
+  # #                    {        |-->{ [S3]-->[j2]-->[E3]  }-->|        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   {______finally________}   |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   { [S4]-->[fj1]-->[E4] }   |        }
+  # #                    {        |   {_____________________}   |        }
+  # #                    {        |                             |        }
+  # #                    { [S2]-->F                             J-->[E2] }
+  # #                    {        |    _[jobnet1081-2]______    |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |-->{ [S5]-->[j3]-->[E5]  }-->|        }
+  # #                    {            {                     }            }
+  # #                    {            {______finally________}            }
+  # #                    {            {                     }            }
+  # #                    {            { [S6]-->[fj2]-->[E6] }            }
+  # #                    {            {_____________________}            }
+  # #                    {                                               }
+  # #                    {_______________________________________________}
+  # 
+  # jobnet("jobnet1081", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1","$HOME/tengine_job_test.sh 0 j1")
+  #   finally do
+  #     boot_jobs("jobnet1081-1","jobnet1081-2")
+  #     jobnet("jobnet1081-1") do 
+  #       boot_jobs("j2")
+  #       job("j2","$HOME/tengine_job_test.sh 0 j2")
+  #       finally do 
+  #         boot_jobs("fj1")
+  #         job("fj1","$HOME/tengine_job_test.sh 0 fj1")
+  #       end
+  #     end
+  #     jobnet("jobnet1081-2") do 
+  #       boot_jobs("j3")
+  #       job("j3","$HOME/tengine_job_test.sh 0 j3")
+  #       finally do 
+  #         boot_jobs("fj2")
+  #         job("fj2","$HOME/tengine_job_test.sh 0 fj2")
+  #       end
+  #     end
+  #   end
+  # end
+	#  -------------------
 	@1081
   シナリオ: [正常系]1081_FinallyにFinally付きのジョブネット(並列)_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1082_finally_includes_parallel_jobnets_having_finally_and_different_credentials.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1082 Finallyにクレデンシャルが違うジョブネット(並列)
+  # # [jobnet1082]
+  # #
+  # # [S1]-->[j1]-->[E1]
+  # #                     _______________finally________________________
+  # #                    {                                               }
+  # #                    {             _[jobnet1082-1]______             }
+  # #                    {            {                     }            }
+  # #                    {            {                     }            }
+  # #                    {        |-->{ [S3]-->[j2]-->[E3]  }-->|        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   {______finally________}   |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   { [S4]-->[fj1]-->[E4] }   |        }
+  # #                    {        |   {_____________________}   |        }
+  # #                    {        |                             |        }
+  # #                    { [S2]-->F                             J-->[E2] }
+  # #                    {        |    _[jobnet1082-2]______    |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |-->{ [S5]-->[j3]-->[E5]  }-->|        }
+  # #                    {            {                     }            }
+  # #                    {            {______finally________}            }
+  # #                    {            {                     }            }
+  # #                    {            { [S6]-->[fj2]-->[E6] }            }
+  # #                    {            {_____________________}            }
+  # #                    {                                               }
+  # #                    {_______________________________________________}
+  # 
+  # jobnet("jobnet1082", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1","$HOME/tengine_job_test.sh 0 j1")
+  #   finally do
+  #     boot_jobs("jobnet1082-1","jobnet1082-2")
+  #     jobnet("jobnet1082-1", :credential_name => "test_credential1-1") do 
+  #       boot_jobs("j2")
+  #       job("j2","$HOME/tengine_job_test.sh 0 j2")
+  #       finally do 
+  #         boot_jobs("fj1")
+  #         job("fj1","$HOME/tengine_job_test.sh 0 fj1")
+  #       end
+  #     end
+  #     jobnet("jobnet1082-2", :credential_name => "test_credential1-2") do 
+  #       boot_jobs("j3")
+  #       job("j3","$HOME/tengine_job_test.sh 0 j3")
+  #       finally do 
+  #         boot_jobs("fj2")
+  #         job("fj2","$HOME/tengine_job_test.sh 0 fj2")
+  #       end
+  #     end
+  #   end
+  # end
+	#  -------------------
 	@1082
   シナリオ: [正常系]1082_Finallyにクレデンシャルが違うジョブネット(並列)_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1083_finally_includes_parallel_jobnets_having_finally_and_different_server.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1083 Finallyに仮想サーバが違うジョブネット(並列)
+  # # [jobnet1083]
+  # #
+  # # [S1]-->[j1]-->[E1]
+  # #                     _______________finally________________________
+  # #                    {                                               }
+  # #                    {             _[jobnet1083-1]______             }
+  # #                    {            {                     }            }
+  # #                    {            {                     }            }
+  # #                    {        |-->{ [S3]-->[j2]-->[E3]  }-->|        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   {______finally________}   |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   { [S4]-->[fj1]-->[E4] }   |        }
+  # #                    {        |   {_____________________}   |        }
+  # #                    {        |                             |        }
+  # #                    { [S2]-->F                             J-->[E2] }
+  # #                    {        |    _[jobnet1083-2]______    |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |-->{ [S5]-->[j3]-->[E5]  }-->|        }
+  # #                    {            {                     }            }
+  # #                    {            {______finally________}            }
+  # #                    {            {                     }            }
+  # #                    {            { [S6]-->[fj2]-->[E6] }            }
+  # #                    {            {_____________________}            }
+  # #                    {                                               }
+  # #                    {_______________________________________________}
+  # 
+  # jobnet("jobnet1083", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1","$HOME/tengine_job_test.sh 0 j1")
+  #   finally do
+  #     boot_jobs("jobnet1083-1","jobnet1083-2")
+  #     jobnet("jobnet1083-1", :instance_name => "test_server2", :credential_name => "test_credential2") do 
+  #       boot_jobs("j2")
+  #       job("j2","$HOME/tengine_job_test.sh 0 j2")
+  #       finally do 
+  #         boot_jobs("fj1")
+  #         job("fj1","$HOME/tengine_job_test.sh 0 fj1")
+  #       end
+  #     end
+  #     jobnet("jobnet1083-2", :instance_name => "test_server3", :credential_name => "test_credential3") do 
+  #       boot_jobs("j3")
+  #       job("j3","$HOME/tengine_job_test.sh 0 j3")
+  #       finally do 
+  #         boot_jobs("fj2")
+  #         job("fj2","$HOME/tengine_job_test.sh 0 fj2")
+  #       end
+  #     end
+  #   end
+  # end
+	#  -------------------
 	@1083
   シナリオ: [正常系]1083_Finallyに仮想サーバが違うジョブネット(並列)_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1084_finally_includes_auto_sequence.rb
+	#  ------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1084 Finallyにauto_sequenceを使用する
+  # # [jobnet1084]
+  # #
+  # # [S1]-->[j1]-->[E1]
+  # #                     __________finally___________
+  # #                    {                            }
+  # #                    {[S4]-->[fj1]-->[fj2]-->[E4] }
+  # #                    {____________________________}
+  # 
+  # jobnet("jobnet1084", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1","$HOME/tengine_job_test.sh 0 j1")
+  #   finally do
+  #     auto_sequence
+  #     job("fj1","$HOME/tengine_job_test.sh 0 fj1")
+  #     job("fj2","$HOME/tengine_job_test.sh 0 fj2")
+  #   end
+  # end
+	#  -------------------
 	@1084
   シナリオ: [正常系]1084_Finallyにauto_sequenceを使用する_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1085_finally_includes_boot_jobs.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1085 Finallyにboot_jobsを使用する
+  # # [jobnet1085]
+  # #
+  # # [S1]-->[j1]-->[E1]
+  # #                     __________finally___________
+  # #                    {                            }
+  # #                    {       |-->[fj1]-->|        }
+  # #                    {       |           |        }
+  # #                    {[S4]-->F           J-->[E4] }
+  # #                    {       |           |        }
+  # #                    {       |-->[fj2]-->|        }
+  # #                    {____________________________}
+  # 
+  # jobnet("jobnet1085", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1","$HOME/tengine_job_test.sh 0 j1")
+  #   finally do
+  #     boot_jobs("fj1","fj2")
+  #     job("fj1","$HOME/tengine_job_test.sh 0 fj1")
+  #     job("fj2","$HOME/tengine_job_test.sh 0 fj2")
+  #   end
+  # end
+	#  -------------------
 	@1085
   シナリオ: [正常系]1085_Finallyにboot_jobsを使用する_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1086_finally_includes_expansion.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1086 Finallyにexpansionを使用する
+  # # [jobnet1086]
+  # #
+  # # [S1]-->[j1]-->[E1]
+  # #                     _______________finally________________________
+  # #                    {                                               }
+  # #                    {             _[jobnet1086]________             }
+  # #                    {            {                     }            }
+  # #                    {            {                     }            }
+  # #                    {        |-->{ [S3]-->[j2]-->[E3]  }-->|        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   {______finally________}   |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   { [S4]-->[fj1]-->[E4] }   |        }
+  # #                    {        |   {_____________________}   |        }
+  # #                    {        |                             |        }
+  # #                    { [S2]-->F                             J-->[E2] }
+  # #                    {        |    _[jobnet1086]________    |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |-->{ [S3]-->[j2]-->[E3]  }-->|        }
+  # #                    {            {                     }            }
+  # #                    {            {______finally________}            }
+  # #                    {            {                     }            }
+  # #                    {            { [S4]-->[fj1]-->[E4] }            }
+  # #                    {            {_____________________}            }
+  # #                    {                                               }
+  # #                    {_______________________________________________}
+  # 
+  # jobnet("jobnet1086", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1","$HOME/tengine_job_test.sh 0 j1")
+  #   finally do
+  #     auto_sequence
+  #     expansion("jobnet1086-1")
+  #     expansion("jobnet1086-2")
+  #   end
+  # end
+  # 
+  # jobnet("jobnet1086-1", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j2")
+  #   job("j2","$HOME/tengine_job_test.sh 0 j2")
+  #   finally do 
+  #     boot_jobs("fj1")
+  #     job("fj1","$HOME/tengine_job_test.sh 0 fj1")
+  #   end
+  # end
+  # 
+  # jobnet("jobnet1086-2", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j3")
+  #   job("j3","$HOME/tengine_job_test.sh 0 j3")
+  #   finally do 
+  #     boot_jobs("fj2")
+  #     job("fj2","$HOME/tengine_job_test.sh 0 fj2")
+  #   end
+  # end
+	#  -------------------
 	@1086
   シナリオ: [正常系]1086_Finallyにexpansionを使用する_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1087_finally_includes_invalid_option_value_in_jobnet.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1087 Finallyにjobnetのoptionに不正な値
+  # # [jobnet1087]
+  # #
+  # # [S1]-->[j1]-->[E1]
+  # #                     _______________finally_________________
+  # #                    {                                       }
+  # #                    {         _[jobnet1087]________         }
+  # #                    {        {                     }        }
+  # #                    {        {                     }        }
+  # #                    { [S2]-->{ [S3]-->[j2]-->[E3]  }-->[E2] }
+  # #                    {        {                     }        }
+  # #                    {        {______finally________}        }
+  # #                    {        {                     }        }
+  # #                    {        { [S4]-->[fj1]-->[E4] }        }
+  # #                    {        {_____________________}        }
+  # #                    {                                       }
+  # #                    {_______________________________________}
+  # 
+  # jobnet("jobnet1087", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1","$HOME/tengine_job_test.sh 0 j1")
+  #   finally do
+  #     boot_jobs("jobnet1087")
+  #     jobnet("jobnet1087", :hoge => "hoge") do 
+  #       boot_jobs("j2")
+  #       job("j2","$HOME/tengine_job_test.sh 0 j2")
+  #       finally do 
+  #         boot_jobs("fj1")
+  #         job("fj1","$HOME/tengine_job_test.sh 0 fj1")
+  #       end
+  #     end
+  #   end
+  # end
+	#  -------------------
 	@1087
   シナリオ: [正常系]1087_Finallyにjobnetのoptionに不正な値_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1088_finally_includes_invalid_option_value_in_job.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1088 Finallyにjobのoptionに不正な値
+  # # [jobnet1088]
+  # #
+  # # [S1]-->[j1]-->[E1]
+  # #                     __________finally___________
+  # #                    {                            }
+  # #                    {       |-->[fj1]-->|        }
+  # #                    {       |           |        }
+  # #                    {[S4]-->F           J-->[E4] }
+  # #                    {       |           |        }
+  # #                    {       |-->[fj2]-->|        }
+  # #                    {____________________________}
+  # 
+  # jobnet("jobnet1088", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1","$HOME/tengine_job_test.sh 0 j1")
+  #   finally do
+  #     boot_jobs("fj1","fj2")
+  #     job("fj1","$HOME/tengine_job_test.sh 0 fj1", :hoge => "hoge")
+  #     job("fj2","$HOME/tengine_job_test.sh 0 fj2", :fuga => "fuga")
+  #   end
+  # end
+	#  -------------------
 	@1088
   シナリオ: [正常系]1088_Finallyにjobのoptionに不正な値_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1089_finally_includes_invalid_option_value_in_expansion.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1089 Finallyにexpansionのoptionに不正な値
+  # # [jobnet1089]
+  # #
+  # # [S1]-->[j1]-->[E1]
+  # #                     _______________finally________________________
+  # #                    {                                               }
+  # #                    {             _[jobnet1089]________             }
+  # #                    {            {                     }            }
+  # #                    {            {                     }            }
+  # #                    {        |-->{ [S3]-->[j2]-->[E3]  }-->|        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   {______finally________}   |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   { [S4]-->[fj1]-->[E4] }   |        }
+  # #                    {        |   {_____________________}   |        }
+  # #                    {        |                             |        }
+  # #                    { [S2]-->F                             J-->[E2] }
+  # #                    {        |    _[jobnet1089]________    |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |-->{ [S3]-->[j2]-->[E3]  }-->|        }
+  # #                    {            {                     }            }
+  # #                    {            {______finally________}            }
+  # #                    {            {                     }            }
+  # #                    {            { [S4]-->[fj1]-->[E4] }            }
+  # #                    {            {_____________________}            }
+  # #                    {                                               }
+  # #                    {_______________________________________________}
+  # 
+  # jobnet("jobnet1089", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1","$HOME/tengine_job_test.sh 0 j1")
+  #   finally do
+  #     auto_sequence
+  #     expansion("jobnet1089-1", :hoge => "hoge")
+  #     expansion("jobnet1089-2", :fuga => "fuga")
+  #   end
+  # end
+  # 
+  # jobnet("jobnet1089-1", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j2")
+  #   job("j2","$HOME/tengine_job_test.sh 0 j2")
+  #   finally do 
+  #     boot_jobs("fj1")
+  #     job("fj1","$HOME/tengine_job_test.sh 0 fj1")
+  #   end
+  # end
+  # 
+  # jobnet("jobnet1089-2", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j3")
+  #   job("j3","$HOME/tengine_job_test.sh 0 j3")
+  #   finally do 
+  #     boot_jobs("fj2")
+  #     job("fj2","$HOME/tengine_job_test.sh 0 fj2")
+  #   end
+  # end
+	#  -------------------
 	@1089
   シナリオ: [正常系]1089_Finallyにexpansionのoptionに不正な値_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1090_finally_includes_no_job.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1090 Finallyにブロック内にコードがない
+  # # [jobnet1090]
+  # #
+  # # [S1]-->[j1]-->[E1]
+  # #                     __________finally___________
+  # #                    {                            }
+  # #                    {____________________________}
+  # 
+  # jobnet("jobnet1090", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1","$HOME/tengine_job_test.sh 0 j1")
+  #   finally do
+  #   end
+  # end
+	#  -------------------
 	@1090
   シナリオ: [正常系]1090_Finallyにブロック内にコードがない_を試してみる
 	
-	@pending
+	# ./usecases/job/dsl/1091_rootjobnet_and_finally_include_parallel_jobnets_having_finally.rb
+	#  -------------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # 1091 Finally付きのジョブネット(並列)を組み合わせた複雑なパターン
+  # # [jobnet1091]
+  # #
+  # #            {-[jobnet1091-1]-------}
+  # #            {                      }
+  # #        |-->{  [S2]-->[j1]-->[E2]  }-->|
+  # #        |   {                      }   |
+  # #        |   {________finally_______}   |
+  # #        |   {                      }   |
+  # #        |   { [S3]-->[jf1]-->[E3]  }   |
+  # #        |   {                      }   |
+  # #        |   {----------------------}   |
+  # #        |                              |
+  # # [S1]-->F                              J-->[E1]
+  # #        |                              |
+  # #        |   {-[jobnet1091-2]-------}   |
+  # #        |   {                      }   |
+  # #        |-->{  [S4]-->[j2]-->[E4]  }-->|
+  # #            {                      }
+  # #            {________finally_______}
+  # #            {                      }
+  # #            { [S5]-->[jf2]-->[E5]  }
+  # #            {                      }
+  # #            {----------------------}
+  # #
+  # #                     _______________finally________________________
+  # #                    {                                               }
+  # #                    {             _[jobnet1091-3]______             }
+  # #                    {            {                     }            }
+  # #                    {            {                     }            }
+  # #                    {        |-->{ [S7]-->[j3]-->[E7]  }-->|        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   {______finally________}   |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   { [S8]-->[fj3]-->[E8] }   |        }
+  # #                    {        |   {_____________________}   |        }
+  # #                    {        |                             |        }
+  # #                    { [S6]-->F                             J-->[E6] }
+  # #                    {        |    _[jobnet1091-4]______    |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |   {                     }   |        }
+  # #                    {        |-->{ [S9]-->[j4]-->[E9]  }-->|        }
+  # #                    {            {                     }            }
+  # #                    {            {______finally________}            }
+  # #                    {            {                     }            }
+  # #                    {            {[S10]-->[fj4]-->[E10]}            }
+  # #                    {            {_____________________}            }
+  # #                    {                                               }
+  # #                    {_______________________________________________}
+  # 
+  # jobnet("jobnet1091", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("jobnet1091-1","jobnet1091-2")
+  #   jobnet("jobnet1091-1", :instance_name => "test_server2", :credential_name => "test_credential2") do 
+  #     boot_jobs("j1")
+  #     job("j1", "$HOME/tengine_job_test.sh 0 j1")
+  #     finally do 
+  #       boot_jobs("jf1")
+  #       job("jf1", "$HOME/tengine_job_test.sh 0 jf1")
+  #     end
+  #   end
+  #   jobnet("jobnet1091-2", :instance_name => "test_server3", :credential_name => "test_credential3") do 
+  #     boot_jobs("j2")
+  #     job("j2", "$HOME/tengine_job_test.sh 0 j2")
+  #     finally do 
+  #       boot_jobs("jf2")
+  #       job("jf2", "$HOME/tengine_job_test.sh 0 jf2")
+  #     end
+  #   end
+  #   finally do
+  #     boot_jobs("jobnet1091-3","jobnet1091-4")
+  #     jobnet("jobnet1091-3") do 
+  #       boot_jobs("j3")
+  #       job("j3","$HOME/tengine_job_test.sh 0 j3")
+  #       finally do 
+  #         boot_jobs("fj3")
+  #         job("fj3","$HOME/tengine_job_test.sh 0 fj3")
+  #       end
+  #     end
+  #     jobnet("jobnet1091-4") do 
+  #       boot_jobs("j4")
+  #       job("j4","$HOME/tengine_job_test.sh 0 j4")
+  #       finally do 
+  #         boot_jobs("fj4")
+  #         job("fj4","$HOME/tengine_job_test.sh 0 fj4")
+  #       end
+  #     end
+  #   end
+  # end
+	#  -------------------
 	@1091
   シナリオ: [正常系]1091_Finally付きのジョブネット(並列)を組み合わせた複雑なパターン_を試してみる
