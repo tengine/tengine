@@ -17,10 +17,10 @@ gem "bson_ext", "~> 1.3.1"
 
 gem "kaminari", "~> 0.12.4"
 
-gem "tengine_event"   , "~> 0.2.8"
-gem "tengine_core"    , "~> 0.1.14"
-gem "tengine_resource", "~> 0.0.4"
-gem "tengine_job"     , "~> 0.1.4"
+gem "tengine_event"   , "= 0.2.8"
+gem "tengine_core"    , "~> 0.1.18"
+gem "tengine_resource", "~> 0.0.9"
+gem "tengine_job"     , "~> 0.1.7"
 
 gem "daemons", "~> 1.1.4"
 
