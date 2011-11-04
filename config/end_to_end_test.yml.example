@@ -26,7 +26,7 @@ db:
 #      port: "27027"
 #      dbpath: "~/mongodb_e2e/single/data"
 #      logpath: "~/mongodb_e2e/single/log"
-			
+
 servers:
   test_server1:
     host: localhost
