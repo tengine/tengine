@@ -24,12 +24,17 @@ describe Tengine::Resource::VirtualServerTypesController do
   # Tengine::Resource::VirtualServerType. As you add validations to Tengine::Resource::VirtualServerType, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :provided_id => "m1.small"
+    }
+  end
+
+  before do
+    Tengine::Resource::VirtualServerType.delete_all
   end
 
   describe "GET index" do
     it "assigns all tengine_resource_virtual_server_types as @tengine_resource_virtual_server_types" do
-      Tengine::Resource::VirtualServerType.delete_all
       virtual_server_type = Tengine::Resource::VirtualServerType.create! valid_attributes
       get :index
       virtual_server_types = assigns(:virtual_server_types)
