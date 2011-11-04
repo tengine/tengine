@@ -12,6 +12,8 @@ tengine_yaml = YAML::load(IO.read('./features/config/tengine.yml'))
 @tengine_event_exchange_name = @tengine_event_exchange_opts.delete("name")
 @tengine_event_exchange_type = @tengine_event_exchange_opts.delete("type")
 
+end_to_end_test_yaml = YAML::load(IO.read('./config/end_to_end_test.yml'))
+
 # インストール、セットアップ関係は優先度を下げるため後ほど実装する
 前提 /^"([^"]*)パッケージ"のインストールおよびセットアップが完了している$/ do |arg1|
 #  pending # express the regexp above with the code you wish you had
@@ -27,11 +29,13 @@ end
     pid_regexp = /<(\d+)>/
     get_pid_from_stdout name,pid_regexp
   elsif name == "Tengineコンソールプロセス"
-    system("rm -rf ./tmp/pids/server.pid")
-    io = IO.popen("rails s -e production")
+    unless TengineConsoleSupport.running?
+      system("rm -rf ./tmp/pids/server.pid")
+      io = IO.popen("rails s -e production")
 
-    @h[name] = {:io => io, :stdout => []}
-    get_pid_from_file(name, "./tmp/pids/server.pid")
+      @h[name] = {:io => io, :stdout => []}
+      get_pid_from_file(name, "./tmp/pids/server.pid")
+    end
   elsif name == "DBプロセス"
     unless MongodbSupport.running?
       MongodbSupport.start_mongodb(@h, name)
@@ -157,7 +161,7 @@ def start_process(name, command)
                    nil
                  end
 
-#      puts line 
+    puts line 
       @h[name][:stdout] << line
     end
   }
@@ -800,6 +804,17 @@ def unbind_queue(queue_name, exchange_name, options = {})
   end
 end
 
+def purge_queue(queue_name)
+  AMQP.start(@mq_server) do |connection|
+    channel  = AMQP::Channel.new(connection)
+    queue = channel.queue(queue_name, durable:true)
+    queue.purge
+    EM.add_timer(1) do
+      connection.close { EventMachine.stop }
+    end
+  end
+end
+
 def get_pid_from_stdout(name,pid_regexp, options = {})
   timeout = options[:timeout] || 20
 
@@ -1093,4 +1108,171 @@ end
   FileUtils.mkdir_p(path)
   FileUtils.mkdir_p("#{path}/app")
   FileUtils.mkdir_p("#{path}/spec/support")
+end
+
+
+前提 /^テンプレートジョブが1件も登録されていない$/ do
+  Tengine::Job::RootJobnetTemplate.delete_all
+end
+
+前提 /^実行ジョブが1件もない$/ do
+  Tengine::Job::Execution.delete_all
+end
+
+前提 /^イベントが1件もない$/ do
+  Tengine::Core::Event.delete_all 
+end
+
+前提 /^仮想サーバがインスタンス識別子:"([^"]*)"で登録されていること$/ do |name|
+  unless Tengine::Resource::VirtualServer.first(conditions:{name:name})
+    Tengine::Resource::VirtualServer.create!(name:name, public_ipv4:"localhost")
+  end
+end
+
+前提 /^認証情報が名称:"([^"]*)"で登録されている$/ do |name|
+  unless Tengine::Resource::Credential.first(conditions:{name:name})
+     Tengine::Resource::Credential.create!(name:name, auth_type_cd: "01", auth_values: {"username"=>"goku", "password"=>"dragonball"})
+  end
+end
+
+もし /^ジョブネット"([^"]*)"を実行する$/ do |name|
+  template = Tengine::Job::RootJobnetTemplate.first(conditions: {name:name})
+  raise "RootJobnetTemplate が取得できませんでした。 name => #{name}" unless template
+  @execution = nil
+  EM.run{ @execution = template.execute(:sender => Tengine::Event) }
+  @root_jobnet = @execution.root_jobnet
+end
+
+もし /^ジョブネット"([^"]*)"が完了することを確認する$/ do |name|
+  time_out(60) do
+    while true
+      @root_jobnet.reload
+      phase_name = @root_jobnet.phase_name
+      puts "root_jobnet.phase_name => #{phase_name}"
+      break if phase_name.match(/success|error/)
+      sleep 1
+    end
+  end
+end
+
+ならば /^ジョブネット"([^"]*)" のステータスが正常であること$/ do |arg1|
+  @root_jobnet.phase_name.should == "success"
+end
+
+ならば /^ジョブ"([^"]*)" のステータスが正常であること$/ do |path|
+  job = @root_jobnet.vertex_by_name_path(path)
+  job.phase_name.should == "success"
+end
+
+
+もし /^"([^"]*)"の標準出力からPIDを確認する$/ do |name|
+  if name == "Tengineコアプロセス"
+    pid_regexp = /tengined<(\d+)>/
+    get_pid = get_pid_from_stdout(name, pid_regexp)
+    get_pid.should be_true
+  else
+    raise "サポートしてません"
+  end
+end
+
+
+もし /^"([^"]*)"の状態が"([^"]*)"であることを確認する$/ do |name, status_name|
+  raise "#{name}のPIDが取得できていません。" unless pid = @h[name][:pid]
+  status = nil
+  if status_name == "稼働中"
+    status = "running"
+  else 
+    raise "サポートしてません" 
+  end
+  time_out(10) do
+    while true
+      command = "tengined -k status | grep #{pid} | awk '{print $2}'"
+      puts "command:#{command}"
+      s = `#{command}`.chomp
+      puts "#{name} status => #{s}"
+      break if s == status
+      sleep 1
+    end
+  end
+end
+
+
+前提 /^イベントキューにメッセージが1件もない$/ do
+  purge_queue("tengine_event_queue")
+end
+
+
+前提 /^仮想サーバ"([^"]*)"のファイル:"([^"]*)"が存在しないこと$/ do |server_name, file_path|
+  server_config = end_to_end_test_yaml["servers"][server_name]
+  host = server_config["host"]
+  user = server_config["user"]
+  password = server_config["password"]
+  ssh_opts = {:password => password}
+  ssh = SSH.new(host, user, nil, ssh_opts)
+  command = "rm -f #{file_path}"
+  output = nil
+  ssh.open do |session|
+    output = session.exec(command)
+  end
+end
+
+require 'net/ssh'
+
+もし /^仮想サーバ"([^"]*)"のファイル"([^"]*)"を開く。このファイルを"([^"]*)"と呼ぶこととする。$/ do |server_name, file_path, file_name|
+  @h[file_name] = []
+  server_config = end_to_end_test_yaml["servers"][server_name]
+  host = server_config["host"]
+  user = server_config["user"]
+  password = server_config["password"]
+  ssh_opts = {:password => password}
+  ssh = SSH.new(host, user, nil, ssh_opts)
+  command = "cat ~/tengine_job_test.log"
+  output = nil
+  ssh.open do |session|
+    output = session.exec(command)
+  end
+  @h[file_name] = output.split(/\n/) if output
+end
+
+ならば /^"([^"]*)"と"([^"]*)"の先頭に出力されていること$/ do |text, file_name|
+  raise "先頭は\"#{text}\"ではなく、\"#{@h[file_name].first}\"です。" unless @h[file_name].first =~ /#{text}/
+end
+
+ならば /^"([^"]*)"と"([^"]*)"に出力されており、"([^"]*)"と"([^"]*)"の間であること$/ do |text, file_name, before_text, after_text|
+
+  lines = @h[file_name]
+
+  before_line_no = nil
+  lines.each_with_index do |line, index| 
+    if line =~ /#{before_text}/
+      before_line_no = index
+      break
+    end
+  end
+  raise "\"#{before_text}\"は出力されていません。" unless before_line_no
+
+  text_line_no = nil
+  lines.each_with_index do |line, index| 
+    if line =~ /#{text}/
+      text_line_no = index
+      break
+    end
+  end
+  raise "\"#{text}\"は出力されていません。" unless text_line_no
+
+  after_text_line_no = nil
+  lines.each_with_index do |line, index| 
+    if line =~ /#{after_text}/
+      after_text_line_no = index
+      break
+    end
+  end
+  raise "\"#{after_text}\"は出力されていません。" unless after_text_line_no
+
+  raise " \"#{before_text}\"と\"#{after_text}\"の間に\"#{text}\"は出力されていません。 " unless (before_line_no < text_line_no && text_line_no < after_line_no)
+
+end
+
+ならば /^"([^"]*)"と"([^"]*)"の末尾に出力されていること$/ do |text, file_name|
+  raise "末尾は\"#{text}\"ではなく、\"#{@h[file_name].last}\"です。" unless @h[file_name].last =~ /#{text}/
 end
