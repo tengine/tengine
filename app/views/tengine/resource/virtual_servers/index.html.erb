@@ -6,7 +6,7 @@
   <tr>
     <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provider) %></th>
     <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:name) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_name) %></th>
+    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_id) %></th>
     <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:description) %></th>
     <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:status) %></th>
     <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:addresses) %></th>
@@ -23,7 +23,7 @@
   <tr class="<%= cycle("even", "odd") %>" >
     <td><%= virtual_server.provider %></td>
     <td><%= virtual_server.name %></td>
-    <td><%= virtual_server.provided_name %></td>
+    <td><%= virtual_server.provided_id %></td>
     <td><%= virtual_server.description %></td>
     <td><%= virtual_server.status %></td>
     <td><pre><%= virtual_server.addresses_yaml %></pre></td>

@@ -5,7 +5,7 @@ describe "tengine/resource/servers/show.html.erb" do
     @server = assign(:server, stub_model(Tengine::Resource::Server,{
       :provider => stub_model(Tengine::Resource::Provider, :name => "EC2 test account"),
       :name => "Name",
-      :provided_name => "Provided Name",
+      :provided_id => "Provided Name",
       :description => "Description",
       :status => "Status",
       :addresses => {"a"=>"1", "b"=>"2"},

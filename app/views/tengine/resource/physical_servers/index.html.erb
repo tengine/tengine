@@ -6,7 +6,7 @@
   <tr>
     <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:provider) %></th>
     <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:name) %></th>
-    <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:provided_name) %></th>
+    <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:provided_id) %></th>
     <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:description) %></th>
     <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:status) %></th>
     <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:addresses) %></th>
@@ -20,7 +20,7 @@
   <tr class="<%= cycle("even", "odd") %>" >
     <td><%= (physical_server.respond_to?(:provider) && physical_server.provider) ? physical_server.provider.name : "<No provider found>" %></td>
     <td><%= physical_server.name %></td>
-    <td><%= physical_server.provided_name %></td>
+    <td><%= physical_server.provided_id %></td>
     <td><%= physical_server.description %></td>
     <td><%= physical_server.status %></td>
     <td><pre><%= physical_server.addresses_yaml %></pre></td>

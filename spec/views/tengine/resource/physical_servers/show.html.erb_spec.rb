@@ -5,7 +5,7 @@ describe "tengine/resource/physical_servers/show.html.erb" do
     @physical_server = assign(:physical_server, stub_model(Tengine::Resource::PhysicalServer,
       :provider => nil,
       :name => "Name",
-      :provided_name => "Provided Name",
+      :provided_id => "Provided Name",
       :description => "Description",
       :status => "Status",
       :addresses => {"a"=>"1", "b"=>"2"},

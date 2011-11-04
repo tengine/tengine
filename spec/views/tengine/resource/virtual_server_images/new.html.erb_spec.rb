@@ -6,7 +6,7 @@ describe "tengine/resource/virtual_server_images/new.html.erb" do
       :provider => nil,
       :name => "MyString",
       :description => "MyString",
-      :provided_name => "MyString"
+      :provided_id => "MyString"
     ).as_new_record)
   end
 
@@ -18,7 +18,7 @@ describe "tengine/resource/virtual_server_images/new.html.erb" do
       assert_select "input#virtual_server_image_provider_id", :name => "virtual_server_image[provider_id]"
       assert_select "input#virtual_server_image_name", :name => "virtual_server_image[name]"
       assert_select "input#virtual_server_image_description", :name => "virtual_server_image[description]"
-      assert_select "input#virtual_server_image_provided_name", :name => "virtual_server_image[provided_name]"
+      assert_select "input#virtual_server_image_provided_id", :name => "virtual_server_image[provided_id]"
     end
   end
 end

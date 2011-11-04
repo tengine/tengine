@@ -5,7 +5,7 @@ describe "tengine/resource/virtual_servers/show.html.erb" do
     @virtual_server = assign(:virtual_server, stub_model(Tengine::Resource::VirtualServer,
       :provider => nil,
       :name => "Name",
-      :provided_name => "Provided Name",
+      :provided_id => "Provided Name",
       :description => "Description",
       :status => "Status",
       :addresses => {"a"=>"1", "b"=>"2"},

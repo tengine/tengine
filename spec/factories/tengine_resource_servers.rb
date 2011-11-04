@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :"tengine/resource/server" do
     provider(nil)
     name("MyString")
-    provided_name("MyString")
+    provided_id("MyString")
     description("MyString")
     status("MyString")
     addresses({"a"=>"1", "b"=>"2"})

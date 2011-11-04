@@ -33,8 +33,8 @@ rails destroy scaffold Tengine::Resource::VirtualServerImage
 rails g scaffold Tengine::Resource::Credential name:string description:string auth_type_cd:string auth_values:hash
 rails g scaffold Tengine::Resource::Provider           name:string description:string
 rails g scaffold Tengine::Resource::Provider::Ec2      name:string description:string credential:references
-rails g scaffold Tengine::Resource::Server             provider:references name:string provided_name:string description:string status:string addresses:hash properties:hash
-rails g scaffold Tengine::Resource::PhysicalServer     provider:references name:string provided_name:string description:string status:string addresses:hash properties:hash
-rails g scaffold Tengine::Resource::VirtualServer      provider:references name:string provided_name:string description:string status:string addresses:hash properties:hash provided_image_id:string provided_type_id:string host_server:refetences
-rails g scaffold Tengine::Resource::VirtualServerImage provider:references name:string provided_name:string description:string
-rails g scaffold Tengine::Resource::VirtualServerType  provider:references name:string provided_name:string                    caption:string
+rails g scaffold Tengine::Resource::Server             provider:references name:string provided_id:string description:string status:string addresses:hash properties:hash
+rails g scaffold Tengine::Resource::PhysicalServer     provider:references name:string provided_id:string description:string status:string addresses:hash properties:hash
+rails g scaffold Tengine::Resource::VirtualServer      provider:references name:string provided_id:string description:string status:string addresses:hash properties:hash provided_image_id:string provided_type_id:string host_server:refetences
+rails g scaffold Tengine::Resource::VirtualServerImage provider:references name:string provided_id:string description:string
+rails g scaffold Tengine::Resource::VirtualServerType  provider:references name:string provided_id:string                    caption:string
