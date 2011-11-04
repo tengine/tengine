@@ -24,7 +24,13 @@ describe Tengine::Resource::VirtualServersController do
   # Tengine::Resource::VirtualServer. As you add validations to Tengine::Resource::VirtualServer, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :name => "virtual_server1"
+    }
+  end
+
+  before do
+    Tengine::Resource::Server.delete_all
   end
 
   describe "GET index" do
