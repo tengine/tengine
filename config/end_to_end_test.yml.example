@@ -7,6 +7,7 @@ tengine_console:
 
 db:
   nodes:
+# シャーディング構成
     - host: "localhost"
       port: "27027"
       dbpath: "/mongodb_e2e/node0/data"
@@ -19,3 +20,15 @@ db:
       port: "27029"
       dbpath: "/mongodb_e2e/node2/data"
       logpath: "/mongodb_e2e/node2/log"
+
+# シングルプロセス
+#    - host: "localhost"
+#      port: "27027"
+#      dbpath: "~/mongodb_e2e/single/data"
+#      logpath: "~/mongodb_e2e/single/log"
+			
+servers:
+  test_server1:
+    host: localhost
+    user: goku
+    password: dragonball
