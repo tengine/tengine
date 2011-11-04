@@ -13,13 +13,13 @@
 </p>
 
 <p>
-  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:description) %>:</b>
-  <%= @physical_server.description %>
+  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:provided_name) %>:</b>
+  <%= @physical_server.provided_name %>
 </p>
 
 <p>
-  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:provided_name) %>:</b>
-  <%= @physical_server.provided_name %>
+  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:description) %>:</b>
+  <%= @physical_server.description %>
 </p>
 
 <p>
@@ -28,23 +28,8 @@
 </p>
 
 <p>
-  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:public_hostname) %>:</b>
-  <%= @physical_server.public_hostname %>
-</p>
-
-<p>
-  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:public_ipv4) %>:</b>
-  <%= @physical_server.public_ipv4 %>
-</p>
-
-<p>
-  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:local_hostname) %>:</b>
-  <%= @physical_server.local_hostname %>
-</p>
-
-<p>
-  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:local_ipv4) %>:</b>
-  <%= @physical_server.local_ipv4 %>
+  <b><%= Tengine::Resource::PhysicalServer.human_attribute_name(:addresses) %>:</b>
+  <pre><%= @physical_server.addresses_yaml %></pre>
 </p>
 
 <p>
