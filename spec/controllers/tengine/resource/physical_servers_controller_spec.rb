@@ -24,7 +24,13 @@ describe Tengine::Resource::PhysicalServersController do
   # Tengine::Resource::PhysicalServer. As you add validations to Tengine::Resource::PhysicalServer, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :name => "physical_server1"
+    }
+  end
+
+  before do
+    Tengine::Resource::PhysicalServer.delete_all
   end
 
   describe "GET index" do

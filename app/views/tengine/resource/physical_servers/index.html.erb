@@ -18,7 +18,7 @@
 
 <% @physical_servers.each do |physical_server| %>
   <tr class="<%= cycle("even", "odd") %>" >
-    <td><%= physical_server.provider %></td>
+    <td><%= (physical_server.respond_to?(:provider) && physical_server.provider) ? physical_server.provider.name : "<No provider found>" %></td>
     <td><%= physical_server.name %></td>
     <td><%= physical_server.provided_name %></td>
     <td><%= physical_server.description %></td>
