@@ -2,6 +2,7 @@ ja:
   mongoid:
     models:
       tengine/job/root_jobnet_template: "テンプレートジョブ"
+      tengine/job/root_jobnet_actual: "実行中のジョブ"
 
     attributes:
       tengine/job/root_jobnet_template:
@@ -15,3 +16,32 @@ ja:
         script: "実行するスクリプト"
         description: "表示名"
         destinations: "次のジョブ"
+      tengine/job/root_jobnet_actual:
+        id: "ID"
+        name: "名称"
+        description: "表示名"
+        phase_cd: "フェーズ"
+        started_at: "開始時刻"
+        finished_at: "終了時刻"
+
+  selectable_attrs:
+    tengine/job/jobnet_actual:
+      phase_cd:
+        initialized: "初期化済"
+        ready: "準備済"
+        starting: "起動中"
+        running: "稼動中"
+        dying: "終了中"
+        success: "終了済"
+        error: ""
+        stuck: ""
+    tengine/job/root_jobnet_actual/finder:
+      phase:
+        initialized: "初期化済"
+        ready: "準備済"
+        starting: "起動中"
+        running: "稼動中"
+        dying: "終了中"
+        success: "終了済"
+        error: ""
+        stuck: ""

@@ -1,65 +1,106 @@
 <h1><%= page_title Tengine::Job::RootJobnetActual, :list %></h1>
 
-<p id="notice"><%= notice %></p>
+<div class="TreeViewContents">
+  <div class="DataView">
+    <div class="Wrap">
+    
+      <p id="notice"><%= notice %></p>
 
-<table>
-  <tr>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:name) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:server_name) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:credential_name) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:killing_signals) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:killing_signal_interval) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:description) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:script) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:jobnet_type_cd) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:executing_pid) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:exit_status) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:was_expansion) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:phase_cd) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:started_at) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:stopped_at) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:stop_reason) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:category) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:lock_version) %></th>
-    <th><%= Tengine::Job::RootJobnetActual.human_attribute_name(:template) %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+      <div class="search-box">
+        <%= form_for(:finder, :html => {:method => :get}) do |f| %>
+        <fieldset>
+          <legend><%= t("views.pages.search_caption") %></legend>
+          <table>
+            <tr>
+              <th><%= f.label :time %></th>
+              <td>
+                <%= f.select :time, [
+                  [Tengine::Job::RootJobnetActual.human_attribute_name(:started_at), :started_at],
+                  [Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at), :finished_at]] %>
+              </td>
+            </tr>
+            <tr>
+              <th></th>
+              <td>
+                <%= f.datetime_select :started_at %> -
+                <%= f.datetime_select :finished_at %>
+              </td>
+            </tr>
+            <tr>
+              <th><%= f.label :id %></th>
+              <td><%= f.text_field :id %></td>
+            </tr>
+            <tr>
+             <th><%= f.label :name %></th>
+             <td><%= f.text_field :name %></td>
+            </tr>
+            <tr>
+             <th><%= f.label :phase_cd %></th>
+             <td><%#= f.check_box_group :phase_cd %></td>
+            </tr>
+          </table>
+         <% if @category -%>
+           <%= hidden_field_tag :category, @category.id %>
+         <% end -%>
+  
+          <div class="align-right">
+            <%= f.submit(t("views.links.search")) %>
+            <%= tag :input, { "type" => "reset", "name" => "reset", "value" => t("views.links.reset") } %>
+          </div>
+        </fieldset>
+        <% end %>
+      </div>
+  
+      <%= paginate @root_jobnet_actuals, :items => @root_jobnet_actuals %>
+  
+      <table class="TableBase">
+        <colgroup>
+          <col class="Row1">
+          <col class="Row2">
+          <col class="Row3">
+          <col class="Row4">
+          <col class="Row5">
+          <col class="Row6">
+          <col class="Row7 RowAction">
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col"><%= link_to Tengine::Job::RootJobnetActual.human_attribute_name(:id), tengine_job_root_jobnet_actuals_path %></th>
+            <th scope="col"><%= link_to Tengine::Job::RootJobnetActual.human_attribute_name(:name), tengine_job_root_jobnet_actuals_path, :class => "asc" %></th>
+            <th scope="col"><%= link_to Tengine::Job::RootJobnetActual.human_attribute_name(:description), tengine_job_root_jobnet_actuals_path %></th>
+            <th scope="col"><%= link_to Tengine::Job::RootJobnetActual.human_attribute_name(:phase_cd), tengine_job_root_jobnet_actuals_path %></th>
+            <th scope="col"><%= link_to Tengine::Job::RootJobnetActual.human_attribute_name(:started_at), tengine_job_root_jobnet_actuals_path %></th>
+            <th scope="col"><%= link_to Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at), tengine_job_root_jobnet_actuals_path %></th>
+            <th scope="col"><%= t("views.pages.operation") %></th>
+          </tr>
+        </thead>
 
-<% @root_jobnet_actuals.each do |root_jobnet_actual| %>
-  <tr class="<%= cycle("even", "odd") %>" >
-    <td><%= root_jobnet_actual.name %></td>
-    <td><%= root_jobnet_actual.server_name %></td>
-    <td><%= root_jobnet_actual.credential_name %></td>
-    <td><%= root_jobnet_actual.killing_signals_text %></td>
-    <td><%= root_jobnet_actual.killing_signal_interval %></td>
-    <td><%= root_jobnet_actual.description %></td>
-    <td><%= root_jobnet_actual.script %></td>
-    <td><%= root_jobnet_actual.jobnet_type_cd %></td>
-    <td><%= root_jobnet_actual.executing_pid %></td>
-    <td><%= root_jobnet_actual.exit_status %></td>
-    <td><%= root_jobnet_actual.was_expansion %></td>
-    <td><%= root_jobnet_actual.phase_cd %></td>
-    <td><%= root_jobnet_actual.started_at %></td>
-    <td><%= root_jobnet_actual.finished_at %></td>
-    <td><%= root_jobnet_actual.stopped_at %></td>
-    <td><%= root_jobnet_actual.stop_reason %></td>
-    <td><%= root_jobnet_actual.category ? root_jobnet_actual.category.caption : nil %></td>
-    <td><%= root_jobnet_actual.lock_version %></td>
-    <td><%= root_jobnet_actual.template ? root_jobnet_actual.template.name : nil %></td>
-    <td><%= link_to_show root_jobnet_actual %></td>
-    <td><%= link_to_edit edit_tengine_job_root_jobnet_actual_path(root_jobnet_actual) %></td>
-    <td><%= link_to_destroy root_jobnet_actual, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+        <tbody>
+        <% @root_jobnet_actuals.each do |root_jobnet_actual| %>
+          <tr class="<%= cycle("even", "odd") %>" >
+            <td><%= root_jobnet_actual.id %></td>
+            <td><%= root_jobnet_actual.name %></td>
+            <td><%= root_jobnet_actual.description %></td>
+            <td><%= root_jobnet_actual.phase_name %></td>
+            <td><%= root_jobnet_actual.started_at %></td>
+            <td><%= root_jobnet_actual.finished_at %></td>
+            <td>
+              <%= link_to(t("views.links.watch"), root_jobnet_actual) %>
+              <%= link_to(t("views.links.rerun"), edit_tengine_job_root_jobnet_actual_path(root_jobnet_actual)) %>
+              <%= link_to(t("views.links.force_exit"), root_jobnet_actual, confirm: t(".confirm.destroy"), method: :delete ) %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+        
+      <%= paginate @root_jobnet_actuals, :items => @root_jobnet_actuals %>
+  
+    </div>
+  </div>
 
-<br />
-
-<%= paginate @root_jobnet_actuals %>
-
-<br />
-
-<%= link_to_new Tengine::Job::RootJobnetActual, new_tengine_job_root_jobnet_actual_path %>
+  <div class="TreeView">
+    <% params_without_page_and_sort = request.params.select{|k,v| %w(finder).include?(k.to_s) } -%>
+    <%== category_tree(@root_categories, "category", params_without_page_and_sort) %>
+  </div>
+</div>

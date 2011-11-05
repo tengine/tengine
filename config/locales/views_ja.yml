@@ -15,6 +15,9 @@ ja:
       new: "新規作成"
       back_list: "一覧に戻る"
       run: "実行"
+      rerun: "再実行"
+      force_exit: "強制停止"
+      watch: "監視"
       search: "検索"
       reset: "リセット"
     notice:

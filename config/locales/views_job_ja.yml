@@ -1,0 +1,7 @@
+ja:
+  tengine:
+    job:
+      root_jobnet_actuals:
+        index:
+          confirm:
+            destroy: "本当に強制停止しますか？"

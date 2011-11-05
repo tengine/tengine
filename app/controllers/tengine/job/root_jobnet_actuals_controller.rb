@@ -2,7 +2,11 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
   # GET /tengine/job/root_jobnet_actuals
   # GET /tengine/job/root_jobnet_actuals.json
   def index
-    @root_jobnet_actuals = Tengine::Job::RootJobnetActual.all(:sort => [[:_id]]).page(params[:page])
+    @finder = Tengine::Job::RootJobnetActual::Finder.new(params[:finder])
+    @category = nil
+    @root_jobnet_actuals = Tengine::Job::RootJobnetActual.all(:sort => [[:_id]]).page(params[:page]).per(1)
+    @root_categories = Tengine::Job::Category.all(:conditions => {:parent_id => nil})
+
 
     respond_to do |format|
       format.html # index.html.erb
