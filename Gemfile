@@ -12,15 +12,15 @@ gem 'rails', '~> 3.1.0'
 gem "selectable_attr", "~> 0.3.14"
 gem "selectable_attr_rails", "~> 0.3.14"
 
-gem "mongoid", "~> 2.2.0"
-gem "bson_ext", "~> 1.3.1"
+gem "mongoid", "~> 2.3.3"
+gem "bson_ext", "~> 1.4.0"
 
 gem "kaminari", "~> 0.12.4"
 
-gem "tengine_event"   , "= 0.2.8"
-gem "tengine_core"    , "~> 0.1.18"
-gem "tengine_resource", "~> 0.0.10"
-gem "tengine_job"     , "~> 0.1.7"
+gem "tengine_event"   , "~> 0.3.0"
+gem "tengine_core"    , "~> 0.3.0"
+gem "tengine_resource", "~> 0.3.0"
+gem "tengine_job"     , "~> 0.3.0"
 
 gem "daemons", "~> 1.1.4"
 
