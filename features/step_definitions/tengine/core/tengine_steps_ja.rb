@@ -1123,15 +1123,27 @@ end
   Tengine::Core::Event.delete_all 
 end
 
-前提 /^仮想サーバがインスタンス識別子:"([^"]*)"で登録されていること$/ do |name|
-  unless Tengine::Resource::VirtualServer.first(conditions:{name:name})
-    Tengine::Resource::VirtualServer.create!(name:name, public_ipv4:"localhost")
+前提 /^仮想サーバがインスタンス識別子:"([^"]*)"で登録されていること$/ do |server_name|
+  server_config = end_to_end_test_yaml["servers"][server_name]
+  addresses = {
+      :private_ip_address => '10.0.2.16',
+      :private_dns_name   => 'localhost',
+      :ip_address         => '10.0.2.16',
+      :dns_name           => 'localhost'
+  }
+  unless Tengine::Resource::VirtualServer.first(conditions:{name:server_name})
+    Tengine::Resource::VirtualServer.create!(name:server_name, addresses:addresses)
   end
 end
 
-前提 /^認証情報が名称:"([^"]*)"で登録されている$/ do |name|
-  unless Tengine::Resource::Credential.first(conditions:{name:name})
-     Tengine::Resource::Credential.create!(name:name, auth_type_cd: "01", auth_values: {"username"=>"goku", "password"=>"dragonball"})
+前提 /^認証情報が名称:"([^"]*)"で登録されている$/ do |credential_name|
+  credential_config = end_to_end_test_yaml["credentials"][credential_name]
+  auth_type_key = credential_config["auth_type_key"].to_sym
+  user = credential_config["user"]
+  password = credential_config["password"]
+  unless Tengine::Resource::Credential.first(conditions:{name:credential_name})
+     c = Tengine::Resource::Credential.create!(name:credential_name, auth_type_key: auth_type_key, auth_values: {"username"=>user, "password"=>password})
+     puts "create credential => #{c.inspect}"
   end
 end
 
@@ -1238,35 +1250,65 @@ end
   raise "先頭は\"#{text}\"ではなく、\"#{@h[file_name].first}\"です。" unless @h[file_name].first =~ /#{text}/
 end
 
+ならば /^"([^"]*)"と"([^"]*)"に出力されていること$/ do |text, file_name|
+  raise "\"#{text}\"は含まれていません。" unless text_exist?(text, @h[file_name])
+end
+
+def text_exist?(text, lines) 
+  lines.each do |line|
+     return true if line =~ /#{text}/
+  end 
+  return false
+end
+
+def get_line_no(text, lines) 
+  line_no = nil
+  lines.each_with_index do |line, index| 
+    if line =~ /#{text}/
+      line_no = index
+      break
+    end
+  end
+  line_no
+end
+
+ならば /^"([^"]*)"と"([^"]*)"に出力されており、"([^"]*)"の前であること$/ do |text, file_name, after_text|
+  lines = @h[file_name]
+
+  text_line_no = get_line_no(text, lines)
+  raise "\"#{text}\"は出力されていません。" unless text_line_no
+
+  after_line_no = get_line_no(after_text, lines)
+  raise "\"#{after_text}\"は出力されていません。" unless after_line_no
+
+  raise " \\"#{after_text}\"の前に\"#{text}\"は出力されていません。 " unless (text_line_no < after_line_no)
+end
+
+ならば /^"([^"]*)"と"([^"]*)"に出力されており、"([^"]*)"の後であること$/ do |text, file_name, before_text|
+
+  lines = @h[file_name]
+
+  before_line_no = get_line_no(before_text, lines)
+  raise "\"#{before_text}\"は出力されていません。" unless before_line_no
+
+  text_line_no = get_line_no(text, lines)
+  raise "\"#{text}\"は出力されていません。" unless text_line_no
+
+  raise " \"#{before_text}\"の後に\"#{text}\"は出力されていません。 " unless (before_line_no < text_line_no)
+end
+
+
 ならば /^"([^"]*)"と"([^"]*)"に出力されており、"([^"]*)"と"([^"]*)"の間であること$/ do |text, file_name, before_text, after_text|
 
   lines = @h[file_name]
 
-  before_line_no = nil
-  lines.each_with_index do |line, index| 
-    if line =~ /#{before_text}/
-      before_line_no = index
-      break
-    end
-  end
+  before_line_no = get_line_no(before_text, lines)
   raise "\"#{before_text}\"は出力されていません。" unless before_line_no
 
-  text_line_no = nil
-  lines.each_with_index do |line, index| 
-    if line =~ /#{text}/
-      text_line_no = index
-      break
-    end
-  end
+  text_line_no = get_line_no(text, lines)
   raise "\"#{text}\"は出力されていません。" unless text_line_no
 
-  after_line_no = nil
-  lines.each_with_index do |line, index| 
-    if line =~ /#{after_text}/
-      after_line_no = index
-      break
-    end
-  end
+  after_line_no = get_line_no(after_text, lines)
   raise "\"#{after_text}\"は出力されていません。" unless after_line_no
 
   raise " \"#{before_text}\"と\"#{after_text}\"の間に\"#{text}\"は出力されていません。 " unless (before_line_no < text_line_no && text_line_no < after_line_no)

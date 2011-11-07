@@ -82,7 +82,6 @@
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
     かつ "tengine_job_test job2 finish"と"スクリプトログ"の末尾に出力されていること
 
-
 	
   # ./usecases/job/dsl/1003_parallel_jobs_in_jobnet.rb
   #  -------------------
@@ -95,9 +94,25 @@
   #   job("job2", "$HOME/tengine_job_test.sh 0 job2")
   # end
   #  -------------------
+	@1003
   シナリオ: [正常系]1003_複数のジョブ(並列)が含まれるジョブネット
+		前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1003_parallel_jobs_in_jobnet.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1003"を実行する
+    かつ ジョブネット"jobnet1003"が完了することを確認する
+		
+    ならば ジョブネット"jobnet1003" のステータスが正常であること
+    かつ ジョブ"/jobnet1003/job1" のステータスが正常であること
+    かつ ジョブ"/jobnet1003/job2" のステータスが正常であること
 
-
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test job1 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"の後であること
+    ならば "tengine_job_test job2 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test job2 finish"と"スクリプトログ"に出力されており、"tengine_job_test job2 start"の後であること
 
 	
   # ./usecases/job/dsl/1004_hadoop_job_in_jobnet.rb
@@ -118,7 +133,28 @@
   #  -------------------
 	@1004
   シナリオ: [正常系]1004_hadoopジョブが含まれるジョブネット_を試してみる
+		前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1004_hadoop_job_in_jobnet.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1004"を実行する
+    かつ ジョブネット"jobnet1004"が完了することを確認する
+		
+    ならば ジョブネット"jobnet1004" のステータスが正常であること
+    かつ ジョブ"/jobnet1004/job1" のステータスが正常であること
+    かつ ジョブ"/jobnet1004/hadoop_job_run1" のステータスが正常であること
+    かつ ジョブ"/jobnet1004/job2" のステータスが正常であること
+																	 
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test import_hdfs start"と"スクリプトログ"の先頭に出力されていること
+		かつ "tengine_job_test import_hdfs finish"と"スクリプトログ"に出力されており、"tengine_job_test import_hdfs start"と"tengine_job_test hadoop_job_run start"の間であること
+    かつ "tengine_job_test hadoop_job_run start"と"スクリプトログ"に出力されており、"tengine_job_test import_hdfs start"と"tengine_job_test hadoop_job_run finish"の間であること
+    かつ "tengine_job_test hadoop_job_run finish"と"スクリプトログ"に出力されており、"tengine_job_test hadoop_job_run start"と"tengine_job_test export_hdfs start"の間であること
+    かつ "tengine_job_test export_hdfs start"と"スクリプトログ"に出力されており、"tengine_job_test hadoop_job_run finish"と"tengine_job_test export_hdfs finish"の間であること
+    かつ "tengine_job_test export_hdfs finish"と"スクリプトログ"の末尾に出力されていること
 
+	
   # ./usecases/job/dsl/1005_finally_in_jobnet.rb
   #  -------------------
   # 
@@ -134,7 +170,25 @@
   #  -------------------
 	@1005
   シナリオ: [正常系]1005_finallyが含まれるジョブネット_を試してみる
+		前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1005_finally_in_jobnet.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1005"を実行する
+    かつ ジョブネット"jobnet1005"が完了することを確認する
+		
+    ならば ジョブネット"jobnet1005" のステータスが正常であること
+    かつ ジョブ"/jobnet1005/job1" のステータスが正常であること
+    かつ ジョブ"/jobnet1005/jobnet1005_finally" のステータスが正常であること
+																	 
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
+		かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test jobnet1005_finally start"の間であること
+    かつ "tengine_job_test jobnet1005_finally start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test jobnet1005_finally finish"の間であること
+    かつ "tengine_job_test jobnet1005_finally finish"と"スクリプトログ"の末尾に出力されていること
 
+	
   # ./usecases/job/dsl/1006_expansion_in_jobnet.rb
 	#  -------------------
   # 
@@ -153,7 +207,27 @@
   #  -------------------
 	@1006
   シナリオ: [正常系]1006_expansionが含まれるジョブネット_を試してみる
+		前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1005_finally_in_jobnet.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1005"を実行する
+    かつ ジョブネット"jobnet1005"が完了することを確認する
+		
+    ならば ジョブネット"jobnet1004" のステータスが正常であること
+    かつ ジョブ"/jobnet1005/job1" のステータスが正常であること
+    かつ ジョブ"/jobnet1005/jobnet1005_finally" のステータスが正常であること
+																	 
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
+		かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test jobnet1005_finally start"の間であること
+    かつ "tengine_job_test jobnet1005_finally start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test jobnet1005_finally finish"の間であること
+    かつ "tengine_job_test jobnet1005_finally finish"と"スクリプトログ"の末尾に出力されていること
 
+
+
+	
 	
   # ./usecases/job/dsl/1007_boot_jobs_in_jobnet.rb
 	#  -------------------
