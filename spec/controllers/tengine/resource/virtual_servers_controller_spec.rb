@@ -25,12 +25,12 @@ describe Tengine::Resource::VirtualServersController do
   # update the return value of this method accordingly.
   def valid_attributes
     {
-      :name => "server1",
+      :name => "virtual_server1"
     }
   end
 
   before do
-    Tengine::Resource::VirtualServer.delete_all
+    Tengine::Resource::Server.delete_all
   end
 
   describe "GET index" do

@@ -7,7 +7,7 @@
     <th><%= Tengine::Resource::VirtualServerImage.human_attribute_name(:provider) %></th>
     <th><%= Tengine::Resource::VirtualServerImage.human_attribute_name(:name) %></th>
     <th><%= Tengine::Resource::VirtualServerImage.human_attribute_name(:description) %></th>
-    <th><%= Tengine::Resource::VirtualServerImage.human_attribute_name(:provided_name) %></th>
+    <th><%= Tengine::Resource::VirtualServerImage.human_attribute_name(:provided_id) %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -18,7 +18,7 @@
     <td><%= virtual_server_image.provider %></td>
     <td><%= virtual_server_image.name %></td>
     <td><%= virtual_server_image.description %></td>
-    <td><%= virtual_server_image.provided_name %></td>
+    <td><%= virtual_server_image.provided_id %></td>
     <td><%= link_to_show virtual_server_image %></td>
     <td><%= link_to_edit edit_tengine_resource_virtual_server_image_path(virtual_server_image) %></td>
     <td><%= link_to_destroy virtual_server_image, confirm: 'Are you sure?', method: :delete %></td>

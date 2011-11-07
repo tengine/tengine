@@ -15,3 +15,12 @@ en:
       successfully_created: "%{model} was successfully created."
       successfully_updated: "%{model} was successfully updated."
       successfully_destroyed: "%{model} was successfully destroyed."
+    pagination:
+      caption: "#{first_number} - #{last_number} of #{total_number}"
+      first: "First"
+      last: "Last"
+      previous: "Previous"
+      next: "Next"
+      truncate: "..."
+    category_tree:
+      all: "All"

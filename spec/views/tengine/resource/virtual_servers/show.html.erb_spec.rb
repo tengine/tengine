@@ -3,43 +3,31 @@ require 'spec_helper'
 describe "tengine/resource/virtual_servers/show.html.erb" do
   before(:each) do
     @virtual_server = assign(:virtual_server, stub_model(Tengine::Resource::VirtualServer,
+      :provider => nil,
       :name => "Name",
+      :provided_id => "Provided Name",
       :description => "Description",
-      :host => nil,
-      :provided_name => "Provided Name",
       :status => "Status",
-      :public_hostname => "Public Hostname",
-      :public_ipv4 => "Public Ipv4",
-      :local_hostname => "Local Hostname",
-      :local_ipv4 => "Local Ipv4",
+      :addresses => {"a"=>"1", "b"=>"2"},
       :properties => {"a"=>"1", "b"=>"2"},
-      :provided_image_name => "Provided Image Name"
+      :provided_image_id => "Provided Image",
+      :provided_type_id => "Provided Type",
+      :host_server => ""
     ))
   end
 
   it "renders attributes in <p>" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Name/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Description/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(//)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
+    rendered.should match(/Name/)
     rendered.should match(/Provided Name/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
+    rendered.should match(/Description/)
     rendered.should match(/Status/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Public Hostname/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Public Ipv4/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Local Hostname/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Local Ipv4/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump({"a"=>"1", "b"=>"2"})))}/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Provided Image Name/)
+    rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump({"a"=>"1", "b"=>"2"})))}/)
+    rendered.should match(/Provided Image/)
+    rendered.should match(/Provided Type/)
+    rendered.should match(//)
   end
 end

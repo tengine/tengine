@@ -7,13 +7,13 @@ describe "tengine/resource/virtual_server_images/index.html.erb" do
         :provider => nil,
         :name => "Name",
         :description => "Description",
-        :provided_name => "Provided Name"
+        :provided_id => "Provided Name"
       ),
       stub_model(Tengine::Resource::VirtualServerImage,
         :provider => nil,
         :name => "Name",
         :description => "Description",
-        :provided_name => "Provided Name"
+        :provided_id => "Provided Name"
       )
     ]))
   end
