@@ -1125,14 +1125,10 @@ end
 
 前提 /^仮想サーバがインスタンス識別子:"([^"]*)"で登録されていること$/ do |server_name|
   server_config = end_to_end_test_yaml["servers"][server_name]
-  addresses = {
-      :private_ip_address => '10.0.2.16',
-      :private_dns_name   => 'localhost',
-      :ip_address         => '10.0.2.16',
-      :dns_name           => 'localhost'
-  }
+  addresses = server_config["addresses"]
   unless Tengine::Resource::VirtualServer.first(conditions:{name:server_name})
-    Tengine::Resource::VirtualServer.create!(name:server_name, addresses:addresses)
+    s = Tengine::Resource::VirtualServer.create!(name:server_name, addresses:addresses)
+    puts "create server => #{s.inspect}"
   end
 end
 
@@ -1156,7 +1152,8 @@ end
 end
 
 もし /^ジョブネット"([^"]*)"が完了することを確認する$/ do |name|
-  time_out(60) do
+#  time_out(60) do
+  time_out(20) do
     while true
       @root_jobnet.reload
       phase_name = @root_jobnet.phase_name
@@ -1191,11 +1188,24 @@ end
 もし /^"([^"]*)"の状態が"([^"]*)"であることを確認する$/ do |name, status_name|
   raise "#{name}のPIDが取得できていません。" unless pid = @h[name][:pid]
   status = nil
-  if status_name == "稼働中"
+
+  case status_name
+  when "初期化済み"
+    status = "initialized"
+  when "起動中"
+    status = "starting"
+  when "稼働要求待ち"
+    status = "waiting_activation"
+  when "稼働中"
     status = "running"
-  else 
-    raise "サポートしてません" 
+  when "停止中"
+    status = "shutting_down"
+  when "停止済"
+    status = "terminated"
+  else
+    raise "サポートしてません"
   end
+
   time_out(10) do
     while true
       command = "tengined -k status | grep #{pid} | awk '{print $2}'"
@@ -1206,6 +1216,10 @@ end
       sleep 1
     end
   end
+end
+
+ならば /^"([^"]*)"の状態が"([^"]*)"であること$/ do |name, status_name|
+   もし %{"#{name}"の状態が"#{status_name}"であることを確認する}
 end
 
 
