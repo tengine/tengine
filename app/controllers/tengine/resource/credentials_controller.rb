@@ -1,8 +1,44 @@
+require 'ostruct'
+
 class Tengine::Resource::CredentialsController < ApplicationController
   # GET /tengine/resource/credentials
   # GET /tengine/resource/credentials.json
   def index
     @credentials = Tengine::Resource::Credential.all(:sort => [[:_id]]).page(params[:page])
+
+    if sort_param = params[:sort]
+      order = []
+      sort_param.each do |k, v|
+        v = (v.to_s == "desc") ? :desc : :asc
+        k = case k.to_s
+            when "name"
+              [:name, v]
+            when "description"
+              [:description, v]
+            when "auth_type_cd"
+              [:auth_type_cd, v]
+            end
+        order.push k
+      end
+    else
+      default_sort = {:name => "asc"}
+      request.query_parameters[:sort] = default_sort
+      order = default_sort.to_a
+    end
+    @credentials = @credentials.order_by(order)
+
+    if search_param = params[:finder]
+      @finder = ::OpenStruct.new search_param
+      finder = {}
+      [:name, :description,:auth_type_cd].each do |field|
+        next if (value = @finder.send(field)).blank?
+        value = /#{Regexp.escape(value)}/
+        finder[field] = value
+      end
+      @credentials = @credentials.where(finder)
+    end
+
+    @credentials = @credentials.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
