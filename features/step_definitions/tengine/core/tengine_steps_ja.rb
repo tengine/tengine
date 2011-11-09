@@ -1151,9 +1151,9 @@ end
   @root_jobnet = @execution.root_jobnet
 end
 
-もし /^ジョブネット"([^"]*)"が完了することを確認する$/ do |name|
-#  time_out(60) do
-  time_out(20) do
+
+def jobnet_finished_confirme(name, time)
+  time_out(time) do
     while true
       @root_jobnet.reload
       phase_name = @root_jobnet.phase_name
@@ -1164,13 +1164,53 @@ end
   end
 end
 
-ならば /^ジョブネット"([^"]*)" のステータスが正常であること$/ do |arg1|
-  @root_jobnet.phase_name.should == "success"
+もし /^ジョブネット"([^"]*)"が完了することを確認する$/ do |name|
+  # jobnet_finished_confirme(name, 60)
+  jobnet_finished_confirme(name, 20)
 end
 
-ならば /^ジョブ"([^"]*)" のステータスが正常であること$/ do |path|
+もし /^ジョブネット"([^"]*)"が完了することを確認する。少なくとも([^"]*)秒間は待つ。$/ do |name, time|
+  jobnet_finished_confirme(name, time.to_i)
+end
+
+ならば /^ジョブネット"([^"]*)" のステータスが([^"]*)であること$/ do |path, status|
+  jobnet = @root_jobnet.vertex_by_name_path(path)
+  raise "ジョブネット #{path} は存在しません。" unless jobnet
+  case status
+  when "初期化済"
+    jobnet.phase_name.should == "initialized"
+  when "正常終了"
+    jobnet.phase_name.should == "success"
+  when "エラー終了"
+    jobnet.phase_name.should == "error"
+  else
+   raise "#{status}はstep定義でサポートしていないステータスです。"
+  end
+end
+
+ならば /^ジョブ"([^"]*)" のステータスが([^"]*)であること$/ do |path, status|
   job = @root_jobnet.vertex_by_name_path(path)
-  job.phase_name.should == "success"
+  raise "ジョブ #{path} は存在しません。" unless job
+  case status
+  when "初期化済"
+    job.phase_name.should == "initialized"
+  when "準備中"
+    job.phase_name.should == "ready"
+  when "開始中"
+    job.phase_name.should == "starting"
+  when "実行中"
+    job.phase_name.should == "running"
+  when "強制停止中"
+    job.phase_name.should == "dying"
+  when "状態不明"
+    job.phase_name.should == "stuck"
+  when "正常終了"
+    job.phase_name.should == "success"
+  when "エラー終了"
+    job.phase_name.should == "error"
+  else
+   raise "#{status}はstep定義でサポートしていないステータスです。"
+  end
 end
 
 
@@ -1266,6 +1306,10 @@ end
 
 ならば /^"([^"]*)"と"([^"]*)"に出力されていること$/ do |text, file_name|
   raise "\"#{text}\"は含まれていません。" unless text_exist?(text, @h[file_name])
+end
+
+ならば /^"([^"]*)"と"([^"]*)"に出力されていないこと$/ do |text, file_name|
+  raise "\"#{text}\"が含まれています。" if text_exist?(text, @h[file_name])
 end
 
 def text_exist?(text, lines) 

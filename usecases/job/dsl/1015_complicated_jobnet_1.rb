@@ -19,7 +19,7 @@ boot_jobs("i_jobnet1-1", "i_jobnet1-2", "i_jobnet1-3", "i_jobnet2-1", "i_jobnet2
       job("i_job1-1", "$HOME/tengine_job_test.sh 1 job1-1",:to => "i_job3")
       job("i_job1-2", "$HOME/tengine_job_test.sh 1 job1-2",:to => "i_job3")
       job("i_job1-3", "$HOME/tengine_job_test.sh 1 job1-3",:to => "i_job3")
-      job("i_job2-1", "sleeeeeep 1",:to => "i_job2-0")
+      job("i_job2-1", "$HOME/tengine_job_failure_test.sh 1 job2-1",:to => "i_job2-0")
       job("i_job2-2", "$HOME/tengine_job_test.sh 1 job2-2",:to => "i_job2-0")
       job("i_job2-0", "$HOME/tengine_job_test.sh 1 job2-0",:to => "i_job3")
       job("i_job3", "$HOME/tengine_job_test.sh 1 job3")
