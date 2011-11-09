@@ -2,11 +2,42 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
   # GET /tengine/job/root_jobnet_actuals
   # GET /tengine/job/root_jobnet_actuals.json
   def index
-    @finder = Tengine::Job::RootJobnetActual::Finder.new(params[:finder])
-    @category = nil
-    @root_jobnet_actuals = Tengine::Job::RootJobnetActual.all(:sort => [[:_id]]).page(params[:page]).per(1)
-    @root_categories = Tengine::Job::Category.all(:conditions => {:parent_id => nil})
+    @root_jobnet_actuals = Mongoid::Criteria.new(Tengine::Job::RootJobnetActual)
 
+    if sort_param = params[:sort]
+      order = []
+      sort_param.each do |k, v|
+        v = (v.to_s == "desc") ? :desc : :asc
+        k = case k.to_s
+            when "id"
+              [:_id, v]
+            when "name", "description", "phase_cd", "started_at", "finished_at"
+              [k, v]
+            end
+        order.push k
+      end
+    else
+      default_sort = {:name => "asc"}
+      request.query_parameters[:sort] = default_sort
+      order = default_sort.to_a
+    end
+    @root_jobnet_actuals = @root_jobnet_actuals.order_by(order)
+
+    @finder = Tengine::Job::RootJobnetActual::Finder.new(params[:finder])
+    @root_jobnet_actuals = @finder.scope(@root_jobnet_actuals)
+
+    @category = nil
+    if category_id = params[:category]
+      @category = Tengine::Job::Category.first(:conditions => {:id => category_id})
+      categories = category_childrens(@category).collect(&:id)
+      unless categories.blank?
+        @root_jobnet_actuals = \
+          @root_jobnet_actuals.any_in({:category_id => categories})
+      end
+    end
+
+    @root_jobnet_actuals = @root_jobnet_actuals.page(params[:page])
+    @root_categories = Tengine::Job::Category.all(:conditions => {:parent_id => nil})
 
     respond_to do |format|
       format.html # index.html.erb
@@ -82,6 +113,23 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tengine_job_root_jobnet_actuals_url, notice: successfully_destroyed(@root_jobnet_actual) }
       format.json { head :ok }
+    end
+  end
+
+  private
+
+  def category_childrens(category)
+    result = []
+    return result unless category
+    _category_childrens(result, category)
+    return result
+  end
+
+  def _category_childrens(result, category)
+    return unless category
+    result << category
+    category.children.each do |i|
+      _category_childrens(result, i)
     end
   end
 end

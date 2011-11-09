@@ -12,9 +12,9 @@
           <legend><%= t("views.pages.search_caption") %></legend>
           <table>
             <tr>
-              <th><%= f.label :time %></th>
+              <th><%= f.label :duration %></th>
               <td>
-                <%= f.select :time, [
+                <%= f.select :duration, [
                   [Tengine::Job::RootJobnetActual.human_attribute_name(:started_at), :started_at],
                   [Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at), :finished_at]] %>
               </td>
@@ -22,8 +22,8 @@
             <tr>
               <th></th>
               <td>
-                <%= f.datetime_select :started_at %> -
-                <%= f.datetime_select :finished_at %>
+                <%= f.datetime_select :duration_start %> -
+                <%= f.datetime_select :duration_finish %>
               </td>
             </tr>
             <tr>
@@ -36,7 +36,7 @@
             </tr>
             <tr>
              <th><%= f.label :phase_cd %></th>
-             <td><%#= f.check_box_group :phase_cd %></td>
+             <td><%= f.check_box_group :phase_cd %></td>
             </tr>
           </table>
          <% if @category -%>
@@ -83,7 +83,7 @@
             <td><%= root_jobnet_actual.name %></td>
             <td><%= root_jobnet_actual.description %></td>
             <td><%= root_jobnet_actual.phase_name %></td>
-            <td><%= root_jobnet_actual.started_at %></td>
+            <td><%= root_jobnet_actual.started_at.to_s %></td>
             <td><%= root_jobnet_actual.finished_at %></td>
             <td>
               <%= link_to(t("views.links.watch"), root_jobnet_actual) %>

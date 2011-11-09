@@ -12,7 +12,7 @@ ja:
         properties: "プロパティ"
         properties_yaml: "プロパティ(YAML形式)"
       finder:
-        time: "期間"
+        duration: "期間"
         id: "ID"
         name: "名称"
         phase_cd: "フェーズ"

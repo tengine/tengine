@@ -76,7 +76,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
     it "期間選択のフィールドが表示されてること" do
       render
 
-      rendered.should have_xpath("//select[@id='finder_time']", :count => 1)
+      rendered.should have_xpath("//select[@id='finder_duration']", :count => 1)
       rendered.should have_xpath("//option[@value='started_at']", :count => 1)
       rendered.should have_xpath("//option[@value='finished_at']", :count => 1)
     end
@@ -84,10 +84,10 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
     it "期間の日時を選択するフィールドが表示されていること" do
       render
 
-      render.should have_xpath("//select[@id='finder_started_at_1i']", :count => 1)
-      render.should have_xpath("//select[@id='finder_started_at_4i']", :count => 1)
-      render.should have_xpath("//select[@id='finder_finished_at_1i']", :count => 1)
-      render.should have_xpath("//select[@id='finder_finished_at_4i']", :count => 1)
+      render.should have_xpath("//select[@id='finder_duration_start_1i']", :count => 1)
+      render.should have_xpath("//select[@id='finder_duration_start_4i']", :count => 1)
+      render.should have_xpath("//select[@id='finder_duration_finish_1i']", :count => 1)
+      render.should have_xpath("//select[@id='finder_duration_finish_4i']", :count => 1)
     end
 
     it "IDの検索フィールドが表示されていること" do
@@ -252,9 +252,9 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
     context "@finderが設定されているとき" do
       before do
         @finder = Tengine::Job::RootJobnetActual::Finder.new({
-          :time => "started_at",
-          :started_at => Time.new(2011, 11, 6, 10, 30),
-          :finished_at => Time.new(2011, 11, 6, 12, 30),
+          :duration => "started_at",
+          :duration_start => Time.new(2011, 11, 6, 10, 30),
+          :duration_finish => Time.new(2011, 11, 6, 12, 30),
           :id => "10",
           :name => "test name",
           :phase_ids => ["20"],
