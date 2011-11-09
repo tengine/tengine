@@ -30,12 +30,18 @@ class Tengine::Resource::CredentialsController < ApplicationController
     if search_param = params[:finder]
       @finder = ::OpenStruct.new search_param
       finder = {}
-      [:name, :description,:auth_type_cd].each do |field|
+      [:name, :description].each do |field|
         next if (value = @finder.send(field)).blank?
         value = /#{Regexp.escape(value)}/
         finder[field] = value
       end
       @credentials = @credentials.where(finder)
+      auth_type = {:auth_type_cd_01 => "01", :auth_type_cd_02 => "02", :auth_type_cd_03 => "03"}
+      auth_type_finder =[] 
+      auth_type.each do |key, id |
+         auth_type_finder << {:auth_type_cd => id}  if @finder.send(key) == "1"
+      end
+      @credentials = @credentials.any_of(auth_type_finder) unless auth_type_finder.empty?
     end
 
     @credentials = @credentials.page(params[:page])

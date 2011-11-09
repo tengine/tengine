@@ -45,6 +45,7 @@ describe Tengine::Resource::CredentialsController do
       credentials = assigns(:credentials)
       credentials.to_a.should eq([credential])
     end
+   
   end
 
   describe "GET show" do
