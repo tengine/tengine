@@ -11,7 +11,7 @@ require 'tengine_job'
 #        |   {                      }   |
 #        |   {________finally_______}   |
 #        |   {                      }   |
-#        |   { [S3]-->[jf1]-->[E3]  }   |
+#        |   { [S3]-->[fj1]-->[E3]  }   |
 #        |   {                      }   |
 #        |   {----------------------}   |
 #        |                              |
@@ -23,7 +23,7 @@ require 'tengine_job'
 #            {                      }
 #            {________finally_______}
 #            {                      }
-#            { [S5]-->[jf2]-->[E5]  }
+#            { [S5]-->[fj2]-->[E5]  }
 #            {                      }
 #            {----------------------}
 #
@@ -58,16 +58,16 @@ jobnet("jobnet1091", :instance_name => "test_server1", :credential_name => "test
     boot_jobs("j1")
     job("j1", "$HOME/tengine_job_test.sh 0 j1")
     finally do 
-      boot_jobs("jf1")
-      job("jf1", "$HOME/tengine_job_test.sh 0 jf1")
+      boot_jobs("fj1")
+      job("fj1", "$HOME/tengine_job_test.sh 0 fj1")
     end
   end
   jobnet("jobnet1091-2", :instance_name => "test_server3", :credential_name => "test_credential3") do 
     boot_jobs("j2")
     job("j2", "$HOME/tengine_job_test.sh 0 j2")
     finally do 
-      boot_jobs("jf2")
-      job("jf2", "$HOME/tengine_job_test.sh 0 jf2")
+      boot_jobs("fj2")
+      job("fj2", "$HOME/tengine_job_test.sh 0 fj2")
     end
   end
   finally do

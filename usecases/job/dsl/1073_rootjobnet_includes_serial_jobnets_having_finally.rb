@@ -23,7 +23,7 @@ require 'tengine_job'
 
 jobnet("jobnet1073", :instance_name => "test_server1", :credential_name => "test_credential1") do
   boot_jobs("jobnet1073-1")
-  jobnet("jobnet1073-1", to: => "jobnet1073-2") do 
+  jobnet("jobnet1073-1", :to => "jobnet1073-2") do 
     boot_jobs("j1")
     job("j1", "$HOME/tengine_job_test.sh 0 j1")
     finally do 

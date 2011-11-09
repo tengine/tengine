@@ -1642,12 +1642,12 @@
     かつ ジョブネット"jobnet1072"が完了することを確認する
 		
     ならば ジョブネット"/jobnet1072" のステータスが正常終了であること
-#		かつ ジョブネット"/jobnet1072/jobnet1072-1" のステータスが正常終了であること
-#    かつ ジョブ"/jobnet1072/jobnet1072-1/job1" のステータスが正常終了であること
-#		かつ ジョブネット"/jobnet1072/jobnet1072-1/finally" のステータスが正常終了であること
-#    かつ ジョブ"/jobnet1072/jobnet1072-1/finally/jobnet1072-1_finally" のステータスが正常終了であること
-#		かつ ジョブネット"/jobnet1072/finally" のステータスが正常終了であること
-#    かつ ジョブ"/jobnet1072/finally/jobnet1072_finally" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1072/jobnet1072-1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1072/jobnet1072-1/job1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1072/jobnet1072-1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1072/jobnet1072-1/finally/jobnet1072-1_finally" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1072/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1072/finally/jobnet1072_finally" のステータスが正常終了であること
 
 		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
 		ならば "tengine_job_test job1 start"と"スクリプトログ"に出力されていること
@@ -1688,7 +1688,7 @@
   # 
   # jobnet("jobnet1073", :instance_name => "test_server1", :credential_name => "test_credential1") do
   #   boot_jobs("jobnet1073-1")
-  #   jobnet("jobnet1073-1", to: => "jobnet1073-2") do 
+  #   jobnet("jobnet1073-1", :to => "jobnet1073-2") do 
   #     boot_jobs("j1")
   #     job("j1", "$HOME/tengine_job_test.sh 0 j1")
   #     finally do 
@@ -1711,7 +1711,41 @@
 	#  -------------------
 	@1073
   シナリオ: [正常系]1073_ルートジョブネットがFinally付きのジョブネット(直列)_を試してみる
-	
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1073_rootjobnet_includes_serial_jobnets_having_finally.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1073"を実行する
+    かつ ジョブネット"jobnet1073"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1073" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1073/jobnet1073-1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1073/jobnet1073-1/j1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1073/jobnet1073-1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1073/jobnet1073-1/finally/jf1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1073/jobnet1073-2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1073/jobnet1073-2/j2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1073/jobnet1073-2/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1073/jobnet1073-2/finally/jf2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1073/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1073/finally/jobnet1073_finally" のステータスが正常終了であること
+
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+		ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
+    かつ "tengine_job_test jf1 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+    かつ "tengine_job_test jf1 finish"と"スクリプトログ"に出力されており、"tengine_job_test jf1 start"の後であること
+
+		かつ "tengine_job_test j2 start"と"スクリプトログ"に出力されており、"tengine_job_test jf1 finish"の後であること
+		かつ "tengine_job_test j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test j2 start"の後であること
+    かつ "tengine_job_test jf2 start"と"スクリプトログ"に出力されており、"tengine_job_test j2 finish"の後であること
+    かつ "tengine_job_test jf2 finish"と"スクリプトログ"に出力されており、"tengine_job_test jf2 start"の後であること
+		
+    かつ "tengine_job_test jobnet1073_finally start"と"スクリプトログ"に出力されており、"tengine_job_test jf2 finish"の後であること
+    かつ "tengine_job_test jobnet1073_finally finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1073_finally start"の後であること
+
 	# ./usecases/job/dsl/1074_rootjobnet_includes_parallel_jobnets_having_finally.rb
 	#  -------------------
   # # -*- coding: utf-8 -*-
@@ -1773,6 +1807,42 @@
 	#  -------------------
 	@1074
   シナリオ: [正常系]1074_ルートジョブネットがFinally付きのジョブネット(並列)_を試してみる
+	
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1074_rootjobnet_includes_parallel_jobnets_having_finally.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1074"を実行する
+    かつ ジョブネット"jobnet1074"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1074" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1074/jobnet1074-1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1074/jobnet1074-1/j1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1074/jobnet1074-1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1074/jobnet1074-1/finally/jf1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1074/jobnet1074-2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1074/jobnet1074-2/j2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1074/jobnet1074-2/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1074/jobnet1074-2/finally/jf2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1074/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1074/finally/jobnet1074_finally" のステータスが正常終了であること
+
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+		ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
+    かつ "tengine_job_test jf1 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+    かつ "tengine_job_test jf1 finish"と"スクリプトログ"に出力されており、"tengine_job_test jf1 start"の後であること
+
+		かつ "tengine_job_test j2 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test j2 start"の後であること
+    かつ "tengine_job_test jf2 start"と"スクリプトログ"に出力されており、"tengine_job_test j2 finish"の後であること
+    かつ "tengine_job_test jf2 finish"と"スクリプトログ"に出力されており、"tengine_job_test jf2 start"の後であること
+
+    かつ "tengine_job_test jobnet1074_finally start"と"スクリプトログ"に出力されており、"tengine_job_test jf1 finish"の後であること
+    かつ "tengine_job_test jobnet1074_finally start"と"スクリプトログ"に出力されており、"tengine_job_test jf2 finish"の後であること
+    かつ "tengine_job_test jobnet1074_finally finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1074_finally start"の後であること
+
 
 	
 	# ./usecases/job/dsl/1075_rootjobnet_includes_3_layers_jobnets_having_finally.rb
@@ -1819,11 +1889,11 @@
   #     jobnet("jobnet1075-2") do 
   #       boot_jobs("jobnet1075-3")
   #       jobnet("jobnet1075-3") do 
-  #         boot_jobs("j3""$HOME/tengine_job_test.sh 0 j3")
-  #         job("j3",)
+  #         boot_jobs("j3")
+  #         job("j3","$HOME/tengine_job_test.sh 0 j3")
   #         finally do 
   #           boot_jobs("jf3")
-  #           job("jf3", "$HOME/tengine_job_test.sh 0 j3")
+  #           job("jf3", "$HOME/tengine_job_test.sh 0 jf3")
   #         end
   #       end
   #       finally do 
@@ -1843,6 +1913,44 @@
 	#  -------------------
 	@1075
   シナリオ: [正常系]1075_ルートジョブネットがFinally付きのジョブネット入れ子3層_を試してみる
+	
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1075_rootjobnet_includes_3_layers_jobnets_having_finally.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1075"を実行する
+    かつ ジョブネット"jobnet1075"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1075" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1075/jobnet1075-1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1075/jobnet1075-1/jobnet1075-2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1075/jobnet1075-1/jobnet1075-2/jobnet1075-3" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1075/jobnet1075-1/jobnet1075-2/jobnet1075-3/j3" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1075/jobnet1075-1/jobnet1075-2/jobnet1075-3/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1075/jobnet1075-1/jobnet1075-2/jobnet1075-3/finally/jf3" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1075/jobnet1075-1/jobnet1075-2/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1075/jobnet1075-1/jobnet1075-2/finally/jf2" のステータスが正常終了であること
+    かつ ジョブネット"/jobnet1075/jobnet1075-1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1075/jobnet1075-1/finally/jf1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1075/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1075/finally/jobnet1075_finally" のステータスが正常終了であること
+
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+		ならば "tengine_job_test j3 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j3 finish"と"スクリプトログ"に出力されており、"tengine_job_test j3 start"の後であること
+    かつ "tengine_job_test jf3 start"と"スクリプトログ"に出力されており、"tengine_job_test j3 finish"の後であること
+    かつ "tengine_job_test jf3 finish"と"スクリプトログ"に出力されており、"tengine_job_test jf3 start"の後であること
+
+    かつ "tengine_job_test jf2 start"と"スクリプトログ"に出力されており、"tengine_job_test jf3 finish"の後であること
+    かつ "tengine_job_test jf2 finish"と"スクリプトログ"に出力されており、"tengine_job_test jf2 start"の後であること
+
+    かつ "tengine_job_test jf1 start"と"スクリプトログ"に出力されており、"tengine_job_test jf2 finish"の後であること
+    かつ "tengine_job_test jf1 finish"と"スクリプトログ"に出力されており、"tengine_job_test jf1 start"の後であること
+
+    かつ "tengine_job_test jobnet1075_finally start"と"スクリプトログ"に出力されており、"tengine_job_test jf1 finish"の後であること
+    かつ "tengine_job_test jobnet1075_finally finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1075_finally start"の後であること
+
 	
 	# ./usecases/job/dsl/1076_rootjobnet_includes_parallel_jobnets_having_finally_and_different_credentials.rb
 	#  -------------------
@@ -1905,6 +2013,44 @@
 	#  -------------------
 	@1076
   シナリオ: [正常系]1076_ルートジョブネットがクレデンシャルが違うジョブネット(並列)_を試してみる
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    かつ 認証情報が名称:"test_credential1-1"で登録されている
+		
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1076_rootjobnet_includes_parallel_jobnets_having_finally_and_different_credentials.rb  -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1076"を実行する
+    かつ ジョブネット"jobnet1076"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1076" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1076/jobnet1076-1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1076/jobnet1076-1/j1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1076/jobnet1076-1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1076/jobnet1076-1/finally/jf1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1076/jobnet1076-2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1076/jobnet1076-2/j2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1076/jobnet1076-2/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1076/jobnet1076-2/finally/jf2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1076/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1076/finally/jobnet1076_finally" のステータスが正常終了であること
+
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+		ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
+    かつ "tengine_job_test jf1 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+    かつ "tengine_job_test jf1 finish"と"スクリプトログ"に出力されており、"tengine_job_test jf1 start"の後であること
+
+		かつ "tengine_job_test j2 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test j2 start"の後であること
+    かつ "tengine_job_test jf2 start"と"スクリプトログ"に出力されており、"tengine_job_test j2 finish"の後であること
+    かつ "tengine_job_test jf2 finish"と"スクリプトログ"に出力されており、"tengine_job_test jf2 start"の後であること
+
+    かつ "tengine_job_test jobnet1076_finally start"と"スクリプトログ"に出力されており、"tengine_job_test jf1 finish"の後であること
+    かつ "tengine_job_test jobnet1076_finally start"と"スクリプトログ"に出力されており、"tengine_job_test jf2 finish"の後であること
+    かつ "tengine_job_test jobnet1076_finally finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1076_finally start"の後であること
+
 	
 	# ./usecases/job/dsl/1077_rootjbonet_includes_parallel_jobnets_having_finally_and_different_server.rb
 	#  ------------------
@@ -1967,7 +2113,53 @@
 	#  -------------------
 	@1077
   シナリオ: [正常系]1077_ルートジョブネットが仮想サーバが違うジョブネット(並列)_を試してみる
-	
+
+		前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+		かつ 仮想サーバ"test_server2"のファイル:"~/tengine_job_test.log"が存在しないこと
+		かつ 仮想サーバ"test_server3"のファイル:"~/tengine_job_test.log"が存在しないこと
+		
+    かつ 仮想サーバがインスタンス識別子:"test_server2"で登録されていること
+    かつ 認証情報が名称:"test_credential2"で登録されている
+    かつ 仮想サーバがインスタンス識別子:"test_server3"で登録されていること
+    かつ 認証情報が名称:"test_credential3"で登録されている
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1077_rootjbonet_includes_parallel_jobnets_having_finally_and_different_server.rb  -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1077"を実行する
+    かつ ジョブネット"jobnet1077"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1077" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1077/jobnet1077-1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1077/jobnet1077-1/j1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1077/jobnet1077-1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1077/jobnet1077-1/finally/jf1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1077/jobnet1077-2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1077/jobnet1077-2/j2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1077/jobnet1077-2/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1077/jobnet1077-2/finally/jf2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1077/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1077/finally/jobnet1077_finally" のステータスが正常終了であること
+
+
+		もし 仮想サーバ"test_server2"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ2"と呼ぶこととする。
+		ならば "tengine_job_test j1 start"と"スクリプトログ2"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ2"に出力されており、"tengine_job_test j1 start"の後であること
+    かつ "tengine_job_test jf1 start"と"スクリプトログ2"に出力されており、"tengine_job_test j1 finish"の後であること
+    かつ "tengine_job_test jf1 finish"と"スクリプトログ2"に出力されており、"tengine_job_test jf1 start"の後であること
+
+		もし 仮想サーバ"test_server3"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ3"と呼ぶこととする。
+		かつ "tengine_job_test j2 start"と"スクリプトログ3"に出力されていること
+		かつ "tengine_job_test j2 finish"と"スクリプトログ3"に出力されており、"tengine_job_test j2 start"の後であること
+    かつ "tengine_job_test jf2 start"と"スクリプトログ3"に出力されており、"tengine_job_test j2 finish"の後であること
+    かつ "tengine_job_test jf2 finish"と"スクリプトログ3"に出力されており、"tengine_job_test jf2 start"の後であること
+
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ1"と呼ぶこととする。
+    かつ "tengine_job_test jobnet1077_finally start"と"スクリプトログ1"に出力されていること
+    かつ "tengine_job_test jobnet1077_finally finish"と"スクリプトログ1"に出力されており、"tengine_job_test jobnet1077_finally start"の後であること
+
+		
 	# ./usecases/job/dsl/1078_finally_includes_parallel_jobs.rb
 	#  -------------------
   # # -*- coding: utf-8 -*-
@@ -1999,7 +2191,31 @@
 	#  -------------------
 	@1078
   シナリオ: [正常系]1078_Finallyに複数のジョブ(並列)を含むジョブネット_を試してみる
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1078_finally_includes_parallel_jobs.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1078"を実行する
+    かつ ジョブネット"jobnet1078"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1078" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1078/j1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1078/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1078/finally/fj1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1078/finally/fj2" のステータスが正常終了であること
 	
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+		ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
+
+    かつ "tengine_job_test fj1 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+    かつ "tengine_job_test fj1 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj1 start"の後であること
+    かつ "tengine_job_test fj2 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+    かつ "tengine_job_test fj2 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj2 start"の後であること
+
+
 	# ./usecases/job/dsl/1079_finally_includes_one_jobnet_having_finally.rb
 	#  -------------------
   # # -*- coding: utf-8 -*-
@@ -2028,8 +2244,8 @@
   #   boot_jobs("j1")
   #   job("j1","$HOME/tengine_job_test.sh 0 j1")
   #   finally do
-  #     boot_jobs("jobnet1079")
-  #     jobnet("jobnet1079") do 
+  #     boot_jobs("jobnet1079-1")
+  #     jobnet("jobnet1079-1") do 
   #       boot_jobs("j2")
   #       job("j2","$HOME/tengine_job_test.sh 0 j2")
   #       finally do 
@@ -2042,6 +2258,34 @@
 	#  -------------------
 	@1079
   シナリオ: [正常系]1079_FinallyにFinally付きのジョブネット１つ_を試してみる
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1079_finally_includes_one_jobnet_having_finally.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1079"を実行する
+    かつ ジョブネット"jobnet1079"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1079" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1079/j1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1079/finally" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1079/finally/jobnet1079-1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1079/finally/jobnet1079-1/j2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1079/finally/jobnet1079-1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1079/finally/jobnet1079-1/finally/fj1" のステータスが正常終了であること
+	
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+		ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
+
+		かつ "tengine_job_test j2 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+		かつ "tengine_job_test j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test j2 start"の後であること
+
+    かつ "tengine_job_test fj1 start"と"スクリプトログ"に出力されており、"tengine_job_test j2 finish"の後であること
+    かつ "tengine_job_test fj1 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj1 start"の後であること
+
+
 	
 	# ./usecases/job/dsl/1080_finally_includes_serial_jobnets_having_finally.rb
 	#  -------------------
@@ -2093,6 +2337,44 @@
 	#  -------------------
 	@1080
   シナリオ: [正常系]1080_FinallyにFinally付きのジョブネット(直列)_を試してみる
+	
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1080_finally_includes_serial_jobnets_having_finally.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1080"を実行する
+    かつ ジョブネット"jobnet1080"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1080" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1080/j1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1080/finally" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1080/finally/jobnet1080-1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1080/finally/jobnet1080-1/j2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1080/finally/jobnet1080-1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1080/finally/jobnet1080-1/finally/fj1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1080/finally/jobnet1080-2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1080/finally/jobnet1080-2/j3" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1080/finally/jobnet1080-2/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1080/finally/jobnet1080-2/finally/fj2" のステータスが正常終了であること
+		
+	
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+		ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
+
+		かつ "tengine_job_test j2 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+		かつ "tengine_job_test j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test j2 start"の後であること
+
+    かつ "tengine_job_test fj1 start"と"スクリプトログ"に出力されており、"tengine_job_test j2 finish"の後であること
+    かつ "tengine_job_test fj1 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj1 start"の後であること
+
+		かつ "tengine_job_test j3 start"と"スクリプトログ"に出力されており、"tengine_job_test fj1 finish"の後であること
+		かつ "tengine_job_test j3 finish"と"スクリプトログ"に出力されており、"tengine_job_test j3 start"の後であること
+
+    かつ "tengine_job_test fj2 start"と"スクリプトログ"に出力されており、"tengine_job_test j3 finish"の後であること
+    かつ "tengine_job_test fj2 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj2 start"の後であること
+		
 	
 	# ./usecases/job/dsl/1081_finally_includes_parallel_jobnets_having_finally.rb
 	#  -------------------
@@ -2156,6 +2438,44 @@
 	@1081
   シナリオ: [正常系]1081_FinallyにFinally付きのジョブネット(並列)_を試してみる
 	
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1081_finally_includes_parallel_jobnets_having_finally.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1081"を実行する
+    かつ ジョブネット"jobnet1081"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1081" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1081/j1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1081/finally" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1081/finally/jobnet1081-1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1081/finally/jobnet1081-1/j2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1081/finally/jobnet1081-1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1081/finally/jobnet1081-1/finally/fj1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1081/finally/jobnet1081-2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1081/finally/jobnet1081-2/j3" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1081/finally/jobnet1081-2/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1081/finally/jobnet1081-2/finally/fj2" のステータスが正常終了であること
+		
+	
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+		ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
+
+		かつ "tengine_job_test j2 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+		かつ "tengine_job_test j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test j2 start"の後であること
+
+    かつ "tengine_job_test fj1 start"と"スクリプトログ"に出力されており、"tengine_job_test j2 finish"の後であること
+    かつ "tengine_job_test fj1 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj1 start"の後であること
+
+		かつ "tengine_job_test j3 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+		かつ "tengine_job_test j3 finish"と"スクリプトログ"に出力されており、"tengine_job_test j3 start"の後であること
+
+    かつ "tengine_job_test fj2 start"と"スクリプトログ"に出力されており、"tengine_job_test j3 finish"の後であること
+    かつ "tengine_job_test fj2 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj2 start"の後であること
+
+	
 	# ./usecases/job/dsl/1082_finally_includes_parallel_jobnets_having_finally_and_different_credentials.rb
 	#  -------------------
   # # -*- coding: utf-8 -*-
@@ -2218,6 +2538,47 @@
 	@1082
   シナリオ: [正常系]1082_Finallyにクレデンシャルが違うジョブネット(並列)_を試してみる
 	
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    かつ 認証情報が名称:"test_credential1-1"で登録されている
+    かつ 認証情報が名称:"test_credential1-2"で登録されている
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1082_finally_includes_parallel_jobnets_having_finally_and_different_credentials.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1082"を実行する
+    かつ ジョブネット"jobnet1082"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1082" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1082/j1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1082/finally" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1082/finally/jobnet1082-1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1082/finally/jobnet1082-1/j2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1082/finally/jobnet1082-1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1082/finally/jobnet1082-1/finally/fj1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1082/finally/jobnet1082-2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1082/finally/jobnet1082-2/j3" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1082/finally/jobnet1082-2/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1082/finally/jobnet1082-2/finally/fj2" のステータスが正常終了であること
+		
+	
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+		ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
+
+		かつ "tengine_job_test j2 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+		かつ "tengine_job_test j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test j2 start"の後であること
+
+    かつ "tengine_job_test fj1 start"と"スクリプトログ"に出力されており、"tengine_job_test j2 finish"の後であること
+    かつ "tengine_job_test fj1 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj1 start"の後であること
+
+		かつ "tengine_job_test j3 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+		かつ "tengine_job_test j3 finish"と"スクリプトログ"に出力されており、"tengine_job_test j3 start"の後であること
+
+    かつ "tengine_job_test fj2 start"と"スクリプトログ"に出力されており、"tengine_job_test j3 finish"の後であること
+    かつ "tengine_job_test fj2 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj2 start"の後であること
+
+	
 	# ./usecases/job/dsl/1083_finally_includes_parallel_jobnets_having_finally_and_different_server.rb
 	#  -------------------
   # # -*- coding: utf-8 -*-
@@ -2279,6 +2640,52 @@
 	#  -------------------
 	@1083
   シナリオ: [正常系]1083_Finallyに仮想サーバが違うジョブネット(並列)_を試してみる
+
+		前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+		かつ 仮想サーバ"test_server2"のファイル:"~/tengine_job_test.log"が存在しないこと
+		かつ 仮想サーバ"test_server3"のファイル:"~/tengine_job_test.log"が存在しないこと
+		
+    かつ 仮想サーバがインスタンス識別子:"test_server2"で登録されていること
+    かつ 認証情報が名称:"test_credential2"で登録されている
+    かつ 仮想サーバがインスタンス識別子:"test_server3"で登録されていること
+    かつ 認証情報が名称:"test_credential3"で登録されている
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1083_finally_includes_parallel_jobnets_having_finally_and_different_server.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1083"を実行する
+    かつ ジョブネット"jobnet1083"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1083" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1083/j1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1083/finally" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1083/finally/jobnet1083-1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1083/finally/jobnet1083-1/j2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1083/finally/jobnet1083-1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1083/finally/jobnet1083-1/finally/fj1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1083/finally/jobnet1083-2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1083/finally/jobnet1083-2/j3" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1083/finally/jobnet1083-2/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1083/finally/jobnet1083-2/finally/fj2" のステータスが正常終了であること
+	
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ1"と呼ぶこととする。
+		ならば "tengine_job_test j1 start"と"スクリプトログ1"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ1"に出力されており、"tengine_job_test j1 start"の後であること
+
+		かつ 仮想サーバ"test_server2"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ2"と呼ぶこととする。
+		かつ "tengine_job_test j2 start"と"スクリプトログ2"に出力されていること
+		かつ "tengine_job_test j2 finish"と"スクリプトログ2"に出力されており、"tengine_job_test j2 start"の後であること
+    かつ "tengine_job_test fj1 start"と"スクリプトログ2"に出力されており、"tengine_job_test j2 finish"の後であること
+    かつ "tengine_job_test fj1 finish"と"スクリプトログ2"に出力されており、"tengine_job_test fj1 start"の後であること
+
+		かつ 仮想サーバ"test_server2"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ3"と呼ぶこととする。
+		かつ "tengine_job_test j3 start"と"スクリプトログ3"に出力されていること
+		かつ "tengine_job_test j3 finish"と"スクリプトログ3"に出力されており、"tengine_job_test j3 start"の後であること
+    かつ "tengine_job_test fj2 start"と"スクリプトログ3"に出力されており、"tengine_job_test j3 finish"の後であること
+    かつ "tengine_job_test fj2 finish"と"スクリプトログ3"に出力されており、"tengine_job_test fj2 start"の後であること
+
+		
 	
 	# ./usecases/job/dsl/1084_finally_includes_auto_sequence.rb
 	#  ------------------
@@ -2307,6 +2714,31 @@
 	#  -------------------
 	@1084
   シナリオ: [正常系]1084_Finallyにauto_sequenceを使用する_を試してみる
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1084_finally_includes_auto_sequence.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1084"を実行する
+    かつ ジョブネット"jobnet1084"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1084" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1084/j1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1084/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1084/finally/fj1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1084/finally/fj2" のステータスが正常終了であること
+	
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+		ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
+
+    かつ "tengine_job_test fj1 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+    かつ "tengine_job_test fj1 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj1 start"の後であること
+
+    かつ "tengine_job_test fj2 start"と"スクリプトログ"に出力されており、"tengine_job_test fj1 finish"の後であること
+    かつ "tengine_job_test fj2 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj2 start"の後であること
+
 	
 	# ./usecases/job/dsl/1085_finally_includes_boot_jobs.rb
 	#  -------------------
@@ -2339,6 +2771,30 @@
 	#  -------------------
 	@1085
   シナリオ: [正常系]1085_Finallyにboot_jobsを使用する_を試してみる
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1085_finally_includes_boot_jobs.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1085"を実行する
+    かつ ジョブネット"jobnet1085"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1085" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1085/j1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1085/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1085/finally/fj1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1085/finally/fj2" のステータスが正常終了であること
+	
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+		ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
+
+    かつ "tengine_job_test fj1 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+    かつ "tengine_job_test fj1 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj1 start"の後であること
+
+    かつ "tengine_job_test fj2 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+    かつ "tengine_job_test fj2 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj2 start"の後であること
+
 	
 	# ./usecases/job/dsl/1086_finally_includes_expansion.rb
 	#  -------------------
@@ -2405,7 +2861,45 @@
 	#  -------------------
 	@1086
   シナリオ: [正常系]1086_Finallyにexpansionを使用する_を試してみる
-	
+		前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1086_finally_includes_expansion.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1086"を実行する
+    かつ ジョブネット"jobnet1086"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1086" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1086/j1" のステータスが正常終了であること
+		
+    かつ ジョブネット"/jobnet1086/finally" のステータスが正常終了であること
+    かつ ジョブネット"/jobnet1086/finally/jobnet1086-1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1086/finally/jobnet1086-1/j2" のステータスが正常終了であること
+    かつ ジョブネット"/jobnet1086/finally/jobnet1086-1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1086/finally/jobnet1086-1/finally/fj1" のステータスが正常終了であること
+
+    かつ ジョブネット"/jobnet1086/finally/jobnet1086-2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1086/finally/jobnet1086-2/j3" のステータスが正常終了であること
+    かつ ジョブネット"/jobnet1086/finally/jobnet1086-2/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1086/finally/jobnet1086-2/finally/fj2" のステータスが正常終了であること
+
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+		ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
+
+		かつ "tengine_job_test j2 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+		かつ "tengine_job_test j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test j2 start"の後であること
+
+    かつ "tengine_job_test fj1 start"と"スクリプトログ"に出力されており、"tengine_job_test j2 finish"の後であること
+    かつ "tengine_job_test fj1 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj1 start"の後であること
+
+		かつ "tengine_job_test j3 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
+		かつ "tengine_job_test j3 finish"と"スクリプトログ"に出力されており、"tengine_job_test j3 start"の後であること
+
+    かつ "tengine_job_test fj2 start"と"スクリプトログ"に出力されており、"tengine_job_test j3 finish"の後であること
+    かつ "tengine_job_test fj2 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj2 start"の後であること
+
+
 	# ./usecases/job/dsl/1087_finally_includes_invalid_option_value_in_jobnet.rb
 	#  -------------------
   # # -*- coding: utf-8 -*-
@@ -2448,6 +2942,13 @@
 	#  -------------------
 	@1087
   シナリオ: [正常系]1087_Finallyにjobnetのoptionに不正な値_を試してみる
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1087_finally_includes_invalid_option_value_in_jobnet.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    かつ "Tengineコアプロセス"の標準出力からPIDを確認する
+
+		# E8	#{value} is invalid option.
+		ならば "Tengineコアプロセス"の標準出力に"hoge is invalid option."と出力されていること
+		かつ "Tengineコアプロセス"の状態が"停止済"であること
+
 	
 	# ./usecases/job/dsl/1088_finally_includes_invalid_option_value_in_job.rb
 	#  -------------------
@@ -2480,6 +2981,13 @@
 	#  -------------------
 	@1088
   シナリオ: [正常系]1088_Finallyにjobのoptionに不正な値_を試してみる
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1088_finally_includes_invalid_option_value_in_job.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    かつ "Tengineコアプロセス"の標準出力からPIDを確認する
+
+		# E8	#{value} is invalid option.
+		ならば "Tengineコアプロセス"の標準出力に"hoge is invalid option."と出力されていること
+		かつ "Tengineコアプロセス"の状態が"停止済"であること
+
 	
 	# ./usecases/job/dsl/1089_finally_includes_invalid_option_value_in_expansion.rb
 	#  -------------------
@@ -2546,6 +3054,13 @@
 	#  -------------------
 	@1089
   シナリオ: [正常系]1089_Finallyにexpansionのoptionに不正な値_を試してみる
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T 1089_finally_includes_invalid_option_value_in_expansion.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    かつ "Tengineコアプロセス"の標準出力からPIDを確認する
+
+		# E8	#{value} is invalid option.
+		ならば "Tengineコアプロセス"の標準出力に"hoge is invalid option."と出力されていること
+		かつ "Tengineコアプロセス"の状態が"停止済"であること
+
 	
 	# ./usecases/job/dsl/1090_finally_includes_no_job.rb
 	#  -------------------
@@ -2570,6 +3085,23 @@
 	#  -------------------
 	@1090
   シナリオ: [正常系]1090_Finallyにブロック内にコードがない_を試してみる
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1090_finally_includes_no_job.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1090"を実行する
+    かつ ジョブネット"jobnet1090"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1090" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1090/j1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1090/finally" のステータスが正常終了であること
+	
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+		ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
+
 	
 	# ./usecases/job/dsl/1091_rootjobnet_and_finally_include_parallel_jobnets_having_finally.rb
 	#  -------------------
@@ -2633,16 +3165,16 @@
   #     boot_jobs("j1")
   #     job("j1", "$HOME/tengine_job_test.sh 0 j1")
   #     finally do 
-  #       boot_jobs("jf1")
-  #       job("jf1", "$HOME/tengine_job_test.sh 0 jf1")
+  #       boot_jobs("fj1")
+  #       job("fj1", "$HOME/tengine_job_test.sh 0 fj1")
   #     end
   #   end
   #   jobnet("jobnet1091-2", :instance_name => "test_server3", :credential_name => "test_credential3") do 
   #     boot_jobs("j2")
   #     job("j2", "$HOME/tengine_job_test.sh 0 j2")
   #     finally do 
-  #       boot_jobs("jf2")
-  #       job("jf2", "$HOME/tengine_job_test.sh 0 jf2")
+  #       boot_jobs("fj2")
+  #       job("fj2", "$HOME/tengine_job_test.sh 0 fj2")
   #     end
   #   end
   #   finally do
@@ -2668,3 +3200,70 @@
 	#  -------------------
 	@1091
   シナリオ: [正常系]1091_Finally付きのジョブネット(並列)を組み合わせた複雑なパターン_を試してみる
+
+		前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+		かつ 仮想サーバ"test_server2"のファイル:"~/tengine_job_test.log"が存在しないこと
+		かつ 仮想サーバ"test_server3"のファイル:"~/tengine_job_test.log"が存在しないこと
+		
+    かつ 仮想サーバがインスタンス識別子:"test_server2"で登録されていること
+    かつ 認証情報が名称:"test_credential2"で登録されている
+    かつ 仮想サーバがインスタンス識別子:"test_server3"で登録されていること
+    かつ 認証情報が名称:"test_credential3"で登録されている
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1091_rootjobnet_and_finally_include_parallel_jobnets_having_finally.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+		もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+		
+    もし ジョブネット"jobnet1091"を実行する
+    かつ ジョブネット"jobnet1091"が完了することを確認する
+		
+    ならば ジョブネット"/jobnet1091" のステータスが正常終了であること
+		
+		かつ ジョブネット"/jobnet1091/jobnet1091-1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1091/jobnet1091-1/j1" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1091/jobnet1091-1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1091/jobnet1091-1/finally/fj1" のステータスが正常終了であること
+
+		ならば ジョブネット"/jobnet1091" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1091/jobnet1091-2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1091/jobnet1091-2/j2" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1091/jobnet1091-2/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1091/jobnet1091-2/finally/fj2" のステータスが正常終了であること
+
+		かつ ジョブネット"/jobnet1091/finally" のステータスが正常終了であること
+		
+		かつ ジョブネット"/jobnet1091/finally/jobnet1091-3" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1091/finally/jobnet1091-3/j3" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1091/finally/jobnet1091-3/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1091/finally/jobnet1091-3/finally/fj3" のステータスが正常終了であること
+
+		かつ ジョブネット"/jobnet1091/finally/jobnet1091-4" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1091/finally/jobnet1091-4/j4" のステータスが正常終了であること
+		かつ ジョブネット"/jobnet1091/finally/jobnet1091-4/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1091/finally/jobnet1091-4/finally/fj4" のステータスが正常終了であること
+
+		かつ 仮想サーバ"test_server2"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ2"と呼ぶこととする。
+		かつ "tengine_job_test j1 start"と"スクリプトログ2"に出力されていること
+		かつ "tengine_job_test j1 finish"と"スクリプトログ2"に出力されており、"tengine_job_test j1 start"の後であること
+    かつ "tengine_job_test fj1 start"と"スクリプトログ2"に出力されており、"tengine_job_test j1 finish"の後であること
+    かつ "tengine_job_test fj1 finish"と"スクリプトログ2"に出力されており、"tengine_job_test fj1 start"の後であること
+
+		かつ 仮想サーバ"test_server3"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ3"と呼ぶこととする。
+		かつ "tengine_job_test j2 start"と"スクリプトログ3"に出力されていること
+		かつ "tengine_job_test j2 finish"と"スクリプトログ3"に出力されており、"tengine_job_test j2 start"の後であること
+    かつ "tengine_job_test fj2 start"と"スクリプトログ3"に出力されており、"tengine_job_test j2 finish"の後であること
+    かつ "tengine_job_test fj2 finish"と"スクリプトログ3"に出力されており、"tengine_job_test fj2 start"の後であること
+
+		
+		もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ1"と呼ぶこととする。
+		かつ "tengine_job_test j3 start"と"スクリプトログ1"に出力されていること
+		かつ "tengine_job_test j3 finish"と"スクリプトログ1"に出力されており、"tengine_job_test j3 start"の後であること
+    かつ "tengine_job_test fj3 start"と"スクリプトログ1"に出力されており、"tengine_job_test j3 finish"の後であること
+    かつ "tengine_job_test fj3 finish"と"スクリプトログ1"に出力されており、"tengine_job_test fj3 start"の後であること
+		
+		かつ "tengine_job_test j4 start"と"スクリプトログ1"に出力されていること
+		かつ "tengine_job_test j4 finish"と"スクリプトログ1"に出力されており、"tengine_job_test j4 start"の後であること
+    かつ "tengine_job_test fj4 start"と"スクリプトログ1"に出力されており、"tengine_job_test j4 finish"の後であること
+    かつ "tengine_job_test fj4 finish"と"スクリプトログ1"に出力されており、"tengine_job_test fj4 start"の後であること
+
+		
