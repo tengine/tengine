@@ -5,30 +5,67 @@ tengine_console:
   # エンドツーエンドでアクセスするTengineコンソールのポート番号
   port: 3000 
 
+# MongoDB
 db:
   nodes:
-# シャーディング構成
+# シングル構成
     - host: "localhost"
       port: "27027"
-      dbpath: "/mongodb_e2e/node0/data"
-      logpath: "/mongodb_e2e/node0/log"
-    - host: "localhost"
-      port: "27028"
-      dbpath: "/mongodb_e2e/node1/data"
-      logpath: "/mongodb_e2e/node1/log"
-    - host: "localhost"
-      port: "27029"
-      dbpath: "/mongodb_e2e/node2/data"
-      logpath: "/mongodb_e2e/node2/log"
+      dbpath: "~/mongodb_e2e/single/data"
+      logpath: "~/mongodb_e2e/single/log"
 
-# シングルプロセス
+# レプリカセット構成
 #    - host: "localhost"
 #      port: "27027"
-#      dbpath: "~/mongodb_e2e/single/data"
-#      logpath: "~/mongodb_e2e/single/log"
+#      dbpath: "/mongodb_e2e/node0/data"
+#      logpath: "/mongodb_e2e/node0/log"
+#    - host: "localhost"
+#      port: "27028"
+#      dbpath: "/mongodb_e2e/node1/data"
+#      logpath: "/mongodb_e2e/node1/log"
+#    - host: "localhost"
+#      port: "27029"
+#      dbpath: "/mongodb_e2e/node2/data"
+#      logpath: "/mongodb_e2e/node2/log"
 
+
+# 仮想サーバ
 servers:
   test_server1:
-    host: localhost
+    addresses:
+      dns_name: "localhost"
+    user: goku
+    password: dragonball
+  test_server2:
+    addresses:
+      dns_name: "localhost"
+    user: goku
+    password: dragonball
+  test_server3:
+    addresses:
+      dns_name: "localhost"
+    user: goku
+    password: dragonball
+
+# 認証情報
+credentials:
+  test_credential1:
+    auth_type_key: ssh_password
+    user: goku
+    password: dragonball
+  test_credential1-1:  # test_credential1 と同じサーバに接続する前提の認証情報です。
+    auth_type_key: ssh_password
+    user: goku
+    password: dragonball
+  test_credential1-2:  # test_credential1 と同じサーバに接続する前提の認証情報です。
+    auth_type_key: ssh_password
+    user: goku
+    password: dragonball
+  test_credential2:
+    auth_type_key: ssh_password
+    user: goku
+    password: dragonball
+  test_credential3:
+    auth_type_key: ssh_password
     user: goku
     password: dragonball
