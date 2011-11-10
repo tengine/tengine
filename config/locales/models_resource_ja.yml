@@ -2,6 +2,11 @@ ja:
   mongoid:
     models:
       tengine/resource/credential: "認証情報"
+      tengine/resource/server: "サーバ"
+      tengine/resource/physical_server: "物理サーバ"
+      tengine/resource/virtual_server: "仮想サーバ"
+      tengine/resource/virtual_server_image: "仮想サーバイメージ"
+      tengine/resource/provider: "プロバイダ"
 
     attributes:
       tengine/resource/credential:
