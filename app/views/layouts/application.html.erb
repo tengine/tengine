@@ -5,9 +5,9 @@
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <%= yield :end_of_head %>
 </head>
 <body>
-
 
 <%= link_to_list Tengine::Core::Event, tengine_core_events_path %> |
 <%= link_to_list Tengine::Core::Driver, tengine_core_drivers_path %> |

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 class Tengine::Core::EventsController < ApplicationController
-
   # GET /tengine/core/events
   # GET /tengine/core/events.json
   def index
@@ -17,13 +16,10 @@ class Tengine::Core::EventsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        if reflesh?
-          # app/views/layouts/refresh.html.erb で更新間隔として参照しています。
+        if @auto_refresh = auto_refresh?
           @reflesh_interval = reflesh_interval
-          render layout: "refresh"
-        else
-          render
         end
+        render
       } # index.html.erb
       format.json { render json: @events }
     end
@@ -100,8 +96,10 @@ class Tengine::Core::EventsController < ApplicationController
     end
   end
 
+  private
+
   # indexアクション且つ、更新間隔が0以外の場合リフレッシュします。
-  def reflesh?
+  def auto_refresh?
     action_name == 'index' && reflesh_interval != 0
   end
 
