@@ -1,15 +1,5 @@
 <%= form_for(@edge, as:"edge") do |f| %>
-  <% if @edge.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= I18n.t('activerecord.errors.template.header', :count => @edge.errors.size, :model => @edge.class.human_name) %></h2>
-
-      <ul>
-      <% @edge.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= model_error_messages(@edge) %>
 
   <div class="field">
     <%= f.label :status_cd %><br />

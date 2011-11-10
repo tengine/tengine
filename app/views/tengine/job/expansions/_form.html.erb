@@ -1,15 +1,5 @@
 <%= form_for(@expansion, as:"expansion") do |f| %>
-  <% if @expansion.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= I18n.t('activerecord.errors.template.header', :count => @expansion.errors.size, :model => @expansion.class.human_name) %></h2>
-
-      <ul>
-      <% @expansion.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= model_error_messages(@expansion) %>
 
   <div class="field">
     <%= f.label :name %><br />

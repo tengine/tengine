@@ -1,15 +1,5 @@
 <%= form_for(@virtual_server_image, as:"virtual_server_image") do |f| %>
-  <% if @virtual_server_image.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= I18n.t('activerecord.errors.template.header', :count => @virtual_server_image.errors.size, :model => @virtual_server_image.class.human_name) %></h2>
-
-      <ul>
-      <% @virtual_server_image.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= model_error_messages(@virtual_server_image) %>
 
   <div class="field">
     <%= f.label :provider_id %><br />

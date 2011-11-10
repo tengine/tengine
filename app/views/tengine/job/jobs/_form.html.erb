@@ -1,15 +1,5 @@
 <%= form_for(@job, as:"job") do |f| %>
-  <% if @job.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= I18n.t('activerecord.errors.template.header', :count => @job.errors.size, :model => @job.class.human_name) %></h2>
-
-      <ul>
-      <% @job.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= model_error_messages(@job) %>
 
   <div class="field">
     <%= f.label :name %><br />
