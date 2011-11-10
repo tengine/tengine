@@ -28,12 +28,6 @@
   <div id="main">
     <div class="Wrap">
 
-<%= link_to_list Tengine::Core::Event, tengine_core_events_path %> |
-<%= link_to_list Tengine::Core::Driver, tengine_core_drivers_path %> |
-<%= link_to_list Tengine::Core::Session, tengine_core_sessions_path %> |
-<%= link_to_list Tengine::Core::HandlerPath, tengine_core_handler_paths_path %> |
-<%= link_to "イベント発火", tengine_core_event_ignitions_new_path %>
-
 <%= yield %>
 
     </div>
@@ -43,6 +37,12 @@
     <ul>
       <li><a href="#"><span>コア</span></a>
         <ul>
+          <%= navi_link_to(page_title(Tengine::Core::Event), tengine_core_events_path) %>
+          <%= navi_link_to(page_title(Tengine::Core::Driver), tengine_core_drivers_path) %>
+          <%= navi_link_to(page_title(Tengine::Core::Session), tengine_core_sessions_path) %>
+          <%= navi_link_to(page_title(Tengine::Core::HandlerPath), tengine_core_handler_paths_path) %>
+          <%= navi_link_to("イベント発火", tengine_core_event_ignitions_new_path) %>
+
           <li><a href="#">イベントドライバー</a></li>
           <li class="Current"><a href="#">セッション</a></li>
           <li><a href="#">イベントハンドラ</a></li>

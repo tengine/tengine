@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def page_title(class_or_name, page_type)
+  def page_title(class_or_name, page_type = :list)
     model_class_name(class_or_name) + I18n.t(page_type, :scope => [:views, :pages])
   end
 
@@ -24,8 +24,7 @@ module ApplicationHelper
   end
 
   def link_to_list(class_or_name, *args, &block)
-    str = model_class_name(class_or_name) + I18n.t(:list, :scope => [:views, :pages])
-    link_to(str, *args, &block)
+    link_to(page_title(class_or_name), *args, &block)
   end
 
   def link_to_model(model, *args, &block)
@@ -37,6 +36,10 @@ module ApplicationHelper
     when Tengine::Core::Session then link_to(s, tengine_core_session_path(model))
     when Tengine::Core::HandlerPath then link_to(s, tengine_core_handler_path(model))
     end
+  end
+
+  def navi_link_to(text, href)
+    content_tag(:li, link_to(text, href), :class => request.path.include?(href) ? 'Current' : nil)
   end
 
 
