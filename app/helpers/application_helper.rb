@@ -28,13 +28,17 @@ module ApplicationHelper
   end
 
   def link_to_model(model, *args, &block)
-    s = model_name(model)
+    return nil if model.nil?
+    link_to(model_name(model), url_to_model(model))
+  end
+
+  def url_to_model(model, &block)
     case model
-    when Tengine::Core::Event then link_to(s, tengine_core_event_path(model))
-    when Tengine::Core::Driver then link_to(s, tengine_core_driver_path(model))
-    when Tengine::Core::Handler then link_to(s, tengine_core_driver_handler_path(model.driver, model))
-    when Tengine::Core::Session then link_to(s, tengine_core_session_path(model))
-    when Tengine::Core::HandlerPath then link_to(s, tengine_core_handler_path(model))
+    when nil then nil
+    when Tengine::Core::Handler then tengine_core_driver_handler_path(model.driver, model)
+    else
+      method_name = model.class.name.underscore.gsub('/', '_') + '_path'
+      send(method_name, model)
     end
   end
 
