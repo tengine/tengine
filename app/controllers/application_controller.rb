@@ -24,4 +24,12 @@ class ApplicationController < ActionController::Base
     I18n.t(:successfully_destroyed, :scope => [:views, :notice],:model => model.class.human_name)
   end
 
+  def sort_order(sort_param)
+    order = sort_param.map do |k, v|
+              k = "_id" if k.to_s == "id"
+              v = (v.to_s == "desc") ? :desc : :asc
+              [k, v]
+            end
+    return order
+  end
 end
