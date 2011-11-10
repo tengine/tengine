@@ -1,14 +1,5 @@
 <%= form_for(@physical_server, as:"physical_server") do |f| %>
-  <% if @physical_server.errors.any? %>
-    <div class="Msg MsgError">
-      <p><%= I18n.t('activerecord.errors.template.header', :count => @physical_server.errors.size, :model => @physical_server.class.human_name) %></p>
-      <ul>
-      <% @physical_server.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= model_error_messages(@physical_server) %>
 
   <div class="field">
     <%= f.label :provider_id %><br />

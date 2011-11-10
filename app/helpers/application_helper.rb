@@ -59,6 +59,15 @@ module ApplicationHelper
     content_tag(:li, link_to(text, href), :class => request.path.include?(href) ? 'Current' : nil)
   end
 
+  def model_error_messages(obj)
+    return unless obj.errors.any?
+    content_tag(:div,
+      content_tag(:p,
+        I18n.t('activerecord.errors.template.header', :count => obj.errors.size, :model => obj.class.human_name)) +
+      content_tag(:ul,
+        obj.errors.full_messages.map{|msg| content_tag(:li, msg)}.join.html_safe),
+      :class => "Msg MsgError")
+  end
 
   private
   def model_class_name(class_or_name)
