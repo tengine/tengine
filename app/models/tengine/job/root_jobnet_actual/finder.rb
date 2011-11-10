@@ -128,5 +128,17 @@ class Tengine::Job::RootJobnetActual::Finder
         :count => duration_finish,
       )
     end
+
+    now = Time.now
+    if duration_start > now && duration_finish > now
+      errors.add :duration_start, I18n.t(:less_than,
+        :scope => 'activerecord.errors.messages',
+        :count => now,
+      )
+      errors.add :duration_finish, I18n.t(:less_than,
+        :scope => 'activerecord.errors.messages',
+        :count => now,
+      )
+    end
   end
 end

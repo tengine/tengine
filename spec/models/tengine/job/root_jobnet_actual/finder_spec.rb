@@ -47,6 +47,10 @@ describe Tengine::Job::RootJobnetActual::Finder do
     finder.duration_start = Time.now
     finder.duration_finish = Time.now - 1
     finder.valid?.should be_false
+
+    finder.duration_start = Time.now + 10
+    finder.duration_finish = Time.now + 10
+    finder.valid?.should be_false
   end
 
   it "assign_attributes" do
