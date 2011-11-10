@@ -24,7 +24,9 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     @root_jobnet_actuals = @root_jobnet_actuals.order_by(order)
 
     @finder = Tengine::Job::RootJobnetActual::Finder.new(params[:finder])
-    @root_jobnet_actuals = @finder.scope(@root_jobnet_actuals)
+    if @finder.valid?
+      @root_jobnet_actuals = @finder.scope(@root_jobnet_actuals)
+    end
 
     @category = nil
     if category_id = params[:category]

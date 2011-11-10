@@ -3,8 +3,16 @@
 <div class="TreeViewContents">
   <div class="DataView">
     <div class="Wrap">
-    
-      <p id="notice"><%= notice %></p>
+      <% if @finder.errors.any? %>
+        <div class="Msg MsgError">
+          <p><%= t(".finder.error_caption", :count => @finder.errors.size) %></p>
+          <ul>
+          <% @finder.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
 
       <div class="search-box">
         <%= form_for(:finder, :html => {:method => :get}) do |f| %>

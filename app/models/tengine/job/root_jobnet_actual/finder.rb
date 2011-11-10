@@ -19,6 +19,8 @@ class Tengine::Job::RootJobnetActual::Finder
 
   ATTRIBUTE_NAMES.each{|name| attr_accessor(name) }
 
+  validate :validate_datetime
+
   #include Tengine::Core::SelectableAttr
   include ::SelectableAttr::Base
 
@@ -43,8 +45,6 @@ class Tengine::Job::RootJobnetActual::Finder
     ATTRIBUTE_NAMES.inject({}){|d, name| d[name] = send(name); d }
   end
 
-  #validate :validate_datetime
-
   def persisted?
     false
   end
@@ -58,11 +58,14 @@ class Tengine::Job::RootJobnetActual::Finder
         _attrs[key] = attrs[key] unless attrs[key].nil?
       else
         # 年・月・日の場合、「0」は無効。時・分の場合、「0」は有効。
-        time__attrs = attrs.select{|_, v| _ =~ /\A#{key}/}.sort.map.with_index{|(_, v), _i| v.blank? ? nil : ((i = v.to_i).zero? && [0, 1, 2].include?(_i) ? nil : i)}.take_while{|_| !_.nil?}
+        time__attrs = attrs.select{|_, v| _ =~ /\A#{key}/}.sort.
+          map.with_index{|(_, v), _i| v.blank? ? nil :
+            ((i = v.to_i).zero? && [0, 1, 2].include?(_i) ? nil : i)}.
+            take_while{|_| !_.nil?}
 
         unless time__attrs.blank?
           begin
-            time = Time.local(*time__attrs)
+            time = Time.new(*time__attrs)
           rescue
           else
             _attrs[key] = time
@@ -74,30 +77,31 @@ class Tengine::Job::RootJobnetActual::Finder
   end
 
   def scope(criteria)
-    finder = {}
-    [:id, :name].each do |field|
-      next if (value = self.send(field)).blank?
-      if field.to_s == "id"
-        finder[:_id] = value
-      else
-        value = /#{Regexp.escape(value)}/
-        finder[field] = value
-      end
-    end
-    criteria = criteria.where(finder)
-
-    unless (phase_ids = self.phase_ids).blank?
-      criteria = criteria.any_in({:phase_cd => phase_ids})
-    end
-
-    unless (duration = self.duration).nil?
-      duration = duration.to_sym
-      if [:started_at, :finished_at].include?(duration)
-        criteria = criteria.where({duration.send("gte") => self.duration_start})
-        criteria = criteria.where({duration.send("lte") => self.duration_finish})
+    criteria = criteria.where({:_id => id}) unless id.blank?
+    criteria = criteria.where({:name => /#{Regexp.escape(name)}/}) unless name.blank?
+    criteria = criteria.any_in({:phase_cd => phase_ids}) unless phase_ids.blank?
+    unless duration.blank?
+      _duration = duration.to_sym
+      if [:started_at, :finished_at].include?(_duration)
+        criteria = criteria.where({_duration.send("gte") => duration_start})
+        criteria = criteria.where({_duration.send("lte") => duration_finish})
       end
     end
     return criteria
+  end
+
+  def read_attribute_for_validation(attr)
+    send(attr)
+  end
+
+  class << self
+    def human_attribute_name(attr, options = {})
+      I18n.t("mongoid.attributes.#{self.model_name.i18n_key}.#{attr}")
+    end
+
+    def lookup_ancestors
+      [self]
+    end
   end
 
   private
@@ -113,6 +117,13 @@ class Tengine::Job::RootJobnetActual::Finder
       errors.add :duration_finish, I18n.t(
         :invalid, :scope => 'activerecord.errors.messages')
       return
+    end
+
+    if duration_start > duration_finish
+      errors.add :duration_start, I18n.t(:less_than,
+        :scope => 'activerecord.errors.messages',
+        :count => duration_finish,
+      )
     end
   end
 end

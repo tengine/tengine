@@ -5,3 +5,5 @@ ja:
         index:
           confirm:
             destroy: "本当に強制停止しますか？"
+          finder:
+            error_caption: "絞り込み条件に%{count}点ミスがあります。訂正してください。"

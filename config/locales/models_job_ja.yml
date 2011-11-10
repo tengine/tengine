@@ -23,6 +23,9 @@ ja:
         phase_cd: "フェーズ"
         started_at: "開始時刻"
         finished_at: "終了時刻"
+      tengine/job/root_jobnet_actual/finder:
+        duration_start: "期間の開始時刻"
+        duration_finish: "期間の終了時刻"
 
   selectable_attrs:
     tengine/job/root_jobnet_actual/finder:
