@@ -37,37 +37,26 @@
     <ul>
       <li><a href="#"><span>コア</span></a>
         <ul>
-          <%= navi_link_to(page_title(Tengine::Core::Event), tengine_core_events_path) %>
-          <%= navi_link_to(page_title(Tengine::Core::Driver), tengine_core_drivers_path) %>
-          <%= navi_link_to(page_title(Tengine::Core::Session), tengine_core_sessions_path) %>
-          <%= navi_link_to(page_title(Tengine::Core::HandlerPath), tengine_core_handler_paths_path) %>
+          <%= navi_link_to(Tengine::Core::Event) %>
+          <%= navi_link_to(Tengine::Core::Driver) %>
+          <%= navi_link_to(Tengine::Core::Session) %>
+          <%= navi_link_to(Tengine::Core::HandlerPath) %>
           <%= navi_link_to("イベント発火", tengine_core_event_ignitions_new_path) %>
         </ul>
       </li>
       <li><a href="#"><span>リソース</span></a>
         <ul>
-          <li><a href="#">認証情報</a></li>
-          <li><a href="#">サーバ</a></li>
-          <li><a href="#">仮想サーバイメージ</a></li>
+          <%= navi_link_to(Tengine::Resource::VirtualServer) %>
+          <%= navi_link_to(Tengine::Resource::VirtualServerImage) %>
+          <%= navi_link_to(Tengine::Resource::PhysicalServer) %>
+          <%= navi_link_to(Tengine::Resource::Credential) %>
         </ul>
       </li>
-      <li class="Current"><a href="#"><span>ジョブ</span></a>
+      <li><a href="#"><span>ジョブ</span></a>
         <ul>
-          <li><a href="#">テンプレートジョブ</a></li>
-          <li><a href="#">ワークフロー</a></li>
-          <li><a href="#">実行</a></li>
-        </ul>
-      </li>
-      <li><a href="#"><span>スケジュール</span></a>
-        <ul>
-          <li><a href="#">マスタースケジュール</a></li>
-          <li><a href="#">実行スケジュール</a></li>
-        </ul>
-      </li>
-      <li><a href="#"><span>トークン</span></a>
-        <ul>
-          <li><a href="#">トークン</a></li>
-          <li><a href="#">ロック</a></li>
+          <%= navi_link_to(Tengine::Job::RootJobnetTemplate) %>
+          <%= navi_link_to(Tengine::Job::Execution) %>
+          <%= navi_link_to(Tengine::Job::RootJobnetActual) %>
         </ul>
       </li>
     </ul>

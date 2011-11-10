@@ -42,7 +42,20 @@ module ApplicationHelper
     end
   end
 
-  def navi_link_to(text, href)
+  def navi_link_to(class_or_text, href = nil)
+    text =
+      case class_or_text
+      when Class then page_title(class_or_text)
+      else class_or_text.to_s
+      end
+    unless href
+      method_name =
+        case class_or_text
+        when Class then class_or_text.name.underscore.gsub('/', '_').pluralize + '_path'
+        else class_or_text.to_s
+        end
+      href = send(method_name)
+    end
     content_tag(:li, link_to(text, href), :class => request.path.include?(href) ? 'Current' : nil)
   end
 
