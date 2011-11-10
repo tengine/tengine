@@ -4,7 +4,7 @@ ja:
       # tengine/job/root_jobnet_template: "ルートテンプレートジョブネット"
       tengine/job/root_jobnet_template: "ルートジョブネット"
       tengine/job/root_jobnet_actual: "実行用ルートジョブネット"
-      tengine/job/execution: "ジョブ依頼"
+      tengine/job/execution: "ジョブ実行"
 
     attributes:
       tengine/job/root_jobnet_template:
