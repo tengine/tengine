@@ -5,19 +5,9 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     @root_jobnet_actuals = Mongoid::Criteria.new(Tengine::Job::RootJobnetActual)
 
     if sort_param = params[:sort]
-      order = []
-      sort_param.each do |k, v|
-        v = (v.to_s == "desc") ? :desc : :asc
-        k = case k.to_s
-            when "id"
-              [:_id, v]
-            when "name", "description", "phase_cd", "started_at", "finished_at"
-              [k, v]
-            end
-        order.push k
-      end
+      order = sort_order(sort_param)
     else
-      default_sort = {:name => "asc"}
+      default_sort = {:started_at => "asc"}
       request.query_parameters[:sort] = default_sort
       order = default_sort.to_a
     end
