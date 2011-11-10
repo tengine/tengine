@@ -1,0 +1,28 @@
+@charset "utf-8";
+
+/* ================================================================
+
+CSS Information
+
+ File name:      import.css
+ Summary:        for import
+ Last update:    2010-04-23
+
+
+================================================================ */
+
+@import url(reset.css);
+
+/* universal
+-------------------- */
+@import url(elements.css);
+
+/* module
+-------------------- */
+@import url(module.css);
+@import url(module-form.css);
+@import url(module-icons.css);
+/* section
+-------------------- */
+@import url(layout.css);
+@import url(common.css);
