@@ -8,6 +8,7 @@ describe "tengine/resource/credentials/show.html.erb" do
 
   describe "SSHパスワード認証のとき" do
     before(:each) do
+      Tengine::Resource::Credential.delete_all
       @credential = assign(:credential, stub_model(Tengine::Resource::Credential,
         :name => "Name",
         :description => "Description",
@@ -23,7 +24,7 @@ describe "tengine/resource/credentials/show.html.erb" do
       # Run the generator again with the --webrat flag if you want to use webrat matchers
       rendered.should match(/Description/)
       # Run the generator again with the --webrat flag if you want to use webrat matchers
-      rendered.should match(/01/)
+      rendered.should match(/SSHパスワード認証/)
       # Run the generator again with the --webrat flag if you want to use webrat matchers
       rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump({"username"=>"user"})))}/)
     end
@@ -31,6 +32,7 @@ describe "tengine/resource/credentials/show.html.erb" do
 
   describe "SSH公開鍵認証のとき" do
     before(:each) do
+      Tengine::Resource::Credential.delete_all
       @credential = assign(:credential, stub_model(Tengine::Resource::Credential,
         :name => "Name2",
         :description => "Description2",
@@ -46,13 +48,14 @@ describe "tengine/resource/credentials/show.html.erb" do
       # Run the generator again with the --webrat flag if you want to use webrat matchers
       rendered.should match(/Description2/)
       # Run the generator again with the --webrat flag if you want to use webrat matchers
-      rendered.should match(/02/)
+      rendered.should match(/SSH公開鍵認証/)
       # Run the generator again with the --webrat flag if you want to use webrat matchers
       rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump({"username"=>"user"})))}/)
     end
   end
 
   describe "EC2アクセスキー認証のとき" do
+    Tengine::Resource::Credential.delete_all
     before(:each) do
       @credential = assign(:credential, stub_model(Tengine::Resource::Credential,
         :name => "Name3",
@@ -69,7 +72,7 @@ describe "tengine/resource/credentials/show.html.erb" do
       # Run the generator again with the --webrat flag if you want to use webrat matchers
       rendered.should match(/Description3/)
       # Run the generator again with the --webrat flag if you want to use webrat matchers
-      rendered.should match(/03/)
+      rendered.should match(/EC2 アクセスキー認証/)
       # Run the generator again with the --webrat flag if you want to use webrat matchers
       rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump({"access_key"=>"user", "default_resion"=>"123"})))}/)
     end
