@@ -27,6 +27,20 @@
   <div id="main">
     <div class="Wrap">
 
+<%
+   self.field_error_proc = Proc.new{ |html_tag, instance|
+     if html_tag =~ /^<input|^<textarea/
+       if html_tag.include?(" class=")
+         html_tag.sub(/ class=\"(?:.+?)\"/){ "class=\"InputError #{$1}\"" }.html_safe
+       else
+         html_tag.sub(/(:?\/)?>/){ " class=\"InputError\"#{$1}>" }.html_safe
+       end
+     else
+       html_tag
+     end
+   }
+-%>
+
 <%= yield %>
 
     </div>
