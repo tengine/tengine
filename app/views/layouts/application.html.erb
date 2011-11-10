@@ -24,7 +24,9 @@
   <!-- /#header -->
 </div>
 <hr>
-
+<div id="contents">
+  <div id="main">
+    <div class="Wrap">
 
 <%= link_to_list Tengine::Core::Event, tengine_core_events_path %> |
 <%= link_to_list Tengine::Core::Driver, tengine_core_drivers_path %> |
@@ -34,6 +36,68 @@
 
 <%= yield %>
 
+    </div>
+  </div>
+  <hr>
+  <div id="nav">
+    <ul>
+      <li><a href="#"><span>コア</span></a>
+        <ul>
+          <li><a href="#">イベントドライバー</a></li>
+          <li class="Current"><a href="#">セッション</a></li>
+          <li><a href="#">イベントハンドラ</a></li>
+          <li><a href="#">イベント発火画面</a></li>
+        </ul>
+      </li>
+      <li><a href="#"><span>リソース</span></a>
+        <ul>
+          <li><a href="#">認証情報</a></li>
+          <li><a href="#">サーバ</a></li>
+          <li><a href="#">仮想サーバイメージ</a></li>
+        </ul>
+      </li>
+      <li class="Current"><a href="#"><span>ジョブ</span></a>
+        <ul>
+          <li><a href="#">テンプレートジョブ</a></li>
+          <li><a href="#">ワークフロー</a></li>
+          <li><a href="#">実行</a></li>
+        </ul>
+      </li>
+      <li><a href="#"><span>スケジュール</span></a>
+        <ul>
+          <li><a href="#">マスタースケジュール</a></li>
+          <li><a href="#">実行スケジュール</a></li>
+        </ul>
+      </li>
+      <li><a href="#"><span>トークン</span></a>
+        <ul>
+          <li><a href="#">トークン</a></li>
+          <li><a href="#">ロック</a></li>
+        </ul>
+      </li>
+    </ul>
+    <!-- /#nav -->
+  </div>
+
+<hr>
+<div id="footer">
+  <ul class="FooterNavi">
+    <li><a href="#">要望・問題の報告</a></li>
+    <li><a href="#">お問い合わせ</a></li>
+    <li class="Last"><a href="#">利用規約</a></li>
+  </ul>
+  <div id="footerLogo">
+    <a href="http://www.nautilus-technologies.com/" target="_blank" title="海底からクラウドの大空まで、不可能を超えて大きく羽ばたく株式会社ノーチラス・テクノロジーズ"><img src="_shared/img/logo_nautilus.png" alt="Nautilus Technologies, Inc."></a>
+  </div>
+  <!--/# footer -->
+  <div id="copyright">
+    <address>
+    Copyright &copy; <a href="http://www.nautilus-technologies.com/" target="_blank">Nautilus Technologies, Inc.</a> All Rights Reserved.
+    </address>
+    <!-- /#copyright -->
+  </div>
+  <!--/#footer -->
+</div>
 
 </body>
 </html>
