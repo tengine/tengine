@@ -39,12 +39,20 @@
               <td><%= f.text_field :id %></td>
             </tr>
             <tr>
-             <th><%= f.label :name %></th>
-             <td><%= f.text_field :name %></td>
+              <th><%= f.label :name %></th>
+              <td><%= f.text_field :name %></td>
             </tr>
             <tr>
-             <th><%= f.label :phase_cd %></th>
-             <td><%= f.check_box_group :phase_cd %></td>
+              <th><%= f.label :phase_cd %></th>
+              <td><%= f.check_box_group :phase_cd %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :reflesh_interval %></th>
+              <td>
+                <%= f.text_field :reflesh_interval %>
+                <br />
+                <span class="TextNotice"><%= t("views.caution.reflesh_interval") %></span>
+              </td>
             </tr>
           </table>
          <% if @category -%>

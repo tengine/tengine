@@ -26,6 +26,8 @@ class Tengine::Job::RootJobnetActual::Finder
 
   multi_selectable_attr :phase_cd, :enum => Tengine::Job::RootJobnetActual.phase_enum
 
+  DEFAULT_REFRESH_INTERVAL = 15
+
   def initialize(attrs = {})
     now = Time.now
     attrs = assign_attributes(attrs)
@@ -34,6 +36,7 @@ class Tengine::Job::RootJobnetActual::Finder
       duration_start:  now.beginning_of_day,
       duration_finish: now.end_of_day,
       phase_ids:   Tengine::Job::RootJobnetActual.phase_ids,
+      reflesh_interval: DEFAULT_REFRESH_INTERVAL,
     }.update(attrs || {})
     ATTRIBUTE_NAMES.each do |attr|
       v = attrs[attr]

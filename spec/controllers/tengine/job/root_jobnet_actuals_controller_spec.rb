@@ -52,6 +52,7 @@ describe Tengine::Job::RootJobnetActualsController do
       assigns(:finder).duration_start.should == expected.duration_start
       assigns(:finder).duration_finish.should == expected.duration_finish
       assigns(:finder).phase_ids.should == expected.phase_ids
+      assigns(:finder).reflesh_interval.should == 15
     end
 
     it "nilが@categoryに設定されていること" do
@@ -523,6 +524,29 @@ describe Tengine::Job::RootJobnetActualsController do
           end
         end
       end
+
+      it "デフォルトではrefleshのレイアウトが使用されていること" do
+        get :index
+
+        assert_template :layout => "reflesh"
+      end
+
+      it "リフレッシュ間隔が1以上のときrefleshのレイアウトが使用されていること" do
+        get :index, :finder => {:reflesh_interval => 30}
+
+        assert_template :layout => "reflesh"
+      end
+
+      it "リフレッシュ間隔が0か指定されていないときapplicationのレイアウトが使用されていること" do
+        get :index, :finder => {:reflesh_interval => 0}
+
+        assert_template :layout => "application"
+
+        get :index, :finder => {:reflesh_interval => ""}
+
+        assert_template :layout => "application"
+      end
+
     end
 
     describe "?category" do
