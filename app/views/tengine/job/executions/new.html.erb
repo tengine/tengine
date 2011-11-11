@@ -1,5 +1,92 @@
-<h1><%= page_title Tengine::Job::Execution, :new %></h1>
+<h1>
+  <% if @retry -%>
+    <%= t(".retry_title") %>
+  <% else -%>
+    <%= t(".title") %>
+  <% end -%>
+</h1>
 
-<%= render 'form' %>
+<div class="Section">
+<% @target_actuals.each do |target_actual| -%>
+<table class="TableInfoView">
+  <colgroup>
+    <col class="Row1 RowTh">
+    <col class="Row2 RowTd">
+  </colgroup>
+  <tbody>
+    <tr>
+      <th scope="row"><%= @target_actual_class.human_attribute_name(:id) %>:</th>
+      <td><%= target_actual.id %></td>
+    </tr>
+    <tr>
+      <th scope="row"><%= @target_actual_class.human_attribute_name(:name) %>:</th>
+      <td><%= target_actual.name %></td>
+    </tr>
+    <tr>
+      <th scope="row"><%= @target_actual_class.human_attribute_name(:description) %>:</th>
+      <td><%= target_actual.description %></td>
+    </tr>
+    <tr>
+      <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_filepath) %>:</th>
+      <td>
+        <% if @retry -%>
+          <%= target_actual.template.dsl_filepath %>
+        <% else -%>
+          <%= target_actual.dsl_filepath %>
+        <% end -%>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<% end -%>
+</div><!-- /.Section -->
 
-<%= link_to_back_list tengine_job_executions_path %>
+<div class="Section">
+
+  <% if @execution.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= I18n.t('activerecord.errors.template.header', :count => @execution.errors.size, :model => @execution.class.human_name) %></h2>
+
+      <ul>
+      <% @execution.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p><span class="TextNotice"><%= t(".form.notice") %></span></p>
+  <%= form_for(@execution, :as => :execution) do |f| %>
+    <table class="TableForm4rows">
+      <colgroup>
+        <col class="Row1 RowTh">
+        <col class="Row2 RowTd">
+        <col class="Row3 RowTh">
+        <col class="Row4 RowTd">
+        <col class="Row5 RowTh">
+        <col class="Row6 RowTd">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th><%= f.label :preparation_command %>:</th>
+          <td><%= f.text_field :preparation_command %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :actual_base_timeout_alert %>:</th>
+          <td><%= f.number_field :actual_base_timeout_alert %><%= t("datetime.prompts.minute")%></td>
+        </tr>
+        <tr>
+          <th><%= f.label :actual_base_timeout_termination %>:</th>
+          <td><%= f.number_field :actual_base_timeout_termination %><%= t("datetime.prompts.minute")%></td>
+        </tr>
+      </tbody>
+    </table>
+    <%= hidden_field_tag :execution_retry, @retry %>
+    <% unless @target_actuals.empty? -%>
+      <%= hidden_field_tag :execution_target_actual_ids, @target_actuals.map(&:id).join(',') %>
+    <% end -%>
+
+    <%= f.submit t("views.links.run")%>
+    <%= link_to t("views.links.cancel"), tengine_job_root_jobnet_templates_path %>
+  <% end -%>
+</div><!-- /.Section -->

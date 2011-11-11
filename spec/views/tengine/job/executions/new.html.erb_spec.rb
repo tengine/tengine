@@ -13,22 +13,32 @@ describe "tengine/job/executions/new.html.erb" do
       :keeping_stdout => false,
       :keeping_stderr => false
     ).as_new_record)
+    assign(:target_actual_class, Tengine::Job::RootJobnetTemplate)
+    assign(:target_actuals, [
+      stub_model(Tengine::Job::RootJobnetTemplate,
+        :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+        :name => "Name",
+        :description => "Description",
+        :script => "Script",
+        :dsl_filepath => "Dsl Filepath",
+      ),
+      stub_model(Tengine::Job::RootJobnetTemplate,
+        :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+        :name => "Name",
+        :description => "Description",
+        :script => "Script",
+        :dsl_filepath => "Dsl Filepath",
+      )
+    ])
   end
 
   it "renders new execution form" do
     render
 
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "form", :action => tengine_job_executions_path, :method => "post" do
-      assert_select "input#execution_root_jobnet_id", :name => "execution[root_jobnet_id]"
-      assert_select "input#execution_target_actual_ids_text", :name => "execution[target_actual_ids_text]"
-      assert_select "input#execution_phase_cd", :name => "execution[phase_cd]"
-      assert_select "input#execution_preparation_command", :name => "execution[preparation_command]"
-      assert_select "input#execution_actual_base_timeout_alert", :name => "execution[actual_base_timeout_alert]"
-      assert_select "input#execution_actual_base_timeout_termination", :name => "execution[actual_base_timeout_termination]"
-      assert_select "input#execution_estimated_time", :name => "execution[estimated_time]"
-      assert_select "input#execution_keeping_stdout", :name => "execution[keeping_stdout]"
-      assert_select "input#execution_keeping_stderr", :name => "execution[keeping_stderr]"
-    end
+    rendered.should have_xpath("//input[@id='execution_preparation_command'][@type='text']")
+    rendered.should have_xpath("//input[@id='execution_actual_base_timeout_alert'][@type='number']")
+    rendered.should have_xpath("//input[@id='execution_actual_base_timeout_termination'][@type='number']")
+    rendered.should have_xpath("//input[@id='execution_retry'][@type='hidden']")
+    rendered.should have_xpath("//input[@id='execution_target_actual_ids'][@type='hidden']")
   end
 end

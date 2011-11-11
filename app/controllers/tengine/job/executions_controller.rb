@@ -24,6 +24,23 @@ class Tengine::Job::ExecutionsController < ApplicationController
   # GET /tengine/job/executions/new
   # GET /tengine/job/executions/new.json
   def new
+    @retry = false
+    if params[:retry].to_s == "true"
+      @retry = true
+      @target_actual_class = Tengine::Job::RootJobnetActual
+    else
+      @target_actual_class = Tengine::Job::RootJobnetTemplate
+    end
+
+    @target_actuals = []
+    if ids = params[:target_actual_ids]
+      @target_actuals = @target_actual_class.any_in(:_id => [ids].flatten)
+      if @target_actuals.empty?
+        ex = Mongoid::Errors::DocumentNotFound.new(
+          @target_actual_class, ids)
+        raise ex
+      end
+    end
     @execution = Tengine::Job::Execution.new
 
     respond_to do |format|

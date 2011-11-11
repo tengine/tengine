@@ -31,6 +31,10 @@ ja:
         name: "名称"
         phase_cd: "フェーズ"
         reflesh_interval: "リフレッシュ間隔(秒)"
+      tengine/job/execution:
+        preparation_command: "事前実行コマンド"
+        actual_base_timeout_alert: "警告設定"
+        actual_base_timeout_termination: "強制終了設定"
 
   selectable_attrs:
     tengine/job/root_jobnet_actual/finder:
