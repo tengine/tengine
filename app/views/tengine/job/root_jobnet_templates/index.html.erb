@@ -2,13 +2,10 @@
 
 <p id="notice"><%= notice %></p>
 
-<div class="right-content">
-  <% params_without_page_and_sort = request.params.select{|k,v| %w(finder).include?(k.to_s) } -%>
-  <%== category_tree(@root_categories, "category", params_without_page_and_sort) %>
-</div>
+<div class="TreeViewContents">
 
-<div class="left-content">
-  
+<div class="DataView"><div class="Wrap">
+
   <div class="search-box">
     <%= form_for(:finder, :html => {:method => :get}) do |f| %>
     <fieldset>
@@ -66,6 +63,13 @@
   </div>
   
   <%= paginate @root_jobnet_templates, :items => @root_jobnet_templates %>
+
+</div></div><!-- DataView -->
+
+<div class="TreeView">
+  <% params_without_page_and_sort = request.params.select{|k,v| %w(finder).include?(k.to_s) } -%>
+  <%== category_tree(@root_categories, "category", params_without_page_and_sort) %>
+</div>
 
 </div>
 
