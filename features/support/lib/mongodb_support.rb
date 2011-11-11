@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 class MongodbSupport
   
-  ＠＠NODES = nil
-
   class << self
 
     def nodes(nodes)
