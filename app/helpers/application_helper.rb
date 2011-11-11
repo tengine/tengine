@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 module ApplicationHelper
   def page_title(class_or_name, page_type = :list)
-    model_class_name(class_or_name) + I18n.t(page_type, :scope => [:views, :pages])
+    # app/views/layouts/application.html.erbの<title>...</title>に使用するためにインスタンス変数で覚えておきます
+    @page_title = model_class_name(class_or_name) + I18n.t(page_type, :scope => [:views, :pages])
   end
 
   def link_to_show(*args, &block)
@@ -134,8 +136,11 @@ module ApplicationHelper
 
   private
   def model_class_name(class_or_name)
-    class_or_name.respond_to?(:human_name) ? class_or_name.human_name :
-      I18n.t("mongoid.models", :default => class_or_name.to_s)
+    return nil unless class_or_name
+    return class_or_name.human_name if class_or_name.respond_to?(:human_name)
+    class_name = class_or_name.is_a?(Class) ? class_or_name.name : class_or_name.to_s
+    class_name_hash = I18n.t("mongoid.models") || {}
+    class_name_hash[class_name.underscore.to_sym] || class_name
   end
 
   def model_name(model)
