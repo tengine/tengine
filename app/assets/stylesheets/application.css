@@ -10,4 +10,5 @@
  *= require layout
  *= require common
  *= require jquery-ui
+ *= require_tree .
 */
