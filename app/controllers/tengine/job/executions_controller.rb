@@ -24,20 +24,38 @@ class Tengine::Job::ExecutionsController < ApplicationController
   # GET /tengine/job/executions/new
   # GET /tengine/job/executions/new.json
   def new
+    root_jobnet_id = params[:root_jobnet_id]
+
     @retry = false
     if params[:retry].to_s == "true"
+      unless root_jobnet_id
+        redirect_to tengine_job_root_jobnet_actuals_path
+        return
+      end
+
       @retry = true
-      @root_jobnet = Tengine::Job::RootJobnetActual.find(params[:root_jobnet_id])
-      @spot = (params[:spot].to_s == "true") ? true : false
-      @target_actuals = [@target_actuals].flatten.compact
-      if @target_actuals.empty?
-        @target_actuals = [@root_jobnet.id]
-        @spot = false
+
+      @root_jobnet = Tengine::Job::RootJobnetActual.find(root_jobnet_id)
+
+      @select_root_jobnet = false
+      @target_actual_ids = [params[:target_actual_ids]].flatten.compact.uniq
+      if @target_actual_ids.empty?
+        @target_actual_ids = [@root_jobnet.id.to_s]
+        @select_root_jobnet = true
+      elsif @target_actual_ids.size == 1 &&
+        @target_actual_ids.first == @root_jobnet.id.to_s
+
+        @select_root_jobnet = true
       end
     else
+      unless root_jobnet_id
+        redirect_to tengine_job_root_jobnet_templates_path
+        return
+      end
+
       dsl_version = Tengine::Core::Setting.dsl_version
       @root_jobnet = Tengine::Job::RootJobnetTemplate.where(
-        :dsl_version => dsl_version).find(params[:root_jobnet_id])
+        :dsl_version => dsl_version).find(root_jobnet_id)
     end
 
     @execution = Tengine::Job::Execution.new(

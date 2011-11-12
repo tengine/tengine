@@ -89,11 +89,15 @@ describe Tengine::Job::ExecutionsController do
         assigns(:root_jobnet).id.should == @test.id
       end
 
+      it "root_jobnet_idパラメータがないときテンプレートジョブ一覧にリダイレクトすること" do
+        get :new
+        assert_redirected_to tengine_job_root_jobnet_templates_path
+      end
+
       it "retryパラメータが'false'のとき、@retryにfalseが設定されていること" do
         get :new, @default_params.merge(:retry => false)
         assigns(:retry).should be_false
       end
-
     end
 
     describe "ジョブネットの再実行のとき" do
@@ -134,6 +138,28 @@ describe Tengine::Job::ExecutionsController do
         assigns(:retry).should be_true
       end
 
+      it "@select_root_jobnetが設定されていること" do
+        get :new, @default_params
+        assigns(:select_root_jobnet).should be_true
+        get :new, @default_params.merge(:target_actual_ids => [@test_actual.id.to_s])
+        assigns(:select_root_jobnet).should be_true
+        get :new, @default_params.merge(:target_actual_ids => [123456])
+        assigns(:select_root_jobnet).should be_false
+      end
+
+      it "@target_actual_idsが設定されていること" do
+        get :new, @default_params
+        assigns(:target_actual_ids).should == [@test_actual.id.to_s]
+        get :new, @default_params.merge(:target_actual_ids => [@test_actual.id.to_s])
+        assigns(:target_actual_ids).should == [@test_actual.id.to_s]
+        get :new, @default_params.merge(:target_actual_ids => [123456])
+        assigns(:target_actual_ids).should == ["123456"]
+      end
+
+      it "root_jobnet_idパラメータがないとき実行中のジョブ一覧にリダイレクトすること" do
+        get :new, :retry => true
+        assert_redirected_to tengine_job_root_jobnet_actuals_path
+      end
     end
   end
 

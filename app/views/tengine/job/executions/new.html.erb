@@ -58,6 +58,15 @@
         <col class="Row6 RowTd">
       </colgroup>
       <tbody>
+        <% if @retry && !@select_root_jobnet -%>
+        <tr>
+          <th><%= f.label :spot %>:</th>
+          <td>
+            <%= f.radio_button :spot, false %><%= f.label :spot_false %>
+            <br /><%= f.radio_button :spot, true %><%= f.label :spot_true %>
+          </td>
+        </tr>
+        <% end -%>
         <tr>
           <th><%= f.label :preparation_command %>:</th>
           <td>
@@ -84,8 +93,7 @@
 
     <% if @retry -%>
       <%= hidden_field_tag :execution_retry, @retry, :name => "execution[retry]" %>
-      <%= hidden_field_tag :execution_spot, @spot, :name => "execution[spot]" %>
-      <%= hidden_field_tag :execution_target_actual_ids_text, @target_actuals.map(&:id).join(","), :name => "execution[target_actual_ids_text]" %>
+      <%= hidden_field_tag :execution_target_actual_ids_text, @target_actual_ids.join(","), :name => "execution[target_actual_ids_text]" %>
     <% end -%>
 
     <%= f.submit t("views.links.run")%>
