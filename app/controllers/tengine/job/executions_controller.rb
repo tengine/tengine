@@ -80,15 +80,37 @@ class Tengine::Job::ExecutionsController < ApplicationController
   # POST /tengine/job/executions
   # POST /tengine/job/executions.json
   def create
-    @execution = Tengine::Job::Execution.new(params[:execution])
+    execute_param = params[:execution]
+    @execution = Tengine::Job::Execution.new(execute_param)
 
     respond_to do |format|
-      if @execution.save
-        format.html { redirect_to @execution, notice: successfully_created(@execution) }
-        format.json { render json: @execution, status: :created, location: @execution }
+      @retry = @execution.retry
+      klass = Tengine::Job::RootJobnetTemplate
+      klass = Tengine::Job::RootJobnetActual if @retry
+      @root_jobnet = klass.find(@execution.root_jobnet_id)
+
+      if @execution.valid?
+        if @execution.retry
+          # 再実行のAPIの呼び出し
+        else
+          executed = @root_jobnet.execute(execute_param.merge(
+            :sender => Tengine::Event.default_sender))
+        end
+
+        format.html do
+          redirect_to tengine_job_root_jobnet_actual_path(executed.root_jobnet.id)
+        end
+        #format.json { render json: @execution, status: :created, location: @execution }
       else
+        @select_root_jobnet = false
+        if @retry && @execution.target_actual_ids.size == 1 &&
+          @execution.target_actual_ids.first == @execution.root_jobnet_id.to_s
+
+          @select_root_jobnet = true
+        end
+
         format.html { render action: "new" }
-        format.json { render json: @execution.errors, status: :unprocessable_entity }
+        #format.json { render json: @execution.errors, status: :unprocessable_entity }
       end
     end
   end

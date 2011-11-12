@@ -173,37 +173,51 @@ describe Tengine::Job::ExecutionsController do
 
   describe "POST create" do
     describe "with valid params" do
-      it "creates a new Tengine::Job::Execution" do
-        expect {
-          post :create, :execution => valid_attributes
-        }.to change(Tengine::Job::Execution, :count).by(1)
+      before do
+        Tengine::Job::Category.delete_all
+        Tengine::Job::RootJobnetTemplate.delete_all
+        category = stub_model(Tengine::Job::Category, :to_s => "category")
+        @test = Tengine::Job::RootJobnetTemplate.create!(
+          :name => "Test Name",
+          :description => "Test Description",
+          :script => "Script",
+          :category => category,
+          :dsl_filepath => "Dsl Filepath",
+          :dsl_version => "1234567890"
+        )
+        @test_actual = @test.generate
+        @test_actual.save!
+
+        @valid_attributes = {
+          :root_jobnet_id => @test.id.to_s,
+          :actual_base_timeout_termination => "30",
+          :actual_base_timeout_alert => "10",
+        }
+
+        mock_sender = mock(:sender)
+        mock_sender.should_receive(:fire)
+        Tengine::Event.stub(:default_sender).and_return(mock_sender)
+      end
+
+      after do
+        Tengine::Job::RootJobnetTemplate.delete_all
+        Tengine::Job::RootJobnetActual.delete_all
       end
 
       it "assigns a newly created execution as @execution" do
-        post :create, :execution => valid_attributes
+        post :create, :execution => @valid_attributes
         assigns(:execution).should be_a(Tengine::Job::Execution)
-        assigns(:execution).should be_persisted
+      end
+
+      it "@execution.retryがfalseのとき@root_jobnetのclassがTengine::Job::RootJobnetTemplateであること" do
+        post :create, :execution => @valid_attributes
+        assigns(:root_jobnet).should be_a(Tengine::Job::RootJobnetTemplate)
       end
 
       it "redirects to the created execution" do
-        post :create, :execution => valid_attributes
-        response.should redirect_to(Tengine::Job::Execution.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved execution as @execution" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::Execution.any_instance.stub(:save).and_return(false)
-        post :create, :execution => {}
-        assigns(:execution).should be_a_new(Tengine::Job::Execution)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::Execution.any_instance.stub(:save).and_return(false)
-        post :create, :execution => {}
-        response.should render_template("new")
+        post :create, :execution => @valid_attributes
+        assigns(:execution)
+        response.should be_redirect
       end
     end
   end
