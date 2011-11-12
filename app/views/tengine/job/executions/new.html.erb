@@ -7,38 +7,30 @@
 </h1>
 
 <div class="Section">
-<% @target_actuals.each do |target_actual| -%>
 <table class="TableInfoView">
   <colgroup>
     <col class="Row1 RowTh">
     <col class="Row2 RowTd">
   </colgroup>
+  <% klass = @root_jobnet.class -%>
   <tbody>
     <tr>
-      <th scope="row"><%= @target_actual_class.human_attribute_name(:id) %>:</th>
-      <td><%= target_actual.id %></td>
+      <th scope="row"><%= klass.human_attribute_name(:name) %>:</th>
+      <td><%= @root_jobnet.name %></td>
     </tr>
     <tr>
-      <th scope="row"><%= @target_actual_class.human_attribute_name(:name) %>:</th>
-      <td><%= target_actual.name %></td>
-    </tr>
-    <tr>
-      <th scope="row"><%= @target_actual_class.human_attribute_name(:description) %>:</th>
-      <td><%= target_actual.description %></td>
-    </tr>
-    <tr>
-      <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_filepath) %>:</th>
+      <th scope="row"><%= klass.human_attribute_name(:id) %>:</th>
       <td>
-        <% if @retry -%>
-          <%= target_actual.template.dsl_filepath %>
-        <% else -%>
-          <%= target_actual.dsl_filepath %>
-        <% end -%>
+        <% template_id = @retry ? @root_jobnet.template_id : @root_jobnet.id -%>
+        <%= link_to template_id, tengine_job_root_jobnet_template_path(template_id) %>
       </td>
+    </tr>
+    <tr>
+      <th scope="row"><%= klass.human_attribute_name(:description) %>:</th>
+      <td><%= @root_jobnet.description %></td>
     </tr>
   </tbody>
 </table>
-<% end -%>
 </div><!-- /.Section -->
 
 <div class="Section">
@@ -55,7 +47,6 @@
     </div>
   <% end %>
 
-  <p><span class="TextNotice"><%= t(".form.notice") %></span></p>
   <%= form_for(@execution, :as => :execution) do |f| %>
     <table class="TableForm4rows">
       <colgroup>
@@ -69,21 +60,32 @@
       <tbody>
         <tr>
           <th><%= f.label :preparation_command %>:</th>
-          <td><%= f.text_field :preparation_command %></td>
+          <td>
+            <%= f.text_field :preparation_command %>
+            <br /><span class="TextNotice"><%= t(".form.notice.preparation_command") %></span>
+          </td>
         </tr>
         <tr>
           <th><%= f.label :actual_base_timeout_alert %>:</th>
-          <td><%= f.number_field :actual_base_timeout_alert %><%= t("datetime.prompts.minute")%></td>
+          <td>
+            <%= f.number_field :actual_base_timeout_alert, :min => 0, :max => 10080 %><%= t("datetime.prompts.minute")%>
+            <span class="TextNotice"><%= t(".form.notice.actual_base_timeout_alert") %></span>
+          </td>
         </tr>
         <tr>
           <th><%= f.label :actual_base_timeout_termination %>:</th>
-          <td><%= f.number_field :actual_base_timeout_termination %><%= t("datetime.prompts.minute")%></td>
+          <td>
+            <%= f.number_field :actual_base_timeout_termination, :min => 0, :max => 10080 %><%= t("datetime.prompts.minute")%>
+            <span class="TextNotice"><%= t(".form.notice.actual_base_timeout_termination") %></span>
+          </td>
         </tr>
       </tbody>
     </table>
-    <%= hidden_field_tag :execution_retry, @retry %>
-    <% unless @target_actuals.empty? -%>
-      <%= hidden_field_tag :execution_target_actual_ids, @target_actuals.map(&:id).join(',') %>
+
+    <% if @retry -%>
+      <%= hidden_field_tag :execution_retry, @retry, :name => "execution[retry]" %>
+      <%= hidden_field_tag :execution_spot, @spot, :name => "execution[spot]" %>
+      <%= hidden_field_tag :execution_target_actual_ids_text, @target_actuals.map(&:id).join(","), :name => "execution[target_actual_ids_text]" %>
     <% end -%>
 
     <%= f.submit t("views.links.run")%>

@@ -27,21 +27,23 @@ class Tengine::Job::ExecutionsController < ApplicationController
     @retry = false
     if params[:retry].to_s == "true"
       @retry = true
-      @target_actual_class = Tengine::Job::RootJobnetActual
+      @root_jobnet = Tengine::Job::RootJobnetActual.find(params[:root_jobnet_id])
+      @spot = (params[:spot].to_s == "true") ? true : false
+      @target_actuals = [@target_actuals].flatten.compact
+      if @target_actuals.empty?
+        @target_actuals = [@root_jobnet.id]
+        @spot = false
+      end
     else
-      @target_actual_class = Tengine::Job::RootJobnetTemplate
+      dsl_version = Tengine::Core::Setting.dsl_version
+      @root_jobnet = Tengine::Job::RootJobnetTemplate.where(
+        :dsl_version => dsl_version).find(params[:root_jobnet_id])
     end
 
-    @target_actuals = []
-    if ids = params[:target_actual_ids]
-      @target_actuals = @target_actual_class.any_in(:_id => [ids].flatten)
-      if @target_actuals.empty?
-        ex = Mongoid::Errors::DocumentNotFound.new(
-          @target_actual_class, ids)
-        raise ex
-      end
-    end
-    @execution = Tengine::Job::Execution.new
+    @execution = Tengine::Job::Execution.new(
+      :actual_base_timeout_alert => 0,
+      :actual_base_timeout_termination => 0,
+    )
 
     respond_to do |format|
       format.html # new.html.erb

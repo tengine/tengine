@@ -1,44 +1,92 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
+# for i18n lazy lookup
+def render
+  suprt(:file => "tengine/job/executions/new")
+end
+
 describe "tengine/job/executions/new.html.erb" do
-  before(:each) do
-    assign(:execution, stub_model(Tengine::Job::Execution,
-      :root_jobnet => nil,
-      :target_actual_ids => ["abc", "123"],
-      :phase_cd => 1,
-      :preparation_command => "MyString",
-      :actual_base_timeout_alert => 1,
-      :actual_base_timeout_termination => 1,
-      :estimated_time => 1,
-      :keeping_stdout => false,
-      :keeping_stderr => false
-    ).as_new_record)
-    assign(:target_actual_class, Tengine::Job::RootJobnetTemplate)
-    assign(:target_actuals, [
-      stub_model(Tengine::Job::RootJobnetTemplate,
-        :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
-        :name => "Name",
-        :description => "Description",
-        :script => "Script",
-        :dsl_filepath => "Dsl Filepath",
-      ),
-      stub_model(Tengine::Job::RootJobnetTemplate,
+  describe "テンプレートジョブネットの実行のとき" do
+    before(:each) do
+      assign(:execution, stub_model(Tengine::Job::Execution,
+        :root_jobnet => nil,
+        :target_actual_ids => nil,
+        :phase_cd => 20,
+        :preparation_command => "",
+        :actual_base_timeout_alert => 0,
+        :actual_base_timeout_termination => 0,
+        :estimated_time => nil,
+        :keeping_stdout => false,
+        :keeping_stderr => false
+      ).as_new_record)
+      Tengine::Job::RootJobnetTemplate.delete_all
+      @test = stub_model(Tengine::Job::RootJobnetTemplate,
         :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
         :name => "Name",
         :description => "Description",
         :script => "Script",
         :dsl_filepath => "Dsl Filepath",
       )
-    ])
+      assign(:root_jobnet, @test)
+    end
+
+    it "renders new execution form" do
+      render
+
+      rendered.should have_xpath("//input[@id='execution_preparation_command'][@type='text']")
+      rendered.should have_xpath("//input[@id='execution_actual_base_timeout_alert'][@type='number']")
+      rendered.should have_xpath("//input[@id='execution_actual_base_timeout_termination'][@type='number']")
+    end
+
+    it "実行のタイトルが表示されていること" do
+      render
+
+      rendered.should have_xpath("//h1")
+    end
+    #it "2実行のタイトルが表示されていること" do
+    #  render(:file => "tengine/job/executions/new")
+
+    #  rendered.should have_xpath("//h1", :text => I18n.t("tengine.job.executions.new.title"))
+    #end
+
+    it "対象のジョブネットの情報が表示されていること" do
+      render
+
+      rendered.should have_xpath("//td", :text => @test.id.to_s)
+      rendered.should have_xpath("//td", :text => @test.name)
+      rendered.should have_xpath("//td", :text => @test.description)
+      #rendered.should have_xpath("//td", :text => @test.dsl_filepath)
+    end
   end
 
-  it "renders new execution form" do
-    render
+  describe "実行ジョブネットの再実行のとき" do
+    before do
+      assign(:execution, stub_model(Tengine::Job::Execution,
+        :root_jobnet => nil,
+        :target_actual_ids => nil,
+        :phase_cd => 20,
+        :preparation_command => "",
+        :actual_base_timeout_alert => 0,
+        :actual_base_timeout_termination => 0,
+        :estimated_time => nil,
+        :keeping_stdout => false,
+        :keeping_stderr => false
+      ).as_new_record)
+      Tengine::Job::RootJobnetTemplate.delete_all
+      @test = stub_model(Tengine::Job::RootJobnetActual,
+        :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+        :name => "Name",
+        :description => "Description",
+        :script => "Script",
+      )
+      assign(:root_jobnet, @test)
+    end
 
-    rendered.should have_xpath("//input[@id='execution_preparation_command'][@type='text']")
-    rendered.should have_xpath("//input[@id='execution_actual_base_timeout_alert'][@type='number']")
-    rendered.should have_xpath("//input[@id='execution_actual_base_timeout_termination'][@type='number']")
-    rendered.should have_xpath("//input[@id='execution_retry'][@type='hidden']")
-    rendered.should have_xpath("//input[@id='execution_target_actual_ids'][@type='hidden']")
+    it "再実行のタイトルが表示されていること" do
+      render
+
+      rendered.should have_xpath("//h1")
+    end
   end
 end
