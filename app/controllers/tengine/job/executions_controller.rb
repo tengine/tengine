@@ -61,7 +61,10 @@ class Tengine::Job::ExecutionsController < ApplicationController
     @execution = Tengine::Job::Execution.new(
       :actual_base_timeout_alert => 0,
       :actual_base_timeout_termination => 0,
+      :root_jobnet_id => root_jobnet_id,
+      :retry => @retry,
     )
+    @execution.target_actual_ids = @target_actual_ids if @retry
 
     respond_to do |format|
       format.html # new.html.erb

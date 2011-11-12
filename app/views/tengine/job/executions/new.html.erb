@@ -91,9 +91,10 @@
       </tbody>
     </table>
 
+    <%= f.hidden_field :root_jobnet_id %>
     <% if @retry -%>
-      <%= hidden_field_tag :execution_retry, @retry, :name => "execution[retry]" %>
-      <%= hidden_field_tag :execution_target_actual_ids_text, @target_actual_ids.join(","), :name => "execution[target_actual_ids_text]" %>
+      <%= f.hidden_field :retry %>
+      <%= f.hidden_field :target_actual_ids_text %>
     <% end -%>
 
     <%= f.submit t("views.links.run")%>
