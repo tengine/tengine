@@ -1,0 +1,233 @@
+@charset "utf-8";
+
+/* ================================================================
+
+CSS Information
+
+ File name:      module-form.css
+ Summary:        form elements styles
+ Last update:    2010-01-31
+
+================================================================ */
+
+
+
+fieldset{
+  border: none;
+  padding: 0;
+}
+legend{
+  display: none;
+}
+
+
+
+/* @group TEXT */
+
+.TextInputMust {
+    color: red;
+    font-size: 0.8em;
+    line-height: 1;
+    /*
+    display: inline-block;
+    width: 30px; height: 0;
+    padding-top: 14px;
+    overflow: hidden;
+    background: url(../img/icon/icon_important.png) no-repeat;
+    
+    float: left;
+    margin-top: 3px;
+    */
+}
+.TextNotice{
+  display: inline-block;
+  color: #39a;
+  font-size: 0.8em;
+  padding-left: 18px;
+  background: url(<%= asset_path("icon/Comment.png") %>) no-repeat left 0;
+}
+.TextEx{
+  color: #999;
+  font-size: 0.8em;
+}
+.TextError{
+  color: #a33;
+    padding: 3px 10px 3px 20px;
+    background: url(<%= asset_path 'icon/exclamation.png' %>) no-repeat left center;
+    line-height: 1;
+}
+
+.FontSizeL{  font-size: large;}
+.FontSizeS{  font-size: small;}
+
+/* @end */
+
+/* @group .Msg */
+.Msg {
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+  .Msg p{
+    margin-bottom: 0 !important;
+  }
+  
+.MsgWarning{
+  padding: 10px 30px;
+  background: #fefbdc url(<%= asset_path 'icon/Warning.png' %>) no-repeat 10px 11px;
+  border: 5px solid #f6e019;
+}
+  
+.MsgComplete{
+  padding: 10px 30px;
+  background: #C9EEFE url(<%= asset_path 'icon/Ok.png' %>) no-repeat 10px 11px;
+  color: #000;
+}
+
+.MsgCompleteDelete{
+  padding: 10px 30px;
+  background: #fbf0a3 url(<%= asset_path 'icon/Delete.png' %>) no-repeat 10px 11px;
+  color: #000;
+}
+
+.MsgError {
+  padding: 10px 30px;
+  background: url(<%= asset_path 'icon/Error.png' %>) no-repeat 10px 10px;
+  color: red;
+  font-weight: bold;
+  border: 4px solid #f00;
+}
+.MsgError ul {
+  margin-top: 10px;
+  margin-left: 15px;
+}
+.MsgError ul li {
+  padding-left: 20px;
+  margin-bottom: 5px;
+  list-style: none;
+  font-weight: normal;
+  color: #333;
+  background: url(<%= asset_path 'icon/Red_mark.png' %>) no-repeat left 1px;
+}
+/* @end */
+
+/* @group INPUT TEXT */
+.InputText,
+.InputError{
+  box-sizing: border-box;
+  margin-bottom: 4px;
+  padding: 3px 20px 3px 5px;
+  width: 200px;
+  font-size: 1.2em;
+  border: 1px solid #ccc;
+  background-color: #EDEDED;
+}
+
+.InputText{
+  
+}
+.InputText:hover,
+.InputText:focus{
+  background-color: #fdfcdd;
+  border-color: #aa9;
+}
+
+/* エラー時、エラー項目のinputの右上に表示 */
+.InputError{
+  box-sizing: border-box;
+  padding-right: 20px;
+  border: 1px solid #f00;
+  background: #FFDDDD url(<%= asset_path 'icon/Red_mark.png' %>) no-repeat 98% 5px;
+}
+.WrapInputError {
+  padding: 0 0 5px 0;
+  background: #FFDDDD url(<%= asset_path 'icon/Red_mark.png' %>) no-repeat 98% 5px;
+}
+
+
+/* width */
+.InputWauto  { box-sizing: border-box; width: 100%; }
+
+.InputW1em{  width: 1em; }
+.InputW2em{  width: 2em; }
+.InputW3em{  width: 3em; }
+.InputW4em{  width: 4em; }
+.InputW5em{  width: 5em; }
+
+.InputW10em{  width: 10em; }
+
+.InputW30 {  width: 30px; }
+.InputW50 {  width: 50px; }
+.InputW60{  width: 60px;}
+.InputW70{  width: 70px;}
+.InputW80{  width: 80px;}
+.InputW100{  width: 100px;}
+.InputW150{  width: 150px;}
+.InputW200{  width: 200px;}
+.InputW300{  width: 300px;}
+
+.InputW400{  width: 400px;}
+.InputW45p {  width: 45%; }
+.InputW50p  {  width: 50%; }
+.InputW100p  {  width: 100%; }
+.InputLarge  {  width: 95%; }
+.InputSmall  {  width: 50px; }
+/* Button */
+input.BtnSubmit{
+  
+}
+input.BtnSubmit:hover,
+input.BtnSubmit:focus{
+  
+}
+
+input.datepicker {
+  background: url(<%= asset_path 'icon/30.png' %>) no-repeat 98% center;
+}
+
+/* @end */
+
+/* @group #EntryForm */
+#EntryForm {
+  
+}
+#EntryForm table.TableBase {
+border-top: 1px solid #ccc;
+}
+
+#EntryForm table.TableBase th,
+#EntryForm table.TableBase td {
+  border: 0;
+  border-bottom: 1px solid #ccc;
+}
+#EntryForm table.TableBase th {
+  background: none;
+  text-align: right;
+}
+#EntryForm table.TableBase td {
+  padding-right: 0;
+  padding-left: 10px;
+}
+label .W2em { text-align: right; }
+
+a.LinkBtnBack{
+  position: absolute;
+  left: 0; top: 0;
+}
+
+
+/* @end */
+
+/* @group #EntryPreview */
+
+#EntryPreview {
+}
+
+#EntryPreview .TextAlignCenter{
+  position: relative;
+}
+
+#EntryPreview a.LinkBtnBack{
+  position: absolute;
+  left: 0; top: 0;
+}
+/* @end */

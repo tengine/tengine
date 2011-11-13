@@ -6,12 +6,12 @@ describe "tengine/job/edges/index.html.erb" do
     @id2 = BSON::ObjectId.new
     mock_pagination(assign(:edges, [
       stub_model(Tengine::Job::Edge,
-        :status_cd => 1,
+        :phase_cd => 1,
         :origin_id => @id1,
         :destination_id => @id2,
       ),
       stub_model(Tengine::Job::Edge,
-        :status_cd => 1,
+        :phase_cd => 1,
         :origin_id => @id1,
         :destination_id => @id2,
       )
