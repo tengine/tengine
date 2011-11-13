@@ -23,24 +23,15 @@ describe "tengine/resource/credentials/index.html.erb" do
         :created_at => Time.now,
         :updated_at => Time.now
       ),
-      stub_model(Tengine::Resource::Credential,
-        :id=>BSON::ObjectId('4eb7a7a5be074a4282000003'),
-        :name => "ec2_access_key",
-        :description => "Description",
-        :auth_type_cd => "03",
-        :auth_values => {"access_key"=>"1", "secret_access_key"=>"2", "default_region" => 3},
-        :created_at => Time.now,
-        :updated_at => Time.now
-      )
     ]).page(1))
   end
 
   it "renders a list of tengine_resource_credentials" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => "ssh_password".to_s, :count => 1
+     assert_select "tr>td", :text => "ssh_password".to_s, :count => 1
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => "Description".to_s, :count => 3
+    assert_select "tr>td", :text => "Description".to_s, :count => 2
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "SSHパスワード認証".to_s, :count => 1
   end

@@ -63,19 +63,26 @@ describe Tengine::Resource::CredentialsController do
           :auth_type_cd => "02",
           :auth_values => {"username"=>"1", "private_keys"=>"2", "passphrase" => 3},
         )
+<<<<<<< HEAD
         @c3= Tengine::Resource::Credential.create!(
           :name => "ec2_access_key1",
           :description => "Description4",
           :auth_type_cd => "03",
           :auth_values => {"access_key"=>"1", "secret_access_key"=>"2", "default_region" => 3},
         )
+=======
+>>>>>>> 20111114_tmp_credential_ui
       end
 
       it "ソートパラメータを指定しないとき@credentialsがnameの昇順にソートされていること" do
         get :index
 
         actuals = assigns(:credentials)
+<<<<<<< HEAD
         [@c3,@c1,@c2].each_with_index do |expected, i|
+=======
+        [@c1,@c2].each_with_index do |expected, i|
+>>>>>>> 20111114_tmp_credential_ui
           actuals[i].name.should == expected.name
         end
       end
@@ -84,7 +91,11 @@ describe Tengine::Resource::CredentialsController do
         get :index, :sort => {:name => "asc"}
 
         actuals = assigns(:credentials)
+<<<<<<< HEAD
         [@c3,@c1,@c2].each_with_index do |expected, i|
+=======
+        [@c1,@c2].each_with_index do |expected, i|
+>>>>>>> 20111114_tmp_credential_ui
           actuals[i].name.should == expected.name
         end
       end
@@ -93,7 +104,11 @@ describe Tengine::Resource::CredentialsController do
         get :index, :sort => {:name => "desc"}
 
         actuals = assigns(:credentials)
+<<<<<<< HEAD
         [@c2,@c1,@c3].each_with_index do |expected, i|
+=======
+        [@c2,@c1].each_with_index do |expected, i|
+>>>>>>> 20111114_tmp_credential_ui
           actuals[i].name.should == expected.name
         end
       end
@@ -102,7 +117,11 @@ describe Tengine::Resource::CredentialsController do
         get :index, :sort => {:description => "asc"}
 
         actuals = assigns(:credentials)
+<<<<<<< HEAD
         [@c3,@c2,@c1].each_with_index do |expected, i|
+=======
+        [@c2,@c1].each_with_index do |expected, i|
+>>>>>>> 20111114_tmp_credential_ui
           actuals[i].name.should == expected.name
         end
       end
@@ -111,7 +130,11 @@ describe Tengine::Resource::CredentialsController do
         get :index, :sort => {:description => "desc"}
 
         actuals = assigns(:credentials)
+<<<<<<< HEAD
         [@c1,@c2,@c3].each_with_index do |expected, i|
+=======
+        [@c1,@c2].each_with_index do |expected, i|
+>>>>>>> 20111114_tmp_credential_ui
           actuals[i].description.should == expected.description
         end
       end
@@ -120,7 +143,11 @@ describe Tengine::Resource::CredentialsController do
         get :index, :sort => {:auth_type_cd => "asc"}
 
         actuals = assigns(:credentials)
+<<<<<<< HEAD
         [@c1,@c2,@c3].each_with_index do |expected, i|
+=======
+        [@c1,@c2].each_with_index do |expected, i|
+>>>>>>> 20111114_tmp_credential_ui
           actuals[i].description.should == expected.description
         end
       end
@@ -129,7 +156,11 @@ describe Tengine::Resource::CredentialsController do
         get :index, :sort => {:auth_type_cd => "desc"}
 
         actuals = assigns(:credentials)
+<<<<<<< HEAD
         [@c3,@c2,@c1].each_with_index do |expected, i|
+=======
+        [@c2,@c1].each_with_index do |expected, i|
+>>>>>>> 20111114_tmp_credential_ui
           actuals[i].auth_type_cd.should == expected.auth_type_cd
         end
       end
@@ -150,12 +181,15 @@ describe Tengine::Resource::CredentialsController do
           :auth_type_cd => "02",
           :auth_values => {"username"=>"1", "private_keys"=>"2", "passphrase" => 3},
         )
+<<<<<<< HEAD
         @c3= Tengine::Resource::Credential.create!(
           :name => "ec2_access_key1",
           :description => "Description4",
           :auth_type_cd => "03",
           :auth_values => {"access_key"=>"1", "secret_access_key"=>"2", "default_region" => 3},
         )
+=======
+>>>>>>> 20111114_tmp_credential_ui
         @c4= Tengine::Resource::Credential.create!(
           :name => "ssh_password2",
           :description => "description3",
@@ -168,6 +202,7 @@ describe Tengine::Resource::CredentialsController do
           :auth_type_cd => "02",
           :auth_values => {"username"=>"1", "private_keys"=>"2", "passphrase" => 3},
         )
+<<<<<<< HEAD
         @c6= Tengine::Resource::Credential.create!(
           :name => "ec2_access_key2",
           :description => "description1",
@@ -180,6 +215,14 @@ describe Tengine::Resource::CredentialsController do
         get :index
         actuals = assigns(:credentials)
         actuals.count.should == 6
+=======
+      end
+
+      it "finderのクエリーパラメータを指定しないとき@credentialsが4件であること" do
+        get :index
+        actuals = assigns(:credentials)
+        actuals.count.should == 4
+>>>>>>> 20111114_tmp_credential_ui
       end
 
       it "認証情報種別のSSHパスワード認証をチェックして検索したとき@credentialsが2件であること" do
@@ -194,18 +237,22 @@ describe Tengine::Resource::CredentialsController do
         actuals.count.should == 2
       end
 
+<<<<<<< HEAD
       it "認証情報種別のEC2アクセスキー認証をチェックして検索したとき@credentialsが2件であること" do
         get :index, :finder => {:name => "", :description => "", :auth_type_cd_01 => "0", :auth_type_cd_02 => "0", :auth_type_cd_03 => "1"}
         actuals = assigns(:credentials)
         actuals.count.should == 2
       end
 
+=======
+>>>>>>> 20111114_tmp_credential_ui
       it "認証情報種別のSSHパスワード認証とSSH公開鍵認証をチェックして検索したとき@credentialsが4件であること" do
         get :index, :finder => {:name => "", :description => "", :auth_type_cd_01 => "1", :auth_type_cd_02 => "1", :auth_type_cd_03 => "0"}
         actuals = assigns(:credentials)
         actuals.count.should == 4
       end
 
+<<<<<<< HEAD
       it "認証情報種別のSSHパスワード認証とEC2アクセスキー認証をチェックして検索したとき@credentialsが4件であること" do
         get :index, :finder => {:name => "", :description => "", :auth_type_cd_01 => "1", :auth_type_cd_02 => "0", :auth_type_cd_03 => "1"}
         actuals = assigns(:credentials)
@@ -224,6 +271,8 @@ describe Tengine::Resource::CredentialsController do
         actuals.count.should == 6
       end
 
+=======
+>>>>>>> 20111114_tmp_credential_ui
       it "認証情報種別をすべて選択し、nameにsshを入力して検索したとき検索結果はnameにsshを含むものが4件取得できること" do
         get :index, :finder => {:name => "ssh", :description => "", :auth_type_cd_01 => "1", :auth_type_cd_02 => "1", :auth_type_cd_03 => "1"}
 
@@ -234,13 +283,22 @@ describe Tengine::Resource::CredentialsController do
         end
       end
 
+<<<<<<< HEAD
       it "認証情報種別をすべて選択し、descriptionに1を入力して検索したとき検索結果はdescriptionにを含むものが1件取得できること" do
         get :index, :finder => {:name => "", :description => "1",:auth_type_cd_01 => "1", :auth_type_cd_02 => "1", :auth_type_cd_03 => "1"}
+=======
+      it "認証情報種別をすべて選択し、descriptionに2を入力して検索したとき検索結果はdescriptionにを含むものが1件取得できること" do
+        get :index, :finder => {:name => "", :description => "2",:auth_type_cd_01 => "1", :auth_type_cd_02 => "1", :auth_type_cd_03 => "1"}
+>>>>>>> 20111114_tmp_credential_ui
 
         actuals = assigns(:credentials)
         actuals.count.should == 1
         actuals.each do |actual|
+<<<<<<< HEAD
           actual.description.should =~ /1/
+=======
+          actual.description.should =~ /2/
+>>>>>>> 20111114_tmp_credential_ui
         end
       end
 
@@ -254,6 +312,7 @@ describe Tengine::Resource::CredentialsController do
         end
       end
 
+<<<<<<< HEAD
       it "認証情報種別のSSH公開鍵認証とEC2アクセスキー認証をチェックし、nameにkey2を入力して検索したとき@credentialsが2件であること" do
         get :index, :finder => {:name => "key2", :description => "", :auth_type_cd_01 => "0", :auth_type_cd_02 => "1", :auth_type_cd_03 => "1"}
 
@@ -264,6 +323,8 @@ describe Tengine::Resource::CredentialsController do
         end
       end
 
+=======
+>>>>>>> 20111114_tmp_credential_ui
       it "認証情報種別のSSHパスワード認証とSSH公開鍵認証をチェックし、nameにssh、descriptionにdescを入力して検索したとき@credentialsが2件であること" do
         get :index, :finder => {:name => "ssh", :description => "desc", :auth_type_cd_01 => "1", :auth_type_cd_02 => "1", :auth_type_cd_03 => "0"}
 
