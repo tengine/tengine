@@ -11,3 +11,7 @@ tmp/
 
 # ci_reporter
 spec/reports/
+
+# bundler
+vendor/bundle/
+vendor/cache/
