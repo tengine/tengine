@@ -34,7 +34,8 @@ class Tengine::Job::JobnetActualsController < ApplicationController
 
   # GET /tengine/job/jobnet_actuals/1/edit
   def edit
-    @jobnet_actual = Tengine::Job::JobnetActual.find(params[:id])
+    @root_jobnet = Tengine::Job::RootJobnetActual.find(params[:root_jobnet_id])
+    @jobnet_actual = @root_jobnet.find_descendant(params[:id])
   end
 
   # POST /tengine/job/jobnet_actuals
@@ -56,11 +57,14 @@ class Tengine::Job::JobnetActualsController < ApplicationController
   # PUT /tengine/job/jobnet_actuals/1
   # PUT /tengine/job/jobnet_actuals/1.json
   def update
-    @jobnet_actual = Tengine::Job::JobnetActual.find(params[:id])
+    @root_jobnet = Tengine::Job::RootJobnetActual.find(params[:root_jobnet_id])
+    @jobnet_actual = @root_jobnet.find_descendant(params[:id])
 
     respond_to do |format|
       if @jobnet_actual.update_attributes(params[:jobnet_actual])
-        format.html { redirect_to @jobnet_actual, notice: successfully_updated(@jobnet_actual) }
+        format.html do
+          redirect_to tengine_job_root_jobnet_actual_path(@root_jobnet)
+        end
         format.json { head :ok }
       else
         format.html { render action: "edit" }

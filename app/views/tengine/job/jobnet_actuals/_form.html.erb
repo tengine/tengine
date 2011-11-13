@@ -1,3 +1,4 @@
+<% status_only = false unless defined?(status_only) -%>
 <%= form_for(@jobnet_actual, as:"jobnet_actual") do |f| %>
   <% if @jobnet_actual.errors.any? %>
     <div id="error_explanation">
@@ -11,71 +12,124 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :server_name %><br />
-    <%= f.text_field :server_name %>
-  </div>
-  <div class="field">
-    <%= f.label :credential_name %><br />
-    <%= f.text_field :credential_name %>
-  </div>
-  <div class="field">
-    <%= f.label :killing_signals_text %><br />
-    <%= f.text_field :killing_signals_text %>
-  </div>
-  <div class="field">
-    <%= f.label :killing_signal_interval %><br />
-    <%= f.number_field :killing_signal_interval %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :script %><br />
-    <%= f.text_field :script %>
-  </div>
-  <div class="field">
-    <%= f.label :jobnet_type_cd %><br />
-    <%= f.number_field :jobnet_type_cd %>
-  </div>
-  <div class="field">
-    <%= f.label :executing_pid %><br />
-    <%= f.text_field :executing_pid %>
-  </div>
-  <div class="field">
-    <%= f.label :exit_status %><br />
-    <%= f.text_field :exit_status %>
-  </div>
-  <div class="field">
-    <%= f.label :was_expansion %><br />
-    <%= f.check_box :was_expansion %>
-  </div>
-  <div class="field">
-    <%= f.label :phase_cd %><br />
-    <%= f.number_field :phase_cd %>
-  </div>
-  <div class="field">
-    <%= f.label :started_at %><br />
-    <%= f.datetime_select :started_at %>
-  </div>
-  <div class="field">
-    <%= f.label :finished_at %><br />
-    <%= f.datetime_select :finished_at %>
-  </div>
-  <div class="field">
-    <%= f.label :stopped_at %><br />
-    <%= f.datetime_select :stopped_at %>
-  </div>
-  <div class="field">
-    <%= f.label :stop_reason %><br />
-    <%= f.text_field :stop_reason %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <% unless status_only -%>
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :server_name %><br />
+      <%= f.text_field :server_name %>
+    </div>
+    <div class="field">
+      <%= f.label :credential_name %><br />
+      <%= f.text_field :credential_name %>
+    </div>
+    <div class="field">
+      <%= f.label :killing_signals_text %><br />
+      <%= f.text_field :killing_signals_text %>
+    </div>
+    <div class="field">
+      <%= f.label :killing_signal_interval %><br />
+      <%= f.number_field :killing_signal_interval %>
+    </div>
+    <div class="field">
+      <%= f.label :description %><br />
+      <%= f.text_field :description %>
+    </div>
+    <div class="field">
+      <%= f.label :script %><br />
+      <%= f.text_field :script %>
+    </div>
+    <div class="field">
+      <%= f.label :jobnet_type_cd %><br />
+      <%= f.number_field :jobnet_type_cd %>
+    </div>
+    <div class="field">
+      <%= f.label :executing_pid %><br />
+      <%= f.text_field :executing_pid %>
+    </div>
+    <div class="field">
+      <%= f.label :exit_status %><br />
+      <%= f.text_field :exit_status %>
+    </div>
+    <div class="field">
+      <%= f.label :was_expansion %><br />
+      <%= f.check_box :was_expansion %>
+    </div>
+    <div class="field">
+      <%= f.label :phase_cd %><br />
+      <%= f.number_field :phase_cd %>
+    </div>
+    <div class="field">
+      <%= f.label :started_at %><br />
+      <%= f.datetime_select :started_at %>
+    </div>
+    <div class="field">
+      <%= f.label :finished_at %><br />
+      <%= f.datetime_select :finished_at %>
+    </div>
+    <div class="field">
+      <%= f.label :stopped_at %><br />
+      <%= f.datetime_select :stopped_at %>
+    </div>
+    <div class="field">
+      <%= f.label :stop_reason %><br />
+      <%= f.text_field :stop_reason %>
+    </div>
+  <% else %>
+    <table class="TableForm4rows">
+      <colgroup>
+        <col class="Row1 RowTh">
+        <col class="Row2 RowTd">
+        <col class="Row3 RowTh">
+        <col class="Row4 RowTd">
+        <col class="Row5 RowTh">
+        <col class="Row6 RowTd">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th><%= Tengine::Job::JobnetActual.human_attribute_name(:name) %>:</th>
+          <td><%= @jobnet_actual.name %></td>
+        </tr>
+        <tr>
+          <th><%= Tengine::Job::JobnetActual.human_attribute_name(:executing_pid) %>:</th>
+          <td><%= @jobnet_actual.executing_pid %></td>
+        </tr>
+        <tr>
+          <th><%= Tengine::Job::JobnetActual.human_attribute_name(:destinations) %>:</th>
+          <td>
+            <% unless (edges = @jobnet_actual.next_edges).blank? -%>
+              <% if (dest = edges.first.destination).instance_of?(Tengine::Job::JobnetActual) -%>
+                <%= dest.name %>
+              <% else -%>
+                <%= dest.next_edges.collect{|edge| edge.destination.name }.join(", ") %>
+              <% end -%>
+            <% end -%>
+          </td>
+        </tr>
+        <tr>
+          <th><%= Tengine::Job::JobnetActual.human_attribute_name(:started_at) %>:</th>
+          <td><%= @jobnet_actual.started_at %></td>
+        </tr>
+        <tr>
+          <th><%= Tengine::Job::JobnetActual.human_attribute_name(:finished_at) %>:</th>
+          <td><%= @jobnet_actual.finished_at %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :phase_cd %>:</th>
+          <td>
+            <%= f.select :phase_cd, Tengine::Job::JobnetActual.phase_hash_array.map{|hash| [hash[:name].to_s, hash[:id]] if [:success, :error].include?(hash[:key]) }.compact %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <%= hidden_field_tag :root_jobnet_id, @root_jobnet.id.to_s %>
+  <% end %>
+
+  <span class="BtnWrap"><%= f.submit :class => "BtnEdit" %></span>
+  <% cancel_path = tengine_job_jobnet_actuals_path unless defined?(cancel_path) -%>
+  <%= link_to cancel_path, :class => "BtnWrap" do %>
+    <span class="BtnNormal"><%= t("views.links.cancel") %></span>
+  <% end %>
 <% end %>

@@ -1,6 +1,3 @@
 <h1><%= page_title Tengine::Job::JobnetActual, :edit %></h1>
 
-<%= render 'form' %>
-
-<%= link_to_show @jobnet_actual %> |
-<%= link_to_back_list tengine_job_jobnet_actuals_path %>
+<%= render :partial => 'form', :locals => {:status_only => true, :cancel_path => tengine_job_jobnet_actuals_path, :root_jobnet => @root_jobnet} %>

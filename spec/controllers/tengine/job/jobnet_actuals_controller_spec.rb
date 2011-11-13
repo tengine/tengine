@@ -121,10 +121,10 @@ describe Tengine::Job::JobnetActualsController do
         assigns(:jobnet_actual).should eq(jobnet_actual)
       end
 
-      it "redirects to the jobnet_actual" do
+      it "redirects to the root_jobnet_actual show" do
         jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
         put :update, :id => jobnet_actual.id, :jobnet_actual => valid_attributes
-        response.should redirect_to(jobnet_actual)
+        response.should redirect_to(tengine_job_jobnet_actual_path(jobnet_actual))
       end
     end
 
