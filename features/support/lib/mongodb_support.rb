@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 class MongodbSupport
   
-  ＠＠NODES = nil
-
   class << self
 
     def nodes(nodes)
@@ -46,7 +44,12 @@ class MongodbSupport
     def start_mongodb(h, name)
       @@NODES.each do |node|
 puts "node:#{node}"
-        command = "mongod --replSet tengine_e2e_rs --port #{node['port']} --dbpath #{node['dbpath']} --logpath #{node['logpath']}/tengine.log --fork --logappend --rest --journal"
+
+        if @@NODES.size > 1
+          command = "mongod --replSet tengine_e2e_rs --port #{node['port']} --dbpath #{node['dbpath']} --logpath #{node['logpath']}/tengine.log --fork --logappend --rest --journal"
+        else
+          command = "mongod --port #{node['port']} --dbpath #{node['dbpath']} --logpath #{node['logpath']}/tengine.log --fork --logappend --rest --journal"
+        end
         # name が重複しないように、ノードの識別子(host + port)をつける
         node_name = "name_#{node['host']}_#{node['port']}"
         start_process(h, node_name, command)

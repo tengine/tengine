@@ -40,11 +40,11 @@ jobnet("jobnet1075", :instance_name => "test_server1", :credential_name => "test
     jobnet("jobnet1075-2") do 
       boot_jobs("jobnet1075-3")
       jobnet("jobnet1075-3") do 
-        boot_jobs("j3""$HOME/tengine_job_test.sh 0 j3")
-        job("j3",)
+        boot_jobs("j3")
+        job("j3","$HOME/tengine_job_test.sh 0 j3")
         finally do 
           boot_jobs("jf3")
-          job("jf3", "$HOME/tengine_job_test.sh 0 j3")
+          job("jf3", "$HOME/tengine_job_test.sh 0 jf3")
         end
       end
       finally do 
