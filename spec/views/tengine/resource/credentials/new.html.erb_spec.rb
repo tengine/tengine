@@ -73,29 +73,4 @@ describe "tengine/resource/credentials/new.html.erb" do
     end
   end
 
-  describe "EC2 アクセスキー認証を選択したとき" do
-
-    before(:each) do
-      @credential = assign(:credential, stub_model(Tengine::Resource::Credential,
-        :name => "MyString",
-        :description => "MyString",
-        :auth_type_cd => "03",
-        :auth_values => {"access_key"=>"1", "secret_access_key"=>"2", "default_region" => "kkkk"}
-      ))
-    end
- 
-    it "EC2アクセスキー認証に必要な情報が作成されていること" do
-      render
-
-      # Run the generator again with the --webrat flag if you want to use webrat matchers
-      assert_select "form", :action => tengine_resource_credentials_path(@credential), :method => "post" do
-        assert_select "input#credential_name", :name => "credential[name]"
-        assert_select "input#credential_description", :name => "credential[description]"
-        assert_select "select#credential_auth_type_cd", :name => "credential[auth_type_cd]"
-        assert_select "input#credential_auth_values_access_key", :name => "credential[auth_values][access_key]"
-        assert_select "input#credential_auth_values_secret_access_key", :name => "credential[auth_values][secret_access_key]"
-        assert_select "input#credential_auth_values_default_region", :name => "credential[auth_values][default_region]"
-      end
-    end
-  end
 end

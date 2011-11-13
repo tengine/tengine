@@ -204,7 +204,7 @@ GEM
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
-      tilt (!= 1.3.0, ~> 1.1)
+      tilt (~> 1.1, != 1.3.0)
     systemu (2.4.1)
     tengine_core (0.3.2)
       activemodel (~> 3.1.0)

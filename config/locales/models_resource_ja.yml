@@ -15,6 +15,8 @@ ja:
         description: "表示名"
         auth_type_cd: "認証情報種別"
         auth_values: "認証設定"
+        created_at: "登録日時"
+        updated_at: "更新日時"
 
   selectable_attrs:
       tengine/resource/credential:
@@ -22,3 +24,8 @@ ja:
           ssh_password: "SSHパスワード認証"
           ssh_public_key: "SSH公開鍵認証"
           ec2_access_key: "EC2 アクセスキー認証"
+
+  username: "ユーザー名"
+  password: "パスワード"
+  passphrase: "パスワード"
+  private_keys: "秘密鍵"
