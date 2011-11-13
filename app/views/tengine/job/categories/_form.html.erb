@@ -1,15 +1,5 @@
 <%= form_for(@category, as:"category") do |f| %>
-  <% if @category.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= I18n.t('activerecord.errors.template.header', :count => @category.errors.size, :model => @category.class.human_name) %></h2>
-
-      <ul>
-      <% @category.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= model_error_messages(@category) %>
 
   <div class="field">
     <%= f.label :parent_id %><br />

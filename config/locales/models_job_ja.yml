@@ -1,0 +1,49 @@
+ja:
+  mongoid:
+    models:
+      # tengine/job/root_jobnet_template: "ルートテンプレートジョブネット"
+      # tengine/job/root_jobnet_template: "ルートジョブネット"
+      tengine/job/root_jobnet_template: "テンプレートジョブ"
+      # tengine/job/root_jobnet_actual: "実行用ルートジョブネット"
+      tengine/job/root_jobnet_actual: "実行中のジョブ"
+      tengine/job/execution: "ジョブ実行"
+
+    attributes:
+      tengine/job/root_jobnet_template:
+        id: "ID"
+        name: "名称"
+        description: "表示名"
+        dsl_filepath: "DSLファイルパス"
+      tengine/job/jobnet_template:
+        id: "ID"
+        name: "名称"
+        script: "実行するスクリプト"
+        description: "表示名"
+        destinations: "次のジョブ"
+      tengine/job/root_jobnet_actual:
+        id: "ID"
+        name: "名称"
+        description: "表示名"
+        phase_cd: "フェーズ"
+        started_at: "開始時刻"
+        finished_at: "終了時刻"
+      tengine/job/root_jobnet_actual/finder:
+        duration_start: "期間の開始時刻"
+        duration_finish: "期間の終了時刻"
+        duration: "期間"
+        id: "ID"
+        name: "名称"
+        phase_cd: "フェーズ"
+        reflesh_interval: "リフレッシュ間隔(秒)"
+
+  selectable_attrs:
+    tengine/job/root_jobnet_actual/finder:
+      phase_cd:
+        initialized: "初期化済"
+        ready: "準備済"
+        starting: "起動中"
+        running: "稼動中"
+        dying: "終了中"
+        success: "終了済"
+        error: "エラー"
+        stuck: "stuck"

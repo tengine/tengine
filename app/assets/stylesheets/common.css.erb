@@ -1,0 +1,353 @@
+@charset "utf-8";
+
+/* ================================================================
+
+CSS Information
+
+ File name:      common.css
+ Summary:        for base common (layout,class)
+ Last update:    2011-02-24
+================================================================ */
+
+/*
+----------------------------------------------------------------------------- 
+[1] base
+[2] header
+[3] footer
+[4] contents
+[4-1] main
+[4-2] nav
+[99] other
+----------------------------------------------------------------------------- */
+/* @group base */
+/*
+----------------------------------------------------------------------------- 
+[1] base
+----------------------------------------------------------------------------- */
+/* @end */
+
+/* @group header */
+/*
+----------------------------------------------------------------------------- 
+[2] header
+----------------------------------------------------------------------------- */
+#header {
+	border-bottom: 2px solid #999;
+}
+
+#siteId {
+	
+}
+#systemTitle {
+	padding: 14px 0 0 10px;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 1;
+}
+
+#systemTitle a {
+	color: #000;
+	text-decoration: none;
+}
+
+#headerNav {
+	position: absolute;
+	top: 10px; right: 15px;
+}
+
+/* @end */
+
+/* @group footer */
+
+/*
+----------------------------------------------------------------------------- 
+[3] footer
+----------------------------------------------------------------------------- */
+#footer {
+	border-top: 1px solid #ccc;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.FooterNavi {
+	position: absolute;
+	top: 18px; right: 10px;
+	text-align: left;
+}
+
+.FooterNavi li {
+	display: inline-block;
+	margin: 0 5px;
+	list-style: none;
+}
+.FooterNavi li a {
+	font-size: 12px;
+	text-decoration: none;
+}
+
+/* My Comment */
+
+#footerLogo {
+	display: inline-block;
+	margin-left: 10px;
+	margin-right: 20px;
+}
+#copyright {
+	display: inline-block;
+	color: #004EA3;
+}
+
+#copyright a {
+	text-decoration: none;
+	color: #004EA3;
+}
+/* @end */
+
+/* @group contents */
+/*
+----------------------------------------------------------------------------- 
+[4] contents
+----------------------------------------------------------------------------- */
+#contents {
+	background: url(<%=asset_path 'bg_contents.png' %>) repeat-y;
+}
+
+/* @group main */
+/*
+----------------------------------------------------------------------------- 
+[4-1] main
+----------------------------------------------------------------------------- */
+
+h1,h2,h3,h4,h5 {
+	clear: both;
+	margin-bottom: 20px;
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 20px;
+	font-weight: bold;
+	padding-bottom: 10px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	background: url(<%=asset_path 'bg_line1.png' %>) repeat-x left bottom;
+}
+
+h2 {
+	font-size: 18px;
+	padding: 5px 0;
+	margin-top: 15px;
+	margin-bottom: 20px;
+	border-bottom: 4px solid #eee;
+}
+
+h3 {
+	font-size: 16px;
+	padding: 5px 0;
+	margin-top: 15px;
+	margin-bottom: 20px;
+	border-bottom: 1px dotted #ddd;
+}
+
+h4 {
+	padding: 5px 0;
+	margin-top: 15px;
+
+}
+
+h5 {
+	padding: 5px 0;
+	margin-top: 15px;
+}
+
+
+.Section {
+	padding-bottom: 40px;
+}
+
+.Wrap pre {
+	padding: 10px;
+	background-color: #EDEDED;
+	line-height: 1.3;
+}
+/* @end */
+
+/* @group nav */
+/*
+----------------------------------------------------------------------------- 
+[4-2] nav
+----------------------------------------------------------------------------- */
+#nav {
+}
+
+#nav ul {
+	border-bottom: 1px solid #999;
+}
+
+#nav ul li {
+	display: block;
+	margin-right: 1px;
+	border-top: 1px solid #999;
+	background: url(<%=asset_path 'bg_check1.png' %>);
+}
+#nav > ul > li:first-child {
+	border-top: none;
+}
+
+#nav > ul > li > a {
+	display: block;
+	font-weight: bold;
+	color: #333;;
+	text-decoration: none;
+	background: url(<%=asset_path 'icon/Briefcase.png' %>) no-repeat 10px 0.75em;
+}
+#nav > ul > li > a span {
+	display: block;
+	padding: 10px 10px 10px 30px
+}
+#nav > ul > li > a:hover span {
+	color: #000;
+	background: #eee url(<%=asset_path 'icon/Briefcase.png' %>) no-repeat 10px 0.75em;
+}
+
+
+#nav ul li ul {
+	border-bottom: 0;
+}
+#nav ul li ul li {
+	margin-right: 0;
+	border-top: 1px dotted #999;
+}
+#nav ul li ul li a {
+	display: block;
+	padding: 8px 8px 8px 10px;
+	text-decoration: none;
+	color: #333;
+	background: #fff url(<%=asset_path 'arrow1.png' %>) no-repeat 208px center;
+}
+#nav ul li ul li a:hover {
+	display: block;
+	padding: 8px 8px 8px 10px;
+	color: #000;
+	text-decoration: none;
+	background: #eee url(<%=asset_path 'arrow1.png' %>) no-repeat 210px center;
+}
+
+
+/* Current */
+#nav > ul > li.Current {
+	background: url(<%=asset_path 'bg_check2.png' %>) repeat;
+}
+#nav > ul > li.Current > a {
+	margin-right: -1px;
+	color: #fff;
+	font-weight: bold;
+	background: url(<%=asset_path 'icon/Briefcase.png' %>) no-repeat 10px 0.75em;
+}
+#nav > ul > li.Current > a span,
+#nav > ul > li.Current > a:hover span {
+	color: #fff;
+	background: url(<%=asset_path 'arrow2.png' %>) no-repeat right center;
+}
+
+#nav ul li ul li.Current {
+	margin-right: -1px;
+	background: url(<%=asset_path 'bg_check2.png' %>) repeat;
+}
+#nav ul li ul li.Current a {
+	color: #fff;
+	font-weight: bold;
+	background: url(<%=asset_path 'arrow2.png' %>) no-repeat right center;
+}
+/* @end */
+
+/* @end */
+
+/* @group other */
+/*
+----------------------------------------------------------------------------- 
+[99] other
+----------------------------------------------------------------------------- */
+/*
+
+.debug {
+    border: 1px solid #f00;	
+}
+
+*/
+
+/* @group for jQuery UI */
+
+
+/* @end */
+
+/* @group .PageTop */
+.TopLink {
+	padding-top:20px;
+	text-align: right;
+}
+a.LinkPageTop {
+	padding-left:16px;
+	background: url(<%=asset_path 'icon/55.png' %>) no-repeat left center;
+}
+/* @end */
+
+/* @group .BreadCrumbs */
+.BreadCrumbs {
+	line-height: 1;
+	padding-bottom: 10px;
+	color:#666;
+	font-size: 0.88em;
+}
+.BreadCrumbs strong {
+	font-weight: normal;
+}
+
+.BreadCrumbs dl {
+	display: block;
+}
+.BreadCrumbs dl:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+* html .BreadCrumbs dl             { zoom: 1; } /* IE6 */
+*:first-child+html .BreadCrumbs dl { zoom: 1; } /* IE7 */
+
+.BreadCrumbs dt {
+    display: none;
+}
+.BreadCrumbs dd {
+    float: left;
+    padding-right: 8px;
+}
+
+.BreadCrumbs dd ol {
+    overflow: hidden;
+}
+
+.BreadCrumbs dd ol li {
+    display: inline;
+    padding-left: 0px;
+    padding-right: 5px;
+}
+
+.BreadCrumbs dd ol li.Last {
+    padding-right: 0;
+    background: none;
+}
+
+.BreadCrumbs dd ol li.Home {
+    
+}
+.BreadCrumbs dd ol li a {
+	padding-right: 16px;
+	background: url(<%=asset_path "topicpath.gif" %>) no-repeat right center;
+}
+
+/* @end */
+
+/* @end */

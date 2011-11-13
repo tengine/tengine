@@ -6,7 +6,7 @@ describe "tengine/resource/virtual_server_images/show.html.erb" do
       :provider => nil,
       :name => "Name",
       :description => "Description",
-      :provided_name => "Provided Name"
+      :provided_id => "Provided Name"
     ))
   end
 

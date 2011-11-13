@@ -2,16 +2,15 @@
 
 FactoryGirl.define do
   factory :"tengine/resource/virtual_server" do
+    provider(nil)
     name("MyString")
+    provided_id("MyString")
     description("MyString")
-    host(nil)
-    provided_name("MyString")
     status("MyString")
-    public_hostname("MyString")
-    public_ipv4("MyString")
-    local_hostname("MyString")
-    local_ipv4("MyString")
+    addresses({"a"=>"1", "b"=>"2"})
     properties({"a"=>"1", "b"=>"2"})
-    provided_image_name("MyString")
+    provided_image_id("MyString")
+    provided_type_id("MyString")
+    host_server("")
   end
 end

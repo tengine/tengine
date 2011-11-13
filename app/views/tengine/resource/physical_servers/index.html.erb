@@ -6,13 +6,10 @@
   <tr>
     <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:provider) %></th>
     <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:name) %></th>
+    <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:provided_id) %></th>
     <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:description) %></th>
-    <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:provided_name) %></th>
     <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:status) %></th>
-    <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:public_hostname) %></th>
-    <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:public_ipv4) %></th>
-    <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:local_hostname) %></th>
-    <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:local_ipv4) %></th>
+    <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:addresses) %></th>
     <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:properties) %></th>
     <th></th>
     <th></th>
@@ -21,15 +18,12 @@
 
 <% @physical_servers.each do |physical_server| %>
   <tr class="<%= cycle("even", "odd") %>" >
-    <td><%= physical_server.provider %></td>
+    <td><%= (physical_server.respond_to?(:provider) && physical_server.provider) ? physical_server.provider.name : "<No provider found>" %></td>
     <td><%= physical_server.name %></td>
+    <td><%= physical_server.provided_id %></td>
     <td><%= physical_server.description %></td>
-    <td><%= physical_server.provided_name %></td>
     <td><%= physical_server.status %></td>
-    <td><%= physical_server.public_hostname %></td>
-    <td><%= physical_server.public_ipv4 %></td>
-    <td><%= physical_server.local_hostname %></td>
-    <td><%= physical_server.local_ipv4 %></td>
+    <td><pre><%= physical_server.addresses_yaml %></pre></td>
     <td><pre><%= physical_server.properties_yaml %></pre></td>
     <td><%= link_to_show physical_server %></td>
     <td><%= link_to_edit edit_tengine_resource_physical_server_path(physical_server) %></td>

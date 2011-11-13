@@ -1,3 +1,13 @@
+<% if @auto_refresh -%>
+<% content_for :end_of_head do -%>
+  <meta http-equiv="refresh" content="<%= @reflesh_interval %>">
+<% end -%>
+<p>
+[自動更新中] <%= @reflesh_interval %>秒間隔で自動更新しています。
+</p>
+<% end -%>
+
+
 <h1><%= page_title Tengine::Core::Event, :list %></h1>
 
 <p id="notice"><%= notice %></p>

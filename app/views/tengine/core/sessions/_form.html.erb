@@ -1,15 +1,5 @@
 <%= form_for(@session, as:"session") do |f| %>
-  <% if @session.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= I18n.t('activerecord.errors.template.header', :count => @session.errors.size, :model => @session.class.human_name) %></h2>
-
-      <ul>
-      <% @session.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= model_error_messages(@session) %>
 
   <div class="field">
     <%= f.label :lock_version %><br />

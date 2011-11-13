@@ -4,7 +4,7 @@
 
 <table>
   <tr>
-    <th><%= Tengine::Job::Edge.human_attribute_name(:status_cd) %></th>
+    <th><%= Tengine::Job::Edge.human_attribute_name(:phase_cd) %></th>
     <th><%= Tengine::Job::Edge.human_attribute_name(:origin_id) %></th>
     <th><%= Tengine::Job::Edge.human_attribute_name(:destination_id) %></th>
     <th></th>
@@ -14,7 +14,7 @@
 
 <% @edges.each do |edge| %>
   <tr class="<%= cycle("even", "odd") %>" >
-    <td><%= edge.status_cd %></td>
+    <td><%= edge.phase_cd %></td>
     <td><%= edge.origin_id %></td>
     <td><%= edge.destination_id %></td>
     <td><%= link_to_show edge %></td>

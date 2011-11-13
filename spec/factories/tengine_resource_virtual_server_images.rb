@@ -5,6 +5,6 @@ FactoryGirl.define do
     provider(nil)
     name("MyString")
     description("MyString")
-    provided_name("MyString")
+    provided_id("MyString")
   end
 end
