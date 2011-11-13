@@ -311,7 +311,8 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       it "再実行のリンクが表示されていないこと" do
         render
 
-        href = edit_tengine_job_root_jobnet_actual_path(@actual1)
+        href = new_tengine_job_execution_path(
+          :root_jobnet_id => @actual1, :retry => true)
         rendered.should_not have_xpath("//a[@href='#{href}']",
           :text => I18n.t("views.links.rerun"))
       end
@@ -353,7 +354,8 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       it "再実行のリンクが表示されていないこと" do
         render
 
-        href = edit_tengine_job_root_jobnet_actual_path(@actual1)
+        href = new_tengine_job_execution_path(
+          :root_jobnet_id => @actual1, :retry => true)
         rendered.should_not have_xpath("//a[@href='#{href}']",
           :text => I18n.t("views.links.rerun"))
       end
@@ -395,7 +397,8 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       it "再実行のリンクが表示されていないこと" do
         render
 
-        href = edit_tengine_job_root_jobnet_actual_path(@actual1)
+        href = new_tengine_job_execution_path(
+          :root_jobnet_id => @actual1, :retry => true)
         rendered.should_not have_xpath("//a[@href='#{href}']",
           :text => I18n.t("views.links.rerun"))
       end
@@ -437,7 +440,8 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       it "再実行のリンクが表示されていないこと" do
         render
 
-        href = edit_tengine_job_root_jobnet_actual_path(@actual1)
+        href = new_tengine_job_execution_path(
+          :root_jobnet_id => @actual1, :retry => true)
         rendered.should_not have_xpath("//a[@href='#{href}']",
           :text => I18n.t("views.links.rerun"))
       end
@@ -479,7 +483,8 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       it "再実行のリンクが表示されていること" do
         render
 
-        href = edit_tengine_job_root_jobnet_actual_path(@actual1)
+        href = new_tengine_job_execution_path(
+          :root_jobnet_id => @actual1, :retry => true)
         rendered.should have_xpath("//a[@href='#{href}']",
           :text => I18n.t("views.links.rerun"))
       end
@@ -521,7 +526,8 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       it "再実行のリンクが表示されていること" do
         render
 
-        href = edit_tengine_job_root_jobnet_actual_path(@actual1)
+        href = new_tengine_job_execution_path(
+          :root_jobnet_id => @actual1, :retry => true)
         rendered.should have_xpath("//a[@href='#{href}']",
           :text => I18n.t("views.links.rerun"))
       end
@@ -563,7 +569,8 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       it "再実行のリンクが表示されていること" do
         render
 
-        href = edit_tengine_job_root_jobnet_actual_path(@actual1)
+        href = new_tengine_job_execution_path(
+          :root_jobnet_id => @actual1, :retry => true)
         rendered.should have_xpath("//a[@href='#{href}']",
           :text => I18n.t("views.links.rerun"))
       end
@@ -605,7 +612,8 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       it "再実行のリンクが表示されていること" do
         render
 
-        href = edit_tengine_job_root_jobnet_actual_path(@actual1)
+        href = new_tengine_job_execution_path(
+          :root_jobnet_id => @actual1, :retry => true)
         rendered.should have_xpath("//a[@href='#{href}']",
           :text => I18n.t("views.links.rerun"))
       end

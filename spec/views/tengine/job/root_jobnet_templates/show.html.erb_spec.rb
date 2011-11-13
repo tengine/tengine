@@ -58,8 +58,8 @@ describe "tengine/job/root_jobnet_templates/show.html.erb" do
       render
 
       name = I18n.t(:run, :scope => [:views, :links])
-      rendered.should have_link(name,
-        :href => edit_tengine_job_root_jobnet_template_path(@root_jobnet_template))
+      rendered.should have_link(name, :href =>
+        new_tengine_job_execution_path(:root_jobnet_id => @root_jobnet_template))
     end
 
     it "一覧画面へのリンクが表示されていること" do
