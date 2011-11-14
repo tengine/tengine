@@ -124,13 +124,13 @@ a.BtnText {
 	margin: 0 5px;
 	padding:11px 15px 11px 30px;	
 	/*
-	background: url(../img/icon/1.png) no-repeat 15px center, url(../img/bg_btn_input.png) repeat-x;
+	background: url(/assets/icon/1.png) no-repeat 15px center, url(/assets/bg_btn_input.png) repeat-x;
 	*/
 	
-	background: url(../img/icon/View.png) no-repeat 11px center,
+	background: url(/assets/icon/View.png) no-repeat 11px center,
 	-moz-linear-gradient(top, #fff,#fff 30%,#EDEDED); /* Firefox用 */
     
-    background: url(../img/icon/View.png) no-repeat 11px center,
+    background: url(/assets/icon/View.png) no-repeat 11px center,
     -webkit-gradient(linear, left top, left bottom, from(#fff), 
             color-stop(0.3, #fff),
             to(#EDEDED)); /* Safari,Google Chrome用 */
@@ -160,10 +160,10 @@ input.BtnSample {
 
 input.BtnSample:hover,
 a.BtnText:hover {
-	background: url(../img/icon/View.png) no-repeat 11px center,
+	background: url(/assets/icon/View.png) no-repeat 11px center,
 	-moz-linear-gradient(top, #EAEAEA,#EAEAEA 30%,#c9c9c9); /* Firefox用 */
     
-    background: url(../img/icon/View.png) no-repeat 11px center,
+    background: url(/assets/icon/View.png) no-repeat 11px center,
     -webkit-gradient(linear, left top, left bottom, from(#EAEAEA), 
             color-stop(0.3, #EAEAEA),
             to(#c9c9c9)); /* Safari,Google Chrome用 */
