@@ -39,6 +39,9 @@ ja:
         destinations: "次のジョブ"
         started_at: "開始時刻"
         finished_at: "終了時刻"
+        script: "スクリプト"
+        server_name: "接続サーバ名"
+        credential_name: "認証情報名"
 
   selectable_attrs:
     tengine/job/root_jobnet_actual/finder:

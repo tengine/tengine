@@ -43,9 +43,9 @@
     <td><%= jobnet_actual.finished_at %></td>
     <td><%= jobnet_actual.stopped_at %></td>
     <td><%= jobnet_actual.stop_reason %></td>
-    <td><%= link_to_show jobnet_actual %></td>
-    <td><%= link_to_edit edit_tengine_job_jobnet_actual_path(jobnet_actual) %></td>
-    <td><%= link_to_destroy jobnet_actual, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to_show tengine_job_root_jobnet_actual_jobnet_actual_path(jobnet_actual, root_jobnet_actual_id: @root_jobnet_actual) %></td>
+    <td><%= link_to_edit edit_tengine_job_root_jobnet_actual_jobnet_actual_path(jobnet_actual, root_jobnet_actual_id: @root_jobnet_actual) %></td>
+    <td><%= link_to_destroy tengine_job_root_jobnet_actual_jobnet_actual_path(jobnet_actual, root_jobnet_actual_id: @root_jobnet_actual), confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
@@ -56,4 +56,4 @@
 
 <br />
 
-<%= link_to_new Tengine::Job::JobnetActual, new_tengine_job_jobnet_actual_path %>
+<%= link_to_new Tengine::Job::JobnetActual, new_tengine_job_root_jobnet_actual_jobnet_actual_path(@root_jobnet_actual) %>

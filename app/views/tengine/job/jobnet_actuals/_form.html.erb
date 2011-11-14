@@ -1,5 +1,11 @@
-<% status_only = false unless defined?(status_only) -%>
-<%= form_for(@jobnet_actual, as:"jobnet_actual") do |f| %>
+<% unless defined?(status_only) -%>
+  <% status_only = false -%>
+<% end -%>
+<% unless defined?(submit_path) -%>
+  <% submit_path = tengine_job_root_jobnet_actual_jobnet_actuals_path(@root_jobnet_actual) -%>
+<% end -%>
+<% logger.debug "debug -- #{submit_path}" %>
+<%= form_for(@jobnet_actual, as:"jobnet_actual", url:submit_path) do |f| %>
   <% if @jobnet_actual.errors.any? %>
     <div id="error_explanation">
       <h2><%= I18n.t('activerecord.errors.template.header', :count => @jobnet_actual.errors.size, :model => @jobnet_actual.class.human_name) %></h2>
@@ -84,8 +90,6 @@
         <col class="Row2 RowTd">
         <col class="Row3 RowTh">
         <col class="Row4 RowTd">
-        <col class="Row5 RowTh">
-        <col class="Row6 RowTd">
       </colgroup>
       <tbody>
         <tr>
@@ -95,6 +99,18 @@
         <tr>
           <th><%= Tengine::Job::JobnetActual.human_attribute_name(:executing_pid) %>:</th>
           <td><%= @jobnet_actual.executing_pid %></td>
+        </tr>
+        <tr>
+          <th><%= Tengine::Job::JobnetActual.human_attribute_name(:script) %>:</th>
+          <td><%= @jobnet_actual.script %></td>
+        </tr>
+        <tr>
+          <th><%= Tengine::Job::JobnetActual.human_attribute_name(:server_name) %>:</th>
+          <td><%= @jobnet_actual.server_name %></td>
+        </tr>
+        <tr>
+          <th><%= Tengine::Job::JobnetActual.human_attribute_name(:credential_name) %>:</th>
+          <td><%= @jobnet_actual.credential_name %></td>
         </tr>
         <tr>
           <th><%= Tengine::Job::JobnetActual.human_attribute_name(:destinations) %>:</th>
@@ -124,11 +140,12 @@
         </tr>
       </tbody>
     </table>
-    <%= hidden_field_tag :root_jobnet_id, @root_jobnet.id.to_s %>
   <% end %>
 
   <span class="BtnWrap"><%= f.submit :class => "BtnEdit" %></span>
-  <% cancel_path = tengine_job_jobnet_actuals_path unless defined?(cancel_path) -%>
+  <% unless defined?(cancel_path) -%>
+    <% cancel_path = tengine_job_root_jobnet_actual_jobnet_actuals_path(@root_jobnet_actual) -%>
+  <% end %>
   <%= link_to cancel_path, :class => "BtnWrap" do %>
     <span class="BtnNormal"><%= t("views.links.cancel") %></span>
   <% end %>

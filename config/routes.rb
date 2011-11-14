@@ -11,7 +11,13 @@ TengineConsole::Application.routes.draw do
 
   namespace :tengine do  namespace :job do resources :categories end end
 
-  namespace :tengine do  namespace :job do resources :root_jobnet_actuals end end
+  namespace :tengine do
+    namespace :job do
+      resources :root_jobnet_actuals do
+        resources :jobnet_actuals
+      end
+    end
+  end
 
   namespace :tengine do  namespace :job do resources :root_jobnet_templates end end
 
@@ -32,8 +38,6 @@ TengineConsole::Application.routes.draw do
   namespace :tengine do  namespace :job do resources :jobs end end
 
   namespace :tengine do  namespace :job do resources :expansions end end
-
-  namespace :tengine do  namespace :job do resources :jobnet_actuals end end
 
   namespace :tengine do  namespace :job do resources :jobnet_templates end end
 
