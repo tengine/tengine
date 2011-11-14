@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe "tengine/job/jobnet_actuals/index.html.erb" do
   before(:each) do
+    assign(:root_jobnet_actual, stub_model(Tengine::Job::RootJobnetActual,
+      :name => "test"
+    ))
     mock_pagination(assign(:jobnet_actuals, [
       stub_model(Tengine::Job::JobnetActual,
         :name => "Name",

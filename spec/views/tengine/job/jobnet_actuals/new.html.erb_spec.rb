@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe "tengine/job/jobnet_actuals/new.html.erb" do
   before(:each) do
+    @root_jobnet_actual = assign(:root_jobnet_actual,
+      stub_model(Tengine::Job::RootJobnetActual, :name => "test"))
     assign(:jobnet_actual, stub_model(Tengine::Job::JobnetActual,
       :name => "MyString",
       :server_name => "MyString",
@@ -23,7 +25,7 @@ describe "tengine/job/jobnet_actuals/new.html.erb" do
     render
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "form", :action => tengine_job_jobnet_actuals_path, :method => "post" do
+    assert_select "form", :action => tengine_job_root_jobnet_actual_jobnet_actuals_path(@root_jobnet_actual), :method => "post" do
       assert_select "input#jobnet_actual_name", :name => "jobnet_actual[name]"
       assert_select "input#jobnet_actual_server_name", :name => "jobnet_actual[server_name]"
       assert_select "input#jobnet_actual_credential_name", :name => "jobnet_actual[credential_name]"
