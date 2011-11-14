@@ -4,6 +4,44 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
   def index
     @physical_servers = Tengine::Resource::PhysicalServer.all(:sort => [[:_id]]).page(params[:page])
 
+    if sort_param = params[:sort]
+      order = []
+      sort_param.each do |k, v|
+        v = (v.to_s == "desc") ? :desc : :asc
+        k = case k.to_s
+            when "name"
+              [:name, v]
+            when "description"
+              [:description, v]
+            when "provided_id"
+              [:provided_id, v]
+            end
+        order.push k
+      end
+    else
+      default_sort = {:name => "asc"}
+      request.query_parameters[:sort] = default_sort
+      order = default_sort.to_a
+    end
+    @physical_servers = @physical_servers.order_by(order)
+
+    if search_param = params[:finder]
+      @finder = ::OpenStruct.new search_param
+      finder = {}
+      [:name, :description, :provided_id].each do |field|
+        next if (value = @finder.send(field)).blank?
+        value = /#{Regexp.escape(value)}/
+        finder[field] = value
+      end
+      @physical_servers = @physical_servers.where(finder)
+      status = {:online => "01", :registering => "02"}
+      status_finder =[] 
+      status.each do |key, id |
+         status_finder << {:status => id}  if @finder.send(key) == "1"
+      end
+      @physical_servers = @physical_servers.any_of(status_finder) unless status_finder.empty?
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @physical_servers }
@@ -12,25 +50,25 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
 
   # GET /tengine/resource/physical_servers/1
   # GET /tengine/resource/physical_servers/1.json
-  def show
-    @physical_server = Tengine::Resource::PhysicalServer.find(params[:id])
+ # def show
+ #   @physical_server = Tengine::Resource::PhysicalServer.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @physical_server }
-    end
-  end
+ #   respond_to do |format|
+ #     format.html # show.html.erb
+ #     format.json { render json: @physical_server }
+ #   end
+ # end
 
   # GET /tengine/resource/physical_servers/new
   # GET /tengine/resource/physical_servers/new.json
-  def new
-    @physical_server = Tengine::Resource::PhysicalServer.new
+ # def new
+ #   @physical_server = Tengine::Resource::PhysicalServer.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @physical_server }
-    end
-  end
+ #   respond_to do |format|
+ #     format.html # new.html.erb
+ #     format.json { render json: @physical_server }
+ #   end
+ # end
 
   # GET /tengine/resource/physical_servers/1/edit
   def edit
