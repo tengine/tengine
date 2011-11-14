@@ -13,50 +13,50 @@ CSS Information
 
 /* @group Btn (Link,Input) */
 .BtnWrap {
-	display: inline-block;
-	margin-right: 5px;
-	margin-bottom: 10px;
-	padding: 0 18px 0 20px;
-	border: 1px solid #ccc;
-	border-right-color: #bbb;
-	border-bottom-color: #aaa;
-	border-radius:8px;
-	-webkit-border-radius:8px;
-	-moz-border-radius:8px;
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  padding: 0 18px 0 20px;
+  border: 1px solid #ccc;
+  border-right-color: #bbb;
+  border-bottom-color: #aaa;
+  border-radius:8px;
+  -webkit-border-radius:8px;
+  -moz-border-radius:8px;
 
-	line-height: 1;
-	font-weight: bold;
-	background: #fff url(../img/bg_btn_input.png) repeat-x left 0;
-	
-	box-shadow: 0px 0px 5px #ccc;
+  line-height: 1;
+  font-weight: bold;
+  background: #fff url(../img/bg_btn_input.png) repeat-x left 0;
+  
+  box-shadow: 0px 0px 5px #ccc;
 }
 
 .BtnWrap:hover {
-	background-position: left bottom;
-	border-color: #aaa;
-	box-shadow: 0px 0px 0 #fff;
+  background-position: left bottom;
+  border-color: #aaa;
+  box-shadow: 0px 0px 0 #fff;
 }
-	a.BtnWrap span,
-	span.BtnWrap input {
-		display: inline-block;
-		margin:0;
-	    padding: 7px 0 7px 20px;
-		border: 0;
-		line-height: 1;
-		color: #555;
-		font-size:18px;
-		text-align: center;
-		background-color: transparent;
-		background-repeat: no-repeat;
-		background-position: left center;
-	}
-	a.BtnWrap:hover span,
-	span.BtnWrap:hover input {
-		color: #222;
-	}
+  a.BtnWrap span,
+  span.BtnWrap input {
+    display: inline-block;
+    margin:0;
+      padding: 7px 0 7px 20px;
+    border: 0;
+    line-height: 1;
+    color: #555;
+    font-size:18px;
+    text-align: center;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: left center;
+  }
+  a.BtnWrap:hover span,
+  span.BtnWrap:hover input {
+    color: #222;
+  }
 
 .BtnWrap .BtnNormal {
-	padding: 7px 20px;
+  padding: 7px 20px;
 }
 
 .BtnDetail {
@@ -96,85 +96,85 @@ CSS Information
     background-image: url(../img/icon/Upload.png);
 }
 .BtnSubmit {
-	background-image: url(../img/icon/Go_forward.png);
+  background-image: url(../img/icon/Go_forward.png);
 }
 .BtnYes {
     background-image: url(../img/icon/yes.png);
 }
 .BtnNo {
-	background-image: url(../img/icon/no.png);
+  background-image: url(../img/icon/no.png);
 }
 .BtnPreview {
     padding: 0 5px 0 18px;
-	background: url(../img/icon/Text_preview.png) no-repeat 0 2px;
+  background: url(../img/icon/Text_preview.png) no-repeat 0 2px;
 }
 
 img.BtnSample {
-	float: left;
-	vertical-align: top;
-	margin-top: -1px;
-	margin-left: 5px;
-	margin-right: 5px;
+  float: left;
+  vertical-align: top;
+  margin-top: -1px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 input.BtnSample,
 a.BtnText {
-	display: inline-block;
-	vertical-align: bottom;
-	margin: 0 5px;
-	padding:11px 15px 11px 30px;	
-	/*
-	background: url(../img/icon/1.png) no-repeat 15px center, url(../img/bg_btn_input.png) repeat-x;
-	*/
-	
-	background: url(../img/icon/View.png) no-repeat 11px center,
-	-moz-linear-gradient(top, #fff,#fff 30%,#EDEDED); /* Firefox用 */
+  display: inline-block;
+  vertical-align: bottom;
+  margin: 0 5px;
+  padding:11px 15px 11px 30px;  
+  /*
+  background: url(../img/icon/1.png) no-repeat 15px center, url(../img/bg_btn_input.png) repeat-x;
+  */
+  
+  background: url(../img/icon/View.png) no-repeat 11px center,
+  -moz-linear-gradient(top, #fff,#fff 30%,#EDEDED); /* Firefox用 */
     
     background: url(../img/icon/View.png) no-repeat 11px center,
     -webkit-gradient(linear, left top, left bottom, from(#fff), 
             color-stop(0.3, #fff),
             to(#EDEDED)); /* Safari,Google Chrome用 */
     
-	border: 1px solid #bbb;
-	border-right-color: #aaa;
-	border-bottom-color: #aaa;
-	border-radius:8px;
-	/*
-	-webkit-border-radius:8px;
-	-moz-border-radius:8px;
-	*/
-	box-shadow: 0px 0px 5px #ccc;
-	
-	line-height: 1;
-	color: #333;
-	font-size:17px;
-	font-weight: normal;
-	text-align: center;
-	text-decoration:none;
+  border: 1px solid #bbb;
+  border-right-color: #aaa;
+  border-bottom-color: #aaa;
+  border-radius:8px;
+  /*
+  -webkit-border-radius:8px;
+  -moz-border-radius:8px;
+  */
+  box-shadow: 0px 0px 5px #ccc;
+  
+  line-height: 1;
+  color: #333;
+  font-size:17px;
+  font-weight: normal;
+  text-align: center;
+  text-decoration:none;
 }
 
 input.BtnSample {
-	line-height: 0.95;
+  line-height: 0.95;
 }
 
 
 input.BtnSample:hover,
 a.BtnText:hover {
-	background: url(../img/icon/View.png) no-repeat 11px center,
-	-moz-linear-gradient(top, #EAEAEA,#EAEAEA 30%,#c9c9c9); /* Firefox用 */
+  background: url(../img/icon/View.png) no-repeat 11px center,
+  -moz-linear-gradient(top, #EAEAEA,#EAEAEA 30%,#c9c9c9); /* Firefox用 */
     
     background: url(../img/icon/View.png) no-repeat 11px center,
     -webkit-gradient(linear, left top, left bottom, from(#EAEAEA), 
             color-stop(0.3, #EAEAEA),
             to(#c9c9c9)); /* Safari,Google Chrome用 */
     
-	border-color: #999;
-	border-right-color: #888;
-	border-bottom-color: #888;
-	
-	
-	box-shadow: 0px 0px 5px #aaa;
-	color: #000;
+  border-color: #999;
+  border-right-color: #888;
+  border-bottom-color: #888;
+  
+  
+  box-shadow: 0px 0px 5px #aaa;
+  color: #000;
 }
 
 
@@ -221,9 +221,9 @@ table.TableBase td a.ActionEdit,
 table.TableBase td a.ActionDelete,
 table.TableBase td a.ActionCancel,
 table.TableBase td a.ActionSetting {
-	display: inline-block;
-	padding: 20px 3px 0 3px;
-	background-position: center top;
+  display: inline-block;
+  padding: 20px 3px 0 3px;
+  background-position: center top;
 }
 
 /* @group Icon for text,inline */
@@ -247,50 +247,50 @@ table.TableBase td a.ActionSetting {
 
 .IconDebug {
     padding: 0 5px 0 18px;
-	background: url(../img/icon/Wrench.png) no-repeat 0px 2px;
-	color: #006CC6;
+  background: url(../img/icon/Wrench.png) no-repeat 0px 2px;
+  color: #006CC6;
 }
 .IconInfo {
     padding: 0 5px 0 18px;
-	background: url(../img/icon/Info.png) no-repeat 0px 2px;
-	color: #25976A;
+  background: url(../img/icon/Info.png) no-repeat 0px 2px;
+  color: #25976A;
 }
 .IconWarn {
     padding: 0 5px 0 18px;
-	background: url(../img/icon/Warning.png) no-repeat 0px 2px;
-	color: #FFA940;
+  background: url(../img/icon/Warning.png) no-repeat 0px 2px;
+  color: #FFA940;
 }
 .IconError {
     padding: 0 5px 0 18px;
-	background: url(../img/icon/Error.png) no-repeat 0px 2px;
-	color: red;
+  background: url(../img/icon/Error.png) no-repeat 0px 2px;
+  color: red;
 }
 .IconFatal {
     padding: 0 5px 0 18px;
-	background: url(../img/icon/Bomb.png) no-repeat 0px 2px;
-	color: #663C94;
+  background: url(../img/icon/Bomb.png) no-repeat 0px 2px;
+  color: #663C94;
 }
 .IconAvailable {
     padding: 0 5px 0 18px;
-	background: url(../img/icon/Apply.png) no-repeat 0px 2px;
+  background: url(../img/icon/Apply.png) no-repeat 0px 2px;
 }
 .IconUnavailable {
     padding: 0 5px 0 18px;
-	background: url(../img/icon/Delete.png) no-repeat 0px 2px;
+  background: url(../img/icon/Delete.png) no-repeat 0px 2px;
 }
 
 .IconChecked {
     padding: 0 5px 0 18px;
-	background: url(../img/icon/3.png) no-repeat -1px 2px;
+  background: url(../img/icon/3.png) no-repeat -1px 2px;
 }
 .IconUnchecked {
     padding: 0 5px 0 18px;
-	background: url(../img/icon/4.png) no-repeat -1px 2px;
+  background: url(../img/icon/4.png) no-repeat -1px 2px;
 }
 
 .IconYaml{
     padding: 0 5px 0 19px;
-	background: url(../img/icon/Script.png) no-repeat left center;
+  background: url(../img/icon/Script.png) no-repeat left center;
 }
 /* @end */
 
@@ -342,11 +342,11 @@ a.ActionCsvDL {
     background: url(../img/icon/46.png) no-repeat left center;
     line-height: 1;
 }
-	a.ActionCsvDL span {
-	    padding: 3px 5px 3px 18px;
-	    background: url(../img/icon/document-excel.png) no-repeat left center;
-	    line-height: 1;
-	}
+  a.ActionCsvDL span {
+      padding: 3px 5px 3px 18px;
+      background: url(../img/icon/document-excel.png) no-repeat left center;
+      line-height: 1;
+  }
 
 /* Etc */
 a.ActionEtcList {
