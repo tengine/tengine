@@ -1,3 +1,5 @@
+require "ostruct"
+
 class Tengine::Job::RootJobnetActualsController < ApplicationController
   # GET /tengine/job/root_jobnet_actuals
   # GET /tengine/job/root_jobnet_actuals.json
@@ -49,6 +51,20 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
   # GET /tengine/job/root_jobnet_actuals/1.json
   def show
     @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:id])
+    @jobnet_actuals = []
+    visitor = Tengine::Job::Vertex::AllVisitor.new do |vertex|
+                if vertex.instance_of?(Tengine::Job::JobnetActual)
+                  @jobnet_actuals << [vertex, (vertex.ancestors.size - 1)]
+                end
+              end
+    @root_jobnet_actual.accept_visitor(visitor)
+
+    @refresher = OpenStruct.new
+    @refresher.refresh_interval = 15
+    if params[:refresher]
+      @refresher.refresh_interval = params[:refresher][:refresh_interval].to_i
+    end
+    @refresh_interval = @refresher.refresh_interval
 
     respond_to do |format|
       format.html # show.html.erb

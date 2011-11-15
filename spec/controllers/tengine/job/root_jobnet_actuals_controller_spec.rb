@@ -688,6 +688,16 @@ describe Tengine::Job::RootJobnetActualsController do
       get :show, :id => root_jobnet_actual.id.to_s
       assigns(:root_jobnet_actual).should eq(root_jobnet_actual)
     end
+
+    it "assigns the submited refresher as @refresher" do
+      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+      get :show, :id => root_jobnet_actual.id.to_s,
+        :refresher => {:refresh_interval => 30}
+      assigns(:refresher).refresh_interval.should == 30
+
+      get :show, :id => root_jobnet_actual.id.to_s
+      assigns(:refresher).refresh_interval.should == 15
+    end
   end
 
   describe "GET new" do

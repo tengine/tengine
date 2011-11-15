@@ -21,6 +21,7 @@ ja:
       search: "検索"
       reset: "リセット"
       cancel: "キャンセル"
+      edit_status: "ステータス変更"
     notice:
       successfully_created: "%{model}が登録されました。"
       successfully_updated: "%{model}が更新されました。"

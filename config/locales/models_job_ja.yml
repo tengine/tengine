@@ -33,6 +33,7 @@ ja:
         phase_cd: "フェーズ"
         reflesh_interval: "リフレッシュ間隔(秒)"
       tengine/job/jobnet_actual:
+        id: "ID"
         name: "ジョブ名"
         phase_cd: "ステータス"
         executing_pid: "実行時PID"
@@ -42,6 +43,7 @@ ja:
         script: "スクリプト"
         server_name: "接続サーバ名"
         credential_name: "認証情報名"
+        description: "説明"
 
   selectable_attrs:
     tengine/job/root_jobnet_actual/finder:
