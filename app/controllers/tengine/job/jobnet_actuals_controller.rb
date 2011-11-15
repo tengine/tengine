@@ -89,12 +89,42 @@ class Tengine::Job::JobnetActualsController < ApplicationController
   # DELETE /tengine/job/jobnet_actuals/1.json
   def destroy
     @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:root_jobnet_actual_id])
-    @jobnet_actual = Tengine::Job::JobnetActual.find(params[:id])
-    @jobnet_actual.destroy
+    @jobnet_actual = @root_jobnet_actual.find_descendant(params[:id])
+    stop(@root_jobnet_actual, @jobnet_actual)
 
     respond_to do |format|
-      format.html { redirect_to tengine_job_root_jobnet_actual_jobnet_actuals_url(@root_jobnet_actual), notice: successfully_destroyed(@jobnet_actual) }
+      format.html { redirect_to tengine_job_root_jobnet_actual_path(@root_jobnet_actual), notice: successfully_destroyed(@jobnet_actual) }
       format.json { head :ok }
     end
+  end
+
+  private
+
+  def stop(root_jobnet, target, options={})
+    root_jobnet_id = root_jobnet.id.to_s
+    result = Tengine::Job::Execution.create!(
+      options.merge(:root_jobnet_id => root_jobnet_id))
+    properties = {
+      :execution_id => result.id.to_s,
+      :root_jobnet_id => root_jobnet_id,
+    }
+
+    target_id = target.id.to_s
+    if target.children.blank?
+      event = :"stop.job.job.tengine"
+      properties[:target_job_id] = target_id
+      properties[:target_jobnet_id] = target.parent.id.to_s
+    else
+      event = :"stop.jobnet.job.tengine"
+      properties[:target_jobnet_id] = target_id
+    end
+
+    sender = Tengine::Event.default_sender
+    sender.wait_for_connection do
+      sender.fire(event, :source_name => target.name_as_resource,
+        :properties => properties)
+    end
+
+    return result
   end
 end

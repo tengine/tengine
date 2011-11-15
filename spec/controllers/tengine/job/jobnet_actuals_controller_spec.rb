@@ -243,19 +243,50 @@ __end_of_dsl__
   end
 
   describe "DELETE destroy" do
+    before do
+      mock_sender = mock(:sender)
+      mock_sender.should_receive(:wait_for_connection)
+      Tengine::Event.stub(:default_sender).and_return(mock_sender)
+    end
+
     it "destroys the requested jobnet_actual" do
-      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
+      root_jobnet_actual = \
+        Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
       jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
-      expect {
-        delete :destroy, :id => jobnet_actual.id.to_s, :root_jobnet_actual_id => root_jobnet_actual.id.to_s
-      }.to change(Tengine::Job::JobnetActual, :count).by(-1)
+      job_actual = Tengine::Job::JobnetActual.create! valid_attributes
+      jobnet_actual.stub(:children).and_return([job_actual])
+      Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
+        and_return(jobnet_actual)
+
+      delete :destroy, :id => jobnet_actual.id.to_s,
+        :root_jobnet_actual_id => root_jobnet_actual.id.to_s
+    end
+
+    it "destroys the requested actual job" do
+      root_jobnet_actual = \
+        Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
+      jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
+      job_actual = Tengine::Job::JobnetActual.create! valid_attributes
+      job_actual.stub(:children).and_return(nil)
+      job_actual.stub(:parent).and_return(jobnet_actual)
+      Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
+        and_return(job_actual)
+
+      delete :destroy, :id => job_actual.id.to_s,
+        :root_jobnet_actual_id => root_jobnet_actual.id.to_s
     end
 
     it "redirects to the tengine_job_jobnet_actuals list" do
-      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
+      root_jobnet_actual = \
+        Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
       jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
-      delete :destroy, :id => jobnet_actual.id.to_s, :root_jobnet_actual_id => root_jobnet_actual.id.to_s
-      response.should redirect_to(tengine_job_root_jobnet_actual_jobnet_actuals_url(root_jobnet_actual))
+      job_actual = Tengine::Job::JobnetActual.create! valid_attributes
+      jobnet_actual.stub(:children).and_return([job_actual])
+      Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
+        and_return(jobnet_actual)
+      delete :destroy, :id => jobnet_actual.id.to_s,
+        :root_jobnet_actual_id => root_jobnet_actual.id.to_s
+      response.should redirect_to(tengine_job_root_jobnet_actual_path(root_jobnet_actual))
     end
   end
 

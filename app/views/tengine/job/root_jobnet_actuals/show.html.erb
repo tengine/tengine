@@ -126,9 +126,11 @@
         <% end -%>
       </tbody>
     </table>
+    <% if %w(running).include?(@root_jobnet_actual.phase_key.to_s) -%>
+      <p class="BoxActionLinksRight">
+        <%= link_to t("views.links.force_exit"), tengine_job_root_jobnet_actual_path(@root_jobnet_actual), :method => "delete", confirm: t(".confirm.destroy") %>
+      </p>
+    <% end -%>
   </div><!-- /.Section -->
 <% end -%>
 
-<div class="Section">
-  <%= link_to t("views.links.force_exit"), tengine_job_root_jobnet_actual_path(@root_jobnet_actual), :method => "delete" %>
-</div><!-- /.Section -->

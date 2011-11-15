@@ -18,6 +18,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
       :was_expansion => false,
       :phase_cd => 20,
       :phase_name => "initialized",
+      :phase_key => :initialized,
       :stop_reason => "Stop Reason",
       :category => nil,
       :lock_version => 1,
@@ -118,6 +119,13 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
       space = Nokogiri::HTML('&nbsp;').text
       indent = space * 2
       rendered.should have_xpath("//td", :text => "#{indent}#{@job2.name}")
+    end
+
+    it "全体の強制停止のリンクが表示されないこと" do
+      render
+
+      rendered.should_not have_link(I18n.t("views.links.force_exit"),
+        :href => tengine_job_root_jobnet_actual_path(@root_jobnet_actual))
     end
 
     context "@job1のステータスがinitializedのとき" do
@@ -392,5 +400,38 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
       end
     end
 
+    context "@root_jobnet_actualのステータスがrunningのとき" do
+      before(:each) do
+        @root_jobnet_actual = assign(:root_jobnet_actual, stub_model(Tengine::Job::RootJobnetActual,
+          :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+          :name => "Name",
+          :server_name => "Server Name",
+          :credential_name => "Credential Name",
+          :killing_signals => ["abc", "123"],
+          :killing_signal_interval => 1,
+          :description => "Description",
+          :script => "Script",
+          :jobnet_type_cd => 1,
+          :executing_pid => "Executing Pid",
+          :exit_status => "Exit Status",
+          :was_expansion => false,
+          :phase_cd => 60,
+          :phase_name => "running",
+          :phase_key => :running,
+          :stop_reason => "Stop Reason",
+          :category => nil,
+          :lock_version => 1,
+          :template => nil,
+          :started_at => Time.new(2011, 11, 5),
+        ))
+      end
+
+      it "全体の強制停止のリンクが表示されること" do
+        render
+
+        rendered.should have_link(I18n.t("views.links.force_exit"),
+          :href => tengine_job_root_jobnet_actual_path(@root_jobnet_actual))
+      end
+    end
   end
 end

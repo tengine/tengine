@@ -797,17 +797,21 @@ describe Tengine::Job::RootJobnetActualsController do
   end
 
   describe "DELETE destroy" do
+    before do
+      mock_sender = mock(:sender)
+      mock_sender.should_receive(:wait_for_connection)
+      Tengine::Event.stub(:default_sender).and_return(mock_sender)
+    end
+
     it "destroys the requested root_jobnet_actual" do
       root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
-      expect {
-        delete :destroy, :id => root_jobnet_actual.id.to_s
-      }.to change(Tengine::Job::RootJobnetActual, :count).by(-1)
+      delete :destroy, :id => root_jobnet_actual.id.to_s
     end
 
     it "redirects to the tengine_job_root_jobnet_actuals list" do
       root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
       delete :destroy, :id => root_jobnet_actual.id.to_s
-      response.should redirect_to(tengine_job_root_jobnet_actuals_url)
+      response.should redirect_to(tengine_job_root_jobnet_actual_path(root_jobnet_actual))
     end
   end
 

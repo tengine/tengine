@@ -124,10 +124,10 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
   # DELETE /tengine/job/root_jobnet_actuals/1.json
   def destroy
     @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:id])
-    @root_jobnet_actual.destroy
+    stop(@root_jobnet_actual)
 
     respond_to do |format|
-      format.html { redirect_to tengine_job_root_jobnet_actuals_url, notice: successfully_destroyed(@root_jobnet_actual) }
+      format.html { redirect_to tengine_job_root_jobnet_actual_path(@root_jobnet_actual), notice: successfully_destroyed(@root_jobnet_actual) }
       format.json { head :ok }
     end
   end
@@ -147,5 +147,24 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     category.children.each do |i|
       _category_childrens(result, i)
     end
+  end
+
+  def stop(root_jobnet, options={})
+    root_jobnet_id = root_jobnet.id.to_s
+    result = Tengine::Job::Execution.create!(
+      options.merge(:root_jobnet_id => root_jobnet_id))
+
+    sender = Tengine::Event.default_sender
+    sender.wait_for_connection do
+      sender.fire(:"stop.jobnet.job.tengine",
+        :source_name => root_jobnet.name_as_resource,
+        :properties => {
+          :execution_id => result.id.to_s,
+          :root_jobnet_id => root_jobnet_id,
+          :target_jobnet_id => root_jobnet_id.to_s,
+      })
+    end
+
+    return result
   end
 end
