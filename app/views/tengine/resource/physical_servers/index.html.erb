@@ -83,10 +83,11 @@
     <td><div class="YamlView" id="ids2">
       <span class="IconYaml">表示</span>
       <div class="YamlScript">
-        <pre><%= physical_server.properties_yaml %></pre>
+        <pre><%= physical_server.properties_yaml unless physical_server.properties.empty? %></pre>
       </div>
     </div></td>
-    <td><%= link_to_edit edit_tengine_resource_physical_server_path(physical_server), :class => "ActionEdit" %></td>
+     <td><%= link_to_edit edit_tengine_resource_physical_server_path(physical_server), :class => "ActionEdit" %></td>
+
   </tr>
 <% end %>
 </table>
