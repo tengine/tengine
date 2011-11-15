@@ -89,29 +89,14 @@ class Tengine::Job::ExecutionsController < ApplicationController
       klass = Tengine::Job::RootJobnetActual if @retry
       @root_jobnet = klass.find(@execution.root_jobnet_id)
 
-      if @execution.valid?
-        if @execution.retry
-          # 再実行のAPIの呼び出し
-        else
-          executed = @root_jobnet.execute(execute_param.merge(
-            :sender => Tengine::Event.default_sender))
-        end
+      operation = @execution.retry ? :rerun : :execute
+      executed = @root_jobnet.send(operation,
+        execute_param.merge(:sender => Tengine::Event.default_sender))
 
-        format.html do
-          redirect_to tengine_job_root_jobnet_actual_path(executed.root_jobnet.id)
-        end
-        #format.json { render json: @execution, status: :created, location: @execution }
-      else
-        @select_root_jobnet = false
-        if @retry && @execution.target_actual_ids.size == 1 &&
-          @execution.target_actual_ids.first == @execution.root_jobnet_id.to_s
-
-          @select_root_jobnet = true
-        end
-
-        format.html { render action: "new" }
-        #format.json { render json: @execution.errors, status: :unprocessable_entity }
+      format.html do
+        redirect_to tengine_job_root_jobnet_actual_path(executed.root_jobnet.id)
       end
+      format.json { render json: @execution, status: :created, location: @execution }
     end
   end
 

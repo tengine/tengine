@@ -193,10 +193,6 @@ describe Tengine::Job::ExecutionsController do
           :actual_base_timeout_termination => "30",
           :actual_base_timeout_alert => "10",
         }
-
-        mock_sender = mock(:sender)
-        mock_sender.should_receive(:fire)
-        Tengine::Event.stub(:default_sender).and_return(mock_sender)
       end
 
       after do
@@ -204,20 +200,54 @@ describe Tengine::Job::ExecutionsController do
         Tengine::Job::RootJobnetActual.delete_all
       end
 
-      it "assigns a newly created execution as @execution" do
-        post :create, :execution => @valid_attributes
-        assigns(:execution).should be_a(Tengine::Job::Execution)
+      describe "実行のとき" do
+        before do
+          mock_sender = mock(:sender)
+          mock_sender.should_receive(:fire)
+          Tengine::Event.stub(:default_sender).and_return(mock_sender)
+        end
+
+        it "assigns a newly created execution as @execution" do
+          post :create, :execution => @valid_attributes
+          assigns(:execution).should be_a(Tengine::Job::Execution)
+        end
+
+        it "@execution.retryがfalseのとき@root_jobnetのclassがTengine::Job::RootJobnetTemplateであること" do
+          post :create, :execution => @valid_attributes
+          assigns(:root_jobnet).should be_a(Tengine::Job::RootJobnetTemplate)
+        end
+
+        it "redirects to the created execution" do
+          post :create, :execution => @valid_attributes
+          assigns(:execution)
+          response.should be_redirect
+        end
       end
 
-      it "@execution.retryがfalseのとき@root_jobnetのclassがTengine::Job::RootJobnetTemplateであること" do
-        post :create, :execution => @valid_attributes
-        assigns(:root_jobnet).should be_a(Tengine::Job::RootJobnetTemplate)
-      end
+      describe "再実行のとき" do
+        before do
+          mock_sender = mock(:sender)
+          mock_sender.stub(:fire)
+          Tengine::Event.stub(:default_sender).and_return(mock_sender)
 
-      it "redirects to the created execution" do
-        post :create, :execution => @valid_attributes
-        assigns(:execution)
-        response.should be_redirect
+          executed = Tengine::Job::Execution.create!(:retry => true, :spot => false,
+            :root_jobnet_id => @test_actual.id.to_s,
+            :target_actual_ids => [@test_actual.id.to_s]
+          ) 
+          Tengine::Job::RootJobnetActual.any_instance.stub(:rerun).and_return(executed)
+        end
+
+        it "retryクエリーパラメータで指定した@retryが設定されていること" do
+          post :create, :execution => @valid_attributes.merge(
+            :retry => true, :root_jobnet_id => @test_actual.id.to_s)
+          assigns(:execution).should be_a(Tengine::Job::Execution)
+        end
+
+        it "@execution.retryがtrueのとき@root_jobnetのclassがTengine::Job::RootJobnetActualであること" do
+          post :create, :execution => @valid_attributes.merge(
+            :retry => true, :root_jobnet_id => @test_actual.id.to_s)
+          assigns(:root_jobnet).should be_a(Tengine::Job::RootJobnetActual)
+        end
       end
     end
   end
