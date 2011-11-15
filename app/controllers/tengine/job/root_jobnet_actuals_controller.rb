@@ -66,6 +66,14 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     end
     @refresh_interval = @refresher.refresh_interval
 
+    @finder = { :source_name => @root_jobnet_actual.name_as_resource, }
+    if s = @root_jobnet_actual.started_at
+      @finder[:occurred_at_start] = s.strftime("%H:%M")
+    end
+    if e = @root_jobnet_actual.finished_at
+      @finder[:occurred_at_end] = e.strftime("%H:%M")
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @root_jobnet_actual }

@@ -14,6 +14,8 @@ ja:
             submit: "更新"
           confirm:
             destroy: "本当に強制停止しますか？"
+          links:
+            events: "メッセージ一覧"
       jobnet_actuals:
         edit:
           title: "ジョブステータス変更"

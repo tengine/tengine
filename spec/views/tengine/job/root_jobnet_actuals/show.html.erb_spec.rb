@@ -422,8 +422,9 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
           :category => nil,
           :lock_version => 1,
           :template => nil,
-          :started_at => Time.new(2011, 11, 5),
+          :started_at => Time.new(2011, 11, 5, 11, 11),
         ))
+        @finder = assign(:finder, {:test => "foo"})
       end
 
       it "全体の強制停止のリンクが表示されること" do
@@ -431,6 +432,15 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
 
         rendered.should have_link(I18n.t("views.links.force_exit"),
           :href => tengine_job_root_jobnet_actual_path(@root_jobnet_actual))
+      end
+
+      it "メッセージ一覧のリンクが表示されていること" do
+        render(:file => "tengine/job/root_jobnet_actuals/show")
+
+        rendered.should have_link(
+          I18n.t("tengine.job.root_jobnet_actuals.show.links.events"),
+          :href => tengine_core_events_path(:finder => @finder, :commit => "submit")
+        )
       end
     end
   end

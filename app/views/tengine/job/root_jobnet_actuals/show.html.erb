@@ -50,7 +50,7 @@
   </table>
 </div><!-- /.Section -->
 
-<%= link_to "メッセージ一覧", tengine_core_events_path %>
+<%= link_to t(".links.events"), tengine_core_events_path(:finder => @finder, :commit => "submit") %>
 
 <p id="notice"><%= notice %></p>
 
