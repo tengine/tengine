@@ -41,13 +41,13 @@ event_queue:
 
 
 log_common:
-  # output: /var/log/tengined.log
   outpus:                           # file path or "STDOUT" / "STDERR"
   rotation: 3                       # rotation file count or daily,weekly,monthly. default: 3
   rotation_size: 1024 * 1024        # number of max log file size. default: 1048576 (10MB)
   level: 'debug'                    # debug/info/warn/error/fatal. default: info
 
 application_log:
+  # output: /var/log/tengined.log
   output:                           # file path or "STDOUT" / "STDERR". default: if daemon process then "./log/application.log" else "STDOUT"
   rotation:                         # rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
   rotation_size:                    # number of max log file size. default: value of --log-common-rotation-size
