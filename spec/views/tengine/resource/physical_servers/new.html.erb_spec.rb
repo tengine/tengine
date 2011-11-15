@@ -1,5 +1,6 @@
 require 'spec_helper'
-
+=begin
+# new.html画面を利用しないのでコメントしています。
 describe "tengine/resource/physical_servers/new.html.erb" do
   before(:each) do
     assign(:physical_server, stub_model(Tengine::Resource::PhysicalServer,
@@ -28,3 +29,4 @@ describe "tengine/resource/physical_servers/new.html.erb" do
     end
   end
 end
+=end

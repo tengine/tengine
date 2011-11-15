@@ -13,24 +13,25 @@ class Tengine::Resource::VirtualServerImagesController < ApplicationController
   # GET /tengine/resource/virtual_server_images/1
   # GET /tengine/resource/virtual_server_images/1.json
   def show
-    @virtual_server_image = Tengine::Resource::VirtualServerImage.find(params[:id])
+    redirect_to :action =>'index'
+    # @virtual_server_image = Tengine::Resource::VirtualServerImage.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @virtual_server_image }
-    end
+    # respond_to do |format|
+    #   format.html # show.html.erb
+    #   format.json { render json: @virtual_server_image }
+    # end
   end
 
   # GET /tengine/resource/virtual_server_images/new
   # GET /tengine/resource/virtual_server_images/new.json
-  def new
-    @virtual_server_image = Tengine::Resource::VirtualServerImage.new
+  # def new
+  #   @virtual_server_image = Tengine::Resource::VirtualServerImage.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @virtual_server_image }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html # new.html.erb
+  #     format.json { render json: @virtual_server_image }
+  #   end
+  # end
 
   # GET /tengine/resource/virtual_server_images/1/edit
   def edit

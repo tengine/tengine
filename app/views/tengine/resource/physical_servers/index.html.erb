@@ -1,6 +1,8 @@
 <h1><%= page_title Tengine::Resource::PhysicalServer, :list %></h1>
 
 <p id="notice"><%= notice %></p>
+    
+<p>cpu_cores, memory_sizeを利用する列は &lt;% if :cpu_cores == true % &gt;でくくってあります。 </p>
 
 <div class="BoxBorder BoxSearchForm">
   <%= form_for(:finder, :html => {:method => :get}) do |f| %>
@@ -41,7 +43,9 @@
 </div>
 
 <div class="PageStats">
-  <%= paginate @physical_servers, :items => @physical_servers %>
+  <div class="Pagenation">
+    <%= paginate @physical_servers, :items => @physical_servers %>
+  </div>
 </div>
 
 <table class="TableBase">
@@ -49,14 +53,13 @@
     <tr>
       <% query_without_page = request.query_parameters.select{|k,v| %w(category finder).include?(k.to_s) } -%>
       <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:name), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name) %></th>
-      <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:provider), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:provider))), :class => sort_class(:provider) %></th>
       <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:provided_id), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:provided_id))), :class => sort_class(:provided_id) %></th>
       <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:description), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:description))), :class => sort_class(:description) %></th>
       <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:status), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:status))), :class => sort_class(:status) %></th>
-<!-- >
-      <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:cpu_core), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:cpu_core))), :class => sort_class(:cpu_core) %></th>
+    <% if :cpu_cores == true %>
+      <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:cpu_cores), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:cpu_core))), :class => sort_class(:cpu_cores) %></th>
       <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:memory_size), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:memory_size))), :class => sort_class(:memory_size) %></th>
-< -->
+    <% end %>
       <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:properties), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:properties))), :class => sort_class(:properties) %></th>
       <th><%= I18n.t(:operation, :scope => [:views, :pages]) %></th>
     </tr>
@@ -67,7 +70,6 @@
 <% @physical_servers.each do |physical_server| %>
   <tr class="<%= cycle("even", "odd") %>" >
     <td><%= physical_server.name %></td>
-    <td><%= (physical_server.respond_to?(:provider) && physical_server.provider) ? physical_server.provider.name : "<No provider found>" %></td>
     <td><%= physical_server.provided_id %></td>
     <td><div class="YamlView" id="ids"
       <span class="IconYaml"><%= physical_server.description[0,5] %></span>
@@ -75,11 +77,11 @@
         <%= physical_server.description %>
       </div>
     </div></td>
+    <% if :cpu_cores == true %>
+      <td><%= physical_server.cpu_cores %></td>
+      <td><%= physical_server.memory_size %></td>
+    <% end %>
     <td><%= physical_server.status %></td>
-
-<!--    <td><%= :cpu_core %></td> -->
-<!--    <td><%= :memory_size %></td>  -->
-
     <td><div class="YamlView" id="ids2">
       <span class="IconYaml">表示</span>
       <div class="YamlScript">
@@ -94,5 +96,7 @@
 
 
 <div class="PageStats">
-  <%= paginate @physical_servers, :items => @physical_servers %>
+  <div class="Pagenation">
+    <%= paginate @physical_servers, :items => @physical_servers %>
+  </div>
 </div>

@@ -8,24 +8,24 @@
             <td><%= f.text_field :name, class: "InputText InputW200"  %></td>
           </tr>
           <tr>
-            <th><%= f.label :provided_id %>
-            <td><% :provided_id %>
+            <th><%= f.label :provided_id %></th>
+            <td><% @physical_server.provided_id %></td>
           </tr>
           <tr>
-            <th><%= f.label :provider_id %>
-            <td><% :provider_id %>
+            <th><%= f.label :provider_id %></th>
+            <td><% @physical_server.provider_id %></td>
           </tr>
           <tr>
-            <th><%= f.label :description %>
-            <td><%=  :description %>
+            <th><%= f.label :description %></th>
+            <td><%=  @physical_server.description %></td>
           </tr>
           <tr>
-            <th><%= f.label :status %>
-            <td><%= :status %>
+            <th><%= f.label :status %></th>
+            <td><%= @physical_server.status %></td>
           </tr>
           <tr>
-            <th><%= f.label :properties %>
-            <td><%= f.text_area :properties, class: "InputText InputW200" %>
+            <th><%= f.label :properties %></th>
+            <td><%= f.text_area :properties, class: "InputText InputW200" %></td>
           </tr>
       </tbody>
     </table>
