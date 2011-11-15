@@ -1,0 +1,445 @@
+@charset "utf-8";
+
+/* ================================================================
+
+CSS Information
+
+ File name:      module-icons.css
+ Summary:        icons styles
+ Last update:    2009-09-02
+
+================================================================ */
+
+
+/* @group Btn (Link,Input) */
+.BtnWrap {
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  padding: 0 18px 0 20px;
+  border: 1px solid #ccc;
+  border-right-color: #bbb;
+  border-bottom-color: #aaa;
+  border-radius:8px;
+  -webkit-border-radius:8px;
+  -moz-border-radius:8px;
+
+  line-height: 1;
+  font-weight: bold;
+  background: #fff url(<= asset_path("bg_btn_input.png") %>) repeat-x left 0;
+  
+  box-shadow: 0px 0px 5px #ccc;
+}
+
+.BtnWrap:hover {
+  background-position: left bottom;
+  border-color: #aaa;
+  box-shadow: 0px 0px 0 #fff;
+}
+  a.BtnWrap span,
+  span.BtnWrap input {
+    display: inline-block;
+    margin:0;
+      padding: 7px 0 7px 20px;
+    border: 0;
+    line-height: 1;
+    color: #555;
+    font-size:18px;
+    text-align: center;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: left center;
+  }
+  a.BtnWrap:hover span,
+  span.BtnWrap:hover input {
+    color: #222;
+  }
+
+.BtnWrap .BtnNormal {
+  padding: 7px 20px;
+}
+
+.BtnDetail {
+    background-image: url(<= asset_path("icon/Text_preview.png") %>);
+}
+.BtnAdd {
+    background-image: url(<= asset_path("icon/Create.png") %>);
+}
+.BtnEdit {
+    background-image: url(<= asset_path("icon/Notes.png") %>);
+}
+.BtnDelete {
+    background-image: url(<= asset_path("icon/33.png") %>);
+}
+.BtnCancel {
+    background-image: url(<= asset_path("icon/Cancel.png") %>);
+}
+.BtnSetting {
+    background-image: url(<= asset_path("icon/Application.png") %>);
+}
+.BtnSave {
+    background-image: url(<= asset_path("icon/Save.png") %>);
+}
+.BtnBack {
+    background-image: url(<= asset_path("icon/Previous.png") %>);
+}
+.BtnNext {
+    background-image: url(<= asset_path("icon/Next.png") %>);
+}
+.BtnSearch {
+    background-image: url(<= asset_path("icon/View.png") %>);
+}
+.BtnDownload {
+    background-image: url(<= asset_path("icon/Download.png") %>);
+}
+.BtnUpload {
+    background-image: url(<= asset_path("icon/Upload.png") %>);
+}
+.BtnSubmit {
+  background-image: url(<= asset_path("icon/Go_forward.png") %>);
+}
+.BtnYes {
+    background-image: url(<= asset_path("icon/yes.png") %>);
+}
+.BtnNo {
+  background-image: url(<= asset_path("icon/no.png") %>);
+}
+.BtnPreview {
+    padding: 0 5px 0 18px;
+  background: url(<= asset_path("icon/Text_preview.png") %>) no-repeat 0 2px;
+}
+
+img.BtnSample {
+  float: left;
+  vertical-align: top;
+  margin-top: -1px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+input.BtnSample,
+a.BtnText {
+  display: inline-block;
+  vertical-align: bottom;
+  margin: 0 5px;
+  padding:11px 15px 11px 30px;  
+  /*
+  background: url(<= asset_path("icon/1.png") %>) no-repeat 15px center, url(<= asset_path("bg_btn_input.png") %>) repeat-x;
+  */
+  
+  background: url(<= asset_path("icon/View.png") %>) no-repeat 11px center,
+  -moz-linear-gradient(top, #fff,#fff 30%,#EDEDED); /* Firefox用 */
+    
+    background: url(<= asset_path("icon/View.png") %>) no-repeat 11px center,
+    -webkit-gradient(linear, left top, left bottom, from(#fff), 
+            color-stop(0.3, #fff),
+            to(#EDEDED)); /* Safari,Google Chrome用 */
+    
+  border: 1px solid #bbb;
+  border-right-color: #aaa;
+  border-bottom-color: #aaa;
+  border-radius:8px;
+  /*
+  -webkit-border-radius:8px;
+  -moz-border-radius:8px;
+  */
+  box-shadow: 0px 0px 5px #ccc;
+  
+  line-height: 1;
+  color: #333;
+  font-size:17px;
+  font-weight: normal;
+  text-align: center;
+  text-decoration:none;
+}
+
+input.BtnSample {
+  line-height: 0.95;
+}
+
+
+input.BtnSample:hover,
+a.BtnText:hover {
+  background: url(<= asset_path("icon/View.png") %>) no-repeat 11px center,
+  -moz-linear-gradient(top, #EAEAEA,#EAEAEA 30%,#c9c9c9); /* Firefox用 */
+    
+    background: url(<= asset_path("icon/View.png") %>) no-repeat 11px center,
+    -webkit-gradient(linear, left top, left bottom, from(#EAEAEA), 
+            color-stop(0.3, #EAEAEA),
+            to(#c9c9c9)); /* Safari,Google Chrome用 */
+    
+  border-color: #999;
+  border-right-color: #888;
+  border-bottom-color: #888;
+  
+  
+  box-shadow: 0px 0px 5px #aaa;
+  color: #000;
+}
+
+
+/* @end */
+
+/* @group Text Link (Action Icon)  */
+a.ActionDetail {
+    padding: 3px 5px 3px 18px;
+    background: url(<= asset_path("icon/Text_preview.png") %>) no-repeat left center;
+    line-height: 1;
+}
+a.ActionAdd {
+    padding: 3px 5px 3px 18px;
+    background: url(<= asset_path("icon/Create.png") %>) no-repeat left center;
+    line-height: 1;
+}
+
+a.ActionEdit {
+    padding: 3px 5px 3px 18px;
+    background: url(<= asset_path("icon/Notes.png") %>) no-repeat left center;
+    line-height: 1;
+}
+a.ActionDelete {
+    padding: 3px 5px 3px 18px;
+    background: url(<= asset_path("icon/33.png") %>) no-repeat left center;
+    line-height: 1;
+    white-space: nowrap;
+}
+a.ActionCancel {
+    padding: 3px 5px 3px 18px;
+    background: url(<= asset_path("icon/Cancel.png") %>) no-repeat left center;
+    line-height: 1;
+}
+
+a.ActionSetting {
+    padding: 3px 5px 3px 18px;
+    background: url(<= asset_path("icon/Equipment.png") %>) no-repeat left center;
+    line-height: 1;
+}
+
+table.TableBase td a.ActionDetail,
+table.TableBase td a.ActionAdd,
+table.TableBase td a.ActionEdit,
+table.TableBase td a.ActionDelete,
+table.TableBase td a.ActionCancel,
+table.TableBase td a.ActionSetting {
+  display: inline-block;
+  padding: 20px 3px 0 3px;
+  background-position: center top;
+}
+
+/* @group Icon for text,inline */
+
+/* form */
+.IconCalender {
+    padding: 3px 10px 3px 20px;
+    background: url(<= asset_path("icon/44.png") %>) no-repeat left center;
+    line-height: 1;
+}
+.IconNotice {
+    padding: 3px 10px 3px 20px;
+    background: url(<= asset_path("icon/58.png") %>) no-repeat left center;
+    line-height: 1;
+}
+.IconWarrning {
+    padding: 3px 10px 3px 20px;
+    background: url(<= asset_path("icon/Alert.png") %>) no-repeat left center;
+    line-height: 1;
+}
+
+.IconDebug {
+    padding: 0 5px 0 18px;
+  background: url(<= asset_path("icon/Wrench.png") %>) no-repeat 0px 2px;
+  color: #006CC6;
+}
+.IconInfo {
+    padding: 0 5px 0 18px;
+  background: url(<= asset_path("icon/Info.png") %>) no-repeat 0px 2px;
+  color: #25976A;
+}
+.IconWarn {
+    padding: 0 5px 0 18px;
+  background: url(<= asset_path("icon/Warning.png") %>) no-repeat 0px 2px;
+  color: #FFA940;
+}
+.IconError {
+    padding: 0 5px 0 18px;
+  background: url(<= asset_path("icon/Error.png") %>) no-repeat 0px 2px;
+  color: red;
+}
+.IconFatal {
+    padding: 0 5px 0 18px;
+  background: url(<= asset_path("icon/Bomb.png") %>) no-repeat 0px 2px;
+  color: #663C94;
+}
+.IconAvailable {
+    padding: 0 5px 0 18px;
+  background: url(<= asset_path("icon/Apply.png") %>) no-repeat 0px 2px;
+}
+.IconUnavailable {
+    padding: 0 5px 0 18px;
+  background: url(<= asset_path("icon/Delete.png") %>) no-repeat 0px 2px;
+}
+
+.IconChecked {
+    padding: 0 5px 0 18px;
+  background: url(<= asset_path("icon/3.png") %>) no-repeat -1px 2px;
+}
+.IconUnchecked {
+    padding: 0 5px 0 18px;
+  background: url(<= asset_path("icon/4.png") %>) no-repeat -1px 2px;
+}
+
+.IconYaml{
+    padding: 0 5px 0 19px;
+  background: url(<= asset_path("icon/Script.png") %>) no-repeat left center;
+}
+/* @end */
+
+
+/* Navigation */
+a.ActionBack {
+    padding: 3px 10px 3px 20px;
+    background: url(<= asset_path("icon/Back.png") %>) no-repeat left center;
+    line-height: 1;
+}
+a.ActionDownSearch {
+    padding: 3px 10px 3px 16px;
+    background: url(<= asset_path("icon/Search.png") %>) no-repeat left center;
+    line-height: 1;
+}
+
+a.ActionUpSearch {
+    padding: 3px 10px 3px 16px;
+    background: url(<= asset_path("icon/arrow-090.png") %>) no-repeat left center;
+    line-height: 1;
+}
+
+
+/* Arrow */
+a.ActionRight {
+    padding: 3px 10px 3px 20px;
+    background: url(<= asset_path("icon/57.png") %>) no-repeat left center;
+    line-height: 1;
+}
+a.ActionLeft {
+    padding: 3px 10px 3px 20px;
+    background: url(<= asset_path("icon/56.png") %>) no-repeat left center;
+    line-height: 1;
+}
+a.ActionUp {
+    padding: 3px 10px 3px 20px;
+    background: url(<= asset_path("icon/55.png") %>) no-repeat left center;
+    line-height: 1;
+}
+a.ActionDown {
+    padding: 3px 10px 3px 20px;
+    background: url(<= asset_path("icon/54.png") %>) no-repeat left center;
+    line-height: 1;
+}
+
+/* file */
+a.ActionCsvDL {
+    padding: 3px 5px 3px 18px;
+    background: url(<= asset_path("icon/46.png") %>) no-repeat left center;
+    line-height: 1;
+}
+  a.ActionCsvDL span {
+      padding: 3px 5px 3px 18px;
+      background: url(<= asset_path("icon/document-excel.png") %>) no-repeat left center;
+      line-height: 1;
+  }
+
+/* Etc */
+a.ActionEtcList {
+    padding: 3px 10px 3px 20px;
+    background: url(<%= asset_path("icon/hammer--arrow.png") %>) no-repeat 1px center;
+    line-height: 1;
+}
+
+a.ActionEtc {
+    padding: 3px 10px 3px 20px;
+    background: url(<%= asset_path("icon/1.png") %>) no-repeat left center;
+    line-height: 1;
+}
+/* @end */
+
+
+
+
+
+
+/* @group Label */
+
+.LabelDivision1,
+.LabelDivision2,
+.LabelDivision3 {
+    padding: 3px 6px;
+    color: #fff;
+    font-size: 0.8em;
+}
+
+.LabelDivision1 {
+    background-color: #6A8FAB;
+}
+
+.LabelDivision2 {
+    background-color: #75A965;
+}
+
+.LabelDivision3 {
+    background-color: #C85353;
+}
+
+.LabelCapacity1,
+.LabelCapacity2,
+.LabelCapacity3 {
+    padding: 3px 6px;
+    color: #fff;
+    font-size: 0.8em;
+}
+
+.LabelCapacity1 {
+    background-color: #1B910B;
+}
+
+.LabelCapacity2 {
+    background-color: #E26000;
+}
+
+.LabelCapacity3 {
+    background-color: #0292E4;
+}
+
+.LabelStatas1,
+.LabelStatas2,
+.LabelStatas3 {
+    padding: 3px 6px;
+    color: #fff;
+    font-size: 77%;
+}
+
+.LabelStatas1 {
+    background-color: #333;
+}
+
+/* @end */
+
+/* @group Label Icon */
+
+label.LabelDatepicker {
+    padding-right: 20px;
+    background: url(<%= asset_path("icon/calendar-month.png") %>) no-repeat right center;
+}
+
+label.LabelUserMan {
+    padding-left: 10px;
+    padding-right: 20px;
+    background: url(<%= asset_path("icon/user.png") %>) no-repeat right center;
+}
+
+label.LabelUserFemale {
+    padding-left: 10px;
+    padding-right: 20px;
+    background: url(<%= asset_path("icon/user-female.png") %>) no-repeat right center;
+}
+
+/* @end */
