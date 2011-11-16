@@ -64,6 +64,13 @@ end
       rendered.should have_link(@test.id.to_s,
         :href => tengine_job_root_jobnet_template_path(@test.id.to_s))
     end
+
+    it "キャンセルのリンクが表示されていること" do
+      render
+
+      rendered.should have_link(I18n.t("views.links.cancel"),
+        :href => tengine_job_root_jobnet_templates_path)
+    end
   end
 
   describe "実行ジョブネットの再実行のとき" do
@@ -138,6 +145,13 @@ end
 
         rendered.should have_link(@test.template_id.to_s,
           :href => tengine_job_root_jobnet_template_path(@test.template_id.to_s))
+      end
+
+      it "キャンセルのリンクが表示されていること" do
+        render
+
+        rendered.should have_link(I18n.t("views.links.cancel"),
+          :href => tengine_job_root_jobnet_actuals_path)
       end
     end
 

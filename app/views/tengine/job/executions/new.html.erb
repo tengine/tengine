@@ -98,6 +98,10 @@
     <% end -%>
 
     <%= f.submit t("views.links.run")%>
-    <%= link_to t("views.links.cancel"), tengine_job_root_jobnet_templates_path %>
+    <% if @retry -%>
+      <%= link_to t("views.links.cancel"), tengine_job_root_jobnet_actuals_path %>
+    <% else -%>
+      <%= link_to t("views.links.cancel"), tengine_job_root_jobnet_templates_path %>
+    <% end -%>
   <% end -%>
 </div><!-- /.Section -->
