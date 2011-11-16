@@ -20,6 +20,7 @@ ja:
       watch: "監視"
       search: "検索"
       reset: "リセット"
+      cancel: "キャンセル"
     notice:
       successfully_created: "%{model}が登録されました。"
       successfully_updated: "%{model}が更新されました。"
@@ -35,3 +36,4 @@ ja:
       truncate: "..."
     category_tree:
       all: "全体"
+  cancel: キャンセル

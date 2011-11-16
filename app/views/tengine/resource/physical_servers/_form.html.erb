@@ -5,27 +5,33 @@
         <tbody class= "CelRow2">
           <tr>
             <th><%= f.label :name %></th>
-            <td><%= f.text_field :name, class: "InputText InputW200"  %></td>
+            <td><%= @physical_server.name %></td>
           </tr>
           <tr>
             <th><%= f.label :provided_id %></th>
-            <td><% @physical_server.provided_id %></td>
+            <td><%= @physical_server.provided_id %></td>
           </tr>
-          <tr>
-            <th><%= f.label :provider_id %></th>
-            <td><% @physical_server.provider_id %></td>
-          </tr>
-          <tr>
-            <th><%= f.label :description %></th>
-            <td><%=  @physical_server.description %></td>
-          </tr>
+          <% if :cpu_cores == true %>
+            <tr>
+              <th><%= f.label :cpu_cores %></th>
+              <td><%= @physical_server.cpu_cores %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :memory_size %></th>
+              <td><%=  @physical_server.memory_size %></td>
+            </tr>
+          <% end %>
           <tr>
             <th><%= f.label :status %></th>
-            <td><%= @physical_server.status %></td>
+            <td><% @physical_server.status %></td>
           </tr>
           <tr>
             <th><%= f.label :properties %></th>
-            <td><%= f.text_area :properties, class: "InputText InputW200" %></td>
+            <td><%= @physical_server.properties %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :description %></th>
+            <td><%= f.text_area :description, class: "InputText InputW200" %></td>
           </tr>
       </tbody>
     </table>
@@ -34,6 +40,10 @@
       <span class="BtnWrap">
         <%= f.submit :class => "BtnNext"  %>
       </span>
+      <span class="BtnWrap">
+        <%= button_to_by_get t(:cancel), tengine_resource_physical_servers_path, :class => "BtnCancel" %>
+      </span>
     </div>
+
   <% end %>
 </div>

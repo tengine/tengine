@@ -71,7 +71,7 @@
   <tr class="<%= cycle("even", "odd") %>" >
     <td><%= physical_server.name %></td>
     <td><%= physical_server.provided_id %></td>
-    <td><div class="YamlView" id="ids"
+    <td><div class="YamlView" id= "description<%= physical_server.id.to_s %>">
       <span class="IconYaml"><%= physical_server.description[0,5] %></span>
       <div class="YamlScript">
         <%= physical_server.description %>
@@ -82,13 +82,14 @@
       <td><%= physical_server.memory_size %></td>
     <% end %>
     <td><%= physical_server.status %></td>
-    <td><div class="YamlView" id="ids2">
-      <span class="IconYaml">表示</span>
+    <td><div class="YamlView" id= "properties_yaml<%=physical_server.id.to_s %>">
+      <span class="IconYaml" style="display:block;">表示</span>
       <div class="YamlScript">
-        <pre><%= physical_server.properties_yaml unless physical_server.properties.empty? %></pre>
+        <p><%= physical_server.properties_yaml unless physical_server.properties.empty? %></p>
+        <a class="Close">close</a>
       </div>
     </div></td>
-     <td><%= link_to_edit edit_tengine_resource_physical_server_path(physical_server), :class => "ActionEdit" %></td>
+    <td><%= link_to_edit edit_tengine_resource_physical_server_path(physical_server), :class => "ActionEdit" %></td>
 
   </tr>
 <% end %>

@@ -62,14 +62,15 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
 
   # GET /tengine/resource/physical_servers/new
   # GET /tengine/resource/physical_servers/new.json
-  # def new
+  def new
+    redirect_to :action => "index"
   #   @physical_server = Tengine::Resource::PhysicalServer.new
 
   #   respond_to do |format|
   #     format.html # new.html.erb
   #     format.json { render json: @physical_server }
   #   end
-  # end
+  end
 
   # GET /tengine/resource/physical_servers/1/edit
   def edit
