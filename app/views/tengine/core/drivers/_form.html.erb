@@ -1,15 +1,5 @@
 <%= form_for(@driver, as:"driver") do |f| %>
-  <% if @driver.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= I18n.t('activerecord.errors.template.header', :count => @driver.errors.size, :model => @driver.class.human_name) %></h2>
-
-      <ul>
-      <% @driver.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= model_error_messages(@driver) %>
 
   <div class="field">
     <%= f.label :name %><br />

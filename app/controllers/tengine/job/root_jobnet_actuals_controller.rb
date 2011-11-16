@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require "ostruct"
 
 class Tengine::Job::RootJobnetActualsController < ApplicationController
@@ -35,13 +36,11 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
 
     respond_to do |format|
       format.html { # index.html.erb
-        if @finder.reflesh_interval.to_i != 0
+        if @auto_refresh = @finder.reflesh_interval.to_i != 0
           # app/views/layouts/refresh.html.erb で更新間隔として参照しています。
           @reflesh_interval = @finder.reflesh_interval
-          render layout: "refresh"
-        else
-          render
         end
+        render
       }
       format.json { render json: @root_jobnet_actuals }
     end

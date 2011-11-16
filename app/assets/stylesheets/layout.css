@@ -1,0 +1,96 @@
+@charset "utf-8";
+
+/* ================================================================
+
+CSS Information
+
+ File name:      layout.css
+ Summary:        for base layout
+ Last update:    2011-10-21
+
+bgcolor: #ffffff
+color1: #DBD9CC
+color2: #A19E8E
+border1: #BCB9A7
+border2: #D4D2C5
+================================================================ */
+
+
+/* @group layout */
+
+body {}
+
+#header,
+#contents,
+#footer {
+/*
+14px - 108%
+15px - 116%
+*/
+	font-size:116%;
+	min-width: 920px;
+}
+
+#header {
+	height: 50px;
+	position: relative;
+}
+#header:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+* html #header             { zoom: 1; } /* IE6 */
+*:first-child+html #header { zoom: 1; } /* IE7 */
+	
+#contents {
+	position: relative;
+}
+#contents:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+* html #contents             { zoom: 1; } /* IE6 */
+*:first-child+html #contents { zoom: 1; } /* IE7 */
+		
+	#main {
+		float: left;
+		display: inline;
+		width: 100%;
+	}
+		#main .Wrap {
+			min-width: 800px;
+			margin-left: 220px;
+			padding: 10px 20px 20px 20px;
+		}
+	
+	#nav {
+		float: left;
+		display: inline;
+		width: 220px;
+		margin-left: -100%;
+	}
+		
+#footer {
+	position: relative;
+	clear: both;
+}
+#footer:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+* html #footer             { zoom: 1; } /* IE6 */
+*:first-child+html #footer { zoom: 1; } /* IE7 */
+
+/* @end */

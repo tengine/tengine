@@ -1,0 +1,160 @@
+@charset "utf-8";
+
+/* ================================================================
+
+CSS Information
+
+ File name:      elements.css
+ Summary:        elements styles
+ Last update:    2009-06-22
+
+
+================================================================ */
+
+/* @group structure */
+
+html {
+}
+
+body {
+    font-family: "Lucida Grande", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", Verdana, Arial, sans-serif;
+}
+
+*:first-child+html body {
+    position: relative; /* for IE7(zoom) */
+}
+
+* html body {
+    text-align: center; /* for IE(quirks mode) */
+}
+
+hr {
+    display: none;
+}
+
+/* @end */
+
+
+/* @group text */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: bold;
+}
+
+/*
+em {
+}
+*/
+strong {
+    font-weight: bold;
+}
+
+
+/* @end */
+
+
+/* @group hypertext */
+
+a {
+    color: #004EA3;
+    text-decoration: none;
+}
+
+a:hover {
+	color:#00c;
+    text-decoration: none;
+}
+
+/* @end */
+
+/* @group list */
+
+/*
+ul,
+ol,
+dl {
+	
+}
+*/
+
+/* @end */
+
+
+/* @group form */
+
+input {
+    line-height: 1;
+    vertical-align: middle;
+}
+
+legend {
+    position: absolute;
+    top: 0; /* for Opera gte 7.x */
+    left: -1000em;
+    width: 900em;
+}
+
+/* @end */
+
+
+/* @group table */
+
+table {
+	clear: both;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #999;
+}
+
+caption {
+    position: absolute;
+    top: 0; /* for Opera gte 7.x */
+    left: -1000em;
+    width: 900em;
+}
+
+th,
+td {
+    vertical-align: top;
+    border: 1px solid #999;
+    padding:5px;
+}
+th{
+	font-weight: normal;
+    background-color: #eee;
+}
+thead th{
+    text-align: center;
+}
+td {
+    text-align: left;
+}
+
+table td table {
+    padding: 5px 10px;
+    text-align: left;
+}
+
+/*
+th {
+}
+
+td {
+}
+*/
+
+/* @end */
+
+
+/* @group image */
+
+img {
+    vertical-align: bottom;
+}
+
+/* @end */

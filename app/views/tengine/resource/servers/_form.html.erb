@@ -1,15 +1,5 @@
 <%= form_for(@server, as:"server") do |f| %>
-  <% if @server.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= I18n.t('activerecord.errors.template.header', :count => @server.errors.size, :model => @server.class.human_name) %></h2>
-
-      <ul>
-      <% @server.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= model_error_messages(@server) %>
 
   <div class="field">
     <%= Tengine::Resource::Server.human_attribute_name(:provider) %>:<br/>
