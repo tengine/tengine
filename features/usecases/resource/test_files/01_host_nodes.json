@@ -108,7 +108,7 @@
         "id": "physical_server_id_08"
       },
       {
-        "status": "registering",
+        "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_09",
         "offering_cpu_cores": 900,

@@ -51,7 +51,7 @@
     |physical_server_name_06|physical_server_id_06||600 |600000|online|
     |physical_server_name_07|physical_server_id_07||700 |700000|online|
     |physical_server_name_08|physical_server_id_08||800 |800000|online|
-    |physical_server_name_09|physical_server_id_09||900 |900000|registering|
+    |physical_server_name_09|physical_server_id_09||900 |900000|online|
     |physical_server_name_10|physical_server_id_10||100 |100000|registering|
 
     # 物理サーバの説明を編集する
@@ -71,7 +71,7 @@
     |physical_server_name_06|physical_server_id_06||600 |600000|online|
     |physical_server_name_07|physical_server_id_07||700 |700000|online|
     |physical_server_name_08|physical_server_id_08||800 |800000|online|
-    |physical_server_name_09|physical_server_id_09||900 |900000|registering|
+    |physical_server_name_09|physical_server_id_09||900 |900000|online|
     |physical_server_name_10|physical_server_id_10||100 |100000|registering|
 
     # 代替コースA: 物理サーバ一覧表を絞り込み検索して表示する
@@ -89,7 +89,6 @@
     かつ "検索"ボタンをクリックする
     ならば "物理サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
-    |physical_server_name_09|physical_server_id_09||900 |900000|registering|
     |physical_server_name_10|physical_server_id_10||100 |100000|registering|
 
     # 代替コースC: 検索条件にマッチする項目が0台と表示される
@@ -99,3 +98,125 @@
     かつ "検索"ボタンをクリックする
     ならば "物理サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
+
+    # 代替コースD: 絞り込み検索をしている状態でページ切り替えを行う
+    # 物理サーバが100件のファイル
+    もし Wakameのモックファイル"./features/usecases/resouce/test_files/02_host_nodes.json"を"./features/usecases/resouce/test_files/host_nodes.json"にコピーする
+    もし "物理サーバ一覧"画面を表示する
+    ならば "物理サーバ一覧"画面に以下の行が表示されていること
+    |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
+    |physical_server_name_01|physical_server_id_01||100 |100000|online|
+    |physical_server_name_02|physical_server_id_02||200 |200000|online|
+    |physical_server_name_03|physical_server_id_03||300 |300000|online|
+    |physical_server_name_04|physical_server_id_04||400 |400000|online|
+    |physical_server_name_05|physical_server_id_05||500 |500000|online|
+    |physical_server_name_06|physical_server_id_06||600 |600000|online|
+    |physical_server_name_07|physical_server_id_07||700 |700000|online|
+    |physical_server_name_08|physical_server_id_08||800 |800000|online|
+    |physical_server_name_09|physical_server_id_09||900 |900000|online|
+    |physical_server_name_10|physical_server_id_10||100 |100000|registering|
+    |physical_server_name_11|physical_server_id_11||100 |100000|online|
+    |physical_server_name_12|physical_server_id_12||200 |200000|online|
+    |physical_server_name_13|physical_server_id_13||300 |300000|online|
+    |physical_server_name_14|physical_server_id_14||400 |400000|online|
+    |physical_server_name_15|physical_server_id_15||500 |500000|online|
+    |physical_server_name_16|physical_server_id_16||600 |600000|online|
+    |physical_server_name_17|physical_server_id_17||700 |700000|online|
+    |physical_server_name_18|physical_server_id_18||800 |800000|online|
+    |physical_server_name_19|physical_server_id_19||900 |900000|online|
+    |physical_server_name_20|physical_server_id_20||100 |100000|registering|
+    |physical_server_name_21|physical_server_id_21||100 |100000|online|
+    |physical_server_name_22|physical_server_id_22||200 |200000|online|
+    |physical_server_name_23|physical_server_id_23||300 |300000|online|
+    |physical_server_name_24|physical_server_id_24||400 |400000|online|
+    |physical_server_name_25|physical_server_id_25||500 |500000|online|
+    |physical_server_name_26|physical_server_id_26||600 |600000|online|
+    |physical_server_name_27|physical_server_id_27||700 |700000|online|
+    |physical_server_name_28|physical_server_id_28||800 |800000|online|
+    |physical_server_name_29|physical_server_id_29||900 |900000|online|
+    |physical_server_name_30|physical_server_id_30||100 |100000|registering|
+    |physical_server_name_31|physical_server_id_31||100 |100000|online|
+    |physical_server_name_32|physical_server_id_32||200 |200000|online|
+    |physical_server_name_33|physical_server_id_33||300 |300000|online|
+    |physical_server_name_34|physical_server_id_34||400 |400000|online|
+    |physical_server_name_35|physical_server_id_35||500 |500000|online|
+    |physical_server_name_36|physical_server_id_36||600 |600000|online|
+    |physical_server_name_37|physical_server_id_37||700 |700000|online|
+    |physical_server_name_38|physical_server_id_38||800 |800000|online|
+    |physical_server_name_39|physical_server_id_39||900 |900000|online|
+    |physical_server_name_40|physical_server_id_40||100 |100000|registering|
+    |physical_server_name_41|physical_server_id_41||100 |100000|online|
+    |physical_server_name_42|physical_server_id_42||200 |200000|online|
+    |physical_server_name_43|physical_server_id_43||300 |300000|online|
+    |physical_server_name_44|physical_server_id_44||400 |400000|online|
+    |physical_server_name_45|physical_server_id_45||500 |500000|online|
+    |physical_server_name_46|physical_server_id_46||600 |600000|online|
+    |physical_server_name_47|physical_server_id_47||700 |700000|online|
+    |physical_server_name_48|physical_server_id_48||800 |800000|online|
+    |physical_server_name_49|physical_server_id_49||900 |900000|online|
+    |physical_server_name_50|physical_server_id_50||100 |100000|registering|
+
+    # ステータスで検索を行う
+    もし "物理サーバ一覧"を表示する
+    かつ "ステータス"に"online"をチェックする
+    かつ "検索"ボタンをクリックする
+    ならば "物理サーバ一覧"画面に以下の行が表示されていること
+    |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
+    |physical_server_name_01|physical_server_id_01||100 |100000|online|
+    |physical_server_name_02|physical_server_id_02||200 |200000|online|
+    |physical_server_name_03|physical_server_id_03||300 |300000|online|
+    |physical_server_name_04|physical_server_id_04||400 |400000|online|
+    |physical_server_name_05|physical_server_id_05||500 |500000|online|
+    |physical_server_name_06|physical_server_id_06||600 |600000|online|
+    |physical_server_name_07|physical_server_id_07||700 |700000|online|
+    |physical_server_name_08|physical_server_id_08||800 |800000|online|
+    |physical_server_name_09|physical_server_id_09||900 |900000|online|
+    |physical_server_name_11|physical_server_id_11||100 |100000|online|
+    |physical_server_name_12|physical_server_id_12||200 |200000|online|
+    |physical_server_name_13|physical_server_id_13||300 |300000|online|
+    |physical_server_name_14|physical_server_id_14||400 |400000|online|
+    |physical_server_name_15|physical_server_id_15||500 |500000|online|
+    |physical_server_name_16|physical_server_id_16||600 |600000|online|
+    |physical_server_name_17|physical_server_id_17||700 |700000|online|
+    |physical_server_name_18|physical_server_id_18||800 |800000|online|
+    |physical_server_name_19|physical_server_id_19||900 |900000|online|
+    |physical_server_name_21|physical_server_id_21||100 |100000|online|
+    |physical_server_name_22|physical_server_id_22||200 |200000|online|
+    |physical_server_name_23|physical_server_id_23||300 |300000|online|
+    |physical_server_name_24|physical_server_id_24||400 |400000|online|
+    |physical_server_name_25|physical_server_id_25||500 |500000|online|
+    |physical_server_name_26|physical_server_id_26||600 |600000|online|
+    |physical_server_name_27|physical_server_id_27||700 |700000|online|
+    |physical_server_name_28|physical_server_id_28||800 |800000|online|
+    |physical_server_name_29|physical_server_id_29||900 |900000|online|
+    |physical_server_name_31|physical_server_id_31||100 |100000|online|
+    |physical_server_name_32|physical_server_id_32||200 |200000|online|
+    |physical_server_name_33|physical_server_id_33||300 |300000|online|
+    |physical_server_name_34|physical_server_id_34||400 |400000|online|
+    |physical_server_name_35|physical_server_id_35||500 |500000|online|
+    |physical_server_name_36|physical_server_id_36||600 |600000|online|
+    |physical_server_name_37|physical_server_id_37||700 |700000|online|
+    |physical_server_name_38|physical_server_id_38||800 |800000|online|
+    |physical_server_name_39|physical_server_id_39||900 |900000|online|
+    |physical_server_name_41|physical_server_id_41||100 |100000|online|
+    |physical_server_name_42|physical_server_id_42||200 |200000|online|
+    |physical_server_name_43|physical_server_id_43||300 |300000|online|
+    |physical_server_name_44|physical_server_id_44||400 |400000|online|
+    |physical_server_name_45|physical_server_id_45||500 |500000|online|
+    |physical_server_name_46|physical_server_id_46||600 |600000|online|
+    |physical_server_name_47|physical_server_id_47||700 |700000|online|
+    |physical_server_name_48|physical_server_id_48||800 |800000|online|
+    |physical_server_name_49|physical_server_id_49||900 |900000|online|
+    |physical_server_name_51|physical_server_id_51||100 |100000|online|
+    |physical_server_name_52|physical_server_id_52||200 |200000|online|
+    |physical_server_name_53|physical_server_id_53||300 |300000|online|
+    |physical_server_name_54|physical_server_id_54||400 |400000|online|
+    |physical_server_name_55|physical_server_id_55||500 |500000|online|
+
+    もし "次へ"ボタンをクリックする
+    ならば "物理サーバ一覧"画面に以下の行が表示されていること
+    |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
+    |physical_server_name_56|physical_server_id_56||600 |600000|online|
+    |physical_server_name_57|physical_server_id_57||700 |700000|online|
+    |physical_server_name_58|physical_server_id_58||800 |800000|online|
+    |physical_server_name_59|physical_server_id_59||900 |900000|online|
