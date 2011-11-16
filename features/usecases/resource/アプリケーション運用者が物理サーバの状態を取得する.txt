@@ -1,0 +1,101 @@
+#language:ja
+機能: アプリケーション運用屋が物理サーバの状態を取得する
+  仮想サーバを起動するために
+  アプリケーション運用者
+  は物理サーバの状態を取得したい
+
+  背景:
+    前提 日本語でアクセスする
+    かつ サーバ仮想基盤がセットアップされている
+    かつ Tengineにサーバ仮想基盤の接続先の設定を行なっている
+    かつ "Tengineリソースウォッチャ"プロセスが起動している
+
+    # サーバ仮想基盤はWakameのモックを使用するので、以下の設定を行う
+    #{
+    #  :test => true,
+    #  :api => [
+    #    {
+    #      :describe_instances_file  => "./features/usecases/resouce/test_files/describe_instances.json",
+    #      :describe_images_file     => "./features/usecases/resouce/test_files/describe_images.json",
+    #      :run_instances_file       => "./features/usecases/resouce/test_files/run_instances.json",
+    #      :terminate_instances_file => "./features/usecases/resouce/test_files/terminate_instances.json",
+    #    },
+    #    {
+    #      :host_nodes_file          => "./features/usecases/resouce/test_files/host_nodes.json"
+    #    }
+    #  ]
+    #}
+
+    # 仮想サーバや物理サーバの増減や状態変更などは、ファイルの置き換えで対応する
+
+  @manual
+  シナリオ: [正常系]アプリケーション運用者は物理サーバ一覧画面を開き、物理サーバが表示されていることを確認する
+    # 代替コースB: 管理下の物理サーバが存在しない
+    # 物理サーバが0件のファイル
+    もし Wakameのモックファイル"./features/usecases/resouce/test_files/00_host_nodes.json"を"./features/usecases/resouce/test_files/host_nodes.json"にコピーする
+    もし "物理サーバ一覧"画面を表示する
+    ならば "物理サーバ一覧"画面に以下の行が表示されていること
+    |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
+
+    # Wakameに物理サーバの登録を行う
+    # 物理サーバが10件のファイル
+    もし Wakameのモックファイル"./features/usecases/resouce/test_files/01_host_nodes.json"を"./features/usecases/resouce/test_files/host_nodes.json"にコピーする
+    もし "物理サーバ一覧"画面を表示する
+    ならば "物理サーバ一覧"画面に以下の行が表示されていること
+    |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
+    |physical_server_name_01|physical_server_id_01||100 |100000|online|
+    |physical_server_name_02|physical_server_id_02||200 |200000|online|
+    |physical_server_name_03|physical_server_id_03||300 |300000|online|
+    |physical_server_name_04|physical_server_id_04||400 |400000|online|
+    |physical_server_name_05|physical_server_id_05||500 |500000|online|
+    |physical_server_name_06|physical_server_id_06||600 |600000|online|
+    |physical_server_name_07|physical_server_id_07||700 |700000|online|
+    |physical_server_name_08|physical_server_id_08||800 |800000|online|
+    |physical_server_name_09|physical_server_id_09||900 |900000|registering|
+    |physical_server_name_10|physical_server_id_10||100 |100000|registering|
+
+    # 物理サーバの説明を編集する
+    もし "物理サーバ名"が"physical_server_name_01"列の"編集"リンクをクリックする
+    ならば "物理サーバ編集"画面が表示されていること
+    かつ "物理サーバ編集"画面に"physical_server_name_01"と表示されていること
+
+    もし "説明"に"physical_server_name_01の説明"と入力する
+    かつ "更新"ボタンをクリックする
+    ならば "物理サーバ一覧"画面に以下の行が表示されていること
+    |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
+    |physical_server_name_01|physical_server_id_01|physical_server_name_01の説明|100 |100000|online|
+    |physical_server_name_02|physical_server_id_02||200 |200000|online|
+    |physical_server_name_03|physical_server_id_03||300 |300000|online|
+    |physical_server_name_04|physical_server_id_04||400 |400000|online|
+    |physical_server_name_05|physical_server_id_05||500 |500000|online|
+    |physical_server_name_06|physical_server_id_06||600 |600000|online|
+    |physical_server_name_07|physical_server_id_07||700 |700000|online|
+    |physical_server_name_08|physical_server_id_08||800 |800000|online|
+    |physical_server_name_09|physical_server_id_09||900 |900000|registering|
+    |physical_server_name_10|physical_server_id_10||100 |100000|registering|
+
+    # 代替コースA: 物理サーバ一覧表を絞り込み検索して表示する
+    # 物理サーバ名で検索を行う
+    もし "物理サーバ一覧"を表示する
+    かつ "物理サーバ名"に"physical_server_name_02"と入力する
+    かつ "検索"ボタンをクリックする
+    ならば "物理サーバ一覧"画面に以下の行が表示されていること
+    |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
+    |physical_server_name_02|physical_server_id_02||200 |200000|online|
+
+    # ステータスで検索を行う
+    もし "物理サーバ一覧"を表示する
+    かつ "ステータス"に"registering"をチェックする
+    かつ "検索"ボタンをクリックする
+    ならば "物理サーバ一覧"画面に以下の行が表示されていること
+    |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
+    |physical_server_name_09|physical_server_id_09||900 |900000|registering|
+    |physical_server_name_10|physical_server_id_10||100 |100000|registering|
+
+    # 代替コースC: 検索条件にマッチする項目が0台と表示される
+    # 物理サーバ名で検索を行う(結果が0件)
+    もし "物理サーバ一覧"を表示する
+    かつ "物理サーバ名"に"physical_server_name_none"と入力する
+    かつ "検索"ボタンをクリックする
+    ならば "物理サーバ一覧"画面に以下の行が表示されていること
+    |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
