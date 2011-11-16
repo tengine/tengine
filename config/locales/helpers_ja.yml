@@ -14,7 +14,7 @@ ja:
       execution:
         preparation_command: "事前実行コマンド"
         actual_base_timeout_alert: "警告設定"
-        actual_base_timeout_termination: "強制終了設定"
+        actual_base_timeout_termination: "強制停止設定"
         spot: "再実行方法"
         spot_false: "選択したジョブを起点として再実行する。"
         spot_true: "選択したジョブのみを再実行する。"

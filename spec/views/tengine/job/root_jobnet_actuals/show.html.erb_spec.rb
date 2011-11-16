@@ -147,7 +147,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
         ])
       end
 
-      it "実行のリンクが表示されていること" do
+      it "再実行のリンクが表示されていること" do
         render
 
         rendered.should_not have_link(I18n.t("views.links.edit_status"),
@@ -155,7 +155,9 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
             @job1, :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
         rendered.should have_link(I18n.t("views.links.rerun"),
           :href => new_tengine_job_execution_path(
-            :root_jobnet_id => @root_jobnet_actual.id.to_s, :retry => true))
+            :root_jobnet_id => @root_jobnet_actual.id.to_s,
+            :target_actual_ids => [@job1.id.to_s],
+            :retry => true))
         rendered.should_not have_link(I18n.t("views.links.force_exit"),
           :href => tengine_job_root_jobnet_actual_jobnet_actual_path(@job1.id.to_s,
             :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
@@ -325,7 +327,9 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
             @job1, :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
         rendered.should have_link(I18n.t("views.links.rerun"),
           :href => new_tengine_job_execution_path(
-            :root_jobnet_id => @root_jobnet_actual, :retry => true))
+            :root_jobnet_id => @root_jobnet_actual,
+            :target_actual_ids => [@job1.id.to_s],
+            :retry => true))
         rendered.should_not have_link(I18n.t("views.links.force_exit"),
           :href => tengine_job_root_jobnet_actual_jobnet_actual_path(@job1.id.to_s,
             :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
@@ -359,7 +363,9 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
             @job1, :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
         rendered.should have_link(I18n.t("views.links.rerun"),
           :href => new_tengine_job_execution_path(
-            :root_jobnet_id => @root_jobnet_actual, :retry => true))
+            :root_jobnet_id => @root_jobnet_actual,
+            :target_actual_ids => [@job1.id.to_s],
+            :retry => true))
         rendered.should_not have_link(I18n.t("views.links.force_exit"),
           :href => tengine_job_root_jobnet_actual_jobnet_actual_path(@job1.id.to_s,
             :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
@@ -393,7 +399,9 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
             @job1, :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
         rendered.should have_link(I18n.t("views.links.rerun"),
           :href => new_tengine_job_execution_path(
-            :root_jobnet_id => @root_jobnet_actual, :retry => true))
+            :root_jobnet_id => @root_jobnet_actual,
+            :target_actual_ids => [@job1.id.to_s],
+            :retry => true))
         rendered.should_not have_link(I18n.t("views.links.force_exit"),
           :href => tengine_job_root_jobnet_actual_jobnet_actual_path(@job1.id.to_s,
             :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))

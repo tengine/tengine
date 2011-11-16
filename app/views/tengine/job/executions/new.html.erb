@@ -19,7 +19,7 @@
       <td><%= @root_jobnet.name %></td>
     </tr>
     <tr>
-      <th scope="row"><%= klass.human_attribute_name(:id) %>:</th>
+      <th scope="row"><%= klass.human_attribute_name(:template_id) %>:</th>
       <td>
         <% template_id = @retry ? @root_jobnet.template_id : @root_jobnet.id -%>
         <%= link_to template_id, tengine_job_root_jobnet_template_path(template_id) %>

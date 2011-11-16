@@ -8,9 +8,10 @@ ja:
     attributes:
       tengine/job/root_jobnet_template:
         id: "ID"
-        name: "名称"
-        description: "表示名"
+        name: "ジョブネット名"
+        description: "説明"
         dsl_filepath: "DSLファイルパス"
+        template_id: "テンプレートID"
       tengine/job/jobnet_template:
         id: "ID"
         name: "名称"
@@ -19,11 +20,12 @@ ja:
         destinations: "次のジョブ"
       tengine/job/root_jobnet_actual:
         id: "ID"
-        name: "名称"
-        description: "表示名"
-        phase_cd: "フェーズ"
-        started_at: "開始時刻"
-        finished_at: "終了時刻"
+        name: "ジョブネット名"
+        description: "説明"
+        phase_cd: "ステータス"
+        started_at: "開始日時"
+        finished_at: "終了日時"
+        template_id: "テンプレートID"
       tengine/job/root_jobnet_actual/finder:
         duration_start: "期間の開始時刻"
         duration_finish: "期間の終了時刻"
@@ -38,9 +40,9 @@ ja:
         phase_cd: "ステータス"
         executing_pid: "実行時PID"
         destinations: "次のジョブ"
-        started_at: "開始時刻"
-        finished_at: "終了時刻"
-        script: "スクリプト"
+        started_at: "開始日時"
+        finished_at: "終了日時"
+        script: "実行スクリプト"
         server_name: "接続サーバ名"
         credential_name: "認証情報名"
         description: "説明"
