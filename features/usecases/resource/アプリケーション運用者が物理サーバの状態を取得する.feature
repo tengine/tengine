@@ -4,30 +4,12 @@
   アプリケーション運用者
   は物理サーバの状態を取得したい
 
-  @manual
   背景:
     前提 日本語でアクセスする
     かつ サーバ仮想基盤がセットアップされている
     かつ Tengineにサーバ仮想基盤の接続先の設定を行なっている
+    # Tamaのテストモードの利用に関しては ./README を参照ください
     かつ "Tengineリソースウォッチャ"プロセスが起動している
-
-    # サーバ仮想基盤はWakameのモックを使用するので、以下の設定を行う
-    #{
-    #  :test => true,
-    #  :api => [
-    #    {
-    #      :describe_instances_file  => "./features/usecases/resouce/test_files/describe_instances.json",
-    #      :describe_images_file     => "./features/usecases/resouce/test_files/describe_images.json",
-    #      :run_instances_file       => "./features/usecases/resouce/test_files/run_instances.json",
-    #      :terminate_instances_file => "./features/usecases/resouce/test_files/terminate_instances.json",
-    #    },
-    #    {
-    #      :host_nodes_file          => "./features/usecases/resouce/test_files/host_nodes.json"
-    #    }
-    #  ]
-    #}
-
-    # 仮想サーバや物理サーバの増減や状態変更などは、ファイルの置き換えで対応する
 
   @manual
   シナリオ: [正常系]アプリケーション運用者は物理サーバ一覧画面を開き、物理サーバが表示されていることを確認する
