@@ -30,4 +30,18 @@ Tengineで使用する際は、rails runner で、Tengine::Resource::Provider#co
 
 * describe_images.jon
  * 20_describe_images_0_virtual_server_images.json => describe_images で0件の仮想サーバイメージのレスポンスを返却する
- * 21_describe_images_5_virtual_server_images.json => describe_images で0件の仮想サーバイメージのレスポンスを返却する
+ * 21_describe_images_5_virtual_server_images.json => describe_images で5件の仮想サーバイメージのレスポンスを返却する
+
+* describe_instance_specs.json
+ * 30_describe_instance_specs_0_virtual_server_specs.json => describe_instance_specs で0件の仮想サーバタイプのレスポンスを返却する
+ * 31_describe_instance_specs_2_virtual_server_specs.json => describe_instance_specs で2件の仮想サーバタイプのレスポンスを返却する
+
+* run_instances
+ * 40_run_instances_0_virtual_servers.json => run_instances で0件の仮想サーバ起動時のレスポンスを返却する(未使用)
+ * 41_run_instances_1_virtual_servers.json => run_instances で1件の仮想サーバ起動時のレスポンスを返却する
+ * 42_run_instances_5_virtual_servers.json => run_instances で5件の仮想サーバ起動時のレスポンスを返却する
+
+* terminate_instances
+ * 50_terminate_instances_0_virtual_servers.json => terminate_instances で0件の仮想サーバ停止時のレスポンスを返却する(未使用)
+ * 51_terminate_instances_1_virtual_servers.json => terminate_instances で1件の仮想サーバ停止時のレスポンスを返却する
+ * 52_terminate_instances_5_virtual_servers.json => terminate_instances で5件の仮想サーバ停止時のレスポンスを返却する
