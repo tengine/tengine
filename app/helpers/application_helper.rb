@@ -140,6 +140,13 @@ module ApplicationHelper
     tag :input, {"type" => :reset, "name" => "reset", "value" => value}.update(options)
   end
 
+  def format_map_yml_value(hash)
+    html = ""
+    return html if hash.blank?
+    html << hash.collect{|k, v| ERB::Util.html_escape("#{k}: #{v}") }.join("<br />")
+    return html.html_safe
+  end
+
   private
   def model_class_name(class_or_name)
     return nil unless class_or_name

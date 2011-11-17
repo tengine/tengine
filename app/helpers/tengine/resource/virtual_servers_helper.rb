@@ -29,13 +29,29 @@ module Tengine::Resource::VirtualServersHelper
     return html
   end
 
+  def format_addresses(virtual_server)
+    html = ""
+    if addresses = virtual_server.addresses
+      _addresses = []
+      addresses.each do |k ,v|
+        if %w(private_ip_address ip_address).include?(k.to_s)
+           _addresses << ERB::Util.html_escape(addresses[k])
+        end
+      end
+      html << _addresses.join("<br />")
+    end
+    return html.html_safe
+  end
+
   private
 
   def virtual_server_image(virtual_server)
     image = nil
     if provided_image_id = virtual_server.provided_image_id
-      image = virtual_server.provider.virtual_server_images.
-        where(:provided_id => provided_image_id).first
+      if provider = virtual_server.provider
+        image = provider.virtual_server_images.
+          where(:provided_id => provided_image_id).first
+      end
     end
     return image
   end
@@ -43,8 +59,10 @@ module Tengine::Resource::VirtualServersHelper
   def virtual_server_type(virtual_server)
     type = nil
     if provided_type_id = virtual_server.provided_type_id
-      type = virtual_server.provider.virtual_server_types.
-        where(:provided_id => provided_type_id).first
+      if provider = virtual_server.provider
+        type = provider.virtual_server_types.
+          where(:provided_id => provided_type_id).first
+      end
     end
     return type
   end

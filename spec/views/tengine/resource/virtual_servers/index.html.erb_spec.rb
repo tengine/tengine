@@ -98,13 +98,11 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     assert_select "tr>td>a", :text => "pserver2".to_s, :count => 1
     assert_select "tr>td", :text => "i0002".to_s, :count => 1
     assert_select "tr>td", :text => "i0003".to_s, :count => 1
-    assert_select "tr>td", :text => "v2Description".to_s, :count => 1
-    assert_select "tr>td", :text => "v3Description".to_s, :count => 1
+    assert_select "tr>td>div>span", :text => "v2Description".to_s, :count => 1
+    assert_select "tr>td>div>span", :text => "v3Description".to_s, :count => 1
     assert_select "tr>td", :text => "Status".to_s, :count => 2
     assert_select "tr>td>a", :text => "vimage1".to_s, :count => 1
     assert_select "tr>td>a", :text => "vimage2".to_s, :count => 1
-    assert_select "tr>td>pre", :text => CGI.escapeHTML(YAML.dump({"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"})), :count => 2
-    assert_select "tr>td>pre", :text => CGI.escapeHTML(YAML.dump({"a"=>"1", "b"=>"2"})), :count => 2
     assert_select "tr>td", :text => "Small".to_s, :count => 1
     assert_select "tr>td", :text => "Large".to_s, :count => 1
   end

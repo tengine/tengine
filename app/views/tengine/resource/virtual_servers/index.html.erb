@@ -123,12 +123,28 @@
                 <% end -%>
                 <td><%= virtual_server.name %></td>
                 <td><%= virtual_server.provided_id %></td>
-                <td><%= truncate(virtual_server.description, :length => 20) %></td>
-                <td><pre><%= virtual_server.addresses_yaml %></pre></td>
+                <td>
+                  <div class="YamlView">
+                    <span class="IconYaml">
+                      <%= truncate(virtual_server.description, :length => 20) %>
+                    </span>
+                    <div class="YamlScript">
+                      <%= virtual_server.description %>
+                    </div>
+                  </div>
+                </td>
+                <td><%= format_addresses(virtual_server) %></td>
                 <td><%= virtual_server.status %></td>
                 <td><%= image_name_link_and_desc(virtual_server) %></td>
                 <td><%= type_caption(virtual_server) %></td>
-                <td><pre><%= virtual_server.properties_yaml %></pre></td>
+                <td>
+                  <div class="YamlView">
+                    <span class="IconYaml"><%= t(".links.show_yml") %></span>
+                    <div class="YamlScript">
+                      <%= format_map_yml_value(virtual_server.properties) %>
+                    </div>
+                  </div>
+                </td>
                 <td>
                   <%= link_to_edit edit_tengine_resource_virtual_server_path(virtual_server) %>
                 </td>

@@ -6,6 +6,7 @@ ja:
           links:
             new: "仮想サーバを起動"
             delete: "選択したサーバを停止"
+            show_yml: "表示"
           refresher:
             form:
               refresh_interval: "画面の更新間隔"
