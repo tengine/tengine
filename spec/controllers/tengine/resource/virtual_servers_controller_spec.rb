@@ -29,17 +29,24 @@ describe Tengine::Resource::VirtualServersController do
     }
   end
 
+  def valid_attributes_for_physical
+    {
+      :name => "physical_server1"
+    }
+  end
+
   before do
     Tengine::Resource::Server.delete_all
   end
 
   describe "GET index" do
-    it "assigns all tengine_resource_virtual_servers as @tengine_resource_virtual_servers" do
-      Tengine::Resource::VirtualServer.delete_all
-      virtual_server = Tengine::Resource::VirtualServer.create! valid_attributes
+    it "assigns all tengine_resource_physical_servers as @tengine_resource_physical_servers" do
+      Tengine::Resource::PhysicalServer.delete_all
+      physical_server = \
+        Tengine::Resource::PhysicalServer.create! valid_attributes_for_physical
       get :index
-      virtual_servers = assigns(:virtual_servers)
-      virtual_servers.to_a.should eq([virtual_server])
+      physical_servers = assigns(:physical_servers)
+      physical_servers.to_a.should eq([physical_server])
     end
   end
 

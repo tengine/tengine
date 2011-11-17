@@ -1,8 +1,19 @@
+require "ostruct"
+
 class Tengine::Resource::VirtualServersController < ApplicationController
   # GET /tengine/resource/virtual_servers
   # GET /tengine/resource/virtual_servers.json
   def index
-    @virtual_servers = Tengine::Resource::VirtualServer.all(:sort => [[:_id]]).page(params[:page])
+    default_refresher = {:refresh_interval => 15}
+    default_refresher.update(params[:refresher]) if params[:refresher]
+    @refresher = OpenStruct.new(default_refresher)
+    @refresh_interval = @refresher.refresh_interval.to_i
+    @auto_refresh = false
+    @auto_refresh = true unless @refresh_interval.zero?
+
+    @finder = Tengine::Resource::VirtualServer::Finder.new(params[:finder])
+
+    @physical_servers = Tengine::Resource::PhysicalServer.all(:sort => [[:name]])
 
     respond_to do |format|
       format.html # index.html.erb

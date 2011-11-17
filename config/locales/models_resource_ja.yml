@@ -15,6 +15,13 @@ ja:
         description: "表示名"
         auth_type_cd: "認証情報種別"
         auth_values: "認証設定"
+      tengine/resource/virtual_server/finder:
+        physical_server_name: "物理サーバ名"
+        virtual_server_name: "仮想サーバ名"
+        provided_id: "プロバイダによるID"
+        description: "説明"
+        virtual_server_image_name: "仮想サーバイメージ名"
+        status_cd: "ステータス"
 
   selectable_attrs:
       tengine/resource/credential:

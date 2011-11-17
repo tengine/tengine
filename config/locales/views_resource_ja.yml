@@ -1,0 +1,20 @@
+ja:
+  tengine:
+    resource:
+      virtual_servers:
+        index:
+          links:
+            new: "仮想サーバを起動"
+            delete: "選択したサーバを停止"
+          refresher:
+            form:
+              refresh_interval: "画面の更新間隔"
+              submit: "決定"
+          virtual_server:
+            not_found: "仮想サーバは起動していません。"
+          stop:
+            form:
+              confirm: "本当に選択したサーバを停止させますか？"
+          finder:
+            form:
+              submit: "検索"

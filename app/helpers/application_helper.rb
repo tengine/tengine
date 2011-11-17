@@ -134,6 +134,12 @@ module ApplicationHelper
     return tree
   end
 
+  def reset_tag(value="Reset", options={})
+    options = options.stringify_keys
+    options.delete_if{|k, v| %w(type value).include?(k) }
+    tag :input, {"type" => :reset, "name" => "reset", "value" => value}.update(options)
+  end
+
   private
   def model_class_name(class_or_name)
     return nil unless class_or_name

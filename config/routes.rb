@@ -3,7 +3,13 @@ TengineConsole::Application.routes.draw do
 
   namespace :tengine do  namespace :resource do resources :physical_servers end end
 
-  namespace :tengine do  namespace :resource do resources :virtual_servers end end
+  namespace :tengine do
+    namespace :resource do
+      resources :virtual_servers do |v|
+        delete 'destroy', :on => :collection
+      end
+    end
+  end
 
   namespace :tengine do  namespace :core do resources :settings end end
 

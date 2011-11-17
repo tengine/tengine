@@ -1,47 +1,143 @@
+<% if @auto_refresh -%>
+<% content_for :end_of_head do -%>
+  <meta http-equiv="refresh" content="<%= @refresh_interval %>">
+<% end -%>
+<p>
+[自動更新中] <%= @refresh_interval %>秒間隔で自動更新しています。
+</p>
+<% end -%>
+
 <h1><%= page_title Tengine::Resource::VirtualServer, :list %></h1>
 
 <p id="notice"><%= notice %></p>
 
-<table>
-  <tr>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provider) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:name) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_id) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:description) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:status) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:addresses) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:properties) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_image_id) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_type_id) %></th>
-    <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:host_server) %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="Section">
+  <div class="BoxBorder BoxSearchForm">
+    <%= form_for(:finder, :url => tengine_resource_virtual_servers_url, :method => :get) do |f| %>
+      <fieldset>
+        <legend><%= t("views.pages.search_caption") %></legend>
+        <table class="TableForm">
+          <colgroup>
+            <col class="Row1 RowTh">
+            <col class="Row2 RowTd">
+          </colgroup>
+          <tbody>
+            <tr>
+              <th><%= f.label :physical_server_name %>:</th>
+              <td><%= f.text_field :physical_server_name %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :virtual_server_name %>:</th>
+              <td><%= f.text_field :virtual_server_name %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :provided_id %>:</th>
+              <td><%= f.text_field :provided_id %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :description %>:</th>
+              <td><%= f.text_field :description %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :virtual_server_image_name %>:</th>
+              <td><%= f.text_field :virtual_server_image_name %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :status_cd %>:</th>
+              <td><%= f.check_box_group :status_cd %></td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset>
+      <div class="BoxBtns">
+        <%= f.submit t(".finder.form.submit") %>
+        <%= reset_tag t("views.links.reset") %>
+      </div>
+  <% end %>
+  </div>
+</div>
 
-<% @virtual_servers.each do |virtual_server| %>
-  <tr class="<%= cycle("even", "odd") %>" >
-    <td><%= virtual_server.provider %></td>
-    <td><%= virtual_server.name %></td>
-    <td><%= virtual_server.provided_id %></td>
-    <td><%= virtual_server.description %></td>
-    <td><%= virtual_server.status %></td>
-    <td><pre><%= virtual_server.addresses_yaml %></pre></td>
-    <td><pre><%= virtual_server.properties_yaml %></pre></td>
-    <td><%= virtual_server.provided_image_id %></td>
-    <td><%= virtual_server.provided_type_id %></td>
-    <td><%= virtual_server.host_server %></td>
-    <td><%= link_to_show virtual_server %></td>
-    <td><%= link_to_edit edit_tengine_resource_virtual_server_path(virtual_server) %></td>
-    <td><%= link_to_destroy virtual_server, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+<div class="Section">
+  <p class="BoxActionLinksRight">
+    <%= link_to t(".links.new"), new_tengine_resource_virtual_server_path %>
+  </p>
 
-<br />
+  <%= form_for(:refresher, :url => tengine_resource_virtual_servers_url, :method => :get) do |f| %>
+    <%= f.label :refresh_interval, t(".refresher.form.refresh_interval") %>:
+    <%= f.number_field :refresh_interval %><%= t("datetime.prompts.second") %>
+    <%= f.submit t(".refresher.form.submit") %>
+  <% end %>
 
-<%= paginate @virtual_servers %>
+  <%= form_tag tengine_resource_virtual_servers_url, method: :delete do %>
+    <table class="TableBase">
+      <colgroup>
+        <col class="Row1">
+        <col class="Row2">
+        <col class="Row3 RowAction">
+      </colgroup>
+      <thead>
+        <tr>
+          <th rowspan="2"><%= model_class_name(Tengine::Resource::PhysicalServer) %><%= Tengine::Resource::PhysicalServer.human_attribute_name(:name) %></th>
+          <th colspan="10"><%= model_class_name(Tengine::Resource::VirtualServer) %></th>
+        </tr>
+        <tr>
+          <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:name) %></th>
+          <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_id) %></th>
+          <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:description) %></th>
+          <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:addresses) %></th>
+          <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:status) %></th>
+          <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_image_id) %></th>
+          <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_type_id) %></th>
+          <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:properties) %></th>
+          <th><%= t("views.pages.operation") %></th>
+          <th><%= check_box_tag :stop, "all", false, :id => "stop_all" %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @physical_servers.each do |physical_server| -%>
+          <% virtual_servers = physical_server.guest_servers -%>
+          <% if virtual_servers.blank? -%>
+              <tr>
+                <td>
+                  <%= link_to(physical_server.name, tengine_resource_physical_server_url(physical_server)) %><br />
+                  <% unless physical_server.description.blank? -%>
+                    (<%= physical_server.description %>)
+                  <% end -%>
+                </td>
+                <td colspan="10"><%= t(".virtual_server..not_found") %></td>
+              </tr>
+          <% else -%>
+            <% virtual_servers.each_with_index do |virtual_server, i| -%>
+              <tr>
+                <% if i.zero? -%>
+                  <td rowspan="<%= virtual_servers.size %>">
+                    <%= link_to(physical_server.name, tengine_resource_physical_server_url(physical_server)) %><br />
+                    <% unless physical_server.description.blank? -%>
+                      (<%= physical_server.description %>)
+                    <% end -%>
+                  </td>
+                <% end -%>
+                <td><%= virtual_server.name %></td>
+                <td><%= virtual_server.provided_id %></td>
+                <td><%= truncate(virtual_server.description, :length => 20) %></td>
+                <td><pre><%= virtual_server.addresses_yaml %></pre></td>
+                <td><%= virtual_server.status %></td>
+                <td><%= image_name_link_and_desc(virtual_server) %></td>
+                <td><%= type_caption(virtual_server) %></td>
+                <td><pre><%= virtual_server.properties_yaml %></pre></td>
+                <td>
+                  <%= link_to_edit edit_tengine_resource_virtual_server_path(virtual_server) %>
+                </td>
+                <td><%= check_box_tag "target_server_ids[]", virtual_server.id.to_s, false, :id => "stop" %></td>
+              </tr>
+            <% end -%>
+          <% end -%>
+        <% end -%>
+      </tbody>
+    </table>
 
-<br />
-
-<%= link_to_new Tengine::Resource::VirtualServer, new_tengine_resource_virtual_server_path %>
+    <p class="BoxActionLinksRight">
+      <%= submit_tag t(".links.delete"), confirm: t(".stop.form.confirm") %>
+    </p>
+  <% end %>
+</div>
