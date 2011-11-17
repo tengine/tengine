@@ -101,7 +101,7 @@
           <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:provided_type_id) %></th>
           <th><%= Tengine::Resource::VirtualServer.human_attribute_name(:properties) %></th>
           <th><%= t("views.pages.operation") %></th>
-          <th><%= check_box_tag :stop, "all", false, :id => "stop_all" %></th>
+          <th><%= check_box_tag :stop, "all", false, :id => "StopAll" %></th>
         </tr>
       </thead>
       <tbody>
@@ -132,7 +132,7 @@
                 <td>
                   <%= link_to_edit edit_tengine_resource_virtual_server_path(virtual_server) %>
                 </td>
-                <td><%= check_box_tag "target_server_ids[]", virtual_server.id.to_s, false, :id => "stop" %></td>
+                <td><%= check_box_tag "target_server_ids[]", virtual_server.id.to_s, false, :class => "StopCheckBox" %></td>
               </tr>
             <% end -%>
           <% end -%>
