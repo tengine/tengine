@@ -12,6 +12,27 @@
     かつ 認証情報が名称:"test_credential1"で登録されている
     かつ イベントキューにメッセージが1件もない
 
+		
+# Tengine::Job::Execution phase changed. <4ec39cf842d9ebf0a7000007> initialized => ready
+# Tengine::Job::Execution phase changed. <4ec39cf842d9ebf0a7000007> ready => starting
+# Tengine::Job::RootJobnetActual phase changed. <4ec39cf842d9ebf0a7000001> initialized => ready
+# Tengine::Job::RootJobnetActual phase changed. <4ec39cf842d9ebf0a7000001> ready => starting
+# Tengine::Job::Execution phase changed. <4ec39cf842d9ebf0a7000007> starting => running
+# Edge phase changed. <4ec39cf842d9ebf0a7000005> active => transmitting
+# Tengine::Job::JobnetActual phase changed. <4ec39cf842d9ebf0a7000003> initialized => ready
+# Edge phase changed. <4ec39cf842d9ebf0a7000005> transmitting => transmitted
+# Tengine::Job::JobnetActual phase changed. <4ec39cf842d9ebf0a7000003> ready => starting
+# Tengine::Job::RootJobnetActual phase changed. <4ec39cf842d9ebf0a7000001> starting => running
+# Net::SSH
+# Tengine::Job::JobnetActual phase changed. <4ec39cf842d9ebf0a7000003> starting => running
+# Tengine::Job::JobnetActual phase changed. <4ec39cf842d9ebf0a7000003> running => success
+# Edge phase changed. <4ec39cf842d9ebf0a7000006> active => transmitting
+# Edge phase changed. <4ec39cf842d9ebf0a7000006> transmitting => transmitted
+# Tengine::Job::RootJobnetActual phase changed. <4ec39cf842d9ebf0a7000001> running => success
+# Tengine::Job::Execution phase changed. <4ec39cf842d9ebf0a7000007> running => success
+
+
+
   # ./usecases/job/dsl/1001_one_job_in_jobnet.rb
   # -------------------
   # require 'tengine_job'
@@ -42,8 +63,70 @@
     # -----------------------------
     もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
-    かつ "tengine_job_test job1 finish"と"スクリプトログ"の末尾に出力されていること
+    かつ "tengine_job_test job1 finish"と"スクリプトログ1"に出力されており、"tengine_job_test job1 finish"の後であること
 
+
+		###############################
+		# エレメントのフェーズ遷移の確認
+		###############################
+
+    # Execution
+		もし 実行ジョブ"jobnet1001"のExecutionを"execution"呼ぶこととする
+		# /jobnet1001 => jobnet1001
+		かつ 実行ジョブ"jobnet1001"のルートジョブネット"/jobnet1001"を"root_jobnet"呼ぶこととする
+		# start@/jobnet1001 => S1
+		かつ 実行ジョブ"jobnet1001"のスタート"start@/jobnet1001"を"S1"呼ぶこととする
+		# next!start@/jobnet1001 => e1
+		かつ 実行ジョブ"jobnet1001"のエッジ"next!start@/jobnet1001"を"e1"呼ぶこととする
+		# /jobnet1001/job1 => job1
+		もし 実行ジョブ"jobnet1001"のジョブ"/jobnet1001/job1"を"job1"呼ぶこととする
+		# next!/jobnet1001/job1 => e2
+		かつ 実行ジョブ"jobnet1001"のエッジ"next!/jobnet1001/job1"を"e2"呼ぶこととする
+		# end@/jobnet1001 => E1
+		かつ 実行ジョブ"jobnet1001"のエンド"end@/jobnet1001"を"E1"呼ぶこととする
+
+
+    # receive event "start.execution.job.tengine"
+		ならば "Tengineコアプロセス"のアプリケーションログに"execution initialized => ready"と出力されていること
+		かつ "Tengineコアプロセス"のアプリケーションログに"execution ready => starting"と出力されており、"execution initialized => ready"の後であること
+		かつ "Tengineコアプロセス"のアプリケーションログに"root_jobnet initialized => ready"と出力されており、"execution ready => starting"の後であること
+
+    # receive event "start.jobnet.job.tengine"
+		かつ "Tengineコアプロセス"のアプリケーションログに"root_jobnet ready => starting"と出力されており、"root_jobnet initialized => ready"の後であること
+		かつ "Tengineコアプロセス"のアプリケーションログに"execution starting => running"と出力されており、"root_jobnet ready => starting"の後であること
+		かつ "Tengineコアプロセス"のアプリケーションログに"e1 active => transmitting"と出力されており、"execution starting => running"の後であること
+		かつ "Tengineコアプロセス"のアプリケーションログに"job1 initialized => ready"と出力されており、"e1 active => transmitting"の後であること
+
+    # receive event "start.job.job.tengine"
+		かつ "Tengineコアプロセス"のアプリケーションログに"e1 transmitting => transmitted"と出力されており、"job1 initialized => ready"の後であること
+		かつ "Tengineコアプロセス"のアプリケーションログに"job1 ready => starting"と出力されており、"e1 transmitting => transmitted"の後であること
+		かつ "Tengineコアプロセス"のアプリケーションログに"jobnet1001 starting => running"と出力されており、"job1 ready => starting"の後であること
+    # SSH接続
+		かつ "Tengineコアプロセス"のアプリケーションログに"job1 starting => running"と出力されており、"root_jobnet starting => running"の後であること
+
+    # receive event "success.process.job.tengine"
+		かつ "Tengineコアプロセス"のアプリケーションログに"job1 running => success"と出力されており、"job1 starting => running"の後であること
+
+    # receive event "success.job.job.tengine"
+		かつ "Tengineコアプロセス"のアプリケーションログに"e2 active => transmitting"と出力されており、"job1 running => success"の後であること
+		かつ "Tengineコアプロセス"のアプリケーションログに"e2 transmitting => transmitted"と出力されており、"e2 active => transmitting"の後であること
+
+    # tengine_core fire "success.jobnet.job.tengine"
+		かつ "Tengineコアプロセス"のアプリケーションログに"root_jobnet running => success"と出力されており、"e2 transmitting => transmitted"の後であること
+
+    # tengine_core fire "success.jobnet.job.tengine"
+		かつ "Tengineコアプロセス"のアプリケーションログに"execution running => success"と出力されており、"root_jobnet running => success"の後であること
+
+    
+		###############################
+		# ジョブ実行サーバのログを確認
+		###############################
+    
+    もし 仮想サーバ"test_server1"のファイル"~/log/tengine_job_test.log"を開く。このファイルを"tengine_job_runログ"と呼ぶこととする。
+    ならば "pid file creating:"と"tengine_job_runログ"の先頭に出力されていること
+    かつ "pid file creating:"と"tengine_job_runログ"の先頭に出力されており、"tengine_job_test job1 finish"の後であること
+		
+		
 
   # ./usecases/job/dsl/1002_series_jobs_in_jobnet.rb
   #  -------------------
@@ -1376,7 +1459,249 @@
   #
   # 時間がかかるため、「アプリケーション開発者がとても時間がかかるジョブネット定義を試してみる.feature」 で実施します。
 
-  
+
+
+  # ./usecases/job/dsl/1046_permission_denied_script.rb
+  #  -------------------
+  # require 'tengine_job'
+  # 
+  # jobnet("jobnet1046", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("job1")
+  #   # このジョブネット定義では、tengine_job_permission_denied_test.sh の実行権限がないこと想定しています。
+  #   # 作成にあたっては、tengine_job_test.sh コピーし、実行権限を削除してください。
+  #   job("job1", "$HOME/tengine_job_permission_denied_test.sh 0 job1")
+  # end
+  #  -------------------
+  @1046
+  シナリオ: [異常系]1046_スクリプトに実行権限がない_を試してみる
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1046_permission_denied_script.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jobnet1046"を実行する
+    かつ ジョブネット"jobnet1046"が完了することを確認する
+    
+    ならば ジョブネット"/jobnet1046" のステータスが異常終了であること
+    かつ ジョブ"/jobnet1046/job1" のステータスが異常終了であること
+
+
+  # ./usecases/job/dsl/1047_no_such_script.rb
+  #  -------------------
+  # require 'tengine_job'
+  # 
+  # jobnet("jobnet1047", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("job1")
+  #   # このジョブネット定義では、tengine_job_no_such_script_test.sh は、存在しないことを想定しています。
+  #   job("job1", "$HOME/tengine_job_no_such_script_test.sh 0 job1")
+  # end
+  #  -------------------
+  @1047
+  シナリオ: [異常系]1047_スクリプトが存在しない_を試してみる
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1047_no_such_script.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jobnet1047"を実行する
+    かつ ジョブネット"jobnet1047"が完了することを確認する
+    
+    ならば ジョブネット"/jobnet1047" のステータスが異常終了であること
+    かつ ジョブ"/jobnet1047/job1" のステータスが異常終了であること
+
+
+  # ./usecases/job/dsl/1048_jobnet_script_env.rb
+  #  -------------------
+  # require 'tengine_job'
+  # 
+  # jobnet("jobnet1048", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   auto_sequence
+  #   jobnet("jobnet1048_2") do
+  #     job("job1", "$HOME/tengine_job_env_test.sh 0 job1")
+  #   end
+  #   finally do
+  #     job("jobnet1048_finally","$HOME/tengine_job_env_test.sh 0 jobnet1048_finally")
+  #   end
+  # end
+  #  -------------------
+  @1048
+	@manual
+  シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1048_jobnet_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし 予定実行時間を10分に設定して、ジョブネット"jobnet1048"を実行する
+    かつ ジョブネット"jobnet1048"が完了することを確認する
+    
+    ならば ジョブネット"/jobnet1048" のステータスが正常終了であること
+    かつ ジョブネット"/jobnet1048/jobnet1048_2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1048/jobnet1048_2/job1" のステータスが正常終了であること
+    かつ ジョブネット"/jobnet1048/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1048/finally/jobnet1048_finally" のステータスが正常終了であること
+
+
+		########################################
+		# シェルスクリプトに渡された環境変数の確認
+		########################################
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+
+    かつ テンプレートジョブのジョブネット"/jobnet1048"のIDを確認する
+    かつ テンプレートジョブのジョブネット"/jobnet1048/jobnet1048_2"のIDを確認する
+    かつ テンプレートジョブのジョブ"/jobnet1048/jobnet1048_2/job1"のIDを確認する
+    かつ テンプレートジョブのジョブネット"/jobnet1048/finally"のIDを確認する
+    かつ テンプレートジョブのジョブ"/jobnet1048/finally/jobnet1048_finally"のIDを確認する
+
+		かつ 実行ジョブのジョブネット"/jobnet1048"のIDを確認する
+    かつ 実行ジョブのジョブネット"/jobnet1048/jobnet1048_2"のIDを確認する
+    かつ 実行ジョブのジョブ"/jobnet1048/jobnet1048_2/job1"のIDを確認する
+    かつ 実行ジョブのジョブネット"/jobnet1048/finally"のIDを確認する
+    かつ 実行ジョブのジョブ"/jobnet1048/finally/jobnet1048_finally"のIDを確認する
+
+    ###########################################################
+    # ジョブ "/jobnet1048/jobnet1048_2/job1" に渡された環境変数
+    ###########################################################
+    かつ "MM_ACTUAL_JOB_ID"の値が、実行ジョブ"/jobnet1048/jobnet1048_2/job1"のIDであること
+    かつ "MM_ACTUAL_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
+		|実行ジョブのジョブネット"/jobnet1048"のID|
+		|実行ジョブのジョブネット"/jobnet1048/jobnet1048_2"のID|
+		|実行ジョブのジョブ"/jobnet1048/jobnet1048_2/job1"のID|
+    かつ "MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
+		|実行ジョブのジョブネット"/jobnet1048"のID|
+		|実行ジョブのジョブネット"/jobnet1048/jobnet1048_2"のID|
+		|実行ジョブのジョブ"/jobnet1048/jobnet1048_2/job1"のID|
+    かつ "MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/jobnet1048_2/job1"であること
+# TODO 未実装。対応時期の確認が必要。
+    かつ "MM_ACTUAL_JOB_SECURITY_TOKEN"の値が、""であること
+    かつ "MM_TEMPLATE_JOB_ID"の値が、テンプレートジョブのジョブ"/jobnet1048/jobnet1048_2/job1"のIDであること
+    かつ "MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
+		|テンプレートジョブのジョブネット"/jobnet1048"のID|
+		|テンプレートジョブのジョブネット"/jobnet1048/jobnet1048_2"のID|
+		|テンプレートジョブのジョブ"/jobnet1048/jobnet1048_2/job1"のID|
+# TODO 実行スケジュール == Execution であるか確認が必要
+    かつ "MM_SCHEDULE_ID"の値が、実行スケジュールのIDであること
+    かつ "MM_SCHEDULE_ESTIMATED_TIME"の値が、10分であること
+    かつ "MM_SCHEDULE_ESTIMATED_END"の値が、実行開始の時刻から10分後であること
+# TODO 未実装。対応時期の確認が必要。
+    かつ "MM_MASTER_SCHEDULE_ID"の値が、マスタースケジュールのIDであること
+# TODO 未実装。対応時期の確認が必要。
+    かつ "MM_FAILED_JOB_ID"の値が、 : ジョブが失敗した場合にrecoverやfinally内のジョブを実行時に設定される、失敗したジョブのMM上でのID。
+# TODO 未実装。対応時期の確認が必要。
+    かつ "MM_FAILED_JOB_ANCESTOR_IDS"の値が、 : ジョブが失敗した場合にrecoverやfinally内のジョブを実行時に設定される、失敗したジョブの祖先のMM上でのIDをセミコロンで繋げた文字列。
+
+		
+    ###########################################################
+    # ジョブ "/jobnet1048/finally/jobnet1048_finally" に渡された環境変数
+    ###########################################################
+    かつ "MM_ACTUAL_JOB_ID"の値が、実行ジョブ"/jobnet1048/finally/jobnet1048_finally"のIDであること
+    かつ "MM_ACTUAL_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
+		|実行ジョブのジョブネット"/jobnet1048"のID|
+		|実行ジョブのジョブネット"/jobnet1048/finally"のID|
+		|実行ジョブのジョブ"/jobnet1048/finally/jobnet1048_finally"のID|
+    かつ "MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
+		|実行ジョブのジョブネット"/jobnet1048"のID|
+		|実行ジョブのジョブネット"/jobnet1048/finally"のID|
+		|実行ジョブのジョブ"/jobnet1048/finally/jobnet1048_finally"のID|
+    かつ "MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/finally/jobnet1048_finally"であること
+# TODO 未実装。対応時期の確認が必要。
+    かつ "MM_ACTUAL_JOB_SECURITY_TOKEN"の値が、""であること
+    かつ "MM_TEMPLATE_JOB_ID"の値が、テンプレートジョブのジョブ"/jobnet1048/finally/jobnet1048_finally"のIDであること
+		|テンプレートジョブのジョブネット"/jobnet1048"のID|
+		|テンプレートジョブのジョブネット"/jobnet1048/finally"のID|
+		|テンプレートジョブのジョブ"/jobnet1048/finally/jobnet1048_finally"のID|
+    かつ "MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
+# TODO 実行スケジュール == Execution であるか確認が必要
+    かつ "MM_SCHEDULE_ID"の値が、実行スケジュールのIDであること
+    かつ "MM_SCHEDULE_ESTIMATED_TIME"の値が、10分であること
+    かつ "MM_SCHEDULE_ESTIMATED_END"の値が、実行開始の時刻から10分後であること
+# TODO 未実装。対応時期の確認が必要。
+    かつ "MM_MASTER_SCHEDULE_ID"の値が、マスタースケジュールのIDであること
+# TODO 未実装。対応時期の確認が必要。
+    かつ "MM_FAILED_JOB_ID"の値が、 : ジョブが失敗した場合にrecoverやfinally内のジョブを実行時に設定される、失敗したジョブのMM上でのID。
+# TODO 未実装。対応時期の確認が必要。
+    かつ "MM_FAILED_JOB_ANCESTOR_IDS"の値が、 : ジョブが失敗した場合にrecoverやfinally内のジョブを実行時に設定される、失敗したジョブの祖先のMM上でのIDをセミコロンで繋げた文字列。
+
+
+  # ./usecases/job/dsl/1049_expantion_script_env.rb
+  #  -------------------
+	# require 'tengine_job'
+	# 
+	# jobnet("jobnet1049", :instance_name => "test_server1", :credential_name => "test_credential1") do
+	#   auto_sequence
+	#   expansion("jobnet1049_2")
+	# end
+	# 
+	# 
+	# jobnet("jobnet1049_2", :instance_name => "test_server1", :credential_name => "test_credential1") do
+	#   auto_sequence
+	#   job("job1", "$HOME/tengine_job_env_test.sh 0 job1")
+	# end
+  #  -------------------
+  @1049
+	@manual
+  シナリオ: [正常系]1049_expantionを利用したシェルスクリプトに環境変数が渡される_を試してみる
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1049_expantion_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし 予定実行時間を10分に設定して、ジョブネット"jobnet1049"を実行する
+    かつ ジョブネット"jobnet1049"が完了することを確認する
+    
+    ならば ジョブネット"/jobnet1049" のステータスが正常終了であること
+    かつ ジョブネット"/jobnet1049/jobnet1049_2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1049/jobnet1049_2/job1" のステータスが正常終了であること
+
+
+		########################################
+		# シェルスクリプトに渡された環境変数の確認
+		########################################
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+
+    かつ テンプレートジョブのジョブネット"/jobnet1049"のIDを確認する
+    かつ テンプレートジョブのジョブネット"/jobnet1049/jobnet1049_2"のIDを確認する
+    かつ テンプレートジョブのジョブ"/jobnet1049/jobnet1049_2/job1"のIDを確認する
+
+		かつ 実行ジョブのジョブネット"/jobnet1049"のIDを確認する
+    かつ 実行ジョブのジョブネット"/jobnet1049/jobnet1049_2"のIDを確認する
+    かつ 実行ジョブのジョブ"/jobnet1049/jobnet1049_2/job1"のIDを確認する
+
+    ###########################################################
+    # ジョブ "/jobnet1049/jobnet1049_2/job1" に渡された環境変数
+    ###########################################################
+    かつ "MM_ACTUAL_JOB_ID"の値が、実行ジョブ"/jobnet1049/jobnet1049_2/job1"のIDであること
+    かつ "MM_ACTUAL_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
+		|実行ジョブのジョブネット"/jobnet1049_2"のID|
+		|実行ジョブのジョブ"/jobnet1049_2/job1"のID|
+    かつ "MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
+		|実行ジョブのジョブネット"/jobnet1049"のID|
+		|実行ジョブのジョブネット"/jobnet1049/jobnet1049_2"のID|
+		|実行ジョブのジョブ"/jobnet1049/jobnet1049_2/job1"のID|
+    かつ "MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1049/jobnet1049_2/job1"であること
+# TODO 未実装。対応時期の確認が必要。
+    かつ "MM_ACTUAL_JOB_SECURITY_TOKEN"の値が、""であること
+    かつ "MM_TEMPLATE_JOB_ID"の値が、テンプレートジョブのジョブ"/jobnet1049/jobnet1049_2/job1"のIDであること
+    かつ "MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
+		|テンプレートジョブのジョブネット"/jobnet1049_2"のID|
+		|テンプレートジョブのジョブ"/jobnet1049_2/job1"のID|
+# TODO 実行スケジュール == Execution であるか確認が必要
+    かつ "MM_SCHEDULE_ID"の値が、実行スケジュールのIDであること
+    かつ "MM_SCHEDULE_ESTIMATED_TIME"の値が、10分であること
+    かつ "MM_SCHEDULE_ESTIMATED_END"の値が、実行開始の時刻から10分後であること
+# TODO 未実装。対応時期の確認が必要。
+    かつ "MM_MASTER_SCHEDULE_ID"の値が、マスタースケジュールのIDであること
+# TODO 未実装。対応時期の確認が必要。
+    かつ "MM_FAILED_JOB_ID"の値が、 : ジョブが失敗した場合にrecoverやfinally内のジョブを実行時に設定される、失敗したジョブのMM上でのID。
+# TODO 未実装。対応時期の確認が必要。
+    かつ "MM_FAILED_JOB_ANCESTOR_IDS"の値が、 : ジョブが失敗した場合にrecoverやfinally内のジョブを実行時に設定される、失敗したジョブの祖先のMM上でのIDをセミコロンで繋げた文字列。
+
+
+		
   # ./usecases/job/dsl/1060_jobnet_directory
   #
   @1060
