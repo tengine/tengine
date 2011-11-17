@@ -5,24 +5,29 @@ Tamaのテストモードはjson形式で記述されたファイルを使用す
 Tengineで使用する際は、rails runner で、Tengine::Resource::Provider#connection_settingsに対し、以下の値を設定する。
     {
       :test => true, # テストモード
-      :api => [
-        {
-          :describe_instances_file  => "./features/usecases/resouce/test_files/describe_instances.json",  # 仮想サーバの状態
-          :describe_images_file     => "./features/usecases/resouce/test_files/describe_images.json",     # 仮想サーバイメージの状態
-          :run_instances_file       => "./features/usecases/resouce/test_files/run_instances.json",       # 仮想サーバ起動時
-          :terminate_instances_file => "./features/usecases/resouce/test_files/terminate_instances.json", # 仮想サーバ停止時
-        },
-        {
-          :host_nodes_file          => "./features/usecases/resouce/test_files/host_nodes.json"           # 物理サーバの状態
-        }
-      ]
+      :options => {
+        :describe_instances_file  => "./features/usecases/resouce/test_files/describe_instances.json",  # 仮想サーバの状態
+        :describe_images_file     => "./features/usecases/resouce/test_files/describe_images.json",     # 仮想サーバイメージの状態
+        :run_instances_file       => "./features/usecases/resouce/test_files/run_instances.json",       # 仮想サーバ起動時
+        :terminate_instances_file => "./features/usecases/resouce/test_files/terminate_instances.json", # 仮想サーバ停止時
+        :describe_host_nodes_file     => "./features/usecases/resouce/test_files/describe_host_nodes.json"     # 物理サーバの状態
+        :describe_instance_specs_file => "./features/usecases/resouce/test_files/describe_instance_specs.json" # 仮想サーバスペックの状態
+      }
     }
 
 本テストで使用するテストファイルは./features/usecases/resouce/test_files 以下に置いてあり、
 仮想サーバや物理サーバの増減や状態変更など、仮想サーバ基盤から取得する状態を変更する場合はファイルの置き換えを行う。
 
 使用するテストファイル
-* host_nodes.json
- * 01_host_nodes_0_physical_servers.json  describe_host_nodesで0件のレスポンスを返却する
- * 02_host_nodes_10_physical_servers.json describe_host_nodesで10件のレスポンスを返却する
- * 03_host_nodes_60_physical_servers.json describe_host_nodesで60件のレスポンスを返却する(ページネーション確認用)
+* describe_host_nodes.json
+ * 00_host_nodes_0_physical_servers.json  => describe_host_nodes で0件の物理サーバのレスポンスを返却する
+ * 01_host_nodes_10_physical_servers.json => describe_host_nodes で10件の物理サーバのレスポンスを返却する
+ * 02_host_nodes_60_physical_servers.json => describe_host_nodes で60件の物理サーバのレスポンスを返却する(ページネーション確認用)
+
+* describe_instances.json
+ * 10_describe_instances_0_virtual_servers.json  => describe_instances で0件の仮想サーバのレスポンスを返却する
+ * 11_describe_instances_10_virtual_servers.json => describe_instances で10件の仮想サーバのレスポンスを返却する
+
+* describe_images.jon
+ * 20_describe_images_0_virtual_server_images.json => describe_images で0件の仮想サーバイメージのレスポンスを返却する
+ * 21_describe_images_5_virtual_server_images.json => describe_images で0件の仮想サーバイメージのレスポンスを返却する

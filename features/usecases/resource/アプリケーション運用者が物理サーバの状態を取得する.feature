@@ -17,14 +17,15 @@
   シナリオ: [正常系]アプリケーション運用者は物理サーバ一覧画面を開き、物理サーバが表示されていることを確認する
     # 代替コースB: 管理下の物理サーバが存在しない
     # 物理サーバが0件のファイル
-    もし Wakameのモックファイル"./features/usecases/resouce/test_files/00_host_nodes.json"を"./features/usecases/resouce/test_files/host_nodes.json"にコピーする
+    もし Wakameのモックファイル"./features/usecases/resouce/test_files/00_describe_host_nodes_0_physical_servers.json"を"./features/usecases/resouce/test_files/describe_host_nodes.json"にコピーする
     もし "物理サーバ一覧"画面を表示する
     ならば "物理サーバ一覧"画面に以下の行が表示されていること
+    # tableには何も表示されない
     |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
 
     # Wakameに物理サーバの登録を行う
     # 物理サーバが10件のファイル
-    もし Wakameのモックファイル"./features/usecases/resouce/test_files/01_host_nodes.json"を"./features/usecases/resouce/test_files/host_nodes.json"にコピーする
+    もし Wakameのモックファイル"./features/usecases/resouce/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/usecases/resouce/test_files/describe_host_nodes.json"にコピーする
     もし "物理サーバ一覧"画面を表示する
     ならば "物理サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
@@ -86,7 +87,7 @@
 
     # 代替コースD: 絞り込み検索をしている状態でページ切り替えを行う
     # 物理サーバが100件のファイル
-    もし Wakameのモックファイル"./features/usecases/resouce/test_files/02_host_nodes.json"を"./features/usecases/resouce/test_files/host_nodes.json"にコピーする
+    もし Wakameのモックファイル"./features/usecases/resouce/test_files/02_describe_host_nodes_60_physical_servers.json"を"./features/usecases/resouce/test_files/describe_host_nodes.json"にコピーする
     もし "物理サーバ一覧"画面を表示する
     ならば "物理サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
