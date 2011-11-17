@@ -1,47 +1,100 @@
-<%= form_for(@virtual_server, as:"virtual_server") do |f| %>
+<div class="BoxBorder BoxSearchForm">
   <%= model_error_messages(@virtual_server) %>
-
-  <div class="field">
-    <%= f.label :provider_id %><br />
-    <%= f.text_field :provider_id %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :provided_id %><br />
-    <%= f.text_field :provided_id %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br />
-    <%= f.text_field :status %>
-  </div>
-  <div class="field">
-    <%= f.label :addresses_yaml %><br />
-    <%= f.text_area :addresses_yaml %>
-  </div>
-  <div class="field">
-    <%= f.label :properties_yaml %><br />
-    <%= f.text_area :properties_yaml %>
-  </div>
-  <div class="field">
-    <%= f.label :provided_image_id %><br />
-    <%= f.text_field :provided_image_id %>
-  </div>
-  <div class="field">
-    <%= f.label :provided_type_id %><br />
-    <%= f.text_field :provided_type_id %>
-  </div>
-  <div class="field">
-    <%= f.label :host_server %><br />
-    <%= f.text_field :host_server %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <%= form_for(@virtual_server, as:"virtual_server") do |f| -%>
+    <%= field_set_tag do %>
+  
+      <% if @virtual_server.new_record? -%>
+        <div class="field">
+          <%= f.label :provider_id %><br />
+          <%= f.text_field :provider_id %>
+        </div>
+        <div class="field">
+          <%= f.label :name %><br />
+          <%= f.text_field :name %>
+        </div>
+        <div class="field">
+          <%= f.label :provided_id %><br />
+          <%= f.text_field :provided_id %>
+        </div>
+        <div class="field">
+          <%= f.label :description %><br />
+          <%= f.text_field :description %>
+        </div>
+        <div class="field">
+          <%= f.label :status %><br />
+          <%= f.text_field :status %>
+        </div>
+        <div class="field">
+          <%= f.label :addresses_yaml %><br />
+          <%= f.text_area :addresses_yaml %>
+        </div>
+        <div class="field">
+          <%= f.label :properties_yaml %><br />
+          <%= f.text_area :properties_yaml %>
+        </div>
+        <div class="field">
+          <%= f.label :provided_image_id %><br />
+          <%= f.text_field :provided_image_id %>
+        </div>
+        <div class="field">
+          <%= f.label :provided_type_id %><br />
+          <%= f.text_field :provided_type_id %>
+        </div>
+        <div class="field">
+          <%= f.label :host_server %><br />
+          <%= f.text_field :host_server %>
+        </div>
+      <% else -%>
+        <table class="TableForm">
+          <colgroup>
+            <col class="Row1 RowTh">
+            <col class="Row2 RowTd">
+            <col class="Row3 RowTh">
+            <col class="Row4 RowTd">
+          </colgroup>
+          <tbody>
+            <tr>
+              <th class="CelRow1"><%= f.label :name %></th>
+              <td><%= f.text_field :name, :class =>"InputText" %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :host_server_id, Tengine::Resource::PhysicalServer.human_attribute_name(:name) %></th>
+              <td><%= name_link_and_desc(@virtual_server.host_server, false) %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :provided_id %></th>
+              <td><%= @virtual_server.provided_id %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :addresses %></th>
+              <td><%= format_addresses @virtual_server %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :status %></th>
+              <td><%= @virtual_server.status %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :provided_image_id %></th>
+              <td><%= image_name_link_and_desc(@virtual_server, false) %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :provided_type_id %></th>
+              <td><%= type_caption(@virtual_server) %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :properties %></th>
+              <td><%= format_map_yml_value @virtual_server.properties %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :description %></th>
+              <td><%= f.text_area :description, :class =>"InputText", :rows => 3 %></td>
+            </tr>
+          </tbody>
+        </table>
+      <% end -%>
+  
+      <%= f.submit %>
+      <%= link_to t("views.links.cancel"), tengine_resource_virtual_servers_url %>
+    <% end -%>
+  <% end -%>
+</div>

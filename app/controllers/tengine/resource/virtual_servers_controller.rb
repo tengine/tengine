@@ -74,7 +74,7 @@ class Tengine::Resource::VirtualServersController < ApplicationController
 
     respond_to do |format|
       if @virtual_server.update_attributes(params[:virtual_server])
-        format.html { redirect_to @virtual_server, notice: successfully_updated(@virtual_server) }
+        format.html { redirect_to tengine_resource_virtual_servers_url, notice: successfully_updated(@virtual_server) }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

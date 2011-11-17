@@ -128,10 +128,10 @@ describe Tengine::Resource::VirtualServersController do
         assigns(:virtual_server).should eq(virtual_server)
       end
 
-      it "redirects to the virtual_server" do
+      it "redirects to the tengine_resource_virtual_servers list" do
         virtual_server = Tengine::Resource::VirtualServer.create! valid_attributes
         put :update, :id => virtual_server.id, :virtual_server => valid_attributes
-        response.should redirect_to(virtual_server)
+        response.should redirect_to(tengine_resource_virtual_servers_url)
       end
     end
 

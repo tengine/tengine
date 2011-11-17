@@ -1,19 +1,28 @@
 module Tengine::Resource::VirtualServersHelper
-  def name_link_and_desc(physical_server)
+  def name_link_and_desc(physical_server, link=true)
     html = ""
-    url = tengine_resource_physical_server_url(physical_server)
-    html << link_to(physical_server.name, url)
+    if link
+      url = tengine_resource_physical_server_url(physical_server)
+      html << link_to(physical_server.name, url)
+    else
+      html << physical_server.name
+    end
     unless physical_server.description.blank?
-      html << "<br />(#{ERB::Util.html_escape(physical_server.description)})"
+      html << "<br />" if link
+      html << "(#{ERB::Util.html_escape(physical_server.description)})"
     end
     return html.html_safe
   end
 
-  def image_name_link_and_desc(virtual_server)
+  def image_name_link_and_desc(virtual_server, link=true)
     html = ""
     if image = virtual_server_image(virtual_server)
-      url = edit_tengine_resource_virtual_server_image_url(image)
-      html << link_to(image.name, url)
+      if link
+        url = edit_tengine_resource_virtual_server_image_url(image)
+        html << link_to(image.name, url)
+      else
+        html << image.name
+      end
       unless image.description.blank?
         html << "(#{ERB::Util.html_escape(image.description)})"
       end

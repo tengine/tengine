@@ -12,29 +12,29 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :description => "Description",
     )
     @image1 = Tengine::Resource::VirtualServerImage.create!(
-      :provider_id => @provider.id.to_s,
+      :provider_id => @provider.id,
       :name => "vimage1",
       :description => "Description",
       :provided_id => "ami1",
     )
     @image2 = Tengine::Resource::VirtualServerImage.create!(
-      :provider_id => @provider.id.to_s,
+      :provider_id => @provider.id,
       :name => "vimage2",
       :description => "Description",
       :provided_id => "ami2",
     )
     @type1 = Tengine::Resource::VirtualServerType.create!(
-      :provider_id => @provider.id.to_s,
+      :provider_id => @provider.id,
       :provided_id => "large",
       :caption => "Large",
     )
     @type2 = Tengine::Resource::VirtualServerType.create!(
-      :provider_id => @provider.id.to_s,
+      :provider_id => @provider.id,
       :provided_id => "small",
       :caption => "Small",
     )
     @physical_server1 = Tengine::Resource::PhysicalServer.create!(
-      :provider_id => @provider.id.to_s,
+      :provider_id => @provider.id,
       :name => "pserver1",
       :provided_id => "server1",
       :description => "Description",
@@ -43,7 +43,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :properties => {"a"=>"1", "b"=>"2"},
     )
     @physical_server2 = Tengine::Resource::PhysicalServer.create!(
-      :provider_id => @provider.id.to_s,
+      :provider_id => @provider.id,
       :name => "pserver2",
       :provided_id => "server1",
       :description => "Description",
@@ -52,7 +52,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :properties => {"a"=>"1", "b"=>"2"},
     )
     @virtual_server1 = Tengine::Resource::VirtualServer.create!(
-      :provider_id => @provider.id.to_s,
+      :provider_id => @provider.id,
       :name => "vserver1",
       :provided_id => "i0002",
       :description => "v2Description",
@@ -61,10 +61,10 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :properties => {"a"=>"1", "b"=>"2"},
       :provided_image_id => "ami1",
       :provided_type_id => "large",
-      :host_server_id => @physical_server1.id.to_s,
+      :host_server_id => @physical_server1.id,
     )
     @virtual_server2 = Tengine::Resource::VirtualServer.create!(
-      :provider_id => @provider.id.to_s,
+      :provider_id => @provider.id,
       :name => "vserver2",
       :provided_id => "i0003",
       :description => "v3Description",
@@ -73,7 +73,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :properties => {"a"=>"1", "b"=>"2"},
       :provided_image_id => "ami2",
       :provided_type_id => "small",
-      :host_server_id => @physical_server1.id.to_s,
+      :host_server_id => @physical_server1.id,
     )
 
     assign(:physical_servers, [@physical_server1, @physical_server2])
