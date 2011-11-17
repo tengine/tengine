@@ -94,4 +94,33 @@ class Tengine::Resource::VirtualServersController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  # DELETE /tengine/resource/virtual_servers
+  # DELETE /tengine/resource/virtual_servers.json
+  def destroy_all
+    unless (target_server_ids = params[:target_server_ids]).blank?
+      @virtual_servers = \
+        Tengine::Resource::VirtualServer.any_in(:_id => target_server_ids)
+      @virtual_servers.each do |server|
+        server.provider.terminate_virtual_servers([server])
+      end
+    end
+
+    respond_to do |format|
+      query_params = {}.with_indifferent_access
+      query_params[:finder] = params[:finder] if params[:finder]
+      query_params[:refresher] = params[:refresher] if params[:refresher]
+
+      format.html do
+        redirect_to(tengine_resource_virtual_servers_url(query_params), notice: successfully_destroyed_all(Tengine::Resource::VirtualServer))
+      end
+      format.json { head :ok }
+    end
+  end
+
+  private
+
+  def successfully_destroyed_all(model_class)
+    I18n.t(:successfully_destroyed, :scope => [:views, :notice],:model => model_class.human_name)
+  end
 end

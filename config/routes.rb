@@ -6,7 +6,7 @@ TengineConsole::Application.routes.draw do
   namespace :tengine do
     namespace :resource do
       resources :virtual_servers do |v|
-        delete 'destroy', :on => :collection
+        delete '', :on => :collection, :action => 'destroy_all'
       end
     end
   end
