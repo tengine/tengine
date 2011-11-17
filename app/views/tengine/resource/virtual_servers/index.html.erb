@@ -48,12 +48,13 @@
             </tr>
           </tbody>
         </table>
+        <%= hidden_field_tag "refresher[refresh_interval]", @refresh_interval %>
       </fieldset>
       <div class="BoxBtns">
         <%= f.submit t(".finder.form.submit") %>
         <%= reset_tag t("views.links.reset") %>
       </div>
-  <% end %>
+    <% end %>
   </div>
 </div>
 
@@ -65,6 +66,16 @@
   <%= form_for(:refresher, :url => tengine_resource_virtual_servers_url, :method => :get) do |f| %>
     <%= f.label :refresh_interval, t(".refresher.form.refresh_interval") %>:
     <%= f.number_field :refresh_interval %><%= t("datetime.prompts.second") %>
+
+    <%= hidden_field_tag "finder[physical_server_name]", @finder.physical_server_name %>
+    <%= hidden_field_tag "finder[virtual_server_name]", @finder.virtual_server_name %>
+    <%= hidden_field_tag "finder[provided_id]", @finder.provided_id %>
+    <%= hidden_field_tag "finder[description]", @finder.description %>
+    <%= hidden_field_tag "finder[virtual_server_image_name]", @finder.virtual_server_image_name %>
+    <% @finder.status_ids.each do |status| -%>
+      <%= hidden_field_tag "finder[status_ids][]", status %>
+    <% end -%>
+
     <%= f.submit t(".refresher.form.submit") %>
   <% end %>
 
@@ -95,26 +106,19 @@
       </thead>
       <tbody>
         <% @physical_servers.each do |physical_server| -%>
-          <% virtual_servers = physical_server.guest_servers -%>
-          <% if virtual_servers.blank? -%>
+          <% idle = physical_server.guest_servers.blank? -%>
+          <% if idle && !@finder.finded_by_virtual_server? -%>
               <tr>
-                <td>
-                  <%= link_to(physical_server.name, tengine_resource_physical_server_url(physical_server)) %><br />
-                  <% unless physical_server.description.blank? -%>
-                    (<%= physical_server.description %>)
-                  <% end -%>
-                </td>
+                <td><%= name_link_and_desc(physical_server) %></td>
                 <td colspan="10"><%= t(".virtual_server..not_found") %></td>
               </tr>
           <% else -%>
+            <% virtual_servers = @finder.scope(physical_server.guest_servers) -%>
             <% virtual_servers.each_with_index do |virtual_server, i| -%>
               <tr>
                 <% if i.zero? -%>
                   <td rowspan="<%= virtual_servers.size %>">
-                    <%= link_to(physical_server.name, tengine_resource_physical_server_url(physical_server)) %><br />
-                    <% unless physical_server.description.blank? -%>
-                      (<%= physical_server.description %>)
-                    <% end -%>
+                    <%= name_link_and_desc(physical_server) %>
                   </td>
                 <% end -%>
                 <td><%= virtual_server.name %></td>
@@ -135,6 +139,16 @@
         <% end -%>
       </tbody>
     </table>
+
+    <%= hidden_field_tag "finder[physical_server_name]", @finder.physical_server_name %>
+    <%= hidden_field_tag "finder[virtual_server_name]", @finder.virtual_server_name %>
+    <%= hidden_field_tag "finder[provided_id]", @finder.provided_id %>
+    <%= hidden_field_tag "finder[description]", @finder.description %>
+    <%= hidden_field_tag "finder[virtual_server_image_name]", @finder.virtual_server_image_name %>
+    <% @finder.status_ids.each do |status| -%>
+      <%= hidden_field_tag "finder[status_ids][]", status %>
+    <% end -%>
+    <%= hidden_field_tag "refresher[refresh_interval]", @refresh_interval %>
 
     <p class="BoxActionLinksRight">
       <%= submit_tag t(".links.delete"), confirm: t(".stop.form.confirm") %>

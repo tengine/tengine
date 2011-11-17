@@ -7,13 +7,16 @@ class Tengine::Resource::VirtualServersController < ApplicationController
     default_refresher = {:refresh_interval => 15}
     default_refresher.update(params[:refresher]) if params[:refresher]
     @refresher = OpenStruct.new(default_refresher)
-    @refresh_interval = @refresher.refresh_interval.to_i
+    @refresh_interval = @refresher.refresh_interval
     @auto_refresh = false
-    @auto_refresh = true unless @refresh_interval.zero?
+    @auto_refresh = true unless @refresh_interval.to_i.zero?
 
-    @finder = Tengine::Resource::VirtualServer::Finder.new(params[:finder])
+    @finder = Tengine::Resource::VirtualServer::Finder.new(params)
 
-    @physical_servers = Tengine::Resource::PhysicalServer.all(:sort => [[:name]])
+    @physical_servers = Tengine::Resource::PhysicalServer.order_by([[:name, :asc]])
+    if name = @finder.physical_server_name
+      @physical_servers = @physical_servers.where(:name => /^#{name}/)
+    end
 
     respond_to do |format|
       format.html # index.html.erb

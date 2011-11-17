@@ -1,4 +1,14 @@
 module Tengine::Resource::VirtualServersHelper
+  def name_link_and_desc(physical_server)
+    html = ""
+    url = tengine_resource_physical_server_url(physical_server)
+    html << link_to(physical_server.name, url)
+    unless physical_server.description.blank?
+      html << "<br />(#{ERB::Util.html_escape(physical_server.description)})"
+    end
+    return html.html_safe
+  end
+
   def image_name_link_and_desc(virtual_server)
     html = ""
     if image = virtual_server_image(virtual_server)

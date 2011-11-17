@@ -2,11 +2,10 @@ require 'spec_helper'
 
 describe "tengine/resource/virtual_servers/index.html.erb" do
   before(:each) do
-    # 関連がちゃんと設定できればいらないはず
     Tengine::Resource::VirtualServerImage.delete_all
-    Tengine::Resource::VirtualServer.delete_all
+    Tengine::Resource::VirtualServerType.delete_all
     Tengine::Resource::PhysicalServer.delete_all
-
+    Tengine::Resource::VirtualServer.delete_all
     Tengine::Resource::Provider.delete_all
     @provider = Tengine::Resource::Provider.create!(
       :name => "provider1",
@@ -78,11 +77,17 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     )
 
     assign(:physical_servers, [@physical_server1, @physical_server2])
-    assign(:finder, Tengine::Resource::VirtualServer::Finder.new)
+    finder = Tengine::Resource::VirtualServer::Finder.new
+    finder.stub(:status_ids).and_return([])
+    assign(:finder, finder)
     assign(:auto_refresh, false)
   end
 
   after do
+    Tengine::Resource::VirtualServerImage.delete_all
+    Tengine::Resource::VirtualServerType.delete_all
+    Tengine::Resource::PhysicalServer.delete_all
+    Tengine::Resource::VirtualServer.delete_all
     Tengine::Resource::Provider.delete_all
   end
 

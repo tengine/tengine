@@ -8,12 +8,12 @@ class Tengine::Resource::VirtualServer::Finder
   extend ActiveModel::Translation
 
   ATTRIBUTE_NAMES = [
-    :physical_server_name, # 部分一致
-    :virtual_server_name, # 部分一致
-    :provided_id, # 完全一致
-    :description, # 部分一致
-    :virtual_server_image_name, # 部分一致
-    :status_ids, # or
+    :physical_server_name,
+    :virtual_server_name,
+    :provided_id,
+    :description,
+    :virtual_server_image_name,
+    :status_ids,
   ].freeze
 
   ATTRIBUTE_NAMES.each{|name| attr_accessor(name) }
@@ -22,20 +22,56 @@ class Tengine::Resource::VirtualServer::Finder
   include ::SelectableAttr::Base
 
   multi_selectable_attr :status_cd do
-    entry 50, :starting     , "starting"
-    entry 60, :running      , "running"
-    entry 70, :shuttingdown , "shuttingdown"
-    entry 40, :terminated   , "terminated"
+    entry "starting",     :starting     , "starting"
+    entry "running",      :running      , "running"
+    entry "shuttingdown", :shuttingdown , "shuttingdown"
+    entry "terminated",   :terminated   , "terminated"
   end
 
   def initialize(attrs={})
-    attrs = {
-      status_ids: Tengine::Resource::VirtualServer::Finder.status_ids,
-    }.update(attrs || {})
+    unless attrs.has_key? :finder
+      attrs = {
+        status_ids: Tengine::Resource::VirtualServer::Finder.status_ids,
+      }.with_indifferent_access
+    else
+      attrs = attrs[:finder]
+    end
     ATTRIBUTE_NAMES.each do |attr|
       v = attrs[attr]
       send("#{attr}=", v) unless v.nil?
     end
+  end
+
+  def finded_by_virtual_server?
+    bool = false
+    bool = true unless virtual_server_name.blank?
+    bool = true unless provided_id.blank?
+    bool = true unless description.blank?
+    bool = true unless virtual_server_image_name.blank?
+    bool = true unless status_ids.blank?
+    return bool
+  end
+
+  # criteria is the Tengine::Resource::VirtualServer
+  def scope(criteria)
+    unless virtual_server_name.blank?
+      criteria = criteria.where(:name => /^#{virtual_server_name}/)
+    end
+    unless provided_id.blank?
+      criteria = criteria.where(:provided_id => provided_id)
+    end
+    unless description.blank?
+      criteria = criteria.where(:description => /#{description}/)
+    end
+    criteria = criteria.any_in(:status => status_ids) unless status_ids.blank?
+    unless virtual_server_image_name.blank?
+      images = Tengine::Resource::VirtualServerImage.all(
+        :name => /#{virtual_server_image_name}/)
+      unless images.blank?
+        criteria = criteria.any_in(:provided_image_id => images.collect(&:provided_id))
+      end
+    end
+    return criteria
   end
 
   def attributes
