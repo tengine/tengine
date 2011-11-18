@@ -425,7 +425,7 @@
         "host_node": "physical_server_id_01",
         "image_id": "virtual_server_image_id_01",
         "instance_spec_id": "virtual_server_spec_id_01",
-        "state": "running",
+        "state": "terminated",
         "network": [
           {
             "network_name": "nw-data",
@@ -462,7 +462,7 @@
         "host_node": "physical_server_id_01",
         "image_id": "virtual_server_image_id_01",
         "instance_spec_id": "virtual_server_spec_id_01",
-        "state": "running",
+        "state": "terminated",
         "network": [
           {
             "network_name": "nw-data",
@@ -499,7 +499,7 @@
         "host_node": "physical_server_id_01",
         "image_id": "virtual_server_image_id_01",
         "instance_spec_id": "virtual_server_spec_id_01",
-        "state": "running",
+        "state": "terminated",
         "network": [
           {
             "network_name": "nw-data",
@@ -536,7 +536,7 @@
         "host_node": "physical_server_id_01",
         "image_id": "virtual_server_image_id_01",
         "instance_spec_id": "virtual_server_spec_id_01",
-        "state": "terminated",
+        "state": "running",
         "network": [
           {
             "network_name": "nw-data",
@@ -569,11 +569,11 @@
         "netfilter_group": ["default"]
       },
       {
-        "id": "virtual_server_id_095",
+        "id": "virtual_server_id_95",
         "host_node": "physical_server_id_01",
         "image_id": "virtual_server_image_id_01",
         "instance_spec_id": "virtual_server_spec_id_01",
-        "state": "terminated",
+        "state": "running",
         "network": [
           {
             "network_name": "nw-data",
@@ -610,7 +610,7 @@
         "host_node": "physical_server_id_01",
         "image_id": "virtual_server_image_id_01",
         "instance_spec_id": "virtual_server_spec_id_01",
-        "state": "terminated",
+        "state": "running",
         "network": [
           {
             "network_name": "nw-data",
