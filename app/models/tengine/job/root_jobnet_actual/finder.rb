@@ -21,8 +21,7 @@ class Tengine::Job::RootJobnetActual::Finder
 
   validate :validate_datetime
 
-  #include Tengine::Core::SelectableAttr
-  include ::SelectableAttr::Base
+  include Tengine::Core::SelectableAttr
 
   multi_selectable_attr :phase_cd, :enum => Tengine::Job::RootJobnetActual.phase_enum
 
