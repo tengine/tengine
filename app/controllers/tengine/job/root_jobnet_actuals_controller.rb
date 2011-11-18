@@ -36,10 +36,6 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
 
     respond_to do |format|
       format.html { # index.html.erb
-        if @auto_refresh = @finder.reflesh_interval.to_i != 0
-          # app/views/layouts/refresh.html.erb で更新間隔として参照しています。
-          @reflesh_interval = @finder.reflesh_interval
-        end
         render
       }
       format.json { render json: @root_jobnet_actuals }
