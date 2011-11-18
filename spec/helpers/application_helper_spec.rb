@@ -38,12 +38,12 @@ describe ApplicationHelper do
 
     it "testの昇順のソートのクエリーパラメータがあるときascが返ってくること" do
       @request.query_parameters[:sort] = {"test" => "asc"}
-      helper.sort_class(:test).should == "asc"
+      helper.sort_class(:test).should == "SortAsc"
     end
 
     it "testの降順のソートのクエリーパラメータがあるときdesc返ってくること" do
       @request.query_parameters[:sort] = {"test" => "desc"}
-      helper.sort_class(:test).should == "desc"
+      helper.sort_class(:test).should == "SortDesc"
     end
 
     it "testのクエリーパラメータがascでもdescでもないとき空文字列が返ってくること" do

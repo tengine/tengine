@@ -231,11 +231,11 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
           @request.query_parameters[:sort] = {:description => "asc"}
         end
 
-        it "表示名のソートのリンクに降順のパラメータがついていてclassがascであること" do
+        it "表示名のソートのリンクに降順のパラメータがついていてclassがSortAscであること" do
           render
 
           href = tengine_job_root_jobnet_actuals_path(:sort => {:description => 'desc'})
-          rendered.should have_xpath("//a[@href='#{href}'][@class='asc']",
+          rendered.should have_xpath("//a[@href='#{href}'][@class='SortAsc']",
             :text => Tengine::Job::RootJobnetActual.human_attribute_name(:description))
         end
 
