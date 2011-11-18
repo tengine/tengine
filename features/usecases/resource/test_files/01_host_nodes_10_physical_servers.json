@@ -4,6 +4,9 @@
     "start": 0,
     "results": [
       {
+        "id": "physical_server_id_01",
+        "name": "physical_server_name_01",
+        "uuid": "physical_server_uuid_01",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_01",
@@ -11,12 +14,12 @@
         "offering_memory_size": 100000,
         "arch": "x86_64",
         "hypervisor": "kvm",
-        "created_at": "2011-10-18T03:53:24Z",
-        "name": "physical_server_name_01",
-        "uuid": "physical_server_uuid_01",
-        "id": "physical_server_id_01"
+        "created_at": "2011-10-18T03:53:24Z"
       },
       {
+        "id": "physical_server_id_02",
+        "name": "physical_server_name_02",
+        "uuid": "physical_server_uuid_02",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_02",
@@ -24,12 +27,12 @@
         "offering_memory_size": 200000,
         "arch": "x86_64",
         "hypervisor": "kvm",
-        "created_at": "2011-10-18T03:53:24Z",
-        "name": "physical_server_name_02",
-        "uuid": "physical_server_uuid_02",
-        "id": "physical_server_id_02"
+        "created_at": "2011-10-18T03:53:24Z"
       }, 
       {
+        "id": "physical_server_id_03",
+        "name": "physical_server_name_03",
+        "uuid": "physical_server_uuid_03",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_03",
@@ -37,12 +40,12 @@
         "offering_memory_size": 300000,
         "arch": "x86_64",
         "hypervisor": "kvm",
-        "created_at": "2011-10-18T03:53:24Z",
-        "name": "physical_server_name_03",
-        "uuid": "physical_server_uuid_03",
-        "id": "physical_server_id_03"
+        "created_at": "2011-10-18T03:53:24Z"
       },
       {
+        "id": "physical_server_id_04",
+        "name": "physical_server_name_04",
+        "uuid": "physical_server_uuid_04",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_04",
@@ -50,12 +53,12 @@
         "offering_memory_size": 400000,
         "arch": "x86_64",
         "hypervisor": "kvm",
-        "created_at": "2011-10-18T03:53:24Z",
-        "name": "physical_server_name_04",
-        "uuid": "physical_server_uuid_04",
-        "id": "physical_server_id_04"
+        "created_at": "2011-10-18T03:53:24Z"
       },
       {
+        "id": "physical_server_id_05",
+        "name": "physical_server_name_05",
+        "uuid": "physical_server_uuid_05",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_05",
@@ -63,12 +66,12 @@
         "offering_memory_size": 500000,
         "arch": "x86_64",
         "hypervisor": "kvm",
-        "created_at": "2011-10-18T03:53:24Z",
-        "name": "physical_server_name_05",
-        "uuid": "physical_server_uuid_05",
-        "id": "physical_server_id_05"
+        "created_at": "2011-10-18T03:53:24Z"
       },
       {
+        "id": "physical_server_id_06",
+        "name": "physical_server_name_06",
+        "uuid": "physical_server_uuid_06",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_06",
@@ -76,12 +79,12 @@
         "offering_memory_size": 600000,
         "arch": "x86_64",
         "hypervisor": "kvm",
-        "created_at": "2011-10-18T03:53:24Z",
-        "name": "physical_server_name_06",
-        "uuid": "physical_server_uuid_06",
-        "id": "physical_server_id_06"
+        "created_at": "2011-10-18T03:53:24Z"
       },
       {
+        "id": "physical_server_id_07",
+        "name": "physical_server_name_07",
+        "uuid": "physical_server_uuid_07",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_07",
@@ -89,12 +92,12 @@
         "offering_memory_size": 700000,
         "arch": "x86_64",
         "hypervisor": "kvm",
-        "created_at": "2011-10-18T03:53:24Z",
-        "name": "physical_server_name_07",
-        "uuid": "physical_server_uuid_07",
-        "id": "physical_server_id_07"
+        "created_at": "2011-10-18T03:53:24Z"
       },
       {
+        "id": "physical_server_id_08",
+        "name": "physical_server_name_08",
+        "uuid": "physical_server_uuid_08",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_08",
@@ -102,12 +105,12 @@
         "offering_memory_size": 800000,
         "arch": "x86_64",
         "hypervisor": "kvm",
-        "created_at": "2011-10-18T03:53:24Z",
-        "name": "physical_server_name_08",
-        "uuid": "physical_server_uuid_08",
-        "id": "physical_server_id_08"
+        "created_at": "2011-10-18T03:53:24Z"
       },
       {
+        "id": "physical_server_id_09",
+        "name": "physical_server_name_09",
+        "uuid": "physical_server_uuid_09",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_09",
@@ -115,12 +118,12 @@
         "offering_memory_size": 900000,
         "arch": "x86_64",
         "hypervisor": "kvm",
-        "created_at": "2011-10-18T03:53:24Z",
-        "name": "physical_server_name_09",
-        "uuid": "physical_server_uuid_09",
-        "id": "physical_server_id_09"
+        "created_at": "2011-10-18T03:53:24Z"
       },
       {
+        "id": "physical_server_id_10",
+        "name": "physical_server_name_10",
+        "uuid": "physical_server_uuid_10",
         "status": "registering",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_10",
@@ -128,11 +131,8 @@
         "offering_memory_size": 100000,
         "arch": "x86_64",
         "hypervisor": "kvm",
-        "created_at": "2011-10-18T03:53:24Z",
-        "name": "physical_server_name_10",
-        "uuid": "physical_server_uuid_10",
-        "id": "physical_server_id_10"
-      },
+        "created_at": "2011-10-18T03:53:24Z"
+      }
    ],
     "limit": null
   }
