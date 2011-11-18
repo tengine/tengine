@@ -710,9 +710,9 @@ describe Tengine::Job::RootJobnetActualsController do
   end
 
   describe "GET new" do
-    it "assigns a new root_jobnet_actual as @root_jobnet_actual" do
+    it "indexにリダイレクトされる" do
       get :new
-      assigns(:root_jobnet_actual).should be_a_new(Tengine::Job::RootJobnetActual)
+      response.should redirect_to(:action => 'index')
     end
   end
 

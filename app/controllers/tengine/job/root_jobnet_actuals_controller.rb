@@ -78,12 +78,13 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
   # GET /tengine/job/root_jobnet_actuals/new
   # GET /tengine/job/root_jobnet_actuals/new.json
   def new
-    @root_jobnet_actual = Tengine::Job::RootJobnetActual.new
+    redirect_to :action => 'index'
+    # @root_jobnet_actual = Tengine::Job::RootJobnetActual.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @root_jobnet_actual }
-    end
+    # respond_to do |format|
+    #   format.html # new.html.erb
+    #   format.json { render json: @root_jobnet_actual }
+    # end
   end
 
   # GET /tengine/job/root_jobnet_actuals/1/edit

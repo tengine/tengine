@@ -88,7 +88,9 @@
         <%= f.submit t(".refresher.form.submit") %>
       <% end %>
 
-      <%= paginate @root_jobnet_actuals, :items => @root_jobnet_actuals %>
+      <div class="PageStats">
+        <%= paginate @root_jobnet_actuals, :items => @root_jobnet_actuals %>
+      </div>
 
       <table class="TableBase">
         <colgroup>
@@ -136,8 +138,9 @@
         </tbody>
       </table>
         
-      <%= paginate @root_jobnet_actuals, :items => @root_jobnet_actuals %>
-  
+      <div class="PageStats">
+        <%= paginate @root_jobnet_actuals, :items => @root_jobnet_actuals %>
+      </div>
     </div>
   </div>
 
