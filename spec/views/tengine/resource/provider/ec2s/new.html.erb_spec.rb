@@ -5,7 +5,7 @@ describe "tengine/resource/provider/ec2s/new.html.erb" do
     assign(:ec2, stub_model(Tengine::Resource::Provider::Ec2,
       :name => "MyString",
       :description => "MyString",
-      :credential => nil
+      :connection_settings => nil
     ).as_new_record)
   end
 
@@ -16,7 +16,7 @@ describe "tengine/resource/provider/ec2s/new.html.erb" do
     assert_select "form", :action => tengine_resource_provider_ec2s_path, :method => "post" do
       assert_select "input#ec2_name", :name => "ec2[name]"
       assert_select "input#ec2_description", :name => "ec2[description]"
-      assert_select "input#ec2_credential_id", :name => "ec2[credential_id]"
+      assert_select "textarea#ec2_connection_settings", :name => "ec2[connection_settings]"
     end
   end
 end
