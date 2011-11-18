@@ -18,11 +18,11 @@ gem "bson_ext", "~> 1.4.0"
 gem "kaminari", "~> 0.12.4"
 
 gem "tengine_event"   , "~> 0.3.0"
-gem "tengine_core"    , "~> 0.3.0"
-gem "tengine_resource", "~> 0.3.0"
-gem "tengine_job"     , "~> 0.3.5"
+gem "tengine_core"    , "~> 0.3.8"
+gem "tengine_resource", "~> 0.3.10"
+gem "tengine_job"     , "~> 0.3.10"
 
-gem "wakame-adapters-tengine", "~> 0.0.0", :git => "git@github.com:tengine/wakame-adapters-tengine.git", :branch => "master"
+gem "wakame-adapters-tengine", "~> 0.0.0"
 
 gem "daemons", "~> 1.1.4"
 

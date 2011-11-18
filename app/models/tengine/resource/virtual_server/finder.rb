@@ -17,9 +17,8 @@ class Tengine::Resource::VirtualServer::Finder
   ].freeze
 
   ATTRIBUTE_NAMES.each{|name| attr_accessor(name) }
-  
-  #include Tengine::Core::SelectableAttr
-  include ::SelectableAttr::Base
+
+  include Tengine::Core::SelectableAttr
 
   multi_selectable_attr :status_cd do
     entry "starting",     :starting     , "starting"

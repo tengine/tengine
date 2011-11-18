@@ -2,50 +2,41 @@
   <%= model_error_messages(@virtual_server) %>
   <%= form_for(@virtual_server, as:"virtual_server") do |f| -%>
     <%= field_set_tag do %>
-  
-      <% if @virtual_server.new_record? -%>
-        <div class="field">
-          <%= f.label :provider_id %><br />
-          <%= f.text_field :provider_id %>
-        </div>
-        <div class="field">
-          <%= f.label :name %><br />
-          <%= f.text_field :name %>
-        </div>
-        <div class="field">
-          <%= f.label :provided_id %><br />
-          <%= f.text_field :provided_id %>
-        </div>
-        <div class="field">
-          <%= f.label :description %><br />
-          <%= f.text_field :description %>
-        </div>
-        <div class="field">
-          <%= f.label :status %><br />
-          <%= f.text_field :status %>
-        </div>
-        <div class="field">
-          <%= f.label :addresses_yaml %><br />
-          <%= f.text_area :addresses_yaml %>
-        </div>
-        <div class="field">
-          <%= f.label :properties_yaml %><br />
-          <%= f.text_area :properties_yaml %>
-        </div>
-        <div class="field">
-          <%= f.label :provided_image_id %><br />
-          <%= f.text_field :provided_image_id %>
-        </div>
-        <div class="field">
-          <%= f.label :provided_type_id %><br />
-          <%= f.text_field :provided_type_id %>
-        </div>
-        <div class="field">
-          <%= f.label :host_server %><br />
-          <%= f.text_field :host_server %>
-        </div>
-      <% else -%>
-        <table class="TableForm">
+      <table class="TableForm">
+        <% if @virtual_server.new_record? -%>
+          <colgroup>
+            <col class="Row1 RowTh">
+            <col class="Row2 RowTd">
+            <col class="Row3 RowTh">
+            <col class="Row4 RowTd">
+          </colgroup>
+          <tbody>
+            <tr>
+              <th class="CelRow1"><%= f.label :name %></th>
+              <td><%= f.text_field :name, :class =>"InputText" %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :host_server_id, Tengine::Resource::PhysicalServer.human_attribute_name(:name) %></th>
+              <td>select<%= f.text_field :host_server_id %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :provided_image_id %></th>
+              <td>select<%= f.text_field :provided_image_id, :class =>"InputText" %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :provided_type_id %></th>
+              <td>select<%= f.text_field :provided_type_id, :class =>"InputText" %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :avaliable_starting_number %></th>
+              <td>select<%= f.text_field :provided_type_id, :class =>"InputText" %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :description %></th>
+              <td><%= f.text_area :description, :class =>"InputText", :rows => 2 %></td>
+            </tr>
+          </tbody>
+        <% else -%>
           <colgroup>
             <col class="Row1 RowTh">
             <col class="Row2 RowTd">
@@ -90,8 +81,8 @@
               <td><%= f.text_area :description, :class =>"InputText", :rows => 3 %></td>
             </tr>
           </tbody>
-        </table>
-      <% end -%>
+        <% end -%>
+      </table>
   
       <%= f.submit %>
       <%= link_to t("views.links.cancel"), tengine_resource_virtual_servers_url %>

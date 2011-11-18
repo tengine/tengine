@@ -19,9 +19,9 @@ module Tengine::Resource::VirtualServersHelper
     if image = virtual_server_image(virtual_server)
       if link
         url = edit_tengine_resource_virtual_server_image_url(image)
-        html << link_to(image.name, url)
+        html << link_to(image.provided_id, url)
       else
-        html << image.name
+        html << image.provided_id
       end
       unless image.description.blank?
         html << "(#{ERB::Util.html_escape(image.description)})"

@@ -19,3 +19,10 @@ ja:
           finder:
             form:
               submit: "検索"
+        new:
+          human:
+            storage_units:
+              mb: "MB"
+          pages:
+            avilable_starting_number: "起動可能数"
+            run: "起動"

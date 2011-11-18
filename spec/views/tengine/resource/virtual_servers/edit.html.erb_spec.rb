@@ -85,6 +85,6 @@ describe "tengine/resource/virtual_servers/edit.html.erb" do
     rendered.should have_xpath("//td", :text => @virtual_server1.addresses["ip_address"])
     rendered.should have_xpath("//td", :text => @virtual_server1.properties["a"])
     rendered.should have_xpath("//td", :text => @type1.caption)
-    rendered.should have_xpath("//td", :text => @image1.name)
+    rendered.should have_xpath("//td", :text => @image1.provided_id)
   end
 end

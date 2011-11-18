@@ -39,6 +39,37 @@ class Tengine::Resource::VirtualServersController < ApplicationController
   # GET /tengine/resource/virtual_servers/new.json
   def new
     @virtual_server = Tengine::Resource::VirtualServer.new
+    @physical_servers = Tengine::Resource::PhysicalServer.all(:sort => [[:name, :asc]])
+    @physical_servers_for_select = @physical_servers.collect do |s|
+      label = s.name.dup
+      label << "(#{s.description})" if s.description
+      [label, s.provided_id]
+    end
+    @selected_physical_server = @physical_servers.first
+    provider = @selected_physical_server.provider
+    @virtual_server_images_for_select = \
+      virtual_server_images_for_select(provider.virtual_server_images)
+    types = provider.virtual_server_types.order_by([[:provided_id, :asc]])
+    @virtual_server_types_for_select = virtual_server_types_for_select(types)
+    physical_server_capacity = \
+      provider.capacities[@selected_physical_server.provided_id]
+    @starting_number_max = physical_server_capacity[types.first.provided_id]
+    @starting_number = 0
+
+    @physical_server_map_provider = @physical_servers.inject({}) do |memo, s|
+      memo[s.provided_id] = s.provider.id.to_s
+      memo
+    end
+    @virtual_server_images_by_provider = {}
+    @virtual_server_types_by_provider = {}
+    @capacities_by_provider = {}
+    Tengine::Resource::Provider.all.each do |provider|
+      @virtual_server_images_by_provider[provider.id.to_s] = \
+        virtual_server_images_for_select(provider.virtual_server_images)
+      @virtual_server_types_by_provider[provider.id.to_s] = \
+        virtual_server_types_for_select(provider.virtual_server_types)
+      @capacities_by_provider[provider.id.to_s] = provider.capacities
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -122,5 +153,32 @@ class Tengine::Resource::VirtualServersController < ApplicationController
 
   def successfully_destroyed_all(model_class)
     I18n.t(:successfully_destroyed, :scope => [:views, :notice],:model => model_class.human_name)
+  end
+
+  def virtual_server_images_for_select(virtual_server_images)
+    result = \
+      virtual_server_images.order_by([[:name, :asc]]).collect do |image|
+        label = image.name.dup
+        label << "(#{image.description})" if image.description
+        [ERB::Util.html_escape(label), image.provided_id]
+      end
+
+    return result
+  end
+
+  def virtual_server_types_for_select(virtual_server_types)
+    result = \
+      virtual_server_types.order_by([[:provided_id, :asc]]).collect do |type|
+        label = type.provided_id.dup
+        # TODO: memory size unit
+        msize = type.memory_size / Numeric::MEGABYTE
+        label << "("
+        label << "#{Tengine::Resource::VirtualServerType.human_attribute_name(:cpu_cores)}:#{type.cpu_cores}"
+        label << ", "
+        label << "#{Tengine::Resource::VirtualServerType.human_attribute_name(:memory_size)}:#{msize}#{I18n.t("tengine.resource.virtual_servers.new.human.storage_units.mb")})"
+        [ERB::Util.html_escape(label), type.provided_id]
+      end
+
+    return result
   end
 end

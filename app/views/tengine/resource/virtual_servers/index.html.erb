@@ -136,7 +136,7 @@
                 <td><%= format_addresses(virtual_server) %></td>
                 <td><%= virtual_server.status %></td>
                 <td><%= image_name_link_and_desc(virtual_server) %></td>
-                <td><%= type_caption(virtual_server) %></td>
+                <td><%= virtual_server.provided_type_id %></td>
                 <td>
                   <div class="YamlView">
                     <span class="IconYaml"><%= t(".links.show_yml") %></span>

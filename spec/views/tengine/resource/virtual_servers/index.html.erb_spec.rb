@@ -25,13 +25,13 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     )
     @type1 = Tengine::Resource::VirtualServerType.create!(
       :provider_id => @provider.id,
-      :provided_id => "large",
-      :caption => "Large",
+      :provided_id => "Large",
+      :caption => "LargeCaption",
     )
     @type2 = Tengine::Resource::VirtualServerType.create!(
       :provider_id => @provider.id,
-      :provided_id => "small",
-      :caption => "Small",
+      :provided_id => "Small",
+      :caption => "SmallCaption",
     )
     @physical_server1 = Tengine::Resource::PhysicalServer.create!(
       :provider_id => @provider.id,
@@ -60,7 +60,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
       :properties => {"a"=>"1", "b"=>"2"},
       :provided_image_id => "ami1",
-      :provided_type_id => "large",
+      :provided_type_id => "Large",
       :host_server_id => @physical_server1.id,
     )
     @virtual_server2 = Tengine::Resource::VirtualServer.create!(
@@ -72,7 +72,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
       :properties => {"a"=>"1", "b"=>"2"},
       :provided_image_id => "ami2",
-      :provided_type_id => "small",
+      :provided_type_id => "Small",
       :host_server_id => @physical_server1.id,
     )
 
@@ -101,8 +101,8 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     assert_select "tr>td>div>span", :text => "v2Description".to_s, :count => 1
     assert_select "tr>td>div>span", :text => "v3Description".to_s, :count => 1
     assert_select "tr>td", :text => "Status".to_s, :count => 2
-    assert_select "tr>td>a", :text => "vimage1".to_s, :count => 1
-    assert_select "tr>td>a", :text => "vimage2".to_s, :count => 1
+    assert_select "tr>td>a", :text => "ami1".to_s, :count => 1
+    assert_select "tr>td>a", :text => "ami2".to_s, :count => 1
     assert_select "tr>td", :text => "Small".to_s, :count => 1
     assert_select "tr>td", :text => "Large".to_s, :count => 1
   end
