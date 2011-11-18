@@ -55,18 +55,11 @@
               <th><%= f.label :phase_cd %></th>
               <td><%= f.check_box_group :phase_cd %></td>
             </tr>
-            <tr>
-              <th><%= f.label :reflesh_interval %></th>
-              <td>
-                <%= f.text_field :reflesh_interval %>
-                <br />
-                <span class="TextNotice"><%= t("views.caution.reflesh_interval") %></span>
-              </td>
-            </tr>
           </table>
          <% if @category -%>
            <%= hidden_field_tag :category, @category.id %>
          <% end -%>
+         <%= hidden_field_tag "finder[reflesh_interval]", @finder.reflesh_interval %>
   
           <div class="align-right">
             <%= f.submit(t("views.links.search")) %>
@@ -75,6 +68,24 @@
         </fieldset>
         <% end %>
       </div>
+
+      <%= form_for(:finder, :url => tengine_job_root_jobnet_actuals_path, :method => :get) do |f| %>
+        <%= f.label :reflesh_interval, t(".refresher.form.refresh_interval") %>:
+        <%= f.number_field :reflesh_interval %><%= t("datetime.prompts.second") %>
+
+        <%= hidden_field_tag "finder[duration]", @finder.duration %>
+        <% %w(year mon day hour min).each_with_index do |method, i| -%>
+          <%= hidden_field_tag "finder[duration_start(#{i}i)]", @finder.duration_start.send(method) %>
+          <%= hidden_field_tag "finder[duration_finish(#{i}i)]", @finder.duration_finish.send(method) %>
+        <% end -%>
+        <%= hidden_field_tag "finder[id]", @finder.id %>
+        <%= hidden_field_tag "finder[name]", @finder.name %>
+        <% @finder.phase_ids.each do |status| -%>
+          <%= hidden_field_tag "finder[phase_ids][]", status %>
+        <% end -%>
+
+        <%= f.submit t(".refresher.form.submit") %>
+      <% end %>
 
       <%= paginate @root_jobnet_actuals, :items => @root_jobnet_actuals %>
 

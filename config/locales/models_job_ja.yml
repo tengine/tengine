@@ -61,7 +61,7 @@ ja:
         dying: "終了中"
         success: "完了"
         error: "エラー"
-        stuck: "stuck"
+        stuck: "スタック"
     tengine/job/jobnet_actual:
       phase_cd:
         <<: *phase_cds

@@ -7,6 +7,10 @@ ja:
             destroy: "本当に強制停止しますか？"
           finder:
             error_caption: "絞り込み条件に%{count}点ミスがあります。訂正してください。"
+          refresher:
+            form:
+              refresh_interval: "画面の更新間隔"
+              submit: "決定"
         show:
           title: "ジョブネット監視"
           form:
