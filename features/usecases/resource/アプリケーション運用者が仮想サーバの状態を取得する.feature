@@ -50,7 +50,7 @@
     # 仮想サーバイメージが5件のファイル
     かつ Wakameのモックファイル"./features/usecases/resouce/test_files/21_describe_images_5_virtual_server_images.json"を"./features/usecases/resouce/test_files/describe_images.json"にコピーする
     # 仮想サーバタイプが2件のファイル
-    かつ Wakameのモックファイル"./features/usecases/resouce/test_files/31_describe_instance_specs_2_virtual_server_specs.json"を"./features/usecases/resouce/test_files/31_describe_instance_specs.json"にコピーする
+    かつ Wakameのモックファイル"./features/usecases/resouce/test_files/31_describe_instance_specs_4_virtual_server_specs.json"を"./features/usecases/resouce/test_files/31_describe_instance_specs.json"にコピーする
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。
