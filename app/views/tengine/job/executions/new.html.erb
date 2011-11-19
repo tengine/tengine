@@ -36,7 +36,7 @@
 <div class="Section">
 
   <% if @execution.errors.any? %>
-    <div id="error_explanation">
+    <div id="Msg MsgError">
       <h2><%= I18n.t('activerecord.errors.template.header', :count => @execution.errors.size, :model => @execution.class.human_name) %></h2>
 
       <ul>
@@ -70,7 +70,7 @@
         <tr>
           <th><%= f.label :preparation_command %>:</th>
           <td>
-            <%= f.text_field :preparation_command %>
+            <%= f.text_field :preparation_command, :class => "InputText" %>
             <br /><span class="TextNotice"><%= t(".form.notice.preparation_command") %></span>
           </td>
         </tr>
@@ -97,11 +97,15 @@
       <%= f.hidden_field :target_actual_ids_text %>
     <% end -%>
 
-    <%= f.submit t("views.links.run")%>
-    <% if @retry -%>
-      <%= link_to t("views.links.cancel"), tengine_job_root_jobnet_actuals_path %>
-    <% else -%>
-      <%= link_to t("views.links.cancel"), tengine_job_root_jobnet_templates_path %>
-    <% end -%>
+    <div class="BoxBtns">
+      <span class="BtnWrap">
+        <%= f.submit t("views.links.run"), :class => "BtnNext" %>
+      </span>
+      <% if @retry -%>
+        <%= link_to "<span class='BtnCancel'>#{t("views.links.cancel")}</span>".html_safe, tengine_job_root_jobnet_actuals_pathi, :class => "BtnWrap" %>
+      <% else -%>
+        <%= link_to "<span class='BtnCancel'>#{t("views.links.cancel")}</span>".html_safe, tengine_job_root_jobnet_templates_path, :class => "BtnWrap" %>
+      <% end -%>
+    </div>
   <% end -%>
 </div><!-- /.Section -->
