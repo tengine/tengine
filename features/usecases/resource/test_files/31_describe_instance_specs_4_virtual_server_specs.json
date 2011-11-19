@@ -49,7 +49,7 @@
         "id": "virtual_server_spec_id_04",
         "uuid": "virtual_server_spec_name_04",
         "cpu_cores": 1,
-        "memory_size": 3000,
+        "memory_size": 1500,
         "arch": "x86_64",
         "hypervisor": "kvm",
         "updated_at": "2011-10-28T02:58:57Z",
