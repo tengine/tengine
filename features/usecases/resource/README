@@ -20,13 +20,15 @@ Tengineで使用する際は、rails runner で、Tengine::Resource::Provider#co
 
 使用するテストファイル
 * describe_host_nodes.json
- * 00_host_nodes_0_physical_servers.json  => describe_host_nodes で0件の物理サーバのレスポンスを返却する
- * 01_host_nodes_10_physical_servers.json => describe_host_nodes で10件の物理サーバのレスポンスを返却する
- * 02_host_nodes_60_physical_servers.json => describe_host_nodes で60件の物理サーバのレスポンスを返却する(ページネーション確認用)
+ * 00_describe_host_nodes_0_physical_servers.json  => describe_host_nodes で0件の物理サーバのレスポンスを返却する
+ * 01_describe_host_nodes_10_physical_servers.json => describe_host_nodes で10件の物理サーバのレスポンスを返却する
+ * 02_describe_host_nodes_60_physical_servers.json => describe_host_nodes で60件の物理サーバのレスポンスを返却する(ページネーション確認用)
 
 * describe_instances.json
  * 10_describe_instances_0_virtual_servers.json  => describe_instances で0件の仮想サーバのレスポンスを返却する
  * 11_describe_instances_10_virtual_servers.json => describe_instances で10件の仮想サーバのレスポンスを返却する
+ * 12_describe_instances_after_run_instances.json => describe_instances で41, 42のrun_instances実行後を想定した仮想サーバのレスポンスを返却する
+ * 13_describe_instances_after_terminate_instances.json => describe_instances で51のteminate_instance実行後を想定した仮想サーバのレスポンスを返却する
 
 * describe_images.jon
  * 20_describe_images_0_virtual_server_images.json => describe_images で0件の仮想サーバイメージのレスポンスを返却する
@@ -43,5 +45,4 @@ Tengineで使用する際は、rails runner で、Tengine::Resource::Provider#co
 
 * terminate_instances
  * 50_terminate_instances_0_virtual_servers.json => terminate_instances で0件の仮想サーバ停止時のレスポンスを返却する(未使用)
- * 51_terminate_instances_1_virtual_servers.json => terminate_instances で1件の仮想サーバ停止時のレスポンスを返却する
- * 52_terminate_instances_5_virtual_servers.json => terminate_instances で5件の仮想サーバ停止時のレスポンスを返却する
+ * 51_terminate_instances_3_virtual_servers.json => terminate_instances で3件の仮想サーバ停止時のレスポンスを返却する
