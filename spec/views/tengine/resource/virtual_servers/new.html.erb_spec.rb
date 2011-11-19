@@ -81,6 +81,7 @@ describe "tengine/resource/virtual_servers/new.html.erb" do
       assert_select "select#virtual_server_provided_image_id", :name => "virtual_server[provided_image_id]"
       assert_select "select#virtual_server_provided_type_id", :name => "virtual_server[provided_type_id]"
       assert_select "select#virtual_server_host_server_id", :name => "virtual_server[host_server_id]"
+      assert_select "input#virtual_server_starting_number", :name => "virtual_server[starting_number]", :max => @starting_number_max, :value => @starting_number
     end
   end
 end

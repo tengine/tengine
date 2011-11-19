@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 require "ostruct"
 
@@ -101,7 +102,7 @@ describe Tengine::Resource::VirtualServersController do
         :name => "pserver1",
         :provided_id => "server1",
         :description => "Description",
-        :status => "Status",
+        :status => "online",
         :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
         :properties => {"a"=>"1", "b"=>"2"},
         :cpu_cores => 10,
@@ -132,6 +133,58 @@ describe Tengine::Resource::VirtualServersController do
     it "assigns a new virtual_server as @virtual_server" do
       get :new
       assigns(:virtual_server).should be_a_new(Tengine::Resource::VirtualServer)
+    end
+
+    it "assigns all PhysicalServer as @physical_servers" do
+      get :new
+      assigns(:physical_servers).should == [@physical_server1]
+    end
+
+    it "assigns all PhysicalServer as @physical_servers_for_select" do
+      get :new
+      label = "#{@physical_server1.name}(#{@physical_server1.description})"
+      assigns(:physical_servers_for_select).should == [[label, @physical_server1.provided_id]]
+    end
+
+    it "assigns VirtualServerImage as @virtual_server_images_for_select" do
+      get :new
+      assigns(:virtual_server_images_for_select).should == [["vimage1(Description)", "ami1"], ["vimage2(Description)", "ami2"]]
+    end
+
+    it "assigns VirtualServerType as @virtual_server_types_for_select" do
+      get :new
+      assigns(:virtual_server_types_for_select).should == [["Large(CPUコア数:2, メモリサイズ:5120MB)", "Large"], ["Small(CPUコア数:1, メモリサイズ:2048MB)", "Small"]]
+    end
+
+    it "@starting_number_max" do
+      get :new
+      assigns(:starting_number_max).should == 4
+    end
+
+    it "@starting_number" do
+      get :new
+      assigns(:starting_number).should == 0
+    end
+
+    it "@physical_server_map_provider" do
+      get :new
+      assigns(:physical_server_map_provider).should == {@physical_server1.provided_id => @provider.id.to_s}
+    end
+
+    it "@virtual_server_images_by_provider" do
+      get :new
+      label = "#{@virtual_server1.name}(#{@virtual_server1.description})"
+      assigns(:virtual_server_images_by_provider).should == {@provider.id.to_s => [["vimage1(Description)", "ami1"], ["vimage2(Description)", "ami2"]]}
+    end
+
+    it "@virtual_server_types_for_select" do
+      get :new
+      assigns(:virtual_server_types_for_select).should == [["Large(CPUコア数:2, メモリサイズ:5120MB)", "Large"], ["Small(CPUコア数:1, メモリサイズ:2048MB)", "Small"]]
+    end
+
+    it "@capacities_by_provider" do
+      get :new
+      assigns(:capacities_by_provider).should == {@provider.id.to_s => @provider.capacities}
     end
   end
 
@@ -185,7 +238,7 @@ describe Tengine::Resource::VirtualServersController do
         :name => "pserver1",
         :provided_id => "server1",
         :description => "Description",
-        :status => "Status",
+        :status => "online",
         :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
         :properties => {"a"=>"1", "b"=>"2"},
         :cpu_cores => 10,
@@ -253,19 +306,33 @@ describe Tengine::Resource::VirtualServersController do
         Tengine::Resource::Provider::Wakame.any_instance.
           should_not_receive(:create_virtual_servers)
 
-        post :create, :virtual_server => {:starting_number => 1}
+        invalid_attributes = valid_attributes_for_create
+        invalid_attributes.delete "name"
+        post :create, :virtual_server => invalid_attributes
 
 
         Tengine::Resource::VirtualServer.any_instance.stub(:valid?).and_return(true)
 
-        post :create, :virtual_server => {}
+        invalid_attributes = valid_attributes_for_create
+        invalid_attributes.delete "starting_number"
+        post :create, :virtual_server => invalid_attributes
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Tengine::Resource::VirtualServer.any_instance.stub(:valid?).and_return(false)
-        post :create, :virtual_server => {}
+        invalid_attributes = valid_attributes_for_create
+        invalid_attributes.delete "name"
+        post :create, :virtual_server => invalid_attributes
         response.should render_template("new")
+      end
+
+      it "holds starting_number and starting_number_max" do
+        invalid_attributes = valid_attributes_for_create
+        invalid_attributes.delete "name"
+        post :create, :virtual_server => invalid_attributes
+        assigns(:starting_number).should == "1"
+        assigns(:starting_number_max).should == 8
       end
     end
   end
