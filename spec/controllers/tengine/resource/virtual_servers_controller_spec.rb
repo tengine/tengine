@@ -270,6 +270,20 @@ describe Tengine::Resource::VirtualServersController do
     end
   end
 
+  describe "GET created" do
+    it "assigns the requested provided_ids as @provided_ids" do
+      params = ["12345", "09876"]
+
+      get :created, :provided_ids => params
+      provided_ids = assigns(:provided_ids)
+      provided_ids.should eq(params)
+
+      get :created
+      provided_ids = assigns(:provided_ids)
+      provided_ids.should eq([])
+    end
+  end
+
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested virtual_server" do

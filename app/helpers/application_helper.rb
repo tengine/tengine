@@ -147,6 +147,20 @@ module ApplicationHelper
     return html.html_safe
   end
 
+  def message(type, text, &block)
+    klass = case type.to_s
+            when "warning"  then "MsgWarning"
+            when "complete" then "MsgComplete"
+            when "delete"   then "MsgCompleteDelete"
+            end
+
+    html = %|<div class="Msg #{klass}">|
+    html << "<p>#{text}</p>"
+    html << capture(&block) if block_given?
+    html << "</div>"
+    return html.html_safe
+  end
+
   private
   def model_class_name(class_or_name)
     return nil unless class_or_name

@@ -31,3 +31,6 @@ ja:
             run_result: "起動結果"
           links:
             back: "戻る"
+          notice:
+            created: "起動要求を送信しました。"
+            created_with_provided_ids: "以下のプロバイダによるIDの起動要求を送信しました。"
