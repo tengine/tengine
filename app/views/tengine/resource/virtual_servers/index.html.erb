@@ -14,9 +14,9 @@
 <div class="Section">
   <div class="BoxBorder BoxSearchForm">
     <%= form_for(:finder, :url => tengine_resource_virtual_servers_url, :method => :get) do |f| %>
-      <fieldset>
+      <%= field_set_tag do -%>
         <legend><%= t("views.pages.search_caption") %></legend>
-        <table class="TableForm">
+        <table class="TableForm4rows">
           <colgroup>
             <col class="Row1 RowTh">
             <col class="Row2 RowTd">
@@ -24,23 +24,23 @@
           <tbody>
             <tr>
               <th><%= f.label :physical_server_name %>:</th>
-              <td><%= f.text_field :physical_server_name %></td>
+              <td><%= f.text_field :physical_server_name, :class => "InputText" %></td>
             </tr>
             <tr>
               <th><%= f.label :virtual_server_name %>:</th>
-              <td><%= f.text_field :virtual_server_name %></td>
+              <td><%= f.text_field :virtual_server_name, :class => "InputText" %></td>
             </tr>
             <tr>
               <th><%= f.label :provided_id %>:</th>
-              <td><%= f.text_field :provided_id %></td>
+              <td><%= f.text_field :provided_id, :class => "InputText" %></td>
             </tr>
             <tr>
               <th><%= f.label :description %>:</th>
-              <td><%= f.text_field :description %></td>
+              <td><%= f.text_field :description, :class => "InputText" %></td>
             </tr>
             <tr>
               <th><%= f.label :virtual_server_image_name %>:</th>
-              <td><%= f.text_field :virtual_server_image_name %></td>
+              <td><%= f.text_field :virtual_server_image_name, :class => "InputText" %></td>
             </tr>
             <tr>
               <th><%= f.label :status_cd %>:</th>
@@ -49,9 +49,11 @@
           </tbody>
         </table>
         <%= hidden_field_tag "refresher[refresh_interval]", @refresh_interval %>
-      </fieldset>
+      <% end -%>
       <div class="BoxBtns">
-        <%= f.submit t(".finder.form.submit") %>
+        <span class="BtnWrap">
+          <%= f.submit t(".finder.form.submit"), :class => "BtnSearch" %>
+        </span>
         <%= reset_tag t("views.links.reset") %>
       </div>
     <% end %>
@@ -60,12 +62,15 @@
 
 <div class="Section">
   <p class="BoxActionLinksRight">
-    <%= link_to t(".links.new"), new_tengine_resource_virtual_server_path %>
+  <%= link_to new_tengine_resource_virtual_server_path, :class => "BtnWrap" do -%>
+    <span class="BtnAdd"><%= t(".links.new") %></span>
+  <% end %>
   </p>
 
   <%= form_for(:refresher, :url => tengine_resource_virtual_servers_url, :method => :get) do |f| %>
     <%= f.label :refresh_interval, t(".refresher.form.refresh_interval") %>:
-    <%= f.number_field :refresh_interval %><%= t("datetime.prompts.second") %>
+    <%= f.number_field :refresh_interval, :class => "InputText" %>
+    <%= t("datetime.prompts.second") %>
 
     <%= hidden_field_tag "finder[physical_server_name]", @finder.physical_server_name %>
     <%= hidden_field_tag "finder[virtual_server_name]", @finder.virtual_server_name %>
@@ -76,7 +81,9 @@
       <%= hidden_field_tag "finder[status_ids][]", status %>
     <% end -%>
 
-    <%= f.submit t(".refresher.form.submit") %>
+    <span class="BtnWrap">
+      <%= f.submit t(".refresher.form.submit"), :class => "BtnSetting" %>
+    </span>
   <% end %>
 
   <%= form_tag tengine_resource_virtual_servers_url, method: :delete do %>
@@ -146,7 +153,7 @@
                   </div>
                 </td>
                 <td>
-                  <%= link_to_edit edit_tengine_resource_virtual_server_path(virtual_server) %>
+                  <%= link_to_edit edit_tengine_resource_virtual_server_path(virtual_server), :class => "ActionEdit" %>
                 </td>
                 <td><%= check_box_tag "target_server_ids[]", virtual_server.id.to_s, false, :class => "StopCheckBox" %></td>
               </tr>
@@ -167,7 +174,9 @@
     <%= hidden_field_tag "refresher[refresh_interval]", @refresh_interval %>
 
     <p class="BoxActionLinksRight">
-      <%= submit_tag t(".links.delete"), confirm: t(".stop.form.confirm") %>
+      <span class="BtnWrap">
+        <%= submit_tag t(".links.delete"), confirm: t(".stop.form.confirm"), class: "BtnDelete" %>
+      </span>
     </p>
   <% end %>
 </div>

@@ -137,7 +137,10 @@ module ApplicationHelper
   def reset_tag(value="Reset", options={})
     options = options.stringify_keys
     options.delete_if{|k, v| %w(type value).include?(k) }
-    tag :input, {"type" => :reset, "name" => "reset", "value" => value}.update(options)
+    options[:class] ||= "BtnCancel"
+    content_tag :span, {:class => "BtnWrap"} do
+      tag :input, {"type" => :reset, "name" => "reset", "value" => value}.update(options)
+    end
   end
 
   def format_map_yml_value(hash)
