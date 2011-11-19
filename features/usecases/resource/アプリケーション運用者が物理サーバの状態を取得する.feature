@@ -10,8 +10,12 @@
     # 前提 日本語でアクセスする
     # かつ サーバ仮想基盤がセットアップされている
     # かつ Tengineにサーバ仮想基盤の接続先の設定を行なっている
-    # # Tamaのテストモードの利用に関しては ./README を参照ください
+    # かつ TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
+    #  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb <テストファイル群の配置ディレクトリ>
+    # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
+    #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
+    #  > tengine_resource_watchd
 
   @manual
   シナリオ: [正常系]アプリケーション運用者は物理サーバ一覧画面を開き、物理サーバが表示されていることを確認する
@@ -45,11 +49,11 @@
     ならば "物理サーバ編集"画面が表示されていること
     かつ "物理サーバ編集"画面に"physical_server_name_01"と表示されていること
 
-    もし "説明"に"physical_server_name_01の説明"と入力する
+    もし "説明"に"物理サーバ説明01"と入力する
     かつ "更新"ボタンをクリックする
     ならば "物理サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
-    |physical_server_name_01|physical_server_id_01|physical_server_name_01の説明|100 |100000|online|
+    |physical_server_name_01|physical_server_id_01|物理サーバ説明01|100 |100000|online|
     |physical_server_name_02|physical_server_id_02||200 |200000|online|
     |physical_server_name_03|physical_server_id_03||300 |300000|online|
     |physical_server_name_04|physical_server_id_04||400 |400000|online|
@@ -91,7 +95,7 @@
     もし "物理サーバ一覧"画面を表示する
     ならば "物理サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
-    |physical_server_name_01|physical_server_id_01||100 |100000|online|
+    |physical_server_name_01|physical_server_id_01|物理サーバ説明01|100 |100000|online|
     |physical_server_name_02|physical_server_id_02||200 |200000|online|
     |physical_server_name_03|physical_server_id_03||300 |300000|online|
     |physical_server_name_04|physical_server_id_04||400 |400000|online|
@@ -148,7 +152,7 @@
     かつ "検索"ボタンをクリックする
     ならば "物理サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
-    |physical_server_name_01|physical_server_id_01||100 |100000|online|
+    |physical_server_name_01|physical_server_id_01|物理サーバ説明01|100 |100000|online|
     |physical_server_name_02|physical_server_id_02||200 |200000|online|
     |physical_server_name_03|physical_server_id_03||300 |300000|online|
     |physical_server_name_04|physical_server_id_04||400 |400000|online|

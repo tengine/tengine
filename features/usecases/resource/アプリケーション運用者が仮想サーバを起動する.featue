@@ -10,8 +10,12 @@
     # 前提 日本語でアクセスする
     # かつ サーバ仮想基盤がセットアップされている
     # かつ Tengineにサーバ仮想基盤の接続先の設定を行なっている
-    # # Tamaのテストモードの利用に関しては ./README を参照ください
+    # かつ TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
+    #  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb <テストファイル群の配置ディレクトリ>
+    # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
+    #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
+    #  > tengine_resource_watchd
 
   @manual
   シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面から仮想サーバの起動を行う
@@ -98,12 +102,12 @@
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
-    |physical_server_name_01|仮想サーバを1台起動001|vertual_server_id_91|仮想サーバを1台起動テストの説明|nw-data: 192.168.2.91 <br>nw-outside: 172.16.0.91 |running|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |仮想サーバを5台起動001|vertual_server_id_92|仮想サーバを5台起動テストの説明|nw-data: 192.168.2.92 <br>nw-outside: 172.16.0.92 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
-    |                       |仮想サーバを5台起動002|vertual_server_id_93|仮想サーバを5台起動テストの説明|nw-data: 192.168.2.93 <br>nw-outside: 172.16.0.93 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
-    |                       |仮想サーバを5台起動003|vertual_server_id_94|仮想サーバを5台起動テストの説明|nw-data: 192.168.2.94 <br>nw-outside: 172.16.0.94 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
-    |                       |仮想サーバを5台起動004|vertual_server_id_95|仮想サーバを5台起動テストの説明|nw-data: 192.168.2.95 <br>nw-outside: 172.16.0.95 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
-    |                       |仮想サーバを5台起動005|vertual_server_id_96|仮想サーバを5台起動テストの説明|nw-data: 192.168.2.96 <br>nw-outside: 172.16.0.96 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
+    |physical_server_name_01|仮想サーバを1台起動001|virtual_server_id_91|仮想サーバを1台起動テストの説明|nw-data: 192.168.2.91 <br>nw-outside: 172.16.0.91 |running|virtual_server_image_name_01|virtual_server_spec_name_01|
+    |                       |仮想サーバを5台起動001|virtual_server_id_92|仮想サーバを5台起動テストの説明|nw-data: 192.168.2.92 <br>nw-outside: 172.16.0.92 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
+    |                       |仮想サーバを5台起動002|virtual_server_id_93|仮想サーバを5台起動テストの説明|nw-data: 192.168.2.93 <br>nw-outside: 172.16.0.93 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
+    |                       |仮想サーバを5台起動003|virtual_server_id_94|仮想サーバを5台起動テストの説明|nw-data: 192.168.2.94 <br>nw-outside: 172.16.0.94 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
+    |                       |仮想サーバを5台起動004|virtual_server_id_95|仮想サーバを5台起動テストの説明|nw-data: 192.168.2.95 <br>nw-outside: 172.16.0.95 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
+    |                       |仮想サーバを5台起動005|virtual_server_id_96|仮想サーバを5台起動テストの説明|nw-data: 192.168.2.96 <br>nw-outside: 172.16.0.96 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
     |physical_server_name_02||||||||
     |physical_server_name_03||||||||
     |physical_server_name_04||||||||
