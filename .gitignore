@@ -15,3 +15,5 @@ spec/reports/
 # bundler
 vendor/bundle/
 vendor/cache/
+
+mydsls
