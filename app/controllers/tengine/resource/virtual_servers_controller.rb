@@ -39,37 +39,7 @@ class Tengine::Resource::VirtualServersController < ApplicationController
   # GET /tengine/resource/virtual_servers/new.json
   def new
     @virtual_server = Tengine::Resource::VirtualServer.new
-    @physical_servers = Tengine::Resource::PhysicalServer.all(:sort => [[:name, :asc]])
-    @physical_servers_for_select = @physical_servers.collect do |s|
-      label = s.name.dup
-      label << "(#{s.description})" if s.description
-      [label, s.provided_id]
-    end
-    @selected_physical_server = @physical_servers.first
-    provider = @selected_physical_server.provider
-    @virtual_server_images_for_select = \
-      virtual_server_images_for_select(provider.virtual_server_images)
-    types = provider.virtual_server_types.order_by([[:provided_id, :asc]])
-    @virtual_server_types_for_select = virtual_server_types_for_select(types)
-    physical_server_capacity = \
-      provider.capacities[@selected_physical_server.provided_id]
-    @starting_number_max = physical_server_capacity[types.first.provided_id]
-    @starting_number = 0
-
-    @physical_server_map_provider = @physical_servers.inject({}) do |memo, s|
-      memo[s.provided_id] = s.provider.id.to_s
-      memo
-    end
-    @virtual_server_images_by_provider = {}
-    @virtual_server_types_by_provider = {}
-    @capacities_by_provider = {}
-    Tengine::Resource::Provider.all.each do |provider|
-      @virtual_server_images_by_provider[provider.id.to_s] = \
-        virtual_server_images_for_select(provider.virtual_server_images)
-      @virtual_server_types_by_provider[provider.id.to_s] = \
-        virtual_server_types_for_select(provider.virtual_server_types)
-      @capacities_by_provider[provider.id.to_s] = provider.capacities
-    end
+    ready_to_run
 
     respond_to do |format|
       format.html # new.html.erb
@@ -85,16 +55,46 @@ class Tengine::Resource::VirtualServersController < ApplicationController
   # POST /tengine/resource/virtual_servers
   # POST /tengine/resource/virtual_servers.json
   def create
+    starting_number = params[:virtual_server].delete(:starting_number)
     @virtual_server = Tengine::Resource::VirtualServer.new(params[:virtual_server])
-
     respond_to do |format|
-      if @virtual_server.save
-        format.html { redirect_to @virtual_server, notice: successfully_created(@virtual_server) }
+      if !(starting_number.to_i.zero?) && @virtual_server.valid?
+        physical = Tengine::Resource::PhysicalServer.where(
+          :provided_id => @virtual_server.host_server_id).first
+        image = Tengine::Resource::VirtualServerImage.where(
+          :provided_id => @virtual_server.provided_image_id).first
+        type = Tengine::Resource::VirtualServerType.where(
+          :provided_id => @virtual_server.provided_type_id).first
+        provider = physical.provider
+
+        result = provider.create_virtual_servers(
+          @virtual_server.name,
+          image, type, physical,
+          @virtual_server.description,
+          starting_number.to_i,
+        )
+        provided_ids = result.collect{|i| i.provided_id }
+
+        format.html { redirect_to created_tengine_resource_virtual_servers_url(
+          :provieded_ids => provided_ids) }
         format.json { render json: @virtual_server, status: :created, location: @virtual_server }
       else
+        ready_to_run(starting_number)
+
         format.html { render action: "new" }
         format.json { render json: @virtual_server.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # GET /tengine/resource/virtual_servers/created
+  # GET /tengine/resource/virtual_servers/created.json
+  def created
+    @provided_ids = params[:provided_ids] || []
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @provided_ids }
     end
   end
 
@@ -180,5 +180,40 @@ class Tengine::Resource::VirtualServersController < ApplicationController
       end
 
     return result
+  end
+
+  def ready_to_run(starting_number=nil)
+    @physical_servers = \
+      Tengine::Resource::PhysicalServer.all(:sort => [[:name, :asc]])
+    @physical_servers_for_select = @physical_servers.collect do |s|
+      label = s.name.dup
+      label << "(#{s.description})" if s.description
+      [label, s.provided_id]
+    end
+    @selected_physical_server = @physical_servers.first
+    provider = @selected_physical_server.provider
+    @virtual_server_images_for_select = \
+      virtual_server_images_for_select(provider.virtual_server_images)
+    types = provider.virtual_server_types.order_by([[:provided_id, :asc]])
+    @virtual_server_types_for_select = virtual_server_types_for_select(types)
+    physical_server_capacity = \
+      provider.capacities[@selected_physical_server.provided_id]
+    @starting_number_max = physical_server_capacity[types.first.provided_id]
+    @starting_number = starting_number || 0
+
+    @physical_server_map_provider = @physical_servers.inject({}) do |memo, s|
+      memo[s.provided_id] = s.provider.id.to_s
+      memo
+    end
+    @virtual_server_images_by_provider = {}
+    @virtual_server_types_by_provider = {}
+    @capacities_by_provider = {}
+    Tengine::Resource::Provider.all.each do |provider|
+      @virtual_server_images_by_provider[provider.id.to_s] = \
+        virtual_server_images_for_select(provider.virtual_server_images)
+      @virtual_server_types_by_provider[provider.id.to_s] = \
+        virtual_server_types_for_select(provider.virtual_server_types)
+      @capacities_by_provider[provider.id.to_s] = provider.capacities
+    end
   end
 end

@@ -1,0 +1,17 @@
+<h1><%= Tengine::Resource::VirtualServer.human_name %><%= t(".pages.run_result") %></h1>
+
+<div class="Section">
+  <% if @provided_ids.blank? -%>
+    <p>起動要求を送信しました。</p>
+  <% else -%>
+    <p>以下のプロバイダによるIDの起動要求を送信しました。</p>
+    <ul>
+      <% @provided_ids.each do |provided_id| -%>  
+        <li><%= provided_id %></li>
+      <% end -%>
+    </ul>
+  <% end -%>
+  <div class="BoxBtns">
+    <%= link_to_back_list tengine_resource_virtual_servers_url %>
+  </div>
+</div>

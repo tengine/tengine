@@ -26,3 +26,8 @@ ja:
           pages:
             avilable_starting_number: "起動可能数"
             run: "起動"
+        created:
+          pages:
+            run_result: "起動結果"
+          links:
+            back: "戻る"
