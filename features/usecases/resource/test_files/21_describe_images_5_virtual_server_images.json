@@ -1,0 +1,84 @@
+[
+  {
+    "owner_total": 5,
+    "start": 0,
+    "results": [
+      {
+        "id": "virtual_server_image_id_01",
+        "uuid": "virtual_server_image_uuid_01",
+        "description": "virtual_server_image_description_01",
+        "updated_at": "2011-10-18T03:53:37Z",
+        "account_id": "a-shpoolxx",
+        "boot_dev_type": 1,
+        "source": "--- \n:snapshot_id: snap-lucid6\n",
+        "state": "init",
+        "arch": "x86",
+        "is_public": false,
+        "created_at": "2011-10-18T03:53:37Z",
+        "md5sum": "8e0d8d37d704751a076fdf704a311350"
+      },
+
+      {
+        "id": "virtual_server_image_id_02",
+        "uuid": "virtual_server_image_uuid_02",
+        "description": "virtual_server_image_description_02",
+        "updated_at": "2011-10-18T03:53:37Z",
+        "account_id": "a-shpoolxx",
+        "boot_dev_type": 1,
+        "source": "--- \n:snapshot_id: snap-lucid6\n",
+        "state": "init",
+        "arch": "x86",
+        "is_public": false,
+        "created_at": "2011-10-18T03:53:37Z",
+        "md5sum": "8e0d8d37d704751a076fdf704a311350"
+      },
+
+      {
+        "id": "virtual_server_image_id_03",
+        "uuid": "virtual_server_image_uuid_03",
+        "description": "virtual_server_image_description_03",
+        "updated_at": "2011-10-18T03:53:37Z",
+        "account_id": "a-shpoolxx",
+        "boot_dev_type": 1,
+        "source": "--- \n:snapshot_id: snap-lucid6\n",
+        "state": "init",
+        "arch": "x86",
+        "is_public": false,
+        "created_at": "2011-10-18T03:53:37Z",
+        "md5sum": "8e0d8d37d704751a076fdf704a311350"
+      },
+
+      {
+        "id": "virtual_server_image_id_04",
+        "uuid": "virtual_server_image_uuid_04",
+        "description": "virtual_server_image_description_04",
+        "updated_at": "2011-10-18T03:53:37Z",
+        "account_id": "a-shpoolxx",
+        "boot_dev_type": 1,
+        "source": "--- \n:snapshot_id: snap-lucid6\n",
+        "state": "init",
+        "arch": "x86",
+        "is_public": false,
+        "created_at": "2011-10-18T03:53:37Z",
+        "md5sum": "8e0d8d37d704751a076fdf704a311350"
+      },
+
+      {
+        "id": "virtual_server_image_id_05",
+        "uuid": "virtual_server_image_uuid_05",
+        "description": "virtual_server_image_description_05",
+        "updated_at": "2011-10-18T03:53:37Z",
+        "account_id": "a-shpoolxx",
+        "boot_dev_type": 1,
+        "source": "--- \n:snapshot_id: snap-lucid6\n",
+        "state": "init",
+        "arch": "x86",
+        "is_public": false,
+        "created_at": "2011-10-18T03:53:37Z",
+        "md5sum": "8e0d8d37d704751a076fdf704a311350"
+      }
+
+    ],
+    "limit": null
+  }
+]
