@@ -110,7 +110,7 @@ legend{
 }
 /* @end */
 
-/* @group INPUT TEXT */
+/* @group INPUT */
 .InputText,
 .InputError{
   box-sizing: border-box;
@@ -132,17 +132,23 @@ legend{
 }
 
 /* エラー時、エラー項目のinputの右上に表示 */
-.InputError{
-  box-sizing: border-box;
-  padding-right: 20px;
-  border: 1px solid #f00;
-  background: #FFDDDD url(<%= asset_path 'icon/Red_mark.png' %>) no-repeat 98% 5px;
-}
 .WrapInputError {
-  padding: 0 0 5px 0;
+  margin: -2px;
+  padding: 5px 32px 5px 5px;
   background: #FFDDDD url(<%= asset_path 'icon/Red_mark.png' %>) no-repeat 98% 5px;
 }
 
+.WrapInputError input[type='text'],
+.WrapInputError input[type='password'],
+.WrapInputError textarea {
+	border: 1px solid #f00;
+	background-color: #fff;
+}
+.WrapInputError textarea.InputWauto {
+	box-sizing: border-box;
+	margin-right: 40px;
+	width: 100%; 
+}
 
 /* width */
 .InputWauto  { box-sizing: border-box; width: 100%; }
