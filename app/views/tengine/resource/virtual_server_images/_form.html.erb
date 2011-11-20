@@ -1,7 +1,7 @@
 <%= form_for(@virtual_server_image, as:"virtual_server_image") do |f| %>
   <%= model_error_messages(@virtual_server_image) %>
   <table class= "TableForm4rows" >
-    <tbody class= "CelRow2">
+    <tbody class= "CelRow3">
       <tr>
         <th><%= f.label :name %></th>
         <td><%= @virtual_server_image.name %></td>
@@ -10,12 +10,10 @@
         <th><%= f.label :provided_id %></th>
         <td><%= @virtual_server_image.provided_id %></td>
       </tr>
-<!-- >
       <tr>
-       <th><#%= f.label :provided_description %></th>
-       <td><#%= @virtual_server_image.provided_description %></td>
+       <th><%= f.label :provided_description %></th>
+       <td><%= @virtual_server_image.provided_description %></td>
       </tr>
-< -->
       <tr>
         <th><%= f.label :description %></th>
         <td><%= f.text_area :description, class: "InputTex"  %></td>
