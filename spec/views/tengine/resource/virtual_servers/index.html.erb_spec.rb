@@ -57,7 +57,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :name => "vserver1",
       :provided_id => "i0002",
       :description => "v2Description",
-      :status => "Status",
+      :status => "running",
       :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
       :properties => {"a"=>"1", "b"=>"2"},
       :provided_image_id => "ami1",
@@ -69,7 +69,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :name => "vserver2",
       :provided_id => "i0003",
       :description => "v3Description",
-      :status => "Status",
+      :status => "starting",
       :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
       :properties => {"a"=>"1", "b"=>"2"},
       :provided_image_id => "ami2",
@@ -101,7 +101,8 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     assert_select "tr>td", :text => "i0003".to_s, :count => 1
     assert_select "tr>td>div>span", :text => "v2Description".to_s, :count => 1
     assert_select "tr>td>div>span", :text => "v3Description".to_s, :count => 1
-    assert_select "tr>td", :text => "Status".to_s, :count => 2
+    assert_select "tr>td", :text => "starting".to_s, :count => 1
+    assert_select "tr>td", :text => "running".to_s, :count => 1
     assert_select "tr>td>a", :text => "ami1".to_s, :count => 1
     assert_select "tr>td>a", :text => "ami2".to_s, :count => 1
     assert_select "tr>td", :text => "Small".to_s, :count => 1
@@ -192,5 +193,64 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_virtual_server_image_name'][@value='vimage']")
     rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_status_ids_'][@value='starting']")
     rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_status_ids_'][@value='running']")
+  end
+
+  it "仮想サーバ名で絞り込みを行ったとき絞り込んだ仮想サーバが表示されていること" do
+    finder = Tengine::Resource::VirtualServer::Finder.new
+    finder.virtual_server_name = "vserver1"
+    finder.stub(:status_ids).and_return([])
+    assign(:finder, finder)
+
+    render
+
+    rendered.should have_xpath("//td", :text => "vserver1")
+    rendered.should_not have_xpath("//td", :text => "vserver2")
+  end
+
+  it "プロバイダによるIDで絞り込みを行ったとき絞り込んだ仮想サーバが表示されていること" do
+    finder = Tengine::Resource::VirtualServer::Finder.new
+    finder.provided_id = "i0002"
+    finder.stub(:status_ids).and_return([])
+    assign(:finder, finder)
+
+    render
+
+    rendered.should have_xpath("//td", :text => "vserver1")
+    rendered.should_not have_xpath("//td", :text => "vserver2")
+  end
+
+  it "説明で絞り込みを行ったとき絞り込んだ仮想サーバが表示されていること" do
+    finder = Tengine::Resource::VirtualServer::Finder.new
+    finder.description = "v2Description"
+    finder.stub(:status_ids).and_return([])
+    assign(:finder, finder)
+
+    render
+
+    rendered.should have_xpath("//td", :text => "v2Description")
+    rendered.should_not have_xpath("//td", :text => "v3Description")
+  end
+
+  it "仮想サーバイメージ名で絞り込みを行ったとき絞り込んだ仮想サーバが表示されていること" do
+    finder = Tengine::Resource::VirtualServer::Finder.new
+    finder.virtual_server_image_name = "vimage1"
+    finder.stub(:status_ids).and_return([])
+    assign(:finder, finder)
+
+    render
+
+    rendered.should have_xpath("//td", :text => "vserver1")
+    rendered.should_not have_xpath("//td", :text => "vserver2")
+  end
+
+  it "ステータスで絞り込みを行ったとき絞り込んだ仮想サーバが表示されていること" do
+    finder = Tengine::Resource::VirtualServer::Finder.new
+    finder.status_ids = ["starting"]
+    assign(:finder, finder)
+
+    render
+
+    rendered.should have_xpath("//td", :text => "vserver2")
+    rendered.should_not have_xpath("//td", :text => "vserver1")
   end
 end
