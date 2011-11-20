@@ -12,6 +12,7 @@ recalc_starting_number = (ps_provided_id, type_provided_id) ->
       starting_number = 0 unless starting_number
       $('input#virtual_server_starting_number').attr("max", starting_number);
       $('span#starting_number_max').text(starting_number);
+      $('input#starting_number_max').attr("value", starting_number);
 
 $(window).load ->
   # index

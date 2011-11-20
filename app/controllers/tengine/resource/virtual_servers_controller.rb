@@ -56,9 +56,14 @@ class Tengine::Resource::VirtualServersController < ApplicationController
   # POST /tengine/resource/virtual_servers.json
   def create
     starting_number = params[:virtual_server].delete(:starting_number)
+    _starting_number = starting_number.to_i
+    starting_number_max = (params[:starting_number_max] || 0).to_i
     @virtual_server = Tengine::Resource::VirtualServer.new(params[:virtual_server])
+
     respond_to do |format|
-      if !(starting_number.to_i.zero?) && @virtual_server.valid?
+      if @virtual_server.valid? &&
+        _starting_number > 0 && _starting_number <= starting_number_max
+
         physical = Tengine::Resource::PhysicalServer.where(
           :provided_id => @virtual_server.host_server_id).first
         image = Tengine::Resource::VirtualServerImage.where(
@@ -71,7 +76,7 @@ class Tengine::Resource::VirtualServersController < ApplicationController
           @virtual_server.name,
           image, type, physical,
           @virtual_server.description,
-          starting_number.to_i,
+          _starting_number,
         )
         provided_ids = result.collect{|i| i.provided_id }
 
@@ -79,7 +84,18 @@ class Tengine::Resource::VirtualServersController < ApplicationController
           :provieded_ids => provided_ids) }
         format.json { render json: @virtual_server, status: :created, location: @virtual_server }
       else
-        ready_to_run(@virtual_server, starting_number)
+        if _starting_number <= 0
+          @virtual_server.errors.add :starting_number,
+            I18n.t(:greater_than, :scope => 'activerecord.errors.messages', :count => 0)
+        end
+
+        if _starting_number > starting_number_max
+          @virtual_server.errors.add :starting_number,
+            I18n.t(:less_than_or_equal_to, :scope => 'activerecord.errors.messages',
+              :count => starting_number_max)
+        end
+
+        ready_to_run(starting_number, starting_number_max)
 
         format.html { render action: "new" }
         format.json { render json: @virtual_server.errors, status: :unprocessable_entity }
@@ -170,7 +186,6 @@ class Tengine::Resource::VirtualServersController < ApplicationController
     result = \
       virtual_server_types.order_by([[:provided_id, :asc]]).collect do |type|
         label = type.provided_id.dup
-        # TODO: memory size unit
         msize = type.memory_size / Numeric::MEGABYTE
         label << "("
         label << "#{Tengine::Resource::VirtualServerType.human_attribute_name(:cpu_cores)}:#{type.cpu_cores}"
@@ -182,7 +197,7 @@ class Tengine::Resource::VirtualServersController < ApplicationController
     return result
   end
 
-  def ready_to_run(values=nil, starting_number=nil)
+  def ready_to_run(starting_number=nil, starting_number_max=nil)
     @physical_servers = \
       Tengine::Resource::PhysicalServer.all(:sort => [[:name, :asc]])
     @physical_servers_for_select = @physical_servers.collect do |s|
@@ -190,27 +205,18 @@ class Tengine::Resource::VirtualServersController < ApplicationController
       label << "(#{s.description})" if s.description
       [label, s.provided_id]
     end
-    selected_physical_server = \
-      if values
-        Tengine::Resource::PhysicalServer.where(
-          :provided_id => values.host_server_id).first
-      else
-        @physical_servers.first
-      end
+    selected_physical_server = @physical_servers.first
     provider = selected_physical_server.provider
     @virtual_server_images_for_select = \
       virtual_server_images_for_select(provider.virtual_server_images)
     types = provider.virtual_server_types.order_by([[:provided_id, :asc]])
-    selected_type_provided_id = \
-      if values
-        values.provided_type_id
-      else
-        types.first.provided_id
-      end
+    selected_type_provided_id = types.first.provided_id
     @virtual_server_types_for_select = virtual_server_types_for_select(types)
+
     physical_server_capacity = \
       provider.capacities[selected_physical_server.provided_id]
-    @starting_number_max = physical_server_capacity[selected_type_provided_id]
+    @starting_number_max = \
+      starting_number_max || physical_server_capacity[selected_type_provided_id]
     @starting_number = starting_number || 0
 
     @physical_server_map_provider = @physical_servers.inject({}) do |memo, s|

@@ -279,6 +279,13 @@ describe Tengine::Resource::VirtualServersController do
       return attributes
     end
 
+    def valid_params
+      params = {
+        "starting_number_max" => 8,
+        "virtual_server" => valid_attributes_for_create,
+      }
+      return params
+    end
 
     describe "with valid params" do
       it "creates a new Tengine::Resource::VirtualServer" do
@@ -286,7 +293,7 @@ describe Tengine::Resource::VirtualServersController do
         Tengine::Resource::Provider::Wakame.any_instance.
           should_receive(:create_virtual_servers).and_return([vs])
 
-        post :create, :virtual_server => valid_attributes_for_create
+        post :create, valid_params
       end
 
       it "redirects to the created virtual_server" do
@@ -294,7 +301,7 @@ describe Tengine::Resource::VirtualServersController do
         Tengine::Resource::Provider::Wakame.any_instance.
           should_receive(:create_virtual_servers).and_return([vs])
 
-        post :create, :virtual_server => valid_attributes_for_create
+        post :create, valid_params
         response.should redirect_to(created_tengine_resource_virtual_servers_url(:provieded_ids => ["ami0000005"]))
       end
     end
@@ -306,31 +313,38 @@ describe Tengine::Resource::VirtualServersController do
         Tengine::Resource::Provider::Wakame.any_instance.
           should_not_receive(:create_virtual_servers)
 
-        invalid_attributes = valid_attributes_for_create
-        invalid_attributes.delete "name"
-        post :create, :virtual_server => invalid_attributes
+        invalid_params = valid_params
+        invalid_params["virtual_server"].delete "name"
+        post :create, invalid_params
 
 
         Tengine::Resource::VirtualServer.any_instance.stub(:valid?).and_return(true)
 
-        invalid_attributes = valid_attributes_for_create
-        invalid_attributes.delete "starting_number"
-        post :create, :virtual_server => invalid_attributes
+        invalid_params = valid_params
+        invalid_params["virtual_server"].delete "starting_number"
+        post :create, invalid_params
+
+        invalid_params = valid_params
+        invalid_params["virtual_server"]["starting_number"] = "-10"
+        post :create, invalid_params
+
+        invalid_params["virtual_server"]["starting_number"] = "100"
+        post :create, invalid_params
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Tengine::Resource::VirtualServer.any_instance.stub(:valid?).and_return(false)
-        invalid_attributes = valid_attributes_for_create
-        invalid_attributes.delete "name"
-        post :create, :virtual_server => invalid_attributes
+        invalid_params = valid_params
+        invalid_params["virtual_server"].delete "name"
+        post :create, invalid_params
         response.should render_template("new")
       end
 
       it "holds starting_number and starting_number_max" do
-        invalid_attributes = valid_attributes_for_create
-        invalid_attributes.delete "name"
-        post :create, :virtual_server => invalid_attributes
+        invalid_params = valid_params
+        invalid_params["virtual_server"].delete "name"
+        post :create, invalid_params
         assigns(:starting_number).should == "1"
         assigns(:starting_number_max).should == 8
       end

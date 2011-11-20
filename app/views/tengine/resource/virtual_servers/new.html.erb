@@ -11,7 +11,7 @@
   <div class="BoxBorder BoxSearchForm">
     <%= model_error_messages(@virtual_server) %>
 
-    <%= form_for(@virtual_server, as:"virtual_server") do |f| -%>
+    <%= form_for(@virtual_server, as:"virtual_server", html:{novalidate:true}) do |f| -%>
       <%= field_set_tag do %>
         <table class="TableForm4rows">
           <colgroup>
@@ -44,7 +44,9 @@
             <tr>
               <th><%= f.label :starting_number %>:</th>
               <td>
-                <%= number_field_tag "virtual_server[starting_number]", @starting_number, :class =>"InputText", :min => 0, :max => @starting_number_max %>
+                <%= number_field "virtual_server", "starting_number",
+                  :class => @virtual_server, :class =>"InputText",
+                  :min => 0, :max => @starting_number_max, :value => @starting_number %>
                 &nbsp;&nbsp;(<%= t(".pages.avilable_starting_number") %>
                 &nbsp;<span id="starting_number_max"><%= @starting_number_max %></span>)
               </td>
@@ -55,6 +57,7 @@
             </tr>
           </tbody>
         </table>
+        <%= hidden_field_tag "starting_number_max", @starting_number_max %>
 
         <div class="BoxBtns">
           <span class="BtnWrap"><%= f.submit t(".pages.run"), :class => "BtnAdd" %></span>
