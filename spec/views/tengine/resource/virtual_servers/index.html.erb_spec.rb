@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe "tengine/resource/virtual_servers/index.html.erb" do
@@ -38,7 +39,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :name => "pserver1",
       :provided_id => "server1",
       :description => "Description",
-      :status => "Status",
+      :status => "online",
       :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
       :properties => {"a"=>"1", "b"=>"2"},
     )
@@ -47,7 +48,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :name => "pserver2",
       :provided_id => "server1",
       :description => "Description",
-      :status => "Status",
+      :status => "online",
       :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
       :properties => {"a"=>"1", "b"=>"2"},
     )
@@ -105,5 +106,91 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     assert_select "tr>td>a", :text => "ami2".to_s, :count => 1
     assert_select "tr>td", :text => "Small".to_s, :count => 1
     assert_select "tr>td", :text => "Large".to_s, :count => 1
+  end
+
+  it "renders search form" do
+    render
+
+    rendered.should have_xpath("//input[@type='text'][@id='finder_physical_server_name']")
+    rendered.should have_xpath("//input[@type='text'][@id='finder_virtual_server_name']")
+    rendered.should have_xpath("//input[@type='text'][@id='finder_provided_id']")
+    rendered.should have_xpath("//input[@type='text'][@id='finder_description']")
+    rendered.should have_xpath("//input[@type='text'][@id='finder_virtual_server_image_name']")
+    rendered.should have_xpath("//input[@type='checkbox'][@id='finder_status_ids_starting']")
+    rendered.should have_xpath("//input[@type='checkbox'][@id='finder_status_ids_running']")
+    rendered.should have_xpath("//input[@type='checkbox'][@id='finder_status_ids_shuttingdown']")
+    rendered.should have_xpath("//input[@type='checkbox'][@id='finder_status_ids_terminated']")
+  end
+
+  it "renders refresh form" do
+    render
+
+    rendered.should have_xpath("//input[@type='number'][@id='refresher_refresh_interval']")
+  end
+
+  it "renders stop form" do
+    render
+
+    rendered.should have_xpath("//input[@type='checkbox'][@id='StopAll']")
+    rendered.should have_xpath("//input[@type='checkbox'][@class='StopCheckBox'][@value='#{@virtual_server1.id.to_s}']")
+    rendered.should have_xpath("//input[@type='checkbox'][@class='StopCheckBox'][@value='#{@virtual_server2.id.to_s}']")
+  end
+
+  it "@refresh_intervalの値が絞り込みのフォームのhiddenフィールドとしてあること" do
+    assign(:refresh_interval, 10)
+
+    render
+
+    rendered.should have_xpath("//input[@type='hidden'][@id='refresher_refresh_interval'][@value='10']")
+  end
+
+  it "@finderの値が画面の更新間隔のフォームのhiddenフィールドとしてあること" do
+    finder = Tengine::Resource::VirtualServer::Finder.new
+    finder.physical_server_name = "test"
+    finder.provided_id = "server"
+    finder.description = "testdesc"
+    finder.virtual_server_name = "vserver"
+    finder.virtual_server_image_name = "vimage"
+    finder.stub(:status_ids).and_return(["starting", "running"])
+    assign(:finder, finder)
+
+    render
+
+    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='finder_physical_server_name'][@value='test']")
+    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='finder_virtual_server_name'][@value='vserver']")
+    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='finder_provided_id'][@value='server']")
+    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='finder_description'][@value='testdesc']")
+    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='finder_virtual_server_image_name'][@value='vimage']")
+    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='finder_status_ids_'][@value='starting']")
+    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='finder_status_ids_'][@value='running']")
+  end
+
+  it "@refresh_intervalの値が仮想サーバ停止のフォームにhiddenフィールドとしてあること" do
+    assign(:refresh_interval, 10)
+
+    render
+
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='refresher_refresh_interval'][@value='10']")
+  end
+
+  it "@finderの値が仮想サーバ停止のフォームにhiddenフィールドとしてあること" do
+    finder = Tengine::Resource::VirtualServer::Finder.new
+    finder.physical_server_name = "test"
+    finder.provided_id = "server"
+    finder.description = "testdesc"
+    finder.virtual_server_name = "vserver"
+    finder.virtual_server_image_name = "vimage"
+    finder.stub(:status_ids).and_return(["starting", "running"])
+    assign(:finder, finder)
+
+    render
+
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_physical_server_name'][@value='test']")
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_virtual_server_name'][@value='vserver']")
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_provided_id'][@value='server']")
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_description'][@value='testdesc']")
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_virtual_server_image_name'][@value='vimage']")
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_status_ids_'][@value='starting']")
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_status_ids_'][@value='running']")
   end
 end

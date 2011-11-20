@@ -64,7 +64,7 @@ class Tengine::Resource::VirtualServer::Finder
     end
     criteria = criteria.any_in(:status => status_ids) unless status_ids.blank?
     unless virtual_server_image_name.blank?
-      images = Tengine::Resource::VirtualServerImage.all(
+      images = Tengine::Resource::VirtualServerImage.where(
         :name => /#{virtual_server_image_name}/)
       unless images.blank?
         criteria = criteria.any_in(:provided_image_id => images.collect(&:provided_id))
