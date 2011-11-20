@@ -50,6 +50,44 @@ describe Tengine::Resource::VirtualServersController do
       physical_servers = assigns(:physical_servers)
       physical_servers.to_a.should eq([physical_server])
     end
+
+    it "assigns @refresher" do
+      get :index, :refresher => {:refresh_interval => 10}
+      assigns(:refresher).refresh_interval.should == "10"
+      assigns(:refresh_interval).should == "10"
+    end
+
+    it "assigns @auto_refresh" do
+      get :index, :refresher => {:refresh_interval => 0}
+      assigns(:auto_refresh).should == false
+
+      get :index, :refresher => {:refresh_interval => 10}
+      assigns(:auto_refresh).should == true
+    end
+
+    it "assigns Tengine::Resource::VirtualServer::Finder instance as @finder" do
+      get :index
+      assigns(:finder).should be_is_a(Tengine::Resource::VirtualServer::Finder)
+    end
+
+    it "assigns all PhysicalServer as @physical_server" do
+      Tengine::Resource::PhysicalServer.delete_all
+      server1 = Tengine::Resource::PhysicalServer.create!(:name => "server1")
+      physical_servers = [
+        server1,
+        Tengine::Resource::PhysicalServer.create!(:name => "server2"),
+      ]
+
+      get :index
+      assigns(:physical_servers).should == physical_servers
+
+      Tengine::Resource::PhysicalServer.delete_all
+      get :index, :finder => {:physical_server_name => "server1"}
+      physical_servers = [
+        Tengine::Resource::PhysicalServer.create!(:name => "server1"),
+      ]
+      assigns(:physical_servers).should == physical_servers
+    end
   end
 
   describe "GET show" do

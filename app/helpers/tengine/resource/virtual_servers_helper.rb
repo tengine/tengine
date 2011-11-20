@@ -8,7 +8,7 @@ module Tengine::Resource::VirtualServersHelper
       html << physical_server.name
     end
     unless physical_server.description.blank?
-      html << "<br />" if link
+      html << "<br />"
       html << "(#{ERB::Util.html_escape(physical_server.description)})"
     end
     return html.html_safe
