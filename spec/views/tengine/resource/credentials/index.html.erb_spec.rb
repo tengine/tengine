@@ -24,6 +24,10 @@ describe "tengine/resource/credentials/index.html.erb" do
         :updated_at => Time.now
       ),
     ]).page(1))
+    @check_status = {
+      "auth_type_cd_01" => "checked",
+      "auth_type_cd_02" => "checked"
+    }
   end
 
   it "renders a list of tengine_resource_credentials" do
@@ -91,7 +95,6 @@ describe "tengine/resource/credentials/index.html.erb" do
     assert_select "input[id='finder_description']", :text => "", :count => 1
     assert_select "input[id='finder_auth_type_cd_01'][type = checkbox][value = 1]"
     assert_select "input[id='finder_auth_type_cd_02'][type = checkbox][value = 1]"
-    assert_select "input[id='finder_auth_type_cd_03'][type = checkbox][value = 1]"
     
   end
 

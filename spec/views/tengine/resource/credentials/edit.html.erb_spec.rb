@@ -4,6 +4,7 @@ require 'spec_helper'
 
 describe "tengine/resource/credentials/edit.html.erb" do
 
+
   describe "SSH パスワード認証を選択したとき" do
 
     before(:each) do

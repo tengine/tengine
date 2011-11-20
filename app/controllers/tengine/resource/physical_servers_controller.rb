@@ -40,15 +40,20 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
   # POST /tengine/resource/physical_servers
   # POST /tengine/resource/physical_servers.json
   def create
-    @physical_server = Tengine::Resource::PhysicalServer.new(params[:physical_server])
+    if params["commit"] == t(:cancel)
+        redirect_to :action => "index"
+    else
 
-    respond_to do |format|
-      if @physical_server.save
-        format.html { redirect_to @physical_server, notice: successfully_created(@physical_server) }
-        format.json { render json: @physical_server, status: :created, location: @physical_server }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @physical_server.errors, status: :unprocessable_entity }
+      @physical_server = Tengine::Resource::PhysicalServer.new(params[:physical_server])
+  
+      respond_to do |format|
+        if @physical_server.save
+          format.html { redirect_to @physical_server, notice: successfully_created(@physical_server) }
+          format.json { render json: @physical_server, status: :created, location: @physical_server }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @physical_server.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -56,15 +61,20 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
   # PUT /tengine/resource/physical_servers/1
   # PUT /tengine/resource/physical_servers/1.json
   def update
-    @physical_server = Tengine::Resource::PhysicalServer.find(params[:id])
+    if params["commit"] == t(:cancel)
+        redirect_to :action => "index"
+    else
 
-    respond_to do |format|
-      if @physical_server.update_attributes(params[:physical_server])
-        format.html { redirect_to @physical_server, notice: successfully_updated(@physical_server) }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @physical_server.errors, status: :unprocessable_entity }
+      @physical_server = Tengine::Resource::PhysicalServer.find(params[:id])
+  
+      respond_to do |format|
+        if @physical_server.update_attributes(params[:physical_server])
+          format.html { redirect_to @physical_server, notice: successfully_updated(@physical_server) }
+          format.json { head :ok }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @physical_server.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

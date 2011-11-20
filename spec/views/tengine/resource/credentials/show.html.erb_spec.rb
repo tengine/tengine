@@ -54,28 +54,4 @@ describe "tengine/resource/credentials/show.html.erb" do
     end
   end
 
-  describe "EC2アクセスキー認証のとき" do
-    Tengine::Resource::Credential.delete_all
-    before(:each) do
-      @credential = assign(:credential, stub_model(Tengine::Resource::Credential,
-        :name => "Name3",
-        :description => "Description3",
-        :auth_type_cd => "03",
-        :auth_values => {"access_key"=>"user", "secret_access_key"=>"password", "default_resion" => "123"} 
-      ))
-    end
-  
-    it "renders attributes in <p>" do
-      render
-      # Run the generator again with the --webrat flag if you want to use webrat matchers
-      rendered.should match(/Name3/)
-      # Run the generator again with the --webrat flag if you want to use webrat matchers
-      rendered.should match(/Description3/)
-      # Run the generator again with the --webrat flag if you want to use webrat matchers
-      rendered.should match(/EC2 アクセスキー認証/)
-      # Run the generator again with the --webrat flag if you want to use webrat matchers
-      rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump({"access_key"=>"user", "default_resion"=>"123"})))}/)
-    end
-  end
-
 end

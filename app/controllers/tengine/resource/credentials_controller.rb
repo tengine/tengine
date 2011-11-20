@@ -5,6 +5,11 @@ class Tengine::Resource::CredentialsController < ApplicationController
   # GET /tengine/resource/credentials.json
   def index
     @credentials = Tengine::Resource::Credential.all(:sort => [[:_id]]).page(params[:page])
+    @check_status = {
+      "auth_type_cd_01" => "checked", 
+      "auth_type_cd_02" => "checked"
+    }
+
 
     if sort_param = params[:sort]
       order = []
@@ -36,10 +41,15 @@ class Tengine::Resource::CredentialsController < ApplicationController
         finder[field] = value
       end
       @credentials = @credentials.where(finder)
-      auth_type = {:auth_type_cd_01 => "01", :auth_type_cd_02 => "02", :auth_type_cd_03 => "03"}
+      auth_type = {:auth_type_cd_01 => "01", :auth_type_cd_02 => "02"}
       auth_type_finder =[] 
       auth_type.each do |key, id |
-         auth_type_finder << {:auth_type_cd => id}  if @finder.send(key) == "1"
+        if @finder.send(key) == "1"
+          auth_type_finder << {:auth_type_cd => id}
+          @check_status[key.to_s] = "checked"
+        else
+          @check_status[key.to_s] = "unchecked"
+        end
       end
       @credentials = @credentials.any_of(auth_type_finder) unless auth_type_finder.empty?
     end
@@ -82,15 +92,19 @@ class Tengine::Resource::CredentialsController < ApplicationController
   # POST /tengine/resource/credentials
   # POST /tengine/resource/credentials.json
   def create
+    if params["commit"] == t(:cancel)
+        redirect_to :action => "index"
+    else
     @credential = Tengine::Resource::Credential.new(params[:credential])
 
-    respond_to do |format|
-      if @credential.save
-        format.html { redirect_to @credential, notice: successfully_created(@credential) }
-        format.json { render json: @credential, status: :created, location: @credential }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @credential.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @credential.save
+          format.html { redirect_to @credential, notice: successfully_created(@credential) }
+          format.json { render json: @credential, status: :created, location: @credential }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @credential.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -98,15 +112,20 @@ class Tengine::Resource::CredentialsController < ApplicationController
   # PUT /tengine/resource/credentials/1
   # PUT /tengine/resource/credentials/1.json
   def update
-    @credential = Tengine::Resource::Credential.find(params[:id])
+    if params["commit"] == t(:cancel)
+        redirect_to :action => "index"
+    else
 
-    respond_to do |format|
-      if @credential.update_attributes(params[:credential])
-        format.html { redirect_to @credential, notice: successfully_updated(@credential) }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @credential.errors, status: :unprocessable_entity }
+      @credential = Tengine::Resource::Credential.find(params[:id])
+  
+      respond_to do |format|
+        if @credential.update_attributes(params[:credential])
+          format.html { redirect_to @credential, notice: successfully_updated(@credential) }
+          format.json { head :ok }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @credential.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
