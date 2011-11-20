@@ -48,8 +48,14 @@ ja:
     links:
       update: "更新する"
 
+  new: "新規作成" 
+  cancel: "キャンセル"
+  edit: "編集"
+  back_list: "一覧に戻る"
+  show: "表示"
+
+
   username: "ユーザー名"
   password: "パスワード"
   passphrase: "パスワード"
   private_keys: "秘密鍵"
-  show: 表示

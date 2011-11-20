@@ -102,21 +102,24 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
     @physical_server = Tengine::Resource::PhysicalServer.find(params[:id])
   end
 
-  # POST /tengine/resource/physical_servers
-  # POST /tengine/resource/physical_servers.json
-  # def create
-  #   @physical_server = Tengine::Resource::PhysicalServer.new(params[:physical_server])
+  def create
+    if params["commit"] == t(:cancel)
+        redirect_to :action => "index"
+    else
 
-  #   respond_to do |format|
-  #     if @physical_server.save
-  #       format.html { redirect_to @physical_server, notice: successfully_created(@physical_server) }
-  #       format.json { render json: @physical_server, status: :created, location: @physical_server }
-  #     else
-  #       format.html { render action: "new" }
-  #       format.json { render json: @physical_server.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+      @physical_server = Tengine::Resource::PhysicalServer.new(params[:physical_server])
+  
+      respond_to do |format|
+        if @physical_server.save
+          format.html { redirect_to @physical_server, notice: successfully_created(@physical_server) }
+          format.json { render json: @physical_server, status: :created, location: @physical_server }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @physical_server.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  end
 
   # PUT /tengine/resource/physical_servers/1
   # PUT /tengine/resource/physical_servers/1.json
@@ -124,8 +127,9 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
     if params["commit"] == t(:cancel)
         redirect_to :action => "index"
     else
-      @physical_server = Tengine::Resource::PhysicalServer.find(params[:id])
 
+      @physical_server = Tengine::Resource::PhysicalServer.find(params[:id])
+  
       respond_to do |format|
         if @physical_server.update_attributes(params[:physical_server])
           format.html { redirect_to @physical_server, notice: successfully_updated(@physical_server) }
