@@ -61,21 +61,6 @@ module ApplicationHelper
     content_tag(:li, link_to(text, href), :class => request.path.include?(href) ? 'Current' : nil)
   end
 
-# BtnIcon Class のうちリンクをボタンとして表示する場合 <a href="#" class="BtnXXX"><span class="BtnXXX">Action</span></a> のメソッドです。
-# 新規作成、編集、削除、キャンセル、保存する、ダウンロード、アップロード、進む、戻る、等が該当します。
-
-  def link_button_to_edit(*args, &block)
-    link_to("<span class='BtnEdit'>#{I18n.t(:edit, :scope => [:views, :links])} </span>".html_safe, *args_for_nested_path(*args), &block)
-  end
-
-  def link_button_to_back_list(*args, &block)
-    link_to("<span class='BtnBack'>#{I18n.t(:back_list, :scope => [:views, :links])}</span>".html_safe, *args, &block)
-  end
-
-  def link_button_to_cancel_list(*args, &block)
-    link_to("<span class='BtnCancel'>#{I18n.t(:cancel, :scope => [:views, :links])}</span>".html_safe, *args, &block)
-  end
-
 
   def model_error_messages(obj)
     return unless obj.errors.any?
