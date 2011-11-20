@@ -21,6 +21,8 @@ ja:
         name: "物理サーバ名"
         description: "説明"
         provided_id: "プロバイダによるID"
+        cpu_cores: "CPUコア数"
+        memory_size: "メモリサイズ"
         status: "ステータス"
         properties: "プロパティ"
       tengine/resource/virtual_server_image:
@@ -28,6 +30,8 @@ ja:
         description: "説明"
         provided_id: "プロバイダによるID"
         provided_description: "プロバイダによる説明"
+        cpu_cores: "CPUコア数"
+        memory_size: "メモリサイズ"
         # provided_image_id: "プロバイダによる仮想サーバイメージID"
         # status: "ステータス"
         # addresses "IPアドレス"
@@ -40,11 +44,12 @@ ja:
         ssh_public_key: "SSH公開鍵認証"
         ec2_access_key: "EC2 アクセスキー認証"
 
+  views:
+    links:
+      update: "更新する"
+
   username: "ユーザー名"
   password: "パスワード"
   passphrase: "パスワード"
   private_keys: "秘密鍵"
-  cpu_cores: "CPUコア数"
-  memory_size: "メモリサイズ"
-  properties: "プロパティ"
-
+  show: 表示

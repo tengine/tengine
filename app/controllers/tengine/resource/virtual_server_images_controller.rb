@@ -4,6 +4,41 @@ class Tengine::Resource::VirtualServerImagesController < ApplicationController
   def index
     @virtual_server_images = Tengine::Resource::VirtualServerImage.all(:sort => [[:_id]]).page(params[:page])
 
+    if sort_param = params[:sort]
+      order = []
+      sort_param.each do |k, v|
+        v = (v.to_s == "desc") ? :desc : :asc
+        k = case k.to_s
+            when "name"
+              [:name, v]
+            when "provided_id"
+              [:provided_id, v]
+            when "description"
+              [:description, v]
+            # when "provided_description"
+            #   [:provided_description, v]
+            end
+        order.push k
+      end
+    else
+      default_sort = {:name => "asc"}
+      request.query_parameters[:sort] = default_sort
+      order = default_sort.to_a
+    end
+    @virtual_server_images = @virtual_server_images.order_by(order)
+
+    if search_param = params[:finder]
+      @finder = ::OpenStruct.new search_param
+      finder = {}
+      [:name, :description, :provided_id].each do |field|
+        next if (value = @finder.send(field)).blank?
+        value = /#{Regexp.escape(value)}/
+        finder[field] = value
+      end
+      @virtual_server_images = @virtual_server_images.where(finder)
+    end
+
+    @virtual_server_images = @virtual_server_images.page(params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @virtual_server_images }
@@ -57,15 +92,19 @@ class Tengine::Resource::VirtualServerImagesController < ApplicationController
   # PUT /tengine/resource/virtual_server_images/1
   # PUT /tengine/resource/virtual_server_images/1.json
   def update
-    @virtual_server_image = Tengine::Resource::VirtualServerImage.find(params[:id])
-
-    respond_to do |format|
-      if @virtual_server_image.update_attributes(params[:virtual_server_image])
-        format.html { redirect_to @virtual_server_image, notice: successfully_updated(@virtual_server_image) }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @virtual_server_image.errors, status: :unprocessable_entity }
+    if params["commit"] == t(:cancel)
+      redirect_to :action => "index"
+    else
+      @virtual_server_image = Tengine::Resource::VirtualServerImage.find(params[:id])
+  
+      respond_to do |format|
+        if @virtual_server_image.update_attributes(params[:virtual_server_image])
+          format.html { redirect_to @virtual_server_image, notice: successfully_updated(@virtual_server_image) }
+          format.json { head :ok }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @virtual_server_image.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

@@ -1,9 +1,16 @@
+require 'ostruct'
+require 'selectable_attr'
 class Tengine::Resource::PhysicalServersController < ApplicationController
   # GET /tengine/resource/physical_servers
   # GET /tengine/resource/physical_servers.json
   def index
     @physical_servers = Tengine::Resource::PhysicalServer.all(:sort => [[:_id]]).page(params[:page])
+    @check_status = {
+      "status_01" => "checked", 
+      "status_02" => "checked"
+    }
 
+    
     if sort_param = params[:sort]
       order = []
       sort_param.each do |k, v|
@@ -11,10 +18,16 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
         k = case k.to_s
             when "name"
               [:name, v]
-            when "description"
-              [:description, v]
             when "provided_id"
               [:provided_id, v]
+            when "description"
+              [:description, v]
+            when "cpu_cores"
+              [:cpu_cores, v]
+            when "memory_size"
+              [:memory_size, v]
+            when "status"
+              [:status, v]
             end
         order.push k
       end
@@ -25,6 +38,12 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
     end
     @physical_servers = @physical_servers.order_by(order)
 
+
+    @status = {
+      :online => "status_01",
+      :registering => "status_02"
+    }
+
     if search_param = params[:finder]
       @finder = ::OpenStruct.new search_param
       finder = {}
@@ -34,13 +53,19 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
         finder[field] = value
       end
       @physical_servers = @physical_servers.where(finder)
-      status = {:online => "01", :registering => "02"}
       status_finder =[] 
-      status.each do |key, id |
-         status_finder << {:status => id}  if @finder.send(key) == "1"
+      @status.each do |key, id |
+        if @finder.send(id) == "1"
+           status_finder << {:status => key}
+           @check_status[id] = "checked"
+        else
+           @check_status[id] = "unchecked"
+        end
       end
       @physical_servers = @physical_servers.any_of(status_finder) unless status_finder.empty?
     end
+
+    @physical_servers = @physical_servers.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -79,45 +104,49 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
 
   # POST /tengine/resource/physical_servers
   # POST /tengine/resource/physical_servers.json
-  def create
-    @physical_server = Tengine::Resource::PhysicalServer.new(params[:physical_server])
+  # def create
+  #   @physical_server = Tengine::Resource::PhysicalServer.new(params[:physical_server])
 
-    respond_to do |format|
-      if @physical_server.save
-        format.html { redirect_to @physical_server, notice: successfully_created(@physical_server) }
-        format.json { render json: @physical_server, status: :created, location: @physical_server }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @physical_server.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   respond_to do |format|
+  #     if @physical_server.save
+  #       format.html { redirect_to @physical_server, notice: successfully_created(@physical_server) }
+  #       format.json { render json: @physical_server, status: :created, location: @physical_server }
+  #     else
+  #       format.html { render action: "new" }
+  #       format.json { render json: @physical_server.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PUT /tengine/resource/physical_servers/1
   # PUT /tengine/resource/physical_servers/1.json
   def update
-    @physical_server = Tengine::Resource::PhysicalServer.find(params[:id])
+    if params["commit"] == t(:cancel)
+        redirect_to :action => "index"
+    else
+      @physical_server = Tengine::Resource::PhysicalServer.find(params[:id])
 
-    respond_to do |format|
-      if @physical_server.update_attributes(params[:physical_server])
-        format.html { redirect_to @physical_server, notice: successfully_updated(@physical_server) }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @physical_server.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @physical_server.update_attributes(params[:physical_server])
+          format.html { redirect_to @physical_server, notice: successfully_updated(@physical_server) }
+          format.json { head :ok }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @physical_server.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
 
   # DELETE /tengine/resource/physical_servers/1
   # DELETE /tengine/resource/physical_servers/1.json
-  def destroy
-    @physical_server = Tengine::Resource::PhysicalServer.find(params[:id])
-    @physical_server.destroy
+  # def destroy
+  #   @physical_server = Tengine::Resource::PhysicalServer.find(params[:id])
+  #   @physical_server.destroy
 
-    respond_to do |format|
-      format.html { redirect_to tengine_resource_physical_servers_url, notice: successfully_destroyed(@physical_server) }
-      format.json { head :ok }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html { redirect_to tengine_resource_physical_servers_url, notice: successfully_destroyed(@physical_server) }
+  #     format.json { head :ok }
+  #   end
+  # end
 end

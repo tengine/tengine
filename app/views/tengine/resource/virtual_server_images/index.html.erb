@@ -10,15 +10,15 @@
       <tbody class="CelRow2">
         <tr>
           <th><%= f.label :name, Tengine::Resource::VirtualServerImage.human_attribute_name(:name) %></th>
-          <td><%= f.text_field :name , :class => "InputText InputW200"%></td>
+          <td><%= f.text_field :name , :class => "InputText"%></td>
         </tr>
         <tr>
           <th><%= f.label :description, Tengine::Resource::VirtualServerImage.human_attribute_name(:description) %></th>
-          <td><%= f.text_field :description, :class => "InputText InputW200" %></td>
+          <td><%= f.text_field :description, :class => "InputText" %></td>
         </tr>
         <tr>
           <th><%= f.label :provided_id, Tengine::Resource::VirtualServerImage.human_attribute_name(:provided_id) %></th>
-          <td><%= f.text_field :provided_id,  :class => "InputText InputW200"%></td>
+          <td><%= f.text_field :provided_id,  :class => "InputText"%></td>
         </tr>
       </tbody>
     </table>
@@ -32,8 +32,8 @@
 </div>
 
 <div class="PageStats">
-  <div class="Pagenation">
-   <%= paginate @virtual_server_images %>
+  <div class="PageNation">
+   <%= paginate @virtual_server_images, :items => @virtual_server_images%>
   </div>
 </div>
 
@@ -44,31 +44,41 @@
       <% query_without_page = request.query_parameters.select{|k,v| %w(category finder).include?(k.to_s) } -%>
       <th><%= link_to Tengine::Resource::VirtualServerImage.human_attribute_name(:name), tengine_resource_virtual_server_images_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name) %></th>
       <th><%= link_to Tengine::Resource::VirtualServerImage.human_attribute_name(:provided_id), tengine_resource_virtual_server_images_path(query_without_page.merge(sort_param(:provided_id))), :class => sort_class(:provided_id) %></th>
-      <th><%= link_to Tengine::Resource::VirtualServerImage.human_attribute_name(:provided_description), tengine_resource_virtual_server_images_path(query_without_page.merge(sort_param(:provided_description))), :class => sort_class(:provided_description) %></th>
+<!-- >
+      <th><#%= link_to Tengine::Resource::VirtualServerImage.human_attribute_name(:provided_description), tengine_resource_virtual_server_images_path(query_without_page.merge(sort_param(:provided_description))), :class => sort_class(:provided_description) %></th>
+< -->
       <th><%= link_to Tengine::Resource::VirtualServerImage.human_attribute_name(:description), tengine_resource_virtual_server_images_path(query_without_page.merge(sort_param(:description))), :class => sort_class(:description) %></th>
-    <th><%= I18n.t(:operation, :scope => [:views, :pages]) %></th>
-  </tr>
+      <th><%= I18n.t(:operation, :scope => [:views, :pages]) %></th>
+    </tr>
+  </thead>
+
 
   <% @virtual_server_images.each do |virtual_server_image| %>
     <tr class="<%= cycle("even", "odd") %>" >
       <td><%= virtual_server_image.name %></td>
       <td><%= virtual_server_image.provided_id %></td>
-      <td><div class="YamlView" id="ids">
-        <%= virtual_server_image.description[0,5] %>
+<!-- >
+      <td><div class="YamlView" id= "properties_yaml<%=virtual_server_image.id.to_s %>">
+        <span class="IconYaml" style="display:block;"><#%= truncate(virtual_server_image.provided_description, :length =>23)  %></span>
         <div class="YamlScript">
-          <span class="IconYaml">表示</span>
-          <%= virtual_server_image.description %>
+          <p><#%= virtual_server_image.provided_description unless virtual_server_image.provided_description.empty? %></p>
         </div>
       </div></td>
-      <td><%= virtual_server_image.provided_description %></td>
+< -->
+      <td><div class="YamlView" id= "properties_yaml<%=virtual_server_image.id.to_s %>">
+        <span class="IconYaml" style="display:block;"><%= truncate(virtual_server_image.description, :length =>23) %></span>
+        <div class="YamlScript">
+          <p><%= virtual_server_image.description unless virtual_server_image.description.empty? %></p>
+        </div>
+      </div></td>
       <td><%= link_to_edit edit_tengine_resource_virtual_server_image_path(virtual_server_image), :class => "ActionEdit" %></td>
     </tr>
   <% end %>
 </table>
 
 <div class="PageStats">
-  <div class="Pagenation">
-   <%= paginate @virtual_server_images %>
+  <div class="PageNation">
+   <%= paginate @virtual_server_images, :items => @virtual_server_images%>
   </div>
 </div>
 
