@@ -19,7 +19,11 @@ CSS Information
 }
 
 .Clearfix:after {
+<<<<<<< HEAD:app/assets/stylesheets/module.css
     content: url(/assets/spacer.gif);
+=======
+    content: url(<%= asset_path("spacer.gif") %>);
+>>>>>>> develop:app/assets/stylesheets/module.css.erb
     display: block;
     clear: both;
     height: 0;
@@ -98,11 +102,11 @@ CSS Information
     margin-left: -200px;
     width: 100%;
 }
-	.RightLiquid div.Section {
-	    margin-left:210px;
-	    position: relative;
-	    zoom:1; /* for IE6-7 */
-	}
+  .RightLiquid div.Section {
+      margin-left:210px;
+      position: relative;
+      zoom:1; /* for IE6-7 */
+  }
 
 /* @end */
 
@@ -117,7 +121,7 @@ CSS Information
 }
 
 .TextAlignCenter {
-	clear: both;
+  clear: both;
     text-align: center;
 }
 
@@ -141,9 +145,9 @@ table.TableBase {
 
 table.TableBase th,
 table.TableBase td {
-	border: 0;
-	border-right: 1px dotted #ccc;
-	border-bottom: 1px solid #ccc;
+  border: 0;
+  border-right: 1px dotted #ccc;
+  border-bottom: 1px solid #ccc;
 }
 
 table.TableBase th {
@@ -158,40 +162,49 @@ table.TableBase td {
 }
 table.TableBase th.Last,
 table.TableBase td.Last {
-	border-right: 0;
+  border-right: 0;
 }
 /* 偶数行 */
 table.TableBase tr:nth-child(even) {
-	background-color: #EDEDED;
+  background-color: #EDEDED;
 }
 
 table.TableBase thead th {
-	color: #fff;
+  color: #fff;
     text-align: center;
     padding: 5px;
+<<<<<<< HEAD:app/assets/stylesheets/module.css
 	background: #999999 url(/assets/bg_th.png) repeat-x left bottom;
 	white-space: nowrap;
+=======
+  background: #999999 url(<%= asset_path("bg_th.png") %>) repeat-x left bottom;
+  white-space: nowrap;
+>>>>>>> develop:app/assets/stylesheets/module.css.erb
 }
 table.TableBase thead th a {
-	display: block;
-	padding:4px 18px 0 15px;
-	min-height: 25px;
-	color: #fff;
-	font-weight: bold;
+  display: block;
+  padding:4px 18px 0 15px;
+  min-height: 25px;
+  color: #fff;
+  font-weight: bold;
     text-align: center;
+<<<<<<< HEAD:app/assets/stylesheets/module.css
 	background:url(/assets/btn_topbtm.png) no-repeat right top;
+=======
+  background:url(<%= asset_path("btn_topbtm.png") %>) no-repeat right top;
+>>>>>>> develop:app/assets/stylesheets/module.css.erb
 }
 table.TableBase thead th a:hover,
 table.TableBase thead th a.SortAsc,
 table.TableBase thead th a.SortDesc:hover {
-	color: #ffa;
-	background-position: right -50px;
+  color: #ffa;
+  background-position: right -50px;
 }
 
 table.TableBase thead th a.SortAsc:hover,
 table.TableBase thead th a.SortDesc {
-	color: #ffa;
-	background-position: right -100px;
+  color: #ffa;
+  background-position: right -100px;
 }
 
 table.TableBase td {
@@ -211,78 +224,78 @@ table.TableBase td table td {
 }
 
 col.RowTitle{
-	
+  
 }
 col.RowSort{
-	width: 70px;
+  width: 70px;
 }
 col.RowAction{
-	width: 150px;
+  width: 150px;
 }
-col.RowW80	{ width: 80px; }
-col.RowW100	{ width: 100px; }
-col.RowW150	{ width: 150px; }
-col.RowW200	{ width: 200px; }
+col.RowW80  { width: 80px; }
+col.RowW100  { width: 100px; }
+col.RowW150  { width: 150px; }
+col.RowW200  { width: 200px; }
 
 /* @end */
 
 /* @group .TableForm4rows */
 table.TableForm4rows {
-	border: none;
+  border: none;
 }
 table.TableForm4rows thead th {
-	padding: 5px 10px;
-	text-align: center;
-	font-weight: normal;
+  padding: 5px 10px;
+  text-align: center;
+  font-weight: normal;
     background-color: #E0F2D8;
 }
 table.TableForm4rows tbody th {
-	width: 20px;
-	white-space: nowrap;
-	text-align: right;
-	font-weight: normal;
-	background: none;
-	border: none;
+  width: 20px;
+  white-space: nowrap;
+  text-align: right;
+  font-weight: normal;
+  background: none;
+  border: none;
 }
 table.TableForm4rows tbody td {
-	padding: 5px 10px;
-	border: none;
-	text-align: left;
+  padding: 5px 10px;
+  border: none;
+  text-align: left;
 }
 table.TableForm4rows tbody .CelRow1,
 table.TableForm4rows tbody .CelRow4 {
-	width: 100px;
+  width: 100px;
 }
 
 table.TableForm4rows tbody .CelRow2{
-	width: 240px;
+  width: 240px;
 }
 table.TableForm4rows tbody .CelRow3 {
-	width: auto;
+  width: auto;
 }
 table.TableForm4rows tbody .CelRow5 {
-	width: auto;
-	padding: 0 !important;
+  width: auto;
+  padding: 0 !important;
 }
 
 
 table.TableFormPreview tbody tr td {
-	font-weight: bold;
+  font-weight: bold;
 }
 table.TableFormPreview tbody .CelRow1,
 table.TableFormPreview tbody .CelRow4 {
-	width: 100px;
+  width: 100px;
 }
 
 table.TableFormPreview tbody .CelRow2{
-	width: 120px;
+  width: 120px;
 }
 table.TableFormPreview tbody .CelRow3 {
-	width: 30px;
+  width: 30px;
 }
 table.TableFormPreview tbody .CelRow5 {
-	width: auto;
-	padding: 5px 10px !important;
+  width: auto;
+  padding: 5px 10px !important;
 }
 
 /* @end */
@@ -291,34 +304,34 @@ table.TableFormPreview tbody .CelRow5 {
 /* @group .TableInfoView */
 
 table.TableInfoView {
-	border: 1px solid #ccc;
+  border: 1px solid #ccc;
 }
 table.TableInfoView tbody th,
 table.TableInfoView tbody td {
-	padding: 5px 10px;
-	background: none;
-	border: none;
+  padding: 5px 10px;
+  background: none;
+  border: none;
 }
 
 table.TableInfoView tbody th {
-	width: 20px;
-	white-space: nowrap;
-	text-align: right;
-	font-weight: normal;
+  width: 20px;
+  white-space: nowrap;
+  text-align: right;
+  font-weight: normal;
 }
 table.TableInfoView tbody td {
-	text-align: left;
-	font-weight: bold;
+  text-align: left;
+  font-weight: bold;
 }
 table.TableInfoView tbody .CelRow1,
 table.TableInfoView tbody .CelRow2,
 table.TableInfoView tbody .CelRow3,
 table.TableInfoView tbody .CelRow4 {
-	width: 1px;
-	white-space: nowrap;
+  width: 1px;
+  white-space: nowrap;
 }
 table.TableInfoView tbody .CelRow5 {
-	width: 50%;
+  width: 50%;
 }
 
 /* @end */
@@ -327,62 +340,62 @@ table.TableInfoView tbody .CelRow5 {
 
 /* @group .PageStats */
 .PageStats {
-	display: inline;
-	float: left;
-	margin-top: 10px;
-	margin-right: 15px;
+  display: inline;
+  float: left;
+  margin-top: 10px;
+  margin-right: 15px;
 }
 .PageInfo{
-	margin-right: 10px;
-	padding-top: 3px;
-	float: left;
+  margin-right: 10px;
+  padding-top: 3px;
+  float: left;
 }
 /* @group .PageNation */
 
 .PageNation {
-	float: left;
-	display: inline;
-	padding:0 0 5px 0;
-	text-align:right;
+  float: left;
+  display: inline;
+  padding:0 0 5px 0;
+  text-align:right;
 }
 .PageNation div.disabled { display: none; }
 
 .PageNation span.current,
 .PageNation a {
-	display:inline-block;
-	overflow:hidden;
-	margin:0 1px;
-	padding:2px 4px 2px 5px;
-	border: 1px solid #82ADEA;
-	font-size:0.9em;
-	line-height:16px;
-	background-color: #fff;
-	text-align:center;
+  display:inline-block;
+  overflow:hidden;
+  margin:0 1px;
+  padding:2px 4px 2px 5px;
+  border: 1px solid #82ADEA;
+  font-size:0.9em;
+  line-height:16px;
+  background-color: #fff;
+  text-align:center;
 }
 .PageNation span.current, 
 .PageNation a:hover {
-	background-color: #82ADEA;
-	color:#FFFFFF;
-	text-decoration:none;
-	border: 1px solid #82ADEA;
+  background-color: #82ADEA;
+  color:#FFFFFF;
+  text-decoration:none;
+  border: 1px solid #82ADEA;
 }
 
 a.LinkPreviousposts{
-	display: inline;
-	float: left;
-	margin-bottom: 10px;
+  display: inline;
+  float: left;
+  margin-bottom: 10px;
 }
 a.LinkNextposts{
-	display: inline;
-	float: right;
+  display: inline;
+  float: right;
 }
 
 .PageNationTop {
-	margin-bottom: 20px;
-	padding-bottom: 8px;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
 }
 .PageNationBottom {
-	margin-top: -15px;
+  margin-top: -15px;
 }
 
 /* @end */
@@ -392,36 +405,36 @@ a.LinkNextposts{
 /* @group Box */
 
 .BoxBtns {
-	margin: 20px 0 10px 0;
-	text-align: center;
+  margin: 20px 0 10px 0;
+  text-align: center;
 }
 
 
 /* @group .BoxActionLinksRight */
 .BoxActionLinksRight {
-	display: inline;
-	float: right;
+  display: inline;
+  float: right;
 }
 
 /* @end */
 
 .BorderBox {
-	margin: 1em 0;
-	padding: 1.2em;
-	border: 3px solid #DBD9CC;
+  margin: 1em 0;
+  padding: 1.2em;
+  border: 3px solid #DBD9CC;
 }
 
 
 .BoxScroll {
-	overflow: auto;
-	padding: 10px 20px;
-	height: 300px;
-	background-color: #fff;
+  overflow: auto;
+  padding: 10px 20px;
+  height: 300px;
+  background-color: #fff;
 }
 
 .BoxSearchForm {
-	padding: 20px;
-	border: 1px solid #ccc;
+  padding: 20px;
+  border: 1px solid #ccc;
 }
 
 /* @end */
@@ -429,31 +442,32 @@ a.LinkNextposts{
 /* @group .YamlView */
 
 .YamlView {
-	position: relative;
-	margin-top: 3px;
-	color: #06C;
+  position: relative;
+  margin-top: 3px;
+  color: #06C;
 }
 .IconYaml{
-	cursor: pointer;
-	z-index: 1;
+  cursor: pointer;
+  z-index: 1;
 }
 .YamlScript {
-	display: none;
-	position: absolute;
-	top: 20px; left: 0;
-	padding: 10px;
-	border: 1px solid #06C;
-	border-radius:1px;
-	box-shadow: 1px 1px 3px #aaa;
-	
-	color: #06C;
-	background-color: #fff;
-	line-height: 1.4;
-	white-space: nowrap;
-	z-index: 9999;
+  display: none;
+  position: absolute;
+  top: 20px; left: 0;
+  padding: 10px;
+  border: 1px solid #06C;
+  border-radius:1px;
+  box-shadow: 1px 1px 3px #aaa;
+  
+  color: #06C;
+  background-color: #fff;
+  line-height: 1.4;
+  white-space: nowrap;
+  z-index: 9999;
 }
 
 .YamlScript .Close {
+<<<<<<< HEAD:app/assets/stylesheets/module.css
 	position: absolute;
 	top: 5px; right: 5px;
 	display: inline-block;
@@ -463,48 +477,59 @@ a.LinkNextposts{
 	cursor: pointer;
 	background: url(/assets/btn_close.png) no-repeat left top;
 	
+=======
+  position: absolute;
+  top: 5px; right: 5px;
+  display: inline-block;
+  padding-top: 12px;
+  width: 12px; height: 0;
+  overflow: hidden;
+  cursor: pointer;
+  background: url(<%= asset_path("btn_close.png") %>) no-repeat left top;
+  
+>>>>>>> develop:app/assets/stylesheets/module.css.erb
 }
 
 /* @end */
 
 /* @group .TreeViewContents */
-	
+  
 .TreeViewContents {
-	position: relative;
+  position: relative;
 }
 .TreeViewContents:after {
-	visibility: hidden;
-	display: block;
-	font-size: 0;
-	content: " ";
-	clear: both;
-	height: 0;
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
 }
 * html .TreeViewContents             { zoom: 1; } /* IE6 */
 *:first-child+html .TreeViewContents { zoom: 1; } /* IE7 */
-	#main .DataView {
-		float: left;
-		display: inline;
-		width: 100%;
-	}
-		#main .DataView .Wrap {
-			min-width: 500px;
-			margin-left: 225px;
-			padding: 0;
-		}
-	.TreeView {
-		float: left;
-		display: inline;
-		width: 220px;
-		margin-left: -100%;
-		font-size: 13px;
-		line-height: 1.1;
-	}
+  #main .DataView {
+    float: left;
+    display: inline;
+    width: 100%;
+  }
+    #main .DataView .Wrap {
+      min-width: 500px;
+      margin-left: 225px;
+      padding: 0;
+    }
+  .TreeView {
+    float: left;
+    display: inline;
+    width: 220px;
+    margin-left: -100%;
+    font-size: 13px;
+    line-height: 1.1;
+  }
 
 #main .DataView .Wrap h2 {
-	float: left;
-	margin-top: 0;
-	border: 0;
+  float: left;
+  margin-top: 0;
+  border: 0;
 }
 /* @end */
 
