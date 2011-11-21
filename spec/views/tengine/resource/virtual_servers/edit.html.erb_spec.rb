@@ -2,18 +2,68 @@ require 'spec_helper'
 
 describe "tengine/resource/virtual_servers/edit.html.erb" do
   before(:each) do
-    @virtual_server = assign(:virtual_server, stub_model(Tengine::Resource::VirtualServer,
-      :provider => nil,
-      :name => "MyString",
-      :provided_id => "MyString",
-      :description => "MyString",
-      :status => "MyString",
-      :addresses => {"a"=>"1", "b"=>"2"},
+    Tengine::Resource::VirtualServerImage.delete_all
+    Tengine::Resource::VirtualServerType.delete_all
+    Tengine::Resource::PhysicalServer.delete_all
+    Tengine::Resource::VirtualServer.delete_all
+    Tengine::Resource::Provider.delete_all
+    @provider = Tengine::Resource::Provider.create!(
+      :name => "provider1",
+      :description => "Description",
+    )
+    @image1 = Tengine::Resource::VirtualServerImage.create!(
+      :provider_id => @provider.id,
+      :name => "vimage1",
+      :description => "Description",
+      :provided_id => "ami1",
+    )
+    @image2 = Tengine::Resource::VirtualServerImage.create!(
+      :provider_id => @provider.id,
+      :name => "vimage2",
+      :description => "Description",
+      :provided_id => "ami2",
+    )
+    @type1 = Tengine::Resource::VirtualServerType.create!(
+      :provider_id => @provider.id,
+      :provided_id => "large",
+      :caption => "Large",
+    )
+    @type2 = Tengine::Resource::VirtualServerType.create!(
+      :provider_id => @provider.id,
+      :provided_id => "small",
+      :caption => "Small",
+    )
+    @physical_server1 = Tengine::Resource::PhysicalServer.create!(
+      :provider_id => @provider.id,
+      :name => "pserver1",
+      :provided_id => "server1",
+      :description => "Description",
+      :status => "Status",
+      :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
       :properties => {"a"=>"1", "b"=>"2"},
-      :provided_image_id => "MyString",
-      :provided_type_id => "MyString",
-      :host_server => ""
-    ))
+    )
+    @virtual_server1 = Tengine::Resource::VirtualServer.create!(
+      :provider_id => @provider.id,
+      :name => "vserver1",
+      :provided_id => "i0002",
+      :description => "v2Description",
+      :status => "Status",
+      :addresses => {"ip_address"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
+      :properties => {"a"=>"1", "b"=>"2"},
+      :provided_image_id => "ami1",
+      :provided_type_id => "large",
+      :host_server_id => @physical_server1.id,
+    )
+
+    assign(:virtual_server, @virtual_server1)
+  end
+
+  after do
+    Tengine::Resource::VirtualServerImage.delete_all
+    Tengine::Resource::VirtualServerType.delete_all
+    Tengine::Resource::PhysicalServer.delete_all
+    Tengine::Resource::VirtualServer.delete_all
+    Tengine::Resource::Provider.delete_all
   end
 
   it "renders the edit virtual_server form" do
@@ -21,16 +71,20 @@ describe "tengine/resource/virtual_servers/edit.html.erb" do
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => tengine_resource_virtual_servers_path(@virtual_server), :method => "post" do
-      assert_select "input#virtual_server_provider_id", :name => "virtual_server[provider_id]"
       assert_select "input#virtual_server_name", :name => "virtual_server[name]"
-      assert_select "input#virtual_server_provided_id", :name => "virtual_server[provided_id]"
-      assert_select "input#virtual_server_description", :name => "virtual_server[description]"
-      assert_select "input#virtual_server_status", :name => "virtual_server[status]"
-      assert_select "textarea#virtual_server_addresses_yaml", :name => "virtual_server[addresses_yaml]"
-      assert_select "textarea#virtual_server_properties_yaml", :name => "virtual_server[properties_yaml]"
-      assert_select "input#virtual_server_provided_image_id", :name => "virtual_server[provided_image_id]"
-      assert_select "input#virtual_server_provided_type_id", :name => "virtual_server[provided_type_id]"
-      assert_select "input#virtual_server_host_server", :name => "virtual_server[host_server]"
+      assert_select "textarea#virtual_server_description", :name => "virtual_server[description]"
     end
+  end
+
+  it "renders the virtual_server info" do
+    render
+
+    rendered.should have_xpath("//td", :text => @virtual_server1.host_server.name)
+    rendered.should have_xpath("//td", :text => @virtual_server1.provided_id)
+    rendered.should have_xpath("//td", :text => @virtual_server1.status)
+    rendered.should have_xpath("//td", :text => @virtual_server1.addresses["ip_address"])
+    rendered.should have_xpath("//td", :text => @virtual_server1.properties["a"])
+    rendered.should have_xpath("//td", :text => @type1.caption)
+    rendered.should have_xpath("//td", :text => @image1.provided_id)
   end
 end

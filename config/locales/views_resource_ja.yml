@@ -1,0 +1,36 @@
+ja:
+  tengine:
+    resource:
+      virtual_servers:
+        index:
+          links:
+            new: "仮想サーバを起動"
+            delete: "選択したサーバを停止"
+            show_yml: "表示"
+          refresher:
+            form:
+              refresh_interval: "画面の更新間隔"
+              submit: "決定"
+          virtual_server:
+            not_found: "仮想サーバは起動していません。"
+          stop:
+            form:
+              confirm: "本当に選択したサーバを停止させますか？"
+          finder:
+            form:
+              submit: "検索"
+        new:
+          human:
+            storage_units:
+              mb: "MB"
+          pages:
+            avilable_starting_number: "起動可能数"
+            run: "起動"
+        created:
+          pages:
+            run_result: "起動結果"
+          links:
+            back: "戻る"
+          notice:
+            created: "起動要求を送信しました。"
+            created_with_provided_ids: "以下のプロバイダによるIDの起動要求を送信しました。"

@@ -256,4 +256,21 @@ describe ApplicationHelper do
       end
     end
   end
+
+  describe "message" do
+    it "typeに応じてclassが変わること" do
+      helper.message(:warning, "test").should =~ /class="Msg MsgWarning"/
+      helper.message(:complete, "test").should =~ /class="Msg MsgComplete"/
+      helper.message(:delete, "test").should =~ /class="Msg MsgCompleteDelete"/
+    end
+
+    it "textがpタグとdivタグに囲われていること" do
+      expected = %|<div class="Msg MsgComplete"><p>test</p></div>|
+      helper.message(:complete, "test").strip.gsub(/\n?^\s+/, '').should == expected
+    end
+
+    it "ブロックで渡した内容が含まれていること" do
+      helper.message(:complete, "test") { "foo" }.should =~ /foo/
+    end
+  end
 end

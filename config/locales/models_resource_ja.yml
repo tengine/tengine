@@ -36,6 +36,26 @@ ja:
         # status: "ステータス"
         # addresses "IPアドレス"
         # provided_type_id: "プロバイダによる仮想サーバタイプID"
+      tengine/resource/virtual_server:
+        name: "仮想サーバ名"
+        provided_id: "プロバイダによるID"
+        description: "説明"
+        addresses: "IPアドレス"
+        status: "ステータス"
+        provided_image_id: "仮想サーバイメージ名"
+        provided_type_id: "仮想サーバタイプ"
+        properties: "プロパティ"
+        starting_number: "起動サーバ数"
+      tengine/resource/virtual_server/finder:
+        physical_server_name: "物理サーバ名"
+        virtual_server_name: "仮想サーバ名"
+        provided_id: "プロバイダによるID"
+        description: "説明"
+        virtual_server_image_name: "仮想サーバイメージ名"
+        status_cd: "ステータス"
+      tengine/resource/virtual_server_type:
+        cpu_cores: "CPUコア数"
+        memory_size: "メモリサイズ"
 
   selectable_attrs:
     tengine/resource/credential:
