@@ -6,7 +6,7 @@
       {
         "id": "physical_server_id_01",
         "name": "physical_server_name_01",
-        "uuid": "physical_server_uuid_01",
+        "uuid": "physical_server_name_01",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_01",
@@ -19,7 +19,7 @@
       {
         "id": "physical_server_id_02",
         "name": "physical_server_name_02",
-        "uuid": "physical_server_uuid_02",
+        "uuid": "physical_server_name_02",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_02",
@@ -32,7 +32,7 @@
       {
         "id": "physical_server_id_03",
         "name": "physical_server_name_03",
-        "uuid": "physical_server_uuid_03",
+        "uuid": "physical_server_name_03",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_03",
@@ -45,7 +45,7 @@
       {
         "id": "physical_server_id_04",
         "name": "physical_server_name_04",
-        "uuid": "physical_server_uuid_04",
+        "uuid": "physical_server_name_04",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_04",
@@ -58,7 +58,7 @@
       {
         "id": "physical_server_id_05",
         "name": "physical_server_name_05",
-        "uuid": "physical_server_uuid_05",
+        "uuid": "physical_server_name_05",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_05",
@@ -71,7 +71,7 @@
       {
         "id": "physical_server_id_06",
         "name": "physical_server_name_06",
-        "uuid": "physical_server_uuid_06",
+        "uuid": "physical_server_name_06",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_06",
@@ -84,7 +84,7 @@
       {
         "id": "physical_server_id_07",
         "name": "physical_server_name_07",
-        "uuid": "physical_server_uuid_07",
+        "uuid": "physical_server_name_07",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_07",
@@ -97,7 +97,7 @@
       {
         "id": "physical_server_id_08",
         "name": "physical_server_name_08",
-        "uuid": "physical_server_uuid_08",
+        "uuid": "physical_server_name_08",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_08",
@@ -110,7 +110,7 @@
       {
         "id": "physical_server_id_09",
         "name": "physical_server_name_09",
-        "uuid": "physical_server_uuid_09",
+        "uuid": "physical_server_name_09",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_09",
@@ -123,7 +123,7 @@
       {
         "id": "physical_server_id_10",
         "name": "physical_server_name_10",
-        "uuid": "physical_server_uuid_10",
+        "uuid": "physical_server_name_10",
         "status": "registering",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_10",
@@ -137,7 +137,7 @@
       {
         "id": "physical_server_id_11",
         "name": "physical_server_name_11",
-        "uuid": "physical_server_uuid_11",
+        "uuid": "physical_server_name_11",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_11",
@@ -150,7 +150,7 @@
       {
         "id": "physical_server_id_12",
         "name": "physical_server_name_12",
-        "uuid": "physical_server_uuid_12",
+        "uuid": "physical_server_name_12",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_12",
@@ -163,7 +163,7 @@
       {
         "id": "physical_server_id_13",
         "name": "physical_server_name_13",
-        "uuid": "physical_server_uuid_13",
+        "uuid": "physical_server_name_13",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_13",
@@ -176,7 +176,7 @@
       {
         "id": "physical_server_id_14",
         "name": "physical_server_name_14",
-        "uuid": "physical_server_uuid_14",
+        "uuid": "physical_server_name_14",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_14",
@@ -189,7 +189,7 @@
       {
         "id": "physical_server_id_15",
         "name": "physical_server_name_15",
-        "uuid": "physical_server_uuid_15",
+        "uuid": "physical_server_name_15",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_15",
@@ -202,7 +202,7 @@
       {
         "id": "physical_server_id_16",
         "name": "physical_server_name_16",
-        "uuid": "physical_server_uuid_16",
+        "uuid": "physical_server_name_16",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_16",
@@ -215,7 +215,7 @@
       {
         "id": "physical_server_id_17",
         "name": "physical_server_name_17",
-        "uuid": "physical_server_uuid_17",
+        "uuid": "physical_server_name_17",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_17",
@@ -228,7 +228,7 @@
       {
         "id": "physical_server_id_18",
         "name": "physical_server_name_18",
-        "uuid": "physical_server_uuid_18",
+        "uuid": "physical_server_name_18",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_18",
@@ -241,7 +241,7 @@
       {
         "id": "physical_server_id_19",
         "name": "physical_server_name_19",
-        "uuid": "physical_server_uuid_19",
+        "uuid": "physical_server_name_19",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_19",
@@ -254,7 +254,7 @@
       {
         "id": "physical_server_id_20",
         "name": "physical_server_name_20",
-        "uuid": "physical_server_uuid_20",
+        "uuid": "physical_server_name_20",
         "status": "registering",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_20",
@@ -268,7 +268,7 @@
       {
         "id": "physical_server_id_21",
         "name": "physical_server_name_21",
-        "uuid": "physical_server_uuid_21",
+        "uuid": "physical_server_name_21",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_21",
@@ -281,7 +281,7 @@
       {
         "id": "physical_server_id_22",
         "name": "physical_server_name_22",
-        "uuid": "physical_server_uuid_22",
+        "uuid": "physical_server_name_22",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_22",
@@ -294,7 +294,7 @@
       {
         "id": "physical_server_id_23",
         "name": "physical_server_name_23",
-        "uuid": "physical_server_uuid_23",
+        "uuid": "physical_server_name_23",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_23",
@@ -307,7 +307,7 @@
       {
         "id": "physical_server_id_24",
         "name": "physical_server_name_24",
-        "uuid": "physical_server_uuid_24",
+        "uuid": "physical_server_name_24",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_24",
@@ -320,7 +320,7 @@
       {
         "id": "physical_server_id_25",
         "name": "physical_server_name_25",
-        "uuid": "physical_server_uuid_25",
+        "uuid": "physical_server_name_25",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_25",
@@ -333,7 +333,7 @@
       {
         "id": "physical_server_id_26",
         "name": "physical_server_name_26",
-        "uuid": "physical_server_uuid_26",
+        "uuid": "physical_server_name_26",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_26",
@@ -346,7 +346,7 @@
       {
         "id": "physical_server_id_27",
         "name": "physical_server_name_27",
-        "uuid": "physical_server_uuid_27",
+        "uuid": "physical_server_name_27",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_27",
@@ -359,7 +359,7 @@
       {
         "id": "physical_server_id_28",
         "name": "physical_server_name_28",
-        "uuid": "physical_server_uuid_28",
+        "uuid": "physical_server_name_28",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_28",
@@ -372,7 +372,7 @@
       {
         "id": "physical_server_id_29",
         "name": "physical_server_name_29",
-        "uuid": "physical_server_uuid_29",
+        "uuid": "physical_server_name_29",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_29",
@@ -385,7 +385,7 @@
       {
         "id": "physical_server_id_30",
         "name": "physical_server_name_30",
-        "uuid": "physical_server_uuid_30",
+        "uuid": "physical_server_name_30",
         "status": "registering",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_30",
@@ -399,7 +399,7 @@
       {
         "id": "physical_server_id_31",
         "name": "physical_server_name_31",
-        "uuid": "physical_server_uuid_31",
+        "uuid": "physical_server_name_31",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_31",
@@ -412,7 +412,7 @@
       {
         "id": "physical_server_id_32",
         "name": "physical_server_name_32",
-        "uuid": "physical_server_uuid_32",
+        "uuid": "physical_server_name_32",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_32",
@@ -425,7 +425,7 @@
       {
         "id": "physical_server_id_33",
         "name": "physical_server_name_33",
-        "uuid": "physical_server_uuid_33",
+        "uuid": "physical_server_name_33",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_33",
@@ -438,7 +438,7 @@
       {
         "id": "physical_server_id_34",
         "name": "physical_server_name_34",
-        "uuid": "physical_server_uuid_34",
+        "uuid": "physical_server_name_34",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_34",
@@ -451,7 +451,7 @@
       {
         "id": "physical_server_id_35",
         "name": "physical_server_name_35",
-        "uuid": "physical_server_uuid_35",
+        "uuid": "physical_server_name_35",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_35",
@@ -464,7 +464,7 @@
       {
         "id": "physical_server_id_36",
         "name": "physical_server_name_36",
-        "uuid": "physical_server_uuid_36",
+        "uuid": "physical_server_name_36",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_36",
@@ -477,7 +477,7 @@
       {
         "id": "physical_server_id_37",
         "name": "physical_server_name_37",
-        "uuid": "physical_server_uuid_37",
+        "uuid": "physical_server_name_37",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_37",
@@ -490,7 +490,7 @@
       {
         "id": "physical_server_id_38",
         "name": "physical_server_name_38",
-        "uuid": "physical_server_uuid_38",
+        "uuid": "physical_server_name_38",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_38",
@@ -503,7 +503,7 @@
       {
         "id": "physical_server_id_39",
         "name": "physical_server_name_39",
-        "uuid": "physical_server_uuid_39",
+        "uuid": "physical_server_name_39",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_39",
@@ -516,7 +516,7 @@
       {
         "id": "physical_server_id_40",
         "name": "physical_server_name_40",
-        "uuid": "physical_server_uuid_40",
+        "uuid": "physical_server_name_40",
         "status": "registering",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_40",
@@ -530,7 +530,7 @@
       {
         "id": "physical_server_id_41",
         "name": "physical_server_name_41",
-        "uuid": "physical_server_uuid_41",
+        "uuid": "physical_server_name_41",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_41",
@@ -543,7 +543,7 @@
       {
         "id": "physical_server_id_42",
         "name": "physical_server_name_42",
-        "uuid": "physical_server_uuid_42",
+        "uuid": "physical_server_name_42",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_42",
@@ -556,7 +556,7 @@
       {
         "id": "physical_server_id_43",
         "name": "physical_server_name_43",
-        "uuid": "physical_server_uuid_43",
+        "uuid": "physical_server_name_43",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_43",
@@ -569,7 +569,7 @@
       {
         "id": "physical_server_id_44",
         "name": "physical_server_name_44",
-        "uuid": "physical_server_uuid_44",
+        "uuid": "physical_server_name_44",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_44",
@@ -582,7 +582,7 @@
       {
         "id": "physical_server_id_45",
         "name": "physical_server_name_45",
-        "uuid": "physical_server_uuid_45",
+        "uuid": "physical_server_name_45",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_45",
@@ -595,7 +595,7 @@
       {
         "id": "physical_server_id_46",
         "name": "physical_server_name_46",
-        "uuid": "physical_server_uuid_46",
+        "uuid": "physical_server_name_46",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_46",
@@ -608,7 +608,7 @@
       {
         "id": "physical_server_id_47",
         "name": "physical_server_name_47",
-        "uuid": "physical_server_uuid_47",
+        "uuid": "physical_server_name_47",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_47",
@@ -621,7 +621,7 @@
       {
         "id": "physical_server_id_48",
         "name": "physical_server_name_48",
-        "uuid": "physical_server_uuid_48",
+        "uuid": "physical_server_name_48",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_48",
@@ -634,7 +634,7 @@
       {
         "id": "physical_server_id_49",
         "name": "physical_server_name_49",
-        "uuid": "physical_server_uuid_49",
+        "uuid": "physical_server_name_49",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_49",
@@ -647,7 +647,7 @@
       {
         "id": "physical_server_id_50",
         "name": "physical_server_name_50",
-        "uuid": "physical_server_uuid_50",
+        "uuid": "physical_server_name_50",
         "status": "registering",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_50",
@@ -661,7 +661,7 @@
       {
         "id": "physical_server_id_51",
         "name": "physical_server_name_51",
-        "uuid": "physical_server_uuid_51",
+        "uuid": "physical_server_name_51",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_51",
@@ -674,7 +674,7 @@
       {
         "id": "physical_server_id_52",
         "name": "physical_server_name_52",
-        "uuid": "physical_server_uuid_52",
+        "uuid": "physical_server_name_52",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_52",
@@ -687,7 +687,7 @@
       {
         "id": "physical_server_id_53",
         "name": "physical_server_name_53",
-        "uuid": "physical_server_uuid_53",
+        "uuid": "physical_server_name_53",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_53",
@@ -700,7 +700,7 @@
       {
         "id": "physical_server_id_54",
         "name": "physical_server_name_54",
-        "uuid": "physical_server_uuid_54",
+        "uuid": "physical_server_name_54",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_54",
@@ -713,7 +713,7 @@
       {
         "id": "physical_server_id_55",
         "name": "physical_server_name_55",
-        "uuid": "physical_server_uuid_55",
+        "uuid": "physical_server_name_55",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_55",
@@ -726,7 +726,7 @@
       {
         "id": "physical_server_id_56",
         "name": "physical_server_name_56",
-        "uuid": "physical_server_uuid_56",
+        "uuid": "physical_server_name_56",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_56",
@@ -739,7 +739,7 @@
       {
         "id": "physical_server_id_57",
         "name": "physical_server_name_57",
-        "uuid": "physical_server_uuid_57",
+        "uuid": "physical_server_name_57",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_57",
@@ -752,7 +752,7 @@
       {
         "id": "physical_server_id_58",
         "name": "physical_server_name_58",
-        "uuid": "physical_server_uuid_58",
+        "uuid": "physical_server_name_58",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_58",
@@ -765,7 +765,7 @@
       {
         "id": "physical_server_id_59",
         "name": "physical_server_name_59",
-        "uuid": "physical_server_uuid_59",
+        "uuid": "physical_server_name_59",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_59",
@@ -778,7 +778,7 @@
       {
         "id": "physical_server_id_60",
         "name": "physical_server_name_60",
-        "uuid": "physical_server_uuid_60",
+        "uuid": "physical_server_name_60",
         "status": "registering",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_60",
