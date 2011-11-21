@@ -4,7 +4,7 @@
     <tbody class= "CelRow3">
       <tr>
         <th><%= f.label :name %></th>
-        <td><%= @virtual_server_image.name %></td>
+        <td><%= f.text_field :name, class: "InputText" %></td>
       </tr>
       <tr>
         <th><%= f.label :provided_id %></th>
@@ -16,7 +16,7 @@
       </tr>
       <tr>
         <th><%= f.label :description %></th>
-        <td><%= f.text_area :description, class: "InputTex"  %></td>
+        <td><%= f.text_area :description, class: "InputText"  %></td>
       </tr>
     </tbody>
   </table>
