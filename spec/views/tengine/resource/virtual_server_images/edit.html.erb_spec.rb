@@ -16,7 +16,7 @@ describe "tengine/resource/virtual_server_images/edit.html.erb" do
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => tengine_resource_virtual_server_images_path(@virtual_server_image), :method => "post" do
-      rendered.should match(/virtual_image/)
+      assert_select "input#virtual_server_image_name", :name => "virtual_server_image[name]"
       rendered.should match(/abcdef/)
       rendered.should match(/virtual image large .../)
       assert_select "textarea#virtual_server_image_description", :name => "virtual_server_image[description]"

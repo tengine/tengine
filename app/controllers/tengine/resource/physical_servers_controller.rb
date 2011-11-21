@@ -144,13 +144,13 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
 
   # DELETE /tengine/resource/physical_servers/1
   # DELETE /tengine/resource/physical_servers/1.json
-  # def destroy
-  #   @physical_server = Tengine::Resource::PhysicalServer.find(params[:id])
-  #   @physical_server.destroy
+  def destroy
+    @physical_server = Tengine::Resource::PhysicalServer.find(params[:id])
+    @physical_server.destroy
 
-  #   respond_to do |format|
-  #     format.html { redirect_to tengine_resource_physical_servers_url, notice: successfully_destroyed(@physical_server) }
-  #     format.json { head :ok }
-  #   end
-  # end
+    respond_to do |format|
+      format.html { redirect_to tengine_resource_physical_servers_url, notice: successfully_destroyed(@physical_server) }
+      format.json { head :ok }
+    end
+  end
 end

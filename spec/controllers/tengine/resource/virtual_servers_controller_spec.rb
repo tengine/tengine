@@ -99,130 +99,157 @@ describe Tengine::Resource::VirtualServersController do
   end
 
   describe "GET new" do
-    before(:each) do
-      Tengine::Resource::VirtualServerImage.delete_all
-      Tengine::Resource::VirtualServerType.delete_all
-      Tengine::Resource::PhysicalServer.delete_all
-      Tengine::Resource::VirtualServer.delete_all
-      Tengine::Resource::Provider.delete_all
-      @provider = Tengine::Resource::Provider::Wakame.create!(
-        :name => "provider1",
-        :description => "Description",
-      )
-      @image1 = Tengine::Resource::VirtualServerImage.create!(
-        :provider_id => @provider.id,
-        :name => "vimage1",
-        :description => "Description",
-        :provided_id => "ami1",
-      )
-      @image2 = Tengine::Resource::VirtualServerImage.create!(
-        :provider_id => @provider.id,
-        :name => "vimage2",
-        :description => "Description",
-        :provided_id => "ami2",
-      )
-      @type1 = Tengine::Resource::VirtualServerType.create!(
-        :provider_id => @provider.id,
-        :provided_id => "Large",
-        :caption => "Large",
-        :cpu_cores => 2,
-        :memory_size => 5.gigabyte,
-      )
-      @type2 = Tengine::Resource::VirtualServerType.create!(
-        :provider_id => @provider.id,
-        :provided_id => "Small",
-        :caption => "Small",
-        :cpu_cores => 1,
-        :memory_size => 2.gigabyte,
-      )
-      @physical_server1 = Tengine::Resource::PhysicalServer.create!(
-        :provider_id => @provider.id,
-        :name => "pserver1",
-        :provided_id => "server1",
-        :description => "Description",
-        :status => "online",
-        :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
-        :properties => {"a"=>"1", "b"=>"2"},
-        :cpu_cores => 10,
-        :memory_size => 30.gigabyte,
-      )
-      @virtual_server1 = Tengine::Resource::VirtualServer.create!(
-        :provider_id => @provider.id,
-        :name => "vserver1",
-        :provided_id => "i0002",
-        :description => "v2Description",
-        :status => "Status",
-        :addresses => {"ip_address"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
-        :properties => {"a"=>"1", "b"=>"2"},
-        :provided_image_id => "ami1",
-        :provided_type_id => "Large",
-        :host_server_id => @physical_server1.id,
-      )
+    context "物理サーバが登録されていないとき" do
+      before do
+        Tengine::Resource::VirtualServerImage.delete_all
+        Tengine::Resource::VirtualServerType.delete_all
+        Tengine::Resource::PhysicalServer.delete_all
+        Tengine::Resource::VirtualServer.delete_all
+        Tengine::Resource::Provider.delete_all
+      end
+
+      it "各インスタンス変数に初期値が入っていること" do
+        get :new
+
+        assigns(:physical_servers).should be_blank
+        assigns(:physical_servers_for_select).should == []
+        assigns(:virtual_server_images_for_select).should == []
+        assigns(:virtual_server_types_for_select).should == []
+        assigns(:starting_number).should == 0
+        assigns(:starting_number_max).should == 0
+        assigns(:physical_server_map_provider).should == {}
+        assigns(:virtual_server_images_by_provider).should == {}
+        assigns(:virtual_server_types_by_provider).should == {}
+        assigns(:capacities_by_provider).should == {}
+      end
     end
 
-    after do
-      Tengine::Resource::VirtualServerImage.delete_all
-      Tengine::Resource::VirtualServerType.delete_all
-      Tengine::Resource::PhysicalServer.delete_all
-      Tengine::Resource::VirtualServer.delete_all
-      Tengine::Resource::Provider.delete_all
-    end
+    context "物理サーバが登録されているとき" do
+      before(:each) do
+        Tengine::Resource::VirtualServerImage.delete_all
+        Tengine::Resource::VirtualServerType.delete_all
+        Tengine::Resource::PhysicalServer.delete_all
+        Tengine::Resource::VirtualServer.delete_all
+        Tengine::Resource::Provider.delete_all
+        @provider = Tengine::Resource::Provider::Wakame.create!(
+          :name => "provider1",
+          :description => "Description",
+        )
+        @image1 = Tengine::Resource::VirtualServerImage.create!(
+          :provider_id => @provider.id,
+          :name => "vimage1",
+          :description => "Description",
+          :provided_id => "ami1",
+        )
+        @image2 = Tengine::Resource::VirtualServerImage.create!(
+          :provider_id => @provider.id,
+          :name => "vimage2",
+          :description => "Description",
+          :provided_id => "ami2",
+        )
+        @type1 = Tengine::Resource::VirtualServerType.create!(
+          :provider_id => @provider.id,
+          :provided_id => "Large",
+          :caption => "Large",
+          :cpu_cores => 2,
+          :memory_size => 5.gigabyte,
+        )
+        @type2 = Tengine::Resource::VirtualServerType.create!(
+          :provider_id => @provider.id,
+          :provided_id => "Small",
+          :caption => "Small",
+          :cpu_cores => 1,
+          :memory_size => 2.gigabyte,
+        )
+        @physical_server1 = Tengine::Resource::PhysicalServer.create!(
+          :provider_id => @provider.id,
+          :name => "pserver1",
+          :provided_id => "server1",
+          :description => "Description",
+          :status => "online",
+          :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
+          :properties => {"a"=>"1", "b"=>"2"},
+          :cpu_cores => 10,
+          :memory_size => 30.gigabyte,
+        )
+        @virtual_server1 = Tengine::Resource::VirtualServer.create!(
+          :provider_id => @provider.id,
+          :name => "vserver1",
+          :provided_id => "i0002",
+          :description => "v2Description",
+          :status => "Status",
+          :addresses => {"ip_address"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
+          :properties => {"a"=>"1", "b"=>"2"},
+          :provided_image_id => "ami1",
+          :provided_type_id => "Large",
+          :host_server_id => @physical_server1.id,
+        )
+      end
 
-    it "assigns a new virtual_server as @virtual_server" do
-      get :new
-      assigns(:virtual_server).should be_a_new(Tengine::Resource::VirtualServer)
-    end
+      after do
+        Tengine::Resource::VirtualServerImage.delete_all
+        Tengine::Resource::VirtualServerType.delete_all
+        Tengine::Resource::PhysicalServer.delete_all
+        Tengine::Resource::VirtualServer.delete_all
+        Tengine::Resource::Provider.delete_all
+      end
 
-    it "assigns all PhysicalServer as @physical_servers" do
-      get :new
-      assigns(:physical_servers).should == [@physical_server1]
-    end
+      it "assigns a new virtual_server as @virtual_server" do
+        get :new
+        assigns(:virtual_server).should be_a_new(Tengine::Resource::VirtualServer)
+      end
 
-    it "assigns all PhysicalServer as @physical_servers_for_select" do
-      get :new
-      label = "#{@physical_server1.name}(#{@physical_server1.description})"
-      assigns(:physical_servers_for_select).should == [[label, @physical_server1.provided_id]]
-    end
+      it "assigns all PhysicalServer as @physical_servers" do
+        get :new
+        assigns(:physical_servers).should == [@physical_server1]
+      end
 
-    it "assigns VirtualServerImage as @virtual_server_images_for_select" do
-      get :new
-      assigns(:virtual_server_images_for_select).should == [["vimage1(Description)", "ami1"], ["vimage2(Description)", "ami2"]]
-    end
+      it "assigns all PhysicalServer as @physical_servers_for_select" do
+        get :new
+        label = "#{@physical_server1.name}(#{@physical_server1.description})"
+        assigns(:physical_servers_for_select).should == [[label, @physical_server1.provided_id]]
+      end
 
-    it "assigns VirtualServerType as @virtual_server_types_for_select" do
-      get :new
-      assigns(:virtual_server_types_for_select).should == [["Large(CPUコア数:2, メモリサイズ:5120MB)", "Large"], ["Small(CPUコア数:1, メモリサイズ:2048MB)", "Small"]]
-    end
+      it "assigns VirtualServerImage as @virtual_server_images_for_select" do
+        get :new
+        assigns(:virtual_server_images_for_select).should == [["vimage1(Description)", "ami1"], ["vimage2(Description)", "ami2"]]
+      end
 
-    it "@starting_number_max" do
-      get :new
-      assigns(:starting_number_max).should == 4
-    end
+      it "assigns VirtualServerType as @virtual_server_types_for_select" do
+        get :new
+        assigns(:virtual_server_types_for_select).should == [["Large(CPUコア数:2, メモリサイズ:5120MB)", "Large"], ["Small(CPUコア数:1, メモリサイズ:2048MB)", "Small"]]
+      end
 
-    it "@starting_number" do
-      get :new
-      assigns(:starting_number).should == 0
-    end
+      it "@starting_number_max" do
+        get :new
+        assigns(:starting_number_max).should == 4
+      end
 
-    it "@physical_server_map_provider" do
-      get :new
-      assigns(:physical_server_map_provider).should == {@physical_server1.provided_id => @provider.id.to_s}
-    end
+      it "@starting_number" do
+        get :new
+        assigns(:starting_number).should == 0
+      end
 
-    it "@virtual_server_images_by_provider" do
-      get :new
-      label = "#{@virtual_server1.name}(#{@virtual_server1.description})"
-      assigns(:virtual_server_images_by_provider).should == {@provider.id.to_s => [["vimage1(Description)", "ami1"], ["vimage2(Description)", "ami2"]]}
-    end
+      it "@physical_server_map_provider" do
+        get :new
+        assigns(:physical_server_map_provider).should == {@physical_server1.provided_id => @provider.id.to_s}
+      end
 
-    it "@virtual_server_types_for_select" do
-      get :new
-      assigns(:virtual_server_types_for_select).should == [["Large(CPUコア数:2, メモリサイズ:5120MB)", "Large"], ["Small(CPUコア数:1, メモリサイズ:2048MB)", "Small"]]
-    end
+      it "@virtual_server_images_by_provider" do
+        get :new
+        label = "#{@virtual_server1.name}(#{@virtual_server1.description})"
+        assigns(:virtual_server_images_by_provider).should == {@provider.id.to_s => [["vimage1(Description)", "ami1"], ["vimage2(Description)", "ami2"]]}
+      end
 
-    it "@capacities_by_provider" do
-      get :new
-      assigns(:capacities_by_provider).should == {@provider.id.to_s => @provider.capacities}
+      it "@virtual_server_types_for_select" do
+        get :new
+        assigns(:virtual_server_types_for_select).should == [["Large(CPUコア数:2, メモリサイズ:5120MB)", "Large"], ["Small(CPUコア数:1, メモリサイズ:2048MB)", "Small"]]
+      end
+
+      it "@capacities_by_provider" do
+        get :new
+        assigns(:capacities_by_provider).should == {@provider.id.to_s => @provider.capacities}
+      end
     end
   end
 
