@@ -34,31 +34,48 @@ Tamaのテストモードはjson形式で記述されたファイルを使用す
 本テストで使用するテストファイルは./features/usecases/resource/test_files 以下に置いてあり、
 仮想サーバや物理サーバの増減や状態変更など、仮想サーバ基盤から取得する状態を変更する場合はファイルの置き換えを行う。
 
-使用するテストファイル
+使用するテストファイルを書き換える
+* cd features/usecases/resource/test_files
 * describe_host_nodes.json
- * 00_describe_host_nodes_0_physical_servers.json  => describe_host_nodes.json で0件の物理サーバのレスポンスを返却する
- * 01_describe_host_nodes_10_physical_servers.json => describe_host_nodes.json で10件の物理サーバのレスポンスを返却する
- * 02_describe_host_nodes_60_physical_servers.json => describe_host_nodes.json で60件の物理サーバのレスポンスを返却する(ページネーション確認用)
+ * 0件の物理サーバのレスポンスを返却する
+   cp 00_describe_host_nodes_0_physical_servers.json  describe_host_nodes.json 
+ * 10件の物理サーバのレスポンスを返却する
+   cp 01_describe_host_nodes_10_physical_servers.json describe_host_nodes.json
+ * 60件の物理サーバのレスポンスを返却する(ページネーション確認)用
+   cp 02_describe_host_nodes_60_physical_servers.json describe_host_nodes.json
 
 * describe_instances.json
- * 10_describe_instances_0_virtual_servers.json  => describe_instances.json で0件の仮想サーバのレスポンスを返却する
- * 11_describe_instances_10_virtual_servers.json => describe_instances.json で10件の仮想サーバのレスポンスを返却する
- * 12_describe_instances_after_run_instances.json => describe_instances.json で41, 42のrun_instances実行後を想定した仮想サーバのレスポンスを返却する
- * 13_describe_instances_after_terminate_instances.json => describe_instances で51のteminate_instance実行後を想定した仮想サーバのレスポンスを返却する
+ * 0件の仮想サーバのレスポンスを返却する
+   cp 10_describe_instances_0_virtual_servers.json  describe_instances.json
+ * 10件の仮想サーバのレスポンスを返却する
+   cp 11_describe_instances_10_virtual_servers.json describe_instances.json
+ * 41, 42のrun_instances実行後を想定した仮想サーバのレスポンスを返却する
+   cp 12_describe_instances_after_run_instances.json describe_instances.json
+ * 51のteminate_instance実行後を想定した仮想サーバのレスポンスを返却する
+   cp 13_describe_instances_after_terminate_instances.json describe_instances
 
 * describe_images.jon
- * 20_describe_images_0_virtual_server_images.json => describe_images.json で0件の仮想サーバイメージのレスポンスを返却する
- * 21_describe_images_5_virtual_server_images.json => describe_images.json で5件の仮想サーバイメージのレスポンスを返却する
+ * 0件の仮想サーバイメージのレスポンスを返却する
+   cp 20_describe_images_0_virtual_server_images.json describe_images.json
+ * 5件の仮想サーバイメージのレスポンスを返却する
+   cp 21_describe_images_5_virtual_server_images.json describe_images.json
 
 * describe_instance_specs.json
- * 30_describe_instance_specs_0_virtual_server_specs.json => describe_instance_specs.json で0件の仮想サーバタイプのレスポンスを返却する
- * 31_describe_instance_specs_2_virtual_server_specs.json => describe_instance_specs.json で2件の仮想サーバタイプのレスポンスを返却する
+ * 0件の仮想サーバタイプのレスポンスを返却する
+  cp 30_describe_instance_specs_0_virtual_server_specs.json describe_instance_specs.json
+ * 2件の仮想サーバタイプのレスポンスを返却する
+  cp 31_describe_instance_specs_2_virtual_server_specs.json describe_instance_specs.json
 
 * run_instances
- * 40_run_instances_0_virtual_servers.json => run_instances.json で0件の仮想サーバ起動時のレスポンスを返却する(未使用)
- * 41_run_instances_1_virtual_servers.json => run_instances.json で1件の仮想サーバ起動時のレスポンスを返却する
- * 42_run_instances_5_virtual_servers.json => run_instances.json で5件の仮想サーバ起動時のレスポンスを返却する
+ * 0件の仮想サーバ起動時のレスポンスを返却する(未使用)
+   cp 40_run_instances_0_virtual_servers.json run_instances.json
+ * 1件の仮想サーバ起動時のレスポンスを返却する
+   cp 41_run_instances_1_virtual_servers.json run_instances.json
+ * 5件の仮想サーバ起動時のレスポンスを返却する
+   cp 42_run_instances_5_virtual_servers.json run_instances.json
 
 * terminate_instances
- * 50_terminate_instances_0_virtual_servers.json => terminate_instances.json で0件の仮想サーバ停止時のレスポンスを返却する(未使用)
- * 51_terminate_instances_3_virtual_servers.json => terminate_instances.json で3件の仮想サーバ停止時のレスポンスを返却する
+ * 0件の仮想サーバ停止時のレスポンスを返却する(未使用)
+   cp 50_terminate_instances_0_virtual_servers.json terminate_instances.json
+ * 3件の仮想サーバ停止時のレスポンスを返却する
+   51_terminate_instances_3_virtual_servers.json terminate_instances.json
