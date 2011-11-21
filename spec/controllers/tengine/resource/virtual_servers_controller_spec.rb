@@ -55,6 +55,10 @@ describe Tengine::Resource::VirtualServersController do
       get :index, :refresher => {:refresh_interval => 10}
       assigns(:refresher).refresh_interval.should == "10"
       assigns(:refresh_interval).should == "10"
+
+      get :index, :refresher => {:refresh_interval => -10}
+      assigns(:refresher).refresh_interval.should == 0
+      assigns(:refresh_interval).should == 0
     end
 
     it "assigns @auto_refresh" do
