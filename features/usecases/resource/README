@@ -49,6 +49,7 @@ Tamaのテストモードはjson形式で記述されたファイルを使用す
 * describe_images.jon
  * 20_describe_images_0_virtual_server_images.json => describe_images.json で0件の仮想サーバイメージのレスポンスを返却する
  * 21_describe_images_5_virtual_server_images.json => describe_images.json で5件の仮想サーバイメージのレスポンスを返却する
+ * 22_describe_images_60_virtual_server_images.json => describe_images.json で60件の仮想サーバイメージのレスポンスを返却する
 
 * describe_instance_specs.json
  * 30_describe_instance_specs_0_virtual_server_specs.json => describe_instance_specs.json で0件の仮想サーバタイプのレスポンスを返却する
