@@ -102,3 +102,11 @@ MongodbSupport.nodes end_to_end_test_yaml["db"]["nodes"]
 
 require 'tengine/core'
 
+
+
+at_exit do
+  # 全てのテストが終了したら rails をkillする。
+  rails_kill_command = "ps aux | grep 'script/rails' | grep -v grep | awk '{print $2}' | xargs kill -9"
+  puts "command : #{rails_kill_command}"
+  system(rails_kill_command)
+end
