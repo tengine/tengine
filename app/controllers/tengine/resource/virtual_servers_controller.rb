@@ -200,6 +200,19 @@ class Tengine::Resource::VirtualServersController < ApplicationController
   def ready_to_run(starting_number=nil, starting_number_max=nil)
     @physical_servers = \
       Tengine::Resource::PhysicalServer.all(:sort => [[:name, :asc]])
+    if @physical_servers.blank?
+      @physical_servers_for_select = []
+      @virtual_server_images_for_select = []
+      @virtual_server_types_for_select = []
+      @starting_number = 0
+      @starting_number_max = 0
+      @physical_server_map_provider = {}
+      @virtual_server_images_by_provider = {}
+      @virtual_server_types_by_provider = {}
+      @capacities_by_provider = {}
+      return
+    end
+
     @physical_servers_for_select = @physical_servers.collect do |s|
       label = s.name.dup
       label << "(#{s.description})" if s.description
