@@ -18,11 +18,37 @@ $(window).load ->
   # index
   $('input#StopAll').click ->
     stop_all = $(this).attr("checked");
+    submit = $('input#SubmitStopAll');
+    if stop_all
+      submit.attr("disabled", false);
+    else
+      submit.attr("disabled", true);
+
     $('input.StopCheckBox').each ->
       if stop_all
         $(this).attr("checked", true);
       else
         $(this).attr("checked", false);
+
+
+  $('input.StopCheckBox').change ->
+    submit = $('input#SubmitStopAll');
+    if $(this).attr("checked")
+      submit.attr("disabled", false);
+    else
+      checked = false;
+      $('input.StopCheckBox').each ->
+        if $(this).attr("checked")
+          checked = true;
+          return false;
+
+      if submit.attr("disabled")
+        if checked
+          submit.attr("disabled", false);
+      else
+        unless checked
+          submit.attr("disabled", true);
+
 
   # new
   $('select#virtual_server_host_server_id').change ->
