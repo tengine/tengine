@@ -99,8 +99,7 @@ class Tengine::Resource::CredentialsController < ApplicationController
 
       respond_to do |format|
         if @credential.save
-          format.html { redirect_to @credential, notice: successfully_created(@credential) }
-          format.json { render json: @credential, status: :created, location: @credential }
+          format.html { redirect_to tengine_resource_credentials_url, notice: successfully_created(@credential) }
         else
           format.html { render action: "new" }
           format.json { render json: @credential.errors, status: :unprocessable_entity }
@@ -120,8 +119,7 @@ class Tengine::Resource::CredentialsController < ApplicationController
   
       respond_to do |format|
         if @credential.update_attributes(params[:credential])
-          format.html { redirect_to @credential, notice: successfully_updated(@credential) }
-          format.json { head :ok }
+          format.html { redirect_to tengine_resource_credentials_url, notice: successfully_updated(@credential) }
         else
           format.html { render action: "edit" }
           format.json { render json: @credential.errors, status: :unprocessable_entity }
