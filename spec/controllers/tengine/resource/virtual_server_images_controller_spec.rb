@@ -44,20 +44,19 @@ describe Tengine::Resource::VirtualServerImagesController do
 
   describe "GET show" do
     it "assigns the requested virtual_server_image as @virtual_server_image" do
-      pending "2011/11/21 Failure"
       virtual_server_image = Tengine::Resource::VirtualServerImage.create! valid_attributes
       get :show, :id => virtual_server_image.id.to_s
-      assigns(:virtual_server_image).should eq(virtual_server_image)
+      response.should redirect_to(:action => "index")
     end
   end
 
-  describe "GET new" do
-    it "assigns a new virtual_server_image as @virtual_server_image" do
-      pending "2011/11/21 Failure"
-      get :new
-      assigns(:virtual_server_image).should be_a_new(Tengine::Resource::VirtualServerImage)
-    end
-  end
+  # controlerのnewメソッドと同様にコメントしています。
+  # describe "GET new" do
+  #   it "assigns a new virtual_server_image as @virtual_server_image" do
+  #     get :new
+  #     response.should redirect_to(:action => "index")
+  #   end
+  # end
 
   describe "GET edit" do
     it "assigns the requested virtual_server_image as @virtual_server_image" do
