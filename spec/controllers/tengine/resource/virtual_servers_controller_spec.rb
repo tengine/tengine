@@ -172,6 +172,17 @@ describe Tengine::Resource::VirtualServersController do
           :cpu_cores => 10,
           :memory_size => 30*1024,
         )
+        @physical_server2 = Tengine::Resource::PhysicalServer.create!(
+          :provider_id => @provider.id,
+          :name => "pserver2",
+          :provided_id => "server2",
+          :description => "Description",
+          :status => "offline",
+          :addresses => {"eth0"=>"192.168.6.1", "eth1"=>"10.10.10.5"},
+          :properties => {"c"=>"5", "r"=>"3"},
+          :cpu_cores => 10,
+          :memory_size => 30*1024,
+        )
         @virtual_server1 = Tengine::Resource::VirtualServer.create!(
           :provider_id => @provider.id,
           :name => "vserver1",
