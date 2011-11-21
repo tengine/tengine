@@ -182,7 +182,7 @@
 
     <p class="BoxActionLinksRight">
       <span class="BtnWrap">
-        <%= submit_tag t(".links.delete"), confirm: t(".stop.form.confirm"), class: "BtnDelete" %>
+        <%= submit_tag t(".links.delete"), confirm: t(".stop.form.confirm"), class: "BtnDelete", id: "SubmitStopAll", disabled: true  %>
       </span>
     </p>
   <% end %>
