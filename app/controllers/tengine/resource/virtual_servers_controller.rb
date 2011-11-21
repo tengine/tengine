@@ -186,7 +186,7 @@ class Tengine::Resource::VirtualServersController < ApplicationController
     result = \
       virtual_server_types.order_by([[:provided_id, :asc]]).collect do |type|
         label = type.provided_id.dup
-        msize = type.memory_size / Numeric::MEGABYTE
+        msize = type.memory_size.to_i
         label << "("
         label << "#{Tengine::Resource::VirtualServerType.human_attribute_name(:cpu_cores)}:#{type.cpu_cores}"
         label << ", "

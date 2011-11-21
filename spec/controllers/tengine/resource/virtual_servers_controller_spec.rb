@@ -152,14 +152,14 @@ describe Tengine::Resource::VirtualServersController do
           :provided_id => "Large",
           :caption => "Large",
           :cpu_cores => 2,
-          :memory_size => 5.gigabyte,
+          :memory_size => 5*1024,
         )
         @type2 = Tengine::Resource::VirtualServerType.create!(
           :provider_id => @provider.id,
           :provided_id => "Small",
           :caption => "Small",
           :cpu_cores => 1,
-          :memory_size => 2.gigabyte,
+          :memory_size => 2*1024,
         )
         @physical_server1 = Tengine::Resource::PhysicalServer.create!(
           :provider_id => @provider.id,
@@ -170,7 +170,7 @@ describe Tengine::Resource::VirtualServersController do
           :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
           :properties => {"a"=>"1", "b"=>"2"},
           :cpu_cores => 10,
-          :memory_size => 30.gigabyte,
+          :memory_size => 30*1024,
         )
         @virtual_server1 = Tengine::Resource::VirtualServer.create!(
           :provider_id => @provider.id,
@@ -289,14 +289,14 @@ describe Tengine::Resource::VirtualServersController do
         :provided_id => "Large",
         :caption => "Large",
         :cpu_cores => 2,
-        :memory_size => 5.gigabyte,
+        :memory_size => 5*1024,
       )
       @type2 = Tengine::Resource::VirtualServerType.create!(
         :provider_id => @provider.id,
         :provided_id => "Small",
         :caption => "Small",
         :cpu_cores => 1,
-        :memory_size => 2.gigabyte,
+        :memory_size => 2*1024,
       )
       @physical_server1 = Tengine::Resource::PhysicalServer.create!(
         :provider_id => @provider.id,
@@ -307,7 +307,7 @@ describe Tengine::Resource::VirtualServersController do
         :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
         :properties => {"a"=>"1", "b"=>"2"},
         :cpu_cores => 10,
-        :memory_size => 30.gigabyte,
+        :memory_size => 30*1024,
       )
       @virtual_server1 = Tengine::Resource::VirtualServer.create!(
         :provider_id => @provider.id,
