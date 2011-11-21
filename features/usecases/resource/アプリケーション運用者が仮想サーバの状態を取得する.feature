@@ -21,11 +21,11 @@
   シナリオ: [正常系]アプリケーション運用者は物理サーバ一覧画面を開き、物理サーバが表示されていることを確認する
 　  # 代替コースC: 管理下の物理サーバが存在しない
     # 物理サーバが0件のファイル
-    もし Wakameのモックファイル"./features/usecases/resouce/test_files/00_describe_host_nodes_0_physical_servers.json"を"./features/usecases/resouce/test_files/describe_host_nodes.json"にコピーする
+    もし Wakameのモックファイル"./features/usecases/resource/test_files/00_describe_host_nodes_0_physical_servers.json"を"./features/usecases/resource/test_files/describe_host_nodes.json"にコピーする
     # 仮想サーバが0件のファイル
-    かつ Wakameのモックファイル"./features/usecases/resouce/test_files/10_describe_instances_0_virtual_servers.json"を"./features/usecases/resouce/test_files/describe_instances.json"にコピーする
+    かつ Wakameのモックファイル"./features/usecases/resource/test_files/10_describe_instances_0_virtual_servers.json"を"./features/usecases/resource/test_files/describe_instances.json"にコピーする
     # 仮想サーバイメージが0件のファイル
-    かつ Wakameのモックファイル"./features/usecases/resouce/test_files/20_describe_images_0_virtual_server_images.json"を"./features/usecases/resouce/test_files/describe_images.json"にコピーする
+    かつ Wakameのモックファイル"./features/usecases/resource/test_files/20_describe_images_0_virtual_server_images.json"を"./features/usecases/resource/test_files/describe_images.json"にコピーする
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名|仮想サーバ名|プロバイダによるID|説明|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
@@ -33,7 +33,7 @@
     # 代替コースB：管理下の仮想サーバが存在しない
     # Wakameに仮想サーバの登録を行う
     # 物理サーバが10件のファイル
-    もし Wakameのモックファイル"./features/usecases/resouce/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/usecases/resouce/test_files/describe_host_nodes.json"にコピーする
+    もし Wakameのモックファイル"./features/usecases/resource/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/usecases/resource/test_files/describe_host_nodes.json"にコピーする
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名|仮想サーバ名|プロバイダによるID|説明|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
@@ -50,11 +50,11 @@
 
     # 基本コース:
     # 仮想サーバが10件のファイル
-    もし Wakameのモックファイル"./features/usecases/resouce/test_files/11_describe_instances_10_virtual_servers.json"を"./features/usecases/resouce/test_files/describe_instances.json"にコピーする
+    もし Wakameのモックファイル"./features/usecases/resource/test_files/11_describe_instances_10_virtual_servers.json"を"./features/usecases/resource/test_files/describe_instances.json"にコピーする
     # 仮想サーバイメージが5件のファイル
-    かつ Wakameのモックファイル"./features/usecases/resouce/test_files/21_describe_images_5_virtual_server_images.json"を"./features/usecases/resouce/test_files/describe_images.json"にコピーする
+    かつ Wakameのモックファイル"./features/usecases/resource/test_files/21_describe_images_5_virtual_server_images.json"を"./features/usecases/resource/test_files/describe_images.json"にコピーする
     # 仮想サーバタイプが2件のファイル
-    かつ Wakameのモックファイル"./features/usecases/resouce/test_files/31_describe_instance_specs_4_virtual_server_specs.json"を"./features/usecases/resouce/test_files/31_describe_instance_specs.json"にコピーする
+    かつ Wakameのモックファイル"./features/usecases/resource/test_files/31_describe_instance_specs_4_virtual_server_specs.json"を"./features/usecases/resource/test_files/31_describe_instance_specs.json"にコピーする
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。
