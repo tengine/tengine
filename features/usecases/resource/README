@@ -66,7 +66,7 @@ Tamaのテストモードはjson形式で記述されたファイルを使用す
  * 0件の仮想サーバタイプのレスポンスを返却する
   cp 30_describe_instance_specs_0_virtual_server_specs.json describe_instance_specs.json
  * 2件の仮想サーバタイプのレスポンスを返却する
-  cp 31_describe_instance_specs_2_virtual_server_specs.json describe_instance_specs.json
+  cp 31_describe_instance_specs_4_virtual_server_specs.json describe_instance_specs.json
 
 * run_instances
  * 0件の仮想サーバ起動時のレスポンスを返却する(未使用)
