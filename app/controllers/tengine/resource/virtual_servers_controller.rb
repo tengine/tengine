@@ -8,6 +8,11 @@ class Tengine::Resource::VirtualServersController < ApplicationController
     default_refresher.update(params[:refresher]) if params[:refresher]
     @refresher = OpenStruct.new(default_refresher)
     @refresh_interval = @refresher.refresh_interval
+    if @refresh_interval.to_i < 0
+      @refresher.refresh_interval = 0
+      @refresh_interval = 0
+    end
+
     @auto_refresh = false
     @auto_refresh = true unless @refresh_interval.to_i.zero?
 

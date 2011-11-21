@@ -67,9 +67,9 @@
   <% end %>
   </p>
 
-  <%= form_for(:refresher, :url => tengine_resource_virtual_servers_url, :method => :get) do |f| %>
+  <%= form_for(:refresher, :url => tengine_resource_virtual_servers_url, :method => :get, :html => {:novalidate => true}) do |f| %>
     <%= f.label :refresh_interval, t(".refresher.form.refresh_interval") %>:
-    <%= f.number_field :refresh_interval, :class => "InputText" %>
+    <%= f.number_field :refresh_interval, :class => "InputText", :min => 0 %>
     <%= t("datetime.prompts.second") %>
 
     <%= hidden_field_tag "finder[physical_server_name]", @finder.physical_server_name %>
