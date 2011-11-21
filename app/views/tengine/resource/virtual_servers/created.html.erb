@@ -1,0 +1,18 @@
+<h1><%= Tengine::Resource::VirtualServer.human_name %><%= t(".pages.run_result") %></h1>
+
+<div class="Section">
+  <% if @provided_ids.blank? -%>
+    <%= message :complete, t(".notice.created") %>
+  <% else -%>
+    <%= message :complete, t(".notice.created_with_provided_ids") do %>
+      <ul>
+        <% @provided_ids.each do |provided_id| -%>
+          <li><%= provided_id %></li>
+        <% end -%>
+      </ul>
+    <% end -%>
+  <% end -%>
+  <div class="BoxBtns">
+    <%= link_to_back_list tengine_resource_virtual_servers_url %>
+  </div>
+</div>

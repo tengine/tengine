@@ -135,6 +135,36 @@ module ApplicationHelper
     return tree
   end
 
+  def reset_tag(value="Reset", options={})
+    options = options.stringify_keys
+    options.delete_if{|k, v| %w(type value).include?(k) }
+    options[:class] ||= "BtnCancel"
+    content_tag :span, {:class => "BtnWrap"} do
+      tag :input, {"type" => :reset, "name" => "reset", "value" => value}.update(options)
+    end
+  end
+
+  def format_map_yml_value(hash)
+    html = ""
+    return html if hash.blank?
+    html << hash.collect{|k, v| ERB::Util.html_escape("#{k}: #{v}") }.join("<br />")
+    return html.html_safe
+  end
+
+  def message(type, text, &block)
+    klass = case type.to_s
+            when "warning"  then "MsgWarning"
+            when "complete" then "MsgComplete"
+            when "delete"   then "MsgCompleteDelete"
+            end
+
+    html = %|<div class="Msg #{klass}">|
+    html << "<p>#{text}</p>"
+    html << capture(&block) if block_given?
+    html << "</div>"
+    return html.html_safe
+  end
+
   private
   def model_class_name(class_or_name)
     return nil unless class_or_name

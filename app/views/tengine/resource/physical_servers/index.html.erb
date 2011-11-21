@@ -78,7 +78,7 @@
         <td><div class="YamlView" id= "properties_yaml<%=physical_server.id.to_s %>">
           <span class="IconYaml" style="display:block;"><%= t(:show) %></span>
           <div class="YamlScript">
-            <p><%= physical_server.properties_yaml unless physical_server.properties.empty? %></p>
+            <p><%= physical_server.properties_yaml unless physical_server.properties.blank? %></p>
             <a class="Close">close</a>
           </div>
         </div></td>
