@@ -265,7 +265,7 @@ describe Tengine::Resource::CredentialsController do
 
       it "redirects to the created credential" do
         post :create, :credential => valid_attributes
-        response.should redirect_to(Tengine::Resource::Credential.last)
+        response.should redirect_to(:action => "index") 
       end
     end
 
@@ -307,7 +307,7 @@ describe Tengine::Resource::CredentialsController do
       it "redirects to the credential" do
         credential = Tengine::Resource::Credential.create! valid_attributes
         put :update, :id => credential.id, :credential => valid_attributes
-        response.should redirect_to(credential)
+        response.should redirect_to( :action => "index" )
       end
     end
 
