@@ -198,8 +198,8 @@ class Tengine::Resource::VirtualServersController < ApplicationController
   end
 
   def ready_to_run(starting_number=nil, starting_number_max=nil)
-    @physical_servers = \
-      Tengine::Resource::PhysicalServer.all(:sort => [[:name, :asc]])
+    @physical_servers = Tengine::Resource::PhysicalServer.where(:status => "online").
+      order_by([[:name, :asc]])
     if @physical_servers.blank?
       @physical_servers_for_select = []
       @virtual_server_images_for_select = []
