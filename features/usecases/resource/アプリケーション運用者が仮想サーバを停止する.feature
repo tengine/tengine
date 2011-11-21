@@ -20,7 +20,7 @@
   @manual
   シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面から仮想サーバの停止を行う
     # 物理サーバが10件のファイル
-    もし Wakameのモックファイル"./features/usecases/resouce/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/usecases/resouce/test_files/describe_host_nodes.json"にコピーする
+    もし Wakameのモックファイル"./features/usecases/resource/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/usecases/resource/test_files/describe_host_nodes.json"にコピーする
     # 仮想サーバを起動した後のファイル
     もし Wakameのモックファイル"./features/usecases/resource/test_files/12_describe_instances_after_run_instances.json"を"./features/usecases/resource/test_files/describe_instances.json"にコピーする
     # 仮想サーバイメージが5件のファイル

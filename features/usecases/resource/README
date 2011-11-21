@@ -12,7 +12,7 @@ Tamaのテストモードはjson形式で記述されたファイルを使用す
     * Tengine::Resource::VirtualServerType
 
   2. TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
-  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb <テストファイル群の配置ディレクトリ>
+  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb features/usecases/resource/test_files
 
   * ファイル名は以下のとおり
     * describe_instances.json      # 仮想サーバの状態
@@ -22,34 +22,43 @@ Tamaのテストモードはjson形式で記述されたファイルを使用す
     * describe_host_nodes.json     # 物理サーバの状態
     * describe_instance_specs.json # 仮想サーバスペックの状態
 
-本テストで使用するテストファイルは./features/usecases/resouce/test_files 以下に置いてあり、
+  3. tengine_resource_watchd内部で使用されるTamaがテストモードで使用するjsonファイルをコピーする
+
+    cp features/usecases/resource/test_files/00_describe_host_nodes_0_physical_servers.json features/usecases/resource/test_files/describe_host_nodes.json
+    cp features/usecases/resource/test_files/10_describe_instances_0_virtual_servers.json features/usecases/resource/test_files/describe_instances.json
+    cp features/usecases/resource/test_files/20_describe_images_0_virtual_server_images.json features/usecases/resource/test_files/describe_images.json
+    cp features/usecases/resource/test_files/30_describe_instance_specs_0_virtual_server_specs.json features/usecases/resource/test_files/describe_instance_specs.json
+    cp features/usecases/resource/test_files/40_run_instances_0_virtual_servers.json features/usecases/resource/test_files/run_instances.json
+    cp features/usecases/resource/test_files/50_terminate_instances_0_virtual_servers.json features/usecases/resource/test_files/terminate_instances.json
+
+本テストで使用するテストファイルは./features/usecases/resource/test_files 以下に置いてあり、
 仮想サーバや物理サーバの増減や状態変更など、仮想サーバ基盤から取得する状態を変更する場合はファイルの置き換えを行う。
 
 使用するテストファイル
 * describe_host_nodes.json
- * 00_describe_host_nodes_0_physical_servers.json  => describe_host_nodes で0件の物理サーバのレスポンスを返却する
- * 01_describe_host_nodes_10_physical_servers.json => describe_host_nodes で10件の物理サーバのレスポンスを返却する
- * 02_describe_host_nodes_60_physical_servers.json => describe_host_nodes で60件の物理サーバのレスポンスを返却する(ページネーション確認用)
+ * 00_describe_host_nodes_0_physical_servers.json  => describe_host_nodes.json で0件の物理サーバのレスポンスを返却する
+ * 01_describe_host_nodes_10_physical_servers.json => describe_host_nodes.json で10件の物理サーバのレスポンスを返却する
+ * 02_describe_host_nodes_60_physical_servers.json => describe_host_nodes.json で60件の物理サーバのレスポンスを返却する(ページネーション確認用)
 
 * describe_instances.json
- * 10_describe_instances_0_virtual_servers.json  => describe_instances で0件の仮想サーバのレスポンスを返却する
- * 11_describe_instances_10_virtual_servers.json => describe_instances で10件の仮想サーバのレスポンスを返却する
- * 12_describe_instances_after_run_instances.json => describe_instances で41, 42のrun_instances実行後を想定した仮想サーバのレスポンスを返却する
+ * 10_describe_instances_0_virtual_servers.json  => describe_instances.json で0件の仮想サーバのレスポンスを返却する
+ * 11_describe_instances_10_virtual_servers.json => describe_instances.json で10件の仮想サーバのレスポンスを返却する
+ * 12_describe_instances_after_run_instances.json => describe_instances.json で41, 42のrun_instances実行後を想定した仮想サーバのレスポンスを返却する
  * 13_describe_instances_after_terminate_instances.json => describe_instances で51のteminate_instance実行後を想定した仮想サーバのレスポンスを返却する
 
 * describe_images.jon
- * 20_describe_images_0_virtual_server_images.json => describe_images で0件の仮想サーバイメージのレスポンスを返却する
- * 21_describe_images_5_virtual_server_images.json => describe_images で5件の仮想サーバイメージのレスポンスを返却する
+ * 20_describe_images_0_virtual_server_images.json => describe_images.json で0件の仮想サーバイメージのレスポンスを返却する
+ * 21_describe_images_5_virtual_server_images.json => describe_images.json で5件の仮想サーバイメージのレスポンスを返却する
 
 * describe_instance_specs.json
- * 30_describe_instance_specs_0_virtual_server_specs.json => describe_instance_specs で0件の仮想サーバタイプのレスポンスを返却する
- * 31_describe_instance_specs_2_virtual_server_specs.json => describe_instance_specs で2件の仮想サーバタイプのレスポンスを返却する
+ * 30_describe_instance_specs_0_virtual_server_specs.json => describe_instance_specs.json で0件の仮想サーバタイプのレスポンスを返却する
+ * 31_describe_instance_specs_2_virtual_server_specs.json => describe_instance_specs.json で2件の仮想サーバタイプのレスポンスを返却する
 
 * run_instances
- * 40_run_instances_0_virtual_servers.json => run_instances で0件の仮想サーバ起動時のレスポンスを返却する(未使用)
- * 41_run_instances_1_virtual_servers.json => run_instances で1件の仮想サーバ起動時のレスポンスを返却する
- * 42_run_instances_5_virtual_servers.json => run_instances で5件の仮想サーバ起動時のレスポンスを返却する
+ * 40_run_instances_0_virtual_servers.json => run_instances.json で0件の仮想サーバ起動時のレスポンスを返却する(未使用)
+ * 41_run_instances_1_virtual_servers.json => run_instances.json で1件の仮想サーバ起動時のレスポンスを返却する
+ * 42_run_instances_5_virtual_servers.json => run_instances.json で5件の仮想サーバ起動時のレスポンスを返却する
 
 * terminate_instances
- * 50_terminate_instances_0_virtual_servers.json => terminate_instances で0件の仮想サーバ停止時のレスポンスを返却する(未使用)
- * 51_terminate_instances_3_virtual_servers.json => terminate_instances で3件の仮想サーバ停止時のレスポンスを返却する
+ * 50_terminate_instances_0_virtual_servers.json => terminate_instances.json で0件の仮想サーバ停止時のレスポンスを返却する(未使用)
+ * 51_terminate_instances_3_virtual_servers.json => terminate_instances.json で3件の仮想サーバ停止時のレスポンスを返却する
