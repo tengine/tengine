@@ -137,6 +137,12 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     rendered.should have_xpath("//input[@type='checkbox'][@class='StopCheckBox'][@value='#{@virtual_server2.id.to_s}']")
   end
 
+  it "IDがSubmitStopAllのsubmitボタンがあること" do
+    render(:file => "tengine/resource/virtual_servers/index")
+
+    rendered.should have_xpath("//input[@type='submit'][@id='SubmitStopAll'][@disabled]", :count => 1)
+  end
+
   it "@refresh_intervalの値が絞り込みのフォームのhiddenフィールドとしてあること" do
     assign(:refresh_interval, 10)
 
