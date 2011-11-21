@@ -5,16 +5,24 @@
     "results": [
       {
         "id": "virtual_server_id_01",
-        "host_node": "physical_server_id_01",
+        "host_node": "physical_server_name_01",
         "image_id": "virtual_server_image_id_01",
         "instance_spec_id": "virtual_server_spec_id_01",
         "state": "running",
         "network": [
           {
             "network_name": "nw-data",
-            "ipaddr": "192.168.2.1",
+            "ipaddr": ["192.168.2.1"],
             "nat_network_name": "nw-outside",
-            "nat_ipaddr": "172.16.0.1",
+            "nat_ipaddr": ["172.16.0.1"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          },
+          {
+            "network_name": "nw-data_2",
+            "ipaddr": ["192.168.3.1"],
+            "nat_network_name": "nw-outside_2",
+            "nat_ipaddr": ["172.16.1.1"],
             "dns_name": "jria301q.shpoolxx.vdc.local",
             "nat_dns_name": "jria301q.shpoolxx.vdc.public"
           }
@@ -43,16 +51,24 @@
 
       {
         "id": "virtual_server_id_02",
-        "host_node": "physical_server_id_01",
+        "host_node": "physical_server_name_01",
         "image_id": "virtual_server_image_id_01",
         "instance_spec_id": "virtual_server_spec_id_01",
         "state": "running",
         "network": [
           {
             "network_name": "nw-data",
-            "ipaddr": "192.168.2.2",
+            "ipaddr": ["192.168.2.2"],
             "nat_network_name": "nw-outside",
-            "nat_ipaddr": "172.16.0.2",
+            "nat_ipaddr": ["172.16.0.2"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          },
+          {
+            "network_name": "nw-data_2",
+            "ipaddr": ["192.168.3.2"],
+            "nat_network_name": "nw-outside_2",
+            "nat_ipaddr": ["172.16.1.2"],
             "dns_name": "jria301q.shpoolxx.vdc.local",
             "nat_dns_name": "jria301q.shpoolxx.vdc.public"
           }
@@ -81,16 +97,24 @@
 
       {
         "id": "virtual_server_id_03",
-        "host_node": "physical_server_id_01",
+        "host_node": "physical_server_name_01",
         "image_id": "virtual_server_image_id_01",
         "instance_spec_id": "virtual_server_spec_id_01",
         "state": "starting",
         "network": [
           {
             "network_name": "nw-data",
-            "ipaddr": "192.168.2.3",
+            "ipaddr": ["192.168.2.3"],
             "nat_network_name": "nw-outside",
-            "nat_ipaddr": "172.16.0.3",
+            "nat_ipaddr": ["172.16.0.3"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          },
+          {
+            "network_name": "nw-data_2",
+            "ipaddr": ["192.168.3.3"],
+            "nat_network_name": "nw-outside_2",
+            "nat_ipaddr": ["172.16.1.3"],
             "dns_name": "jria301q.shpoolxx.vdc.local",
             "nat_dns_name": "jria301q.shpoolxx.vdc.public"
           }
@@ -119,16 +143,24 @@
 
       {
         "id": "virtual_server_id_04",
-        "host_node": "physical_server_id_01",
+        "host_node": "physical_server_name_01",
         "image_id": "virtual_server_image_id_01",
         "instance_spec_id": "virtual_server_spec_id_01",
         "state": "shuttingdown",
         "network": [
           {
             "network_name": "nw-data",
-            "ipaddr": "192.168.2.4",
+            "ipaddr": ["192.168.2.4"],
             "nat_network_name": "nw-outside",
-            "nat_ipaddr": "172.16.0.4",
+            "nat_ipaddr": ["172.16.0.4"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          },
+          {
+            "network_name": "nw-data_2",
+            "ipaddr": ["192.168.3.4"],
+            "nat_network_name": "nw-outside_2",
+            "nat_ipaddr": ["172.16.1.4"],
             "dns_name": "jria301q.shpoolxx.vdc.local",
             "nat_dns_name": "jria301q.shpoolxx.vdc.public"
           }
@@ -157,16 +189,24 @@
 
       {
         "id": "virtual_server_id_05",
-        "host_node": "physical_server_id_01",
+        "host_node": "physical_server_name_01",
         "image_id": "virtual_server_image_id_01",
         "instance_spec_id": "virtual_server_spec_id_01",
         "state": "terminated",
         "network": [
           {
             "network_name": "nw-data",
-            "ipaddr": "192.168.2.5",
+            "ipaddr": ["192.168.2.5"],
             "nat_network_name": "nw-outside",
-            "nat_ipaddr": "172.16.0.5",
+            "nat_ipaddr": ["172.16.0.5"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          },
+          {
+            "network_name": "nw-data_2",
+            "ipaddr": ["192.168.3.5"],
+            "nat_network_name": "nw-outside_2",
+            "nat_ipaddr": ["172.16.1.5"],
             "dns_name": "jria301q.shpoolxx.vdc.local",
             "nat_dns_name": "jria301q.shpoolxx.vdc.public"
           }
@@ -195,16 +235,24 @@
 
       {
         "id": "virtual_server_id_06",
-        "host_node": "physical_server_id_02",
+        "host_node": "physical_server_name_02",
         "image_id": "virtual_server_image_id_02",
         "instance_spec_id": "virtual_server_spec_id_02",
         "state": "running",
         "network": [
           {
             "network_name": "nw-data",
-            "ipaddr": "192.168.2.6",
+            "ipaddr": ["192.168.2.6"],
             "nat_network_name": "nw-outside",
-            "nat_ipaddr": "172.16.0.6",
+            "nat_ipaddr": ["172.16.0.6"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          },
+          {
+            "network_name": "nw-data_2",
+            "ipaddr": ["192.168.3.6"],
+            "nat_network_name": "nw-outside_2",
+            "nat_ipaddr": ["172.16.1.6"],
             "dns_name": "jria301q.shpoolxx.vdc.local",
             "nat_dns_name": "jria301q.shpoolxx.vdc.public"
           }
@@ -233,16 +281,24 @@
 
       {
         "id": "virtual_server_id_07",
-        "host_node": "physical_server_id_02",
+        "host_node": "physical_server_name_02",
         "image_id": "virtual_server_image_id_02",
         "instance_spec_id": "virtual_server_spec_id_02",
         "state": "running",
         "network": [
           {
             "network_name": "nw-data",
-            "ipaddr": "192.168.2.7",
+            "ipaddr": ["192.168.2.7"],
             "nat_network_name": "nw-outside",
-            "nat_ipaddr": "172.16.0.7",
+            "nat_ipaddr": ["172.16.0.7"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          },
+          {
+            "network_name": "nw-data_2",
+            "ipaddr": ["192.168.3.7"],
+            "nat_network_name": "nw-outside_2",
+            "nat_ipaddr": ["172.16.1.7"],
             "dns_name": "jria301q.shpoolxx.vdc.local",
             "nat_dns_name": "jria301q.shpoolxx.vdc.public"
           }
@@ -271,16 +327,24 @@
 
       {
         "id": "virtual_server_id_08",
-        "host_node": "physical_server_id_02",
+        "host_node": "physical_server_name_02",
         "image_id": "virtual_server_image_id_02",
         "instance_spec_id": "virtual_server_spec_id_02",
         "state": "running",
         "network": [
           {
             "network_name": "nw-data",
-            "ipaddr": "192.168.2.8",
+            "ipaddr": ["192.168.2.8"],
             "nat_network_name": "nw-outside",
-            "nat_ipaddr": "172.16.0.8",
+            "nat_ipaddr": ["172.16.0.8"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          },
+          {
+            "network_name": "nw-data_2",
+            "ipaddr": ["192.168.3.8"],
+            "nat_network_name": "nw-outside_2",
+            "nat_ipaddr": ["172.16.1.8"],
             "dns_name": "jria301q.shpoolxx.vdc.local",
             "nat_dns_name": "jria301q.shpoolxx.vdc.public"
           }
@@ -309,16 +373,24 @@
 
       {
         "id": "virtual_server_id_09",
-        "host_node": "physical_server_id_03",
+        "host_node": "physical_server_name_03",
         "image_id": "virtual_server_image_id_01",
         "instance_spec_id": "virtual_server_spec_id_01",
         "state": "running",
         "network": [
           {
             "network_name": "nw-data",
-            "ipaddr": "192.168.2.9",
+            "ipaddr": ["192.168.2.9"],
             "nat_network_name": "nw-outside",
-            "nat_ipaddr": "172.16.0.9",
+            "nat_ipaddr": ["172.16.0.9"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          },
+          {
+            "network_name": "nw-data_2",
+            "ipaddr": ["192.168.3.9"],
+            "nat_network_name": "nw-outside_2",
+            "nat_ipaddr": ["172.16.1.9"],
             "dns_name": "jria301q.shpoolxx.vdc.local",
             "nat_dns_name": "jria301q.shpoolxx.vdc.public"
           }
@@ -347,16 +419,24 @@
 
       {
         "id": "virtual_server_id_10",
-        "host_node": "physical_server_id_03",
+        "host_node": "physical_server_name_03",
         "image_id": "virtual_server_image_id_02",
         "instance_spec_id": "virtual_server_spec_id_02",
         "state": "running",
         "network": [
           {
             "network_name": "nw-data",
-            "ipaddr": "192.168.2.10",
+            "ipaddr": ["192.168.2.10"],
             "nat_network_name": "nw-outside",
-            "nat_ipaddr": "172.16.0.10",
+            "nat_ipaddr": ["172.16.0.10"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          },
+          {
+            "network_name": "nw-data_2",
+            "ipaddr": ["192.168.3.10"],
+            "nat_network_name": "nw-outside_2",
+            "nat_ipaddr": ["172.16.1.10"],
             "dns_name": "jria301q.shpoolxx.vdc.local",
             "nat_dns_name": "jria301q.shpoolxx.vdc.public"
           }
