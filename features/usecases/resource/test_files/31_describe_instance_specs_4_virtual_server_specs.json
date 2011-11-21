@@ -58,7 +58,7 @@
         "quota_weight": 1.0,
         "created_at": "2011-10-28T02:58:57Z",
         "drives": "--- \nephemeral1: \n  :type: :local\n  :size: 100\n  :index: 0\n"
-      },
+      }
 
     ],
     "limit": null
