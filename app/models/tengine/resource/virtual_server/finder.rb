@@ -28,13 +28,7 @@ class Tengine::Resource::VirtualServer::Finder
   end
 
   def initialize(attrs={})
-    unless attrs.has_key? :finder
-      attrs = {
-        status_ids: Tengine::Resource::VirtualServer::Finder.status_ids,
-      }.with_indifferent_access
-    else
-      attrs = attrs[:finder]
-    end
+    attrs = attrs[:finder] if attrs.has_key?(:finder)
     ATTRIBUTE_NAMES.each do |attr|
       v = attrs[attr]
       send("#{attr}=", v) unless v.nil?
