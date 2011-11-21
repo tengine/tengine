@@ -231,7 +231,7 @@ table.TableForm4rows {
   border: none;
 }
 table.TableForm4rows thead th {
-  padding: 5px 10px;
+  padding: 3px 10px;
   text-align: center;
   font-weight: normal;
     background-color: #E0F2D8;
@@ -249,6 +249,9 @@ table.TableForm4rows tbody td {
   border: none;
   text-align: left;
 }
+table.TableForm4rows tbody th,
+table.TableForm4rows tbody td {
+}
 table.TableForm4rows tbody .CelRow1,
 table.TableForm4rows tbody .CelRow4 {
   width: 100px;
@@ -259,6 +262,7 @@ table.TableForm4rows tbody .CelRow2{
 }
 table.TableForm4rows tbody .CelRow3 {
   width: auto;
+  padding: 0;
 }
 table.TableForm4rows tbody .CelRow5 {
   width: auto;
@@ -462,7 +466,6 @@ a.LinkNextposts{
   overflow: hidden;
   cursor: pointer;
   background: url(<%= asset_path("btn_close.png") %>) no-repeat left top;
-  
 }
 
 /* @end */

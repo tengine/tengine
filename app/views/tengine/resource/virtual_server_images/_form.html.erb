@@ -1,23 +1,32 @@
 <%= form_for(@virtual_server_image, as:"virtual_server_image") do |f| %>
   <%= model_error_messages(@virtual_server_image) %>
+  <table class= "TableForm4rows" >
+    <tbody class= "CelRow3">
+      <tr>
+        <th><%= f.label :name %></th>
+        <td><%= @virtual_server_image.name %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :provided_id %></th>
+        <td><%= @virtual_server_image.provided_id %></td>
+      </tr>
+      <tr>
+       <th><%= f.label :provided_description %></th>
+       <td><%= @virtual_server_image.provided_description %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :description %></th>
+        <td><%= f.text_area :description, class: "InputTex"  %></td>
+      </tr>
+    </tbody>
+  </table>
 
-  <div class="field">
-    <%= f.label :provider_id %><br />
-    <%= f.text_field :provider_id %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :provided_id %><br />
-    <%= f.text_field :provided_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="BoxBtns">
+    <span class="BtnWrap">
+      <%= f.submit :class => "BtnNext"  %>
+    </span>
+    <span class="BtnWrap">
+      <%= submit_tag t(:cancel), :class => "BtnCancel" %>
+    </span>
   </div>
 <% end %>

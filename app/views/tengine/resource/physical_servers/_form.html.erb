@@ -1,35 +1,45 @@
-<%= form_for(@physical_server, as:"physical_server") do |f| %>
-  <%= model_error_messages(@physical_server) %>
+  <%= form_for(@physical_server, as:"physical_server") do |f| %>
+    <%= model_error_messages(@physical_server) %>
+      <table class= "TableForm4rows" >
+        <tbody class= "CelRow2">
+          <tr>
+            <th><%= f.label :name %></th>
+            <td><%= @physical_server.name %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :provided_id %></th>
+            <td><%= @physical_server.provided_id %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :cpu_cores %></th>
+            <td><%= @physical_server.cpu_cores %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :memory_size %></th>
+            <td><%=  @physical_server.memory_size %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :status %></th>
+            <td><%= @physical_server.status %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :properties %></th>
+            <td><%= @physical_server.properties_yaml %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :description %></th>
+            <td><%= f.text_area :description, class: "InputText" %></td>
+          </tr>
+      </tbody>
+    </table>
+  
+    <div class="BoxBtns">
+      <span class="BtnWrap">
+        <%= f.submit :class => "BtnNext" %>
+      </span>
+      <span class="BtnWrap">
+        <%= submit_tag t(:cancel), :class => "BtnCancel" %>
+      </span>
+    </div>
 
-  <div class="field">
-    <%= f.label :provider_id %><br />
-    <%= f.text_field :provider_id %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :provided_id %><br />
-    <%= f.text_field :provided_id %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br />
-    <%= f.text_field :status %>
-  </div>
-  <div class="field">
-    <%= f.label :addresses_yaml %><br />
-    <%= f.text_area :addresses_yaml %>
-  </div>
-  <div class="field">
-    <%= f.label :properties_yaml %><br />
-    <%= f.text_area :properties_yaml %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <% end %>

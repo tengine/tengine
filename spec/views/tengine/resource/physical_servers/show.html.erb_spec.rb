@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe "tengine/resource/physical_servers/show.html.erb" do
+=begin
+#画面を利用しないのでコメントしています。
   before(:each) do
     @physical_server = assign(:physical_server, stub_model(Tengine::Resource::PhysicalServer,
       :provider => nil,
@@ -24,4 +26,5 @@ describe "tengine/resource/physical_servers/show.html.erb" do
     rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump({"a"=>"1", "b"=>"2"})))}/)
     rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump({"a"=>"1", "b"=>"2"})))}/)
   end
+=end
 end

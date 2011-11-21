@@ -26,11 +26,14 @@ CSS Information
 
   line-height: 1;
   font-weight: bold;
-  background: #fff url(<= asset_path("bg_btn_input.png") %>) repeat-x left 0;
+  background: #fff url(<%= asset_path("bg_btn_input.png") %>) repeat-x left 0;
   
   box-shadow: 0px 0px 5px #ccc;
 }
-
+a.BtnWrap {
+	position: relative;
+	top: 3px;
+}
 .BtnWrap:hover {
   background-position: left bottom;
   border-color: #aaa;
@@ -60,53 +63,52 @@ CSS Information
 }
 
 .BtnDetail {
-    background-image: url(<= asset_path("icon/Text_preview.png") %>);
+    background-image: url(<%= asset_path("icon/Text_preview.png") %>);
 }
 .BtnAdd {
-    background-image: url(<= asset_path("icon/Create.png") %>);
+    background-image: url(<%= asset_path("icon/Create.png") %>);
 }
 .BtnEdit {
-    background-image: url(<= asset_path("icon/Notes.png") %>);
+    background-image: url(<%= asset_path("icon/Notes.png") %>);
 }
 .BtnDelete {
-    background-image: url(<= asset_path("icon/33.png") %>);
+    background-image: url(<%= asset_path("icon/33.png") %>);
 }
 .BtnCancel {
-    background-image: url(<= asset_path("icon/Cancel.png") %>);
+    background-image: url(<%= asset_path("icon/Cancel.png") %>);
 }
 .BtnSetting {
-    background-image: url(<= asset_path("icon/Application.png") %>);
+    background-image: url(<%= asset_path("icon/Application.png") %>);
 }
 .BtnSave {
-    background-image: url(<= asset_path("icon/Save.png") %>);
+    background-image: url(<%= asset_path("icon/Save.png") %>);
 }
 .BtnBack {
-    background-image: url(<= asset_path("icon/Previous.png") %>);
+    background-image: url(<%= asset_path("icon/Previous.png") %>);
 }
 .BtnNext {
-    background-image: url(<= asset_path("icon/Next.png") %>);
+    background-image: url(<%= asset_path("icon/Next.png") %>);
 }
 .BtnSearch {
-    background-image: url(<= asset_path("icon/View.png") %>);
+    background-image: url(<%= asset_path("icon/View.png") %>);
 }
 .BtnDownload {
-    background-image: url(<= asset_path("icon/Download.png") %>);
+    background-image: url(<%= asset_path("icon/Download.png") %>);
 }
 .BtnUpload {
-    background-image: url(<= asset_path("icon/Upload.png") %>);
+    background-image: url(<%= asset_path("icon/Upload.png") %>);
 }
 .BtnSubmit {
-  background-image: url(<= asset_path("icon/Go_forward.png") %>);
+  background-image: url(<%= asset_path("icon/Go_forward.png") %>);
 }
 .BtnYes {
-    background-image: url(<= asset_path("icon/yes.png") %>);
+    background-image: url(<%= asset_path("icon/Yes.png") %>);
 }
 .BtnNo {
-  background-image: url(<= asset_path("icon/no.png") %>);
+  background-image: url(<%= asset_path("icon/No.png") %>);
 }
 .BtnPreview {
-    padding: 0 5px 0 18px;
-  background: url(<= asset_path("icon/Text_preview.png") %>) no-repeat 0 2px;
+  background: url(<%= asset_path("icon/Text_preview.png") %>) no-repeat 0 2px;
 }
 
 img.BtnSample {
@@ -124,13 +126,13 @@ a.BtnText {
   margin: 0 5px;
   padding:11px 15px 11px 30px;  
   /*
-  background: url(<= asset_path("icon/1.png") %>) no-repeat 15px center, url(<= asset_path("bg_btn_input.png") %>) repeat-x;
+  background: url(<%= asset_path("icon/1.png") %>) no-repeat 15px center, url(<%= asset_path("bg_btn_input.png") %>) repeat-x;
   */
   
-  background: url(<= asset_path("icon/View.png") %>) no-repeat 11px center,
+  background: url(<%= asset_path("icon/View.png") %>) no-repeat 11px center,
   -moz-linear-gradient(top, #fff,#fff 30%,#EDEDED); /* Firefox用 */
     
-    background: url(<= asset_path("icon/View.png") %>) no-repeat 11px center,
+    background: url(<%= asset_path("icon/View.png") %>) no-repeat 11px center,
     -webkit-gradient(linear, left top, left bottom, from(#fff), 
             color-stop(0.3, #fff),
             to(#EDEDED)); /* Safari,Google Chrome用 */
@@ -160,10 +162,10 @@ input.BtnSample {
 
 input.BtnSample:hover,
 a.BtnText:hover {
-  background: url(<= asset_path("icon/View.png") %>) no-repeat 11px center,
+  background: url(<%= asset_path("icon/View.png") %>) no-repeat 11px center,
   -moz-linear-gradient(top, #EAEAEA,#EAEAEA 30%,#c9c9c9); /* Firefox用 */
     
-    background: url(<= asset_path("icon/View.png") %>) no-repeat 11px center,
+    background: url(<%= asset_path("icon/View.png") %>) no-repeat 11px center,
     -webkit-gradient(linear, left top, left bottom, from(#EAEAEA), 
             color-stop(0.3, #EAEAEA),
             to(#c9c9c9)); /* Safari,Google Chrome用 */
@@ -183,35 +185,35 @@ a.BtnText:hover {
 /* @group Text Link (Action Icon)  */
 a.ActionDetail {
     padding: 3px 5px 3px 18px;
-    background: url(<= asset_path("icon/Text_preview.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/Text_preview.png") %>) no-repeat left center;
     line-height: 1;
 }
 a.ActionAdd {
     padding: 3px 5px 3px 18px;
-    background: url(<= asset_path("icon/Create.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/Create.png") %>) no-repeat left center;
     line-height: 1;
 }
 
 a.ActionEdit {
     padding: 3px 5px 3px 18px;
-    background: url(<= asset_path("icon/Notes.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/Notes.png") %>) no-repeat left center;
     line-height: 1;
 }
 a.ActionDelete {
     padding: 3px 5px 3px 18px;
-    background: url(<= asset_path("icon/33.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/33.png") %>) no-repeat left center;
     line-height: 1;
     white-space: nowrap;
 }
 a.ActionCancel {
     padding: 3px 5px 3px 18px;
-    background: url(<= asset_path("icon/Cancel.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/Cancel.png") %>) no-repeat left center;
     line-height: 1;
 }
 
 a.ActionSetting {
     padding: 3px 5px 3px 18px;
-    background: url(<= asset_path("icon/Equipment.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/Equipment.png") %>) no-repeat left center;
     line-height: 1;
 }
 
@@ -231,66 +233,66 @@ table.TableBase td a.ActionSetting {
 /* form */
 .IconCalender {
     padding: 3px 10px 3px 20px;
-    background: url(<= asset_path("icon/44.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/44.png") %>) no-repeat left center;
     line-height: 1;
 }
 .IconNotice {
     padding: 3px 10px 3px 20px;
-    background: url(<= asset_path("icon/58.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/58.png") %>) no-repeat left center;
     line-height: 1;
 }
 .IconWarrning {
     padding: 3px 10px 3px 20px;
-    background: url(<= asset_path("icon/Alert.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/Alert.png") %>) no-repeat left center;
     line-height: 1;
 }
 
 .IconDebug {
     padding: 0 5px 0 18px;
-  background: url(<= asset_path("icon/Wrench.png") %>) no-repeat 0px 2px;
+  background: url(<%= asset_path("icon/Wrench.png") %>) no-repeat 0px 2px;
   color: #006CC6;
 }
 .IconInfo {
     padding: 0 5px 0 18px;
-  background: url(<= asset_path("icon/Info.png") %>) no-repeat 0px 2px;
+  background: url(<%= asset_path("icon/Info.png") %>) no-repeat 0px 2px;
   color: #25976A;
 }
 .IconWarn {
     padding: 0 5px 0 18px;
-  background: url(<= asset_path("icon/Warning.png") %>) no-repeat 0px 2px;
+  background: url(<%= asset_path("icon/Warning.png") %>) no-repeat 0px 2px;
   color: #FFA940;
 }
 .IconError {
     padding: 0 5px 0 18px;
-  background: url(<= asset_path("icon/Error.png") %>) no-repeat 0px 2px;
+  background: url(<%= asset_path("icon/Error.png") %>) no-repeat 0px 2px;
   color: red;
 }
 .IconFatal {
     padding: 0 5px 0 18px;
-  background: url(<= asset_path("icon/Bomb.png") %>) no-repeat 0px 2px;
+  background: url(<%= asset_path("icon/Bomb.png") %>) no-repeat 0px 2px;
   color: #663C94;
 }
 .IconAvailable {
     padding: 0 5px 0 18px;
-  background: url(<= asset_path("icon/Apply.png") %>) no-repeat 0px 2px;
+  background: url(<%= asset_path("icon/Apply.png") %>) no-repeat 0px 2px;
 }
 .IconUnavailable {
     padding: 0 5px 0 18px;
-  background: url(<= asset_path("icon/Delete.png") %>) no-repeat 0px 2px;
+  background: url(<%= asset_path("icon/Delete.png") %>) no-repeat 0px 2px;
 }
 
 .IconChecked {
     padding: 0 5px 0 18px;
-  background: url(<= asset_path("icon/3.png") %>) no-repeat -1px 2px;
+  background: url(<%= asset_path("icon/3.png") %>) no-repeat -1px 2px;
 }
 .IconUnchecked {
     padding: 0 5px 0 18px;
-  background: url(<= asset_path("icon/4.png") %>) no-repeat -1px 2px;
+  background: url(<%= asset_path("icon/4.png") %>) no-repeat -1px 2px;
 }
 
 .IconYaml{
     padding: 0 5px 0 19px;
-  background: url(<= asset_path("icon/Script.png") %>) no-repeat left center;
+  background: url(<%= asset_path("icon/Script.png") %>) no-repeat left center;
 }
 /* @end */
 
@@ -298,18 +300,18 @@ table.TableBase td a.ActionSetting {
 /* Navigation */
 a.ActionBack {
     padding: 3px 10px 3px 20px;
-    background: url(<= asset_path("icon/Back.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/Back.png") %>) no-repeat left center;
     line-height: 1;
 }
 a.ActionDownSearch {
     padding: 3px 10px 3px 16px;
-    background: url(<= asset_path("icon/Search.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/Search.png") %>) no-repeat left center;
     line-height: 1;
 }
 
 a.ActionUpSearch {
     padding: 3px 10px 3px 16px;
-    background: url(<= asset_path("icon/arrow-090.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/arrow-090.png") %>) no-repeat left center;
     line-height: 1;
 }
 
@@ -317,34 +319,34 @@ a.ActionUpSearch {
 /* Arrow */
 a.ActionRight {
     padding: 3px 10px 3px 20px;
-    background: url(<= asset_path("icon/57.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/57.png") %>) no-repeat left center;
     line-height: 1;
 }
 a.ActionLeft {
     padding: 3px 10px 3px 20px;
-    background: url(<= asset_path("icon/56.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/56.png") %>) no-repeat left center;
     line-height: 1;
 }
 a.ActionUp {
     padding: 3px 10px 3px 20px;
-    background: url(<= asset_path("icon/55.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/55.png") %>) no-repeat left center;
     line-height: 1;
 }
 a.ActionDown {
     padding: 3px 10px 3px 20px;
-    background: url(<= asset_path("icon/54.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/54.png") %>) no-repeat left center;
     line-height: 1;
 }
 
 /* file */
 a.ActionCsvDL {
     padding: 3px 5px 3px 18px;
-    background: url(<= asset_path("icon/46.png") %>) no-repeat left center;
+    background: url(<%= asset_path("icon/46.png") %>) no-repeat left center;
     line-height: 1;
 }
   a.ActionCsvDL span {
       padding: 3px 5px 3px 18px;
-      background: url(<= asset_path("icon/document-excel.png") %>) no-repeat left center;
+      background: url(<%= asset_path("icon/document-excel.png") %>) no-repeat left center;
       line-height: 1;
   }
 

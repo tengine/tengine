@@ -61,6 +61,7 @@ module ApplicationHelper
     content_tag(:li, link_to(text, href), :class => request.path.include?(href) ? 'Current' : nil)
   end
 
+
   def model_error_messages(obj)
     return unless obj.errors.any?
     content_tag(:div,

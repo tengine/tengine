@@ -1,5 +1,6 @@
 require 'spec_helper'
-
+=begin
+# 利用しない画面なのでコメントしています。
 describe "tengine/resource/virtual_server_images/new.html.erb" do
   before(:each) do
     assign(:virtual_server_image, stub_model(Tengine::Resource::VirtualServerImage,
@@ -22,3 +23,4 @@ describe "tengine/resource/virtual_server_images/new.html.erb" do
     end
   end
 end
+=end
