@@ -1,9 +1,11 @@
-tengined:
+process:
   daemon: false
+  pid_dir:        "./tmp/tengined_pids"          # 本番環境での例 "/var/run/tengined_pids"
+
+tengined:
   activation_timeout: 300,
   load_path: "./spec_dsl/"
   confirmation_threshold: info
-  pid_dir:        "./tmp/tengined_pids"          # 本番環境での例 "/var/run/tengined_pids"
   status_dir:     "./tmp/tengined_status"        # 本番環境での例 "/var/run/tengined_status"
   activation_dir: "./tmp/tengined_activations"   # 本番環境での例 "/var/run/tengined_activations"
 
@@ -41,7 +43,7 @@ event_queue:
 
 
 log_common:
-  outpus:                           # file path or "STDOUT" / "STDERR"
+  output:                           # file path or "STDOUT" / "STDERR"
   rotation: 3                       # rotation file count or daily,weekly,monthly. default: 3
   rotation_size: 1024 * 1024        # number of max log file size. default: 1048576 (10MB)
   level: 'debug'                    # debug/info/warn/error/fatal. default: info
