@@ -42,7 +42,7 @@
     |physical_server_name_07|physical_server_id_07||700 |700000|online|
     |physical_server_name_08|physical_server_id_08||800 |800000|online|
     |physical_server_name_09|physical_server_id_09||900 |900000|online|
-    |physical_server_name_10|physical_server_id_10||100 |100000|registering|
+    |physical_server_name_10|physical_server_id_10||100 |100000|offline|
 
     # 物理サーバの説明を編集する
     もし "物理サーバ名"が"physical_server_name_01"列の"編集"リンクをクリックする
@@ -62,7 +62,7 @@
     |physical_server_name_07|physical_server_id_07||700 |700000|online|
     |physical_server_name_08|physical_server_id_08||800 |800000|online|
     |physical_server_name_09|physical_server_id_09||900 |900000|online|
-    |physical_server_name_10|physical_server_id_10||100 |100000|registering|
+    |physical_server_name_10|physical_server_id_10||100 |100000|offline|
 
     # 代替コースA: 物理サーバ一覧表を絞り込み検索して表示する
     # 物理サーバ名で検索を行う
@@ -75,11 +75,11 @@
 
     # ステータスで検索を行う
     もし "物理サーバ一覧"を表示する
-    かつ "ステータス"の"registering"をチェックする
+    かつ "ステータス"の"offline"をチェックする
     かつ "検索"ボタンをクリックする
     ならば "物理サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
-    |physical_server_name_10|physical_server_id_10||100 |100000|registering|
+    |physical_server_name_10|physical_server_id_10||100 |100000|offline|
 
     # 代替コースC: 検索条件にマッチする項目が0台と表示される
     # 物理サーバ名で検索を行う(結果が0件)
@@ -104,7 +104,7 @@
     |physical_server_name_07|physical_server_id_07||700 |700000|online|
     |physical_server_name_08|physical_server_id_08||800 |800000|online|
     |physical_server_name_09|physical_server_id_09||900 |900000|online|
-    |physical_server_name_10|physical_server_id_10||100 |100000|registering|
+    |physical_server_name_10|physical_server_id_10||100 |100000|offline|
     |physical_server_name_11|physical_server_id_11||100 |100000|online|
     |physical_server_name_12|physical_server_id_12||200 |200000|online|
     |physical_server_name_13|physical_server_id_13||300 |300000|online|
@@ -114,7 +114,7 @@
     |physical_server_name_17|physical_server_id_17||700 |700000|online|
     |physical_server_name_18|physical_server_id_18||800 |800000|online|
     |physical_server_name_19|physical_server_id_19||900 |900000|online|
-    |physical_server_name_20|physical_server_id_20||100 |100000|registering|
+    |physical_server_name_20|physical_server_id_20||100 |100000|offline|
     |physical_server_name_21|physical_server_id_21||100 |100000|online|
     |physical_server_name_22|physical_server_id_22||200 |200000|online|
     |physical_server_name_23|physical_server_id_23||300 |300000|online|
@@ -124,7 +124,7 @@
     |physical_server_name_27|physical_server_id_27||700 |700000|online|
     |physical_server_name_28|physical_server_id_28||800 |800000|online|
     |physical_server_name_29|physical_server_id_29||900 |900000|online|
-    |physical_server_name_30|physical_server_id_30||100 |100000|registering|
+    |physical_server_name_30|physical_server_id_30||100 |100000|offline|
     |physical_server_name_31|physical_server_id_31||100 |100000|online|
     |physical_server_name_32|physical_server_id_32||200 |200000|online|
     |physical_server_name_33|physical_server_id_33||300 |300000|online|
@@ -134,7 +134,7 @@
     |physical_server_name_37|physical_server_id_37||700 |700000|online|
     |physical_server_name_38|physical_server_id_38||800 |800000|online|
     |physical_server_name_39|physical_server_id_39||900 |900000|online|
-    |physical_server_name_40|physical_server_id_40||100 |100000|registering|
+    |physical_server_name_40|physical_server_id_40||100 |100000|offline|
     |physical_server_name_41|physical_server_id_41||100 |100000|online|
     |physical_server_name_42|physical_server_id_42||200 |200000|online|
     |physical_server_name_43|physical_server_id_43||300 |300000|online|
@@ -144,7 +144,7 @@
     |physical_server_name_47|physical_server_id_47||700 |700000|online|
     |physical_server_name_48|physical_server_id_48||800 |800000|online|
     |physical_server_name_49|physical_server_id_49||900 |900000|online|
-    |physical_server_name_50|physical_server_id_50||100 |100000|registering|
+    |physical_server_name_50|physical_server_id_50||100 |100000|offline|
 
     # ステータスで検索を行う
     もし "物理サーバ一覧"を表示する
