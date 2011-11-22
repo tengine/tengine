@@ -259,4 +259,11 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     rendered.should have_xpath("//td", :text => "vserver2")
     rendered.should_not have_xpath("//td", :text => "vserver1")
   end
+
+  it "物理サーバ編集画面へのリンクが表示されていること" do
+    render(:file => "tengine/resource/virtual_servers/index")
+
+    rendered.should have_link(@physical_server1.name,
+      :href => edit_tengine_resource_physical_server_url(@physical_server1))
+  end
 end

@@ -116,8 +116,13 @@
           <% idle = physical_server.guest_servers.blank? -%>
           <% if idle && !@finder.finded_by_virtual_server? -%>
               <tr>
-                <td><%= name_link_and_desc(physical_server) %></td>
-                <td colspan="10"><%= t(".virtual_server..not_found") %></td>
+                <td>
+                  <%== name_link_and_desc(physical_server,
+                         url:edit_tengine_resource_physical_server_url(physical_server),
+                         delimiter:"<br />"
+                       ) %>
+                </td>
+                <td colspan="10"><%= t(".virtual_server.not_found") %></td>
               </tr>
           <% else -%>
             <% virtual_servers = @finder.scope(physical_server.guest_servers) -%>
@@ -125,7 +130,10 @@
               <tr>
                 <% if i.zero? -%>
                   <td rowspan="<%= virtual_servers.size %>">
-                    <%= name_link_and_desc(physical_server) %>
+                    <%== name_link_and_desc(physical_server,
+                           url:edit_tengine_resource_physical_server_url(physical_server),
+                           delimiter:"<br />"
+                         ) %>
                   </td>
                 <% end -%>
                 <td><%= virtual_server.name %></td>
