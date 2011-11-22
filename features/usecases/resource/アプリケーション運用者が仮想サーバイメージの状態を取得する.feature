@@ -44,12 +44,12 @@
     ならば "仮想サーバイメージ編集"画面が表示されていること
     かつ "仮想サーバイメージ編集"画面に"virtual_server_image_id_01"と表示されていること
 
-    もし "仮想サーバ名"に"仮想サーバイメージ名01"と入力する
+    もし "仮想サーバ名"に"virtual_server_image_name_01"と入力する
     かつ "説明"に"仮想サーバイメージ説明01"と入力する
     かつ "更新"ボタンをクリックする
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること
     |仮想サーバイメージ名|プロバイダによるID|プロバイダによる説明|説明|
-    |仮想サーバイメージ名01|virtual_server_image_id_01|virtual_server_image_description_01|仮想サーバイメージ説明01|
+    |virtual_server_image_name_01|virtual_server_image_id_01|virtual_server_image_description_01|仮想サーバイメージ説明01|
     |virtual_server_image_id_02|virtual_server_image_id_02|virtual_server_image_description_02||
     |virtual_server_image_id_03|virtual_server_image_id_03|virtual_server_image_description_03||
     |virtual_server_image_id_04|virtual_server_image_id_04|virtual_server_image_description_04||
@@ -58,11 +58,11 @@
     # 代替コースA: 仮想サーバイメージ一覧表を絞り込み検索して表示する
     # 仮想サーバイメージ名で検索を行う
     もし "仮想サーバイメージ一覧"を表示する
-    かつ "仮想サーバイメージ名"に"仮想サーバイメージ名01"と入力する
+    かつ "仮想サーバイメージ名"に"virtual_server_image_name_01"と入力する
     かつ "検索"ボタンをクリックする
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること
     |仮想サーバイメージ名|プロバイダによるID|プロバイダによる説明|説明|
-    |仮想サーバイメージ名01|virtual_server_image_id_01|virtual_server_image_description_01|仮想サーバイメージ説明01|
+    |virtual_server_image_name_01|virtual_server_image_id_01|virtual_server_image_description_01|仮想サーバイメージ説明01|
 
     # 代替コースC: 検索条件にマッチする項目が0台と表示される
     # 仮想サーバイメージ名で検索を行う(結果が0件)
@@ -78,7 +78,7 @@
     もし "仮想サーバイメージ一覧"画面を表示する
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること
     |仮想サーバイメージ名|プロバイダによるID|プロバイダによる説明|説明|
-    |仮想サーバイメージ名01|virtual_server_image_id_01|virtual_server_image_description_01|仮想サーバイメージ説明01|
+    |virtual_server_image_name_01|virtual_server_image_id_01|virtual_server_image_description_01|仮想サーバイメージ説明01|
     |virtual_server_image_id_02|virtual_server_image_id_02|virtual_server_image_description_02||
     |virtual_server_image_id_03|virtual_server_image_id_03|virtual_server_image_description_03||
     |virtual_server_image_id_04|virtual_server_image_id_04|virtual_server_image_description_04||
