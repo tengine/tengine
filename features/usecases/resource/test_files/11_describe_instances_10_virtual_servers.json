@@ -4,10 +4,10 @@
     "start": 0,
     "results": [
       {
-        "id": "virtual_server_id_01",
-        "host_node": "physical_server_id_01",
+        "id": "virtual_server_uuid_01",
+        "host_node": "physical_server_uuid_01",
         "image_id": "virtual_server_image_uuid_01",
-        "instance_spec_id": "virtual_server_spec_id_01",
+        "instance_spec_id": "virtual_server_spec_uuid_01",
         "state": "running",
         "network": [
           {
@@ -50,10 +50,10 @@
       },
 
       {
-        "id": "virtual_server_id_02",
-        "host_node": "physical_server_id_01",
+        "id": "virtual_server_uuid_02",
+        "host_node": "physical_server_uuid_01",
         "image_id": "virtual_server_image_uuid_01",
-        "instance_spec_id": "virtual_server_spec_id_01",
+        "instance_spec_id": "virtual_server_spec_uuid_01",
         "state": "running",
         "network": [
           {
@@ -96,10 +96,10 @@
       },
 
       {
-        "id": "virtual_server_id_03",
-        "host_node": "physical_server_id_01",
+        "id": "virtual_server_uuid_03",
+        "host_node": "physical_server_uuid_01",
         "image_id": "virtual_server_image_uuid_01",
-        "instance_spec_id": "virtual_server_spec_id_01",
+        "instance_spec_id": "virtual_server_spec_uuid_01",
         "state": "starting",
         "network": [
           {
@@ -142,10 +142,10 @@
       },
 
       {
-        "id": "virtual_server_id_04",
-        "host_node": "physical_server_id_01",
+        "id": "virtual_server_uuid_04",
+        "host_node": "physical_server_uuid_01",
         "image_id": "virtual_server_image_uuid_01",
-        "instance_spec_id": "virtual_server_spec_id_01",
+        "instance_spec_id": "virtual_server_spec_uuid_01",
         "state": "shuttingdown",
         "network": [
           {
@@ -188,10 +188,10 @@
       },
 
       {
-        "id": "virtual_server_id_05",
-        "host_node": "physical_server_id_01",
+        "id": "virtual_server_uuid_05",
+        "host_node": "physical_server_uuid_01",
         "image_id": "virtual_server_image_uuid_01",
-        "instance_spec_id": "virtual_server_spec_id_01",
+        "instance_spec_id": "virtual_server_spec_uuid_01",
         "state": "terminated",
         "network": [
           {
@@ -234,10 +234,10 @@
       },
 
       {
-        "id": "virtual_server_id_06",
-        "host_node": "physical_server_id_02",
+        "id": "virtual_server_uuid_06",
+        "host_node": "physical_server_uuid_02",
         "image_id": "virtual_server_image_uuid_02",
-        "instance_spec_id": "virtual_server_spec_id_02",
+        "instance_spec_id": "virtual_server_spec_uuid_02",
         "state": "running",
         "network": [
           {
@@ -280,10 +280,10 @@
       },
 
       {
-        "id": "virtual_server_id_07",
-        "host_node": "physical_server_id_02",
+        "id": "virtual_server_uuid_07",
+        "host_node": "physical_server_uuid_02",
         "image_id": "virtual_server_image_uuid_02",
-        "instance_spec_id": "virtual_server_spec_id_02",
+        "instance_spec_id": "virtual_server_spec_uuid_02",
         "state": "running",
         "network": [
           {
@@ -326,10 +326,10 @@
       },
 
       {
-        "id": "virtual_server_id_08",
-        "host_node": "physical_server_id_02",
+        "id": "virtual_server_uuid_08",
+        "host_node": "physical_server_uuid_02",
         "image_id": "virtual_server_image_uuid_02",
-        "instance_spec_id": "virtual_server_spec_id_02",
+        "instance_spec_id": "virtual_server_spec_uuid_02",
         "state": "running",
         "network": [
           {
@@ -372,10 +372,10 @@
       },
 
       {
-        "id": "virtual_server_id_09",
-        "host_node": "physical_server_id_03",
+        "id": "virtual_server_uuid_09",
+        "host_node": "physical_server_uuid_03",
         "image_id": "virtual_server_image_uuid_01",
-        "instance_spec_id": "virtual_server_spec_id_01",
+        "instance_spec_id": "virtual_server_spec_uuid_01",
         "state": "running",
         "network": [
           {
@@ -418,10 +418,10 @@
       },
 
       {
-        "id": "virtual_server_id_10",
-        "host_node": "physical_server_id_03",
+        "id": "virtual_server_uuid_10",
+        "host_node": "physical_server_uuid_03",
         "image_id": "virtual_server_image_uuid_02",
-        "instance_spec_id": "virtual_server_spec_id_02",
+        "instance_spec_id": "virtual_server_spec_uuid_02",
         "state": "running",
         "network": [
           {
