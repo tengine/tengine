@@ -59,7 +59,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :description => "v2Description",
       :status => "running",
       :addresses => {"eth0"=>"192.168.2.1", "eth1"=>"10.10.10.1"},
-      :properties => {"a"=>"1", "b"=>"2"},
+      :properties => {"d"=>"1", "b"=>"2"},
       :provided_image_id => "ami1",
       :provided_type_id => "Large",
       :host_server_id => @physical_server1.id,
@@ -71,7 +71,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :description => "v3Description",
       :status => "starting",
       :addresses => {"eth0"=>"192.168.2.1", "eth1"=>"10.10.10.1"},
-      :properties => {"a"=>"1", "b"=>"2"},
+      :properties => {"d"=>"1", "b"=>"2"},
       :provided_image_id => "ami2",
       :provided_type_id => "Small",
       :host_server_id => @physical_server1.id,
@@ -109,6 +109,56 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     assert_select "tr>td", :text => "Large".to_s, :count => 1
     assert_select "tr>td>pre",
       :text => YAML.dump({"eth0"=>"192.168.2.1", "eth1"=>"10.10.10.1"}), :count => 2
+    assert_select "tr>td>div>div>pre",
+      :text => YAML.dump({"d"=>"1", "b"=>"2"}), :count => 2
+  end
+
+  it "addressesがnilの場合IPアドレスのセルに何も表示されないこと" do
+    @virtual_server1.addresses = nil
+    @virtual_server2.addresses = nil
+    @virtual_server1.save!
+    @virtual_server2.save!
+
+    render
+
+    assert_select "tr>td>pre",
+      :text => YAML.dump({"eth0"=>"192.168.2.1", "eth1"=>"10.10.10.1"}), :count => 0
+  end
+
+  it "addressesが空の場合IPアドレスのセルに何も表示されないこと" do
+    @virtual_server1.addresses = {}
+    @virtual_server2.addresses = {}
+    @virtual_server1.save!
+    @virtual_server2.save!
+
+    render
+
+    assert_select "tr>td>pre",
+      :text => YAML.dump({"eth0"=>"192.168.2.1", "eth1"=>"10.10.10.1"}), :count => 0
+  end
+
+  it "propertiesがnilの場合プロパティのセルに何も表示されないこと" do
+    @virtual_server1.properties = nil
+    @virtual_server2.properties = nil
+    @virtual_server1.save!
+    @virtual_server2.save!
+
+    render
+
+    assert_select "tr>td>div>div>pre",
+      :text => YAML.dump({"d"=>"1", "b"=>"2"}), :count => 0
+  end
+
+  it "propertiesが空の場合プロパティのセルに何も表示されないこと" do
+    @virtual_server1.properties = {}
+    @virtual_server2.properties = {}
+    @virtual_server1.save!
+    @virtual_server2.save!
+
+    render
+
+    assert_select "tr>td>div>div>pre",
+      :text => YAML.dump({"d"=>"1", "b"=>"2"}), :count => 0
   end
 
   it "renders search form" do

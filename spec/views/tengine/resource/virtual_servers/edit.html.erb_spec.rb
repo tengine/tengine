@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe "tengine/resource/virtual_servers/edit.html.erb" do
@@ -83,9 +84,45 @@ describe "tengine/resource/virtual_servers/edit.html.erb" do
       "#{@virtual_server1.host_server.name}(#{@virtual_server1.host_server.description})")
     rendered.should have_xpath("//td", :text => @virtual_server1.provided_id)
     rendered.should have_xpath("//td", :text => @virtual_server1.status)
-    rendered.should have_xpath("//td", :text => @virtual_server1.addresses["ip_address"])
-    rendered.should have_xpath("//td", :text => @virtual_server1.properties["a"])
+    rendered.should have_xpath("//td/pre", :text => @virtual_server1.addresses_yaml)
+    rendered.should have_xpath("//td/pre", :text => @virtual_server1.properties_yaml)
     rendered.should have_xpath("//td", :text => @type1.caption)
     rendered.should have_xpath("//td", :text => @image1.provided_id)
+  end
+
+  it "addressesがnilのとき何もIPアドレスに表示されないこと" do
+    @virtual_server1.addresses_yaml = nil
+    assign(:virtual_server, @virtual_server1)
+
+    render
+
+    rendered.should_not have_xpath("//td/pre", :text => @virtual_server1.addresses_yaml)
+  end
+
+  it "addressesが空のとき何もIPアドレスに表示されないこと" do
+    @virtual_server1.addresses_yaml = {}
+    assign(:virtual_server, @virtual_server1)
+
+    render
+
+    rendered.should_not have_xpath("//td/pre", :text => @virtual_server1.addresses_yaml)
+  end
+
+  it "propertiesがnilのとき何もプロパティに表示されないこと" do
+    @virtual_server1.properties_yaml = nil
+    assign(:virtual_server, @virtual_server1)
+
+    render
+
+    rendered.should_not have_xpath("//td/pre", :text => @virtual_server1.properties_yaml)
+  end
+
+  it "propertiesが空のとき何もプロパティに表示されないこと" do
+    @virtual_server1.properties_yaml = {}
+    assign(:virtual_server, @virtual_server1)
+
+    render
+
+    rendered.should_not have_xpath("//td/pre", :text => @virtual_server1.properties_yaml)
   end
 end

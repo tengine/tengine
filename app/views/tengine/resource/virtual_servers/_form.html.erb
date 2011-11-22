@@ -24,7 +24,9 @@
           </tr>
           <tr>
             <th><%= f.label :addresses %></th>
-            <td><%= format_addresses @virtual_server %></td>
+            <td>
+              <%= format_map_yml_value(@virtual_server, :addresses) %>
+            </td>
           </tr>
           <tr>
             <th><%= f.label :status %></th>
@@ -40,7 +42,9 @@
           </tr>
           <tr>
             <th><%= f.label :properties %></th>
-            <td><%= format_map_yml_value @virtual_server.properties %></td>
+            <td>
+              <%= format_map_yml_value(@virtual_server, :properties) %>
+            </td>
           </tr>
           <tr>
             <th><%= f.label :description %></th>

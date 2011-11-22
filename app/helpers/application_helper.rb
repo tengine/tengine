@@ -144,11 +144,9 @@ module ApplicationHelper
     end
   end
 
-  def format_map_yml_value(hash)
-    html = ""
-    return html if hash.blank?
-    html << hash.collect{|k, v| ERB::Util.html_escape("#{k}: #{v}") }.join("<br />")
-    return html.html_safe
+  def format_map_yml_value(object, method)
+    return "" if object.send(method).blank?
+    return %|<pre>#{ERB::Util.html_escape(object.send("#{method}_yaml"))}</pre>|.html_safe
   end
 
   def message(type, text, &block)
