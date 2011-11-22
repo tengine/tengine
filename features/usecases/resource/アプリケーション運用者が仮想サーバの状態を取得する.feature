@@ -59,16 +59,16 @@
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
-    |physical_server_name_01|virtual_server_id_01|virtual_server_id_01|    |nw-data: 192.168.2.1 <br>nw-outside: 172.16.0.1 |running|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_02|virtual_server_id_02|    |nw-data: 192.168.2.2 <br>nw-outside: 172.16.0.2 |running|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_03|virtual_server_id_03|    |nw-data: 192.168.2.3 <br>nw-outside: 172.16.0.3 |starting|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_04|virtual_server_id_04|    |nw-data: 192.168.2.4 <br>nw-outside: 172.16.0.4 |shuttingdown|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_05|virtual_server_id_05|    |nw-data: 192.168.2.5 <br>nw-outside: 172.16.0.5 |terminated|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |physical_server_name_02|virtual_server_id_06|virtual_server_id_06|    |nw-data: 192.168.2.6 <br>nw-outside: 172.16.0.6 |running|virtual_server_image_name_02|virtual_server_spec_name_02|
-    |                       |virtual_server_id_07|virtual_server_id_07|    |nw-data: 192.168.2.7 <br>nw-outside: 172.16.0.7 |running|virtual_server_image_name_02|virtual_server_spec_name_02|
-    |                       |virtual_server_id_08|virtual_server_id_08|    |nw-data: 192.168.2.8 <br>nw-outside: 172.16.0.8 |running|virtual_server_image_name_02|virtual_server_spec_name_02|
-    |physical_server_name_03|virtual_server_id_09|virtual_server_id_09|    |nw-data: 192.168.2.9 <br>nw-outside: 172.16.0.9 |running|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_10|virtual_server_id_10|    |nw-data: 192.168.2.10<br>nw-outside: 172.16.0.10|running|virtual_server_image_name_02|virtual_server_spec_name_02|
+    |physical_server_name_01|virtual_server_uuid_01|virtual_server_uuid_01|    |nw-data: 192.168.2.1 <br>nw-outside: 172.16.0.1 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_02|virtual_server_uuid_02|    |nw-data: 192.168.2.2 <br>nw-outside: 172.16.0.2 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_03|virtual_server_uuid_03|    |nw-data: 192.168.2.3 <br>nw-outside: 172.16.0.3 |starting|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_04|virtual_server_uuid_04|    |nw-data: 192.168.2.4 <br>nw-outside: 172.16.0.4 |shuttingdown|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_05|virtual_server_uuid_05|    |nw-data: 192.168.2.5 <br>nw-outside: 172.16.0.5 |terminated|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |physical_server_name_02|virtual_server_uuid_06|virtual_server_uuid_06|    |nw-data: 192.168.2.6 <br>nw-outside: 172.16.0.6 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
+    |                       |virtual_server_uuid_07|virtual_server_uuid_07|    |nw-data: 192.168.2.7 <br>nw-outside: 172.16.0.7 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
+    |                       |virtual_server_uuid_08|virtual_server_uuid_08|    |nw-data: 192.168.2.8 <br>nw-outside: 172.16.0.8 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
+    |physical_server_name_03|virtual_server_uuid_09|virtual_server_uuid_09|    |nw-data: 192.168.2.9 <br>nw-outside: 172.16.0.9 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_10|virtual_server_uuid_10|    |nw-data: 192.168.2.10<br>nw-outside: 172.16.0.10|running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
     |physical_server_name_04||||||||
     |physical_server_name_05||||||||
     |physical_server_name_06||||||||
@@ -78,25 +78,25 @@
     |physical_server_name_10||||||||
 
     # 仮想サーバの仮想サーバ名、説明を編集する
-    もし "プロバイダによるID"が"virtual_server_id_01"列の"編集"リンクをクリックする
+    もし "プロバイダによるID"が"virtual_server_uuid_01"列の"編集"リンクをクリックする
     ならば "仮想サーバ編集"画面が表示されていること
-    かつ "仮想サーバ編集"画面に"physical_server_id_01"と表示されていること
+    かつ "仮想サーバ編集"画面に"physical_server_uuid_01"と表示されていること
 
     もし "仮想サーバ名"に"virtual_server_name_01"と入力する
     かつ "説明"に"仮想サーバ説明01"と入力する
     かつ "更新"ボタンをクリックする
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
-    |physical_server_name_01|virtual_server_name_01|virtual_server_id_01|仮想サーバ説明01|nw-data: 192.168.2.1 <br>nw-outside: 172.16.0.1 |running|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_02|virtual_server_id_02|    |nw-data: 192.168.2.2 <br>nw-outside: 172.16.0.2 |running|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_03|virtual_server_id_03|    |nw-data: 192.168.2.3 <br>nw-outside: 172.16.0.3 |starting|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_04|virtual_server_id_04|    |nw-data: 192.168.2.4 <br>nw-outside: 172.16.0.4 |shuttingdown|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_05|virtual_server_id_05|    |nw-data: 192.168.2.5 <br>nw-outside: 172.16.0.5 |terminated|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |physical_server_name_02|virtual_server_id_06|virtual_server_id_06|    |nw-data: 192.168.2.6 <br>nw-outside: 172.16.0.6 |running|virtual_server_image_name_02|virtual_server_spec_name_02|
-    |                       |virtual_server_id_07|virtual_server_id_07|    |nw-data: 192.168.2.7 <br>nw-outside: 172.16.0.7 |running|virtual_server_image_name_02|virtual_server_spec_name_02|
-    |                       |virtual_server_id_08|virtual_server_id_08|    |nw-data: 192.168.2.8 <br>nw-outside: 172.16.0.8 |running|virtual_server_image_name_02|virtual_server_spec_name_02|
-    |physical_server_name_03|virtual_server_id_09|virtual_server_id_09|    |nw-data: 192.168.2.9 <br>nw-outside: 172.16.0.9 |running|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_10|virtual_server_id_10|    |nw-data: 192.168.2.10<br>nw-outside: 172.16.0.10|running|virtual_server_image_name_02|virtual_server_spec_name_02|
+    |physical_server_name_01|virtual_server_name_01|virtual_server_uuid_01|仮想サーバ説明01|nw-data: 192.168.2.1 <br>nw-outside: 172.16.0.1 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_02|virtual_server_uuid_02|    |nw-data: 192.168.2.2 <br>nw-outside: 172.16.0.2 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_03|virtual_server_uuid_03|    |nw-data: 192.168.2.3 <br>nw-outside: 172.16.0.3 |starting|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_04|virtual_server_uuid_04|    |nw-data: 192.168.2.4 <br>nw-outside: 172.16.0.4 |shuttingdown|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_05|virtual_server_uuid_05|    |nw-data: 192.168.2.5 <br>nw-outside: 172.16.0.5 |terminated|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |physical_server_name_02|virtual_server_uuid_06|virtual_server_uuid_06|    |nw-data: 192.168.2.6 <br>nw-outside: 172.16.0.6 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
+    |                       |virtual_server_uuid_07|virtual_server_uuid_07|    |nw-data: 192.168.2.7 <br>nw-outside: 172.16.0.7 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
+    |                       |virtual_server_uuid_08|virtual_server_uuid_08|    |nw-data: 192.168.2.8 <br>nw-outside: 172.16.0.8 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
+    |physical_server_name_03|virtual_server_uuid_09|virtual_server_uuid_09|    |nw-data: 192.168.2.9 <br>nw-outside: 172.16.0.9 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_10|virtual_server_uuid_10|    |nw-data: 192.168.2.10<br>nw-outside: 172.16.0.10|running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
     |physical_server_name_04||||||||
     |physical_server_name_05||||||||
     |physical_server_name_06||||||||
@@ -105,25 +105,25 @@
     |physical_server_name_09||||||||
     |physical_server_name_10||||||||
 
-    もし "プロバイダによるID"が"virtual_server_id_06"列の"編集"リンクをクリックする
+    もし "プロバイダによるID"が"virtual_server_uuid_06"列の"編集"リンクをクリックする
     ならば "仮想サーバ編集"画面が表示されていること
-    かつ "仮想サーバ編集"画面に"physical_server_id_06"と表示されていること
+    かつ "仮想サーバ編集"画面に"physical_server_uuid_06"と表示されていること
 
     もし "仮想サーバ名"に"virtual_server_name_06"と入力する
     かつ "説明"に"仮想サーバ説明06"と入力する
     かつ "更新"ボタンをクリックする
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
-    |physical_server_name_01|virtual_server_name_01|virtual_server_id_01|仮想サーバ説明01|nw-data: 192.168.2.1 <br>nw-outside: 172.16.0.1 |running|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_02|virtual_server_id_02|    |nw-data: 192.168.2.2 <br>nw-outside: 172.16.0.2 |running|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_03|virtual_server_id_03|    |nw-data: 192.168.2.3 <br>nw-outside: 172.16.0.3 |starting|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_04|virtual_server_id_04|    |nw-data: 192.168.2.4 <br>nw-outside: 172.16.0.4 |shuttingdown|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_05|virtual_server_id_05|    |nw-data: 192.168.2.5 <br>nw-outside: 172.16.0.5 |terminated|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |physical_server_name_02|virtual_server_name_06|virtual_server_id_06|仮想サーバ説明06|nw-data: 192.168.2.6 <br>nw-outside: 172.16.0.6 |running|virtual_server_image_name_02|virtual_server_spec_name_02|
-    |                       |virtual_server_id_07|virtual_server_id_07|    |nw-data: 192.168.2.7 <br>nw-outside: 172.16.0.7 |running|virtual_server_image_name_02|virtual_server_spec_name_02|
-    |                       |virtual_server_id_08|virtual_server_id_08|    |nw-data: 192.168.2.8 <br>nw-outside: 172.16.0.8 |running|virtual_server_image_name_02|virtual_server_spec_name_02|
-    |physical_server_name_03|virtual_server_id_09|virtual_server_id_09|    |nw-data: 192.168.2.9 <br>nw-outside: 172.16.0.9 |running|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_10|virtual_server_id_10|    |nw-data: 192.168.2.10<br>nw-outside: 172.16.0.10|running|virtual_server_image_name_02|virtual_server_spec_name_02|
+    |physical_server_name_01|virtual_server_name_01|virtual_server_uuid_01|仮想サーバ説明01|nw-data: 192.168.2.1 <br>nw-outside: 172.16.0.1 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_02|virtual_server_uuid_02|    |nw-data: 192.168.2.2 <br>nw-outside: 172.16.0.2 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_03|virtual_server_uuid_03|    |nw-data: 192.168.2.3 <br>nw-outside: 172.16.0.3 |starting|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_04|virtual_server_uuid_04|    |nw-data: 192.168.2.4 <br>nw-outside: 172.16.0.4 |shuttingdown|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_05|virtual_server_uuid_05|    |nw-data: 192.168.2.5 <br>nw-outside: 172.16.0.5 |terminated|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |physical_server_name_02|virtual_server_name_06|virtual_server_uuid_06|仮想サーバ説明06|nw-data: 192.168.2.6 <br>nw-outside: 172.16.0.6 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
+    |                       |virtual_server_uuid_07|virtual_server_uuid_07|    |nw-data: 192.168.2.7 <br>nw-outside: 172.16.0.7 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
+    |                       |virtual_server_uuid_08|virtual_server_uuid_08|    |nw-data: 192.168.2.8 <br>nw-outside: 172.16.0.8 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
+    |physical_server_name_03|virtual_server_uuid_09|virtual_server_uuid_09|    |nw-data: 192.168.2.9 <br>nw-outside: 172.16.0.9 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_10|virtual_server_uuid_10|    |nw-data: 192.168.2.10<br>nw-outside: 172.16.0.10|running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
     |physical_server_name_04||||||||
     |physical_server_name_05||||||||
     |physical_server_name_06||||||||
@@ -139,7 +139,7 @@
     かつ "検索"ボタンをクリックする
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
-    |physical_server_name_02|virtual_server_name_06|virtual_server_id_06|仮想サーバ説明06|nw-data: 192.168.2.6 <br>nw-outside: 172.16.0.6 |running|virtual_server_image_name_02|virtual_server_spec_name_02|
+    |physical_server_name_02|virtual_server_name_06|virtual_server_uuid_06|仮想サーバ説明06|nw-data: 192.168.2.6 <br>nw-outside: 172.16.0.6 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
 
     # ステータスで検索を行う
     もし "仮想サーバ一覧"を表示する
@@ -147,8 +147,8 @@
     かつ "検索"ボタンをクリックする
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
-    |physical_server_name_01|virtual_server_id_04|virtual_server_id_04|    |nw-data: 192.168.2.4 <br>nw-outside: 172.16.0.4 |shuttingdown|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |virtual_server_id_05|virtual_server_id_05|    |nw-data: 192.168.2.5 <br>nw-outside: 172.16.0.5 |terminated|virtual_server_image_name_01|virtual_server_spec_name_01|
+    |physical_server_name_01|virtual_server_uuid_04|virtual_server_uuid_04|    |nw-data: 192.168.2.4 <br>nw-outside: 172.16.0.4 |shuttingdown|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_05|virtual_server_uuid_05|    |nw-data: 192.168.2.5 <br>nw-outside: 172.16.0.5 |terminated|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
 
     # 物理サーバ名で検索を行う(仮想サーバが存在する)
     もし "仮想サーバ一覧"を表示する
@@ -156,9 +156,9 @@
     かつ "検索"ボタンをクリックする
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
-    |physical_server_name_02|virtual_server_name_06|virtual_server_id_06|仮想サーバ説明06|nw-data: 192.168.2.6 <br>nw-outside: 172.16.0.6 |running|virtual_server_image_name_02|virtual_server_spec_name_02|
-    |                       |virtual_server_id_07|virtual_server_id_07|    |nw-data: 192.168.2.7 <br>nw-outside: 172.16.0.7 |running|virtual_server_image_name_02|virtual_server_spec_name_02|
-    |                       |virtual_server_id_08|virtual_server_id_08|    |nw-data: 192.168.2.8 <br>nw-outside: 172.16.0.8 |running|virtual_server_image_name_02|virtual_server_spec_name_02|
+    |physical_server_name_02|virtual_server_name_06|virtual_server_uuid_06|仮想サーバ説明06|nw-data: 192.168.2.6 <br>nw-outside: 172.16.0.6 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
+    |                       |virtual_server_uuid_07|virtual_server_uuid_07|    |nw-data: 192.168.2.7 <br>nw-outside: 172.16.0.7 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
+    |                       |virtual_server_uuid_08|virtual_server_uuid_08|    |nw-data: 192.168.2.8 <br>nw-outside: 172.16.0.8 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
 
     # 物理サーバ名で検索を行う(仮想サーバが存在しない)
     もし "仮想サーバ一覧"を表示する

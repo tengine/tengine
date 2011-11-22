@@ -31,12 +31,12 @@
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
-    |physical_server_name_01|           |virtual_server_id_91|  |nw-data: 192.168.2.91 <br>nw-outside: 172.16.0.91 |running|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |           |virtual_server_id_92|  |nw-data: 192.168.2.92 <br>nw-outside: 172.16.0.92 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
-    |                       |           |virtual_server_id_93|  |nw-data: 192.168.2.93 <br>nw-outside: 172.16.0.93 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
-    |                       |           |virtual_server_id_94|  |nw-data: 192.168.2.94 <br>nw-outside: 172.16.0.94 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
-    |                       |           |virtual_server_id_95|  |nw-data: 192.168.2.95 <br>nw-outside: 172.16.0.95 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
-    |                       |           |virtual_server_id_96|  |nw-data: 192.168.2.96 <br>nw-outside: 172.16.0.96 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
+    |physical_server_name_01|           |virtual_server_id_91|  |nw-data: 192.168.2.91 <br>nw-outside: 172.16.0.91 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |           |virtual_server_id_92|  |nw-data: 192.168.2.92 <br>nw-outside: 172.16.0.92 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |                       |           |virtual_server_id_93|  |nw-data: 192.168.2.93 <br>nw-outside: 172.16.0.93 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |                       |           |virtual_server_id_94|  |nw-data: 192.168.2.94 <br>nw-outside: 172.16.0.94 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |                       |           |virtual_server_id_95|  |nw-data: 192.168.2.95 <br>nw-outside: 172.16.0.95 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |                       |           |virtual_server_id_96|  |nw-data: 192.168.2.96 <br>nw-outside: 172.16.0.96 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
     |physical_server_name_02||||||||
     |physical_server_name_03||||||||
     |physical_server_name_04||||||||
@@ -58,12 +58,12 @@
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
-    |physical_server_name_01|           |virtual_server_id_91|  |nw-data: 192.168.2.91 <br>nw-outside: 172.16.0.91 |terminated|virtual_server_image_name_01|virtual_server_spec_name_01|
-    |                       |           |virtual_server_id_92|  |nw-data: 192.168.2.92 <br>nw-outside: 172.16.0.92 |terminates|virtual_server_image_name_01|virtual_server_spec_name_02|
-    |                       |           |virtual_server_id_93|  |nw-data: 192.168.2.93 <br>nw-outside: 172.16.0.93 |shuttingdown|virtual_server_image_name_01|virtual_server_spec_name_02|
-    |                       |           |virtual_server_id_94|  |nw-data: 192.168.2.94 <br>nw-outside: 172.16.0.94 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
-    |                       |           |virtual_server_id_95|  |nw-data: 192.168.2.95 <br>nw-outside: 172.16.0.95 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
-    |                       |           |virtual_server_id_96|  |nw-data: 192.168.2.96 <br>nw-outside: 172.16.0.96 |running|virtual_server_image_name_01|virtual_server_spec_name_02|
+    |physical_server_name_01|           |virtual_server_id_91|  |nw-data: 192.168.2.91 <br>nw-outside: 172.16.0.91 |terminated|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |           |virtual_server_id_92|  |nw-data: 192.168.2.92 <br>nw-outside: 172.16.0.92 |terminates|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |                       |           |virtual_server_id_93|  |nw-data: 192.168.2.93 <br>nw-outside: 172.16.0.93 |shuttingdown|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |                       |           |virtual_server_id_94|  |nw-data: 192.168.2.94 <br>nw-outside: 172.16.0.94 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |                       |           |virtual_server_id_95|  |nw-data: 192.168.2.95 <br>nw-outside: 172.16.0.95 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |                       |           |virtual_server_id_96|  |nw-data: 192.168.2.96 <br>nw-outside: 172.16.0.96 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
     |physical_server_name_02||||||||
     |physical_server_name_03||||||||
     |physical_server_name_04||||||||
@@ -76,15 +76,15 @@
 
     # 起動可能数の確認
     # physical_server_name_01 CPU:100, メモリ:100000
-    # virtual_server_spec_name_03 CPU:5, メモリ:1
-    # virtual_server_spec_name_04 CPU:1, メモリ:1500
+    # virtual_server_spec_uuid_03 CPU:5, メモリ:1
+    # virtual_server_spec_uuid_04 CPU:1, メモリ:1500
     # physical_server_name_01 内で起動中の仮想サーバの合計 CPU:(1*0)+(2*4)=8, メモリ:(256*0)+(512*4)=2048
     もし"仮想サーバ起動"ボタンをクリックする
     ならば "仮想サーバ起動"画面が表示されていること
-    かつ "仮想サーバタイプ"に"virtual_server_spec_name_03"を選択する
+    かつ "仮想サーバタイプ"に"virtual_server_spec_uuid_03"を選択する
     # CPU (100 - 8) / 5 = 18
     ならば "起動可能数"に"18"と表示されること
-    かつ "仮想サーバタイプ"に"virtual_server_spec_name_04"を選択する
+    かつ "仮想サーバタイプ"に"virtual_server_spec_uuid_04"を選択する
     # メモリ (100000 - 2048) / 1500 = 65
     ならば "起動可能数"に"65"と表示されること
     もし "キャンセル"ボタンをクリックする
