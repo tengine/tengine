@@ -6,8 +6,8 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
   def index
     @physical_servers = Tengine::Resource::PhysicalServer.all(:sort => [[:_id]]).page(params[:page])
     @check_status = {
-      "status_01" => "checked", 
-      "status_02" => "checked"
+      "status_01" => ["unchecked", :online],
+      "status_02" => ["unchecked", :offline]
     }
 
     
@@ -39,27 +39,26 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
     @physical_servers = @physical_servers.order_by(order)
 
 
-    @status = {
-      :online => "status_01",
-      :registering => "status_02"
-    }
-
     if search_param = params[:finder]
       @finder = ::OpenStruct.new search_param
       finder = {}
       [:name, :description, :provided_id].each do |field|
         next if (value = @finder.send(field)).blank?
-        value = /#{Regexp.escape(value)}/
+        if  field == :provided_id 
+          value = value
+        else
+          value = /#{Regexp.escape(value)}/
+        end
         finder[field] = value
       end
       @physical_servers = @physical_servers.where(finder)
       status_finder =[] 
-      @status.each do |key, id |
-        if @finder.send(id) == "1"
-           status_finder << {:status => key}
-           @check_status[id] = "checked"
+      @check_status.each do |key, id |
+        if @finder.send(key) == "1"
+           status_finder << {:status => id[1]}
+           @check_status[key][0] = "checked"
         else
-           @check_status[id] = "unchecked"
+           @check_status[key][0] = "unchecked"
         end
       end
       @physical_servers = @physical_servers.any_of(status_finder) unless status_finder.empty?
