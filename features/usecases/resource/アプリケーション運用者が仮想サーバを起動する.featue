@@ -14,8 +14,6 @@
     #  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb <テストファイル群の配置ディレクトリ>
     # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
     #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb
-    # かつ "Tengineリソースウォッチャ"プロセスが起動している
-    #  > tengine_resource_watchd
 
   @manual
   シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面から仮想サーバの起動を行う
@@ -27,6 +25,8 @@
     かつ Wakameのモックファイル"./features/usecases/resource/test_files/21_describe_images_5_virtual_server_images.json"を"./features/usecases/resource/test_files/describe_images.json"にコピーする
     # 仮想サーバタイプが4件のファイル
     かつ Wakameのモックファイル"./features/usecases/resource/test_files/31_describe_instance_specs_4_virtual_server_specs.json"を"./features/usecases/resource/test_files/31_describe_instance_specs.json"にコピーする
+    かつ "Tengineリソースウォッチャ"プロセスを起動する
+    #  > tengine_resource_watchd
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。
@@ -54,11 +54,12 @@
     ならば "起動可能数"に"20"と表示されること
     かつ "仮想サーバタイプ"に"virtual_server_spec_name_04"を選択する
     # メモリ (100000 - 0) / 1500 = 66
-    ならば "起動可能数"に"33"と表示されること
+    ならば "起動可能数"に"66"と表示されること
     もし "キャンセル"ボタンをクリックする
     ならば "仮想サーバ一覧"画面が表示されていること
 
     # 仮想サーバを1台起動
+    もし "Tengineリソースウォッチャ"プロセスを停止する
     もし Wakameのモックファイル"./features/usecases/resource/test_files/41_run_instances_1_virtual_servers.json"を"./features/usecases/resource/test_files/run_instances.json"にコピーする
     もし"仮想サーバ起動"ボタンをクリックする
     ならば "仮想サーバ起動"画面が表示されていること
@@ -98,6 +99,7 @@
 
     # 起動後の画面状態を確認
     もし Wakameのモックファイル"./features/usecases/resource/test_files/12_describe_instances_after_run_instances.json"を"./features/usecases/resource/test_files/describe_instances.json"にコピーする
+    もし "Tengineリソースウォッチャ"プロセスを起動する
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。
