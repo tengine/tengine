@@ -21,10 +21,9 @@ class Tengine::Resource::VirtualServer::Finder
   include Tengine::Core::SelectableAttr
 
   multi_selectable_attr :status_cd do
-    entry "starting",     :starting     , "starting"
-    entry "running",      :running      , "running"
-    entry "shuttingdown", :shuttingdown , "shuttingdown"
-    entry "terminated",   :terminated   , "terminated"
+    Tengine::Resource::Provider::Wakame::VIRTUAL_SERVER_STATES.each do |status|
+      entry status, status, status.to_s
+    end
   end
 
   def initialize(attrs={})
