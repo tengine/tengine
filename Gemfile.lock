@@ -224,7 +224,7 @@ GEM
       tengine_core (~> 0.4.0)
       tengine_resource (~> 0.4.0)
       tengine_support (~> 0.3.12)
-    tengine_resource (0.4.5)
+    tengine_resource (0.4.7)
       net-ssh (~> 2.2.1)
       right_aws (~> 2.1.0)
       tengine_core (~> 0.4.0)
@@ -243,9 +243,9 @@ GEM
       multi_json (>= 1.0.2)
     uuid (2.3.4)
       macaddr (~> 1.0)
-    wakame-adapters-tengine (0.0.3)
+    wakame-adapters-tengine (0.0.4)
       json
-      right_aws (= 2.1.0)
+      right_aws (~> 2.1.0)
       rspec
     xpath (0.1.4)
       nokogiri (~> 1.3)
