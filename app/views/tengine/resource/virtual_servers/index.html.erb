@@ -155,7 +155,7 @@
                     </div>
                   </div>
                 </td>
-                <td><%= format_addresses(virtual_server) %></td>
+                <td><pre><%= virtual_server.addresses_yaml %></pre></td>
                 <td><%= virtual_server.status %></td>
                 <td><%= image_name_link_and_desc(virtual_server) %></td>
                 <td><%= virtual_server.provided_type_id %></td>

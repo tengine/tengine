@@ -58,7 +58,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :provided_id => "i0002",
       :description => "v2Description",
       :status => "running",
-      :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
+      :addresses => {"eth0"=>"192.168.2.1", "eth1"=>"10.10.10.1"},
       :properties => {"a"=>"1", "b"=>"2"},
       :provided_image_id => "ami1",
       :provided_type_id => "Large",
@@ -70,7 +70,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :provided_id => "i0003",
       :description => "v3Description",
       :status => "starting",
-      :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
+      :addresses => {"eth0"=>"192.168.2.1", "eth1"=>"10.10.10.1"},
       :properties => {"a"=>"1", "b"=>"2"},
       :provided_image_id => "ami2",
       :provided_type_id => "Small",
@@ -107,6 +107,8 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     assert_select "tr>td>a", :text => "ami2".to_s, :count => 1
     assert_select "tr>td", :text => "Small".to_s, :count => 1
     assert_select "tr>td", :text => "Large".to_s, :count => 1
+    assert_select "tr>td>pre",
+      :text => YAML.dump({"eth0"=>"192.168.2.1", "eth1"=>"10.10.10.1"}), :count => 2
   end
 
   it "renders search form" do
