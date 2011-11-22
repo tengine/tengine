@@ -33,27 +33,27 @@
     もし "仮想サーバイメージ一覧"画面を表示する
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること
     |仮想サーバイメージ名|プロバイダによるID|プロバイダによる説明|説明|
-    |virtual_server_image_id_01|virtual_server_image_id_01|virtual_server_image_description_01||
-    |virtual_server_image_id_02|virtual_server_image_id_02|virtual_server_image_description_02||
-    |virtual_server_image_id_03|virtual_server_image_id_03|virtual_server_image_description_03||
-    |virtual_server_image_id_04|virtual_server_image_id_04|virtual_server_image_description_04||
-    |virtual_server_image_id_05|virtual_server_image_id_05|virtual_server_image_description_05||
+    |virtual_server_image_uuid_01|virtual_server_image_uuid_01|virtual_server_image_description_01||
+    |virtual_server_image_uuid_02|virtual_server_image_uuid_02|virtual_server_image_description_02||
+    |virtual_server_image_uuid_03|virtual_server_image_uuid_03|virtual_server_image_description_03||
+    |virtual_server_image_uuid_04|virtual_server_image_uuid_04|virtual_server_image_description_04||
+    |virtual_server_image_uuid_05|virtual_server_image_uuid_05|virtual_server_image_description_05||
 
     # 仮想サーバイメージの説明を編集する
-    もし "仮想サーバイメージ名"が"virtual_server_image_id_01"列の"編集"リンクをクリックする
+    もし "仮想サーバイメージ名"が"virtual_server_image_uuid_01"列の"編集"リンクをクリックする
     ならば "仮想サーバイメージ編集"画面が表示されていること
-    かつ "仮想サーバイメージ編集"画面に"virtual_server_image_id_01"と表示されていること
+    かつ "仮想サーバイメージ編集"画面に"virtual_server_image_uuid_01"と表示されていること
 
     もし "仮想サーバ名"に"virtual_server_image_name_01"と入力する
     かつ "説明"に"仮想サーバイメージ説明01"と入力する
     かつ "更新"ボタンをクリックする
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること
     |仮想サーバイメージ名|プロバイダによるID|プロバイダによる説明|説明|
-    |virtual_server_image_name_01|virtual_server_image_id_01|virtual_server_image_description_01|仮想サーバイメージ説明01|
-    |virtual_server_image_id_02|virtual_server_image_id_02|virtual_server_image_description_02||
-    |virtual_server_image_id_03|virtual_server_image_id_03|virtual_server_image_description_03||
-    |virtual_server_image_id_04|virtual_server_image_id_04|virtual_server_image_description_04||
-    |virtual_server_image_id_05|virtual_server_image_id_05|virtual_server_image_description_05||
+    |virtual_server_image_name_01|virtual_server_image_uuid_01|virtual_server_image_description_01|仮想サーバイメージ説明01|
+    |virtual_server_image_uuid_02|virtual_server_image_uuid_02|virtual_server_image_description_02||
+    |virtual_server_image_uuid_03|virtual_server_image_uuid_03|virtual_server_image_description_03||
+    |virtual_server_image_uuid_04|virtual_server_image_uuid_04|virtual_server_image_description_04||
+    |virtual_server_image_uuid_05|virtual_server_image_uuid_05|virtual_server_image_description_05||
 
     # 代替コースA: 仮想サーバイメージ一覧表を絞り込み検索して表示する
     # 仮想サーバイメージ名で検索を行う
@@ -62,7 +62,7 @@
     かつ "検索"ボタンをクリックする
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること
     |仮想サーバイメージ名|プロバイダによるID|プロバイダによる説明|説明|
-    |virtual_server_image_name_01|virtual_server_image_id_01|virtual_server_image_description_01|仮想サーバイメージ説明01|
+    |virtual_server_image_name_01|virtual_server_image_uuid_01|virtual_server_image_description_01|仮想サーバイメージ説明01|
 
     # 代替コースC: 検索条件にマッチする項目が0台と表示される
     # 仮想サーバイメージ名で検索を行う(結果が0件)
@@ -78,67 +78,67 @@
     もし "仮想サーバイメージ一覧"画面を表示する
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること
     |仮想サーバイメージ名|プロバイダによるID|プロバイダによる説明|説明|
-    |virtual_server_image_name_01|virtual_server_image_id_01|virtual_server_image_description_01|仮想サーバイメージ説明01|
-    |virtual_server_image_id_02|virtual_server_image_id_02|virtual_server_image_description_02||
-    |virtual_server_image_id_03|virtual_server_image_id_03|virtual_server_image_description_03||
-    |virtual_server_image_id_04|virtual_server_image_id_04|virtual_server_image_description_04||
-    |virtual_server_image_id_05|virtual_server_image_id_05|virtual_server_image_description_05||
-    |virtual_server_image_id_06|virtual_server_image_id_06|virtual_server_image_description_06||
-    |virtual_server_image_id_07|virtual_server_image_id_07|virtual_server_image_description_07||
-    |virtual_server_image_id_08|virtual_server_image_id_08|virtual_server_image_description_08||
-    |virtual_server_image_id_09|virtual_server_image_id_09|virtual_server_image_description_09||
-    |virtual_server_image_id_10|virtual_server_image_id_10|virtual_server_image_description_10||
-    |virtual_server_image_id_11|virtual_server_image_id_11|virtual_server_image_description_11||
-    |virtual_server_image_id_12|virtual_server_image_id_12|virtual_server_image_description_12||
-    |virtual_server_image_id_13|virtual_server_image_id_13|virtual_server_image_description_13||
-    |virtual_server_image_id_14|virtual_server_image_id_14|virtual_server_image_description_14||
-    |virtual_server_image_id_15|virtual_server_image_id_15|virtual_server_image_description_15||
-    |virtual_server_image_id_16|virtual_server_image_id_16|virtual_server_image_description_16||
-    |virtual_server_image_id_17|virtual_server_image_id_17|virtual_server_image_description_17||
-    |virtual_server_image_id_18|virtual_server_image_id_18|virtual_server_image_description_18||
-    |virtual_server_image_id_19|virtual_server_image_id_19|virtual_server_image_description_19||
-    |virtual_server_image_id_20|virtual_server_image_id_20|virtual_server_image_description_20||
-    |virtual_server_image_id_21|virtual_server_image_id_21|virtual_server_image_description_21||
-    |virtual_server_image_id_22|virtual_server_image_id_22|virtual_server_image_description_22||
-    |virtual_server_image_id_23|virtual_server_image_id_23|virtual_server_image_description_23||
-    |virtual_server_image_id_24|virtual_server_image_id_24|virtual_server_image_description_24||
-    |virtual_server_image_id_25|virtual_server_image_id_25|virtual_server_image_description_25||
-    |virtual_server_image_id_26|virtual_server_image_id_26|virtual_server_image_description_26||
-    |virtual_server_image_id_27|virtual_server_image_id_27|virtual_server_image_description_27||
-    |virtual_server_image_id_28|virtual_server_image_id_28|virtual_server_image_description_28||
-    |virtual_server_image_id_29|virtual_server_image_id_29|virtual_server_image_description_29||
-    |virtual_server_image_id_30|virtual_server_image_id_30|virtual_server_image_description_30||
-    |virtual_server_image_id_31|virtual_server_image_id_31|virtual_server_image_description_31||
-    |virtual_server_image_id_32|virtual_server_image_id_32|virtual_server_image_description_32||
-    |virtual_server_image_id_33|virtual_server_image_id_33|virtual_server_image_description_33||
-    |virtual_server_image_id_34|virtual_server_image_id_34|virtual_server_image_description_34||
-    |virtual_server_image_id_35|virtual_server_image_id_35|virtual_server_image_description_35||
-    |virtual_server_image_id_36|virtual_server_image_id_36|virtual_server_image_description_36||
-    |virtual_server_image_id_37|virtual_server_image_id_37|virtual_server_image_description_37||
-    |virtual_server_image_id_38|virtual_server_image_id_38|virtual_server_image_description_38||
-    |virtual_server_image_id_39|virtual_server_image_id_39|virtual_server_image_description_39||
-    |virtual_server_image_id_40|virtual_server_image_id_40|virtual_server_image_description_40||
-    |virtual_server_image_id_41|virtual_server_image_id_41|virtual_server_image_description_41||
-    |virtual_server_image_id_42|virtual_server_image_id_42|virtual_server_image_description_42||
-    |virtual_server_image_id_43|virtual_server_image_id_43|virtual_server_image_description_43||
-    |virtual_server_image_id_44|virtual_server_image_id_44|virtual_server_image_description_44||
-    |virtual_server_image_id_45|virtual_server_image_id_45|virtual_server_image_description_45||
-    |virtual_server_image_id_46|virtual_server_image_id_46|virtual_server_image_description_46||
-    |virtual_server_image_id_47|virtual_server_image_id_47|virtual_server_image_description_47||
-    |virtual_server_image_id_48|virtual_server_image_id_48|virtual_server_image_description_48||
-    |virtual_server_image_id_49|virtual_server_image_id_49|virtual_server_image_description_49||
-    |virtual_server_image_id_50|virtual_server_image_id_50|virtual_server_image_description_50||
+    |virtual_server_image_name_01|virtual_server_image_uuid_01|virtual_server_image_description_01|仮想サーバイメージ説明01|
+    |virtual_server_image_uuid_02|virtual_server_image_uuid_02|virtual_server_image_description_02||
+    |virtual_server_image_uuid_03|virtual_server_image_uuid_03|virtual_server_image_description_03||
+    |virtual_server_image_uuid_04|virtual_server_image_uuid_04|virtual_server_image_description_04||
+    |virtual_server_image_uuid_05|virtual_server_image_uuid_05|virtual_server_image_description_05||
+    |virtual_server_image_uuid_06|virtual_server_image_uuid_06|virtual_server_image_description_06||
+    |virtual_server_image_uuid_07|virtual_server_image_uuid_07|virtual_server_image_description_07||
+    |virtual_server_image_uuid_08|virtual_server_image_uuid_08|virtual_server_image_description_08||
+    |virtual_server_image_uuid_09|virtual_server_image_uuid_09|virtual_server_image_description_09||
+    |virtual_server_image_uuid_10|virtual_server_image_uuid_10|virtual_server_image_description_10||
+    |virtual_server_image_uuid_11|virtual_server_image_uuid_11|virtual_server_image_description_11||
+    |virtual_server_image_uuid_12|virtual_server_image_uuid_12|virtual_server_image_description_12||
+    |virtual_server_image_uuid_13|virtual_server_image_uuid_13|virtual_server_image_description_13||
+    |virtual_server_image_uuid_14|virtual_server_image_uuid_14|virtual_server_image_description_14||
+    |virtual_server_image_uuid_15|virtual_server_image_uuid_15|virtual_server_image_description_15||
+    |virtual_server_image_uuid_16|virtual_server_image_uuid_16|virtual_server_image_description_16||
+    |virtual_server_image_uuid_17|virtual_server_image_uuid_17|virtual_server_image_description_17||
+    |virtual_server_image_uuid_18|virtual_server_image_uuid_18|virtual_server_image_description_18||
+    |virtual_server_image_uuid_19|virtual_server_image_uuid_19|virtual_server_image_description_19||
+    |virtual_server_image_uuid_20|virtual_server_image_uuid_20|virtual_server_image_description_20||
+    |virtual_server_image_uuid_21|virtual_server_image_uuid_21|virtual_server_image_description_21||
+    |virtual_server_image_uuid_22|virtual_server_image_uuid_22|virtual_server_image_description_22||
+    |virtual_server_image_uuid_23|virtual_server_image_uuid_23|virtual_server_image_description_23||
+    |virtual_server_image_uuid_24|virtual_server_image_uuid_24|virtual_server_image_description_24||
+    |virtual_server_image_uuid_25|virtual_server_image_uuid_25|virtual_server_image_description_25||
+    |virtual_server_image_uuid_26|virtual_server_image_uuid_26|virtual_server_image_description_26||
+    |virtual_server_image_uuid_27|virtual_server_image_uuid_27|virtual_server_image_description_27||
+    |virtual_server_image_uuid_28|virtual_server_image_uuid_28|virtual_server_image_description_28||
+    |virtual_server_image_uuid_29|virtual_server_image_uuid_29|virtual_server_image_description_29||
+    |virtual_server_image_uuid_30|virtual_server_image_uuid_30|virtual_server_image_description_30||
+    |virtual_server_image_uuid_31|virtual_server_image_uuid_31|virtual_server_image_description_31||
+    |virtual_server_image_uuid_32|virtual_server_image_uuid_32|virtual_server_image_description_32||
+    |virtual_server_image_uuid_33|virtual_server_image_uuid_33|virtual_server_image_description_33||
+    |virtual_server_image_uuid_34|virtual_server_image_uuid_34|virtual_server_image_description_34||
+    |virtual_server_image_uuid_35|virtual_server_image_uuid_35|virtual_server_image_description_35||
+    |virtual_server_image_uuid_36|virtual_server_image_uuid_36|virtual_server_image_description_36||
+    |virtual_server_image_uuid_37|virtual_server_image_uuid_37|virtual_server_image_description_37||
+    |virtual_server_image_uuid_38|virtual_server_image_uuid_38|virtual_server_image_description_38||
+    |virtual_server_image_uuid_39|virtual_server_image_uuid_39|virtual_server_image_description_39||
+    |virtual_server_image_uuid_40|virtual_server_image_uuid_40|virtual_server_image_description_40||
+    |virtual_server_image_uuid_41|virtual_server_image_uuid_41|virtual_server_image_description_41||
+    |virtual_server_image_uuid_42|virtual_server_image_uuid_42|virtual_server_image_description_42||
+    |virtual_server_image_uuid_43|virtual_server_image_uuid_43|virtual_server_image_description_43||
+    |virtual_server_image_uuid_44|virtual_server_image_uuid_44|virtual_server_image_description_44||
+    |virtual_server_image_uuid_45|virtual_server_image_uuid_45|virtual_server_image_description_45||
+    |virtual_server_image_uuid_46|virtual_server_image_uuid_46|virtual_server_image_description_46||
+    |virtual_server_image_uuid_47|virtual_server_image_uuid_47|virtual_server_image_description_47||
+    |virtual_server_image_uuid_48|virtual_server_image_uuid_48|virtual_server_image_description_48||
+    |virtual_server_image_uuid_49|virtual_server_image_uuid_49|virtual_server_image_description_49||
+    |virtual_server_image_uuid_50|virtual_server_image_uuid_50|virtual_server_image_description_50||
 
     もし "次へ"ボタンをクリックする
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること
     |仮想サーバイメージ名|プロバイダによるID|プロバイダによる説明|説明|
-    |virtual_server_image_id_51|virtual_server_image_id_51|virtual_server_image_description_51||
-    |virtual_server_image_id_52|virtual_server_image_id_52|virtual_server_image_description_52||
-    |virtual_server_image_id_53|virtual_server_image_id_53|virtual_server_image_description_53||
-    |virtual_server_image_id_54|virtual_server_image_id_54|virtual_server_image_description_54||
-    |virtual_server_image_id_55|virtual_server_image_id_55|virtual_server_image_description_55||
-    |virtual_server_image_id_56|virtual_server_image_id_56|virtual_server_image_description_56||
-    |virtual_server_image_id_57|virtual_server_image_id_57|virtual_server_image_description_57||
-    |virtual_server_image_id_58|virtual_server_image_id_58|virtual_server_image_description_58||
-    |virtual_server_image_id_59|virtual_server_image_id_59|virtual_server_image_description_59||
-    |virtual_server_image_id_60|virtual_server_image_id_60|virtual_server_image_description_60||
+    |virtual_server_image_uuid_51|virtual_server_image_uuid_51|virtual_server_image_description_51||
+    |virtual_server_image_uuid_52|virtual_server_image_uuid_52|virtual_server_image_description_52||
+    |virtual_server_image_uuid_53|virtual_server_image_uuid_53|virtual_server_image_description_53||
+    |virtual_server_image_uuid_54|virtual_server_image_uuid_54|virtual_server_image_description_54||
+    |virtual_server_image_uuid_55|virtual_server_image_uuid_55|virtual_server_image_description_55||
+    |virtual_server_image_uuid_56|virtual_server_image_uuid_56|virtual_server_image_description_56||
+    |virtual_server_image_uuid_57|virtual_server_image_uuid_57|virtual_server_image_description_57||
+    |virtual_server_image_uuid_58|virtual_server_image_uuid_58|virtual_server_image_description_58||
+    |virtual_server_image_uuid_59|virtual_server_image_uuid_59|virtual_server_image_description_59||
+    |virtual_server_image_uuid_60|virtual_server_image_uuid_60|virtual_server_image_description_60||
