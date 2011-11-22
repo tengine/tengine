@@ -162,12 +162,14 @@
                 <td><%= image_name_link_and_desc(virtual_server) %></td>
                 <td><%= virtual_server.provided_type_id %></td>
                 <td>
-                  <div class="YamlView">
-                    <span class="IconYaml"><%= t(".links.show_yml") %></span>
-                    <div class="YamlScript">
-                      <%= format_map_yml_value(virtual_server, :properties) %>
+                  <% unless virtual_server.properties.blank? -%>
+                    <div class="YamlView">
+                      <span class="IconYaml"><%= t(".links.show_yml") %></span>
+                      <div class="YamlScript">
+                        <%= format_map_yml_value(virtual_server, :properties) %>
+                      </div>
                     </div>
-                  </div>
+                  <% end -%>
                 </td>
                 <td>
                   <%= link_to_edit edit_tengine_resource_virtual_server_path(virtual_server), :class => "ActionEdit" %>

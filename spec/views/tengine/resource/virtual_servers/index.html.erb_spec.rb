@@ -143,10 +143,12 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     @virtual_server1.save!
     @virtual_server2.save!
 
-    render
+    render(:file => "tengine/resource/virtual_servers/index")
 
     assert_select "tr>td>div>div>pre",
       :text => YAML.dump({"d"=>"1", "b"=>"2"}), :count => 0
+    rendered.should_not have_xpath("//span[@class='IconYaml']",
+      :text => I18n.t("tengine.resource.virtual_servers.index.links.show"))
   end
 
   it "propertiesが空の場合プロパティのセルに何も表示されないこと" do
