@@ -11,7 +11,7 @@ describe "tengine/resource/physical_servers/index.html.erb" do
         :id => BSON::ObjectId("4e855633c3406b3a9f000001"),
         :name => "physical1",
         :description  => "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        :status => "registering",
+        :status => "offline",
         :properties => {"a"=>"b","c"=>"d"},
         :cpu_cores =>"4",
         :memory_size => "4096",
@@ -21,7 +21,7 @@ describe "tengine/resource/physical_servers/index.html.erb" do
         :id => BSON::ObjectId("4ec7e021df46900a35000003"),
         :name => "physical2",
         :description  => "aaaaaaaaaaaaaaaaaaaaaaaaaaab",
-        :status => "registering",
+        :status => "offline",
         :properties => {"a"=>"b","c"=>"d"},
         :cpu_cores => "6",
         :memory_size => "3096",
@@ -41,7 +41,10 @@ describe "tengine/resource/physical_servers/index.html.erb" do
 
 
     assign(:physical_servers, Kaminari.paginate_array(temp).page(1).per(3))
-    @check_status = {"status_01" => "checked", "status_02" => "checked"}
+    @check_status = {
+      "status_01" => ["unchecked", :online],
+      "status_02" => ["unchecked", :offline]
+    }
     @request.params[:controller] = "tengine/resource/physical_servers"
     @request.params[:action] = "index"
   end
@@ -56,7 +59,7 @@ describe "tengine/resource/physical_servers/index.html.erb" do
     assert_select "tr>td", :text => /aaaaaaaaaaaaaaaaaaaa.../, :count => 3
     assert_select "tr>td", :text => "6".to_s, :count => 1
     assert_select "tr>td", :text =>"4096".to_s, :count=> 1
-    assert_select "tr>td", :text => "registering".to_s, :count => 2
+    assert_select "tr>td", :text => "offline".to_s, :count => 2
     assert_select "tr>td", :text => /#{CGI.escapeHTML(YAML.dump({"a"=>"b", "c"=>"d"}))}/, :count => 3
   end
 
@@ -76,14 +79,14 @@ describe "tengine/resource/physical_servers/index.html.erb" do
       :text => Tengine::Resource::PhysicalServer.human_attribute_name(:description))
   end
 
-  it "検索フォームに値が入っていないこと、セレクトボックスがすべてチェックされていること" do
+  it "検索フォームに値が入っていないこと、セレクトボックスがすべてチェックされていないこと" do
     render
 
     assert_select "input[id='finder_name']", :text => "", :count => 1
     assert_select "input[id='finder_provided_id']", :text => "", :count => 1
     assert_select "input[id='finder_description']", :text => "", :count => 1
-    assert_select "input[id='finder_status_01'][type = checkbox][value = 1]"
-    assert_select "input[id='finder_status_02'][type = checkbox][value = 1]"
+    assert_select "input[name='finder[status_01]'][value = 0]"
+    assert_select "input[name='finder[status_02]'][value = 0]"
     
   end
 
@@ -133,7 +136,7 @@ describe "tengine/resource/physical_servers/index.html.erb" do
           :description => "sasisuseso",
           :cpu_core => "2",
           :memory_size => "4096",
-          :status => "registering",
+          :status => "offline",
           :properties => {:aa => "bb", :cc=> "dd"},
         ),
         stub_model(Tengine::Resource::PhysicalServer,

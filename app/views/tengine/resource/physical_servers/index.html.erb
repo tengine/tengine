@@ -23,10 +23,10 @@
         <tr>
           <th><%= f.label :status, Tengine::Resource::PhysicalServer.human_attribute_name(:status) %></th>
           <td>
-              <%= f.check_box "status_01", {:checked => @check_status["status_01"]}, "1", "0" %>
-              online
-              <%= f.check_box "status_02", {:checked => @check_status["status_02"]}, "1", "0" %>
-              registering
+            <% @check_status.each do |key, stats| %>
+              <%= f.check_box key , {:checked => stats[0]}, "1", "0" %>
+              <%= stats[1] %>
+            <% end %>
           </td>
         </tr>
       </tbody>
@@ -69,7 +69,18 @@
         <td><div class="YamlView" id= "description<%= physical_server.id.to_s %>">
           <span class="IconYaml"><%= truncate(physical_server.description, :length =>23) %></span>
           <div class="YamlScript">
-            <%= physical_server.description %>
+            <% unless physical_server.description.nil? %>
+              <% if (physical_server.description =~ /\n/ || physical_server.description =~ /\r\n/) -%>
+                <%= simple_format(ERB::Util.html_escape(
+                  physical_server.description)) %>
+              <% elsif physical_server.description.size >= 14 -%>
+                <%= simple_format(ERB::Util.html_escape(
+                  physical_server.description.gsub(/\n/,"").scan(/.{14}/).join("\n"))) %>
+              <% else -%>
+                <%= simple_format(ERB::Util.html_escape(
+                  physical_server.description)) %>
+              <% end -%>
+            <% end %>
           </div>
         </div></td>
         <td><%= physical_server.cpu_cores %></td>
