@@ -70,11 +70,15 @@
           <span class="IconYaml"><%= truncate(physical_server.description, :length =>23) %></span>
           <div class="YamlScript">
             <% unless physical_server.description.nil? %>
-              <% if physical_server.description.size >= 14 -%>
+              <% if (physical_server.description =~ /\n/ || physical_server.description =~ /\r\n/) -%>
                 <%= simple_format(ERB::Util.html_escape(
-                  physical_server.description.scan(/.{14}/).join("\n"))) %>
+                  physical_server.description)) %>
+              <% elsif physical_server.description.size >= 14 -%>
+                <%= simple_format(ERB::Util.html_escape(
+                  physical_server.description.gsub(/\n/,"").scan(/.{14}/).join("\n"))) %>
               <% else -%>
-                <p><%= physical_server.description %></p>
+                <%= simple_format(ERB::Util.html_escape(
+                  physical_server.description)) %>
               <% end -%>
             <% end %>
           </div>
