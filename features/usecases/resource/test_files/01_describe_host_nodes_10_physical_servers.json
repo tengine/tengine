@@ -124,7 +124,7 @@
         "id": "physical_server_id_10",
         "name": "physical_server_name_10",
         "uuid": "physical_server_name_10",
-        "status": "registering",
+        "status": "offline",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_10",
         "offering_cpu_cores": 100,
