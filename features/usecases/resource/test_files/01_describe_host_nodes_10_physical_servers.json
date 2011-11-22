@@ -6,7 +6,7 @@
       {
         "id": "physical_server_id_01",
         "name": "physical_server_name_01",
-        "uuid": "physical_server_name_01",
+        "uuid": "physical_server_uuid_01",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_01",
@@ -19,7 +19,7 @@
       {
         "id": "physical_server_id_02",
         "name": "physical_server_name_02",
-        "uuid": "physical_server_name_02",
+        "uuid": "physical_server_uuid_02",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_02",
@@ -32,7 +32,7 @@
       {
         "id": "physical_server_id_03",
         "name": "physical_server_name_03",
-        "uuid": "physical_server_name_03",
+        "uuid": "physical_server_uuid_03",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_03",
@@ -45,7 +45,7 @@
       {
         "id": "physical_server_id_04",
         "name": "physical_server_name_04",
-        "uuid": "physical_server_name_04",
+        "uuid": "physical_server_uuid_04",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_04",
@@ -58,7 +58,7 @@
       {
         "id": "physical_server_id_05",
         "name": "physical_server_name_05",
-        "uuid": "physical_server_name_05",
+        "uuid": "physical_server_uuid_05",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_05",
@@ -71,7 +71,7 @@
       {
         "id": "physical_server_id_06",
         "name": "physical_server_name_06",
-        "uuid": "physical_server_name_06",
+        "uuid": "physical_server_uuid_06",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_06",
@@ -84,7 +84,7 @@
       {
         "id": "physical_server_id_07",
         "name": "physical_server_name_07",
-        "uuid": "physical_server_name_07",
+        "uuid": "physical_server_uuid_07",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_07",
@@ -97,7 +97,7 @@
       {
         "id": "physical_server_id_08",
         "name": "physical_server_name_08",
-        "uuid": "physical_server_name_08",
+        "uuid": "physical_server_uuid_08",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_08",
@@ -110,7 +110,7 @@
       {
         "id": "physical_server_id_09",
         "name": "physical_server_name_09",
-        "uuid": "physical_server_name_09",
+        "uuid": "physical_server_uuid_09",
         "status": "online",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_09",
@@ -123,7 +123,7 @@
       {
         "id": "physical_server_id_10",
         "name": "physical_server_name_10",
-        "uuid": "physical_server_name_10",
+        "uuid": "physical_server_uuid_10",
         "status": "offline",
         "updated_at": "2011-10-18T03:53:24Z",
         "account_id": "physical_server_account_id_10",
