@@ -382,7 +382,7 @@ describe Tengine::Resource::VirtualServersController do
           should_receive(:create_virtual_servers).and_return([vs])
 
         post :create, valid_params
-        response.should redirect_to(created_tengine_resource_virtual_servers_url(:provieded_ids => ["ami0000005"]))
+        response.should redirect_to(created_tengine_resource_virtual_servers_url(:provided_ids => ["ami0000005"]))
       end
     end
 

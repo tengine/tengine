@@ -16,7 +16,7 @@
           </tr>
           <tr>
             <th><%= f.label :host_server_id, Tengine::Resource::PhysicalServer.human_attribute_name(:name) %></th>
-            <td><%= name_link_and_desc(@virtual_server.host_server, false) %></td>
+            <td><%= name_link_and_desc(@virtual_server.host_server) %></td>
           </tr>
           <tr>
             <th><%= f.label :provided_id %></th>

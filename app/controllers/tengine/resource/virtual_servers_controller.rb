@@ -86,7 +86,7 @@ class Tengine::Resource::VirtualServersController < ApplicationController
         provided_ids = result.collect{|i| i.provided_id }
 
         format.html { redirect_to created_tengine_resource_virtual_servers_url(
-          :provieded_ids => provided_ids) }
+          :provided_ids => provided_ids) }
         format.json { render json: @virtual_server, status: :created, location: @virtual_server }
       else
         if _starting_number <= 0
