@@ -184,7 +184,7 @@
         "netfilter_group": ["default"]
       },
       {
-        "id": "virtual_server_id_095",
+        "id": "virtual_server_id_95",
         "host_node": "physical_server_id_01",
         "image_id": "virtual_server_image_uuid_01",
         "instance_spec_id": "virtual_server_spec_id_01",
