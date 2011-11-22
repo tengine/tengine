@@ -4,8 +4,8 @@
     "start": 0,
     "results": [
       {
-        "id": "virtual_server_spec_id_01",
-        "uuid": "virtual_server_spec_name_01",
+        "id": "virtual_server_spec_uuid_01",
+        "uuid": "virtual_server_spec_uuid_01",
         "cpu_cores": 1,
         "memory_size": 256,
         "arch": "x86_64",
@@ -18,8 +18,8 @@
         "drives": "--- \nephemeral1: \n  :type: :local\n  :size: 100\n  :index: 0\n"
       },
       {
-        "id": "virtual_server_spec_id_02",
-        "uuid": "virtual_server_spec_name_02",
+        "id": "virtual_server_spec_uuid_02",
+        "uuid": "virtual_server_spec_uuid_02",
         "cpu_cores": 2,
         "memory_size": 512,
         "arch": "x86_64",
@@ -32,8 +32,8 @@
         "drives": "--- \nephemeral1: \n  :type: :local\n  :size: 100\n  :index: 0\n"
       },
       {
-        "id": "virtual_server_spec_id_03",
-        "uuid": "virtual_server_spec_name_03",
+        "id": "virtual_server_spec_uuid_03",
+        "uuid": "virtual_server_spec_uuid_03",
         "cpu_cores": 5,
         "memory_size": 1,
         "arch": "x86_64",
@@ -46,8 +46,8 @@
         "drives": "--- \nephemeral1: \n  :type: :local\n  :size: 100\n  :index: 0\n"
       },
       {
-        "id": "virtual_server_spec_id_04",
-        "uuid": "virtual_server_spec_name_04",
+        "id": "virtual_server_spec_uuid_04",
+        "uuid": "virtual_server_spec_uuid_04",
         "cpu_cores": 1,
         "memory_size": 1500,
         "arch": "x86_64",
