@@ -1,12 +1,3 @@
-GIT
-  remote: git@github.com:tengine/wakame-adapters-tengine.git
-  revision: b31b65fbeb078f454ae4f554909f4e0ce1b40361
-  branch: master
-  specs:
-    wakame-adapters-tengine (0.0.1)
-      json
-      right_aws
-
 GEM
   remote: http://bts.tenginefw.com/gemserver/
   remote: http://rubygems.org/
@@ -252,6 +243,10 @@ GEM
       multi_json (>= 1.0.2)
     uuid (2.3.4)
       macaddr (~> 1.0)
+    wakame-adapters-tengine (0.0.4)
+      json
+      right_aws (~> 2.1.0)
+      rspec
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
@@ -288,4 +283,4 @@ DEPENDENCIES
   tengine_job (~> 0.3.5)
   tengine_resource (~> 0.3.0)
   uglifier (~> 1.0.3)
-  wakame-adapters-tengine (~> 0.0.0)!
+  wakame-adapters-tengine (~> 0.0.0)
