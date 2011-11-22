@@ -26,7 +26,7 @@ ja:
         status: "ステータス"
         properties: "プロパティ"
       tengine/resource/virtual_server_image:
-        name: "仮想サーバ名"
+        name: "仮想サーバイメージ名"
         description: "説明"
         provided_id: "プロバイダによるID"
         provided_description: "プロバイダによる説明"
