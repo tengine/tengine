@@ -23,10 +23,10 @@
         <tr>
           <th><%= f.label :status, Tengine::Resource::PhysicalServer.human_attribute_name(:status) %></th>
           <td>
-              <%= f.check_box "status_01", {:checked => @check_status["status_01"][0]}, "1", "0" %>
-              <%= @check_status["status_01"][1] %>
-              <%= f.check_box "status_02", {:checked => @check_status["status_02"][0]}, "1", "0" %>
-              <%= @check_status["status_02"][1] %>
+            <% @check_status.each do |key, stats| %>
+              <%= f.check_box key , {:checked => stats[0]}, "1", "0" %>
+              <%= stats[1] %>
+            <% end %>
           </td>
         </tr>
       </tbody>

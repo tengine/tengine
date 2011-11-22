@@ -5,11 +5,11 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
   # GET /tengine/resource/physical_servers.json
   def index
     @physical_servers = Tengine::Resource::PhysicalServer.all(:sort => [[:_id]]).page(params[:page])
-    @check_status = {
-      "status_01" => ["unchecked", :online],
-      "status_02" => ["unchecked", :offline]
-    }
 
+    @check_status = {}
+    Tengine::Resource::Provider::Wakame::PHYSICAL_SERVER_STATES.each do | s |
+      @check_status["st_#{s}"] = ["unchecked", s]
+    end 
     
     if sort_param = params[:sort]
       order = []
