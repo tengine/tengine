@@ -135,7 +135,5 @@
   <% unless defined?(cancel_path) -%>
     <% cancel_path = tengine_job_root_jobnet_actual_jobnet_actuals_path(@root_jobnet_actual) -%>
   <% end %>
-  <%= link_to cancel_path, :class => "BtnWrap" do %>
-    <span class="BtnNormal"><%= t("views.links.cancel") %></span>
-  <% end %>
+  <%= button_link_to t("views.links.cancel"), cancel_path, btn_class:"BtnCancel" %>
 <% end %>

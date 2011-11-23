@@ -72,8 +72,11 @@
   </div><!-- /.Section -->
 <% end -%>
 
-<div class="Section">
-  <%= link_to I18n.t(:run, :scope => [:views, :links]), new_tengine_job_execution_path(:root_jobnet_id => @root_jobnet_template) %>
-  <%= link_to_back_list tengine_job_root_jobnet_templates_path %>
+<div class="BoxBtns">
+  <%= button_link_to t("views.links.run"),
+    new_tengine_job_execution_path(:root_jobnet_id => @root_jobnet_template),
+    :btn_class => "BtnAdd" %>
+  <%= button_link_to t("views.links.back_list"),
+    tengine_job_root_jobnet_templates_path, :class => "BtnBack" %>
 </div><!-- /.Section -->
 

@@ -102,9 +102,11 @@
         <%= f.submit t("views.links.run"), :class => "BtnNext" %>
       </span>
       <% if @retry -%>
-        <%= link_to "<span class='BtnCancel'>#{t("views.links.cancel")}</span>".html_safe, tengine_job_root_jobnet_actuals_path, :class => "BtnWrap" %>
+        <%= button_link_to t("views.links.cancel"),
+          tengine_job_root_jobnet_actuals_path, :btn_class => "BtnCancel" %>
       <% else -%>
-        <%= link_to "<span class='BtnCancel'>#{t("views.links.cancel")}</span>".html_safe, tengine_job_root_jobnet_templates_path, :class => "BtnWrap" %>
+        <%= button_link_to t("views.links.cancel"),
+          tengine_job_root_jobnet_templates_path, :btn_class => "BtnCancel" %>
       <% end -%>
     </div>
   <% end -%>
