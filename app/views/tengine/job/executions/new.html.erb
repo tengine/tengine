@@ -34,18 +34,7 @@
 </div><!-- /.Section -->
 
 <div class="Section">
-
-  <% if @execution.errors.any? %>
-    <div id="Msg MsgError">
-      <h2><%= I18n.t('activerecord.errors.template.header', :count => @execution.errors.size, :model => @execution.class.human_name) %></h2>
-
-      <ul>
-      <% @execution.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= model_error_messages @execution %>
 
   <%= form_for(@execution, :as => :execution, :html => {:novalidate => true}) do |f| %>
     <table class="TableForm4rows">
@@ -77,14 +66,14 @@
         <tr>
           <th><%= f.label :actual_base_timeout_alert %>:</th>
           <td>
-            <%= f.number_field :actual_base_timeout_alert, :min => 0 %><%= t("datetime.prompts.minute")%>
+            <%= f.number_field :actual_base_timeout_alert, :min => 0, :class => "InputText" %><%= t("datetime.prompts.minute")%>
             <span class="TextNotice"><%= t(".form.notice.actual_base_timeout_alert") %></span>
           </td>
         </tr>
         <tr>
           <th><%= f.label :actual_base_timeout_termination %>:</th>
           <td>
-            <%= f.number_field :actual_base_timeout_termination, :min => 0 %><%= t("datetime.prompts.minute")%>
+            <%= f.number_field :actual_base_timeout_termination, :min => 0, :class => "InputText" %><%= t("datetime.prompts.minute")%>
             <span class="TextNotice"><%= t(".form.notice.actual_base_timeout_termination") %></span>
           </td>
         </tr>
