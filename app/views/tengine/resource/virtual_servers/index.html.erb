@@ -139,8 +139,8 @@
                 <td><%= virtual_server.name %></td>
                 <td><%= virtual_server.provided_id %></td>
                 <td>
-                  <% unless virtual_server.description.nil? %>
-                    <div class="YamlView">
+                  <% unless virtual_server.description.blank? -%>
+                    <div class="YamlView" id="yamlDescription">
                       <span class="IconYaml">
                         <%= truncate(virtual_server.description, :length => 20) %>
                       </span>
@@ -163,7 +163,7 @@
                 <td><%= virtual_server.provided_type_id %></td>
                 <td>
                   <% unless virtual_server.properties.blank? -%>
-                    <div class="YamlView">
+                    <div class="YamlView" id="yamlProperties">
                       <span class="IconYaml"><%= t(".links.show_yml") %></span>
                       <div class="YamlScript">
                         <%= format_map_yml_value(virtual_server, :properties) %>

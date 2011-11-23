@@ -121,8 +121,18 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
 
     render
 
-    assert_select "tr>td>div>span", :text => "v2Description".to_s, :count => 0
-    assert_select "tr>td>div>span", :text => "v3Description".to_s, :count => 0
+    rendered.should_not have_xpath("//div[@id='yamlDescription']")
+  end
+
+  it "descriptionが空の場合説明のセルに何も表示されないこと" do
+    @virtual_server1.description = ""
+    @virtual_server2.description = ""
+    @virtual_server1.save!
+    @virtual_server2.save!
+
+    render
+
+    rendered.should_not have_xpath("//div[@id='yamlDescription']")
   end
 
   it "addressesがnilの場合IPアドレスのセルに何も表示されないこと" do
@@ -173,6 +183,8 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
 
     assert_select "tr>td>div>div>pre",
       :text => YAML.dump({"d"=>"1", "b"=>"2"}), :count => 0
+    rendered.should_not have_xpath("//span[@class='IconYaml']",
+      :text => I18n.t("tengine.resource.virtual_servers.index.links.show"))
   end
 
   it "descriptionとpropertiesがないときYamlViewは表示されていないこと" do
