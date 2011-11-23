@@ -24,6 +24,14 @@
             <col class="Row4 RowTd">
             <tbody>
               <tr>
+                <th><%= f.label :id %></th>
+                <td><%= f.text_field :id , :class=>"InputText" %></td>
+              </tr>
+              <tr>
+                <th><%= f.label :name %></th>
+                <td><%= f.text_field :name, :class=>"InputText" %></td>
+              </tr>
+              <tr>
                 <th><%= f.label :duration %></th>
                 <td>
                   <%= f.select :duration, [
@@ -37,14 +45,6 @@
                   <%= f.datetime_select :duration_start %> -
                   <%= f.datetime_select :duration_finish %>
                 </td>
-              </tr>
-              <tr>
-                <th><%= f.label :id %></th>
-                <td><%= f.text_field :id , :class=>"InputText" %></td>
-              </tr>
-              <tr>
-                <th><%= f.label :name %></th>
-                <td><%= f.text_field :name, :class=>"InputText" %></td>
               </tr>
               <tr>
                 <th><%= f.label :phase_cd %></th>

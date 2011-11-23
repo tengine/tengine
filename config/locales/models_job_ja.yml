@@ -40,8 +40,8 @@ ja:
         duration_finish: "期間の終了時刻"
         duration: "期間"
         id: "ID"
-        name: "名称"
-        phase_cd: "フェーズ"
+        name: "ジョブネット名"
+        phase_cd: "ステータス"
         reflesh_interval: "リフレッシュ間隔(秒)"
       tengine/job/jobnet_actual:
         id: "ID"
