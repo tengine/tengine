@@ -103,18 +103,18 @@ describe ApplicationHelper do
         }
 
         tree_html =<<-_tree_.strip.gsub(/\n?^\s+/, '')
-        <ul id="treeview">
+        <ul id="treeview" class="filetree">
           <li>
-            #{link_to(@all_str, params)}
+            <span class="folder">#{link_to(@all_str, params)}</span>
             <ul>
               <li>
-                #{link_to(@foo.caption, params.merge(:category=>@foo.id))}
+                <span class="folder">#{link_to(@foo.caption, params.merge(:category=>@foo.id))}</span>
                 <ul>
                   <li>
-                    #{link_to(@baz.caption, params.merge(:category=>@baz.id))}
+                    <span class="folder">#{link_to(@baz.caption, params.merge(:category=>@baz.id))}</span>
                   </li>
                   <li>
-                    #{link_to(@fizz.caption, params.merge(:category=>@fizz.id))}
+                    <span class="folder">#{link_to(@fizz.caption, params.merge(:category=>@fizz.id))}</span>
                   </li>
                 </ul>
               </li>
@@ -133,18 +133,18 @@ describe ApplicationHelper do
         link_opts = {:class => "foo"}
 
         tree_html =<<-_tree_.strip.gsub(/\n?^\s+/, '')
-        <ul id="treeview">
+        <ul id="treeview" class="filetree">
           <li>
-            #{link_to(@all_str, params, link_opts)}
+            <span class="folder">#{link_to(@all_str, params, link_opts)}</span>
             <ul>
               <li>
-                #{link_to(@foo.caption, params.merge(:category=>@foo.id), link_opts)}
+                <span class="folder">#{link_to(@foo.caption, params.merge(:category=>@foo.id), link_opts)}</span>
                 <ul>
                   <li>
-                    #{link_to(@baz.caption, params.merge(:category=>@baz.id), link_opts)}
+                    <span class="folder">#{link_to(@baz.caption, params.merge(:category=>@baz.id), link_opts)}</span>
                   </li>
                   <li>
-                    #{link_to(@fizz.caption, params.merge(:category=>@fizz.id), link_opts)}
+                    <span class="folder">#{link_to(@fizz.caption, params.merge(:category=>@fizz.id), link_opts)}</span>
                   </li>
                 </ul>
               </li>
@@ -165,18 +165,18 @@ describe ApplicationHelper do
         }
 
         tree_html =<<-_tree_.strip.gsub(/\n?^\s+/, '')
-        <ul id="treeview">
+        <ul id="treeview" class="filetree">
           <li>
-            #{ERB::Util.html_escape(link_to(@all_str, params))}
+            <span class="folder">#{ERB::Util.html_escape(link_to(@all_str, params))}</span>
             <ul>
               <li>
-                #{ERB::Util.html_escape(link_to(@foo.caption, params.merge(:category=>@foo.id)))}
+                <span class="folder">#{ERB::Util.html_escape(link_to(@foo.caption, params.merge(:category=>@foo.id)))}</span>
                 <ul>
                   <li>
-                    #{ERB::Util.html_escape(link_to(@baz.caption, params.merge(:category=>@baz.id)))}
+                    <span class="folder">#{ERB::Util.html_escape(link_to(@baz.caption, params.merge(:category=>@baz.id)))}</span>
                   </li>
                   <li>
-                    #{ERB::Util.html_escape(link_to(@fizz.caption, params.merge(:category=>@fizz.id)))}
+                    <span class="folder">#{ERB::Util.html_escape(link_to(@fizz.caption, params.merge(:category=>@fizz.id)))}</span>
                   </li>
                 </ul>
               </li>
@@ -230,23 +230,23 @@ describe ApplicationHelper do
         }
 
         tree_html =<<-_tree_.strip.gsub(/\n?^\s+/, '')
-        <ul id="treeview">
+        <ul id="treeview" class="filetree">
           <li>
-            #{link_to(@all_str, params)}
+            <span class="folder">#{link_to(@all_str, params)}</span>
             <ul>
               <li>
-                #{link_to(@foo.caption, params.merge(:category=>@foo.id))}
+                <span class="folder">#{link_to(@foo.caption, params.merge(:category=>@foo.id))}</span>
                 <ul>
                   <li>
-                    #{link_to(@baz.caption, params.merge(:category=>@baz.id))}
+                    <span class="folder">#{link_to(@baz.caption, params.merge(:category=>@baz.id))}</span>
                   </li>
                   <li>
-                    #{link_to(@fizz.caption, params.merge(:category=>@fizz.id))}
+                    <span class="folder">#{link_to(@fizz.caption, params.merge(:category=>@fizz.id))}</span>
                   </li>
                 </ul>
               </li>
               <li>
-                #{link_to(@bar.caption, params.merge(:category=>@bar.id))}
+                <span class="folder">#{link_to(@bar.caption, params.merge(:category=>@bar.id))}</span>
               </li>
             </ul>
           </li>

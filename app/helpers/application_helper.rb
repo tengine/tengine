@@ -116,11 +116,12 @@ module ApplicationHelper
     return "" if root_categories.blank?
 
     params = link_params
-    all_link = link_to(I18n.t(:all, :scope => [:views, :category_tree]),
-                  params, link_options)
+    all_link = content_tag("span", link_to(
+      I18n.t(:all, :scope => [:views, :category_tree]), params, link_options),
+      :class => "folder")
     root_categories = [root_categories].flatten
 
-    tree = %|<ul id="#{tree_id}"><li>#{ERB::Util.html_escape(all_link)}<ul>|
+    tree = %|<ul id="#{tree_id}" class="filetree"><li>#{ERB::Util.html_escape(all_link)}<ul>|
     root_categories.each do |root_category|
       stack = []
       category = root_category
@@ -130,8 +131,9 @@ module ApplicationHelper
           stack << [category, sibling_index]
 
           last_category = stack.last.first
-          link = link_to(last_category.caption,
-            params.merge(:category => last_category.id), link_options)
+          link = content_tag("span", link_to(last_category.caption,
+            params.merge(:category => last_category.id), link_options),
+            :class => "folder")
           tree << "<li>#{ERB::Util.html_escape(link)}"
 
           children = category.children
