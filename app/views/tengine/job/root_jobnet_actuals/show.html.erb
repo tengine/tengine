@@ -1,3 +1,9 @@
+<% unless @refresh_interval.zero? -%>
+  <% content_for :end_of_head do -%>
+    <meta http-equiv="refresh" content="<%= @refresh_interval %>">
+  <% end -%>
+  <p>[自動更新中] <%= @refresh_interval %>秒間隔で自動更新しています。</p>
+<% end -%>
 <h1><%= t(".title") %></h1>
 
 <div class="Section">
