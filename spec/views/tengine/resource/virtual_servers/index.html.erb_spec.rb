@@ -113,6 +113,18 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :text => YAML.dump({"d"=>"1", "b"=>"2"}), :count => 2
   end
 
+  it "descriptionがない場合説明のセルに何も表示されないこと" do
+    @virtual_server1.description = nil
+    @virtual_server2.description = nil
+    @virtual_server1.save!
+    @virtual_server2.save!
+
+    render
+
+    assert_select "tr>td>div>span", :text => "v2Description".to_s, :count => 0
+    assert_select "tr>td>div>span", :text => "v3Description".to_s, :count => 0
+  end
+
   it "addressesがnilの場合IPアドレスのセルに何も表示されないこと" do
     @virtual_server1.addresses = nil
     @virtual_server2.addresses = nil
@@ -161,6 +173,19 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
 
     assert_select "tr>td>div>div>pre",
       :text => YAML.dump({"d"=>"1", "b"=>"2"}), :count => 0
+  end
+
+  it "descriptionとpropertiesがないときYamlViewは表示されていないこと" do
+    @virtual_server1.description = nil
+    @virtual_server2.description = nil
+    @virtual_server1.properties = nil
+    @virtual_server2.properties = nil
+    @virtual_server1.save!
+    @virtual_server2.save!
+
+    render
+
+    rendered.should_not have_xpath("//div[@class='YamlView']")
   end
 
   it "renders search form" do

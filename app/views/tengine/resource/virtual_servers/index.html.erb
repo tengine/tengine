@@ -139,21 +139,21 @@
                 <td><%= virtual_server.name %></td>
                 <td><%= virtual_server.provided_id %></td>
                 <td>
-                  <div class="YamlView">
-                    <span class="IconYaml">
-                      <%= truncate(virtual_server.description, :length => 20) %>
-                    </span>
-                    <div class="YamlScript">
-                      <% unless virtual_server.description.nil? %>
-                        <% if virtual_server.description.size >= 14 -%>
-                          <%= simple_format(ERB::Util.html_escape(
-                            virtual_server.description.scan(/.{14}/).join("\n"))) %>
-                        <% else -%>
-                          <p><%= virtual_server.description %></p>
-                        <% end -%>
-                      <% end -%>
+                  <% unless virtual_server.description.nil? %>
+                    <div class="YamlView">
+                      <span class="IconYaml">
+                        <%= truncate(virtual_server.description, :length => 20) %>
+                      </span>
+                      <div class="YamlScript">
+                          <% if virtual_server.description.size >= 14 -%>
+                            <%= simple_format(ERB::Util.html_escape(
+                              virtual_server.description.scan(/.{14}/).join("\n"))) %>
+                          <% else -%>
+                            <p><%= virtual_server.description %></p>
+                          <% end -%>
+                      </div>
                     </div>
-                  </div>
+                  <% end -%>
                 </td>
                 <td>
                   <%= format_map_yml_value(virtual_server, :addresses) %>
