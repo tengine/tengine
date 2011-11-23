@@ -61,6 +61,10 @@ class Tengine::Resource::VirtualServer::Finder
         :name => /#{virtual_server_image_name}/)
       unless images.blank?
         criteria = criteria.any_in(:provided_image_id => images.collect(&:provided_id))
+      else
+        # 条件に一致するVirtualServerImageが1つもないためどのVirtualServerも条件に
+        # 一致しない
+        criteria = criteria.where(:_id => 0)
       end
     end
     return criteria

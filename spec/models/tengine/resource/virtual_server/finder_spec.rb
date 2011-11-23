@@ -38,9 +38,11 @@ describe Tengine::Resource::VirtualServer::Finder do
   end
 
   it "scopeで絞り込みができること" do
+    Tengine::Resource::Provider.delete_all
+    @pr = Tengine::Resource::Provider.create!(:name => "testprovider")
     Tengine::Resource::VirtualServer.delete_all
     @virtual_server1 = Tengine::Resource::VirtualServer.create!(
-      :provider_id => nil,
+      :provider_id => @pr.id,
       :name => "vserver1",
       :provided_id => "i0002",
       :description => "v2Description",
@@ -51,7 +53,7 @@ describe Tengine::Resource::VirtualServer::Finder do
       :provided_type_id => "large",
     )
     @virtual_server2 = Tengine::Resource::VirtualServer.create!(
-      :provider_id => nil,
+      :provider_id => @pr.id,
       :name => "vserver2",
       :provided_id => "i0004",
       :description => "v3Description",
@@ -60,6 +62,17 @@ describe Tengine::Resource::VirtualServer::Finder do
       :properties => {"a"=>"1", "b"=>"2"},
       :provided_image_id => "ami2",
       :provided_type_id => "large",
+    )
+    Tengine::Resource::VirtualServerImage.delete_all
+    @vimage1 = Tengine::Resource::VirtualServerImage.create!(
+      :provider_id => @pr.id,
+      :name => "vimage1",
+      :provided_id => "ami1",
+    )
+    @vimage2 = Tengine::Resource::VirtualServerImage.create!(
+      :provider_id => @pr.id,
+      :name => "vimage2",
+      :provided_id => "ami2",
     )
     criteria = Mongoid::Criteria.new(Tengine::Resource::VirtualServer)
     result = subject.new(virtual_server_name:"vserver").scope(criteria)
@@ -86,5 +99,16 @@ describe Tengine::Resource::VirtualServer::Finder do
     result = subject.new(description:"Desc", provided_id:"i0004").scope(criteria)
     result.count.should == 1
     result.first.should == @virtual_server2
+
+    result = subject.new(virtual_server_image_name:"image").scope(criteria)
+    result.count.should == 2
+    result.each do |record|
+      vi = Tengine::Resource::VirtualServerImage.where(
+        provided_id:record.provided_image_id).first
+      vi.name.should =~ /image/
+    end
+
+    result = subject.new(virtual_server_image_name:"notmatch").scope(criteria)
+    result.count.should == 0
   end
 end
