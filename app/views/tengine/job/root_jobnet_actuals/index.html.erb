@@ -11,16 +11,7 @@
 <div class="TreeViewContents">
   <div class="DataView">
     <div class="Wrap">
-      <% if @finder.errors.any? %>
-        <div class="Msg MsgError">
-          <p><%= t(".finder.error_caption", :count => @finder.errors.size) %></p>
-          <ul>
-          <% @finder.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
+      <%= model_error_messages @finder %>
 
       <div class="BoxBorder BoxSearchForm">
         <%= form_for(:finder, :html => {:method => :get}) do |f| %>
@@ -78,23 +69,27 @@
         <% end %>
       </div>
 
-      <%= form_for(:finder, :url => tengine_job_root_jobnet_actuals_path, :method => :get) do |f| %>
-        <%= f.label :reflesh_interval, t(".refresher.form.refresh_interval") %>:
-        <%= f.number_field :reflesh_interval %><%= t("datetime.prompts.second") %>
+      <div class="BoxActionLinksRight">
+        <%= form_for(:finder, :url => tengine_job_root_jobnet_actuals_path, :method => :get, html:{novalidate:true}) do |f| %>
+          <%= f.label :reflesh_interval, t(".refresher.form.refresh_interval") %>:
+          <%= f.number_field :reflesh_interval, min:0, class:"InputText" %><%= t("datetime.prompts.second") %>
 
-        <%= hidden_field_tag "finder[duration]", @finder.duration %>
-        <% %w(year mon day hour min).each_with_index do |method, i| -%>
-          <%= hidden_field_tag "finder[duration_start(#{i}i)]", @finder.duration_start.send(method) %>
-          <%= hidden_field_tag "finder[duration_finish(#{i}i)]", @finder.duration_finish.send(method) %>
-        <% end -%>
-        <%= hidden_field_tag "finder[id]", @finder.id %>
-        <%= hidden_field_tag "finder[name]", @finder.name %>
-        <% @finder.phase_ids.each do |status| -%>
-          <%= hidden_field_tag "finder[phase_ids][]", status %>
-        <% end -%>
+          <%= hidden_field_tag "finder[duration]", @finder.duration %>
+          <% %w(year mon day hour min).each_with_index do |method, i| -%>
+            <%= hidden_field_tag "finder[duration_start(#{i}i)]", @finder.duration_start.send(method) %>
+            <%= hidden_field_tag "finder[duration_finish(#{i}i)]", @finder.duration_finish.send(method) %>
+          <% end -%>
+          <%= hidden_field_tag "finder[id]", @finder.id %>
+          <%= hidden_field_tag "finder[name]", @finder.name %>
+          <% @finder.phase_ids.each do |status| -%>
+            <%= hidden_field_tag "finder[phase_ids][]", status %>
+          <% end -%>
 
-        <%= f.submit t(".refresher.form.submit") %>
-      <% end %>
+          <span class="BtnWrap">
+            <%= f.submit t(".refresher.form.submit"), class:"BtnSearch" %>
+          </span>
+        <% end %>
+      </div>
 
       <div class="PageStats">
         <%= paginate @root_jobnet_actuals, :items => @root_jobnet_actuals %>

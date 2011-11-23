@@ -8,6 +8,7 @@ ja:
       tengine/job/root_jobnet_actual: "実行中のジョブ"
       tengine/job/jobnet_actual: "実行中のジョブ"
       tengine/job/execution: "ジョブ実行"
+      tengine/job/root_jobnet_actual/finder: "検索"
 
     attributes:
       tengine/job/root_jobnet_template:
