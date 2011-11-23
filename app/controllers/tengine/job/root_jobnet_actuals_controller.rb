@@ -61,6 +61,9 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     @refresher.refresh_interval = 15
     if params[:refresher]
       @refresher.refresh_interval = params[:refresher][:refresh_interval].to_i
+      if @refresher.refresh_interval < 0
+        @refresher.refresh_interval = 0
+      end
     end
     @refresh_interval = @refresher.refresh_interval
 

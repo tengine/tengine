@@ -57,13 +57,16 @@
   <div class="Section">
     <h2><%= t("views.pages.component_jobs_caption") %></h2>
 
-    <p class="BoxActionLinksRight">
-      <%= form_for(:refresher, :url => tengine_job_root_jobnet_actual_path(@root_jobnet_actual), :method => :get) do |f| %>
+    <div class="BoxActionLinksRight">
+      <%= form_for(:refresher, :url => tengine_job_root_jobnet_actual_path(@root_jobnet_actual), :method => :get, html:{novalidate:true}) do |f| %>
         <%= f.label :refresh_interval, t(".form.refresh_interval") %>:
-        <%= f.number_field :refresh_interval %><%= t("datetime.prompts.second") %>
-        <%= f.submit t(".form.submit") %>
+        <%= f.number_field :refresh_interval, min:0, class:"InputText" %>
+        <%= t("datetime.prompts.second") %>
+        <span class="BtnWrap">
+          <%= f.submit t(".form.submit"), class:"BtnNormal" %>
+        <span>
       <% end %>
-    </p>
+    </div>
 
     <table class="TableBase">
       <colgroup>
