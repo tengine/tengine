@@ -9,20 +9,24 @@
     </colgroup>
     <tbody>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:id) %>:</th>
-        <td><%= @root_jobnet_template.id %></td>
-      </tr>
-      <tr>
         <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:name) %>:</th>
         <td><%= @root_jobnet_template.name %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:id) %>:</th>
+        <td><%= @root_jobnet_template.id %></td>
       </tr>
       <tr>
         <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:description) %>:</th>
         <td><%= @root_jobnet_template.description %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_filepath) %>:</th>
-        <td><%= @root_jobnet_template.dsl_filepath %></td>
+        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:server_name) %>:</th>
+        <td><%= @root_jobnet_template.server_name %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:credential_name) %>:</th>
+        <td><%= @root_jobnet_template.credential_name %></td>
       </tr>
     </tbody>
   </table>
@@ -43,8 +47,10 @@
         <tr>
           <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:id) %></th>
           <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:name) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:script) %></th>
           <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:description) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:script) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:server_name) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:credential_name) %></th>
           <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:destinations) %></th>
         </tr>
       </thead>
@@ -54,9 +60,11 @@
           <tr>
             <td><%= jobnet_template.id %></td>
             <td><%== '&nbsp;&nbsp;' * lv %><%= jobnet_template.name %></td>
-            <td><%= jobnet_template.script %></td>
             <td><%= jobnet_template.description %></td>
-            <td class="Last">
+            <td><%= jobnet_template.script %></td>
+            <td><%= jobnet_template.server_name %></td>
+            <td><%= jobnet_template.credential_name %></td>
+            <td>
               <% unless (edges = jobnet_template.next_edges).blank? -%>
                 <% if (dest = edges.first.destination).instance_of?(Tengine::Job::JobnetTemplate) -%>
                   <%= dest.name %>

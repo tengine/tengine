@@ -51,7 +51,6 @@ describe "tengine/job/root_jobnet_templates/show.html.erb" do
       rendered.should have_xpath("//td", :text => "#{@root_jobnet_template.id}")
       rendered.should have_xpath("//td", :text => @root_jobnet_template.name)
       rendered.should have_xpath("//td", :text => @root_jobnet_template.description)
-      rendered.should have_xpath("//td", :text => @root_jobnet_template.dsl_filepath)
     end
 
     it "実行設定画面へのリンクが表示されていること" do
