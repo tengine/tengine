@@ -87,7 +87,7 @@ describe "tengine/resource/virtual_servers/edit.html.erb" do
     rendered.should have_xpath("//td/pre", :text => @virtual_server1.addresses_yaml)
     rendered.should have_xpath("//td/pre", :text => @virtual_server1.properties_yaml)
     rendered.should have_xpath("//td", :text => @type1.caption)
-    rendered.should have_xpath("//td", :text => @image1.provided_id)
+    rendered.should have_xpath("//td", :text => @image1.name)
   end
 
   it "addressesがnilのとき何もIPアドレスに表示されないこと" do

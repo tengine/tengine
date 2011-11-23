@@ -103,8 +103,8 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     assert_select "tr>td>div>span", :text => "v3Description".to_s, :count => 1
     assert_select "tr>td", :text => "starting".to_s, :count => 1
     assert_select "tr>td", :text => "running".to_s, :count => 1
-    assert_select "tr>td>a", :text => "ami1".to_s, :count => 1
-    assert_select "tr>td>a", :text => "ami2".to_s, :count => 1
+    assert_select "tr>td>a", :text => "vimage1".to_s, :count => 1
+    assert_select "tr>td>a", :text => "vimage2".to_s, :count => 1
     assert_select "tr>td", :text => "Small".to_s, :count => 1
     assert_select "tr>td", :text => "Large".to_s, :count => 1
     assert_select "tr>td>pre",

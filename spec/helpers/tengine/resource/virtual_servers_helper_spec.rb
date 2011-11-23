@@ -50,10 +50,42 @@ describe Tengine::Resource::VirtualServersHelper do
   end
 
   describe "image_name_link_and_desc" do
+    before do
+      Tengine::Resource::Provider.delete_all
+      Tengine::Resource::VirtualServer.delete_all
+      Tengine::Resource::VirtualServerImage.delete_all
+      @pr = Tengine::Resource::Provider.create!(name:"test")
+      @vs = Tengine::Resource::VirtualServer.create!(
+        provider_id:@pr.id,
+        name:"vserver1",
+        provided_image_id:"vimagep",
+      )
+      @vi = Tengine::Resource::VirtualServerImage.create!(
+        provider_id:@pr.id,
+        name:"vimage1",
+        provided_id:"vimagep",
+      )
+    end
+
     it "link付きで表示すること" do
+      url = edit_tengine_resource_virtual_server_image_url(@vi)
+      result = helper.image_name_link_and_desc @vs
+      result.should == link_to(@vi.name, url)
+
+      @vi.description = "testdesc"
+      @vi.save!
+      result = helper.image_name_link_and_desc @vs
+      result.should == "#{link_to(@vi.name, url)}(#{@vi.description})"
     end
 
     it "linkなしで表示すること" do
+      result = helper.image_name_link_and_desc @vs, false
+      result.should == @vi.name
+
+      @vi.description = "testdesc"
+      @vi.save!
+      result = helper.image_name_link_and_desc @vs, false
+      result.should == "#{@vi.name}(#{@vi.description})"
     end
   end
 end
