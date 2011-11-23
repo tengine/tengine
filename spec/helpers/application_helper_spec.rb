@@ -256,4 +256,29 @@ describe ApplicationHelper do
       end
     end
   end
+
+  describe "button_link_to" do
+    it "ボタン表示用のspanが作成されること" do
+      url = tengine_job_root_jobnet_templates_url
+
+      result = helper.button_link_to("test", url)
+      result.should == helper.link_to("<span class='BtnNormal'>test</span>".html_safe,
+                         url, :class => "BtnWrap")
+
+      result = helper.button_link_to("test", url, :class => "test",
+                                     :btn_class => "BtnAdd")
+      result.should == helper.link_to("<span class='BtnAdd'>test</span>".html_safe,
+                                      url, :class => "test BtnWrap")
+
+      result = helper.button_link_to(url) { "test" }
+      result.should == helper.link_to("<span class='BtnNormal'>test</span>".html_safe,
+                                      url, :class => "BtnWrap")
+
+      result = helper.button_link_to(url, :class => "test", :btn_class => "BtnAdd") do
+        "test"
+      end
+      result.should == helper.link_to("<span class='BtnAdd'>test</span>".html_safe,
+                                      url, :class => "test BtnWrap")
+    end
+  end
 end

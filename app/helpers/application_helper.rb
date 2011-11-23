@@ -5,6 +5,27 @@ module ApplicationHelper
     @page_title = model_class_name(class_or_name) + I18n.t(page_type, :scope => [:views, :pages])
   end
 
+  def button_link_to(*args, &block)
+    if block_given?
+      name = capture(&block)
+      options      = args.first || {}
+      html_options = args.second || {}
+    else
+      name         = args[0]
+      options      = args[1] || {}
+      html_options = args[2] || {}
+    end
+
+    html_options = html_options.stringify_keys
+    btn_class = html_options.delete("btn_class") || "BtnNormal"
+    name = "<span class='#{btn_class}'>#{ERB::Util.html_escape(name)}</span>".html_safe
+
+    klass = html_options["class"]
+    html_options["class"] = klass ? "#{klass} BtnWrap" : "BtnWrap"
+
+    link_to(name, options, html_options)
+  end
+
   def link_to_show(*args, &block)
     link_to(I18n.t(:show, :scope => [:views, :links]), *args_for_nested_path(*args), &block)
   end
