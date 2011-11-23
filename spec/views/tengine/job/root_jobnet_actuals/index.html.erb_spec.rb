@@ -678,7 +678,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
     it "ページネーションのリンクが表示されていること" do
       render
 
-      rendered.should have_xpath("//nav[@class='pagination']", :count => 2)
+      rendered.should have_xpath("//div[@class='PageStats']", :count => 2)
     end
 
     context "ページ移動したとき" do
