@@ -688,12 +688,31 @@ describe Tengine::Job::RootJobnetActualsController do
       get :show, :id => root_jobnet_actual.id.to_s
       assigns(:root_jobnet_actual).should eq(root_jobnet_actual)
     end
+
+    it "assigns the submited refresher as @refresher" do
+      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+      get :show, :id => root_jobnet_actual.id.to_s,
+        :refresher => {:refresh_interval => 30}
+      assigns(:refresher).refresh_interval.should == 30
+
+      get :show, :id => root_jobnet_actual.id.to_s
+      assigns(:refresher).refresh_interval.should == 15
+    end
+
+    it "リクエストしたroot_jobnet_actualを元に@finderが設定されていること" do
+      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+      get :show, :id => root_jobnet_actual.id.to_s
+      finder = assigns(:finder)
+      finder[:source_name].should == root_jobnet_actual.name_as_resource
+      finder[:occurred_at_start].should == Time.new(2011, 11, 7, 13, 0).strftime("%H:%M")
+      finder[:occurred_at_end].should be_nil
+    end
   end
 
   describe "GET new" do
-    it "assigns a new root_jobnet_actual as @root_jobnet_actual" do
+    it "indexにリダイレクトされる" do
       get :new
-      assigns(:root_jobnet_actual).should be_a_new(Tengine::Job::RootJobnetActual)
+      response.should redirect_to(:action => 'index')
     end
   end
 
@@ -787,17 +806,21 @@ describe Tengine::Job::RootJobnetActualsController do
   end
 
   describe "DELETE destroy" do
+    before do
+      mock_sender = mock(:sender)
+      mock_sender.should_receive(:wait_for_connection)
+      Tengine::Event.stub(:default_sender).and_return(mock_sender)
+    end
+
     it "destroys the requested root_jobnet_actual" do
       root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
-      expect {
-        delete :destroy, :id => root_jobnet_actual.id.to_s
-      }.to change(Tengine::Job::RootJobnetActual, :count).by(-1)
+      delete :destroy, :id => root_jobnet_actual.id.to_s
     end
 
     it "redirects to the tengine_job_root_jobnet_actuals list" do
       root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
       delete :destroy, :id => root_jobnet_actual.id.to_s
-      response.should redirect_to(tengine_job_root_jobnet_actuals_url)
+      response.should redirect_to(tengine_job_root_jobnet_actual_path(root_jobnet_actual))
     end
   end
 

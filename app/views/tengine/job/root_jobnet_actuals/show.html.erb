@@ -1,102 +1,140 @@
-<h1><%= page_title Tengine::Job::RootJobnetActual, :show %></h1>
+<% unless @refresh_interval.zero? -%>
+  <% content_for :end_of_head do -%>
+    <meta http-equiv="refresh" content="<%= @refresh_interval %>">
+  <% end -%>
+  <p>[自動更新中] <%= @refresh_interval %>秒間隔で自動更新しています。</p>
+<% end -%>
+<h1><%= t(".title") %></h1>
+
+<div class="Section">
+  <table class="TableInfoView">
+    <colgroup>
+      <col class="Row1 RowTh">
+      <col class="Row2 RowTd">
+    </colgroup>
+    <tbody>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:name) %>:</th>
+        <td><%= @root_jobnet_actual.name %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:id) %>:</th>
+        <td><%= @root_jobnet_actual.id %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:description) %>:</th>
+        <td><%= @root_jobnet_actual.description %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:server_name) %>:</th>
+        <td><%= @root_jobnet_actual.server_name %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:credential_name) %>:</th>
+        <td><%= @root_jobnet_actual.credential_name %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:started_at) %>:</th>
+        <td><%= @root_jobnet_actual.started_at %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at) %>:</th>
+        <td><%= @root_jobnet_actual.finished_at %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:phase_cd) %>:</th>
+        <td><%= @root_jobnet_actual.phase_name %></td>
+      </tr>
+    </tbody>
+  </table>
+</div><!-- /.Section -->
+
+<%= link_to t(".links.events"), tengine_core_events_path(:finder => @finder, :commit => "submit") %>
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:name) %>:</b>
-  <%= @root_jobnet_actual.name %>
-</p>
+<% unless @jobnet_actuals.blank? -%>
+  <div class="Section">
+    <h2><%= t("views.pages.component_jobs_caption") %></h2>
 
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:server_name) %>:</b>
-  <%= @root_jobnet_actual.server_name %>
-</p>
+    <div class="BoxActionLinksRight">
+      <%= form_for(:refresher, :url => tengine_job_root_jobnet_actual_path(@root_jobnet_actual), :method => :get, html:{novalidate:true}) do |f| %>
+        <%= f.label :refresh_interval, t(".form.refresh_interval") %>:
+        <%= f.number_field :refresh_interval, min:0, class:"InputText" %>
+        <%= t("datetime.prompts.second") %>
+        <span class="BtnWrap">
+          <%= f.submit t(".form.submit"), class:"BtnNormal" %>
+        <span>
+      <% end %>
+    </div>
 
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:credential_name) %>:</b>
-  <%= @root_jobnet_actual.credential_name %>
-</p>
+    <table class="TableBase">
+      <colgroup>
+        <col class="Row1">
+        <col class="Row2">
+        <col class="Row3">
+        <col class="Row4">
+        <col class="Row5">
+      </colgroup>
+      <thead>
+        <tr>
+          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:id) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:name) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:description) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:script) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:server_name) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:credential_name) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:started_at) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:finished_at) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:phase_cd) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:destinations) %></th>
+          <th scope="col"><%= t("views.pages.operation") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @jobnet_actuals.each do |jobnet_actual| -%>
+          <% jobnet_actual, lv = jobnet_actual -%>
+          <tr>
+            <td><%= jobnet_actual.id %></td>
+            <td><%== '&nbsp;&nbsp;' * lv %><%= jobnet_actual.name %></td>
+            <td><%= jobnet_actual.description %></td>
+            <td><%= jobnet_actual.script %></td>
+            <td><%= jobnet_actual.server_name %></td>
+            <td><%= jobnet_actual.credential_name %></td>
+            <td><%= jobnet_actual.started_at %></td>
+            <td><%= jobnet_actual.finished_at %></td>
+            <td><%= jobnet_actual.phase_name %></td>
+            <td>
+              <% unless (edges = jobnet_actual.next_edges).blank? -%>
+                <% if (dest = edges.first.destination).instance_of?(Tengine::Job::JobnetActual) -%>
+                  <%= dest.name %>
+                <% else -%>
+                  <%= dest.next_edges.collect{|edge| edge.destination.name }.join(", ") %>
+                <% end -%>
+              <% end -%>
+            </td>
+            <td class="Last">
+              <% if %w(stuck).include?(jobnet_actual.phase_key.to_s) -%>
+                <%= link_to t("views.links.edit_status"), edit_tengine_job_root_jobnet_actual_jobnet_actual_path(jobnet_actual, :root_jobnet_actual_id => @root_jobnet_actual) %>
+              <% end -%>
+              <% if %w(initialized success error stuck).include?(jobnet_actual.phase_key.to_s) -%>
+                <%= link_to t("views.links.rerun"), new_tengine_job_execution_path(:root_jobnet_id => @root_jobnet_actual, :target_actual_ids => [jobnet_actual.id.to_s], :retry => true) %>
+              <% end -%>
+              <% if %w(running).include?(jobnet_actual.phase_key.to_s) -%>
+                <%= link_to t("views.links.force_exit"), tengine_job_root_jobnet_actual_jobnet_actual_path(jobnet_actual, :root_jobnet_actual_id => @root_jobnet_actual), :method => "delete", confirm: t(".confirm.destroy") %>
+              <% end -%>
+            </td>
+          </tr>
+        <% end -%>
+      </tbody>
+    </table>
+    <% if %w(running).include?(@root_jobnet_actual.phase_key.to_s) -%>
+      <p class="BoxBtns">
+        <%= button_link_to t("views.links.force_exit"),
+          tengine_job_root_jobnet_actual_path(@root_jobnet_actual),
+          method:"delete", confirm:t(".confirm.destroy"), btn_class:"BtnDelete" %>
+      </p>
+    <% end -%>
+  </div><!-- /.Section -->
+<% end -%>
 
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:killing_signals) %>:</b>
-  <%= @root_jobnet_actual.killing_signals_text %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:killing_signal_interval) %>:</b>
-  <%= @root_jobnet_actual.killing_signal_interval %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:description) %>:</b>
-  <%= @root_jobnet_actual.description %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:script) %>:</b>
-  <%= @root_jobnet_actual.script %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:jobnet_type_cd) %>:</b>
-  <%= @root_jobnet_actual.jobnet_type_cd %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:executing_pid) %>:</b>
-  <%= @root_jobnet_actual.executing_pid %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:exit_status) %>:</b>
-  <%= @root_jobnet_actual.exit_status %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:was_expansion) %>:</b>
-  <%= @root_jobnet_actual.was_expansion %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:phase_cd) %>:</b>
-  <%= @root_jobnet_actual.phase_cd %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:started_at) %>:</b>
-  <%= @root_jobnet_actual.started_at %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at) %>:</b>
-  <%= @root_jobnet_actual.finished_at %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:stopped_at) %>:</b>
-  <%= @root_jobnet_actual.stopped_at %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:stop_reason) %>:</b>
-  <%= @root_jobnet_actual.stop_reason %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:category) %>:</b>
-  <%= @root_jobnet_actual.category %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:lock_version) %>:</b>
-  <%= @root_jobnet_actual.lock_version %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::RootJobnetActual.human_attribute_name(:template) %>:</b>
-  <%= @root_jobnet_actual.template %>
-</p>
-
-
-<%= link_to_edit edit_tengine_job_root_jobnet_actual_path(@root_jobnet_actual) %> |
-<%= link_to_back_list tengine_job_root_jobnet_actuals_path %>

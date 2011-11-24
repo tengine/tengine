@@ -38,12 +38,12 @@ describe ApplicationHelper do
 
     it "testの昇順のソートのクエリーパラメータがあるときascが返ってくること" do
       @request.query_parameters[:sort] = {"test" => "asc"}
-      helper.sort_class(:test).should == "asc"
+      helper.sort_class(:test).should == "SortAsc"
     end
 
     it "testの降順のソートのクエリーパラメータがあるときdesc返ってくること" do
       @request.query_parameters[:sort] = {"test" => "desc"}
-      helper.sort_class(:test).should == "desc"
+      helper.sort_class(:test).should == "SortDesc"
     end
 
     it "testのクエリーパラメータがascでもdescでもないとき空文字列が返ってくること" do
@@ -103,18 +103,18 @@ describe ApplicationHelper do
         }
 
         tree_html =<<-_tree_.strip.gsub(/\n?^\s+/, '')
-        <ul id="treeview">
+        <ul id="treeview" class="filetree">
           <li>
-            #{link_to(@all_str, params)}
+            <span class="folder">#{link_to(@all_str, params)}</span>
             <ul>
               <li>
-                #{link_to(@foo.caption, params.merge(:category=>@foo.id))}
+                <span class="folder">#{link_to(@foo.caption, params.merge(:category=>@foo.id))}</span>
                 <ul>
                   <li>
-                    #{link_to(@baz.caption, params.merge(:category=>@baz.id))}
+                    <span class="folder">#{link_to(@baz.caption, params.merge(:category=>@baz.id))}</span>
                   </li>
                   <li>
-                    #{link_to(@fizz.caption, params.merge(:category=>@fizz.id))}
+                    <span class="folder">#{link_to(@fizz.caption, params.merge(:category=>@fizz.id))}</span>
                   </li>
                 </ul>
               </li>
@@ -133,18 +133,18 @@ describe ApplicationHelper do
         link_opts = {:class => "foo"}
 
         tree_html =<<-_tree_.strip.gsub(/\n?^\s+/, '')
-        <ul id="treeview">
+        <ul id="treeview" class="filetree">
           <li>
-            #{link_to(@all_str, params, link_opts)}
+            <span class="folder">#{link_to(@all_str, params, link_opts)}</span>
             <ul>
               <li>
-                #{link_to(@foo.caption, params.merge(:category=>@foo.id), link_opts)}
+                <span class="folder">#{link_to(@foo.caption, params.merge(:category=>@foo.id), link_opts)}</span>
                 <ul>
                   <li>
-                    #{link_to(@baz.caption, params.merge(:category=>@baz.id), link_opts)}
+                    <span class="folder">#{link_to(@baz.caption, params.merge(:category=>@baz.id), link_opts)}</span>
                   </li>
                   <li>
-                    #{link_to(@fizz.caption, params.merge(:category=>@fizz.id), link_opts)}
+                    <span class="folder">#{link_to(@fizz.caption, params.merge(:category=>@fizz.id), link_opts)}</span>
                   </li>
                 </ul>
               </li>
@@ -165,18 +165,18 @@ describe ApplicationHelper do
         }
 
         tree_html =<<-_tree_.strip.gsub(/\n?^\s+/, '')
-        <ul id="treeview">
+        <ul id="treeview" class="filetree">
           <li>
-            #{ERB::Util.html_escape(link_to(@all_str, params))}
+            <span class="folder">#{ERB::Util.html_escape(link_to(@all_str, params))}</span>
             <ul>
               <li>
-                #{ERB::Util.html_escape(link_to(@foo.caption, params.merge(:category=>@foo.id)))}
+                <span class="folder">#{ERB::Util.html_escape(link_to(@foo.caption, params.merge(:category=>@foo.id)))}</span>
                 <ul>
                   <li>
-                    #{ERB::Util.html_escape(link_to(@baz.caption, params.merge(:category=>@baz.id)))}
+                    <span class="folder">#{ERB::Util.html_escape(link_to(@baz.caption, params.merge(:category=>@baz.id)))}</span>
                   </li>
                   <li>
-                    #{ERB::Util.html_escape(link_to(@fizz.caption, params.merge(:category=>@fizz.id)))}
+                    <span class="folder">#{ERB::Util.html_escape(link_to(@fizz.caption, params.merge(:category=>@fizz.id)))}</span>
                   </li>
                 </ul>
               </li>
@@ -230,23 +230,23 @@ describe ApplicationHelper do
         }
 
         tree_html =<<-_tree_.strip.gsub(/\n?^\s+/, '')
-        <ul id="treeview">
+        <ul id="treeview" class="filetree">
           <li>
-            #{link_to(@all_str, params)}
+            <span class="folder">#{link_to(@all_str, params)}</span>
             <ul>
               <li>
-                #{link_to(@foo.caption, params.merge(:category=>@foo.id))}
+                <span class="folder">#{link_to(@foo.caption, params.merge(:category=>@foo.id))}</span>
                 <ul>
                   <li>
-                    #{link_to(@baz.caption, params.merge(:category=>@baz.id))}
+                    <span class="folder">#{link_to(@baz.caption, params.merge(:category=>@baz.id))}</span>
                   </li>
                   <li>
-                    #{link_to(@fizz.caption, params.merge(:category=>@fizz.id))}
+                    <span class="folder">#{link_to(@fizz.caption, params.merge(:category=>@fizz.id))}</span>
                   </li>
                 </ul>
               </li>
               <li>
-                #{link_to(@bar.caption, params.merge(:category=>@bar.id))}
+                <span class="folder">#{link_to(@bar.caption, params.merge(:category=>@bar.id))}</span>
               </li>
             </ul>
           </li>
@@ -271,6 +271,31 @@ describe ApplicationHelper do
 
     it "ブロックで渡した内容が含まれていること" do
       helper.message(:complete, "test") { "foo" }.should =~ /foo/
+    end
+  end
+
+  describe "button_link_to" do
+    it "ボタン表示用のspanが作成されること" do
+      url = tengine_job_root_jobnet_templates_url
+
+      result = helper.button_link_to("test", url)
+      result.should == helper.link_to("<span class='BtnNormal'>test</span>".html_safe,
+                         url, :class => "BtnWrap")
+
+      result = helper.button_link_to("test", url, :class => "test",
+                                     :btn_class => "BtnAdd")
+      result.should == helper.link_to("<span class='BtnAdd'>test</span>".html_safe,
+                                      url, :class => "test BtnWrap")
+
+      result = helper.button_link_to(url) { "test" }
+      result.should == helper.link_to("<span class='BtnNormal'>test</span>".html_safe,
+                                      url, :class => "BtnWrap")
+
+      result = helper.button_link_to(url, :class => "test", :btn_class => "BtnAdd") do
+        "test"
+      end
+      result.should == helper.link_to("<span class='BtnAdd'>test</span>".html_safe,
+                                      url, :class => "test BtnWrap")
     end
   end
 end
