@@ -170,6 +170,36 @@ module ApplicationHelper
     return %|<pre>#{ERB::Util.html_escape(object.send("#{method}_yaml"))}</pre>|.html_safe
   end
 
+  def yaml_view(summary, *args, &block)
+    if block_given?
+      detail = capture(&block)
+      html_options = args.first || {}
+    else
+      detail = args.first
+      html_options = args.second || {}
+    end
+
+    content_tag("div",
+      content_tag("span", ERB::Util.html_escape(summary), class:"IconYaml") +
+      content_tag("div", ERB::Util.html_escape(detail), class:"YamlScript"),
+      html_options.stringify_keys.update(class:"YamlView")).html_safe
+  end
+
+  def description_format(description, truncate_length, html_options={})
+    return "" if description.blank?
+
+    length = truncate_length.to_i
+    summary = truncate(description, length:length)
+    detail = []
+    description.each_line do |line|
+      line = line.chomp.gsub(/(.{#{length}})/, "\\1\n")
+      detail << line.chomp
+    end
+    detail = detail.join("\n")
+
+    return yaml_view(summary, simple_format(detail), html_options)
+  end
+
   def message(type, text, &block)
     klass = case type.to_s
             when "warning"  then "MsgWarning"

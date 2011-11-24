@@ -298,4 +298,68 @@ describe ApplicationHelper do
                                       url, :class => "test BtnWrap")
     end
   end
+
+  describe "yaml_view" do
+    it "YamlViewが作成されること" do
+      result = helper.yaml_view("test summary", "test detail")
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|test summary</span><div class="YamlScript">test detail</div></div>|
+
+      result = helper.yaml_view("test summary") { "test detail" }
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|test summary</span><div class="YamlScript">test detail</div></div>|
+    end
+  end
+
+  describe "description_format" do
+    it "YamlScriptのコンテンツに指定した文字数で<br />が挿入されたYamlViewが作成されること" do
+      str = "abcdefghijklmnopqrstuvwxyz"
+      summary = str.truncate(10)
+      result = helper.description_format(str, 10)
+      detail = "abcdefghij\nklmnopqrst\nuvwxyz"
+      detail = helper.simple_format detail
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|#{summary}</span><div class="YamlScript">#{detail}</div></div>|
+
+      str = "abcdefghijklmnopqrstuvwxyz\n"
+      summary = str.truncate(10)
+      result = helper.description_format(str, 10)
+      detail = "abcdefghij\nklmnopqrst\nuvwxyz"
+      detail = helper.simple_format detail
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|#{summary}</span><div class="YamlScript">#{detail}</div></div>|
+
+      str = "abcdefghijkl\nmnopqrstuvwxyz\n"
+      summary = str.truncate(10)
+      result = helper.description_format(str, 10)
+      detail = "abcdefghij\nkl\nmnopqrstuv\nwxyz"
+      detail = helper.simple_format detail
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|#{summary}</span><div class="YamlScript">#{detail}</div></div>|
+
+      str = "abcdefghijklmnopqrstuvwxyz"
+      summary = str.truncate(30)
+      result = helper.description_format(str, 30)
+      detail = "abcdefghijklmnopqrstuvwxyz"
+      detail = helper.simple_format detail
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|#{summary}</span><div class="YamlScript">#{detail}</div></div>|
+
+      str = "abcdefghijklmnopqrstuvwxyz\n"
+      summary = str.truncate(30)
+      result = helper.description_format(str, 30)
+      detail = "abcdefghijklmnopqrstuvwxyz"
+      detail = helper.simple_format detail
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|#{summary}</span><div class="YamlScript">#{detail}</div></div>|
+
+      str = "abcdefghijklmnopqrstuvwxyz"
+      summary = str.truncate(26)
+      result = helper.description_format(str, 26)
+      detail = "abcdefghijklmnopqrstuvwxyz"
+      detail = helper.simple_format detail
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|#{summary}</span><div class="YamlScript">#{detail}</div></div>|
+    end
+  end
 end
