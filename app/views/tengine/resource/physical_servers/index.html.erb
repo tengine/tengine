@@ -67,37 +67,15 @@
         <td><%= physical_server.name %></td>
         <td><%= physical_server.provided_id %></td>
         <td>
-          <% unless physical_server.description.blank? %>
-            <div class="YamlView" id= "yamlDescription">
-              <span class="IconYaml">
-                <%= truncate(physical_server.description, :length =>23) %>
-              </span>
-              <div class="YamlScript">
-                  <% if (physical_server.description =~ /\n/ || physical_server.description =~ /\r\n/) -%>
-                    <%= simple_format(ERB::Util.html_escape(
-                      physical_server.description)) %>
-                  <% elsif physical_server.description.size >= 14 -%>
-                    <%= simple_format(ERB::Util.html_escape(
-                      physical_server.description.gsub(/\n/,"").scan(/.{14}/).join("\n"))) %>
-                  <% else -%>
-                    <%= simple_format(ERB::Util.html_escape(
-                      physical_server.description)) %>
-                  <% end -%>
-              </div>
-            </div>
-          <% end %>
+          <%= description_format physical_server.description, 20, id:"yamlDescription" %>
         </td>
         <td><%= physical_server.cpu_cores %></td>
         <td><%= physical_server.memory_size %></td>
         <td><%= physical_server.status %></td>
         <td>
           <% unless physical_server.properties.blank? -%>
-            <div class="YamlView" id= "yamlProperties">
-              <span class="IconYaml"><%= t(:show) %></span>
-              <div class="YamlScript">
-                <%== format_map_yml_value(physical_server, :properties) %>
-              </div>
-            </div>
+            <%= yaml_view t(:show), format_map_yml_value(physical_server, :properties),
+                  id:"yamlProperties" %>
           <% end %>
         </td>
         <td><%= link_to_edit edit_tengine_resource_physical_server_path(physical_server), :class => "ActionEdit" %></td>
