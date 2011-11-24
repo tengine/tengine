@@ -9,7 +9,9 @@ role :db,  "tgnweb001", :primary => true # This is where Rails migrations will r
 role :db,  "tgnweb002"
 
 set :user,              "root"
-set :password,          "password"
+set :password do
+  Capistrano::CLI.password_prompt('SSH Password: ')
+end
 set :use_sudo,          false
 set :ssh_options, {
   :forward_agent => true
@@ -19,7 +21,7 @@ set :ssh_options, {
 # setting scm
 ##############################
 set :scm_verbose,       true
-set :scm_user,          "root"
+set :scm_user,          ""
 set :scm_prefer_prompt, true    # 毎回パスワードを入力する設定
 
 set :scm,               :none

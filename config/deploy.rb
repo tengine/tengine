@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-require 'bundler/capistrano'
 
 ##############################
 # deploy stage
@@ -62,8 +61,8 @@ namespace :app do
   desc "setup shared directories"
   task :setup_shared do
     run "mkdir -p #{shared_path}/config"
-    put(IO.read("config/tengined.yml.example"), "#{shared_path}/config/tengined.yml", :via => :scp)
-    put(IO.read("config/mongoid.yml.example"), "#{shared_path}/config/mongoid.yml", :via => :scp)
+    put(IO.read("config/tengined.yml.erb"), "#{shared_path}/config/tengined.yml.erb", :via => :scp)
+    put(IO.read("config/mongoid.yml"), "#{shared_path}/config/mongoid.yml", :via => :scp)
   end
 
   desc "Make symlink for config_file"
