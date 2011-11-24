@@ -71,11 +71,11 @@ describe "tengine/resource/credentials/index.html.erb" do
       @request.params[:sort] = {"name" => "asc"}
     end
 
-    it "nameのソートのリンクに降順のクエリーパラメータが付加されていてclassがascになっていること" do
+    it "nameのソートのリンクに降順のクエリーパラメータが付加されていてclassがSortAscになっていること" do
       render
 
       href = tengine_resource_credentials_path(:sort=>{:name=>"desc"})
-      rendered.should have_xpath("//a[@class='asc'][@href='#{href}']",
+      rendered.should have_xpath("//a[@class='SortAsc'][@href='#{href}']",
         :text => Tengine::Resource::Credential.human_attribute_name(:name))
     end
 

@@ -21,8 +21,7 @@ class Tengine::Job::RootJobnetActual::Finder
 
   validate :validate_datetime
 
-  #include Tengine::Core::SelectableAttr
-  include ::SelectableAttr::Base
+  include Tengine::Core::SelectableAttr
 
   multi_selectable_attr :phase_cd, :enum => Tengine::Job::RootJobnetActual.phase_enum
 
@@ -42,6 +41,7 @@ class Tengine::Job::RootJobnetActual::Finder
       v = attrs[attr]
       send("#{attr}=", v) unless v.nil?
     end
+    self.reflesh_interval = 0 if reflesh_interval.to_i < 0
   end
 
   def attributes
@@ -98,6 +98,10 @@ class Tengine::Job::RootJobnetActual::Finder
   end
 
   class << self
+    def human_name
+      I18n.t("mongoid.models.#{self.model_name.i18n_key}")
+    end
+
     def human_attribute_name(attr, options = {})
       I18n.t("mongoid.attributes.#{self.model_name.i18n_key}.#{attr}")
     end
