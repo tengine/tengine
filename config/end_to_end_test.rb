@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+begin
+
 require 'cucumber/rake/task'
 
 
@@ -41,4 +43,9 @@ FEATURES.each do |f|
   end
 end
 
-
+rescue LoadError
+  desc 'end_to_end_test rake task not available (cucumber not installed)'
+  task :end_to_end_test do
+    abort 'end_to_end_test rake task is not available. Be sure to install cucumber as a gem or plugin'
+  end
+end
