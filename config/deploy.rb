@@ -40,6 +40,7 @@ set :deploy_via,        :copy
 set :deploy_to,         "/var/lib/#{application}"
 set :deploy_env,        "production"
 set :bundle_dir,        "./vendor/bundle"
+set :bundle_without,    [:development, :test, :assets]
 
 # passenger-recipesの設定
 set :target_os,    :centos
@@ -76,11 +77,11 @@ namespace :app do
   end
 end
 
-namespace :bundle do
-  task :install, :roles => :app do
-    run "cd #{release_path} && bundle --path vendor/bundle --without development test"
-  end
-end
+# namespace :bundle do
+#   task :install, :roles => :app do
+#     run "cd #{release_path} && bundle --path vendor/bundle --without development test assets"
+#   end
+# end
 
 
 # apache & passenger
