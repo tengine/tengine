@@ -27,15 +27,6 @@ $(window).load(function(){
 			$(this).parent().toggle();
 		});
 	});
-	
-	// treeview
-	if( $("#browser").length > 0 ) {
-		$("#browser").treeview ({
-			persist: "location"
-			//collapsed: true,
-			//unique: true
-		});
-	}
 });
 
 
