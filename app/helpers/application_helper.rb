@@ -165,9 +165,11 @@ module ApplicationHelper
     end
   end
 
+  YAML_SEPARATOR_REGEXP = /^---( )?(! )?\n?/
   def format_map_yml_value(object, method)
     return "" if object.send(method).blank?
-    return %|<pre>#{ERB::Util.html_escape(object.send("#{method}_yaml"))}</pre>|.html_safe
+    value = object.send("#{method}_yaml").sub(YAML_SEPARATOR_REGEXP, '')
+    return %|<pre>#{ERB::Util.html_escape(value)}</pre>|.html_safe
   end
 
   def yaml_view(summary, *args, &block)

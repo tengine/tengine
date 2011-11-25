@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
+require 'ostruct'
 
 describe ApplicationHelper do
   describe "sort_param" do
@@ -360,6 +361,32 @@ describe ApplicationHelper do
       detail = helper.simple_format detail
       result.should == %|<div class="YamlView"><span class="IconYaml">| +
         %|#{summary}</span><div class="YamlScript">#{detail}</div></div>|
+    end
+  end
+
+  describe "format_map_yml_value" do
+    it "objectのmethodの値が空のとき空文字列を返すこと" do
+      obj = OpenStruct.new(value:nil)
+      result = helper.format_map_yml_value(obj, :value)
+      result.should == ""
+
+      obj = OpenStruct.new(value:{})
+      result = helper.format_map_yml_value(obj, :value)
+      result.should == ""
+    end
+    it "値がpreタグに囲まれて表示されること" do
+      obj = OpenStruct.new(value:{test:10})
+      obj.value_yaml = YAML.dump(obj.value)
+      result = helper.format_map_yml_value(obj, :value)
+      result.should == "<pre>:test: 10\n</pre>"
+    end
+
+    it "objectのmethodの値にHTMLタグが含まれるときエスケープされて表示されること" do
+      obj = OpenStruct.new(value:{test:"<script>alert('test')</script>"})
+      obj.value_yaml = YAML.dump(obj.value)
+      result = helper.format_map_yml_value(obj, :value)
+      expected = ERB::Util.html_escape(":test: <script>alert('test')</script>\n")
+      result.should == "<pre>#{expected}</pre>"
     end
   end
 end

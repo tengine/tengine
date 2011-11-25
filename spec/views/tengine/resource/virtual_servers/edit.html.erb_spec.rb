@@ -84,8 +84,10 @@ describe "tengine/resource/virtual_servers/edit.html.erb" do
       "#{@virtual_server1.host_server.name}(#{@virtual_server1.host_server.description})")
     rendered.should have_xpath("//td", :text => @virtual_server1.provided_id)
     rendered.should have_xpath("//td", :text => @virtual_server1.status)
-    rendered.should have_xpath("//td/pre", :text => @virtual_server1.addresses_yaml)
-    rendered.should have_xpath("//td/pre", :text => @virtual_server1.properties_yaml)
+    rendered.should have_xpath("//td/pre",
+      :text => @virtual_server1.addresses_yaml.sub(/^---( )?(! )?\n?/, ''))
+    rendered.should have_xpath("//td/pre",
+      :text => @virtual_server1.properties_yaml.sub(/^---( )?(! )?\n?/, ''))
     rendered.should have_xpath("//td", :text => @type1.caption)
     rendered.should have_xpath("//td", :text => @image1.name)
   end
@@ -96,7 +98,8 @@ describe "tengine/resource/virtual_servers/edit.html.erb" do
 
     render
 
-    rendered.should_not have_xpath("//td/pre", :text => @virtual_server1.addresses_yaml)
+    rendered.should_not have_xpath("//td/pre",
+      :text => @virtual_server1.addresses_yaml.sub(/^---( )?(! )?\n?/, ''))
   end
 
   it "addressesが空のとき何もIPアドレスに表示されないこと" do
@@ -105,7 +108,8 @@ describe "tengine/resource/virtual_servers/edit.html.erb" do
 
     render
 
-    rendered.should_not have_xpath("//td/pre", :text => @virtual_server1.addresses_yaml)
+    rendered.should_not have_xpath("//td/pre",
+      :text => @virtual_server1.addresses_yaml.sub(/^---( )?(! )?\n?/, ''))
   end
 
   it "propertiesがnilのとき何もプロパティに表示されないこと" do
@@ -114,7 +118,8 @@ describe "tengine/resource/virtual_servers/edit.html.erb" do
 
     render
 
-    rendered.should_not have_xpath("//td/pre", :text => @virtual_server1.properties_yaml)
+    rendered.should_not have_xpath("//td/pre",
+      :text => @virtual_server1.properties_yaml.sub(/^---( )?(! )?\n?/, ''))
   end
 
   it "propertiesが空のとき何もプロパティに表示されないこと" do
@@ -123,6 +128,7 @@ describe "tengine/resource/virtual_servers/edit.html.erb" do
 
     render
 
-    rendered.should_not have_xpath("//td/pre", :text => @virtual_server1.properties_yaml)
+    rendered.should_not have_xpath("//td/pre",
+      :text => @virtual_server1.properties_yaml.sub(/^---( )?(! )?\n?/, ''))
   end
 end

@@ -26,7 +26,9 @@ describe "tengine/resource/credentials/show.html.erb" do
       # Run the generator again with the --webrat flag if you want to use webrat matchers
       rendered.should match(/SSHパスワード認証/)
       # Run the generator again with the --webrat flag if you want to use webrat matchers
-      rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump({"username"=>"user"})))}/)
+      value = ERB::Util.html_escape(
+        YAML.dump({"username"=>"user"}).sub(/^---( )?(! )?\n?/, ''))
+      rendered.should match(/#{Regexp.escape(value)}/)
     end
 
     it "編集ボタンが表示される" do
@@ -63,7 +65,9 @@ describe "tengine/resource/credentials/show.html.erb" do
       # Run the generator again with the --webrat flag if you want to use webrat matchers
       rendered.should match(/SSH公開鍵認証/)
       # Run the generator again with the --webrat flag if you want to use webrat matchers
-      rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump({"username"=>"user"})))}/)
+      value = ERB::Util.html_escape(
+        YAML.dump({"username"=>"user"}).sub(/^---( )?(! )?\n?/, ''))
+      rendered.should match(/#{Regexp.escape(value)}/)
     end
   end
 

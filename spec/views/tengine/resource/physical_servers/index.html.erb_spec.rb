@@ -58,10 +58,9 @@ describe "tengine/resource/physical_servers/index.html.erb" do
       assert_select "tr>td", :text => "6".to_s, :count => 1
       assert_select "tr>td", :text =>"4096".to_s, :count=> 1
       assert_select "tr>td", :text => "offline".to_s, :count => 2
-      properties = YAML.dump({"a"=>"b", "c"=>"d"})
-      assert_select "tr>td>div>div>pre", :text => properties, :count => 3
-      rendered.should have_xpath(
-        "//div[@id='yamlProperties']/div/pre", :text => properties)
+      properties = YAML.dump({"a"=>"b", "c"=>"d"}).sub(/^---( )?(! )?\n?/, '')
+      rendered.should have_xpath("//div[@id='yamlProperties']/div/pre",
+        :text => properties)
       rendered.should have_xpath("//div[@id='yamlDescription']")
     end
 
