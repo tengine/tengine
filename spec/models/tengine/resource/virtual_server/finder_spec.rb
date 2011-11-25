@@ -110,5 +110,23 @@ describe Tengine::Resource::VirtualServer::Finder do
 
     result = subject.new(virtual_server_image_name:"notmatch").scope(criteria)
     result.count.should == 0
+
+    @virtual_server3 = Tengine::Resource::VirtualServer.create!(
+      :provider_id => @pr.id,
+      :name => "aserver",
+      :provided_id => "i0000",
+      :description => "Description",
+      :status => "running",
+      :addresses => {"ip_address"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
+      :properties => {"a"=>"1", "b"=>"2"},
+      :provided_image_id => "ami2",
+      :provided_type_id => "large",
+    )
+
+    result = subject.new.scope(criteria)
+    result.count == 3
+    [@virtual_server3, @virtual_server1, @virtual_server2].each_with_index do |vs, i|
+      result[i].should == vs
+    end
   end
 end
