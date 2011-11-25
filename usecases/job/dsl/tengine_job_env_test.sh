@@ -38,9 +38,6 @@ echo "`date` <$$> $2 MM_SCHEDULE_ESTIMATED_TIME: $MM_SCHEDULE_ESTIMATED_TIME" >>
 #  (できればISO 8601など、タイムゾーンも表現できる標準的な形式の方が良い？)
 echo "`date` <$$> $2 MM_SCHEDULE_ESTIMATED_END: $MM_SCHEDULE_ESTIMATED_END" >> $LOGFILE
 
-# MM_MASTER_SCHEDULE_ID : マスタースケジュールがあればそのID。マスタースケジュールがない場合は環境変数は指定されません。
-echo "`date` <$$> $2 MM_MASTER_SCHEDULE_ID: $MM_MASTER_SCHEDULE_ID" >> $LOGFILE
-
 # MM_FAILED_JOB_ID : ジョブが失敗した場合にrecoverやfinally内のジョブを実行時に設定される、失敗したジョブのMM上でのID。
 echo "`date` <$$> $2 MM_FAILED_JOB_ID: $MM_FAILED_JOB_ID" >> $LOGFILE
 

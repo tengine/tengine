@@ -1527,9 +1527,8 @@
   # end
   #  -------------------
   @1048
-	@manual
+  @manual
   シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる
-
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1048_jobnet_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -1544,86 +1543,275 @@
     かつ ジョブネット"/jobnet1048/finally" のステータスが正常終了であること
     かつ ジョブ"/jobnet1048/finally/jobnet1048_finally" のステータスが正常終了であること
 
-
-		########################################
-		# シェルスクリプトに渡された環境変数の確認
-		########################################
+    ########################################
+    # シェルスクリプトに渡された環境変数をログファイルから確認
+    ########################################
     もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_NAME_PATH"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値を確認する
+    かつ "スクリプトログ"の"MM_TEMPLATE_JOB_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ESTIMATED_TIME"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ESTIMATED_END"の値を確認する
+# TODO 未実装。対応時期の確認が必要。
+    かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
+# TODO 未実装。対応時期の確認が必要。
+    かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    ならば "job1"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/jobnet1048_2/job1"であること
+    かつ "job1"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
+    かつ "job1"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
+    かつ "job1"の"MM_SCHEDULE_ESTIMATED_END"の値が""であること
+    かつ "job1"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "job1"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "job1"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
 
-    かつ テンプレートジョブのジョブネット"/jobnet1048"のIDを確認する
-    かつ テンプレートジョブのジョブネット"/jobnet1048/jobnet1048_2"のIDを確認する
-    かつ テンプレートジョブのジョブ"/jobnet1048/jobnet1048_2/job1"のIDを確認する
-    かつ テンプレートジョブのジョブネット"/jobnet1048/finally"のIDを確認する
-    かつ テンプレートジョブのジョブ"/jobnet1048/finally/jobnet1048_finally"のIDを確認する
+    かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/finally/jobnet1048_finally"であること
+    かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
+    かつ "jobnet1048_finally"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
+    かつ "jobnet1048_finally"の"MM_SCHEDULE_ESTIMATED_END"の値が""であること
+    かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "jobnet1048_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "jobnet1048_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
 
-		かつ 実行ジョブのジョブネット"/jobnet1048"のIDを確認する
-    かつ 実行ジョブのジョブネット"/jobnet1048/jobnet1048_2"のIDを確認する
-    かつ 実行ジョブのジョブ"/jobnet1048/jobnet1048_2/job1"のIDを確認する
-    かつ 実行ジョブのジョブネット"/jobnet1048/finally"のIDを確認する
-    かつ 実行ジョブのジョブ"/jobnet1048/finally/jobnet1048_finally"のIDを確認する
+    もし "テンプレートジョブ一覧画面"を表示する
+    ならば "テンプレートジョブ一覧画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|説明|操作|
+    |jobnet1048のテンプレートID|jobnet1048|説明jobnet1048|表示 実行|
 
-    ###########################################################
-    # ジョブ "/jobnet1048/jobnet1048_2/job1" に渡された環境変数
-    ###########################################################
-    かつ "MM_ACTUAL_JOB_ID"の値が、実行ジョブ"/jobnet1048/jobnet1048_2/job1"のIDであること
-    かつ "MM_ACTUAL_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
-		|実行ジョブのジョブネット"/jobnet1048"のID|
-		|実行ジョブのジョブネット"/jobnet1048/jobnet1048_2"のID|
-		|実行ジョブのジョブ"/jobnet1048/jobnet1048_2/job1"のID|
-    かつ "MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
-		|実行ジョブのジョブネット"/jobnet1048"のID|
-		|実行ジョブのジョブネット"/jobnet1048/jobnet1048_2"のID|
-		|実行ジョブのジョブ"/jobnet1048/jobnet1048_2/job1"のID|
-    かつ "MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/jobnet1048_2/job1"であること
-# TODO 未実装。対応時期の確認が必要。
-    かつ "MM_ACTUAL_JOB_SECURITY_TOKEN"の値が、""であること
-    かつ "MM_TEMPLATE_JOB_ID"の値が、テンプレートジョブのジョブ"/jobnet1048/jobnet1048_2/job1"のIDであること
-    かつ "MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
-		|テンプレートジョブのジョブネット"/jobnet1048"のID|
-		|テンプレートジョブのジョブネット"/jobnet1048/jobnet1048_2"のID|
-		|テンプレートジョブのジョブ"/jobnet1048/jobnet1048_2/job1"のID|
-# TODO 実行スケジュール == Execution であるか確認が必要
-    かつ "MM_SCHEDULE_ID"の値が、実行スケジュールのIDであること
-    かつ "MM_SCHEDULE_ESTIMATED_TIME"の値が、10分であること
-    かつ "MM_SCHEDULE_ESTIMATED_END"の値が、実行開始の時刻から10分後であること
-# TODO 未実装。対応時期の確認が必要。
-    かつ "MM_MASTER_SCHEDULE_ID"の値が、マスタースケジュールのIDであること
-# TODO 未実装。対応時期の確認が必要。
-    かつ "MM_FAILED_JOB_ID"の値が、 : ジョブが失敗した場合にrecoverやfinally内のジョブを実行時に設定される、失敗したジョブのMM上でのID。
-# TODO 未実装。対応時期の確認が必要。
-    かつ "MM_FAILED_JOB_ANCESTOR_IDS"の値が、 : ジョブが失敗した場合にrecoverやfinally内のジョブを実行時に設定される、失敗したジョブの祖先のMM上でのIDをセミコロンで繋げた文字列。
+    もし "jobnet1048"の"表示"リンクをクリックする
+    ならば "テンプレートジョブ画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|名称|表示名|実行するスクリプト|接続サーバ名|認証情報名|次のジョブ|
+    |jobnet1048_2のテンプレートID|jobnet1048_2|jobnet1048_2||test_server1|test_credential1|
+    |job1のテンプレートID|job1|job1|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1||
+    |finallyのテンプレートID|finally|finally||test_server1|test_credential1||
+    |jobnet1048_finallyのテンプレートID|finally|finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1||
+   
+   
+    もし "実行中のジョブ一覧画面"を表示する
+    ならば "実行ジョブ一覧画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|説明|ステータス|操作|
+    |jobnet1048の実行時ID|jobnet1048|jobnet1048|完了|監視 再実行|
 
-		
-    ###########################################################
-    # ジョブ "/jobnet1048/finally/jobnet1048_finally" に渡された環境変数
-    ###########################################################
-    かつ "MM_ACTUAL_JOB_ID"の値が、実行ジョブ"/jobnet1048/finally/jobnet1048_finally"のIDであること
-    かつ "MM_ACTUAL_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
-		|実行ジョブのジョブネット"/jobnet1048"のID|
-		|実行ジョブのジョブネット"/jobnet1048/finally"のID|
-		|実行ジョブのジョブ"/jobnet1048/finally/jobnet1048_finally"のID|
-    かつ "MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
-		|実行ジョブのジョブネット"/jobnet1048"のID|
-		|実行ジョブのジョブネット"/jobnet1048/finally"のID|
-		|実行ジョブのジョブ"/jobnet1048/finally/jobnet1048_finally"のID|
-    かつ "MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/finally/jobnet1048_finally"であること
+    もし "jobnet1048"の"監視"リンクをクリックする
+    ならば "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|ステータス|次のジョブ|操作|
+    |jobnet1048_2の実行時ID|jobnet1048_2|jobnet1048_2||test_server1|test_credential1|完了||再実行|
+    |job1の実行時ID|job1|job1|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了||再実行|
+    |finallyの実行時ID|finally|finally||test_server1|test_credential1|完了||再実行|
+    |jobnet1048_finallyの実行時ID|finally|finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了||再実行|
+
+    もし "ジョブ実行一覧画面"を表示する
+    ならば "ジョブ実行一覧画面"が表示されること
+
+    もし "jobnet1048"の"表示"リンクをクリックする
+    ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
+
+  # ./usecases/job/dsl/1048_jobnet_script_env_failure.rb
+  #  -------------------
+  # require 'tengine_job'
+  # 
+  # jobnet("jobnet1048_failure", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   auto_sequence
+  #   jobnet("jobnet1048_2") do
+  #     job("job1", "exit 1")
+  #   end
+  #   finally do
+  #     job("jobnet1048_finally","$HOME/tengine_job_env_test.sh 0 jobnet1048_finally")
+  #   end
+  # end
+  #  -------------------
+  @1048_failure
+  @manual
+  シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる_ジョブが失敗した場合
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1048_jobnet_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし 予定実行時間を10分に設定して、ジョブネット"jobnet1048_failure"を実行する
+    かつ ジョブネット"jobnet1048_failure"が完了することを確認する
+    
+    ならば ジョブネット"/jobnet1048_failure" のステータスがエラー終了であること
+    かつ ジョブネット"/jobnet1048_failure/jobnet1048_2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1048_failure/jobnet1048_2/job1" のステータスが正常終了であること
+    かつ ジョブネット"/jobnet1048_failure/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1048_failure/finally/jobnet1048_finally" のステータスが正常終了であること
+
+    ########################################
+    # シェルスクリプトに渡された環境変数をログファイルから確認
+    ########################################
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_NAME_PATH"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値を確認する
+    かつ "スクリプトログ"の"MM_TEMPLATE_JOB_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ESTIMATED_TIME"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ESTIMATED_END"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
-    かつ "MM_ACTUAL_JOB_SECURITY_TOKEN"の値が、""であること
-    かつ "MM_TEMPLATE_JOB_ID"の値が、テンプレートジョブのジョブ"/jobnet1048/finally/jobnet1048_finally"のIDであること
-		|テンプレートジョブのジョブネット"/jobnet1048"のID|
-		|テンプレートジョブのジョブネット"/jobnet1048/finally"のID|
-		|テンプレートジョブのジョブ"/jobnet1048/finally/jobnet1048_finally"のID|
-    かつ "MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
-# TODO 実行スケジュール == Execution であるか確認が必要
-    かつ "MM_SCHEDULE_ID"の値が、実行スケジュールのIDであること
-    かつ "MM_SCHEDULE_ESTIMATED_TIME"の値が、10分であること
-    かつ "MM_SCHEDULE_ESTIMATED_END"の値が、実行開始の時刻から10分後であること
+    かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
-    かつ "MM_MASTER_SCHEDULE_ID"の値が、マスタースケジュールのIDであること
+    かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+  
+    ならば "jobnet1048_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048_failure/finally/jobnet1048_finally"であること
+    かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
+    かつ "jobnet1048_finally"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
+    かつ "jobnet1048_finally"の"MM_SCHEDULE_ESTIMATED_END"の値が""であること
+    かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "jobnet1048_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "jobnet1048_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+
+    もし "テンプレートジョブ一覧画面"を表示する
+    ならば "テンプレートジョブ一覧画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|説明|操作|
+    |jobnet1048_failureのテンプレートID|jobnet1048_failure|説明jobnet1048_failure|表示 実行|
+
+    もし "jobnet1048_failure"の"表示"リンクをクリックする
+    ならば "テンプレートジョブ画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|名称|表示名|実行するスクリプト|接続サーバ名|認証情報名|次のジョブ|
+    |jobnet1048_2のテンプレートID|jobnet1048_2|jobnet1048_2||test_server1|test_credential1|
+    |job1のテンプレートID|job1|job1|exit 1|test_server1|test_credential1||
+    |finallyのテンプレートID|finally|finally||test_server1|test_credential1||
+    |jobnet1048_finallyのテンプレートID|finally|finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1||
+   
+   
+    もし "実行中のジョブ一覧画面"を表示する
+    ならば "実行ジョブ一覧画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|説明|ステータス|操作|
+    |jobnet1048_failureの実行時ID|jobnet1048_failure|jobnet1048_failure|完了|監視 再実行|
+
+    もし "jobnet1048"の"監視"リンクをクリックする
+    ならば "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|ステータス|次のジョブ|操作|
+    |jobnet1048_2の実行時ID|jobnet1048_2|jobnet1048_2||test_server1|test_credential1|完了||再実行|
+    |job1の実行時ID|job1|job1|exit 1|test_server1|test_credential1|完了||再実行|
+    |finallyの実行時ID|finally|finally||test_server1|test_credential1|完了||再実行|
+    |jobnet1048_finallyの実行時ID|finally|finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了||再実行|
+
+    もし "ジョブ実行一覧画面"を表示する
+    ならば "ジョブ実行一覧画面"が表示されること
+
+    もし "jobnet1048_failure"の"表示"リンクをクリックする
+    ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
+
+
+  # ./usecases/job/dsl/1048_jobnet_script_env_failure.rb
+  #  -------------------
+  # require 'tengine_job'
+  #
+  # jobnet("jobnet1048_failure", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   auto_sequence
+  #   jobnet("jobnet1048_2") do
+  #     job("job1", "exit 1"
+  #   end
+  #   finally do
+  #     jobnet("jobnet1048_2_finally_jobnet") do
+  #       job("jobnet1048_finally","exit 1")
+  #       finally do
+  #         job("jobnet1048_finally_in_finally","$HOME/tengine_job_env_test.sh 0 jobnet1048_finally_in_finally")
+  #       end
+  #     end
+  #   end
+  # end
+  #  -------------------
+  @1048_finally_failure
+  @manual
+  シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる_finallyのジョブが失敗した場合
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1048_jobnet_script_env_finally_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし 予定実行時間を10分に設定して、ジョブネット"jobnet1048_finally_failure"を実行する
+    かつ ジョブネット"jobnet1048_failure"が完了することを確認する
+    
+    ならば ジョブネット"/jobnet1048finally__failure" のステータスがエラー終了であること
+    かつ ジョブネット"/jobnet1048_finally_failure/jobnet1048_2" のステータスがエラー終了であること
+    かつ ジョブ"/jobnet1048_finally_failure/jobnet1048_2/job1" のステータスがエラー終了であること
+    かつ ジョブネット"/jobnet1048_finally_failure/finally" のステータスがエラー終了であること
+    かつ ジョブ"/jobnet1048_finally_failure/finally/jobnet1048_2_finally_jobnet/jobnet1048_finally" のステータスがエラー終了であること
+    かつ ジョブ"/jobnet1048_finally_failure/finally/jobnet1048_2_finally_jobnet/finally/jobnet1048_finally_in_finally" のステータスが正常終了であること
+
+    ########################################
+    # シェルスクリプトに渡された環境変数をログファイルから確認
+    ########################################
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_NAME_PATH"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値を確認する
+    かつ "スクリプトログ"の"MM_TEMPLATE_JOB_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ESTIMATED_TIME"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ESTIMATED_END"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
-    かつ "MM_FAILED_JOB_ID"の値が、 : ジョブが失敗した場合にrecoverやfinally内のジョブを実行時に設定される、失敗したジョブのMM上でのID。
+    かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
-    かつ "MM_FAILED_JOB_ANCESTOR_IDS"の値が、 : ジョブが失敗した場合にrecoverやfinally内のジョブを実行時に設定される、失敗したジョブの祖先のMM上でのIDをセミコロンで繋げた文字列。
+    かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    ならば "jobnet1048_finally_in_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048_finally_failure/finally/jobnet1048_2_finally_jobnet/finally/jobnet1048_finally_in_finally"であること
+    かつ "jobnet1048_finally_in_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
+    かつ "jobnet1048_finally_in_finally"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
+    かつ "jobnet1048_finally_in_finally"の"MM_SCHEDULE_ESTIMATED_END"の値が""であること
+    かつ "jobnet1048_finally_in_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "jobnet1048_finally_in_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "jobnet1048_finally_in_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+
+    もし "テンプレートジョブ一覧画面"を表示する
+    ならば "テンプレートジョブ一覧画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|説明|操作|
+    |jobnet1048_finally_failureのテンプレートID|jobnet1048_finally_failure|説明jobnet1048_finally_failure|表示 実行|
+
+    もし "jobnet1048_finally_failure"の"表示"リンクをクリックする
+    ならば "テンプレートジョブ画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|名称|表示名|実行するスクリプト|接続サーバ名|認証情報名|次のジョブ|
+    |jobnet1048_2のテンプレートID|jobnet1048_2|jobnet1048_2||test_server1|test_credential1|
+    |job1のテンプレートID|job1|job1|exit 1|test_server1|test_credential1||
+    |jobnet1048_finally_failure/finallyのテンプレートID|finally|finally||test_server1|test_credential1||
+    |jobnet1048_2_finally_jobnetのテンプレートID|jobnet1048_2_finally_jobnet|jobnet1048_2_finally_jobnet||test_server1|test_credential1||
+    |jobnet1048_finallyのテンプレートID|jobnet1048_finally|jobnet1048_finally|exit 1|test_server1|test_credential1||
+    |jobnet1048_2_finally_jobnet/finallyのテンプレートID|finally|finally||test_server1|test_credential1||
+    |jobnet1048_finally_in_finallyのテンプレートID|jobnet1048_finally_in_finally|jobnet1048_finally_in_finally|$HOME/tengine_job_env_test.sh 0 jobnet1048_finally_in_finally|test_server1|test_credential1||
+
+    もし "実行中のジョブ一覧画面"を表示する
+    ならば "実行ジョブ一覧画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|説明|ステータス|操作|
+    |jobnet1048_finally_failureの実行時ID|jobnet1048_finally_failure|jobnet1048_finally_failure|完了|監視 再実行|
+
+    もし "jobnet1048_finally_failure"の"監視"リンクをクリックする
+    ならば "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|ステータス|次のジョブ|操作|
+    |jobnet1048_2の実行時ID|jobnet1048_2|jobnet1048_2||test_server1|test_credential1|完了||再実行|
+    |job1の実行時ID|job1|job1|exit 1|test_server1|test_credential1|完了||再実行|
+    |jobnet1048_finally_failure/finallyの実行時ID|finally|finally||test_server1|test_credential1|完了||再実行|
+    |jobnet1048_2_finally_jobnetの実行時ID|jobnet1048_2_finally_jobnet|jobnet1048_2_finally_jobnet||test_server1|test_credential1|完了||再実行|
+    |jobnet1048_finallyの実行時ID|jobnet1048_finally|jobnet1048_finally|exit 1|test_server1|test_credential1|完了||再実行|
+    |jobnet1048_2_finally_jobnet/finallyの実行時ID|finally|finally||test_server1|test_credential1|完了||再実行|
+    |jobnet1048_finally_in_finallyの実行時ID|jobnet1048_finally_in_finally|jobnet1048_finally_in_finally|$HOME/tengine_job_env_test.sh 0 jobnet1048_finally_in_finally|test_server1|test_credential1|完了||再実行|
+
+
+    もし "ジョブ実行一覧画面"を表示する
+    ならば "ジョブ実行一覧画面"が表示されること
+
+    もし "jobnet1048_finally_failure"の"表示"リンクをクリックする
+    ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
 
 
   # ./usecases/job/dsl/1049_expantion_script_env.rb
@@ -1642,7 +1830,7 @@
 	# end
   #  -------------------
   @1049
-	@manual
+  @manual
   シナリオ: [正常系]1049_expantionを利用したシェルスクリプトに環境変数が渡される_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -1657,49 +1845,159 @@
     かつ ジョブネット"/jobnet1049/jobnet1049_2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1049/jobnet1049_2/job1" のステータスが正常終了であること
 
-
-		########################################
-		# シェルスクリプトに渡された環境変数の確認
-		########################################
+    ########################################
+    # シェルスクリプトに渡された環境変数をログファイルから確認
+    ########################################
     もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
-
-    かつ テンプレートジョブのジョブネット"/jobnet1049"のIDを確認する
-    かつ テンプレートジョブのジョブネット"/jobnet1049/jobnet1049_2"のIDを確認する
-    かつ テンプレートジョブのジョブ"/jobnet1049/jobnet1049_2/job1"のIDを確認する
-
-		かつ 実行ジョブのジョブネット"/jobnet1049"のIDを確認する
-    かつ 実行ジョブのジョブネット"/jobnet1049/jobnet1049_2"のIDを確認する
-    かつ 実行ジョブのジョブ"/jobnet1049/jobnet1049_2/job1"のIDを確認する
-
-    ###########################################################
-    # ジョブ "/jobnet1049/jobnet1049_2/job1" に渡された環境変数
-    ###########################################################
-    かつ "MM_ACTUAL_JOB_ID"の値が、実行ジョブ"/jobnet1049/jobnet1049_2/job1"のIDであること
-    かつ "MM_ACTUAL_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
-		|実行ジョブのジョブネット"/jobnet1049_2"のID|
-		|実行ジョブのジョブ"/jobnet1049_2/job1"のID|
-    かつ "MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
-		|実行ジョブのジョブネット"/jobnet1049"のID|
-		|実行ジョブのジョブネット"/jobnet1049/jobnet1049_2"のID|
-		|実行ジョブのジョブ"/jobnet1049/jobnet1049_2/job1"のID|
-    かつ "MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1049/jobnet1049_2/job1"であること
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_NAME_PATH"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値を確認する
+    かつ "スクリプトログ"の"MM_TEMPLATE_JOB_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ESTIMATED_TIME"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ESTIMATED_END"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
-    かつ "MM_ACTUAL_JOB_SECURITY_TOKEN"の値が、""であること
-    かつ "MM_TEMPLATE_JOB_ID"の値が、テンプレートジョブのジョブ"/jobnet1049/jobnet1049_2/job1"のIDであること
-    かつ "MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が、次をセミコロンで繋げた文字列であること
-		|テンプレートジョブのジョブネット"/jobnet1049_2"のID|
-		|テンプレートジョブのジョブ"/jobnet1049_2/job1"のID|
-# TODO 実行スケジュール == Execution であるか確認が必要
-    かつ "MM_SCHEDULE_ID"の値が、実行スケジュールのIDであること
-    かつ "MM_SCHEDULE_ESTIMATED_TIME"の値が、10分であること
-    かつ "MM_SCHEDULE_ESTIMATED_END"の値が、実行開始の時刻から10分後であること
+    かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
-    かつ "MM_MASTER_SCHEDULE_ID"の値が、マスタースケジュールのIDであること
-# TODO 未実装。対応時期の確認が必要。
-    かつ "MM_FAILED_JOB_ID"の値が、 : ジョブが失敗した場合にrecoverやfinally内のジョブを実行時に設定される、失敗したジョブのMM上でのID。
-# TODO 未実装。対応時期の確認が必要。
-    かつ "MM_FAILED_JOB_ANCESTOR_IDS"の値が、 : ジョブが失敗した場合にrecoverやfinally内のジョブを実行時に設定される、失敗したジョブの祖先のMM上でのIDをセミコロンで繋げた文字列。
+    かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    ならば "job1"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1049/jobnet1049_2/job1"であること
+    かつ "job1"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
+    かつ "job1"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
+    かつ "job1"の"MM_SCHEDULE_ESTIMATED_END"の値が""であること
+    かつ "job1"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "job1"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "job1"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
 
+    もし "テンプレートジョブ一覧画面"を表示する
+    ならば "テンプレートジョブ一覧画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|説明|操作|
+    |jobnet1049のテンプレートID|jobnet1049|説明jobnet1049|表示 実行|
+
+    もし "jobnet1049"の"表示"リンクをクリックする
+    ならば "テンプレートジョブ画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|名称|表示名|実行するスクリプト|接続サーバ名|認証情報名|次のジョブ|
+    |jobnet1049_2のテンプレートID|jobnet1049_2|jobnet1049_2||test_server1|test_credential1|
+    |job1のテンプレートID|job1|job1|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1||
+    
+   
+    もし "実行中のジョブ一覧画面"を表示する
+    ならば "実行ジョブ一覧画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|説明|ステータス|操作|
+    |jobnet1049の実行時ID|jobnet1049|jobnet1049|完了|監視 再実行|
+
+    もし "jobnet1049"の"監視"リンクをクリックする
+    ならば "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|ステータス|次のジョブ|操作|
+    |jobnet1049_2の実行時ID|jobnet1049_2|jobnet1049_2||test_server1|test_credential1|完了||再実行|
+    |job1の実行時ID|job1|job1|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了||再実行|
+
+    もし "ジョブ実行一覧画面"を表示する
+    ならば "ジョブ実行一覧画面"が表示されること
+
+    もし "jobnet1049"の"表示"リンクをクリックする
+    ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
+
+
+  # ./usecases/job/dsl/1049_expantion_script_env.rb
+  #  -------------------
+  #  require 'tengine_job'
+  #  
+  #  jobnet("jobnet1049_failure", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #    auto_sequence
+  #    expansion("jobnet1049_2")
+  #    finally do
+  #      job("jobnet1049_finally","$HOME/tengine_job_env_test.sh 0 jobnet1049_finally")
+  #    end
+  #  end
+
+  #  jobnet("jobnet1049_2", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #    auto_sequence
+  #    job("job1", "exit 1")
+  #  end
+  #  -------------------
+  @1049_failure
+  @manual
+  シナリオ: [正常系]1049_expantion_failureを利用したシェルスクリプトに環境変数が渡される_を試してみる
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1049_expantion_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし 予定実行時間を10分に設定して、ジョブネット"jobnet1049"を実行する
+    かつ ジョブネット"jobnet1049"が完了することを確認する
+    
+    ならば ジョブネット"/jobnet1049_failure" のステータスが正常終了であること
+    かつ ジョブネット"/jobnet1049_failure/jobnet1049_2" のステータスがエラー終了であること
+    かつ ジョブ"/jobnet1049_failure/jobnet1049_2/job1" のステータスがエラー終了であること
+    かつ ジョブ"/jobnet1049_failure/finally/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1049_failure/finally/jobnet1049_finally" のステータスが正常終了であること
+
+    ########################################
+    # シェルスクリプトに渡された環境変数をログファイルから確認
+    ########################################
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_NAME_PATH"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値を確認する
+    かつ "スクリプトログ"の"MM_TEMPLATE_JOB_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ESTIMATED_TIME"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ESTIMATED_END"の値を確認する
+# TODO 未実装。対応時期の確認が必要。
+    かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
+# TODO 未実装。対応時期の確認が必要。
+    かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    ならば "jobnet1049_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1049_failure/jobnet1049_2/finally/jobnet1049_finally"であること
+    かつ "jobnet1049_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
+    かつ "jobnet1049_finally"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
+    かつ "jobnet1049_finally"の"MM_SCHEDULE_ESTIMATED_END"の値が""であること
+    かつ "jobnet1049_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "jobnet1049_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "jobnet1049_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+
+    もし "テンプレートジョブ一覧画面"を表示する
+    ならば "テンプレートジョブ一覧画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|説明|操作|
+    |jobnet1049_failureのテンプレートID|jobnet1049_failure|説明jobnet1049_failure|表示 実行|
+
+    もし "jobnet1049_failure"の"表示"リンクをクリックする
+    ならば "テンプレートジョブ画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|名称|表示名|実行するスクリプト|接続サーバ名|認証情報名|次のジョブ|
+    |jobnet1049_2のテンプレートID|jobnet1049_2|jobnet1049_2||test_server1|test_credential1|
+    |job1のテンプレートID|job1|job1|exit 1|test_server1|test_credential1||
+    |finallyのテンプレートID|finally|finally||test_server1|test_credential1||
+    |jobnet1049_finallyのテンプレートID|jobnet1049_finally|jobnet1049_finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1||
+
+    もし "実行中のジョブ一覧画面"を表示する
+    ならば "実行ジョブ一覧画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブネット名|説明|ステータス|操作|
+    |jobnet1049_failureの実行時ID|jobnet1049_failure|jobnet1049_failure|エラー終了|監視 再実行|
+
+    もし "jobnet1049_failure"の"監視"リンクをクリックする
+    ならば "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|ステータス|次のジョブ|操作|
+    |jobnet1049_2の実行時ID|jobnet1049_2|jobnet1049_2||test_server1|test_credential1|完了||再実行|
+    |job1の実行時ID|job1|job1|exit 1|test_server1|test_credential1|完了||再実行|
+    |jobnet1049_failure/finallyのテンプレートID|finally|finally||test_server1|test_credential1||
+    |jobnet1049_finallyのテンプレートID|jobnet1049_finally|jobnet1049_finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1||
+    もし "ジョブ実行一覧画面"を表示する
+    ならば "ジョブ実行一覧画面"が表示されること
+
+    もし "jobnet1049_failure"の"表示"リンクをクリックする
+    ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
 
 		
   # ./usecases/job/dsl/1060_jobnet_directory
