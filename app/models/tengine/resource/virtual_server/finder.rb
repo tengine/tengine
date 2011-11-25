@@ -15,6 +15,7 @@ class Tengine::Resource::VirtualServer::Finder
     :virtual_server_image_name,
     :status_ids,
   ].freeze
+  DEFAULT_ORDER = [[:name, :asc]]
 
   ATTRIBUTE_NAMES.each{|name| attr_accessor(name) }
 
@@ -67,7 +68,8 @@ class Tengine::Resource::VirtualServer::Finder
         criteria = criteria.where(:_id => 0)
       end
     end
-    return criteria
+
+    return criteria.order_by(DEFAULT_ORDER)
   end
 
   def attributes
