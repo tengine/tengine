@@ -85,12 +85,11 @@ describe Tengine::Resource::VirtualServersController do
       get :index
       assigns(:physical_servers).should == physical_servers
 
-      Tengine::Resource::PhysicalServer.delete_all
-      get :index, :finder => {:physical_server_name => "server1"}
-      physical_servers = [
-        Tengine::Resource::PhysicalServer.create!(:name => "server1"),
-      ]
+      get :index, :finder => {:physical_server_name => "serv"}
       assigns(:physical_servers).should == physical_servers
+
+      get :index, :finder => {:physical_server_name => "server1"}
+      assigns(:physical_servers).should == [server1]
     end
   end
 

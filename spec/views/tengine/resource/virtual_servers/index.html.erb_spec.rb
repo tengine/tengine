@@ -108,9 +108,9 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     assert_select "tr>td", :text => "Small".to_s, :count => 1
     assert_select "tr>td", :text => "Large".to_s, :count => 1
     assert_select "tr>td>pre",
-      :text => YAML.dump({"eth0"=>"192.168.2.1", "eth1"=>"10.10.10.1"}), :count => 2
+      :text => "eth0: 192.168.2.1\neth1: 10.10.10.1\n", :count => 2
     assert_select "tr>td>div>div>pre",
-      :text => YAML.dump({"d"=>"1", "b"=>"2"}), :count => 2
+      :text => "d: '1'\nb: '2'\n", :count => 2
   end
 
   it "descriptionがない場合説明のセルに何も表示されないこと" do
@@ -144,7 +144,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     render
 
     assert_select "tr>td>pre",
-      :text => YAML.dump({"eth0"=>"192.168.2.1", "eth1"=>"10.10.10.1"}), :count => 0
+      :text => "eth0: 192.168.2.1\neth1: 10.10.10.1\n", :count => 0
   end
 
   it "addressesが空の場合IPアドレスのセルに何も表示されないこと" do
@@ -156,7 +156,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     render
 
     assert_select "tr>td>pre",
-      :text => YAML.dump({"eth0"=>"192.168.2.1", "eth1"=>"10.10.10.1"}), :count => 0
+      :text => "eth0: 192.168.2.1\neth1: 10.10.10.1\n", :count => 0
   end
 
   it "propertiesがnilの場合プロパティのセルに何も表示されないこと" do
@@ -168,7 +168,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     render(:file => "tengine/resource/virtual_servers/index")
 
     assert_select "tr>td>div>div>pre",
-      :text => YAML.dump({"d"=>"1", "b"=>"2"}), :count => 0
+      :text => "d: '1'\nb: '2'\n", :count => 0
     rendered.should_not have_xpath("//span[@class='IconYaml']",
       :text => I18n.t("tengine.resource.virtual_servers.index.links.show"))
   end
@@ -182,7 +182,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     render
 
     assert_select "tr>td>div>div>pre",
-      :text => YAML.dump({"d"=>"1", "b"=>"2"}), :count => 0
+      :text => "d: '1'\nb: '2'\n", :count => 0
     rendered.should_not have_xpath("//span[@class='IconYaml']",
       :text => I18n.t("tengine.resource.virtual_servers.index.links.show"))
   end

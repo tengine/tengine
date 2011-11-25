@@ -24,8 +24,8 @@ describe "tengine/resource/physical_servers/edit.html.erb" do
       rendered.should match(/2/)
       rendered.should match(/2048/)
       rendered.should match(/online/)
-      rendered.should match(/---\na: '1'\nb: '2'\n/)
-      rendered.should have_xpath("//td/pre", :text => @physical_server.properties_yaml)
+      rendered.should match(/a: '1'\nb: '2'\n/)
+      rendered.should have_xpath("//td/pre", :text => "a: '1'\nb: '2'\n")
       assert_select "textarea#physical_server_description", :name => "physical_server[description]"
     end
   end

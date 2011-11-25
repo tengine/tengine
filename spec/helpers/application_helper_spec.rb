@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
+require 'ostruct'
 
 describe ApplicationHelper do
   describe "sort_param" do
@@ -296,6 +297,96 @@ describe ApplicationHelper do
       end
       result.should == helper.link_to("<span class='BtnAdd'>test</span>".html_safe,
                                       url, :class => "test BtnWrap")
+    end
+  end
+
+  describe "yaml_view" do
+    it "YamlViewが作成されること" do
+      result = helper.yaml_view("test summary", "test detail")
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|test summary</span><div class="YamlScript">test detail</div></div>|
+
+      result = helper.yaml_view("test summary") { "test detail" }
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|test summary</span><div class="YamlScript">test detail</div></div>|
+    end
+  end
+
+  describe "description_format" do
+    it "YamlScriptのコンテンツに指定した文字数で<br />が挿入されたYamlViewが作成されること" do
+      str = "abcdefghijklmnopqrstuvwxyz"
+      summary = str.truncate(10)
+      result = helper.description_format(str, 10)
+      detail = "abcdefghij\nklmnopqrst\nuvwxyz"
+      detail = helper.simple_format detail
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|#{summary}</span><div class="YamlScript">#{detail}</div></div>|
+
+      str = "abcdefghijklmnopqrstuvwxyz\n"
+      summary = str.truncate(10)
+      result = helper.description_format(str, 10)
+      detail = "abcdefghij\nklmnopqrst\nuvwxyz"
+      detail = helper.simple_format detail
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|#{summary}</span><div class="YamlScript">#{detail}</div></div>|
+
+      str = "abcdefghijkl\nmnopqrstuvwxyz\n"
+      summary = str.truncate(10)
+      result = helper.description_format(str, 10)
+      detail = "abcdefghij\nkl\nmnopqrstuv\nwxyz"
+      detail = helper.simple_format detail
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|#{summary}</span><div class="YamlScript">#{detail}</div></div>|
+
+      str = "abcdefghijklmnopqrstuvwxyz"
+      summary = str.truncate(30)
+      result = helper.description_format(str, 30)
+      detail = "abcdefghijklmnopqrstuvwxyz"
+      detail = helper.simple_format detail
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|#{summary}</span><div class="YamlScript">#{detail}</div></div>|
+
+      str = "abcdefghijklmnopqrstuvwxyz\n"
+      summary = str.truncate(30)
+      result = helper.description_format(str, 30)
+      detail = "abcdefghijklmnopqrstuvwxyz"
+      detail = helper.simple_format detail
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|#{summary}</span><div class="YamlScript">#{detail}</div></div>|
+
+      str = "abcdefghijklmnopqrstuvwxyz"
+      summary = str.truncate(26)
+      result = helper.description_format(str, 26)
+      detail = "abcdefghijklmnopqrstuvwxyz"
+      detail = helper.simple_format detail
+      result.should == %|<div class="YamlView"><span class="IconYaml">| +
+        %|#{summary}</span><div class="YamlScript">#{detail}</div></div>|
+    end
+  end
+
+  describe "format_map_yml_value" do
+    it "objectのmethodの値が空のとき空文字列を返すこと" do
+      obj = OpenStruct.new(value:nil)
+      result = helper.format_map_yml_value(obj, :value)
+      result.should == ""
+
+      obj = OpenStruct.new(value:{})
+      result = helper.format_map_yml_value(obj, :value)
+      result.should == ""
+    end
+    it "値がpreタグに囲まれて表示されること" do
+      obj = OpenStruct.new(value:{test:10})
+      obj.value_yaml = YAML.dump(obj.value)
+      result = helper.format_map_yml_value(obj, :value)
+      result.should == "<pre>:test: 10\n</pre>"
+    end
+
+    it "objectのmethodの値にHTMLタグが含まれるときエスケープされて表示されること" do
+      obj = OpenStruct.new(value:{test:"<script>alert('test')</script>"})
+      obj.value_yaml = YAML.dump(obj.value)
+      result = helper.format_map_yml_value(obj, :value)
+      expected = ERB::Util.html_escape(":test: <script>alert('test')</script>\n")
+      result.should == "<pre>#{expected}</pre>"
     end
   end
 end

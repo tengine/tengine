@@ -31,11 +31,7 @@
   <% end %>
 </div>
 
-<div class="PageStats">
-  <div class="PageNation">
-   <%= paginate @virtual_server_images, :items => @virtual_server_images%>
-  </div>
-</div>
+<%= paginate @virtual_server_images, :items => @virtual_server_images %>
 
 
 <table class="TableBase">
@@ -55,40 +51,17 @@
     <tr class="<%= cycle("even", "odd") %>" >
       <td><%= virtual_server_image.name %></td>
       <td><%= virtual_server_image.provided_id %></td>
-      <td><div class="YamlView" id= "properties_yaml<%=virtual_server_image.id.to_s %>">
-        <span class="IconYaml" style="display:block;"><%= truncate(virtual_server_image.provided_description, :length =>23)  %></span>
-        <div class="YamlScript">
-            <% unless virtual_server_image.provided_description.nil? %>
-              <% if virtual_server_image.provided_description.size >= 14 -%>
-                <%= simple_format(ERB::Util.html_escape(
-                  virtual_server_image.provided_description.scan(/.{14}/).join("\n"))) %>
-              <% else -%>
-                <p><%= virtual_server_image.provided_description %></p>
-              <% end -%>
-            <% end %>
-        </div>
-      </div></td>
-      <td><div class="YamlView" id= "properties_yaml<%=virtual_server_image.id.to_s %>">
-        <span class="IconYaml" style="display:block;"><%= truncate(virtual_server_image.description, :length =>23) %></span>
-        <div class="YamlScript">
-            <% unless virtual_server_image.description.nil? %>
-              <% if virtual_server_image.description.size >= 14 -%>
-                <%= simple_format(ERB::Util.html_escape(
-                  virtual_server_image.description.scan(/.{14}/).join("\n"))) %>
-              <% else -%>
-                <p><%= virtual_server_image.description %></p>
-              <% end -%>
-            <% end %>
-        </div>
-      </div></td>
+      <td>
+        <%= description_format virtual_server_image.provided_description, 20,
+              id:"yamlProvidedDescription" %>
+      </td>
+      <td>
+        <%= description_format virtual_server_image.description, 20, id:"yamlDescription" %>
+      </td>
       <td><%= link_to_edit edit_tengine_resource_virtual_server_image_path(virtual_server_image), :class => "ActionEdit" %></td>
     </tr>
   <% end %>
 </table>
 
-<div class="PageStats">
-  <div class="PageNation">
-   <%= paginate @virtual_server_images, :items => @virtual_server_images%>
-  </div>
-</div>
+<%= paginate @virtual_server_images, :items => @virtual_server_images %>
 
