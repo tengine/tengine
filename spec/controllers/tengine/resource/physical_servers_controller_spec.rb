@@ -43,6 +43,269 @@ describe Tengine::Resource::PhysicalServersController do
       physical_servers = assigns(:physical_servers)
       physical_servers.to_a.should eq([physical_server])
     end
+
+    it "検索条件のラジオボタンを作るための物理サーバの状態情報が@check_statusに設定されていること" do
+      get :index
+
+      check_status = assigns(:check_status)
+      states = Tengine::Resource::Provider::Wakame::PHYSICAL_SERVER_STATES
+      check_status.size.should == states.size
+      states.each do |state|
+        check_status = check_status.stringify_keys
+        check_status.should be_has_key("st_#{state}")
+        check_status["st_#{state}"].should == ["unchecked", state.to_sym]
+      end
+    end
+
+    it "検索したときに検索条件が@finderと@check_statusに設定されていること" do
+      get :index
+      finder = assigns(:finder)
+      finder.should be_nil
+
+      get :index, finder:{ name:"testname", description:"testdesc",
+        provided_id:"testid", st_online:1, st_offline:1 }
+
+      finder = assigns(:finder)
+      finder.name.should == "testname"
+      finder.description.should == "testdesc"
+      finder.provided_id.should == "testid"
+
+      status = assigns(:check_status).stringify_keys
+      status["st_online"].should == ["checked", :online]
+      status["st_offline"].should == ["checked", :offline]
+    end
+
+    it "ソートしたときにソート条件がquery_parametersに設定されていること" do
+      get :index
+      params = request.query_parameters.stringify_keys
+      params["sort"].should == { name:"asc" }
+
+      get :index, sort:{ name:"desc" }
+      params = request.query_parameters.stringify_keys
+      params["sort"].should == { name:"desc" }
+
+      get :index, sort:{ foo:"desc" }
+      params = request.query_parameters.stringify_keys
+      params["sort"].should == { name:"asc" }
+
+      %w(provided_id description cpu_cores memory_size status).each do |key|
+        get :index, sort:{ key => "asc" }
+        params = request.query_parameters.stringify_keys
+        params["sort"].should == { key => "asc" }
+      end
+    end
+
+    context "複数のレコードが登録されているとき" do
+      before do
+        Tengine::Resource::Provider::Wakame.delete_all
+        Tengine::Resource::PhysicalServer.delete_all
+
+        pr1 = Tengine::Resource::Provider::Wakame.create!(name:"testwakame")
+        pr2 = Tengine::Resource::Provider::Ec2.create!(name:"testec2")
+        @ps1 = Tengine::Resource::PhysicalServer.create!(
+          provider_id:pr1.id,
+          name:"atestfoo",
+          description:"ctest foo description",
+          provided_id:"bserver",
+          status:"online",
+          cpu_cores:5,
+          memory_size:20*1024,
+        )
+        @ps2 = Tengine::Resource::PhysicalServer.create!(
+          provider_id:pr2.id,
+          name:"btestbarfoo",
+          description:"atest baz description",
+          provided_id:"cserver",
+          status:"offline",
+          cpu_cores:10,
+          memory_size:10*1024,
+        )
+        @ps3 = Tengine::Resource::PhysicalServer.create!(
+          provider_id:pr1.id,
+          name:"ctestbaz",
+          description:"btest baz description",
+          provided_id:"aserver",
+          status:"online",
+          cpu_cores:7,
+          memory_size:30*1024,
+        )
+      end
+
+      after do
+        Tengine::Resource::Provider.delete_all
+        Tengine::Resource::PhysicalServer.delete_all
+      end
+
+      it "nameで検索したとき検索条件に合った物理サーバが取得できること" do
+        get :index, finder:{ name:"foo" }
+
+        result = assigns(:physical_servers)
+        result.count.should == 2
+        result.each do |r|
+          r.name.should =~ /foo/
+        end
+      end
+
+      it "descriptionで検索したとき検索条件に合った物理サーバが取得できること" do
+        get :index, finder:{ description:"baz" }
+
+        result = assigns(:physical_servers)
+        result.count.should == 2
+        result.each do |r|
+          r.description.should =~ /baz/
+        end
+      end
+
+      it "provided_idで検索したとき検索条件に合った物理サーバが取得できること" do
+        get :index, finder:{ provided_id:"aserver" }
+
+        result = assigns(:physical_servers)
+        result.count.should == 1
+        result.first.provided_id.should == "aserver"
+
+        get :index, finder:{ provided_id:"cserver" }
+
+        result = assigns(:physical_servers)
+        result.count.should == 1
+        result.first.provided_id.should == "cserver"
+      end
+
+      it "ステータスで検索したとき検索条件に合った物理サーバが取得できること" do
+        get :index, finder:{ st_online:1, st_offline:0 }
+
+        result = assigns(:physical_servers)
+        result.count.should == 2
+        result.each do |r|
+          r.status.to_s.should == "online"
+        end
+
+        get :index, finder:{ st_online:0, st_offline:1 }
+
+        result = assigns(:physical_servers)
+        result.count.should == 1
+        result.first.status.to_s.should == "offline"
+
+        get :index, finder:{ st_online:1, st_offline:1 }
+
+        result = assigns(:physical_servers)
+        result.count.should == 3
+        result.each do |r|
+          ["online", "offline"].should be_include(r.status.to_s)
+        end
+
+        get :index, finder:{ st_online:0, st_offline:0 }
+
+        result = assigns(:physical_servers)
+        result.count.should == 3
+      end
+
+      it "デフォルトでソートしたとき" do
+        get :index
+
+        result = assigns(:physical_servers)
+        [@ps1, @ps2, @ps3].each_with_index do |ps, i|
+          result[i].should == ps
+        end
+      end
+
+      it "nameでソートしたとき" do
+        get :index, sort:{ name:"asc" }
+
+        result = assigns(:physical_servers)
+        [@ps1, @ps2, @ps3].each_with_index do |ps, i|
+          result[i].should == ps
+        end
+
+        get :index, sort:{ name:"desc" }
+
+        result = assigns(:physical_servers)
+        [@ps3, @ps2, @ps1].each_with_index do |ps, i|
+          result[i].should == ps
+        end
+      end
+
+      it "provided_idでソートしたとき" do
+        get :index, sort:{ provided_id:"asc" }
+
+        result = assigns(:physical_servers)
+        [@ps3, @ps1, @ps2].each_with_index do |ps, i|
+          result[i].should == ps
+        end
+
+        get :index, sort:{ provided_id:"desc" }
+
+        result = assigns(:physical_servers)
+        [@ps2, @ps1, @ps3].each_with_index do |ps, i|
+          result[i].should == ps
+        end
+      end
+
+      it "descriptionでソートしたとき" do
+        get :index, sort:{ description:"asc" }
+
+        result = assigns(:physical_servers)
+        [@ps2, @ps3, @ps1].each_with_index do |ps, i|
+          result[i].should == ps
+        end
+
+        get :index, sort:{ description:"desc" }
+
+        result = assigns(:physical_servers)
+        [@ps1, @ps3, @ps2].each_with_index do |ps, i|
+          result[i].should == ps
+        end
+      end
+
+      it "cpu_coresでソートしたとき" do
+        get :index, sort:{ cpu_cores:"asc" }
+
+        result = assigns(:physical_servers)
+        [@ps1, @ps3, @ps2].each_with_index do |ps, i|
+          result[i].should == ps
+        end
+
+        get :index, sort:{ cpu_cores:"desc" }
+
+        result = assigns(:physical_servers)
+        [@ps2, @ps3, @ps1].each_with_index do |ps, i|
+          result[i].should == ps
+        end
+      end
+
+      it "memory_sizeでソートしたとき" do
+        get :index, sort:{ memory_size:"asc" }
+
+        result = assigns(:physical_servers)
+        [@ps2, @ps1, @ps3].each_with_index do |ps, i|
+          result[i].should == ps
+        end
+
+        get :index, sort:{ memory_size:"desc" }
+
+        result = assigns(:physical_servers)
+        [@ps3, @ps1, @ps2].each_with_index do |ps, i|
+          result[i].should == ps
+        end
+      end
+
+      it "statusでソートしたとき" do
+        get :index, sort:{ status:"asc" }
+
+        result = assigns(:physical_servers)
+        expected = Tengine::Resource::PhysicalServer.order_by([[:status, :asc]])
+        expected.each_with_index do |ps, i|
+          result[i].should == ps
+        end
+
+        get :index, sort:{ status:"desc" }
+
+        result = assigns(:physical_servers)
+        expected = Tengine::Resource::PhysicalServer.order_by([[:status, :desc]])
+        expected.each_with_index do |ps, i|
+          result[i].should == ps
+        end
+      end
+    end
   end
 
   describe "GET show" do
