@@ -96,8 +96,10 @@ __end_of_dsl__
 
   describe "GET show" do
     it "assigns the requested jobnet_actual as @jobnet_actual" do
-      jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
-      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
+      root_jobnet_actual = Tengine::Job::RootJobnetActual.new(valid_attributes_for_root)
+      jobnet_actual = Tengine::Job::JobnetActual.new(valid_attributes)
+      root_jobnet_actual.children << jobnet_actual
+      root_jobnet_actual.save!
       get :show, :id => jobnet_actual.id.to_s, :root_jobnet_actual_id => root_jobnet_actual.id.to_s
       assigns(:jobnet_actual).should eq(jobnet_actual)
     end
@@ -113,11 +115,10 @@ __end_of_dsl__
 
   describe "GET edit" do
     it "assigns the requested jobnet_actual as @jobnet_actual" do
-      root_jobnet_actual = \
-        Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
-      jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
-      Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
-        and_return(jobnet_actual)
+      root_jobnet_actual = Tengine::Job::RootJobnetActual.new(valid_attributes_for_root)
+      jobnet_actual = Tengine::Job::JobnetActual.new(valid_attributes)
+      root_jobnet_actual.children << jobnet_actual
+      root_jobnet_actual.save!
 
       get :edit, :id => jobnet_actual.id.to_s,
         :root_jobnet_actual_id => root_jobnet_actual.id.to_s
