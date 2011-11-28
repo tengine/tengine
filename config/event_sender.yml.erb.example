@@ -1,0 +1,10 @@
+connection:
+  host: '127.0.0.1'
+  port: 5672
+  # vhost:
+  # user:
+  # pass:
+exchange:
+  name: 'tengine_event_exchange'
+  type: 'direct'
+  durable: true
