@@ -49,3 +49,8 @@ TengineConsole::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 end
+
+require 'tengine/support/yaml_with_erb'
+Tengine::Event.config = YAML.load_file(File.expand_path('../event_sender.yml.erb', File.dirname(__FILE__)))
+Tengine.logger = Rails.logger
+Tengine.logger.debug("Tengine::Event.config:\n" << YAML.dump(Tengine::Event.config))

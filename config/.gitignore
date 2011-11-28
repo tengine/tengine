@@ -1,4 +1,5 @@
 /end_to_end_test.yml
+/event_sender.yml.erb
 /mongoid.yml
 /tengine_recsource_watchd.yml.erb
 /tengine_recsource_watchd.yml.erb.bak
