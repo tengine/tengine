@@ -392,6 +392,13 @@ describe Tengine::Resource::PhysicalServersController do
         put :update, :id => physical_server.id, :physical_server => valid_attributes
         response.should redirect_to(physical_server)
       end
+
+      it "commitパラメータがキャンセルのとき更新されずに一覧にリダイレクトされること" do
+        Tengine::Resource::PhysicalServer.any_instance.should_not_receive(:update_attributes)
+        physical_server = Tengine::Resource::PhysicalServer.create! valid_attributes
+        put :update, :id => physical_server.id, :physical_server => valid_attributes
+        response.should redirect_to(physical_server)
+      end
     end
 
     describe "with invalid params" do
