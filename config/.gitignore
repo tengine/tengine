@@ -1,4 +1,6 @@
 /end_to_end_test.yml
 /mongoid.yml
+/tengine_recsource_watchd.yml.erb
+/tengine_recsource_watchd.yml.erb.bak
 /tengined.yml
 /tengined.yml.erb
