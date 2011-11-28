@@ -1,0 +1,17 @@
+---
+timeout: 1
+# log_dir: "log"
+logfile: "<%= %!log/#{File.basename($PROGRAM_NAME)}-#{`hostname`.strip}-#{Process.pid}.log! %>"
+connection:
+  host: 'localhost'
+  port: 5672
+  # vhost:
+  # user:
+  # pass:
+exchange:
+  name: 'tengine_event_exchange'
+  type: 'direct'
+  durable: true
+heartbeat:
+  job:
+    interval: 1
