@@ -807,9 +807,13 @@ describe Tengine::Job::RootJobnetActualsController do
 
   describe "DELETE destroy" do
     before do
+      EM.should_receive(:run).and_yield
+      mock_mq_suite = mock(:mq_suite)
+      Tengine::Event.stub_chain(:default_sender, :mq_suite).and_return(mock_mq_suite)
       mock_sender = mock(:sender)
-      mock_sender.should_receive(:wait_for_connection)
-      Tengine::Event.stub(:default_sender).and_return(mock_sender)
+      mock_sender.stub(:wait_for_connection).and_yield
+      mock_sender.should_receive(:fire)
+      Tengine::Event::Sender.stub(:new).and_return(mock_sender)
     end
 
     it "destroys the requested root_jobnet_actual" do

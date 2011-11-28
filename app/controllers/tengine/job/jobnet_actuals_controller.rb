@@ -119,10 +119,13 @@ class Tengine::Job::JobnetActualsController < ApplicationController
       properties[:target_jobnet_id] = target_id
     end
 
-    sender = Tengine::Event.default_sender
-    sender.wait_for_connection do
-      sender.fire(event, :source_name => target.name_as_resource,
-        :properties => properties)
+    EM.run do
+      sender = Tengine::Event::Sender.new(Tengine::Event.default_sender.mq_suite,
+                                          :logger => Rails.logger)
+      sender.wait_for_connection do
+        sender.fire(event, :source_name => target.name_as_resource,
+          :properties => properties)
+      end
     end
 
     return result
