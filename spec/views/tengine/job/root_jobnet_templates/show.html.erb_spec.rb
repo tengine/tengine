@@ -51,15 +51,14 @@ describe "tengine/job/root_jobnet_templates/show.html.erb" do
       rendered.should have_xpath("//td", :text => "#{@root_jobnet_template.id}")
       rendered.should have_xpath("//td", :text => @root_jobnet_template.name)
       rendered.should have_xpath("//td", :text => @root_jobnet_template.description)
-      rendered.should have_xpath("//td", :text => @root_jobnet_template.dsl_filepath)
     end
 
     it "実行設定画面へのリンクが表示されていること" do
       render
 
       name = I18n.t(:run, :scope => [:views, :links])
-      rendered.should have_link(name,
-        :href => edit_tengine_job_root_jobnet_template_path(@root_jobnet_template))
+      rendered.should have_link(name, :href =>
+        new_tengine_job_execution_path(:root_jobnet_id => @root_jobnet_template))
     end
 
     it "一覧画面へのリンクが表示されていること" do

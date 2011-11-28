@@ -32,7 +32,9 @@ class Tengine::Resource::VirtualServerImagesController < ApplicationController
       finder = {}
       [:name, :description, :provided_id].each do |field|
         next if (value = @finder.send(field)).blank?
-        value = /#{Regexp.escape(value)}/
+        unless field.to_s == "provided_id"
+          value = /#{Regexp.escape(value)}/
+        end
         finder[field] = value
       end
       @virtual_server_images = @virtual_server_images.where(finder)

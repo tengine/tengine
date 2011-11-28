@@ -58,8 +58,8 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :provided_id => "i0002",
       :description => "v2Description",
       :status => "running",
-      :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
-      :properties => {"a"=>"1", "b"=>"2"},
+      :addresses => {"eth0"=>"192.168.2.1", "eth1"=>"10.10.10.1"},
+      :properties => {"d"=>"1", "b"=>"2"},
       :provided_image_id => "ami1",
       :provided_type_id => "Large",
       :host_server_id => @physical_server1.id,
@@ -70,8 +70,8 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
       :provided_id => "i0003",
       :description => "v3Description",
       :status => "starting",
-      :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
-      :properties => {"a"=>"1", "b"=>"2"},
+      :addresses => {"eth0"=>"192.168.2.1", "eth1"=>"10.10.10.1"},
+      :properties => {"d"=>"1", "b"=>"2"},
       :provided_image_id => "ami2",
       :provided_type_id => "Small",
       :host_server_id => @physical_server1.id,
@@ -103,10 +103,101 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     assert_select "tr>td>div>span", :text => "v3Description".to_s, :count => 1
     assert_select "tr>td", :text => "starting".to_s, :count => 1
     assert_select "tr>td", :text => "running".to_s, :count => 1
-    assert_select "tr>td>a", :text => "ami1".to_s, :count => 1
-    assert_select "tr>td>a", :text => "ami2".to_s, :count => 1
+    assert_select "tr>td>a", :text => "vimage1".to_s, :count => 1
+    assert_select "tr>td>a", :text => "vimage2".to_s, :count => 1
     assert_select "tr>td", :text => "Small".to_s, :count => 1
     assert_select "tr>td", :text => "Large".to_s, :count => 1
+    assert_select "tr>td>pre",
+      :text => "eth0: 192.168.2.1\neth1: 10.10.10.1\n", :count => 2
+    assert_select "tr>td>div>div>pre",
+      :text => "d: '1'\nb: '2'\n", :count => 2
+  end
+
+  it "descriptionがない場合説明のセルに何も表示されないこと" do
+    @virtual_server1.description = nil
+    @virtual_server2.description = nil
+    @virtual_server1.save!
+    @virtual_server2.save!
+
+    render
+
+    rendered.should_not have_xpath("//div[@id='yamlDescription']")
+  end
+
+  it "descriptionが空の場合説明のセルに何も表示されないこと" do
+    @virtual_server1.description = ""
+    @virtual_server2.description = ""
+    @virtual_server1.save!
+    @virtual_server2.save!
+
+    render
+
+    rendered.should_not have_xpath("//div[@id='yamlDescription']")
+  end
+
+  it "addressesがnilの場合IPアドレスのセルに何も表示されないこと" do
+    @virtual_server1.addresses = nil
+    @virtual_server2.addresses = nil
+    @virtual_server1.save!
+    @virtual_server2.save!
+
+    render
+
+    assert_select "tr>td>pre",
+      :text => "eth0: 192.168.2.1\neth1: 10.10.10.1\n", :count => 0
+  end
+
+  it "addressesが空の場合IPアドレスのセルに何も表示されないこと" do
+    @virtual_server1.addresses = {}
+    @virtual_server2.addresses = {}
+    @virtual_server1.save!
+    @virtual_server2.save!
+
+    render
+
+    assert_select "tr>td>pre",
+      :text => "eth0: 192.168.2.1\neth1: 10.10.10.1\n", :count => 0
+  end
+
+  it "propertiesがnilの場合プロパティのセルに何も表示されないこと" do
+    @virtual_server1.properties = nil
+    @virtual_server2.properties = nil
+    @virtual_server1.save!
+    @virtual_server2.save!
+
+    render(:file => "tengine/resource/virtual_servers/index")
+
+    assert_select "tr>td>div>div>pre",
+      :text => "d: '1'\nb: '2'\n", :count => 0
+    rendered.should_not have_xpath("//span[@class='IconYaml']",
+      :text => I18n.t("tengine.resource.virtual_servers.index.links.show"))
+  end
+
+  it "propertiesが空の場合プロパティのセルに何も表示されないこと" do
+    @virtual_server1.properties = {}
+    @virtual_server2.properties = {}
+    @virtual_server1.save!
+    @virtual_server2.save!
+
+    render
+
+    assert_select "tr>td>div>div>pre",
+      :text => "d: '1'\nb: '2'\n", :count => 0
+    rendered.should_not have_xpath("//span[@class='IconYaml']",
+      :text => I18n.t("tengine.resource.virtual_servers.index.links.show"))
+  end
+
+  it "descriptionとpropertiesがないときYamlViewは表示されていないこと" do
+    @virtual_server1.description = nil
+    @virtual_server2.description = nil
+    @virtual_server1.properties = nil
+    @virtual_server2.properties = nil
+    @virtual_server1.save!
+    @virtual_server2.save!
+
+    render
+
+    rendered.should_not have_xpath("//div[@class='YamlView']")
   end
 
   it "renders search form" do
@@ -258,5 +349,12 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
 
     rendered.should have_xpath("//td", :text => "vserver2")
     rendered.should_not have_xpath("//td", :text => "vserver1")
+  end
+
+  it "物理サーバ編集画面へのリンクが表示されていること" do
+    render(:file => "tengine/resource/virtual_servers/index")
+
+    rendered.should have_link(@physical_server1.name,
+      :href => edit_tengine_resource_physical_server_url(@physical_server1))
   end
 end

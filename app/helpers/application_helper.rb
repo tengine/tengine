@@ -5,6 +5,27 @@ module ApplicationHelper
     @page_title = model_class_name(class_or_name) + I18n.t(page_type, :scope => [:views, :pages])
   end
 
+  def button_link_to(*args, &block)
+    if block_given?
+      name = capture(&block)
+      options      = args.first || {}
+      html_options = args.second || {}
+    else
+      name         = args[0]
+      options      = args[1] || {}
+      html_options = args[2] || {}
+    end
+
+    html_options = html_options.stringify_keys
+    btn_class = html_options.delete("btn_class") || "BtnNormal"
+    name = "<span class='#{btn_class}'>#{ERB::Util.html_escape(name)}</span>".html_safe
+
+    klass = html_options["class"]
+    html_options["class"] = klass ? "#{klass} BtnWrap" : "BtnWrap"
+
+    link_to(name, options, html_options)
+  end
+
   def link_to_show(*args, &block)
     link_to(I18n.t(:show, :scope => [:views, :links]), *args_for_nested_path(*args), &block)
   end
@@ -73,15 +94,13 @@ module ApplicationHelper
   end
 
   ENABLE_ORDER = ["asc", "desc"].freeze
-  ASC_CLASS = "asc"
-  DESC_CLASS = "desc"
   NO_ORDER_CLASS = ""
 
   def sort_class(sym)
     return NO_ORDER_CLASS if (sort = request.query_parameters[:sort]).blank?
     return NO_ORDER_CLASS if (current_order = sort[sym].to_s).blank?
     return NO_ORDER_CLASS unless ENABLE_ORDER.include?(current_order)
-    return current_order
+    return "Sort#{current_order.camelcase}"
   end
 
   def sort_param(sym)
@@ -98,11 +117,12 @@ module ApplicationHelper
     return "" if root_categories.blank?
 
     params = link_params
-    all_link = link_to(I18n.t(:all, :scope => [:views, :category_tree]),
-                  params, link_options)
+    all_link = content_tag("span", link_to(
+      I18n.t(:all, :scope => [:views, :category_tree]), params, link_options),
+      :class => "folder")
     root_categories = [root_categories].flatten
 
-    tree = %|<ul id="#{tree_id}"><li>#{ERB::Util.html_escape(all_link)}<ul>|
+    tree = %|<ul id="#{tree_id}" class="filetree"><li>#{ERB::Util.html_escape(all_link)}<ul>|
     root_categories.each do |root_category|
       stack = []
       category = root_category
@@ -112,8 +132,9 @@ module ApplicationHelper
           stack << [category, sibling_index]
 
           last_category = stack.last.first
-          link = link_to(last_category.caption,
-            params.merge(:category => last_category.id), link_options)
+          link = content_tag("span", link_to(last_category.caption,
+            params.merge(:category => last_category.id), link_options),
+            :class => "folder")
           tree << "<li>#{ERB::Util.html_escape(link)}"
 
           children = category.children
@@ -144,11 +165,41 @@ module ApplicationHelper
     end
   end
 
-  def format_map_yml_value(hash)
-    html = ""
-    return html if hash.blank?
-    html << hash.collect{|k, v| ERB::Util.html_escape("#{k}: #{v}") }.join("<br />")
-    return html.html_safe
+  YAML_SEPARATOR_REGEXP = /^---( )?(! )?\n?/
+  def format_map_yml_value(object, method)
+    return "" if object.send(method).blank?
+    value = object.send("#{method}_yaml").sub(YAML_SEPARATOR_REGEXP, '')
+    return %|<pre>#{ERB::Util.html_escape(value)}</pre>|.html_safe
+  end
+
+  def yaml_view(summary, *args, &block)
+    if block_given?
+      detail = capture(&block)
+      html_options = args.first || {}
+    else
+      detail = args.first
+      html_options = args.second || {}
+    end
+
+    content_tag("div",
+      content_tag("span", ERB::Util.html_escape(summary), class:"IconYaml") +
+      content_tag("div", ERB::Util.html_escape(detail), class:"YamlScript"),
+      html_options.stringify_keys.update(class:"YamlView")).html_safe
+  end
+
+  def description_format(description, truncate_length, html_options={})
+    return "" if description.blank?
+
+    length = truncate_length.to_i
+    summary = truncate(description, length:length)
+    detail = []
+    description.each_line do |line|
+      line = line.chomp.gsub(/(.{#{length}})/, "\\1\n")
+      detail << line.chomp
+    end
+    detail = detail.join("\n")
+
+    return yaml_view(summary, simple_format(detail), html_options)
   end
 
   def message(type, text, &block)

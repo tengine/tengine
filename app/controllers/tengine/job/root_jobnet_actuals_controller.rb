@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require "ostruct"
+
 class Tengine::Job::RootJobnetActualsController < ApplicationController
   # GET /tengine/job/root_jobnet_actuals
   # GET /tengine/job/root_jobnet_actuals.json
@@ -35,7 +37,6 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     respond_to do |format|
       format.html { # index.html.erb
         if @auto_refresh = @finder.reflesh_interval.to_i != 0
-          # app/views/layouts/refresh.html.erb で更新間隔として参照しています。
           @reflesh_interval = @finder.reflesh_interval
         end
         render
@@ -48,6 +49,31 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
   # GET /tengine/job/root_jobnet_actuals/1.json
   def show
     @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:id])
+    @jobnet_actuals = []
+    visitor = Tengine::Job::Vertex::AllVisitor.new do |vertex|
+                if vertex.instance_of?(Tengine::Job::JobnetActual)
+                  @jobnet_actuals << [vertex, (vertex.ancestors.size - 1)]
+                end
+              end
+    @root_jobnet_actual.accept_visitor(visitor)
+
+    @refresher = OpenStruct.new
+    @refresher.refresh_interval = 15
+    if params[:refresher]
+      @refresher.refresh_interval = params[:refresher][:refresh_interval].to_i
+      if @refresher.refresh_interval < 0
+        @refresher.refresh_interval = 0
+      end
+    end
+    @refresh_interval = @refresher.refresh_interval
+
+    @finder = { :source_name => @root_jobnet_actual.name_as_resource, }
+    if s = @root_jobnet_actual.started_at
+      @finder[:occurred_at_start] = s.strftime("%H:%M")
+    end
+    if e = @root_jobnet_actual.finished_at
+      @finder[:occurred_at_end] = e.strftime("%H:%M")
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -58,12 +84,13 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
   # GET /tengine/job/root_jobnet_actuals/new
   # GET /tengine/job/root_jobnet_actuals/new.json
   def new
-    @root_jobnet_actual = Tengine::Job::RootJobnetActual.new
+    redirect_to :action => 'index'
+    # @root_jobnet_actual = Tengine::Job::RootJobnetActual.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @root_jobnet_actual }
-    end
+    # respond_to do |format|
+    #   format.html # new.html.erb
+    #   format.json { render json: @root_jobnet_actual }
+    # end
   end
 
   # GET /tengine/job/root_jobnet_actuals/1/edit
@@ -107,10 +134,10 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
   # DELETE /tengine/job/root_jobnet_actuals/1.json
   def destroy
     @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:id])
-    @root_jobnet_actual.destroy
+    stop(@root_jobnet_actual)
 
     respond_to do |format|
-      format.html { redirect_to tengine_job_root_jobnet_actuals_url, notice: successfully_destroyed(@root_jobnet_actual) }
+      format.html { redirect_to tengine_job_root_jobnet_actual_path(@root_jobnet_actual), notice: successfully_destroyed(@root_jobnet_actual) }
       format.json { head :ok }
     end
   end
@@ -130,5 +157,24 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     category.children.each do |i|
       _category_childrens(result, i)
     end
+  end
+
+  def stop(root_jobnet, options={})
+    root_jobnet_id = root_jobnet.id.to_s
+    result = Tengine::Job::Execution.create!(
+      options.merge(:root_jobnet_id => root_jobnet_id))
+
+    sender = Tengine::Event.default_sender
+    sender.wait_for_connection do
+      sender.fire(:"stop.jobnet.job.tengine",
+        :source_name => root_jobnet.name_as_resource,
+        :properties => {
+          :execution_id => result.id.to_s,
+          :root_jobnet_id => root_jobnet_id,
+          :target_jobnet_id => root_jobnet_id.to_s,
+      })
+    end
+
+    return result
   end
 end

@@ -6,73 +6,88 @@
 [自動更新中] <%= @reflesh_interval %>秒間隔で自動更新しています。
 </p>
 <% end -%>
-
 <h1><%= page_title Tengine::Job::RootJobnetActual, :list %></h1>
 
 <div class="TreeViewContents">
   <div class="DataView">
     <div class="Wrap">
-      <% if @finder.errors.any? %>
-        <div class="Msg MsgError">
-          <p><%= t(".finder.error_caption", :count => @finder.errors.size) %></p>
-          <ul>
-          <% @finder.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
+      <%= model_error_messages @finder %>
 
-      <div class="search-box">
+      <div class="BoxBorder BoxSearchForm">
         <%= form_for(:finder, :html => {:method => :get}) do |f| %>
         <fieldset>
           <legend><%= t("views.pages.search_caption") %></legend>
-          <table>
-            <tr>
-              <th><%= f.label :duration %></th>
-              <td>
-                <%= f.select :duration, [
-                  [Tengine::Job::RootJobnetActual.human_attribute_name(:started_at), :started_at],
-                  [Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at), :finished_at]] %>
-              </td>
-            </tr>
-            <tr>
-              <th></th>
-              <td>
-                <%= f.datetime_select :duration_start %> -
-                <%= f.datetime_select :duration_finish %>
-              </td>
-            </tr>
-            <tr>
-              <th><%= f.label :id %></th>
-              <td><%= f.text_field :id %></td>
-            </tr>
-            <tr>
-              <th><%= f.label :name %></th>
-              <td><%= f.text_field :name %></td>
-            </tr>
-            <tr>
-              <th><%= f.label :phase_cd %></th>
-              <td><%= f.check_box_group :phase_cd %></td>
-            </tr>
-            <tr>
-              <th><%= f.label :reflesh_interval %></th>
-              <td>
-                <%= f.text_field :reflesh_interval %>
-                <br />
-                <span class="TextNotice"><%= t("views.caution.reflesh_interval") %></span>
-              </td>
-            </tr>
+          <table class="TableForm4rows">
+            <col class="Row1 RowTh">
+            <col class="Row2 RowTd">
+            <col class="Row3 RowTh">
+            <col class="Row4 RowTd">
+            <tbody>
+              <tr>
+                <th><%= f.label :id %></th>
+                <td><%= f.text_field :id , :class=>"InputText" %></td>
+              </tr>
+              <tr>
+                <th><%= f.label :name %></th>
+                <td><%= f.text_field :name, :class=>"InputText" %></td>
+              </tr>
+              <tr>
+                <th><%= f.label :duration %></th>
+                <td>
+                  <%= f.select :duration, [
+                    [Tengine::Job::RootJobnetActual.human_attribute_name(:started_at), :started_at],
+                    [Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at), :finished_at]] %>
+                </td>
+              </tr>
+              <tr>
+                <th></th>
+                <td>
+                  <%= f.datetime_select :duration_start %> -
+                  <%= f.datetime_select :duration_finish %>
+                </td>
+              </tr>
+              <tr>
+                <th><%= f.label :phase_cd %></th>
+                <td><%= f.check_box_group :phase_cd %></td>
+              </tr>
+            </tbody>
           </table>
          <% if @category -%>
            <%= hidden_field_tag :category, @category.id %>
          <% end -%>
+         <%= hidden_field_tag "finder[reflesh_interval]", @finder.reflesh_interval %>
   
-          <div class="align-right">
-            <%= f.submit(t("views.links.search")) %>
-            <%= tag :input, { "type" => "reset", "name" => "reset", "value" => t("views.links.reset") } %>
+          <div class = "BoxBtns">
+            <span class = "BtnWrap" >
+              <%= f.submit(t("views.links.search"), :class=> "BtnSearch") %>
+            </span>
+            <span class = "BtnWrap" >
+              <%= tag :input, { "type" => "reset", "name" => "reset", "value" => t("views.links.reset"), "class" => "BtnCancel" } %>
+            </span>
           </div>
         </fieldset>
+        <% end %>
+      </div>
+
+      <div class="BoxActionLinksRight">
+        <%= form_for(:finder, :url => tengine_job_root_jobnet_actuals_path, :method => :get, html:{novalidate:true}) do |f| %>
+          <%= f.label :reflesh_interval, t(".refresher.form.refresh_interval") %>:
+          <%= f.number_field :reflesh_interval, min:0, class:"InputText" %><%= t("datetime.prompts.second") %>
+
+          <%= hidden_field_tag "finder[duration]", @finder.duration %>
+          <% %w(year mon day hour min).each_with_index do |method, i| -%>
+            <%= hidden_field_tag "finder[duration_start(#{i}i)]", @finder.duration_start.send(method) %>
+            <%= hidden_field_tag "finder[duration_finish(#{i}i)]", @finder.duration_finish.send(method) %>
+          <% end -%>
+          <%= hidden_field_tag "finder[id]", @finder.id %>
+          <%= hidden_field_tag "finder[name]", @finder.name %>
+          <% @finder.phase_ids.each do |status| -%>
+            <%= hidden_field_tag "finder[phase_ids][]", status %>
+          <% end -%>
+
+          <span class="BtnWrap">
+            <%= f.submit t(".refresher.form.submit"), class:"BtnNormal" %>
+          </span>
         <% end %>
       </div>
 
@@ -94,9 +109,9 @@
             <th scope="col"><%= link_to(Tengine::Job::RootJobnetActual.human_attribute_name(:id), tengine_job_root_jobnet_actuals_path(query_without_page.merge(sort_param(:id))), :class => sort_class(:id)) %></th>
             <th scope="col"><%= link_to(Tengine::Job::RootJobnetActual.human_attribute_name(:name), tengine_job_root_jobnet_actuals_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name)) %></th>
             <th scope="col"><%= link_to(Tengine::Job::RootJobnetActual.human_attribute_name(:description), tengine_job_root_jobnet_actuals_path(query_without_page.merge(sort_param(:description))), :class => sort_class(:description)) %></th>
-            <th scope="col"><%= link_to(Tengine::Job::RootJobnetActual.human_attribute_name(:phase_cd), tengine_job_root_jobnet_actuals_path(query_without_page.merge(sort_param(:phase_cd))), :class => sort_class(:phase_cd)) %></th>
             <th scope="col"><%= link_to(Tengine::Job::RootJobnetActual.human_attribute_name(:started_at), tengine_job_root_jobnet_actuals_path(query_without_page.merge(sort_param(:started_at))), :class => sort_class(:started_at)) %></th>
             <th scope="col"><%= link_to(Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at), tengine_job_root_jobnet_actuals_path(query_without_page.merge(sort_param(:finished_at))), :class => sort_class(:finished_at)) %></th>
+            <th scope="col"><%= link_to(Tengine::Job::RootJobnetActual.human_attribute_name(:phase_cd), tengine_job_root_jobnet_actuals_path(query_without_page.merge(sort_param(:phase_cd))), :class => sort_class(:phase_cd)) %></th>
             <th scope="col"><%= t("views.pages.operation") %></th>
           </tr>
         </thead>
@@ -107,13 +122,13 @@
             <td><%= root_jobnet_actual.id %></td>
             <td><%= root_jobnet_actual.name %></td>
             <td><%= root_jobnet_actual.description %></td>
-            <td><%= root_jobnet_actual.phase_name %></td>
             <td><%= root_jobnet_actual.started_at.to_s %></td>
             <td><%= root_jobnet_actual.finished_at %></td>
+            <td><%= root_jobnet_actual.phase_name %></td>
             <td>
               <%= link_to(t("views.links.watch"), root_jobnet_actual) %>
               <% if %w(initialized success error stuck).include?(root_jobnet_actual.phase_key.to_s) -%>
-                <%= link_to(t("views.links.rerun"), edit_tengine_job_root_jobnet_actual_path(root_jobnet_actual)) %>
+                <%= link_to(t("views.links.rerun"), new_tengine_job_execution_path(:root_jobnet_id => root_jobnet_actual, :retry => true)) %>
               <% end -%>
               <% if %w(running).include?(root_jobnet_actual.phase_key.to_s) -%>
                 <%= link_to(t("views.links.force_exit"), root_jobnet_actual, confirm: t(".confirm.destroy"), method: :delete ) %>
@@ -125,7 +140,6 @@
       </table>
         
       <%= paginate @root_jobnet_actuals, :items => @root_jobnet_actuals %>
-  
     </div>
   </div>
 

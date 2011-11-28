@@ -55,6 +55,10 @@ describe Tengine::Resource::VirtualServersController do
       get :index, :refresher => {:refresh_interval => 10}
       assigns(:refresher).refresh_interval.should == "10"
       assigns(:refresh_interval).should == "10"
+
+      get :index, :refresher => {:refresh_interval => -10}
+      assigns(:refresher).refresh_interval.should == 0
+      assigns(:refresh_interval).should == 0
     end
 
     it "assigns @auto_refresh" do
@@ -81,12 +85,11 @@ describe Tengine::Resource::VirtualServersController do
       get :index
       assigns(:physical_servers).should == physical_servers
 
-      Tengine::Resource::PhysicalServer.delete_all
-      get :index, :finder => {:physical_server_name => "server1"}
-      physical_servers = [
-        Tengine::Resource::PhysicalServer.create!(:name => "server1"),
-      ]
+      get :index, :finder => {:physical_server_name => "serv"}
       assigns(:physical_servers).should == physical_servers
+
+      get :index, :finder => {:physical_server_name => "server1"}
+      assigns(:physical_servers).should == [server1]
     end
   end
 
@@ -152,14 +155,14 @@ describe Tengine::Resource::VirtualServersController do
           :provided_id => "Large",
           :caption => "Large",
           :cpu_cores => 2,
-          :memory_size => 5.gigabyte,
+          :memory_size => 5*1024,
         )
         @type2 = Tengine::Resource::VirtualServerType.create!(
           :provider_id => @provider.id,
           :provided_id => "Small",
           :caption => "Small",
           :cpu_cores => 1,
-          :memory_size => 2.gigabyte,
+          :memory_size => 2*1024,
         )
         @physical_server1 = Tengine::Resource::PhysicalServer.create!(
           :provider_id => @provider.id,
@@ -170,7 +173,18 @@ describe Tengine::Resource::VirtualServersController do
           :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
           :properties => {"a"=>"1", "b"=>"2"},
           :cpu_cores => 10,
-          :memory_size => 30.gigabyte,
+          :memory_size => 30*1024,
+        )
+        @physical_server2 = Tengine::Resource::PhysicalServer.create!(
+          :provider_id => @provider.id,
+          :name => "pserver2",
+          :provided_id => "server2",
+          :description => "Description",
+          :status => "offline",
+          :addresses => {"eth0"=>"192.168.6.1", "eth1"=>"10.10.10.5"},
+          :properties => {"c"=>"5", "r"=>"3"},
+          :cpu_cores => 10,
+          :memory_size => 30*1024,
         )
         @virtual_server1 = Tengine::Resource::VirtualServer.create!(
           :provider_id => @provider.id,
@@ -289,14 +303,14 @@ describe Tengine::Resource::VirtualServersController do
         :provided_id => "Large",
         :caption => "Large",
         :cpu_cores => 2,
-        :memory_size => 5.gigabyte,
+        :memory_size => 5*1024,
       )
       @type2 = Tengine::Resource::VirtualServerType.create!(
         :provider_id => @provider.id,
         :provided_id => "Small",
         :caption => "Small",
         :cpu_cores => 1,
-        :memory_size => 2.gigabyte,
+        :memory_size => 2*1024,
       )
       @physical_server1 = Tengine::Resource::PhysicalServer.create!(
         :provider_id => @provider.id,
@@ -307,7 +321,7 @@ describe Tengine::Resource::VirtualServersController do
         :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
         :properties => {"a"=>"1", "b"=>"2"},
         :cpu_cores => 10,
-        :memory_size => 30.gigabyte,
+        :memory_size => 30*1024,
       )
       @virtual_server1 = Tengine::Resource::VirtualServer.create!(
         :provider_id => @provider.id,
@@ -367,7 +381,7 @@ describe Tengine::Resource::VirtualServersController do
           should_receive(:create_virtual_servers).and_return([vs])
 
         post :create, valid_params
-        response.should redirect_to(created_tengine_resource_virtual_servers_url(:provieded_ids => ["ami0000005"]))
+        response.should redirect_to(created_tengine_resource_virtual_servers_url(:provided_ids => ["ami0000005"]))
       end
     end
 

@@ -15,16 +15,16 @@ class Tengine::Resource::VirtualServer::Finder
     :virtual_server_image_name,
     :status_ids,
   ].freeze
+  DEFAULT_ORDER = [[:name, :asc]]
 
   ATTRIBUTE_NAMES.each{|name| attr_accessor(name) }
 
   include Tengine::Core::SelectableAttr
 
   multi_selectable_attr :status_cd do
-    entry "starting",     :starting     , "starting"
-    entry "running",      :running      , "running"
-    entry "shuttingdown", :shuttingdown , "shuttingdown"
-    entry "terminated",   :terminated   , "terminated"
+    Tengine::Resource::Provider::Wakame::VIRTUAL_SERVER_STATES.each do |status|
+      entry status, status, status.to_s
+    end
   end
 
   def initialize(attrs={})
@@ -62,9 +62,14 @@ class Tengine::Resource::VirtualServer::Finder
         :name => /#{virtual_server_image_name}/)
       unless images.blank?
         criteria = criteria.any_in(:provided_image_id => images.collect(&:provided_id))
+      else
+        # 条件に一致するVirtualServerImageが1つもないためどのVirtualServerも条件に
+        # 一致しない
+        criteria = criteria.where(:_id => 0)
       end
     end
-    return criteria
+
+    return criteria.order_by(DEFAULT_ORDER)
   end
 
   def attributes

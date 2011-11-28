@@ -61,30 +61,30 @@
 </div>
 
 <div class="Section">
-  <p class="BoxActionLinksRight">
-  <%= link_to new_tengine_resource_virtual_server_path, :class => "BtnWrap" do -%>
-    <span class="BtnAdd"><%= t(".links.new") %></span>
-  <% end %>
-  </p>
+  <div class="BoxActionLinksRight">
+    <%= link_to new_tengine_resource_virtual_server_path, :class => "BtnWrap" do -%>
+      <span class="BtnAdd"><%= t(".links.new") %></span>
+    <% end %>
 
-  <%= form_for(:refresher, :url => tengine_resource_virtual_servers_url, :method => :get) do |f| %>
-    <%= f.label :refresh_interval, t(".refresher.form.refresh_interval") %>:
-    <%= f.number_field :refresh_interval, :class => "InputText" %>
-    <%= t("datetime.prompts.second") %>
+    <%= form_for(:refresher, :url => tengine_resource_virtual_servers_url, :method => :get, :html => {:novalidate => true}) do |f| %>
+      <%= f.label :refresh_interval, t(".refresher.form.refresh_interval") %>:
+      <%= f.number_field :refresh_interval, :class => "InputText", :min => 0 %>
+      <%= t("datetime.prompts.second") %>
 
-    <%= hidden_field_tag "finder[physical_server_name]", @finder.physical_server_name %>
-    <%= hidden_field_tag "finder[virtual_server_name]", @finder.virtual_server_name %>
-    <%= hidden_field_tag "finder[provided_id]", @finder.provided_id %>
-    <%= hidden_field_tag "finder[description]", @finder.description %>
-    <%= hidden_field_tag "finder[virtual_server_image_name]", @finder.virtual_server_image_name %>
-    <% @finder.status_ids.each do |status| -%>
-      <%= hidden_field_tag "finder[status_ids][]", status %>
-    <% end -%>
+      <%= hidden_field_tag "finder[physical_server_name]", @finder.physical_server_name %>
+      <%= hidden_field_tag "finder[virtual_server_name]", @finder.virtual_server_name %>
+      <%= hidden_field_tag "finder[provided_id]", @finder.provided_id %>
+      <%= hidden_field_tag "finder[description]", @finder.description %>
+      <%= hidden_field_tag "finder[virtual_server_image_name]", @finder.virtual_server_image_name %>
+      <% @finder.status_ids.each do |status| -%>
+        <%= hidden_field_tag "finder[status_ids][]", status %>
+      <% end -%>
 
-    <span class="BtnWrap">
-      <%= f.submit t(".refresher.form.submit"), :class => "BtnSetting" %>
-    </span>
-  <% end %>
+      <span class="BtnWrap">
+        <%= f.submit t(".refresher.form.submit"), :class => "BtnNormal" %>
+      </span>
+    <% end %>
+  </div>
 
   <%= form_tag tengine_resource_virtual_servers_url, method: :delete do %>
     <table class="TableBase">
@@ -116,8 +116,13 @@
           <% idle = physical_server.guest_servers.blank? -%>
           <% if idle && !@finder.finded_by_virtual_server? -%>
               <tr>
-                <td><%= name_link_and_desc(physical_server) %></td>
-                <td colspan="10"><%= t(".virtual_server..not_found") %></td>
+                <td>
+                  <%== name_link_and_desc(physical_server,
+                         url:edit_tengine_resource_physical_server_url(physical_server),
+                         delimiter:"<br />"
+                       ) %>
+                </td>
+                <td colspan="10"><%= t(".virtual_server.not_found") %></td>
               </tr>
           <% else -%>
             <% virtual_servers = @finder.scope(physical_server.guest_servers) -%>
@@ -125,39 +130,30 @@
               <tr>
                 <% if i.zero? -%>
                   <td rowspan="<%= virtual_servers.size %>">
-                    <%= name_link_and_desc(physical_server) %>
+                    <%== name_link_and_desc(physical_server,
+                           url:edit_tengine_resource_physical_server_url(physical_server),
+                           delimiter:"<br />"
+                         ) %>
                   </td>
                 <% end -%>
                 <td><%= virtual_server.name %></td>
                 <td><%= virtual_server.provided_id %></td>
                 <td>
-                  <div class="YamlView">
-                    <span class="IconYaml">
-                      <%= truncate(virtual_server.description, :length => 20) %>
-                    </span>
-                    <div class="YamlScript">
-                      <% unless virtual_server.description.nil? %>
-                        <% if virtual_server.description.size >= 14 -%>
-                          <%= simple_format(ERB::Util.html_escape(
-                            virtual_server.description.scan(/.{14}/).join("\n"))) %>
-                        <% else -%>
-                          <p><%= virtual_server.description %></p>
-                        <% end -%>
-                      <% end -%>
-                    </div>
-                  </div>
+                  <%= description_format virtual_server.description, 20,
+                        id:"yamlDescription" %>
                 </td>
-                <td><%= format_addresses(virtual_server) %></td>
+                <td>
+                  <%= format_map_yml_value(virtual_server, :addresses) %>
+                </td>
                 <td><%= virtual_server.status %></td>
                 <td><%= image_name_link_and_desc(virtual_server) %></td>
                 <td><%= virtual_server.provided_type_id %></td>
                 <td>
-                  <div class="YamlView">
-                    <span class="IconYaml"><%= t(".links.show_yml") %></span>
-                    <div class="YamlScript">
-                      <%= format_map_yml_value(virtual_server.properties) %>
-                    </div>
-                  </div>
+                  <% unless virtual_server.properties.blank? -%>
+                    <%= yaml_view t(".links.show_yml"),
+                          format_map_yml_value(virtual_server, :properties),
+                          id:"yamlProperties" %>
+                  <% end -%>
                 </td>
                 <td>
                   <%= link_to_edit edit_tengine_resource_virtual_server_path(virtual_server), :class => "ActionEdit" %>

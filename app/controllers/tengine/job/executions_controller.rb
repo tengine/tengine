@@ -24,7 +24,47 @@ class Tengine::Job::ExecutionsController < ApplicationController
   # GET /tengine/job/executions/new
   # GET /tengine/job/executions/new.json
   def new
-    @execution = Tengine::Job::Execution.new
+    root_jobnet_id = params[:root_jobnet_id]
+
+    @retry = false
+    if params[:retry].to_s == "true"
+      unless root_jobnet_id
+        redirect_to tengine_job_root_jobnet_actuals_path
+        return
+      end
+
+      @retry = true
+
+      @root_jobnet = Tengine::Job::RootJobnetActual.find(root_jobnet_id)
+
+      @select_root_jobnet = false
+      @target_actual_ids = [params[:target_actual_ids]].flatten.compact.uniq
+      if @target_actual_ids.empty?
+        @target_actual_ids = [@root_jobnet.id.to_s]
+        @select_root_jobnet = true
+      elsif @target_actual_ids.size == 1 &&
+        @target_actual_ids.first == @root_jobnet.id.to_s
+
+        @select_root_jobnet = true
+      end
+    else
+      unless root_jobnet_id
+        redirect_to tengine_job_root_jobnet_templates_path
+        return
+      end
+
+      dsl_version = Tengine::Core::Setting.dsl_version
+      @root_jobnet = Tengine::Job::RootJobnetTemplate.where(
+        :dsl_version => dsl_version).find(root_jobnet_id)
+    end
+
+    @execution = Tengine::Job::Execution.new(
+      :actual_base_timeout_alert => 0,
+      :actual_base_timeout_termination => 0,
+      :root_jobnet_id => root_jobnet_id,
+      :retry => @retry,
+    )
+    @execution.target_actual_ids = @target_actual_ids if @retry
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,16 +80,27 @@ class Tengine::Job::ExecutionsController < ApplicationController
   # POST /tengine/job/executions
   # POST /tengine/job/executions.json
   def create
-    @execution = Tengine::Job::Execution.new(params[:execution])
+    execute_param = params[:execution]
+    @execution = Tengine::Job::Execution.new(execute_param)
 
     respond_to do |format|
-      if @execution.save
-        format.html { redirect_to @execution, notice: successfully_created(@execution) }
-        format.json { render json: @execution, status: :created, location: @execution }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @execution.errors, status: :unprocessable_entity }
+      @retry = @execution.retry
+      klass = Tengine::Job::RootJobnetTemplate
+      klass = Tengine::Job::RootJobnetActual if @retry
+      @root_jobnet = klass.find(@execution.root_jobnet_id)
+
+      executed = nil
+      EM.run do
+        operation = @execution.retry ? :rerun : :execute
+        sender = Tengine::Event::Sender.new(Tengine::Event.default_sender.mq_suite, :logger => Rails.logger)
+        executed = @root_jobnet.send(operation,
+          execute_param.merge(:sender => sender))
       end
+
+      format.html do
+        redirect_to tengine_job_root_jobnet_actual_path(executed.root_jobnet.id)
+      end
+      format.json { render json: @execution, status: :created, location: @execution }
     end
   end
 

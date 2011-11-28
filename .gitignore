@@ -16,6 +16,3 @@ spec/reports/
 vendor/bundle/
 vendor/cache/
 
-# tengine_root_jobs
-boot.rb
-mydsls

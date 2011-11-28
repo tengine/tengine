@@ -8,6 +8,11 @@ class Tengine::Resource::VirtualServersController < ApplicationController
     default_refresher.update(params[:refresher]) if params[:refresher]
     @refresher = OpenStruct.new(default_refresher)
     @refresh_interval = @refresher.refresh_interval
+    if @refresh_interval.to_i < 0
+      @refresher.refresh_interval = 0
+      @refresh_interval = 0
+    end
+
     @auto_refresh = false
     @auto_refresh = true unless @refresh_interval.to_i.zero?
 
@@ -81,7 +86,7 @@ class Tengine::Resource::VirtualServersController < ApplicationController
         provided_ids = result.collect{|i| i.provided_id }
 
         format.html { redirect_to created_tengine_resource_virtual_servers_url(
-          :provieded_ids => provided_ids) }
+          :provided_ids => provided_ids) }
         format.json { render json: @virtual_server, status: :created, location: @virtual_server }
       else
         if _starting_number <= 0
@@ -186,7 +191,7 @@ class Tengine::Resource::VirtualServersController < ApplicationController
     result = \
       virtual_server_types.order_by([[:provided_id, :asc]]).collect do |type|
         label = type.provided_id.dup
-        msize = type.memory_size / Numeric::MEGABYTE
+        msize = type.memory_size.to_i
         label << "("
         label << "#{Tengine::Resource::VirtualServerType.human_attribute_name(:cpu_cores)}:#{type.cpu_cores}"
         label << ", "
@@ -198,8 +203,8 @@ class Tengine::Resource::VirtualServersController < ApplicationController
   end
 
   def ready_to_run(starting_number=nil, starting_number_max=nil)
-    @physical_servers = \
-      Tengine::Resource::PhysicalServer.all(:sort => [[:name, :asc]])
+    @physical_servers = Tengine::Resource::PhysicalServer.where(:status => "online").
+      order_by([[:name, :asc]])
     if @physical_servers.blank?
       @physical_servers_for_select = []
       @virtual_server_images_for_select = []

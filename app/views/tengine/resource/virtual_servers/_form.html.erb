@@ -16,7 +16,7 @@
           </tr>
           <tr>
             <th><%= f.label :host_server_id, Tengine::Resource::PhysicalServer.human_attribute_name(:name) %></th>
-            <td><%= name_link_and_desc(@virtual_server.host_server, false) %></td>
+            <td><%= name_link_and_desc(@virtual_server.host_server) %></td>
           </tr>
           <tr>
             <th><%= f.label :provided_id %></th>
@@ -24,7 +24,9 @@
           </tr>
           <tr>
             <th><%= f.label :addresses %></th>
-            <td><%= format_addresses @virtual_server %></td>
+            <td>
+              <%= format_map_yml_value(@virtual_server, :addresses) %>
+            </td>
           </tr>
           <tr>
             <th><%= f.label :status %></th>
@@ -40,7 +42,9 @@
           </tr>
           <tr>
             <th><%= f.label :properties %></th>
-            <td><%= format_map_yml_value @virtual_server.properties %></td>
+            <td>
+              <%= format_map_yml_value(@virtual_server, :properties) %>
+            </td>
           </tr>
           <tr>
             <th><%= f.label :description %></th>

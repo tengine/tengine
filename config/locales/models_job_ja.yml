@@ -6,44 +6,88 @@ ja:
       tengine/job/root_jobnet_template: "テンプレートジョブ"
       # tengine/job/root_jobnet_actual: "実行用ルートジョブネット"
       tengine/job/root_jobnet_actual: "実行中のジョブ"
+      tengine/job/jobnet_actual: "実行中のジョブ"
       tengine/job/execution: "ジョブ実行"
+      tengine/job/root_jobnet_actual/finder: "検索"
 
     attributes:
       tengine/job/root_jobnet_template:
         id: "ID"
-        name: "名称"
-        description: "表示名"
+        name: "ジョブネット名"
+        description: "説明"
         dsl_filepath: "DSLファイルパス"
+        template_id: "テンプレートID"
+        server_name: "接続サーバ名"
+        credential_name: "認証情報名"
       tengine/job/jobnet_template:
         id: "ID"
         name: "名称"
         script: "実行するスクリプト"
         description: "表示名"
         destinations: "次のジョブ"
+        server_name: "接続サーバ名"
+        credential_name: "認証情報名"
       tengine/job/root_jobnet_actual:
         id: "ID"
-        name: "名称"
-        description: "表示名"
-        phase_cd: "フェーズ"
-        started_at: "開始時刻"
-        finished_at: "終了時刻"
+        name: "ジョブネット名"
+        description: "説明"
+        phase_cd: "ステータス"
+        started_at: "開始日時"
+        finished_at: "終了日時"
+        template_id: "テンプレートID"
       tengine/job/root_jobnet_actual/finder:
         duration_start: "期間の開始時刻"
         duration_finish: "期間の終了時刻"
         duration: "期間"
         id: "ID"
-        name: "名称"
-        phase_cd: "フェーズ"
+        name: "ジョブネット名"
+        phase_cd: "ステータス"
         reflesh_interval: "リフレッシュ間隔(秒)"
+      tengine/job/jobnet_actual:
+        id: "ID"
+        name: "ジョブ名"
+        phase_cd: "ステータス"
+        executing_pid: "実行時PID"
+        destinations: "次のジョブ"
+        started_at: "開始日時"
+        finished_at: "終了日時"
+        script: "実行スクリプト"
+        server_name: "接続サーバ名"
+        credential_name: "認証情報名"
+        description: "説明"
+      tengine/job/execution:
+        id: "ID"
+        root_jobnet: "ルートジョブネット"
+        root_jobnet_id: "ルートジョブネット"
+        target_actual_ids: "起動ジョブ"
+        phase_cd: "ステータス"
+        phase_key: "ステータス"
+        phase_name: "ステータス"
+        started_at: "開始日時"
+        finished_at: "終了日時"
+        preparation_command: "事前実行コマンド"
+        actual_base_timeout_alert: "タイムアウト(警告)"
+        actual_base_timeout_termination: "タイムアウト(強制終了)"
+        estimated_time: "見積もり時間(秒)"
+        keeping_stdout: "標準出力を保存"
+        keeping_stderr: "標準エラー出力を保存"
+        retry: "再実行"
+        spot: "スポット実行"
 
   selectable_attrs:
     tengine/job/root_jobnet_actual/finder:
-      phase_cd:
+      phase_cd: &phase_cds
         initialized: "初期化済"
         ready: "準備済"
         starting: "起動中"
         running: "稼動中"
         dying: "終了中"
-        success: "終了済"
+        success: "完了"
         error: "エラー"
-        stuck: "stuck"
+        stuck: "スタック"
+    tengine/job/jobnet_actual:
+      phase_cd:
+        <<: *phase_cds
+    tengine/job/execution:
+      phase_cd:
+        <<: *phase_cds

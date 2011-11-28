@@ -4,34 +4,26 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
   # GET /tengine/resource/physical_servers
   # GET /tengine/resource/physical_servers.json
   def index
-    @physical_servers = Tengine::Resource::PhysicalServer.all(:sort => [[:_id]]).page(params[:page])
-    @check_status = {
-      "status_01" => "checked", 
-      "status_02" => "checked"
-    }
+    @physical_servers = Mongoid::Criteria.new(Tengine::Resource::PhysicalServer)
 
-    
+    @check_status = {}
+    Tengine::Resource::Provider::Wakame::PHYSICAL_SERVER_STATES.each do | s |
+      @check_status["st_#{s}"] = ["unchecked", s]
+    end 
+
+    order = []
     if sort_param = params[:sort]
-      order = []
       sort_param.each do |k, v|
         v = (v.to_s == "desc") ? :desc : :asc
-        k = case k.to_s
-            when "name"
-              [:name, v]
-            when "provided_id"
-              [:provided_id, v]
-            when "description"
-              [:description, v]
-            when "cpu_cores"
-              [:cpu_cores, v]
-            when "memory_size"
-              [:memory_size, v]
-            when "status"
-              [:status, v]
-            end
-        order.push k
+        if %w(name provided_id description cpu_cores
+              memory_size status).include?(k.to_s)
+          order.push [k, v]
+        else
+          request.query_parameters[:sort].delete(k)
+        end
       end
-    else
+    end
+    if order.blank?
       default_sort = {:name => "asc"}
       request.query_parameters[:sort] = default_sort
       order = default_sort.to_a
@@ -39,27 +31,26 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
     @physical_servers = @physical_servers.order_by(order)
 
 
-    @status = {
-      :online => "status_01",
-      :registering => "status_02"
-    }
-
     if search_param = params[:finder]
       @finder = ::OpenStruct.new search_param
       finder = {}
       [:name, :description, :provided_id].each do |field|
         next if (value = @finder.send(field)).blank?
-        value = /#{Regexp.escape(value)}/
+        if  field == :provided_id 
+          value = value
+        else
+          value = /#{Regexp.escape(value)}/
+        end
         finder[field] = value
       end
       @physical_servers = @physical_servers.where(finder)
       status_finder =[] 
-      @status.each do |key, id |
-        if @finder.send(id) == "1"
-           status_finder << {:status => key}
-           @check_status[id] = "checked"
+      @check_status.each do |key, id |
+        if @finder.send(key) == "1"
+           status_finder << {:status => id[1]}
+           @check_status[key][0] = "checked"
         else
-           @check_status[id] = "unchecked"
+           @check_status[key][0] = "unchecked"
         end
       end
       @physical_servers = @physical_servers.any_of(status_finder) unless status_finder.empty?

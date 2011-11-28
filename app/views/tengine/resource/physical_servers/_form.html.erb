@@ -1,5 +1,7 @@
+<div class="BoxBorder BoxSearchForm">
+  <%= model_error_messages(@physical_server) %>
   <%= form_for(@physical_server, as:"physical_server") do |f| %>
-    <%= model_error_messages(@physical_server) %>
+    <% field_set_tag do -%>
       <table class= "TableForm4rows" >
         <tbody class= "CelRow2">
           <tr>
@@ -24,22 +26,24 @@
           </tr>
           <tr>
             <th><%= f.label :properties %></th>
-            <td><%= @physical_server.properties_yaml %></td>
+            <td><%== format_map_yml_value(@physical_server, :properties) %></td>
           </tr>
           <tr>
             <th><%= f.label :description %></th>
             <td><%= f.text_area :description, class: "InputText" %></td>
           </tr>
-      </tbody>
-    </table>
-  
-    <div class="BoxBtns">
-      <span class="BtnWrap">
-        <%= f.submit :class => "BtnNext" %>
-      </span>
-      <span class="BtnWrap">
-        <%= submit_tag t(:cancel), :class => "BtnCancel" %>
-      </span>
-    </div>
+        </tbody>
+      </table>
 
+      <div class="BoxBtns">
+        <span class="BtnWrap">
+          <%= f.submit :class => "BtnNext" %>
+        </span>
+        <span class="BtnWrap">
+          <%= submit_tag t(:cancel), :class => "BtnCancel" %>
+        </span>
+      </div>
+
+    <% end %>
   <% end %>
+</div>
