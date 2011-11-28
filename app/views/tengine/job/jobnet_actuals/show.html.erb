@@ -2,86 +2,89 @@
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:name) %>:</b>
-  <%= @jobnet_actual.name %>
-</p>
+<table class= "TableForm4rows" >
+  <tbody class= "CelRow2">
 
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:server_name) %>:</b>
-  <%= @jobnet_actual.server_name %>
-</p>
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:name) %></th>
+      <td><%= @jobnet_actual.name %></td>
+    </tr>
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:description) %></th>
+      <td><%= @jobnet_actual.description %></td>
+    </tr>
 
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:credential_name) %>:</b>
-  <%= @jobnet_actual.credential_name %>
-</p>
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:script) %></th>
+      <td><%= @jobnet_actual.script %></td>
+    </tr>
 
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:killing_signals) %>:</b>
-  <%= @jobnet_actual.killing_signals_text %>
-</p>
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:server_name) %></th>
+      <td><%= @jobnet_actual.server_name %></td>
+    </tr>
 
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:killing_signal_interval) %>:</b>
-  <%= @jobnet_actual.killing_signal_interval %>
-</p>
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:credential_name) %></th>
+      <td><%= @jobnet_actual.credential_name %></td>
+    </tr>
 
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:description) %>:</b>
-  <%= @jobnet_actual.description %>
-</p>
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:executing_pid) %></th>
+      <td><%= @jobnet_actual.executing_pid %></td>
+    </tr>
 
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:script) %>:</b>
-  <%= @jobnet_actual.script %>
-</p>
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:exit_status) %></th>
+      <td><%= @jobnet_actual.exit_status %></td>
+    </tr>
 
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:jobnet_type_cd) %>:</b>
-  <%= @jobnet_actual.jobnet_type_cd %>
-</p>
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:phase_name) %></th>
+      <td><%= @jobnet_actual.phase_name %></td>
+    </tr>
 
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:executing_pid) %>:</b>
-  <%= @jobnet_actual.executing_pid %>
-</p>
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:started_at) %></th>
+      <td><%= @jobnet_actual.started_at %></td>
+    </tr>
 
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:exit_status) %>:</b>
-  <%= @jobnet_actual.exit_status %>
-</p>
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:finished_at) %></th>
+      <td><%= @jobnet_actual.finished_at %></td>
+    </tr>
 
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:was_expansion) %>:</b>
-  <%= @jobnet_actual.was_expansion %>
-</p>
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:stopped_at) %></th>
+      <td><%= @jobnet_actual.stopped_at %></td>
+    </tr>
 
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:phase_cd) %>:</b>
-  <%= @jobnet_actual.phase_cd %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:started_at) %>:</b>
-  <%= @jobnet_actual.started_at %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:finished_at) %>:</b>
-  <%= @jobnet_actual.finished_at %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:stopped_at) %>:</b>
-  <%= @jobnet_actual.stopped_at %>
-</p>
-
-<p>
-  <b><%= Tengine::Job::JobnetActual.human_attribute_name(:stop_reason) %>:</b>
-  <%= @jobnet_actual.stop_reason %>
-</p>
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:stop_reason) %></th>
+      <td><%= @jobnet_actual.stop_reason %></td>
+    </tr>
 
 
-<%= link_to_edit edit_tengine_job_root_jobnet_actual_jobnet_actual_path(@jobnet_actual, root_jobnet_actual_id: @root_jobnet_actual) %> |
-<%= link_to_back_list tengine_job_root_jobnet_actual_jobnet_actuals_path(@root_jobnet_actual) %>
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:jobnet_type_name) %></th>
+      <td><%= @jobnet_actual.jobnet_type_name %></td>
+    </tr>
+
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:was_expansion) %></th>
+      <td><%= @jobnet_actual.was_expansion %></td>
+    </tr>
+
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:killing_signals) %></th>
+      <td><%= @jobnet_actual.killing_signals_text %></td>
+    </tr>
+
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:killing_signal_interval) %></th>
+      <td><%= @jobnet_actual.killing_signal_interval %></td>
+    </tr>
+
+  </tbody>
+</table>
+
