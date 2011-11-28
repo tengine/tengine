@@ -164,15 +164,18 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     result = Tengine::Job::Execution.create!(
       options.merge(:root_jobnet_id => root_jobnet_id))
 
-    sender = Tengine::Event.default_sender
-    sender.wait_for_connection do
-      sender.fire(:"stop.jobnet.job.tengine",
-        :source_name => root_jobnet.name_as_resource,
-        :properties => {
-          :execution_id => result.id.to_s,
-          :root_jobnet_id => root_jobnet_id,
-          :target_jobnet_id => root_jobnet_id.to_s,
-      })
+    EM.run do
+      sender = Tengine::Event::Sender.new(Tengine::Event.default_sender.mq_suite,
+                                          :logger => Rails.logger)
+      sender.wait_for_connection do
+        sender.fire(:"stop.jobnet.job.tengine",
+          :source_name => root_jobnet.name_as_resource,
+          :properties => {
+            :execution_id => result.id.to_s,
+            :root_jobnet_id => root_jobnet_id,
+            :target_jobnet_id => root_jobnet_id.to_s,
+        })
+      end
     end
 
     return result

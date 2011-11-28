@@ -3,10 +3,10 @@
 ##############################
 # setting server and roles
 ##############################
-role :web, "tgnweb001", "tgnweb002"
-role :app, "tgnweb001", "tgnweb002"
-role :db,  "tgnweb001", :primary => true # This is where Rails migrations will run
-role :db,  "tgnweb002"
+role :web, "zbtgnwb1", "zbtgnwb2"
+role :app, "zbtgnwb1", "zbtgnwb2"
+role :db,  "zbtgnwb1", :primary => true # This is where Rails migrations will run
+role :db,  "zbtgnwb2"
 
 set :user,              "root"
 set :password do
