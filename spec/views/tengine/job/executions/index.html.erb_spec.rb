@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe "tengine/job/executions/index.html.erb" do
@@ -7,7 +8,7 @@ describe "tengine/job/executions/index.html.erb" do
       stub_model(Tengine::Job::Execution,
         :root_jobnet => root_jobnet,
         :target_actual_ids => ["abc", "123"],
-        :phase_cd => 1,
+        :phase_name => "稼働中",
         :preparation_command => "Preparation Command",
         :actual_base_timeout_alert => 2,
         :actual_base_timeout_termination => 3,
@@ -18,7 +19,7 @@ describe "tengine/job/executions/index.html.erb" do
       stub_model(Tengine::Job::Execution,
         :root_jobnet => root_jobnet,
         :target_actual_ids => ["abc", "123"],
-        :phase_cd => 1,
+        :phase_name => "稼働中",
         :preparation_command => "Preparation Command",
         :actual_base_timeout_alert => 2,
         :actual_base_timeout_termination => 3,
@@ -34,12 +35,6 @@ describe "tengine/job/executions/index.html.erb" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "root_jobnet1", :count => 2
     assert_select "tr>td", :text => "abc,123", :count => 2
-    assert_select "tr>td", :text => 1.to_s, :count => 2
-    assert_select "tr>td", :text => "Preparation Command".to_s, :count => 2
-    assert_select "tr>td", :text => 2.to_s, :count => 2
-    assert_select "tr>td", :text => 3.to_s, :count => 2
-    assert_select "tr>td", :text => 4.to_s, :count => 2
-    assert_select "tr>td", :text => true.to_s, :count => 2
-    assert_select "tr>td", :text => false.to_s, :count => 2
+    assert_select "tr>td", :text => "稼働中".to_s, :count => 2
   end
 end

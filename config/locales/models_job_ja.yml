@@ -55,6 +55,24 @@ ja:
         server_name: "接続サーバ名"
         credential_name: "認証情報名"
         description: "説明"
+      tengine/job/execution:
+        id: "ID"
+        root_jobnet: "ルートジョブネット"
+        root_jobnet_id: "ルートジョブネット"
+        target_actual_ids: "起動ジョブ"
+        phase_cd: "ステータス"
+        phase_key: "ステータス"
+        phase_name: "ステータス"
+        started_at: "開始日時"
+        finished_at: "終了日時"
+        preparation_command: "事前実行コマンド"
+        actual_base_timeout_alert: "タイムアウト(警告)"
+        actual_base_timeout_termination: "タイムアウト(強制終了)"
+        estimated_time: "見積もり時間(秒)"
+        keeping_stdout: "標準出力を保存"
+        keeping_stderr: "標準エラー出力を保存"
+        retry: "再実行"
+        spot: "スポット実行"
 
   selectable_attrs:
     tengine/job/root_jobnet_actual/finder:
@@ -68,5 +86,8 @@ ja:
         error: "エラー"
         stuck: "スタック"
     tengine/job/jobnet_actual:
+      phase_cd:
+        <<: *phase_cds
+    tengine/job/execution:
       phase_cd:
         <<: *phase_cds
