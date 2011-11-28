@@ -32,6 +32,50 @@
 # Tengine::Job::Execution phase changed. <4ec39cf842d9ebf0a7000007> running => success
 
 
+  @1000
+  シナリオ: [正常系]1000_1つのジョブが含まれるジョブネット_を試してみる
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1001_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb -GVAL 0"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jobnet1001"を実行する
+    かつ ジョブネット"jobnet1001"が完了することを確認する
+    
+    ならば ジョブネット"/jobnet1001" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1001/job1" のステータスが正常終了であること
+
+    # -----------------------------
+    # tengine_job_test job1 start
+    # tengine_job_test job1 finish
+    # -----------------------------
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
+    かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"の後であること
+
+		###############################
+		# エレメントのフェーズ遷移の確認
+		###############################
+
+    # Execution
+		もし 実行ジョブ"jobnet1001"のExecutionを"execution"と呼ぶことにする
+		# /jobnet1001 => jobnet1001
+		かつ 実行ジョブ"jobnet1001"のルートジョブネット"/jobnet1001"を"root_jobnet"と呼ぶことにする
+		# start@/jobnet1001 => S1
+		かつ 実行ジョブ"jobnet1001"のスタート"start@/jobnet1001"を"S1"と呼ぶことにする
+		# next!start@/jobnet1001 => e1
+		かつ 実行ジョブ"jobnet1001"のエッジ"next!start@/jobnet1001"を"e1"と呼ぶことにする
+		# /jobnet1001/job1 => job1
+		もし 実行ジョブ"jobnet1001"のジョブ"/jobnet1001/job1"を"job1"と呼ぶことにする
+		# next!/jobnet1001/job1 => e2
+		かつ 実行ジョブ"jobnet1001"のエッジ"next!/jobnet1001/job1"を"e2"と呼ぶことにする
+		# end@/jobnet1001 => E1
+		かつ 実行ジョブ"jobnet1001"のエンド"end@/jobnet1001"を"E1"と呼ぶことにする
+
+
+		ならば "Tengineコアプロセス"のアプリケーションログに"execution phase changed. #{execution} initialized -> ready"とジョブのフェーズが変更した情報が出力されていること
+		かつ "Tengineコアプロセス"のアプリケーションログに"execution phase changed. #{execution} ready -> starting"とジョブのフェーズが変更した情報が出力されており、"execution phase changed. #{execution} initialized -> ready"の後であること
 
   # ./usecases/job/dsl/1001_one_job_in_jobnet.rb
   # -------------------
@@ -57,13 +101,9 @@
     ならば ジョブネット"/jobnet1001" のステータスが正常終了であること
     かつ ジョブ"/jobnet1001/job1" のステータスが正常終了であること
 
-    # -----------------------------
-    # tengine_job_test job1 start
-    # tengine_job_test job1 finish
-    # -----------------------------
     もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
-    ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
-    かつ "tengine_job_test job1 finish"と"スクリプトログ1"に出力されており、"tengine_job_test job1 finish"の後であること
+    ならば "tengine_job_test job1 start"と"スクリプトログ"に出力されていること
+    かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"の後であること
 
 
 		###############################
