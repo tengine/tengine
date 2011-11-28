@@ -203,13 +203,9 @@ describe Tengine::Job::ExecutionsController do
       describe "実行のとき" do
         before do
           EM.stub(:run).and_yield
-          mock_mq_suite = mock(:mq_suite)
-          mock_default_sender = mock(:default_sender)
-          mock_default_sender.should_receive(:mq_suite).and_return(mock_mq_suite)
-          Tengine::Event.stub(:default_sender).and_return(mock_default_sender)
           mock_sender = mock(:sender)
-          mock_sender.should_receive(:fire)
-          Tengine::Event::Sender.stub(:new).with(any_args).and_return(mock_sender)
+          Tengine::Event.stub(:default_sender).and_return(mock_sender)
+          mock_sender.stub(:fire)
         end
 
         it "assigns a newly created execution as @execution" do
@@ -232,13 +228,9 @@ describe Tengine::Job::ExecutionsController do
       describe "再実行のとき" do
         before do
           EM.stub(:run).and_yield
-          mock_mq_suite = mock(:mq_suite)
-          mock_default_sender = mock(:default_sender)
-          mock_default_sender.should_receive(:mq_suite).and_return(mock_mq_suite)
-          Tengine::Event.stub(:default_sender).and_return(mock_default_sender)
           mock_sender = mock(:sender)
+          Tengine::Event.stub(:default_sender).and_return(mock_sender)
           mock_sender.stub(:fire)
-          Tengine::Event::Sender.should_receive(:new).with(any_args).and_return(mock_sender)
 
           executed = Tengine::Job::Execution.create!(:retry => true, :spot => false,
             :root_jobnet_id => @test_actual.id.to_s,

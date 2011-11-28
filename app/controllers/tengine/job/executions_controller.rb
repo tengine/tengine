@@ -92,9 +92,7 @@ class Tengine::Job::ExecutionsController < ApplicationController
       executed = nil
       EM.run do
         operation = @execution.retry ? :rerun : :execute
-        sender = Tengine::Event::Sender.new(Tengine::Event.default_sender.mq_suite, :logger => Rails.logger)
-        executed = @root_jobnet.send(operation,
-          execute_param.merge(:sender => sender))
+        executed = @root_jobnet.send(operation, execute_param)
       end
 
       format.html do

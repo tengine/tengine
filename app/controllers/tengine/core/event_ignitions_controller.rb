@@ -1,4 +1,13 @@
 # -*- coding: utf-8 -*-
+
+# TODO ここではなくて、Tengine::Eventの定義で以下の記述を行う
+Tengine::Event.class_eval do
+  unless instance_methods.include?(:properties_yaml)
+    include Tengine::Core::CollectionAccessible
+    map_yaml_accessor :properties
+  end
+end
+
 class Tengine::Core::EventIgnitionsController < ApplicationController
 
   def new
@@ -17,23 +26,22 @@ class Tengine::Core::EventIgnitionsController < ApplicationController
   end
 
   def fire
-    event = params[:event]
-    event_type_name = event[:event_type_name]
-
-    options = ""
-    options = options << " key:\"#{event[:key]}\"" unless event[:key].blank?
-    options = options << " source_name:\"#{event[:source_name]}\"" unless event[:source_name].blank?
-    options = options << " occurred_at:\"#{Time.parse(event[:occurred_at]).utc.to_s}\"" unless event[:occurred_at].blank?
-    options = options << " level_key:\"#{Tengine::Core::Event.level_key_by_id(event[:level]).to_s}\"" unless event[:level].blank?
-    options = options << " sender_name:\"#{event[:sender_name]}\"" unless event[:sender_name].blank?
-    # TODO Hash としてセットできずにエラーになる
-    # options = options << " properties:\"#{event[:properties]}\"" unless event[:properties].blank?
-
-    fire_command = "tengine_fire #{event_type_name} #{options}"
-    if system(fire_command)
+    begin
+      event = params[:event]
+      event_type_name = event[:event_type_name]
+      options = [:key, :source_name, :occurred_at, :level, :sender_name].inject({}) do |d, name|
+        val = event[name]
+        d[name] = val unless val.blank?
+        d
+      end
+      yaml = event[:properties_yaml]
+      unless yaml.blank?
+        options[:properties] = YAML.load(yaml)
+      end
+      EM.run{ Tengine::Event.fire(event_type_name, options) }
       flash[:notice] = "#{event_type_name}を発火しました"
-    else
-      flash[:notice] = "#{event_type_name}の発火に失敗しました"
+    rescue Exception => e
+      flash[:notice] = "#{event_type_name}の発火に失敗しました: [#{e.class.name}] #{e.message}"
     end
 
     respond_to do |format|
