@@ -24,11 +24,11 @@ test:
 production:
   <<: *defaults
   hosts:
-    - - tgndb001
+    - - zbtgndb1
       - 27017
-    - - tgndb002
+    - - zbtgndb2
       - 27017
-    - - tgndb003
+    - - zbtgndb3
       - 27017
   database: tengine_production
   # slaves:
