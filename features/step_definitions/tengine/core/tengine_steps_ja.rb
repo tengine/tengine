@@ -445,6 +445,38 @@ end
   Then %{I should see the following drivers:}, expected_table
 end
 
+ならば /^"([^"]*)と同じ内容の以下の行が表示されること$/ do |file_name, expected_table|
+  replaced_expected_table = expected_table.arguments_replaced(job_id_replace(file_name, expected_table))
+  Then %{I should see the following drivers:}, replaced_expected_table
+end
+
+
+def job_id_replace(file_name, expected_table)
+  replace = {}
+  expected_table.hashes.each |row|
+    row.each |key, value|
+      if value.include?("テンプレートID")　|| value.include?("実行時ID")
+        /^(.*)の/ =~ value
+        index = @h[file_name]["MM_ACTUAL_JOB_NAME_PATH"].index($1)
+        if index
+          id = @h[file_name]["MM_TEMPLATE_JOB_ANCESTOR_IDS"][index] 
+          replace.push({value => id }) 
+        end
+      end
+      if value.include?("実行時ID")
+#        ids_reader(file_name, "MM_ACTUAL_JOB_ANCESTOR_IDS")
+        /^(.*)の/ =~ value
+        index = @h[file_name]["MM_ACTUAL_JOB_NAME_PATH"].index($1)
+        if index
+          id = @h[file_name]["MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"][index]
+          replace.push({value => id })
+        end
+      end
+    end
+  end
+  replace
+end
+
 ならば /^以下の行が表示されること$/ do |expected_table|
   actual = tableish('table.list tr', 'td,th')
   expected_table.diff!(actual, :surplus_row => false)
@@ -480,6 +512,11 @@ end
   current_path = URI.parse(current_url).path
   sleep 30
   current_path.should_not == path_to(page_name)
+end
+
+ならば /^URLのexecuteのIDとログのexecuteのIDが一緒であること$/ do |page_name|
+  current_path = URI.parse(current_url).path
+  @["MM_SCHEDULE_ID"].should_eql current_path.slice(path.rindex("/")+1,path.size)
 end
 
 #############
@@ -1307,6 +1344,59 @@ require 'net/ssh'
     output = session.exec(command)
   end
   @h[file_name] = output.split(/\n/) if output
+  keyreader(file_name)
+end
+
+ならば /^"([^"]*)"の"([^"]*)"の値が"([^"]*)"であること$/ do |job_name, key, value|
+  @h[job_name][key].should_eql value
+end
+
+ならば /^"([^"]*)"の"([^"]*)"の値が"([^"]*)"で区切られていること$/ do |job_name, key, separator|
+  @h[job_name][key].include?(separator).should be_true
+end
+
+#以下のようなパターンからジョブ名、環境変数名、環境変数の値を抜き出します
+#Thu Nov 24 18:49:26 JST 2011 <47889> job1 MM_FAILED_JOB_ANCESTOR_IDS:
+#Thu Nov 24 18:49:29 JST 2011 <48067> jobnet1048_finally MM_ACTUAL_JOB_ANCESTOR_IDS: 4ece1322cd67c8ba61000003;4ece1322cd67c8ba6100000b
+def key_reader(file_name)
+ ids_reader(file_name, "MM_ACTUAL_JOB_NAME_PATH")
+ ids_reader(file_name, "MM_ACTUAL_JOB_ANCESTOR_IDS")
+ ids_reader(file_name, "MM_TEMPLATE_JOB_ANCESTOR_IDS")
+ ids_reader(file_name, "MM_FULL_ACTUAL_JOB_ANCESTOR_IDS")
+
+  @h[file_name].each do|line|
+    if /> (.*) (.*):(.*)$/ =~ line
+      env = $3.slice(1,env.size) unless $3.size == 0
+      if $2 == "MM_SCHEDULE_ID"
+        @h["MM_SCHEDULE_ID"] = env
+      else
+        @h[$1] = {}
+        @h[$1][$2] = env
+      end
+    end
+  end
+end
+
+def ids_reader(file_name, ids_key)
+  separator = nil
+  if ids_key == "MM_ACTUAL_JOB_NAME_PATH"
+    separator = "/"
+  else
+    separator = ";"
+  end
+  @h[file_name].each do|line|
+    if /> (.*) (.*):(.*)$/ =~ line
+      if ids_key == $2
+        env = $3.slice(1,env.size) unless $3.size == 0
+        @h[file_name][ids_key] = [] if @h[file_name][ids_key]
+        env_split = env.split(separator)
+        env_split.each_with_index do |path, index|
+          path = env_split[index-1] << "/" << path  if path == "finally"
+          @h[file_name][ids_key].add(path) if @h[file_name][ids_key].include?(path)
+        end
+      end
+    end
+  end
 end
 
 ならば /^"([^"]*)"と"([^"]*)"の先頭に出力されていること$/ do |text, file_name|

@@ -1,0 +1,6 @@
+/describe_host_nodes.json
+/describe_images.json
+/describe_instance_specs.json
+/describe_instances.json
+/run_instances.json
+/terminate_instances.json

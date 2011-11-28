@@ -4,7 +4,7 @@
     "start": 0,
     "results": [
       {
-        "id": "virtual_server_image_id_01",
+        "id": "virtual_server_image_uuid_01",
         "uuid": "virtual_server_image_uuid_01",
         "description": "virtual_server_image_description_01",
         "updated_at": "2011-10-18T03:53:37Z",
@@ -19,7 +19,7 @@
       },
 
       {
-        "id": "virtual_server_image_id_02",
+        "id": "virtual_server_image_uuid_02",
         "uuid": "virtual_server_image_uuid_02",
         "description": "virtual_server_image_description_02",
         "updated_at": "2011-10-18T03:53:37Z",
@@ -34,7 +34,7 @@
       },
 
       {
-        "id": "virtual_server_image_id_03",
+        "id": "virtual_server_image_uuid_03",
         "uuid": "virtual_server_image_uuid_03",
         "description": "virtual_server_image_description_03",
         "updated_at": "2011-10-18T03:53:37Z",
@@ -49,7 +49,7 @@
       },
 
       {
-        "id": "virtual_server_image_id_04",
+        "id": "virtual_server_image_uuid_04",
         "uuid": "virtual_server_image_uuid_04",
         "description": "virtual_server_image_description_04",
         "updated_at": "2011-10-18T03:53:37Z",
@@ -64,7 +64,7 @@
       },
 
       {
-        "id": "virtual_server_image_id_05",
+        "id": "virtual_server_image_uuid_05",
         "uuid": "virtual_server_image_uuid_05",
         "description": "virtual_server_image_description_05",
         "updated_at": "2011-10-18T03:53:37Z",
