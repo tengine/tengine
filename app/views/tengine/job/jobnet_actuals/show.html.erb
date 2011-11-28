@@ -85,6 +85,15 @@
       <td><%= @jobnet_actual.killing_signal_interval %></td>
     </tr>
 
+    <tr>
+      <th><%= Tengine::Job::JobnetActual.human_attribute_name(:error_messages) %></th>
+      <td>
+        <% (@jobnet_actual.error_messages || []).each do |msg| %>
+          <pre><%= msg %></pre>
+        <% end -%>
+      </td>
+    </tr>
+
   </tbody>
 </table>
 

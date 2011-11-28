@@ -20,7 +20,7 @@ gem "kaminari", "~> 0.12.4"
 gem "tengine_event"   , "~> 0.3.0"
 gem "tengine_core"    , "~> 0.4.0"
 gem "tengine_resource", "~> 0.4.0"
-gem "tengine_job"     , "~> 0.4.0"
+gem "tengine_job"     , "~> 0.4.5"
 
 gem "wakame-adapters-tengine", "~> 0.0.0"
 
