@@ -1,14 +1,17 @@
-tengined:
+process:
   daemon: false
-  activation_timeout: 300,
-  load_path: "../tengine_core/examples/"
-  log_dir: "./"                                  # 本番環境での例 "/var/log/tengined"
   pid_dir:        "./tmp/tengined_pids"          # 本番環境での例 "/var/run/tengined_pids"
+
+tengined:
+  activation_timeout: 300,
+  load_path: "./spec_dsl/"
+  confirmation_threshold: info
+  status_dir:     "./tmp/tengined_status"        # 本番環境での例 "/var/run/tengined_status"
   activation_dir: "./tmp/tengined_activations"   # 本番環境での例 "/var/run/tengined_activations"
 
 db:
   host: 'localhost'
-  port: 27027
+  port: 27017
   username:
   password:
   database: 'tengine_production'
