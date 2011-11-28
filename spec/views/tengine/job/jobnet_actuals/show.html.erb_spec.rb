@@ -18,7 +18,8 @@ describe "tengine/job/jobnet_actuals/show.html.erb" do
       :exit_status => "Exit Status",
       :was_expansion => false,
       :phase_cd => 1,
-      :stop_reason => "Stop Reason"
+      :stop_reason => "Stop Reason",
+      :error_messages => ["foo", "bar"]
     ))
   end
 
@@ -38,5 +39,7 @@ describe "tengine/job/jobnet_actuals/show.html.erb" do
     rendered.should match(/false/)
     rendered.should match(/1/)
     rendered.should match(/Stop Reason/)
+    rendered.should match(/foo/)
+    rendered.should match(/bar/)
   end
 end

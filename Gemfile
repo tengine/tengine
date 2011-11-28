@@ -20,7 +20,7 @@ gem "kaminari", "~> 0.12.4"
 gem "tengine_event"   , "~> 0.3.0"
 gem "tengine_core"    , "~> 0.4.0"
 gem "tengine_resource", "~> 0.4.0"
-gem "tengine_job"     , "~> 0.4.0"
+gem "tengine_job"     , "~> 0.4.5"
 
 gem "wakame-adapters-tengine", "~> 0.0.0"
 
@@ -44,9 +44,6 @@ group :test, :development do
   # gem "rcov", ">= 0"
   gem "simplecov", "~> 0.5.3"
 
-  if RUBY_PLATFORM =~ /linux/ then
-    gem 'therubyracer', "~> 0.9.4"
-  end
 end
 
 

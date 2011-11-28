@@ -1,8 +1,16 @@
 class Tengine::Job::JobnetActualsController < ApplicationController
+  private
+
+  before_filter :assign_root_jobnet_actual
+  def assign_root_jobnet_actual
+    @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:root_jobnet_actual_id])
+  end
+
+  public
+
   # GET /tengine/job/jobnet_actuals
   # GET /tengine/job/jobnet_actuals.json
   def index
-    @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:root_jobnet_actual_id])
     @jobnet_actuals = []
     visitor = Tengine::Job::Vertex::AllVisitor.new do |vertex|
                 if vertex.instance_of?(Tengine::Job::JobnetActual)
@@ -21,9 +29,7 @@ class Tengine::Job::JobnetActualsController < ApplicationController
   # GET /tengine/job/jobnet_actuals/1
   # GET /tengine/job/jobnet_actuals/1.json
   def show
-    @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:root_jobnet_actual_id])
-    @jobnet_actual = Tengine::Job::JobnetActual.find(params[:id])
-
+    @jobnet_actual = @root_jobnet_actual.vertex(params[:id])
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @jobnet_actual }
@@ -33,7 +39,6 @@ class Tengine::Job::JobnetActualsController < ApplicationController
   # GET /tengine/job/jobnet_actuals/new
   # GET /tengine/job/jobnet_actuals/new.json
   def new
-    @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:root_jobnet_actual_id])
     @jobnet_actual = Tengine::Job::JobnetActual.new
 
     respond_to do |format|
@@ -44,14 +49,12 @@ class Tengine::Job::JobnetActualsController < ApplicationController
 
   # GET /tengine/job/jobnet_actuals/1/edit
   def edit
-    @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:root_jobnet_actual_id])
-    @jobnet_actual = @root_jobnet_actual.find_descendant(params[:id])
+    @jobnet_actual = @root_jobnet_actual.vertex(params[:id])
   end
 
   # POST /tengine/job/jobnet_actuals
   # POST /tengine/job/jobnet_actuals.json
   def create
-    @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:root_jobnet_actual_id])
     @jobnet_actual = Tengine::Job::JobnetActual.new(params[:jobnet_actual])
 
     respond_to do |format|
@@ -68,8 +71,6 @@ class Tengine::Job::JobnetActualsController < ApplicationController
   # PUT /tengine/job/jobnet_actuals/1
   # PUT /tengine/job/jobnet_actuals/1.json
   def update
-    @root_jobnet_actual = \
-      Tengine::Job::RootJobnetActual.find(params[:root_jobnet_actual_id])
     @jobnet_actual = @root_jobnet_actual.find_descendant(params[:id])
 
     respond_to do |format|
@@ -88,7 +89,6 @@ class Tengine::Job::JobnetActualsController < ApplicationController
   # DELETE /tengine/job/jobnet_actuals/1
   # DELETE /tengine/job/jobnet_actuals/1.json
   def destroy
-    @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:root_jobnet_actual_id])
     @jobnet_actual = @root_jobnet_actual.find_descendant(params[:id])
     stop(@root_jobnet_actual, @jobnet_actual)
 
@@ -119,10 +119,13 @@ class Tengine::Job::JobnetActualsController < ApplicationController
       properties[:target_jobnet_id] = target_id
     end
 
-    sender = Tengine::Event.default_sender
-    sender.wait_for_connection do
-      sender.fire(event, :source_name => target.name_as_resource,
-        :properties => properties)
+    EM.run do
+      sender = Tengine::Event::Sender.new(Tengine::Event.default_sender.mq_suite,
+                                          :logger => Rails.logger)
+      sender.wait_for_connection do
+        sender.fire(event, :source_name => target.name_as_resource,
+          :properties => properties)
+      end
     end
 
     return result

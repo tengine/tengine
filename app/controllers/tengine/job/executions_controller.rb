@@ -89,9 +89,13 @@ class Tengine::Job::ExecutionsController < ApplicationController
       klass = Tengine::Job::RootJobnetActual if @retry
       @root_jobnet = klass.find(@execution.root_jobnet_id)
 
-      operation = @execution.retry ? :rerun : :execute
-      executed = @root_jobnet.send(operation,
-        execute_param.merge(:sender => Tengine::Event.default_sender))
+      executed = nil
+      EM.run do
+        operation = @execution.retry ? :rerun : :execute
+        sender = Tengine::Event::Sender.new(Tengine::Event.default_sender.mq_suite, :logger => Rails.logger)
+        executed = @root_jobnet.send(operation,
+          execute_param.merge(:sender => sender))
+      end
 
       format.html do
         redirect_to tengine_job_root_jobnet_actual_path(executed.root_jobnet.id)
