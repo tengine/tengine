@@ -315,6 +315,56 @@
     かつ "tengine_job_test job3 start"と"スクリプトログ"に出力されており、"tengine_job_test job2 finish"と"tengine_job_test job3 finish"の間であること
     かつ "tengine_job_test job3 finish"と"スクリプトログ"の末尾に出力されていること
 
+
+  # ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb
+  #  -------------------
+  # 
+  # require 'tengine_job'
+  # 
+  # jobnet("jobnet1006_2", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("job1")
+  #   job("job1", "$HOME/tengine_job_test.sh 0 job1", :to => "jobnet1006_2_2")
+  #   expansion("jobnet1006_2_2", :to => "job4")
+  #   job("job4", "$HOME/tengine_job_test.sh 0 job4")
+  # end
+  # jobnet("jobnet1006_2_2", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("job2")
+  #   job("job2", "$HOME/tengine_job_test.sh 0 job2", :to => "jobnet1006_2_3")
+  #   expansion("jobnet1006_2_3")
+  # end
+  # jobnet("jobnet1006_2_3", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("job3")
+  #   job("job3", "$HOME/tengine_job_test.sh 0 job3")
+  # end
+  #  -------------------
+  @success
+  @1006_2
+  シナリオ: [正常系]expansionされたジョブネット内で更にexpansionされているジョブネット_を試してみる
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jobnet1006_2"を実行する
+    かつ ジョブネット"jobnet1006_2"が完了することを確認する
+    
+    ならば ジョブネット"/jobnet1006_2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1006/job1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1006/jobnet1006_2_2/job2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1006/jobnet1006_2_2/jobnet1006_2_3/job3" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1006/job4" のステータスが正常終了であること
+                                   
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
+    かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
+    かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
+    かつ "tengine_job_test job2 finish"と"スクリプトログ"に出力されており、"tengine_job_test job2 start"と"tengine_job_test job3 start"の間であること
+    かつ "tengine_job_test job3 start"と"スクリプトログ"に出力されており、"tengine_job_test job2 finish"と"tengine_job_test job3 finish"の間であること
+    かつ "tengine_job_test job3 finish"と"スクリプトログ"に出力されており、"tengine_job_test job3 start"と"tengine_job_test job4 start"の間であること
+    かつ "tengine_job_test job4 start"と"スクリプトログ"に出力されており、"tengine_job_test job3 finish"と"tengine_job_test job4 finish"の間であること
+    かつ "tengine_job_test job4 finish"と"スクリプトログ"の末尾に出力されていること
+
+
   # ./usecases/job/dsl/1007_boot_jobs_in_jobnet.rb
   #  -------------------
   # 
