@@ -1530,7 +1530,7 @@
   @manual
   シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1048_jobnet_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1048_jobnet_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1627,11 +1627,11 @@
   #   end
   # end
   #  -------------------
-  @1048_failure
+  @1048_1
   @manual
   シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる_ジョブが失敗した場合
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1048_jobnet_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1048_jobnet_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1727,11 +1727,11 @@
   #   end
   # end
   #  -------------------
-  @1048_finally_failure
+  @1048_2
   @manual
   シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる_finallyのジョブが失敗した場合
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1048_jobnet_script_env_finally_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1048_jobnet_script_env_finally_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1834,7 +1834,7 @@
   シナリオ: [正常系]1049_expantionを利用したシェルスクリプトに環境変数が渡される_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1049_expantion_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1049_expantion_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1921,12 +1921,12 @@
   #    job("job1", "exit 1")
   #  end
   #  -------------------
-  @1049_failure
+  @1049_2
   @manual
   シナリオ: [正常系]1049_expantion_failureを利用したシェルスクリプトに環境変数が渡される_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1049_expantion_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1049_expantion_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -3920,7 +3920,7 @@
   # end
 
   @11102
-  シナリオ: [正常系]jn0004(Finally付きのジョブネット)を試してみる_fork前で失敗
+  シナリオ: [正常系]finally付きのジョブネットを試してみる_fork前で失敗
   
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
@@ -3948,7 +3948,7 @@
 
 
   @11103
-  シナリオ: [正常系]jn0004(Finally付きのジョブネット)を試してみる_fork後で片方が失敗
+  シナリオ: [正常系]finally付きのジョブネットを試してみる_fork後で片方が失敗
   
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
@@ -3980,7 +3980,7 @@
 
 
   @11104
-  シナリオ: [正常系]jn0004(Finally付きのジョブネット)を試してみる_fork後で両方が失敗
+  シナリオ: [正常系]finally付きのジョブネットを試してみる_fork後で両方が失敗
   
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
@@ -4072,7 +4072,7 @@
   # end
   #  -------------------
   @1105
-  シナリオ: [正常系]jn0005_ジョブネット内のジョブが失敗する
+  シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する
   
   
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -4121,7 +4121,7 @@
 
 
   @1106
-  シナリオ: [正常系]jn0005_ジョブネット内のジョブが失敗する_fork後片方
+  シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する_fork後片方
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0005_retry_two_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
@@ -4174,7 +4174,7 @@
     かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f start"の後であること
 
   @1107
-  シナリオ: [正常系]jn0005_ジョブネット内のジョブが失敗する_fork後片方_ジョブネット外のfork後片方
+  シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する_fork後片方_ジョブネット外のfork後片方
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0005_retry_two_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
@@ -4232,7 +4232,7 @@
 
 
   @1108
-  シナリオ: [正常系]jn0005_ジョブネット内のジョブが失敗する_finallyがエラー終了
+  シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する_finallyがエラー終了
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0005_retry_two_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
@@ -4291,7 +4291,7 @@
 
 
   @1109
-  シナリオ: [正常系]jn0005_ジョブネット内のジョブが失敗する_finally内のfinallyを持つジョブネット内のジョブがエラー終了
+  シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する_finally内のfinallyを持つジョブネット内のジョブがエラー終了
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0005_retry_two_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
@@ -4408,7 +4408,7 @@
   #   end
   # end
   @1110
-  シナリオ: [正常系]jn0006_ジョブネット内ジョブネット内のジョブが失敗する
+  シナリオ: [正常系]ジョブネット内ジョブネット内のジョブが失敗する
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0006_retry_three_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
