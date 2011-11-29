@@ -12,7 +12,7 @@
     かつ 認証情報が名称:"test_credential1"で登録されている
     かつ イベントキューにメッセージが1件もない
 
-	@success
+  @success
   @1000
   シナリオ: [正常系]1000_1つのジョブが含まれるジョブネット_を試してみる
 
@@ -35,7 +35,7 @@
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"の後であること
 
-		
+    
   # ./usecases/job/dsl/1001_one_job_in_jobnet.rb
   # -------------------
   # require 'tengine_job'
@@ -46,7 +46,7 @@
   # end
   # -------------------
   #
-	@success
+  @success
   @1001
   シナリオ: [正常系]1001_1つのジョブが含まれるジョブネット_を試してみる
 
@@ -69,63 +69,63 @@
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"の後であること
 
-		###############################
-		# エレメントのフェーズ遷移の確認
-		###############################
+    ###############################
+    # エレメントのフェーズ遷移の確認
+    ###############################
 
     # Execution
-		もし 実行ジョブ"jobnet1001"のExecutionを"execution"と呼ぶことにする
-		# /jobnet1001 => jobnet1001
-		かつ 実行ジョブ"jobnet1001"のルートジョブネット"/jobnet1001"を"root_jobnet"と呼ぶことにする
-		# next!start@/jobnet1001 => e1
-		かつ 実行ジョブ"jobnet1001"のエッジ"next!start@/jobnet1001"を"e1"と呼ぶことにする
-		# /jobnet1001/job1 => job1
-		もし 実行ジョブ"jobnet1001"のジョブ"/jobnet1001/job1"を"job1"と呼ぶことにする
-		# next!/jobnet1001/job1 => e2
-		かつ 実行ジョブ"jobnet1001"のエッジ"next!/jobnet1001/job1"を"e2"と呼ぶことにする
+    もし 実行ジョブ"jobnet1001"のExecutionを"execution"と呼ぶことにする
+    # /jobnet1001 => jobnet1001
+    かつ 実行ジョブ"jobnet1001"のルートジョブネット"/jobnet1001"を"root_jobnet"と呼ぶことにする
+    # next!start@/jobnet1001 => e1
+    かつ 実行ジョブ"jobnet1001"のエッジ"next!start@/jobnet1001"を"e1"と呼ぶことにする
+    # /jobnet1001/job1 => job1
+    もし 実行ジョブ"jobnet1001"のジョブ"/jobnet1001/job1"を"job1"と呼ぶことにする
+    # next!/jobnet1001/job1 => e2
+    かつ 実行ジョブ"jobnet1001"のエッジ"next!/jobnet1001/job1"を"e2"と呼ぶことにする
 
     # receive event "start.execution.job.tengine"
-		ならば "Tengineコアプロセス"のアプリケーションログに"#{execution} initialized -> ready"とジョブのフェーズが変更した情報が出力されていること
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{execution} ready -> starting"とジョブのフェーズが変更した情報が出力されており、"#{execution} initialized -> ready"の後であること
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} initialized -> ready"とジョブのフェーズが変更した情報が出力されており、"#{execution} ready -> starting"の後であること
+    ならば "Tengineコアプロセス"のアプリケーションログに"#{execution} initialized -> ready"とジョブのフェーズが変更した情報が出力されていること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{execution} ready -> starting"とジョブのフェーズが変更した情報が出力されており、"#{execution} initialized -> ready"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} initialized -> ready"とジョブのフェーズが変更した情報が出力されており、"#{execution} ready -> starting"の後であること
 
 
     # receive event "start.jobnet.job.tengine"
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} ready -> starting"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} initialized -> ready"の後であること
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{execution} starting -> running"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} ready -> starting"の後であること
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{e1} active -> transmitting"とジョブのフェーズが変更した情報が出力されており、"#{execution} starting -> running"の後であること
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{job1} initialized -> ready"とジョブのフェーズが変更した情報が出力されており、"#{e1} active -> transmitting"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} ready -> starting"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} initialized -> ready"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{execution} starting -> running"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} ready -> starting"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e1} active -> transmitting"とジョブのフェーズが変更した情報が出力されており、"#{execution} starting -> running"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{job1} initialized -> ready"とジョブのフェーズが変更した情報が出力されており、"#{e1} active -> transmitting"の後であること
 
     # receive event "start.job.job.tengine"
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{e1} transmitting -> transmitted"とジョブのフェーズが変更した情報が出力されており、"#{job1} initialized -> ready"の後であること
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{job1} ready -> starting"とジョブのフェーズが変更した情報が出力されており、"#{e1} transmitting -> transmitted"の後であること
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} starting -> running"とジョブのフェーズが変更した情報が出力されており、"#{job1} ready -> starting"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e1} transmitting -> transmitted"とジョブのフェーズが変更した情報が出力されており、"#{job1} initialized -> ready"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{job1} ready -> starting"とジョブのフェーズが変更した情報が出力されており、"#{e1} transmitting -> transmitted"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} starting -> running"とジョブのフェーズが変更した情報が出力されており、"#{job1} ready -> starting"の後であること
     # SSH接続
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{job1} starting -> running"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} starting -> running"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{job1} starting -> running"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} starting -> running"の後であること
 
     # receive event "success.process.job.tengine"
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{job1} running -> success"とジョブのフェーズが変更した情報が出力されており、"#{job1} starting -> running"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{job1} running -> success"とジョブのフェーズが変更した情報が出力されており、"#{job1} starting -> running"の後であること
 
     # receive event "success.job.job.tengine"
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{e2} active -> transmitting"とジョブのフェーズが変更した情報が出力されており、"#{job1} running -> success"の後であること
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{e2} transmitting -> transmitted"とジョブのフェーズが変更した情報が出力されており、"#{e2} active -> transmitting"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e2} active -> transmitting"とジョブのフェーズが変更した情報が出力されており、"#{job1} running -> success"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e2} transmitting -> transmitted"とジョブのフェーズが変更した情報が出力されており、"#{e2} active -> transmitting"の後であること
 
     # tengine_core fire "success.jobnet.job.tengine"
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} running -> success"とジョブのフェーズが変更した情報が出力されており、"#{e2} transmitting -> transmitted"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} running -> success"とジョブのフェーズが変更した情報が出力されており、"#{e2} transmitting -> transmitted"の後であること
 
     # tengine_core fire "success.jobnet.job.tengine"
-		かつ "Tengineコアプロセス"のアプリケーションログに"#{execution} running -> success"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> success"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{execution} running -> success"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> success"の後であること
 
 
-		###############################
-		# ジョブ実行サーバのログを確認
-		###############################
+    ###############################
+    # ジョブ実行サーバのログを確認
+    ###############################
     
     もし 仮想サーバ"test_server1"のファイル"~/log/tengine_job_test.log"を開く。このファイルを"tengine_job_runログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"tengine_job_runログ"に出力されていること
     かつ "tengine_job_test job1 finish"と"tengine_job_runログ"に出力されており、"tengine_job_test job1 start"の後であること
-		
-		
+    
+    
 
   # ./usecases/job/dsl/1002_series_jobs_in_jobnet.rb
   #  -------------------
@@ -138,7 +138,7 @@
   # end
   # -------------------
   #
-	@success
+  @success
   @1002
   シナリオ: [正常系]1002_複数のジョブ(直列)が含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -177,7 +177,7 @@
   #   job("job2", "$HOME/tengine_job_test.sh 0 job2")
   # end
   #  -------------------
-	@success
+  @success
   @1003
   シナリオ: [正常系]1003_複数のジョブ(並列)が含まれるジョブネット
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -215,7 +215,7 @@
   #   job("job2", "export_hdfs.sh")
   # end
   #  -------------------
-	@success
+  @success
   @1004
   シナリオ: [正常系]1004_hadoopジョブが含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -253,7 +253,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1005
   シナリオ: [正常系]1005_finallyが含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -291,7 +291,7 @@
   #   job("job2", "$HOME/tengine_job_test.sh 0 job2")
   # end
   #  -------------------
-	@success
+  @success
   @1006
   シナリオ: [正常系]1006_expansionが含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -325,7 +325,7 @@
   #   job("job1", "$HOME/tengine_job_test.sh 0 job1")
   # end
   #  -------------------
-	@success
+  @success
   @1007
   シナリオ: [正常系]1007_boot_jobsが含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -355,7 +355,7 @@
   #   job("job3", "$HOME/tengine_job_test.sh 0 job3")
   # end
   #  -------------------
-	@success
+  @success
   @1008
   シナリオ: [正常系]1008_auto_sequenceが含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -394,7 +394,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1009
   シナリオ: [正常系]1009_入れ子(2階層)が含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -434,7 +434,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1010
   シナリオ: [正常系]1010_入れ子(3階層)が含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -475,7 +475,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1011
   シナリオ: [正常系]1011_入れ子(2階層)のfinallyが含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -517,7 +517,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1012
   シナリオ: [正常系]1012_入れ子(3階層)のfinallyが含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -561,7 +561,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1013
   シナリオ: [正常系]1013_入れ子の中でinstanceとcredential_nameが違うジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -618,7 +618,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1014
   シナリオ: [正常系]1014_finallyの入れ子の中でinstanceとcredential_nameが違うジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -703,7 +703,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1015
   シナリオ: [正常系]1015_複雑なジョブネット１_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -713,7 +713,7 @@
     
     もし ジョブネット"complicated_jobnet"を実行する
     かつ ジョブネット"complicated_jobnet"が完了することを確認する。少なくとも120秒間は待つ。
-		
+    
     ならば ジョブネット"/complicated_jobnet" のステータスがエラー終了であること
 
     # jobnet視点
@@ -892,7 +892,7 @@
   #   job("job3", "$HOME/tengine_job_test.sh 0 job3")
   # end
   #  -------------------
-  @success	
+  @success  
   @1024
   シナリオ: [正常系]1024_finallyがjobnetの途中に書かれている_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -931,7 +931,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1025
   シナリオ: [正常系]1025_boot_jobsがjobnetの途中に書かれている_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -968,7 +968,7 @@
   #   job("job3", "$HOME/tengine_job_test.sh 0 job3")
   # end
   #  -------------------
-	@success
+  @success
   @1026
   シナリオ: [正常系]1026_auto_sequenceがjobnetの途中に書かれている_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -1073,7 +1073,7 @@
   # require 'tengine_job'
   # 
   #  -------------------
-	@success
+  @success
   @1030
   シナリオ: [正常系]1030_jobnetが1つもない_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -1302,7 +1302,7 @@
   #   job("job3", "$HOME/tengine_job_test.sh 0 job3")
   # end
   #  -------------------
-	@failure
+  @failure
   @1039
   シナリオ: [正常系]1039_boot_jobsでジョブネットの途中のジョブを指定する_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -1339,7 +1339,7 @@
   #   job("job3", "$HOME/tengine_job_test.sh 0 job3")
   # end
   #  -------------------
-	@success
+  @success
   @1040
   シナリオ: [正常系]1040_toでジョブネットの途中のジョブを指定する_を試してみる
 
@@ -1401,7 +1401,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1042
   シナリオ: [正常系]1042_別の階層に同一名のジョブネットが含まれる_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -1549,7 +1549,7 @@
   @manual
   シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1048_jobnet_script_env.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1048_jobnet_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1646,11 +1646,11 @@
   #   end
   # end
   #  -------------------
-  @1048_failure
+  @1048_1
   @manual
   シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる_ジョブが失敗した場合
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1048_jobnet_script_env_failure.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1048_jobnet_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1746,11 +1746,11 @@
   #   end
   # end
   #  -------------------
-  @1048_finally_failure
+  @1048_2
   @manual
   シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる_finallyのジョブが失敗した場合
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1048_jobnet_script_env_finally_failure.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1048_jobnet_script_env_finally_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1835,25 +1835,25 @@
 
   # ./usecases/job/dsl/1049_expantion_script_env.rb
   #  -------------------
-	# require 'tengine_job'
-	# 
-	# jobnet("jobnet1049", :instance_name => "test_server1", :credential_name => "test_credential1") do
-	#   auto_sequence
-	#   expansion("jobnet1049_2")
-	# end
-	# 
-	# 
-	# jobnet("jobnet1049_2", :instance_name => "test_server1", :credential_name => "test_credential1") do
-	#   auto_sequence
-	#   job("job1", "$HOME/tengine_job_env_test.sh 0 job1")
-	# end
+  # require 'tengine_job'
+  # 
+  # jobnet("jobnet1049", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   auto_sequence
+  #   expansion("jobnet1049_2")
+  # end
+  # 
+  # 
+  # jobnet("jobnet1049_2", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   auto_sequence
+  #   job("job1", "$HOME/tengine_job_env_test.sh 0 job1")
+  # end
   #  -------------------
   @1049
   @manual
   シナリオ: [正常系]1049_expantionを利用したシェルスクリプトに環境変数が渡される_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1049_expantion_script_env.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1049_expantion_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1940,12 +1940,12 @@
   #    job("job1", "exit 1")
   #  end
   #  -------------------
-  @1049_failure
+  @1049_2
   @manual
   シナリオ: [正常系]1049_expantion_failureを利用したシェルスクリプトに環境変数が渡される_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1049_expantion_script_env_failure.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1049_expantion_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -2018,7 +2018,7 @@
     もし "jobnet1049_failure"の"表示"リンクをクリックする
     ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
 
-		
+    
   # ./usecases/job/dsl/1060_jobnet_directory
   #
   @1060
@@ -2208,7 +2208,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1071
   シナリオ: [正常系]1071_ルートジョブネットが複数のジョブ(並列)を含むジョブネット_を試してみる
 
@@ -2274,7 +2274,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1072
   シナリオ: [正常系]1072_ルートジョブネットがFinally付きのジョブネット１つ_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -2353,7 +2353,7 @@
   #   end
   # end
   #  ------------------
-	@success
+  @success
   @1073
   シナリオ: [正常系]1073_ルートジョブネットがFinally付きのジョブネット(直列)_を試してみる
 
@@ -2450,7 +2450,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1074
   シナリオ: [正常系]1074_ルートジョブネットがFinally付きのジョブネット(並列)_を試してみる
   
@@ -2557,7 +2557,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1075
   シナリオ: [正常系]1075_ルートジョブネットがFinally付きのジョブネット入れ子3層_を試してみる
   
@@ -2658,7 +2658,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1076
   シナリオ: [正常系]1076_ルートジョブネットがクレデンシャルが違うジョブネット(並列)_を試してみる
 
@@ -2759,7 +2759,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1077
   シナリオ: [正常系]1077_ルートジョブネットが仮想サーバが違うジョブネット(並列)_を試してみる
 
@@ -2838,7 +2838,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1078
   シナリオ: [正常系]1078_Finallyに複数のジョブ(並列)を含むジョブネット_を試してみる
 
@@ -2906,7 +2906,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1079
   シナリオ: [正常系]1079_FinallyにFinally付きのジョブネット１つ_を試してみる
 
@@ -2986,7 +2986,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1080
   シナリオ: [正常系]1080_FinallyにFinally付きのジョブネット(直列)_を試してみる
   
@@ -3087,7 +3087,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1081
   シナリオ: [正常系]1081_FinallyにFinally付きのジョブネット(並列)_を試してみる
   
@@ -3188,7 +3188,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1082
   シナリオ: [正常系]1082_Finallyにクレデンシャルが違うジョブネット(並列)_を試してみる
   
@@ -3292,7 +3292,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1083
   シナリオ: [正常系]1083_Finallyに仮想サーバが違うジョブネット(並列)_を試してみる
 
@@ -3856,7 +3856,7 @@
   #   end
   # end
   #  -------------------
-	@success
+  @success
   @1091
   シナリオ: [正常系]1091_Finally付きのジョブネット(並列)を組み合わせた複雑なパターン_を試してみる
 
@@ -3925,4 +3925,625 @@
     かつ "tengine_job_test fj4 start"と"スクリプトログ1"に出力されており、"tengine_job_test j4 finish"の後であること
     かつ "tengine_job_test fj4 finish"と"スクリプトログ1"に出力されており、"tengine_job_test fj4 start"の後であること
 
+
+#------ failure ------    
+
+  # ../tengine_job/examples/0004_retry_one_layer.rb
+  #  -------------------
+  #  # -*- coding: utf-8 -*-
+  #
+  #require 'tengine_job'
+  #
+  ## [jn0004]
+  ##               |-->[j2]-->
+  ##               |         |
+  ## [S1]-->[j1]-->          |-->[j4]-->[E1]
+  ##               |-->[j3]-->
+  ##                     _________finally________
+  ##                    {                        }
+  ##                    {[S2]-->[jn0004_f]-->[E2]}
+  ##                    {________________________}
+  ##                     
+  # jobnet("jn0004", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1", "$HOME/0004_retry_one_layer.sh", :to => ["j2", "j3"])
+  #   job("j2", "$HOME/0004_retry_one_layer.sh", :to => "j4")
+  #   job("j3", "$HOME/0004_retry_one_layer.sh", :to => "j4")
+  #   job("j4", "$HOME/0004_retry_one_layer.sh")
+  #   finally do
+  #     job("jn0004_f", "$HOME/0004_retry_one_layer.sh")
+  #   end
+  # end
+
+  @11102
+  シナリオ: [正常系]finally付きのジョブネットを試してみる_fork前で失敗
+  
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
+    もし ジョブネット"jn0004"を事前実行コマンド"export J1_FAIL='true'"で実行する
+    かつ ジョブネット"jn0004"がエラー終了することを確認する
+    
+    ならば ジョブネット"/jn0004" のステータスがエラー終了であること
+    かつ ジョブ"/jn0004/j1" のステータスがエラー終了であること
+    かつ ジョブネット"/jn0004/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0004/finally/jn0004_f" のステータスが正常終了であること
+
+    もし ジョブ"/jn0004/j1"の"ジョブ詳細"リンクをクリックする
+    ならば "ジョブ詳細画面"が表示していること
+    かつ "エラーの原因"に"スクリプトが異常終了した"と表示されていること
+  
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    かつ "tengine_job_test /jn0004/j1 finish"と"スクリプトログ"に出力されていないこと
+
+    かつ "tengine_job_test /jn0004/jn0004_f start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 start"の後であること
+    かつ "tengine_job_test /jn0004/jn0004_f finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/jn0004_f start"の後であること
+
+
+  @11103
+  シナリオ: [正常系]finally付きのジョブネットを試してみる_fork後で片方が失敗
+  
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jn0004"を事前実行コマンド"export J3_FAIL='true'"で実行する
+    かつ ジョブネット"jn0004"がエラー終了することを確認する
+    
+    ならば ジョブネット"/jn0004" のステータスがエラー終了であること
+    かつ ジョブ"/jn0004/j1" のステータスが正常終了であること
+    かつ ジョブ"/jn0004/j2" のステータスが正常終了であること
+    かつ ジョブ"/jn0004/j3" のステータスがエラー終了であること
+    かつ ジョブネット"/jn0004/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0004/finally/jn0004_f" のステータスが正常終了であること
+
+    もし ジョブ"/jn0004/j3"の"ジョブ詳細"リンクをクリックする
+    ならば "ジョブ詳細画面"が表示していること
+    かつ "エラーの原因"に"スクリプトが異常終了した"と表示されていること
+  
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    かつ "tengine_job_test /jn0004/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 start"の後であること
+    かつ "tengine_job_test /jn0004/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 finish"の後であること
+    かつ "tengine_job_test /jn0004/j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j2 start"の後であること
+    かつ "tengine_job_test /jn0004/j3 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 finish"の後であること
+    かつ "tengine_job_test /jn0004/jn0004_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0004/j3 start"の後であること
+    かつ "tengine_job_test /jn0004/jn0004_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0004/jn0004_f start"の後であること
+
+
+  @11104
+  シナリオ: [正常系]finally付きのジョブネットを試してみる_fork後で両方が失敗
+  
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jn0004"を事前実行コマンド"export J2_FAIL='true' && export J3_FAIL='true'"で実行する
+    かつ ジョブネット"jn0004"がエラー終了することを確認する
+    
+    ならば ジョブネット"/jn0004" のステータスがエラー終了であること
+    かつ ジョブ"/jn0004/j1" のステータスが正常終了であること
+    かつ ジョブ"/jn0004/j2" のステータスがエラー終了であること
+    かつ ジョブ"/jn0004/j3" のステータスがエラー終了であること
+    かつ ジョブネット"/jn0004/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0004/finally/jn0004_f" のステータスが正常終了であること
+
+    もし ジョブ"/jn0004/j2"の"ジョブ詳細"リンクをクリックする
+    ならば "ジョブ詳細画面"が表示していること
+    かつ "エラーの原因"に"スクリプトが異常終了した"と表示されていること
+
+    もし ジョブ"/jn0004/j3"の"ジョブ詳細"リンクをクリックする
+    ならば "ジョブ詳細画面"が表示していること
+    かつ "エラーの原因"に"スクリプトが異常終了した"と表示されていること
+  
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    かつ "tengine_job_test /jn0004/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 start"の後であること
+    かつ "tengine_job_test /jn0004/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 finish"の後であること
+    かつ "tengine_job_test /jn0004/j3 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 finish"の後であること
+    かつ "tengine_job_test /jn0004/jn0004_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0004/j2 start"と"tengine_job_test /jn0004/j3 start"の後であること
+    かつ "tengine_job_test /jn0004/jn0004_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0004/jn0004_f start"の後であること
+
+
+
+  # ../tengine_job/examples/0005_retry_two_layer.rb
+  #  -------------------
+  # -*- coding: utf-8 -*-
+  #
+  #require 'tengine_job'
+  #
+  # [jn0005]
+  #                     ________________[jn4]________________
+  #                   {                                          }
+  #                   {               |-->[j42]-->               }
+  #                   {               |          |               }
+  # [S1]-->[j1]-->F-->{ [S2]-->[j41]-->          |-->[j44]-->[E2]}-->J--[j4]-->[E1]
+  #               |   {               |-->[j43]-->               }   |
+  #               |   {         __________finally__________      }   |
+  #               |   {        { [S3]-->[jn4_f]-->[E3] }     }   |
+  #               |   { _________________________________________}   |
+  #                 |-------------------->[j2]------------------------>|
+  #
+  #   ________________________________finally________________________________
+  #  {         _____________________jn0005_fjn__________                     }
+  #  {        {                                         }                    }
+  #  {        { [S5]-->[jn0005_f1]-->[jn0005_f2]-->[E5] }                    }
+  #  { [S4]-->{                                         }-->[jn0005_f]-->[E4]}
+  #  {        {      ____________finally________        }                    }
+  #  {        {      {[S6]-->[jn0005_fif]-->[E6]}       }                    }
+  #  {        {_________________________________________}                    }
+  #  { ______________________________________________________________________}
+  # jobnet("jn0005", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1", "$HOME/0005_retry_two_layer.sh", :to => ["j2", "jn4"])
+  #   job("j2", "$HOME/0005_retry_two_layer.sh", :to => "j4")
+  #   jobnet("jn4", :to => "j4") do
+  #     boot_jobs("j41")
+  #     job("j41", "$HOME/0005_retry_two_layer.sh", :to => ["j42", "j43"])
+  #     job("j42", "$HOME/0005_retry_two_layer.sh", :to => "j44")
+  #     job("j43", "$HOME/0005_retry_two_layer.sh", :to => "j44")
+  #     job("j44", "$HOME/0005_retry_two_layer.sh")
+  #     finally do
+  #       job("jn4_f", "$HOME/0005_retry_two_layer.sh")
+  #     end
+  #   end
+  #   job("j4", "$HOME/0005_retry_two_layer.sh")
+  #   finally do
+  #     boot_jobs("jn0005_fjn")
+  #     jobnet("jn0005_fjn", :to => "jn0005_f") do
+  #       boot_jobs("jn0005_f1")
+  #       job("jn0005_f1", "$HOME/0005_retry_two_layer.sh", :to => ["jn0005_f2"])
+  #       job("jn0005_f2", "$HOME/0005_retry_two_layer.sh")
+  #       finally do
+  #         job("jn0005_fif","$HOME/0005_retry_two_layer.sh")
+  #       end 
+  #     end
+  #     job("jn0005_f", "$HOME/0005_retry_two_layer.sh")
+  #   end
+  # end
+  #  -------------------
+  @1105
+  シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する
+  
+  
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0005_retry_two_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jn0005"を事前実行コマンド"export J41_FAIL='true'"で実行する
+    かつ ジョブネット"jn0005"がエラー終了することを確認する
+    
+    ならば ジョブネット"/jn0005" のステータスがエラー終了であること
+    かつ ジョブ"/jn0005/j1" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/j2" のステータスが正常終了であること
+    かつ ジョブネット"/jn0005/jn4" のステータスがエラー終了であること
+    かつ ジョブ"/jn0005/jn4/j41" のステータスがエラー終了であること
+    かつ ジョブネット"/jn0005/jn4/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/finally/jn4_f" のステータスが正常終了であること
+    かつ ジョブネット"/jn0005/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f1" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f2" のステータスが正常終了であること
+    かつ ジョブネット"/jn0005/finally/jn0005_fjn/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/finally/jn0005_fif" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_f" のステータスが正常終了であること
+
+    もし ジョブ"/jn0005/jn4/j41"の"ジョブ詳細"リンクをクリックする
+    ならば "ジョブ詳細画面"が表示していること
+    かつ "エラーの原因"に"スクリプトが異常終了した"と表示されていること
+  
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
+    かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
+    かつ "tengine_job_test /jn0005/j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j2 start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j41 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j41 finish"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/j41 start"後であること
+    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/finally/jn0004_f start"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/j2 finish"と"tengine_job_test  /jn0005/jn4/finally/jn4_f finish"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 finish"と"スクリプトログ"に一回出力されており、"tengine_job_test  /jn0005/finally/jn0005_fjn/jn0005_f2 start"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 finish"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f start"の後であること
+
+
+  @1106
+  シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する_fork後片方
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0005_retry_two_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jn0005"を事前実行コマンド"export J43_FAIL='true'"で実行する
+    かつ ジョブネット"jn0005"がエラー終了することを確認する
+    
+    ならば ジョブネット"/jn0005" のステータスがエラー終了であること
+    かつ ジョブ"/jn0005/j1" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/j2" のステータスが正常終了であること
+    かつ ジョブネット"/jn0005/jn4" のステータスがエラー終了であること
+    かつ ジョブ"/jn0005/jn4/j41" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/j42" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/j43" のステータスがエラー終了であること
+    かつ ジョブネット"/jn0005/jn4/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/finally/jn4_f" のステータスが正常終了であること
+    かつ ジョブネット"/jn0005/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f1" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f2" のステータスが正常終了であること
+    かつ ジョブネット"/jn0005/finally/jn0005_fjn/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/finally/jn0005_fif" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_f" のステータスが正常終了であること
+
+    もし ジョブ"/jn0005/jn4/j43"の"ジョブ詳細"リンクをクリックする
+    ならば "ジョブ詳細画面"が表示していること
+    かつ "エラーの原因"に"スクリプトが異常終了した"と表示されていること
+  
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
+    かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
+    かつ "tengine_job_test /jn0005/j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j2 start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j41 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j41 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j42 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j42 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j42 start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j43 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j43 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j43 finish"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/j42 finish"と"tengine_job_test /jn0005/jn4/j43 start"後であること
+    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/finally/jn0004_f start"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/j2 finish"と"tengine_job_test /jn0005/jn4/finally/jn4_f finish"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 finish"と"スクリプトログ"に一回出力されており、"tengine_job_test  /jn0005/finally/jn0005_fjn/jn0005_f2 start"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 finish"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f start"の後であること
+
+  @1107
+  シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する_fork後片方_ジョブネット外のfork後片方
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0005_retry_two_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jn0005"を事前実行コマンド"export J43_FAIL='true' && export J43_FAIL='true' && export J42_SLEEP='5'"で実行する
+    かつ ジョブネット"jn0005"がエラー終了することを確認する
+    
+    ならば ジョブネット"/jn0005" のステータスがエラー終了であること
+    かつ ジョブ"/jn0005/j1" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/j2" のステータスがエラー終了であること
+    かつ ジョブネット"/jn0005/jn4" のステータスがエラー終了であること
+    かつ ジョブ"/jn0005/jn4/j41" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/j42" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/j43" のステータスがエラー終了であること
+    かつ ジョブネット"/jn0005/jn4/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/finally/jn4_f" のステータスが正常終了であること
+    かつ ジョブネット"/jn0005/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f1" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f2" のステータスが正常終了であること
+    かつ ジョブネット"/jn0005/finally/jn0005_fjn/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/finally/jn0005_fif" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_f" のステータスが正常終了であること
+
+    もし ジョブ"/jn0005/j2"の"ジョブ詳細"リンクをクリックする
+    ならば "ジョブ詳細画面"が表示していること
+    かつ "エラーの原因"に"スクリプトが異常終了した"と表示されていること
+
+    もし ジョブ"/jn0005/jn4/j43"の"ジョブ詳細"リンクをクリックする
+    ならば "ジョブ詳細画面"が表示していること
+    かつ "エラーの原因"に"スクリプトが異常終了した"と表示されていること
+  
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
+    かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
+    かつ "tengine_job_test /jn0005/j2 finish"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0005/jn4/j41 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j41 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j42 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j42 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j42 start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j43 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j43 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j43 finish"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/j42 finish"と"tengine_job_test /jn0005/jn4/j43 start"後であること
+    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/finally/jn0004_f start"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/j2 start"と"tengine_job_test /jn0005/jn4/finally/jn4_f finish"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 finish"と"スクリプトログ"に一回出力されており、"tengine_job_test  /jn0005/finally/jn0005_fjn/jn0005_f2 start"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 finish"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f start"の後であること
+
+
+  @1108
+  シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する_finallyがエラー終了
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0005_retry_two_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jn0005"を事前実行コマンド"export J43_FAIL='true'"で実行する
+    かつ ジョブネット"jn0005"がエラー終了することを確認する
+    
+    ならば ジョブネット"/jn0005" のステータスがエラー終了であること
+    かつ ジョブ"/jn0005/j1" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/j2" のステータスがエラー終了であること
+    かつ ジョブネット"/jn0005/jn4" のステータスがエラー終了であること
+    かつ ジョブ"/jn0005/jn4/j41" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/j42" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/j43" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/j44" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/finally" のステータスがエラー終了であること
+    かつ ジョブ"/jn0005/jn4/finally/jn4_f" のステータスがエラー終了であること
+    かつ ジョブネット"/jn0005/jn4/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/finally/jn4_f" のステータスが正常終了であること
+    かつ ジョブネット"/jn0005/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f1" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f2" のステータスが正常終了であること
+    かつ ジョブネット"/jn0005/finally/jn0005_fjn/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/finally/jn0005_fif" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_f" のステータスが正常終了であること
+
+    もし ジョブ"/jn0005/jn4/finally/jn4_f"の"ジョブ詳細"リンクをクリックする
+    ならば "ジョブ詳細画面"が表示していること
+    かつ "エラーの原因"に"スクリプトが異常終了した"と表示されていること
+  
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
+    かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j41 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j41 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j42 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j42 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j42 start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j43 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j43 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j43 start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j44 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j42 finish"と"tengine_job_test /jn0005/jn4/j42 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j44 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j44 start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j44 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f finish"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/j2 finish"と"tengine_job_test /jn0005/jn4/finally/jn4_f start"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 finish"と"スクリプトログ"に一回出力されており、"tengine_job_test  /jn0005/finally/jn0005_fjn/jn0005_f2 start"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 finish"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f start"の後であること
+
+
+
+  @1109
+  シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する_finally内のfinallyを持つジョブネット内のジョブがエラー終了
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0005_retry_two_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jn0005"を事前実行コマンド"export J43_FAIL='true'"で実行する
+    かつ ジョブネット"jn0005"がエラー終了することを確認する
+    
+    ならば ジョブネット"/jn0005" のステータスがエラー終了であること
+    かつ ジョブ"/jn0005/j1" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/j2" のステータスがエラー終了であること
+    かつ ジョブネット"/jn0005/jn4" のステータスがエラー終了であること
+    かつ ジョブ"/jn0005/jn4/j41" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/j42" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/j43" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/j44" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/finally/jn4_f" のステータスが正常終了であること
+    かつ ジョブネット"/jn0005/jn4/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/jn4/finally/jn4_f" のステータスが正常終了であること
+    かつ ジョブネット"/jn0005/finally" のステータスがエラー終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f1" のステータスがエラー終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f2" のステータスが初期化済であること
+    かつ ジョブネット"/jn0005/finally/jn0005_fjn/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/finally/jn0005_fif" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/finally/jn0005_f"のステータスが初期化済であること
+
+    もし ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f1"の"ジョブ詳細"リンクをクリックする
+    ならば "ジョブ詳細画面"が表示していること
+    かつ "エラーの原因"に"スクリプトが異常終了した"と表示されていること
+  
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
+    かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j41 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j41 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j42 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j42 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j42 start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j43 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j43 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j43 start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j44 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j42 finish"と"tengine_job_test /jn0005/jn4/j42 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j44 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j44 start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j44 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/jn4_f start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/j42 finish"と"tengine_job_test /jn0005/jn4/j43 start"後であること
+    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/finally/jn0004_f start"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/j2 finish"と"tengine_job_test /jn0005/jn4/finally/jn4_f finish"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish"と"スクリプトログ"に一回出力されていないこと
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f finish"と"スクリプトログ"に一回出力されていないこと
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f finish"と"スクリプトログ"に一回出力されていないこと
+
+
+  # ------------
+  # # -*- coding: utf-8 -*-
+  # 
+  # require 'tengine_job'
+  # 
+  # # finallyを追加する
+  # # [jn0006]
+  # #          __________________________[jn1]____________________________        ______________[jn2]_____________________________________
+  # #         {          __________[jn11]_______________                  }     {                 _____________[jn22]____________         }
+  # #         {         {                               }                 }     {                {                              }         } 
+  # #  [S1]-->{ [S2]--> { [S3]-->[j111]-->[j112]-->[E3] } -->[j12]-->[E2] } --> { [S6]-->[j21]-->{ [S7]-->[j221]-->[j222]-->[E7]} -->[E6] } -->[E1] 
+  # #         {         {                               }                 }     {                {                              }         }
+  # #         {         {   _______finally_______       }                 }     {                {  _________finally_______     }         }
+  # #         {         {  {[S4]-->[jn11_f]-->[E4]}     }                 }     {                {  {[S8]-->[jn22_f]-->[E8]}    }         }
+  # #         {         {_______________________________}                 }     {                {______________________________}         }
+  # #         {                                                           }     {                                                         }
+  # #         {                                   _______finally_______   }     {                               _______finally_______     }
+  # #         {                                  {[S5]-->[jn1_f]-->[E5]}  }     {                             {[S9]-->[jn2_f]-->[E9]}     }
+  # #         {___________________________________________________________}     {_________________________________________________________}
+  # #
+  # #                                                                                           _______finally_______
+  # #                                                                                          {[S10]-->[jn_f]-->[E10]}
+  # #
+  # jobnet("jn0006", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("jn1")
+  #   jobnet("jn1", :to => "jn2") do
+  #    boot_jobs("j11")
+  #    jobnet("j11", :to => "j12") do
+  #      boot_jobs("j111")
+  #      job("j111", "$HOME/0006_retry_three_layer.sh",:to => "j112")
+  #      job("j112", "$HOME/0006_retry_three_layer.sh" )
+  #      finally do
+  #        job("jn11_f","$HOME/0006_retry_three_layer.sh")
+  #      end
+  #    end
+  #    job("j12", "$HOME/0006_retry_three_layer.sh")    
+  #    finally do
+  #      job("jn1_f","$HOME/0006_retry_three_layer.sh")
+  #    end
+  #   end
+  #   jobnet("jn2") do
+  #    boot_jobs("j21")
+  #    job("j21", "$HOME/0006_retry_three_layer.sh", :to => "j22")    
+  #    jobnet("j22") do
+  #      boot_jobs("j221")
+  #      job("j221", "$HOME/0006_retry_three_layer.sh",:to => "j222")
+  #      job("j222", "$HOME/0006_retry_three_layer.sh" )
+  #      finally do
+  #        job("jn22_f","$HOME/0006_retry_three_layer.sh")
+  #      end
+  #    end
+  #    finally do
+  #      job("jn2_f","0006_retry_three_layer.sh")
+  #    end
+  #   end
+  #   finally do 
+  #     job("jn_f","$HOME/0006_retry_three_layer.sh")
+  #   end
+  # end
+  @1110
+  シナリオ: [正常系]ジョブネット内ジョブネット内のジョブが失敗する
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0006_retry_three_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jn0006"を事前実行コマンド"export J111_FAIL='true'"で実行する
+    かつ ジョブネット"jn0006"がエラー終了することを確認する
+    
+    ならば ジョブネット"/jn0006" のステータスがエラー終了であること
+    かつ ジョブネット"/jn0006/jn1/" のステータスがエラー終了であること
+    かつ ジョブネット"/jn0006/jn1/jn11" のステータスがエラー終了であること
+    かつ ジョブ"/jn0006/jn1/jn11/j111" のステータスがエラー終了であること
+    かつ ジョブ"/jn0006/jn1/jn11/j112" のステータスが初期化済であること
+    かつ ジョブネット"/jn0006/jn1/jn11/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0006/jn1/jn11/finally/jn11_f" のステータスが正常終了であること
+    かつ ジョブ"/jn0006/jn1/j12" のステータスが初期化済であること
+    かつ ジョブネット"/jn0006/jn1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0006/jn1/finally/jn1_f" のステータスが正常終了であること
+    かつ ジョブネット"/jn0006/jn2/" のステータスが初期化済であること
+    かつ ジョブ"/jn0006/jn2/j21" のステータスが正常終了であること
+    かつ ジョブネット"/jn0006/jn2/jn22" のステータスが初期化済終了であること
+    かつ ジョブ"/jn0006/jn2/jn22/j221" のステータスが初期化済であること
+    かつ ジョブ"/jn0006/jn2/jn22/j222" のステータスが初期化済であること
+    かつ ジョブ"/jn0006/jn2/jn22//finally/jn22_f" のステータスが初期化済であること
+    かつ ジョブ"/jn0006/jn2/finally/jn2_f" のステータスが初期化済であること
+    かつ ジョブネット"/jn0006/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0006/finally/jn_f" のステータスが正常終了であること
+
+    もし ジョブ"/jn0006/jn1/jn11/j111"の"ジョブ詳細"リンクをクリックする
+    ならば "ジョブ詳細画面"が表示していること
+    かつ "エラーの原因"に"スクリプトが異常終了した"と表示されていること
+  
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test /jn0006/jn1/jn11/j111 start"と"スクリプトログ"に出力されていること
+    かつ "tengine_job_test /jn0006/jn1/jn11/j111 finish"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0006/jn1/jn11/j112 start"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0006/jn1/jn11/finally/jn11_f start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0006/jn1/jn11/j111 start"の後であること
+    かつ "tengine_job_test /jn0006/jn1/jn11/finally/jn11_f finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0006/j1/jn11/finally/jn11_f start"の後であること
+    かつ "tengine_job_test /jn0006/jn1/j12 start"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0006/jn1/finally/jn1_f start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0006/jn1/jn11/finally/jn11_f finish"の後であること
+    かつ "tengine_job_test /jn0006/jn1/finally/jn1_f finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0006/jn1/finally/jn1_f start"の後であること
+    かつ "tengine_job_test /jn0006/jn2/j21 start"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0006/jn2/jn22/j221 start"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0006/jn2/jn22/jn222 finish"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0006/jn2/jn22/finally/jn22_f start"と"スクリプトログ"に一回出力されていないこと
+    かつ "tengine_job_test /jn0006/jn2/finally/jn2_f finish"と"スクリプトログ"に一回出力されていないこと
+    かつ "tengine_job_test /jn0006/finally/jn_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0006/jn1/finally/jn1_f finish"の後であること
+    かつ "tengine_job_test /jn0006/finally/jn_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0006/finally/jn_f start"の後であること
+
+
+  @1111
+  シナリオ: [正常系]jn0006_ジョブネット内ジョブネット内のfinally内のジョブが失敗する
+
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0006_retry_three_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jn0006"を事前実行コマンド"export J11_F_FAIL='true'"で実行する
+    かつ ジョブネット"jn0006"がエラー終了することを確認する
+    
+    ならば ジョブネット"/jn0006" のステータスがエラー終了であること
+    かつ ジョブネット"/jn0006/jn1/" のステータスがエラー終了であること
+    かつ ジョブネット"/jn0006/jn1/jn11" のステータスが正常終了であること
+    かつ ジョブ"/jn0006/jn1/jn11/j111" のステータスが性上終了であること
+    かつ ジョブ"/jn0006/jn1/jn11/j112" のステータスが正常終了であること
+    かつ ジョブネット"/jn0006/jn1/jn11/finally" のステータスがエラー終了であること
+    かつ ジョブ"/jn0006/jn1/jn11/finally/jn11_f" のステータスがエラー終了であること
+    かつ ジョブ"/jn0006/jn1/j12" のステータスが初期化済であること
+    かつ ジョブネット"/jn0006/jn1/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0006/jn1/finally/jn1_f" のステータスが正常終了であること
+    かつ ジョブネット"/jn0006/jn2/" のステータスが初期化済であること
+    かつ ジョブ"/jn0006/jn2/j21" のステータスが正常終了であること
+    かつ ジョブネット"/jn0006/jn2/jn22" のステータスが初期化済終了であること
+    かつ ジョブ"/jn0006/jn2/jn22/j221" のステータスが初期化済であること
+    かつ ジョブ"/jn0006/jn2/jn22/j222" のステータスが初期化済であること
+    かつ ジョブ"/jn0006/jn2/jn22//finally/jn22_f" のステータスが初期化済であること
+    かつ ジョブ"/jn0006/jn2/finally/jn2_f" のステータスが初期化済であること
+    かつ ジョブネット"/jn0006/finally" のステータスが正常終了であること
+    かつ ジョブ"/jn0006/finally/jn_f" のステータスが正常終了であること
+
+    もし ジョブ"/jn0006/jn1/jn11/j111"の"ジョブ詳細"リンクをクリックする
+    ならば "ジョブ詳細画面"が表示していること
+    かつ "エラーの原因"に"スクリプトが異常終了した"と表示されていること
+  
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test /jn0006/jn1/jn11/j111 start"と"スクリプトログ"に出力されていること
+    かつ "tengine_job_test /jn0006/jn1/jn11/j111 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0006/jn1/jn11/j111 start"の後であること
+    かつ "tengine_job_test /jn0006/jn1/jn11/j112 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0006/jn1/jn11/j111 finish"の後であること
+    かつ "tengine_job_test /jn0006/jn1/jn11/j112 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0006/jn1/jn11/j112 start"の後であること
+    かつ "tengine_job_test /jn0006/jn1/jn11/finally/jn11_f start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0006/jn1/jn11/j112 start"の後であること
+    かつ "tengine_job_test /jn0006/jn1/j12 start"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0006/jn1/finally/jn1_f start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0006/jn1/jn11/finally/jn11_f finish"の後であること
+    かつ "tengine_job_test /jn0006/jn1/finally/jn1_f finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0006/jn1/finally/jn1_f start"の後であること
+    かつ "tengine_job_test /jn0006/jn2/j21 start"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0006/jn2/jn22/j221 start"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0006/jn2/jn22/jn222 finish"と"スクリプトログ"に出力されていないこと
+    かつ "tengine_job_test /jn0006/jn2/jn22/finally/jn22_f start"と"スクリプトログ"に一回出力されていないこと
+    かつ "tengine_job_test /jn0006/jn2/finally/jn2_f finish"と"スクリプトログ"に一回出力されていないこと
+    かつ "tengine_job_test /jn0006/finally/jn_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0006/jn1/finally/jn1_f finish"の後であること
+    かつ "tengine_job_test /jn0006/finally/jn_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0006/finally/jn_f start"の後であること
