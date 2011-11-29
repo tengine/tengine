@@ -94,6 +94,59 @@ describe Tengine::Resource::VirtualServerImagesController do
         r.description.should =~ /desc2/
       end
     end
+
+    it "ソートできること" do
+      vi1 = Tengine::Resource::VirtualServerImage.create!(
+        name:"aname",
+        provided_id:"cmi0001",
+        provided_description:"bdescription",
+        description:"adescription"
+      )
+      vi2 = Tengine::Resource::VirtualServerImage.create!(
+        name:"bname",
+        provided_id:"ami0001",
+        provided_description:"cdescription",
+        description:"cdescription"
+      )
+      vi3 = Tengine::Resource::VirtualServerImage.create!(
+        name:"cname",
+        provided_id:"bmi0001",
+        provided_description:"adescription",
+        description:"bdescription"
+      )
+
+      get :index, sort:{ name:"asc" }
+      assigns(:virtual_server_images).should == [vi1, vi2, vi3]
+
+      get :index, sort:{ name:"desc" }
+      assigns(:virtual_server_images).should == [vi3, vi2, vi1]
+
+      get :index, sort:{ provided_id:"asc" }
+      assigns(:virtual_server_images).should == [vi2, vi3, vi1]
+
+      get :index, sort:{ provided_id:"desc" }
+      assigns(:virtual_server_images).should == [vi1, vi3, vi2]
+
+      get :index, sort:{ provided_description:"asc" }
+      assigns(:virtual_server_images).should == [vi3, vi1, vi2]
+
+      get :index, sort:{ provided_description:"desc" }
+      assigns(:virtual_server_images).should == [vi2, vi1, vi3]
+
+      get :index, sort:{ description:"asc" }
+      assigns(:virtual_server_images).should == [vi1, vi3, vi2]
+
+      get :index, sort:{ description:"desc" }
+      assigns(:virtual_server_images).should == [vi2, vi3, vi1]
+
+      get :index
+      assigns(:virtual_server_images).should == [vi1, vi2, vi3]
+      request.query_parameters[:sort].should == { name:"asc" }
+
+      get :index, sort:{ test:"asc" }
+      assigns(:virtual_server_images).should == [vi1, vi2, vi3]
+      request.query_parameters[:sort].should == { name:"asc" }
+    end
   end
 
   describe "GET show" do
@@ -178,7 +231,11 @@ describe Tengine::Resource::VirtualServerImagesController do
       it "redirects to the virtual_server_image" do
         virtual_server_image = Tengine::Resource::VirtualServerImage.create! valid_attributes
         put :update, :id => virtual_server_image.id, :virtual_server_image => valid_attributes
-        response.should redirect_to(virtual_server_image)
+        response.should redirect_to(tengine_resource_virtual_server_images_url)
+
+        put :update, :id => virtual_server_image.id.to_s, :virtual_server_image => {},
+          :commit => I18n.t("views.links.cancel")
+        response.should redirect_to(tengine_resource_virtual_server_images_url)
       end
     end
 
