@@ -58,7 +58,7 @@ ja:
         exit_status: "終了ステータス"
         error_messages: "エラーメッセージ"
         error_messages_text: "エラーメッセージ"
-        was_expansion: "元expansoin"
+        was_expansion: "expansionから展開済"
         destinations: "次のジョブ"
         server_name: "接続サーバ名"
         credential_name: "認証情報名"
