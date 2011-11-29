@@ -3,14 +3,7 @@ class Tengine::Core::EventsController < ApplicationController
   # GET /tengine/core/events
   # GET /tengine/core/events.json
   def index
-
-    # 検索ボタン押下の遷移でない且つ、セッション上に検索フォームの情報がある場合は、セッション情報を利用する
-    if params[:commit].blank? && session[:events_finder]
-      @finder = Tengine::Core::Event::Finder.new(session[:events_finder])
-    else
-      @finder = Tengine::Core::Event::Finder.new(params[:finder])
-      session[:events_finder]  = @finder.attributes
-    end
+    @finder = Tengine::Core::Event::Finder.new(params[:finder])
 
     @events = @finder.paginate(params[:page])
 

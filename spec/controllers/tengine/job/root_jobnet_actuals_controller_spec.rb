@@ -703,8 +703,8 @@ describe Tengine::Job::RootJobnetActualsController do
       root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
       get :show, :id => root_jobnet_actual.id.to_s
       finder = assigns(:finder)
-      finder[:source_name].should == root_jobnet_actual.name_as_resource
-      finder[:occurred_at_start].should == Time.new(2011, 11, 7, 13, 0).strftime("%H:%M")
+      finder[:source_name].should == "/" + root_jobnet_actual.id.to_s + "/"
+      finder[:occurred_at_start].should == nil # Time.new(2011, 11, 7, 13, 0).strftime("%H:%M")
       finder[:occurred_at_end].should be_nil
     end
   end
@@ -807,9 +807,10 @@ describe Tengine::Job::RootJobnetActualsController do
 
   describe "DELETE destroy" do
     before do
+      EM.should_receive(:run).and_yield
       mock_sender = mock(:sender)
-      mock_sender.should_receive(:wait_for_connection)
       Tengine::Event.stub(:default_sender).and_return(mock_sender)
+      mock_sender.should_receive(:fire)
     end
 
     it "destroys the requested root_jobnet_actual" do

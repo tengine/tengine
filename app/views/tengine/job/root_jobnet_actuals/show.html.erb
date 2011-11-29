@@ -88,6 +88,8 @@
           <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:finished_at) %></th>
           <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:phase_cd) %></th>
           <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:destinations) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:executing_pid) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:exit_status) %></th>
           <th scope="col"><%= t("views.pages.operation") %></th>
         </tr>
       </thead>
@@ -109,11 +111,15 @@
                 <% if (dest = edges.first.destination).instance_of?(Tengine::Job::JobnetActual) -%>
                   <%= dest.name %>
                 <% else -%>
-                  <%= dest.next_edges.collect{|edge| edge.destination.name }.join(", ") %>
+                  <%= dest.next_edges.collect{|edge| edge.destination.name unless edge.destination.instance_of?(Tengine::Job::End) }.join(", ") %>
                 <% end -%>
               <% end -%>
             </td>
+            <td><%= jobnet_actual.executing_pid %></td>
+            <td><%= jobnet_actual.exit_status %></td>
             <td class="Last">
+              <%= link_to_show tengine_job_root_jobnet_actual_jobnet_actual_path(jobnet_actual, :root_jobnet_actual_id => @root_jobnet_actual) %>
+
               <% if %w(stuck).include?(jobnet_actual.phase_key.to_s) -%>
                 <%= link_to t("views.links.edit_status"), edit_tengine_job_root_jobnet_actual_jobnet_actual_path(jobnet_actual, :root_jobnet_actual_id => @root_jobnet_actual) %>
               <% end -%>
