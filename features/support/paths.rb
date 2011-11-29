@@ -28,6 +28,10 @@ module NavigationHelpers
       tengine_core_events_path
     when /イベント通知/
       tengine_core_events_path
+    when /認証情報一覧/
+      tengine_resource_credentials_path
+    when /認証情報新規作成/
+      new_tengine_resource_credential_path
 
     # the following are examples using path_to_pickle
 

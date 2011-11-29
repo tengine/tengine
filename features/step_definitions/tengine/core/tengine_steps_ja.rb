@@ -459,8 +459,8 @@ def job_id_replace(file_name, expected_table)
         /^(.*)の/ =~ value
         index = @h[file_name]["MM_ACTUAL_JOB_NAME_PATH"].index($1)
         if index
-          id = @h[file_name]["MM_TEMPLATE_JOB_ANCESTOR_IDS"][index] 
-          replace.push({value => id }) 
+          id = @h[file_name]["MM_TEMPLATE_JOB_ANCESTOR_IDS"][index]
+          replace.push({value => id })
         end
       end
       if value.include?("実行時ID")
@@ -516,8 +516,7 @@ end
 
 ならば /^URLのexecuteのIDとログのexecuteのIDが一緒であること$/ do |page_name|
   current_path = URI.parse(current_url).path
-  # TODO noguchi : syntax 
-#   @["MM_SCHEDULE_ID"].should_eql current_path.slice(path.rindex("/")+1,path.size)
+  @h["MM_SCHEDULE_ID"].should_eql current_path.slice(path.rindex("/")+1,path.size)
 end
 
 #############
