@@ -11,6 +11,9 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
+    when /the new credential page/
+      new_credential_path
+
     when /the new tengine_core_driver page/
       new_tengine_core_driver_path
 
@@ -28,6 +31,8 @@ module NavigationHelpers
       tengine_core_events_path
     when /イベント通知/
       tengine_core_events_path
+    when /認証情報一覧/
+      tengine_resource_credentials_path
 
     # the following are examples using path_to_pickle
 
