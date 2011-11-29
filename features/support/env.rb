@@ -8,6 +8,21 @@
 # エンドツーエンドテストは production モードで実行する
 ENV["RAILS_ENV"] = 'production'
 
+# エンドツーエンドテストの設定ファイル
+end_to_end_test_yaml = YAML::load(IO.read('config/end_to_end_test.yml'))
+
+# features/support/lib を $LOAD_PATH に追加
+$LOAD_PATH << File.expand_path('lib', File.dirname(__FILE__))
+
+require 'mongodb_support'
+MongodbSupport.nodes end_to_end_test_yaml["db"]["nodes"]
+
+require 'tengine/core'
+
+require 'cucumber_session'
+# MongoDBが上がっていないとcucumber/railsをロードするところで落ちるの起動する
+MongodbSupport.start_mongodb(CucumberSession.session, "DBプロセス") unless MongodbSupport.running?
+
 require 'cucumber/rails'
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
@@ -57,8 +72,6 @@ ActionController::Base.allow_rescue = false
 
 
 
-end_to_end_test_yaml = YAML::load(IO.read('config/end_to_end_test.yml'))
-
 Capybara.configure do |config|
   config.run_server = false
   tengine_console = end_to_end_test_yaml['tengine_console']
@@ -94,11 +107,12 @@ module Cucumber
   end
 end
 
-# features/support/lib を $LOAD_PATH に追加
-$LOAD_PATH << File.expand_path('lib', File.dirname(__FILE__))
 
-require 'mongodb_support'
-MongodbSupport.nodes end_to_end_test_yaml["db"]["nodes"]
 
-require 'tengine/core'
 
+at_exit do
+  # 全てのテストが終了したら rails をkillする。
+  rails_kill_command = "ps aux | grep 'script/rails' | grep -v grep | awk '{print $2}' | xargs kill -9"
+  puts "command : #{rails_kill_command}"
+  system(rails_kill_command)
+end

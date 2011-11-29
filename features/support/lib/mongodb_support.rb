@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+require 'pty'
+
 class MongodbSupport
   
   class << self
@@ -65,7 +68,6 @@ puts "node:#{node}"
       pid.empty? ? nil : pid
     end
 
-
     def start_process(h, name, command)
       h[name] = {:stdout => [], :command => command}
       puts "command:#{command}"
@@ -82,12 +84,12 @@ puts "node:#{node}"
       }
     end
 
-  def add_user
-    # primaryノードに対して実行する必要があるので修正しないといけない。TODO
-    command = "mongo localhost:#{@@NODES.first['port']}/tengine_production features/step_definitions/mongodb/add_e2e_user"
-    puts "command:#{command}"
-    raise "DBへのユーザ追加に失敗しました。"  unless system(command)
-  end
+    def add_user
+      # primaryノードに対して実行する必要があるので修正しないといけない。TODO
+      command = "mongo localhost:#{@@NODES.first['port']}/tengine_production features/step_definitions/mongodb/add_e2e_user"
+      puts "command:#{command}"
+      raise "DBへのユーザ追加に失敗しました。"  unless system(command)
+    end
 
   end
 
