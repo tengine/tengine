@@ -5,21 +5,23 @@ require 'spec_helper'
 describe "tengine/resource/credentials/index.html.erb" do
   before(:each) do
     assign(:credentials, Kaminari.paginate_array([
-      stub_model(Tengine::Resource::Credential,
+      @cr1 = stub_model(Tengine::Resource::Credential,
         :id=>BSON::ObjectId("4eb6a247df46903c8600007b"),
         :name => "ssh_password",
         :description => "Description",
         :auth_type_cd => "01",
-        :auth_values => {"username"=>"1", "password"=>"2"},
+        :auth_values => {"username"=>"1", "password"=>"2", "test"=>"4"},
+        :secure_auth_values => {"username"=>"1", "test"=>"4"},
         :created_at => Time.now ,
         :updated_at => Time.now
       ),
-      stub_model(Tengine::Resource::Credential,
+      @cr2 = stub_model(Tengine::Resource::Credential,
         :id=>BSON::ObjectId('4eb79ed8be074a4282000002'),
         :name => "ssh_public_key",
         :description => "Description",
         :auth_type_cd => "02",
         :auth_values => {"username"=>"1", "private_keys"=>"2", "passphrase" => 3},
+        :secure_auth_values => {"username"=>"1"},
         :created_at => Time.now,
         :updated_at => Time.now
       ),
@@ -38,6 +40,11 @@ describe "tengine/resource/credentials/index.html.erb" do
     assert_select "tr>td", :text => "Description".to_s, :count => 2
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "SSHパスワード認証".to_s, :count => 1
+
+    expected = @cr1.secure_auth_values.collect{|k, v| "#{k}: #{v}"}.join("<br />")
+    render.should have_xpath("//div[@class='YamlView'][@id='authConfigValues']/div[@class='YamlScript']", contents:/#{Regexp.escape(expected)}/)
+    expected = @cr2.secure_auth_values.collect{|k, v| "#{k}: #{v}"}.join("<br />")
+    render.should have_xpath("//div[@class='YamlView'][@id='authConfigValues']/div[@class='YamlScript']", contents:/#{Regexp.escape(expected)}/)
   end
 
 
