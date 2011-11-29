@@ -34,3 +34,9 @@ ja:
           notice:
             created: "起動要求を送信しました。"
             created_with_provided_ids: "以下のプロバイダによるIDの起動要求を送信しました。"
+      credentials:
+        index:
+          links:
+            show_config: "表示"
+          notice:
+            confirm: "本当に削除しますか？"
