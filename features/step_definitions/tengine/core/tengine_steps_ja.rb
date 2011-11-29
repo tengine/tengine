@@ -453,9 +453,9 @@ end
 
 def job_id_replace(file_name, expected_table)
   replace = {}
-  expected_table.hashes.each |row|
-    row.each |key, value|
-      if value.include?("テンプレートID")　|| value.include?("実行時ID")
+  expected_table.hashes.each do |row|
+    row.each do |key, value|
+      if value.include?("テンプレートID") || value.include?("実行時ID")
         /^(.*)の/ =~ value
         index = @h[file_name]["MM_ACTUAL_JOB_NAME_PATH"].index($1)
         if index
@@ -516,7 +516,8 @@ end
 
 ならば /^URLのexecuteのIDとログのexecuteのIDが一緒であること$/ do |page_name|
   current_path = URI.parse(current_url).path
-  @["MM_SCHEDULE_ID"].should_eql current_path.slice(path.rindex("/")+1,path.size)
+  # TODO noguchi : syntax 
+#   @["MM_SCHEDULE_ID"].should_eql current_path.slice(path.rindex("/")+1,path.size)
 end
 
 #############
@@ -1164,7 +1165,7 @@ end
   server_config = end_to_end_test_yaml["servers"][server_name]
   addresses = server_config["addresses"]
   unless Tengine::Resource::VirtualServer.first(conditions:{name:server_name})
-    s = Tengine::Resource::VirtualServer.create!(name:server_name, addresses:addresses)
+    s = Tengine::Resource::VirtualServer.create!(name:server_name, addresses:addresses, properties: {})
     puts "create server => #{s.inspect}"
   end
 end
@@ -1183,19 +1184,25 @@ end
 もし /^ジョブネット"([^"]*)"を実行する$/ do |name|
   template = Tengine::Job::RootJobnetTemplate.first(conditions: {name:name})
   raise "RootJobnetTemplate が取得できませんでした。 name => #{name}" unless template
-  @execution = nil
-  EM.run{ @execution = template.execute(:sender => Tengine::Event) }
-  @root_jobnet = @execution.root_jobnet
+  execution = nil
+  EM.run{ execution = template.execute(:sender => Tengine::Event) }
+  root_jobnet = execution.root_jobnet
+
+  CucumberSession.session["execution"] = execution
+  CucumberSession.session["root_jobnet"] = root_jobnet
+  CucumberSession.session["element_ids"] = {}
+
 end
 
 
 def jobnet_finished_confirme(name, time)
   time_out(time) do
     while true
-      @root_jobnet.reload
-      phase_name = @root_jobnet.phase_name
-      puts "root_jobnet.phase_name => #{phase_name}"
-      break if phase_name.match(/success|error/)
+      root_jobnet = CucumberSession.session["root_jobnet"]
+      root_jobnet.reload
+      phase_key = root_jobnet.phase_key
+      puts "root_jobnet.phase_key => #{phase_key}"
+      break if phase_key.match(/success|error/)
       sleep 1
     end
   end
@@ -1211,40 +1218,42 @@ end
 end
 
 ならば /^ジョブネット"([^"]*)" のステータスが([^"]*)であること$/ do |path, status|
-  jobnet = @root_jobnet.vertex_by_name_path(path)
+  root_jobnet = CucumberSession.session["root_jobnet"]
+  jobnet = root_jobnet.vertex_by_name_path(path)
   raise "ジョブネット #{path} は存在しません。" unless jobnet
   case status
   when "初期化済"
-    jobnet.phase_name.should == "initialized"
+    jobnet.phase_key.should == :initialized
   when "正常終了"
-    jobnet.phase_name.should == "success"
+    jobnet.phase_key.should == :success
   when "エラー終了"
-    jobnet.phase_name.should == "error"
+    jobnet.phase_key.should == :error
   else
    raise "#{status}はstep定義でサポートしていないステータスです。"
   end
 end
 
 ならば /^ジョブ"([^"]*)" のステータスが([^"]*)であること$/ do |path, status|
-  job = @root_jobnet.vertex_by_name_path(path)
+  root_jobnet = CucumberSession.session["root_jobnet"]
+  job = root_jobnet.vertex_by_name_path(path)
   raise "ジョブ #{path} は存在しません。" unless job
   case status
   when "初期化済"
-    job.phase_name.should == "initialized"
+    job.phase_key.should == :initialized
   when "準備中"
-    job.phase_name.should == "ready"
+    job.phase_key.should == :ready
   when "開始中"
-    job.phase_name.should == "starting"
+    job.phase_key.should == :starting
   when "実行中"
-    job.phase_name.should == "running"
+    job.phase_key.should == :running
   when "強制停止中"
-    job.phase_name.should == "dying"
+    job.phase_key.should == :dying
   when "状態不明"
-    job.phase_name.should == "stuck"
+    job.phase_key.should == :stuck
   when "正常終了"
-    job.phase_name.should == "success"
+    job.phase_key.should == :success
   when "エラー終了"
-    job.phase_name.should == "error"
+    job.phase_key.should == :error
   else
    raise "#{status}はstep定義でサポートしていないステータスです。"
   end
@@ -1253,7 +1262,8 @@ end
 
 もし /^"([^"]*)"の標準出力からPIDを確認する$/ do |name|
   if name == "Tengineコアプロセス"
-    pid_regexp = /tengined<(\d+)>/
+    # ログのヘッダにPIDが出力される [2011-11-21T18:03:33.543749 #42686]
+    pid_regexp = /\s#(\d+)]/
     get_pid = get_pid_from_stdout(name, pid_regexp)
     get_pid.should be_true
   else
@@ -1335,7 +1345,9 @@ require 'net/ssh'
     output = session.exec(command)
   end
   @h[file_name] = output.split(/\n/) if output
-  keyreader(file_name)
+
+  # TODO 環境変数をログから確認するstep定義は別で作成する
+#  key_reader(file_name)
 end
 
 ならば /^"([^"]*)"の"([^"]*)"の値が"([^"]*)"であること$/ do |job_name, key, value|
@@ -1465,4 +1477,74 @@ end
 
 ならば /^"([^"]*)"と"([^"]*)"の末尾に出力されていること$/ do |text, file_name|
   raise "末尾は\"#{text}\"ではなく、\"#{@h[file_name].last}\"です。" unless @h[file_name].last =~ /#{text}/
+end
+
+
+
+もし /^実行ジョブ"([^"]*)"のExecutionを"([^"]*)"と呼ぶことにする$/ do |actual_job_name, element_name|
+    CucumberSession.session["element_ids"][element_name] = CucumberSession.session["execution"]
+end
+
+もし /^実行ジョブ"([^"]*)"の(ルートジョブネット|スタート|エッジ|ジョブ|エンド)"([^"]*)"を"([^"]*)"と呼ぶことにする$/ do |actual_job_name, element_type_name, notation_or_execution, element_name|
+puts "------------"
+puts actual_job_name
+puts notation_or_execution
+puts element_name
+puts "------------"
+    CucumberSession.session["element_ids"][element_name] = CucumberSession.session["root_jobnet"].element notation_or_execution
+end
+
+ならば /^"([^"]*)"のアプリケーションログに"([^"]*)"と出力されていること$/ do |name, text|
+  pending
+end
+
+ならば /^"([^"]*)"のアプリケーションログに"([^"]*)"と出力されており、"([^"]*)"の後であること$/ do |name, text, before_text|
+  pending
+end
+
+ならば /^"([^"]*)"のアプリケーションログに"([^"]*)"とイベントを受け取った情報が出力されていること$/ do |name, text|
+  pending
+end
+
+ならば /^"([^"]*)"のアプリケーションログに"([^"]*)"とイベントを受け取った情報が出力されており、"([^"]*)"の後であること$/ do |name, text, before_text|
+  pending
+end
+
+ならば /^"([^"]*)"のアプリケーションログに"([^"]*)"とジョブのフェーズが変更した情報が出力されていること$/ do |name, text|
+  assert_output_for_application_log(name, text)
+end
+
+ならば /^"([^"]*)"のアプリケーションログに"([^"]*)"とジョブのフェーズが変更した情報が出力されており、"([^"]*)"の後であること$/ do |name, text, before_text|
+  assert_output_and_before_output_for_application_log(name, text, before_text)
+end
+
+def assert_output_for_application_log(name, text)
+  # 置換する文字を取り出す
+  element_name = text.match(/\#{(.*)}/)[1]
+  element = CucumberSession.session["element_ids"][element_name]
+# execution phase changed. <4eca2fe642d9eb072600000a> initialized -> ready
+# job phase changed. <4eca2fe642d9eb0726000006> starting -> running
+  text = text.gsub(/\#{.*}/, "<#{element.id.to_s}>")
+  match = contains_message_from_stdout(name, text)
+  match.should be_true
+end
+
+def assert_output_and_before_output_for_application_log(name, text, before_text)
+  before_element_name = before_text.match(/\#{(.*)}/)[1]
+  before_element = CucumberSession.session["element_ids"][before_element_name]
+  before_text = before_text.gsub(/\#{.*}/, "<#{before_element.id.to_s}>")
+
+  element_name = text.match(/\#{(.*)}/)[1]
+  element = CucumberSession.session["element_ids"][element_name]
+  text = text.gsub(/\#{.*}/, "<#{element.id.to_s}>")
+
+  lines = @h[name][:stdout]
+
+  before_line_no = get_line_no(before_text, lines)
+  raise "\"#{before_text}\"は出力されていません。" unless before_line_no
+
+  text_line_no = get_line_no(text, lines)
+  raise "\"#{text}\"は出力されていません。" unless text_line_no
+
+  raise " \"#{before_text}\"の後に\"#{text}\"は出力されていません。 " unless (before_line_no < text_line_no)
 end

@@ -5,7 +5,7 @@ require 'tengine_job'
 jobnet("jobnet1048_finally_failure", :instance_name => "test_server1", :credential_name => "test_credential1") do
   auto_sequence
   jobnet("jobnet1048_2") do
-    job("job1", "exit 1"
+    job("job1", "exit 1")
   end
   finally do
     jobnet("jobnet1048_2_finally_jobnet") do
