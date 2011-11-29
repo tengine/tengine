@@ -1,6 +1,12 @@
 Given /^the following credentials:$/ do |credentials|
   credentials.hashes.each do |hash|
-    Credential.create!(hash)
+    hash[:auth_values] ||= {
+      :username => "username",
+      :password => "password",
+      :private_keys => "private_keys",
+      :passphrase => "passphrase",
+    }
+    Tengine::Resource::Credential.create!(hash)
   end
 end
 
