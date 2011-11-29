@@ -27,9 +27,16 @@ end
   end
 end
 
-もし /^"Credential一覧画面"で(\d+)番目のCredentialを削除する$/ do |pos|
-  visit credentials_path
-  within("table tr:nth-child(#{pos.to_i+1})") do
+もし /^"認証情報一覧画面"で(\d+)番目の認証情報を編集する$/ do |pos|
+  #visit tengine_resource_credentials_path
+  within("table.TableBase tbody tr:nth-child(#{pos.to_i})") do
+    click_link "編集"
+  end
+end
+
+もし /^"認証情報一覧画面"で(\d+)番目の認証情報を削除する$/ do |pos|
+  #visit credentials_path
+  within("table.TableBase tbody tr:nth-child(#{pos.to_i})") do
     click_link "削除"
   end
 end
