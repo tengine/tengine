@@ -63,12 +63,14 @@ namespace :app do
   task :setup_shared do
     run "mkdir -p #{shared_path}/config"
     put(IO.read("config/tengined.yml.erb"), "#{shared_path}/config/tengined.yml.erb", :via => :scp)
+    put(IO.read("config/event_sender.yml.erb"), "#{shared_path}/config/event_sender.yml.erb", :via => :scp)
     put(IO.read("config/mongoid.yml"), "#{shared_path}/config/mongoid.yml", :via => :scp)
   end
 
   desc "Make symlink for config_file"
   task :symlinks do
     run "ln -nfs #{shared_path}/config/tengined.yml #{release_path}/config/tengined.yml"
+    run "ln -nfs #{shared_path}/config/event_sender.yml #{release_path}/config/event_sender.yml"
     run "ln -nfs #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
   end
 
@@ -76,12 +78,6 @@ namespace :app do
     run "chown -R #{apache_user}:#{apache_group} #{deploy_to}/"
   end
 end
-
-# namespace :bundle do
-#   task :install, :roles => :app do
-#     run "cd #{release_path} && bundle --path vendor/bundle --without development test assets"
-#   end
-# end
 
 
 # apache & passenger
