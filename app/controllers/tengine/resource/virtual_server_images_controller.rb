@@ -2,25 +2,20 @@ class Tengine::Resource::VirtualServerImagesController < ApplicationController
   # GET /tengine/resource/virtual_server_images
   # GET /tengine/resource/virtual_server_images.json
   def index
-    @virtual_server_images = Tengine::Resource::VirtualServerImage.all(:sort => [[:_id]]).page(params[:page])
+    @virtual_server_images = Mongoid::Criteria.new(Tengine::Resource::VirtualServerImage)
 
+    order = []
     if sort_param = params[:sort]
-      order = []
       sort_param.each do |k, v|
         v = (v.to_s == "desc") ? :desc : :asc
-        k = case k.to_s
-            when "name"
-              [:name, v]
-            when "provided_id"
-              [:provided_id, v]
-            when "description"
-              [:description, v]
-            # when "provided_description"
-            #   [:provided_description, v]
-            end
-        order.push k
+        if %w(name provided_id description provided_description).include?(k.to_s)
+          order.push [k, v]
+        else
+          request.query_parameters[:sort].delete(k)
+        end
       end
-    else
+    end
+    if order.blank?
       default_sort = {:name => "asc"}
       request.query_parameters[:sort] = default_sort
       order = default_sort.to_a
