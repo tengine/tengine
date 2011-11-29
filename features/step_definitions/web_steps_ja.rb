@@ -28,7 +28,8 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "sel
 end
 
 もし /^"([^"]*)画面"を表示する$/ do |page_name|
-  When %{I go to #{page_name}}
+#  When %{I go to #{page_name}}
+  step %{I go to #{page_name}}
 end
 
 もし /^"([^"]*)"ボタンをクリックする$/ do |button|
@@ -146,7 +147,8 @@ end
 end
 
 ならば /^"([^"]*)画面"を表示していること$/ do |page_name|
-  Then %{I should be on #{page_name}}
+#  Then %{I should be on #{page_name}}
+  step %{I should be on #{page_name}}
 end
 
 show_me_the_page = lambda { Then %{show me the page} }
@@ -159,5 +161,6 @@ show_me_the_page = lambda { Then %{show me the page} }
 
 
 前提 /^(.*)でアクセスする/ do |language|
-  Given %{I read in #{language}}
+#  Given %{I read in #{language}}
+  step %{I read in #{language}}
 end
