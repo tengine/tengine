@@ -111,7 +111,12 @@
                 <% if (dest = edges.first.destination).instance_of?(Tengine::Job::JobnetActual) -%>
                   <%= dest.name %>
                 <% else -%>
-                  <%= dest.next_edges.collect{|edge| edge.destination.name unless edge.destination.instance_of?(Tengine::Job::End) }.join(", ") %>
+                  <% next_jobs = dest.next_edges.collect { |edge|
+                       d = edge.destination; 
+                       d.name unless (d.instance_of?(Tengine::Job::End) || d.kind_of?(Tengine::Job::Junction))
+                     }
+                  -%>
+                  <%= next_jobs.compact.join(", ") %>
                 <% end -%>
               <% end -%>
             </td>
