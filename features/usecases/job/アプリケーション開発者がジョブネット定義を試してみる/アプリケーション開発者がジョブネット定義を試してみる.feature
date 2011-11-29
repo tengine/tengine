@@ -364,6 +364,49 @@
     かつ "tengine_job_test job4 start"と"スクリプトログ"に出力されており、"tengine_job_test job3 finish"と"tengine_job_test job4 finish"の間であること
     かつ "tengine_job_test job4 finish"と"スクリプトログ"の末尾に出力されていること
 
+  # ./usecases/job/dsl/1006_expansion_in_jobnet.rb
+  #  -------------------
+  # 
+  # require 'tengine_job'
+  # 
+  # jobnet("jobnet1006", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("job1")
+  #   job("job1", "$HOME/tengine_job_test.sh 0 job1", :to => "jobnet1006_2")
+  #   expansion("jobnet1006_2", :to => "job3")
+  #   job("job3", "$HOME/tengine_job_test.sh 0 job3")
+  # end
+  # jobnet("jobnet1006_2", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("job2")
+  #   job("job2", "exit 1")
+  # end
+  #  -------------------
+  @manual
+  @1006_3
+  シナリオ: [正常系]expansionで指定するジョブネット名が、以前のtengined起動時に読み込んでいたジョブネット名と被っている場合でも同じバージョンのジョブネットが利用される
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_expansion_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jobnet1006"を実行する
+    かつ ジョブネット"jobnet1006"が完了することを確認する
+    
+    ならば ジョブネット"/jobnet1006" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1006/job1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1006/jobnet1006_2/job2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1006/job3" のステータスが正常終了であること
+
+    もし "Tengineコアプロセス"の停止を行うために"tengined -k stop"というコマンドを実行する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+    
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_expansion_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jobnet1006"を実行する
+    かつ ジョブネット"jobnet1006"がエラー終了することを確認する
+    かつ job2の実行スクリプトが"exit 1"になっていること                           
+
 
   # ./usecases/job/dsl/1007_boot_jobs_in_jobnet.rb
   #  -------------------
@@ -1973,7 +2016,7 @@
     ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
 
 
-  # ./usecases/job/dsl/1049_expantion_script_env.rb
+  # ./usecases/job/dsl/1049_expantion_script_env_failure.rb
   #  -------------------
   #  require 'tengine_job'
   #  
@@ -1984,7 +2027,8 @@
   #      job("jobnet1049_finally","$HOME/tengine_job_env_test.sh 0 jobnet1049_finally")
   #    end
   #  end
-
+  #  
+  #  
   #  jobnet("jobnet1049_2", :instance_name => "test_server1", :credential_name => "test_credential1") do
   #    auto_sequence
   #    job("job1", "exit 1")
@@ -3762,7 +3806,7 @@
   #  -------------------
   @1089
   シナリオ: [正常系]1089_Finallyにexpansionのoptionに不正な値_を試してみる
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T 1089_finally_includes_invalid_option_value_in_expansion.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1089_finally_includes_invalid_option_value_in_expansion.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
     # E8  #{value} is invalid option.
