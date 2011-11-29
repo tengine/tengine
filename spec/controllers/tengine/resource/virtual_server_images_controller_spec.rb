@@ -231,7 +231,11 @@ describe Tengine::Resource::VirtualServerImagesController do
       it "redirects to the virtual_server_image" do
         virtual_server_image = Tengine::Resource::VirtualServerImage.create! valid_attributes
         put :update, :id => virtual_server_image.id, :virtual_server_image => valid_attributes
-        response.should redirect_to(virtual_server_image)
+        response.should redirect_to(tengine_resource_virtual_server_images_url)
+
+        put :update, :id => virtual_server_image.id.to_s, :virtual_server_image => {},
+          :commit => I18n.t("views.links.cancel")
+        response.should redirect_to(tengine_resource_virtual_server_images_url)
       end
     end
 
