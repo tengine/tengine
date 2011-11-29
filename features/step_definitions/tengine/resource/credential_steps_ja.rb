@@ -28,24 +28,10 @@ end
 end
 
 
-もし /^"認証情報一覧画面"で(\d+)番目の認証情報を表示する$/ do |pos|
+もし /^"認証情報一覧画面"で(\d+)番目の認証情報を([^"]*)する$/ do |pos, name|
   #visit tengine_resource_credentials_path
   within("table.TableBase tbody tr:nth-child(#{pos.to_i})") do
-    click_link "表示"
-  end
-end
-
-もし /^"認証情報一覧画面"で(\d+)番目の認証情報を編集する$/ do |pos|
-  #visit tengine_resource_credentials_path
-  within("table.TableBase tbody tr:nth-child(#{pos.to_i})") do
-    click_link "編集"
-  end
-end
-
-もし /^"認証情報一覧画面"で(\d+)番目の認証情報を削除する$/ do |pos|
-  #visit credentials_path
-  within("table.TableBase tbody tr:nth-child(#{pos.to_i})") do
-    click_link "削除"
+    click_link name
   end
 end
 
