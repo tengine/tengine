@@ -4217,7 +4217,7 @@
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
-    もし ジョブネット"jn0005"を事前実行コマンド"export J2_FAIL='true' && export J43_FAIL='true' && export J2_SLEEP='5'"で実行する
+    もし ジョブネット"jn0005"を事前実行コマンド"export J2_FAIL='true' && export J43_FAIL='true' && export J2_SLEEP='5' && export JN4_F_SLEEP='10'"で実行する
     かつ ジョブネット"jn0005"がエラー終了することを確認する
     
     ならば ジョブネット"/jn0005" のステータスがエラー終了であること
