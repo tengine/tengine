@@ -76,10 +76,10 @@ describe Tengine::Resource::VirtualServersController do
 
     it "assigns all PhysicalServer as @physical_server" do
       Tengine::Resource::PhysicalServer.delete_all
-      server1 = Tengine::Resource::PhysicalServer.create!(:name => "server1")
+      server1 = Tengine::Resource::PhysicalServer.create!(:name => "server1", :provided_id => "server1")
       physical_servers = [
         server1,
-        Tengine::Resource::PhysicalServer.create!(:name => "server2"),
+        Tengine::Resource::PhysicalServer.create!(:name => "server2", :provided_id => "server2"),
       ]
 
       get :index

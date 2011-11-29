@@ -46,7 +46,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     @physical_server2 = Tengine::Resource::PhysicalServer.create!(
       :provider_id => @provider.id,
       :name => "pserver2",
-      :provided_id => "server1",
+      :provided_id => "server2",
       :description => "Description",
       :status => "online",
       :addresses => {"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"},
