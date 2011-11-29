@@ -41,6 +41,12 @@ end
   end
 end
 
+もし /^"認証情報一覧画面"で認証情報の"([^"]*)"をクリックする$/ do |name|
+  within("table.TableBase thead tr:nth-child(1)") do
+    click_link name
+  end
+end
+
 ならば /^以下の認証情報の一覧が表示されること$/ do |expected_table|
   expected_table.diff!(tableish('table.TableBase tr', 'td,th'))
 end
