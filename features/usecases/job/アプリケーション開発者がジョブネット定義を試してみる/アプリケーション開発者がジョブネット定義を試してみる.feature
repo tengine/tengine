@@ -2199,30 +2199,95 @@
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    ならば ルートのカテゴリの下に物理名"jobnet_a.rb"、論理名"ジョブネットA"というカテゴリが存在すること
-    かつ ルートのカテゴリの子に物理名"jobnet_b.rb"、論理名"ジョブネットB"というカテゴリが存在すること
-    かつ ルートのカテゴリの子に物理名"jobnet_c.rb"、論理名"ジョブネットC"というカテゴリが存在すること
-    かつ ルートのカテゴリの子に物理名"jobnetgroup_x"、論理名"ジョブネットグループX"というカテゴリが存在すること
-    かつ ルートのカテゴリの子に物理名"jobnetgroup_y"、論理名"ジョブネットグループY"というカテゴリが存在すること
+    ならば ルートのカテゴリの子に物理名"1061_dictionary_yml"、論理名"1061_dictionary_yml"というカテゴリが存在すること
+    かつ "ジョブネットグループ1061"のカテゴリの子に物理名"jobnetgroup_x"、論理名"ジョブネットグループX"というカテゴリが存在すること
+    かつ "ジョブネットグループ1061"のカテゴリの子に物理名"jobnetgroup_y"、論理名"ジョブネットグループY"というカテゴリが存在すること
 
-    かつ 物理名"jobnetgroup_x"のカテゴリの子に物理名"jobnet_d.rb"、論理名"ジョブネットD"というカテゴリが存在すること
-    かつ 物理名"jobnetgroup_x"のカテゴリの子に物理名"jobnet_e.rb"、論理名"ジョブネットE"というカテゴリが存在すること
-    かつ 物理名"jobnetgroup_x"のカテゴリの子に物理名"jobnet_f.rb"、論理名"ジョブネットF"というカテゴリが存在すること
+    もし 論理名"全体"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1061_a|jobnet1061_a|
+    |jobnet1061_b|jobnet1061_b|
+    |jobnet1061_c|jobnet1061_c|
+    |jobnet1061_d|jobnet1061_d|
+    |jobnet1061_e|jobnet1061_e|
+    |jobnet1061_f|jobnet1061_f|
+    |jobnet1061_g|jobnet1061_g|
+    |jobnet1061_h|jobnet1061_h|
+    |jobnet1061_i|jobnet1061_i|
 
-    かつ 物理名"jobnetgroup_y"のカテゴリの子に物理名"jobnet_g.rb"、論理名"ジョブネットG"というカテゴリが存在すること
-    かつ 物理名"jobnetgroup_y"のカテゴリの子に物理名"jobnet_h.rb"、論理名"ジョブネットH"というカテゴリが存在すること
-    かつ 物理名"jobnetgroup_y"のカテゴリの子に物理名"jobnet_i.rb"、論理名"ジョブネットI"というカテゴリが存在すること
+    もし 論理名"1061_dictionary_yml"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1061_a|jobnet1061_a|
+    |jobnet1061_b|jobnet1061_b|
+    |jobnet1061_c|jobnet1061_c|
+    |jobnet1061_d|jobnet1061_d|
+    |jobnet1061_e|jobnet1061_e|
+    |jobnet1061_f|jobnet1061_f|
+    |jobnet1061_g|jobnet1061_g|
+    |jobnet1061_h|jobnet1061_h|
+    |jobnet1061_i|jobnet1061_i|
 
-    
-    かつ ジョブネット"jobnet1061_a" のカテゴリは物理名"jobnet_a.rb"、論理名"ジョブネットA"であること
-    かつ ジョブネット"jobnet1061_b" のカテゴリは物理名"jobnet_b.rb"、論理名"ジョブネットB"であること
-    かつ ジョブネット"jobnet1061_c" のカテゴリは物理名"jobnet_c.rb"、論理名"ジョブネットC"であること
-    かつ ジョブネット"jobnet1061_d" のカテゴリは物理名"jobnet_d.rb"、論理名"ジョブネットD"であること
-    かつ ジョブネット"jobnet1061_e" のカテゴリは物理名"jobnet_e.rb"、論理名"ジョブネットE"であること
-    かつ ジョブネット"jobnet1061_f" のカテゴリは物理名"jobnet_f.rb"、論理名"ジョブネットF"であること
-    かつ ジョブネット"jobnet1061_g" のカテゴリは物理名"jobnet_g.rb"、論理名"ジョブネットG"であること
-    かつ ジョブネット"jobnet1061_h" のカテゴリは物理名"jobnet_h.rb"、論理名"ジョブネットH"であること
-    かつ ジョブネット"jobnet1061_i" のカテゴリは物理名"jobnet_i.rb"、論理名"ジョブネットI"であること
+    もし 論理名"ジョブネットグループX"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1061_d|jobnet1061_d|
+    |jobnet1061_e|jobnet1061_e|
+    |jobnet1061_f|jobnet1061_f|
+
+    もし 論理名"ジョブネットグループY"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1061_g|jobnet1061_g|
+    |jobnet1061_h|jobnet1061_h|
+    |jobnet1061_i|jobnet1061_i|
+
+  # ./usecases/job/dsl/1061_2_dictionary_yml
+  @manual
+  @1061_2
+  シナリオ: [正常系]dictionary.ymlの内容が正しく表示される_を試してみる_読み込むディレクトリー自体がdictionary.ymlでカテゴリー名が指定されている
+  
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1061_2_dictionary_yml -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    ならば ルートのカテゴリの子に物理名"1061_dictionary_yml"、論理名"ジョブネットグループ1061"というカテゴリが存在すること
+    かつ "ジョブネットグループ1061"のカテゴリの子に物理名"jobnetgroup_x"、論理名"ジョブネットグループX"というカテゴリが存在すること
+    かつ "ジョブネットグループ1061"のカテゴリの子に物理名"jobnetgroup_y"、論理名"ジョブネットグループY"というカテゴリが存在すること
+
+    もし 論理名"全体"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1061_a|jobnet1061_a|
+    |jobnet1061_b|jobnet1061_b|
+    |jobnet1061_c|jobnet1061_c|
+    |jobnet1061_d|jobnet1061_d|
+    |jobnet1061_e|jobnet1061_e|
+    |jobnet1061_f|jobnet1061_f|
+    |jobnet1061_g|jobnet1061_g|
+    |jobnet1061_h|jobnet1061_h|
+    |jobnet1061_i|jobnet1061_i|
+
+    もし 論理名"ジョブネットグループ1061"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1061_a|jobnet1061_a|
+    |jobnet1061_b|jobnet1061_b|
+    |jobnet1061_c|jobnet1061_c|
+    |jobnet1061_d|jobnet1061_d|
+    |jobnet1061_e|jobnet1061_e|
+    |jobnet1061_f|jobnet1061_f|
+    |jobnet1061_g|jobnet1061_g|
+    |jobnet1061_h|jobnet1061_h|
+    |jobnet1061_i|jobnet1061_i|
+
+    もし 論理名"ジョブネットグループX"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1061_d|jobnet1061_d|
+    |jobnet1061_e|jobnet1061_e|
+    |jobnet1061_f|jobnet1061_f|
+
+    もし 論理名"ジョブネットグループY"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1061_g|jobnet1061_g|
+    |jobnet1061_h|jobnet1061_h|
+    |jobnet1061_i|jobnet1061_i|
 
   # ./usecases/job/dsl/1062_incorrect_dictionary_yml
   #  -------------------
