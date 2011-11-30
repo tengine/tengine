@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-Mongoid::Document::ClassMethods.module_eval do
+module Mongoid::Document::ClassMethods
   extend ActiveSupport::Memoizable
 
   def human_name(options = nil)
