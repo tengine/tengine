@@ -85,6 +85,8 @@ Tamaのテストモードはjson形式で記述されたファイルを使用す
    cp 41_run_instances_1_virtual_servers.json run_instances.json
  * 5件の仮想サーバ起動時のレスポンスを返却する
    cp 42_run_instances_5_virtual_servers.json run_instances.json
+ * 1件の仮想サーバ起動時のレスポンスを返却する(41とは異なるaws_idを返す、重複確認用)
+   cp 43_run_instances_1_virtual_servers_other_aws_id.json run_instances.json
 
 * terminate_instances
  * 0件の仮想サーバ停止時のレスポンスを返却する(未使用)

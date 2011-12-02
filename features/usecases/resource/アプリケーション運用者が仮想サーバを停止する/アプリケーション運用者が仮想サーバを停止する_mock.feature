@@ -53,7 +53,13 @@
     かつ "virtual_server_id_92"の列の"削除"チェックボックスをオンにする
     かつ "virtual_server_id_93"の列の"削除"チェックボックスをオンにする
     かつ "選択したサーバを停止"ボタンをクリックする
-    
+    かつ tengine_console のログに以下の文言が表示されること
+    Tama::Controllers::TamaTestController#terminate_instances(["virtual_server_uuid_91"])
+    かつ tengine_console のログに以下の文言が表示されること
+    Tama::Controllers::TamaTestController#terminate_instances(["virtual_server_uuid_92"])
+    かつ tengine_console のログに以下の文言が表示されること
+    Tama::Controllers::TamaTestController#terminate_instances(["virtual_server_uuid_93"])
+
     もし Wakameのモックファイル"./features/usecases/resource/test_files/13_describe_instances_after_terminate_instances.json"を"./features/usecases/resource/test_files/describe_instances.json"にコピーする
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
