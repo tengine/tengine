@@ -90,7 +90,7 @@
     |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
 
     # 代替コースD: 絞り込み検索をしている状態でページ切り替えを行う
-    # 物理サーバが100件のファイル
+    # 物理サーバが60件のファイル
     もし Wakameのモックファイル"./features/usecases/resource/test_files/02_describe_host_nodes_60_physical_servers.json"を"./features/usecases/resource/test_files/describe_host_nodes.json"にコピーする
     もし "物理サーバ一覧"画面を表示する
     ならば "物理サーバ一覧"画面に以下の行が表示されていること

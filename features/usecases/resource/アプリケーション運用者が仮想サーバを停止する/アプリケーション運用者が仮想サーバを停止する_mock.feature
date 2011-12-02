@@ -96,6 +96,26 @@
     もし "キャンセル"ボタンをクリックする
     ならば "仮想サーバ一覧"画面が表示されていること
 
+    #
+    # 1.0.0.rc4のバグ解消の確認
+    # 仮想サーバ停止後に一定時間が経過し、describe_instancesのレスポンスから停止済みの仮想サーバ群が返却されなくなった
+    # 上記の状態を再現する
+    もし Wakameのモックファイル"./features/usecases/resource/test_files/14_describe_instances_after_terminate_instances_destroy.json"を"./features/usecases/resource/test_files/describe_instances.json"にコピーする
+    もし "仮想サーバ一覧"画面を表示する
+    ならば "仮想サーバ一覧"画面に以下の行が表示されていること
+    |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
+    |physical_server_name_01|           |virtual_server_id_94|  |nw-data: 192.168.2.94 <br>nw-outside: 172.16.0.94 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |                       |           |virtual_server_id_95|  |nw-data: 192.168.2.95 <br>nw-outside: 172.16.0.95 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |                       |           |virtual_server_id_96|  |nw-data: 192.168.2.96 <br>nw-outside: 172.16.0.96 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |physical_server_name_02||||||||
+    |physical_server_name_03||||||||
+    |physical_server_name_04||||||||
+    |physical_server_name_05||||||||
+    |physical_server_name_06||||||||
+    |physical_server_name_07||||||||
+    |physical_server_name_08||||||||
+    |physical_server_name_09||||||||
+    |physical_server_name_10||||||||
     # 発火イベントの確認
     もし"イベント一覧"画面を表示する
     ならば "種別名"に"Tengine::Resource::VirtualServerImage.destroyed.tengine_resource_watchd"のイベントが一件表示されていること
