@@ -63,6 +63,8 @@ Tamaのテストモードはjson形式で記述されたファイルを使用す
    cp 12_describe_instances_after_run_instances.json describe_instances.json
  * 51のteminate_instance実行後を想定した仮想サーバのレスポンスを返却する
    cp 13_describe_instances_after_terminate_instances.json describe_instances
+ * 13の後、一定時間が経過して停止済みの仮想サーバのレスポンスが帰ってこない状態を想定した仮想サーバのレスポンスを返却する
+   cp 14_describe_instances_after_terminate_instances_destroy.json describe_instances
 
 * describe_images.jon
  * 0件の仮想サーバイメージのレスポンスを返却する
