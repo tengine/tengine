@@ -1,6 +1,6 @@
 [
   {
-    "id": "virtual_server_uuid_91",
+    "id": "virtual_server_uuid_97",
     "state": "scheduling",
     "image_id": "vertual_server_image_uuid_01",
     "hostname": "physical_server_uuid_01",
