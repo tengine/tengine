@@ -224,15 +224,15 @@ class Tengine::Resource::VirtualServersController < ApplicationController
       [label, s.provided_id]
     end
     selected_physical_server = @physical_servers.first
-    provider = selected_physical_server.provider
+    @provider = selected_physical_server.provider
     @virtual_server_images_for_select = \
-      virtual_server_images_for_select(provider.virtual_server_images)
-    types = provider.virtual_server_types.order_by([[:provided_id, :asc]])
+      virtual_server_images_for_select(@provider.virtual_server_images)
+    types = @provider.virtual_server_types.order_by([[:provided_id, :asc]])
     selected_type_provided_id = types.first.provided_id
     @virtual_server_types_for_select = virtual_server_types_for_select(types)
 
     physical_server_capacity = \
-      provider.capacities[selected_physical_server.provided_id]
+      @provider.capacities[selected_physical_server.provided_id]
     @starting_number_max = \
       starting_number_max || physical_server_capacity[selected_type_provided_id]
     @starting_number = starting_number || 0
