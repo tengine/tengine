@@ -58,6 +58,9 @@
           </tbody>
         </table>
         <%= hidden_field_tag "starting_number_max", @starting_number_max %>
+        <% if @provider -%>
+          <%= f.hidden_field :provider_id, value:@provider.id.to_s %>
+        <% end -%>
 
         <div class="BoxBtns">
           <span class="BtnWrap"><%= f.submit t(".pages.run"), :class => "BtnAdd" %></span>
