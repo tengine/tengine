@@ -5,6 +5,7 @@ source 'http://rubygems.org'
 
 # すぐにパッチが出る事を予想しています。リリース近くなったらバージョンを固定します。
 gem 'rails', '~> 3.1.0'
+gem 'sass' , '~> 3.1.11'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -45,9 +46,13 @@ group :test, :development do
   gem "simplecov", "~> 0.5.3"
 
   if RUBY_PLATFORM =~ /linux/ then
-    gem 'therubyracer', "~> 0.9.4"
+#    gem 'therubyracer', "~> 0.9.4"
   end
-	
+
+  gem 'capistrano'       , "~> 2.9.0"
+  gem 'capistrano-ext'   , "~> 1.2.1"
+  gem 'capistrano_colors', "~> 0.5.5"
+  gem 'railsless-deploy' , "~> 1.0.2"
 end
 
 
@@ -60,16 +65,3 @@ group :assets do
 end
 
 gem 'jquery-rails', "~> 1.0.14"
-
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
-gem 'capistrano'       , "~> 2.8.0"
-gem 'capistrano-ext'   , "~> 1.2.1"
-gem 'capistrano_colors', "~> 0.5.5"
