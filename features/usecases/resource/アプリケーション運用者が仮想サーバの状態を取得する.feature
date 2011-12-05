@@ -26,6 +26,8 @@
     かつ Wakameのモックファイル"./features/usecases/resource/test_files/10_describe_instances_0_virtual_servers.json"を"./features/usecases/resource/test_files/describe_instances.json"にコピーする
     # 仮想サーバイメージが0件のファイル
     かつ Wakameのモックファイル"./features/usecases/resource/test_files/20_describe_images_0_virtual_server_images.json"を"./features/usecases/resource/test_files/describe_images.json"にコピーする
+    かつ "Tengineリソースウォッチャ"プロセスを再起動する
+    # > tengine_resource_watchd
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名|仮想サーバ名|プロバイダによるID|説明|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
@@ -55,6 +57,8 @@
     かつ Wakameのモックファイル"./features/usecases/resource/test_files/21_describe_images_5_virtual_server_images.json"を"./features/usecases/resource/test_files/describe_images.json"にコピーする
     # 仮想サーバタイプが2件のファイル
     かつ Wakameのモックファイル"./features/usecases/resource/test_files/31_describe_instance_specs_4_virtual_server_specs.json"を"./features/usecases/resource/test_files/31_describe_instance_specs.json"にコピーする
+    かつ "Tengineリソースウォッチャ"プロセスを再起動する
+    # > tengine_resource_watchd
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。

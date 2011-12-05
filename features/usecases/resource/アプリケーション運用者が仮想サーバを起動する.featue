@@ -70,8 +70,10 @@
     かつ "起動サーバ数"に1を選択する
     かつ "説明"に"仮想サーバを1台起動テストの説明"と入力する
     かつ "起動"ボタンをクリックする
-    ならば "仮想サーバ起動結果"ダイアログが表示されること
-    かつ  "仮想サーバ起動結果"ダイアログに以下の表示があること
+    ならば tengine_console のログに以下の文言が表示されること
+    Tama::Controllers::TamaTestController#run_instances("virtual_server_image_uuid_01", 1, 1, [], nil, "", nil, "virtual_server_spec_uuid_01", nil, nil, "physical_server_uuid_01", nil)
+    ならば "仮想サーバ起動結果"画面が表示されること
+    かつ  "仮想サーバ起動結果"画面に以下の表示があること
     virtual_server_id_91
     もし "閉じる"ボタンを押下する
     ならば "仮想サーバ一覧"画面が表示されていること
@@ -87,6 +89,8 @@
     かつ "起動サーバ数"に5を選択する
     かつ "説明"に"仮想サーバを5台起動テストの説明"と入力する
     かつ "起動"ボタンをクリックする
+    ならば tengine_console のログに以下の文言が表示されること
+    Tama::Controllers::TamaTestController#run_instances("virtual_server_image_uuid_01", 5, 5, [], nil, "", nil, "virtual_server_spec_uuid_01", nil, nil, "physical_server_uuid_01", nil)
     ならば "仮想サーバ起動結果"ダイアログが表示されること
     かつ  "仮想サーバ起動結果"ダイアログに以下の表示があること
     virtual_server_id_92
@@ -135,3 +139,26 @@
     ならば "起動可能数"に"64"と表示されること
     もし "キャンセル"ボタンをクリックする
     ならば "仮想サーバ一覧"画面が表示されていること
+
+    #
+    # [「仮想サーバ起動」画面でバリデーションに引っかかった場合、エラー画面が出力されてしまう]確認
+    # https://www.pivotaltracker.com/story/show/21749503
+    # 1.0.0.rc4 時点では失敗します
+    #
+    # 重複した仮想サーバ名で仮想サーバを1台起動
+    もし "Tengineリソースウォッチャ"プロセスを停止する
+    # 本来であれば不要だが、Wakameにリクエストが飛ばない事を確認するためにも別のaws_idが帰ってくるモックファイルを準備する
+    もし Wakameのモックファイル"./features/usecases/resource/test_files/43_run_instances_1_virtual_servers_other_aws_id.json"を"./features/usecases/resource/test_files/run_instances.json"にコピーする
+    もし"仮想サーバ起動"ボタンをクリックする
+    ならば "仮想サーバ起動"画面が表示されていること
+    もし "仮想サーバ名"に"run_1_virtual_server"と入力する
+    かつ "物理サーバ名"に"physical_server_name_01"を選択する
+    かつ "仮想サーバイメージ名"に"virtual_server_image_uuid_01"を選択する
+    かつ "仮想サーバタイプ"に"virtual_server_spec_uuid_01"を選択する
+    かつ "起動サーバ数"に1を選択する
+    かつ "説明"に"仮想サーバを1台起動テストの説明"と入力する
+    かつ "起動"ボタンをクリックする
+    ならば "仮想サーバ起動"画面が表示されていること
+    かつ "仮想サーバ名 はすでに使用されています"と表示されていること
+    かつ tengine_console のログに以下の文言が表示されないこと
+    Tama::Controllers::TamaTestController#run_instances("virtual_server_image_uuid_01", 1, 1, [], nil, "", nil, "virtual_server_spec_uuid_01", nil, nil, "physical_server_uuid_01", nil)
