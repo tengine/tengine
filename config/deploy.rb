@@ -36,6 +36,10 @@ set :application,       "tengine_console"
 
 # default は, tar だが mac 標準の tar は bsdtar で gnutar ではないので zip にする
 set :copy_compression,  :zip
+set :copy_cache,        false
+set :copy_strategy,     :export
+set :copy_exclude,      ['.git', '.svn']
+
 set :deploy_via,        :copy
 set :deploy_to,         "/var/lib/#{application}"
 set :deploy_env,        "production"
@@ -55,25 +59,33 @@ set :apache_group, "apache"
 # these http://github.com/rails/irs_process_scripts
 
 after "deploy:setup",       "app:setup_shared"
+
+before "deploy:update"    , "app:chown_deploy_path"
 after "deploy:update_code", "app:symlinks"
-after "deploy:update_code", "app:change_owner"
+after "deploy:update"     , "app:change_owner"
 
 namespace :app do
   desc "setup shared directories"
   task :setup_shared do
-    run "mkdir -p #{shared_path}/config"
+    run "#{sudo} chown -R #{user}:#{user} #{deploy_to}"
+
+    run "#{sudo} mkdir -p #{shared_path}/config"
     put(IO.read("config/event_sender.yml.erb"), "#{shared_path}/config/event_sender.yml.erb", :via => :scp)
     put(IO.read("config/mongoid.yml"), "#{shared_path}/config/mongoid.yml", :via => :scp)
   end
 
+  task :chown_deploy_path do
+    run "#{sudo} chown -R #{user}:#{user} #{deploy_to}"
+  end
+
   desc "Make symlink for config_file"
   task :symlinks do
-    run "ln -nfs #{shared_path}/config/event_sender.yml #{release_path}/config/event_sender.yml"
-    run "ln -nfs #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
+    run "#{sudo} ln -nfs #{shared_path}/config/event_sender.yml.erb #{release_path}/config/event_sender.yml.erb"
+    run "#{sudo} ln -nfs #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
   end
 
   task :change_owner do
-    run "chown -R #{apache_user}:#{apache_group} #{deploy_to}/"
+    run "#{sudo} chown -R #{apache_user}:#{apache_group} #{deploy_to}/"
   end
 end
 
@@ -84,12 +96,13 @@ namespace :deploy do
   task(:start)   { apache.start }
   task(:stop)    { apache.stop }
   task(:restart) { apache.restart }
-  task(:setup_apache) {
-    apache.passenger.load_module
-    apache.passenger.make_config
-  }
 end
 
+# see /var/log/httpd/error_log
+#
+# [error] *** Passenger could not be initialized because of this error: Unable to start the Phusion Passenger watchdog (/usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.11/agents/PassengerWatchdog): Permission denied (13)
+#
+# -> setenforce 0
 
 namespace :apache do
   set :apache_bin_path,  "/etc/init.d/httpd"
@@ -98,54 +111,22 @@ namespace :apache do
   %w(start stop reload).each do |command|
     desc "apache #{command}"
     task(command, :roles => [:web]) do
-      run "#{apache_bin_path} #{command}"
-      run "ps -ef | grep httpd | grep -v grep"
+      run "#{sudo} #{apache_bin_path} #{command}"
     end
   end
 
   task :restart, roles => [:web] do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-    run "ps -ef | grep httpd | grep -v grep"
   end
 
   task :graceful, roles => [:web] do
-    run "apachectl graceful", :pty => true
+    run "#{sudo} apachectl graceful", :pty => true
   end
 
   task :configtest, roles => [:web] do
-    run "apachectl configtest"
-  end
-
-  namespace :passenger do
-    desc "make load module configrate"
-    task :load_module do
-      path = "#{apache_conf_path}/passenger.conf"
-      put(keep_indent(<<-EOS), path, :via => :scp)
-      LoadModule passenger_module /usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.9/ext/apache2/mod_passenger.so
-      PassengerRoot /usr/local/lib/ruby/gems/1.9.1/gems/passenger-3.0.9
-      PassengerRuby /usr/local/bin/ruby
-      EOS
-    end
-
-    desc "make web configuration"
-    task :make_config do
-      server_name = capture("hostname")
-      path = "#{apache_conf_path}/#{application}.conf"
-      put(keep_indent(<<-EOS), path, :via => :scp)
-      <VirtualHost *:80>
-          ServerName #{server_name}
-          DocumentRoot #{current_path}/public
-          <Directory #{current_path}/public>
-              Allow from all
-              Options -MultiViews
-              RailsBaseURI /
-          </Directory>
-      </VirtualHost>
-      EOS
-    end
+    run "#{sudo} apachectl configtest"
   end
 end
-
 
 
 # utility methods

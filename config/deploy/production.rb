@@ -3,32 +3,41 @@
 ##############################
 # setting server and roles
 ##############################
-role :web, "zbtgnwb1", "zbtgnwb2"
-role :app, "zbtgnwb1", "zbtgnwb2"
-role :db,  "zbtgnwb1", :primary => true # This is where Rails migrations will run
-role :db,  "zbtgnwb2"
+role :web, "192.168.1.61"
+role :app, "192.168.1.61"
+role :db,  "192.168.1.61"
 
-set :user,              "root"
+set :user,              'tengine'
 set :password do
   Capistrano::CLI.password_prompt('SSH Password: ')
 end
-set :use_sudo,          false
+set :use_sudo,          true
 set :ssh_options, {
-  :forward_agent => true
+  :forward_agent => true,
+  # :keys => [File.join(ENV["HOME"], ".ssh", "id_rsa")],
 }
+default_run_options[:pty] = true
 
 ##############################
 # setting scm
 ##############################
 set :scm_verbose,       true
-set :scm_user,          ""
-set :scm_prefer_prompt, true    # 毎回パスワードを入力する設定
+set :scm_user do
+  Capistrano::CLI.ui.ask('SCM User: ')
+end
+set :scm_password do
+  Capistrano::CLI.password_prompt('SCM Password: ')
+end
 
 set :scm,               :none
 set :repository,        "."
 
 # default は, tar だが mac 標準の tar は bsdtar で gnutar ではないので zip にする
 set :copy_compression,  :zip
+set :copy_cache,        false
+set :copy_strategy,     :export
+set :copy_exclude,      ['.git', '.svn']
+
 set :deploy_via,        :copy
 set :deploy_to,         "/var/lib/#{application}"
 set :deploy_env,        "production"
