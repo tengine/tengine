@@ -46,13 +46,12 @@ group :test, :development do
   gem "simplecov", "~> 0.5.3"
 
   if RUBY_PLATFORM =~ /linux/ then
-#    gem 'therubyracer', "~> 0.9.4"
+    gem 'therubyracer', "~> 0.9.4"
   end
 
   gem 'capistrano'       , "~> 2.9.0"
   gem 'capistrano-ext'   , "~> 1.2.1"
   gem 'capistrano_colors', "~> 0.5.5"
-  gem 'railsless-deploy' , "~> 1.0.2"
 end
 
 
