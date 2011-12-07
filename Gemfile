@@ -13,6 +13,7 @@ gem "selectable_attr", "~> 0.3.14"
 gem "selectable_attr_rails", "~> 0.3.14"
 
 gem "mongoid", "~> 2.3.3"
+gem "mongo", "~> 1.4.0"
 gem "bson_ext", "~> 1.4.0"
 
 gem "kaminari", "~> 0.12.4"
