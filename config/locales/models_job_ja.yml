@@ -91,13 +91,13 @@ ja:
     tengine/job/root_jobnet_actual/finder:
       phase_cd: &phase_cds
         initialized: "初期化済"
-        ready: "準備済"
-        starting: "起動中"
-        running: "稼動中"
-        dying: "終了中"
-        success: "完了"
-        error: "エラー"
-        stuck: "スタック"
+        ready: "準備中"
+        starting: "開始中"
+        running: "実行中"
+        dying: "強制停止中"
+        success: "正常終了"
+        error: "エラー終了"
+        stuck: "状態不明"
     tengine/job/jobnet_actual:
       phase_cd:
         <<: *phase_cds

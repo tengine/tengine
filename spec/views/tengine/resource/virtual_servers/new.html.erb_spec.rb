@@ -61,6 +61,7 @@ describe "tengine/resource/virtual_servers/new.html.erb" do
     assign(:virtual_server_types_for_select, [@type1, @type2])
     assign(:starting_number, 0)
     assign(:starting_number_max, 10)
+    assign(:provider, @provider)
   end
 
   after do
@@ -83,6 +84,14 @@ describe "tengine/resource/virtual_servers/new.html.erb" do
       assert_select "select#virtual_server_host_server_id", :name => "virtual_server[host_server_id]"
       assert_select "input#virtual_server_starting_number", :name => "virtual_server[starting_number]", :max => @starting_number_max, :value => @starting_number
       assert_select "input#starting_number_max", :name => "starting_number_max", :value => @starting_number_max
+      rendered.should have_xpath("//input[@type='hidden'][@id='virtual_server_provider_id'][@value='#{@provider.id}']")
     end
+  end
+
+  it "not renders virtual_server_provider_id field" do
+    assign(:provider, nil)
+    render
+
+    rendered.should_not have_xpath("//input[@type='hidden'][@id='virtual_server_provider_id']")
   end
 end

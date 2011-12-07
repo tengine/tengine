@@ -76,6 +76,9 @@ $(window).load ->
       type_provided_id = selected.attr("value");
       recalc_starting_number(val, type_provided_id);
 
+    # set provider_id in hidden field
+    $('input#virtual_server_provider_id').attr("value", provider_id);
+
 
   $('select#virtual_server_provided_type_id').change ->
     type = $(this).children(":selected").attr("value");
