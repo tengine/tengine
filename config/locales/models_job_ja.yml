@@ -16,6 +16,8 @@ ja:
         name: "ジョブネット名"
         description: "説明"
         dsl_filepath: "DSLファイルパス"
+        dsl_lineno: "DSL行番号"
+        dsl_version: "DSLバージョン"
         template_id: "テンプレートID"
         server_name: "接続サーバ名"
         credential_name: "認証情報名"

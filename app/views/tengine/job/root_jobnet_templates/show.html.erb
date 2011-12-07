@@ -28,6 +28,18 @@
         <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:credential_name) %>:</th>
         <td><%= @root_jobnet_template.credential_name %></td>
       </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_filepath) %>:</th>
+        <td><%= @root_jobnet_template.dsl_filepath %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_lineno) %>:</th>
+        <td><%= @root_jobnet_template.dsl_lineno %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_version) %>:</th>
+        <td><%= @root_jobnet_template.dsl_version %></td>
+      </tr>
     </tbody>
   </table>
 </div><!-- /.Section -->
