@@ -267,6 +267,7 @@ DEPENDENCIES
   factory_girl_rails (~> 1.2.0)
   jquery-rails (~> 1.0.14)
   kaminari (~> 0.12.4)
+  mongo (~> 1.4.0)
   mongoid (~> 2.3.3)
   pickle (~> 0.4.10)
   pickle_i18n (~> 0.0.4)
