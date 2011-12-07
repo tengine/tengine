@@ -70,6 +70,8 @@ namespace :app do
     run "#{sudo} chown -R #{user}:#{user} #{deploy_to}"
 
     run "#{sudo} mkdir -p #{shared_path}/config"
+    run "#{sudo} chown -R #{user}:#{user} #{shared_path}"
+
     put(IO.read("config/event_sender.yml.erb"), "#{shared_path}/config/event_sender.yml.erb", :via => :scp)
     put(IO.read("config/mongoid.yml"), "#{shared_path}/config/mongoid.yml", :via => :scp)
   end
