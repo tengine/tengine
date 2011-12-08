@@ -4364,7 +4364,7 @@
     かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 finish"と"スクリプトログ"に一回出力されており、"tengine_job_test  /jn0005/finally/jn0005_fjn/jn0005_f2 start"の後であること
     かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 finish"後であること
     かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"後であること
-    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish"の後であること
     かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f start"の後であること
 
   @1107
@@ -4446,8 +4446,6 @@
     かつ ジョブ"/jn0005/jn4/j44" のステータスが正常終了であること
     かつ ジョブ"/jn0005/jn4/finally" のステータスがエラー終了であること
     かつ ジョブ"/jn0005/jn4/finally/jn4_f" のステータスがエラー終了であること
-    かつ ジョブネット"/jn0005/jn4/finally" のステータスが正常終了であること
-    かつ ジョブ"/jn0005/jn4/finally/jn4_f" のステータスが正常終了であること
     かつ ジョブネット"/jn0005/finally" のステータスが正常終了であること
     かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f1" のステータスが正常終了であること
     かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f2" のステータスが正常終了であること
@@ -4623,7 +4621,7 @@
     かつ ジョブネット"/jn0006/jn1/finally" のステータスが正常終了であること
     かつ ジョブ"/jn0006/jn1/finally/jn1_f" のステータスが正常終了であること
     かつ ジョブネット"/jn0006/jn2/" のステータスが初期化済であること
-    かつ ジョブ"/jn0006/jn2/j21" のステータスが正常終了であること
+    かつ ジョブ"/jn0006/jn2/j21" のステータスが初期化済であること
     かつ ジョブネット"/jn0006/jn2/jn22" のステータスが初期化済終了であること
     かつ ジョブ"/jn0006/jn2/jn22/j221" のステータスが初期化済であること
     かつ ジョブ"/jn0006/jn2/jn22/j222" のステータスが初期化済であること
@@ -4676,7 +4674,7 @@
     かつ ジョブネット"/jn0006/jn1/finally" のステータスが正常終了であること
     かつ ジョブ"/jn0006/jn1/finally/jn1_f" のステータスが正常終了であること
     かつ ジョブネット"/jn0006/jn2/" のステータスが初期化済であること
-    かつ ジョブ"/jn0006/jn2/j21" のステータスが正常終了であること
+    かつ ジョブ"/jn0006/jn2/j21" のステータスが初期化済であること
     かつ ジョブネット"/jn0006/jn2/jn22" のステータスが初期化済終了であること
     かつ ジョブ"/jn0006/jn2/jn22/j221" のステータスが初期化済であること
     かつ ジョブ"/jn0006/jn2/jn22/j222" のステータスが初期化済であること
