@@ -123,7 +123,7 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
   
       respond_to do |format|
         if @physical_server.update_attributes(params[:physical_server])
-          format.html { redirect_to @physical_server, notice: successfully_updated(@physical_server) }
+          format.html { redirect_to tengine_resource_physical_servers_url, notice: successfully_updated(@physical_server) }
           format.json { head :ok }
         else
           format.html { render action: "edit" }

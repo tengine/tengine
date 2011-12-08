@@ -390,14 +390,14 @@ describe Tengine::Resource::PhysicalServersController do
       it "redirects to the physical_server" do
         physical_server = Tengine::Resource::PhysicalServer.create! valid_attributes
         put :update, :id => physical_server.id, :physical_server => valid_attributes
-        response.should redirect_to(physical_server)
+        response.should redirect_to(tengine_resource_physical_servers_url)
       end
 
       it "commitパラメータがキャンセルのとき更新されずに一覧にリダイレクトされること" do
         Tengine::Resource::PhysicalServer.any_instance.should_not_receive(:update_attributes)
         physical_server = Tengine::Resource::PhysicalServer.create! valid_attributes
-        put :update, :id => physical_server.id, :physical_server => valid_attributes
-        response.should redirect_to(physical_server)
+        put :update, :id => physical_server.id, :physical_server => valid_attributes, :commit => I18n.t("views.links.cancel")
+        response.should redirect_to(tengine_resource_physical_servers_url)
       end
     end
 

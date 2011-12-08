@@ -1,92 +1,97 @@
 <h1><%= page_title Tengine::Resource::PhysicalServer, :list %></h1>
 
-<p id="notice"><%= notice %></p>
-    
-<div class="BoxBorder BoxSearchForm">
-  <%= form_for(:finder, :html => {:method => :get}) do |f| %>
-  <fieldset>
-    <legend><%= I18n.t(:search_caption,:scope => [:views, :pages]) %></legend>
-    <table class="TableForm4rows">
-      <tbody class="CelRow2">
-        <tr>
-          <th><%= f.label :name, Tengine::Resource::PhysicalServer.human_attribute_name(:name) %></th>
-          <td><%= f.text_field :name , :class => "InputText"%></td>
-        </tr>
-        <tr>
-          <th><%= f.label :provided_id, Tengine::Resource::PhysicalServer.human_attribute_name(:provided_id) %></th>
-          <td><%= f.text_field :provided_id,  :class => "InputText"%></td>
-        </tr>
-        <tr>
-          <th><%= f.label :description, Tengine::Resource::PhysicalServer.human_attribute_name(:description) %></th>
-          <td><%= f.text_field :description, :class => "InputText" %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :status, Tengine::Resource::PhysicalServer.human_attribute_name(:status) %></th>
+<div class="Section">
+  <%= message :complete, notice %>
+  <div class="BoxBorder BoxSearchForm">
+  
+    <%= form_for(:finder, :html => {:method => :get}) do |f| %>
+      <%= field_set_tag do -%>
+        <legend><%= I18n.t(:search_caption,:scope => [:views, :pages]) %></legend>
+        <table class="TableForm4rows">
+          <tbody>
+            <tr>
+              <th><%= f.label :name, Tengine::Resource::PhysicalServer.human_attribute_name(:name) %></th>
+              <td><%= f.text_field :name , :class => "InputText"%></td>
+            </tr>
+            <tr>
+              <th><%= f.label :provided_id, Tengine::Resource::PhysicalServer.human_attribute_name(:provided_id) %></th>
+              <td><%= f.text_field :provided_id,  :class => "InputText"%></td>
+            </tr>
+            <tr>
+              <th><%= f.label :description, Tengine::Resource::PhysicalServer.human_attribute_name(:description) %></th>
+              <td><%= f.text_field :description, :class => "InputText" %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :status, Tengine::Resource::PhysicalServer.human_attribute_name(:status) %></th>
+              <td>
+                <% @check_status.each do |key, stats| %>
+                  <%= f.check_box key , {:checked => stats[0]}, "1", "0" %>
+                  <%= stats[1] %>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  
+        <div class="BoxBtns">
+          <span class= "BtnWrap"><%= f.submit(I18n.t(:search, :scope => [:views, :links]), :class => "BtnSearch") %></span>
+          <%= reset_tag t("views.links.reset") %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="Section">
+  <%= paginate @physical_servers, :items => @physical_servers %>
+
+  <table class="TableBase">
+    <colgroup>
+      <col class="Row1" />
+      <col class="Row2" />
+      <col class="Row3" />
+      <col class="Row4" />
+      <col class="Row5" />
+      <col class="Row6" />
+      <col class="Row7" />
+      <col class="Row8 RowW80" />
+    </colgroup>
+    <thead>
+      <tr>
+        <% query_without_page = request.query_parameters.select{|k,v| %w(category finder).include?(k.to_s) } -%>
+        <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:name), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name) %></th>
+        <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:provided_id), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:provided_id))), :class => sort_class(:provided_id) %></th>
+        <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:description), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:description))), :class => sort_class(:description) %></th>
+        <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:cpu_cores), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:cpu_cores))), :class => sort_class(:cpu_cores) %></th>
+        <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:memory_size), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:memory_size))), :class => sort_class(:memory_size) %></th>
+        <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:status), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:status))), :class => sort_class(:status) %></th>
+        <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:properties) %></th>
+        <th><%= I18n.t(:operation, :scope => [:views, :pages]) %></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @physical_servers.each do |physical_server| %>
+        <tr class="<%= cycle("even", "odd") %>" >
+          <td><%= physical_server.name %></td>
+          <td><%= physical_server.provided_id %></td>
           <td>
-            <% @check_status.each do |key, stats| %>
-              <%= f.check_box key , {:checked => stats[0]}, "1", "0" %>
-              <%= stats[1] %>
+            <%= description_format physical_server.description, 20, id:"yamlDescription" %>
+          </td>
+          <td><%= physical_server.cpu_cores %></td>
+          <td><%= physical_server.memory_size %></td>
+          <td><%= physical_server.status %></td>
+          <td>
+            <% unless physical_server.properties.blank? -%>
+              <%= yaml_view t(:show), format_map_yml_value(physical_server, :properties),
+                    id:"yamlProperties" %>
             <% end %>
           </td>
+          <td><%= link_to_edit edit_tengine_resource_physical_server_path(physical_server), :class => "ActionEdit" %></td>
         </tr>
-      </tbody>
-    </table>
-
-    <div class="BoxBtns">
-      <span class= "BtnWrap"><%= f.submit(I18n.t(:search, :scope => [:views, :links]), :class => "BtnSearch") %></span>
-      <span class= "BtnWrap"><%= tag :input, { "type" => "reset", "name" => "reset", "value" => I18n.t(:reset, :scope => [:views, :links]) , :class => "BtnCancel"} %></span>
-    </div>
-  </fieldset>
-  <% end %>
-</div>
-
-<div class="PageStats">
-  <div class="PageNation">
-    <%= paginate @physical_servers, :items => @physical_servers %>
-  </div>
-</div>
-
-<table class="TableBase">
-  <thead>
-    <tr>
-      <% query_without_page = request.query_parameters.select{|k,v| %w(category finder).include?(k.to_s) } -%>
-      <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:name), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name) %></th>
-      <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:provided_id), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:provided_id))), :class => sort_class(:provided_id) %></th>
-      <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:description), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:description))), :class => sort_class(:description) %></th>
-      <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:cpu_cores), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:cpu_cores))), :class => sort_class(:cpu_cores) %></th>
-      <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:memory_size), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:memory_size))), :class => sort_class(:memory_size) %></th>
-      <th><%= link_to Tengine::Resource::PhysicalServer.human_attribute_name(:status), tengine_resource_physical_servers_path(query_without_page.merge(sort_param(:status))), :class => sort_class(:status) %></th>
-      <th><%= Tengine::Resource::PhysicalServer.human_attribute_name(:properties) %></th>
-      <th><%= I18n.t(:operation, :scope => [:views, :pages]) %></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @physical_servers.each do |physical_server| %>
-      <tr class="<%= cycle("even", "odd") %>" >
-        <td><%= physical_server.name %></td>
-        <td><%= physical_server.provided_id %></td>
-        <td>
-          <%= description_format physical_server.description, 20, id:"yamlDescription" %>
-        </td>
-        <td><%= physical_server.cpu_cores %></td>
-        <td><%= physical_server.memory_size %></td>
-        <td><%= physical_server.status %></td>
-        <td>
-          <% unless physical_server.properties.blank? -%>
-            <%= yaml_view t(:show), format_map_yml_value(physical_server, :properties),
-                  id:"yamlProperties" %>
-          <% end %>
-        </td>
-        <td><%= link_to_edit edit_tengine_resource_physical_server_path(physical_server), :class => "ActionEdit" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-
-<div class="PageStats">
-  <div class="PageNation">
-    <%= paginate @physical_servers, :items => @physical_servers %>
-  </div>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <%= paginate @physical_servers, :items => @physical_servers %>
 </div>
