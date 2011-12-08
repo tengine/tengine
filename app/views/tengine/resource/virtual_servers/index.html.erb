@@ -9,9 +9,8 @@
 
 <h1><%= page_title Tengine::Resource::VirtualServer, :list %></h1>
 
-<p id="notice"><%= notice %></p>
-
 <div class="Section">
+  <%= message :complete, notice %>
   <div class="BoxBorder BoxSearchForm">
     <%= form_for(:finder, :url => tengine_resource_virtual_servers_url, :method => :get) do |f| %>
       <%= field_set_tag do -%>
@@ -23,27 +22,27 @@
           </colgroup>
           <tbody>
             <tr>
-              <th><%= f.label :physical_server_name %>:</th>
+              <th><%= f.label :physical_server_name %></th>
               <td><%= f.text_field :physical_server_name, :class => "InputText" %></td>
             </tr>
             <tr>
-              <th><%= f.label :virtual_server_name %>:</th>
+              <th><%= f.label :virtual_server_name %></th>
               <td><%= f.text_field :virtual_server_name, :class => "InputText" %></td>
             </tr>
             <tr>
-              <th><%= f.label :provided_id %>:</th>
+              <th><%= f.label :provided_id %></th>
               <td><%= f.text_field :provided_id, :class => "InputText" %></td>
             </tr>
             <tr>
-              <th><%= f.label :description %>:</th>
+              <th><%= f.label :description %></th>
               <td><%= f.text_field :description, :class => "InputText" %></td>
             </tr>
             <tr>
-              <th><%= f.label :virtual_server_image_name %>:</th>
+              <th><%= f.label :virtual_server_image_name %></th>
               <td><%= f.text_field :virtual_server_image_name, :class => "InputText" %></td>
             </tr>
             <tr>
-              <th><%= f.label :status_cd %>:</th>
+              <th><%= f.label :status_cd %></th>
               <td><%= f.check_box_group :status_cd %></td>
             </tr>
           </tbody>
@@ -67,7 +66,7 @@
     <% end %>
 
     <%= form_for(:refresher, :url => tengine_resource_virtual_servers_url, :method => :get, :html => {:novalidate => true}) do |f| %>
-      <%= f.label :refresh_interval, t(".refresher.form.refresh_interval") %>:
+      <%= f.label :refresh_interval, t(".refresher.form.refresh_interval") %>
       <%= f.number_field :refresh_interval, :class => "InputText", :min => 0 %>
       <%= t("datetime.prompts.second") %>
 

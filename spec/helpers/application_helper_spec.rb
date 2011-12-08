@@ -263,6 +263,7 @@ describe ApplicationHelper do
       helper.message(:warning, "test").should =~ /class="Msg MsgWarning"/
       helper.message(:complete, "test").should =~ /class="Msg MsgComplete"/
       helper.message(:delete, "test").should =~ /class="Msg MsgCompleteDelete"/
+      helper.message(nil, "test").should =~ /class="Msg"/
     end
 
     it "textがpタグとdivタグに囲われていること" do
@@ -272,6 +273,10 @@ describe ApplicationHelper do
 
     it "ブロックで渡した内容が含まれていること" do
       helper.message(:complete, "test") { "foo" }.should =~ /foo/
+    end
+
+    it "textが空のとき空文字列を返すこと" do
+      helper.message(:complete, nil).should == ""
     end
   end
 
