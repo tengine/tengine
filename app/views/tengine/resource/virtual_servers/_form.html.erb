@@ -6,12 +6,10 @@
         <colgroup>
           <col class="Row1 RowTh">
           <col class="Row2 RowTd">
-          <col class="Row3 RowTh">
-          <col class="Row4 RowTd">
         </colgroup>
         <tbody>
           <tr>
-            <th class="CelRow1"><%= f.label :name %></th>
+            <th><%= f.label :name %></th>
             <td><%= f.text_field :name, :class =>"InputText" %></td>
           </tr>
           <tr>
@@ -48,7 +46,7 @@
           </tr>
           <tr>
             <th><%= f.label :description %></th>
-            <td><%= f.text_area :description, :class =>"InputText", :rows => 3 %></td>
+            <td><%= f.text_area :description, :class =>"InputText", :rows => 10 %></td>
           </tr>
         </tbody>
       </table>
