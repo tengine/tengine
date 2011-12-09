@@ -26,7 +26,7 @@
               <td>
                 <% @check_status.each do |key, stats| %>
                   <%= f.check_box key , {:checked => stats[0]}, "1", "0" %>
-                  <%= stats[1] %>
+                  <%= f.label key, stats[1] %>
                 <% end %>
               </td>
             </tr>
