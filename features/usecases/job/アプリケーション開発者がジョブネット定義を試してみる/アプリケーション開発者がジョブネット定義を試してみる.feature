@@ -398,13 +398,47 @@
     もし "Tengineコアプロセス"の停止を行うために"tengined -k stop"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
     
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_expansion_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_expansion_in_jobnet_2.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
     もし ジョブネット"jobnet1006"を実行する
     かつ ジョブネット"jobnet1006"がエラー終了することを確認する
-    かつ job2の実行スクリプトが"exit 1"になっていること                           
+    かつ job2の実行スクリプトが"exit 1"になっていること
+
+  @manual
+  @1006_4
+  シナリオ: [正常系]expansionで指定するジョブネット名が、以前のtengined起動時に読み込んでいたジョブネット名と被っている場合でも同じバージョンのジョブネットが利用される_パターン2
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jobnet1006_2"を実行する
+    かつ ジョブネット"jobnet1006_2"が完了することを確認する
+    かつ ジョブ"/jobnet1006_2/jobnet1006_2_2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1006_2/jobnet1006_2_2/job2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1006_2/jobnet1006_2_2/jobnet1006_2_3" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1006_2/jobnet1006_2_2/jobnet1006_2_3/job3" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1006_2/job4" のステータスが正常終了であること
+
+    もし "Tengineコアプロセス"の停止を行うために"tengined -k stop"というコマンドを実行する
+    ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
+   
+    もし テストを行うために"mv ./usecases/job/dsl/1006_expansion_in_jobnet.rb ./usecases/job/dsl/1006_expansion_in_jobnet.rb_tmp"というコマンドを実行する 
+   
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_expansion_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"jobnet1006"を実行する
+    かつ ジョブネット"jobnet1006"が完了することを確認する
+    かつ ジョブ"/jobnet1006/job1" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1006/jobnet1006_2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1006/jobnet1006_2/job2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1006/job3" のステータスが正常終了であること
+
+    もし 後始末を行うために"mv ./usecases/job/dsl/1006_expansion_in_jobnet.rb_tmp ./usecases/job/dsl/1006_expansion_in_jobnet.rb"というコマンドを実行する 
 
 
   # ./usecases/job/dsl/1007_boot_jobs_in_jobnet.rb
