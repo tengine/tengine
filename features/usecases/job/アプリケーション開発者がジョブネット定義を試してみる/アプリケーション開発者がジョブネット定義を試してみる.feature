@@ -2111,7 +2111,42 @@
     もし "jobnet1049_failure"の"表示"リンクをクリックする
     ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
 
+
+  # ./usecases/job/dsl/1050_dsl_version_in_dsl.rb
+  #  -------------------
+  # require 'tengine_job'
+  # 
+  # dsl_version("0.9.7")
+  # 
+  # jobnet("jobnet1050", :server_name => "test_server1", :credential_name => "test_credential1") do
+  #   auto_sequence
+  #   job("job1", "$HOME/tengine_job_test.sh 1 job1")
+  # end
+  # -------------------
+  #
+  @1050
+  シナリオ: [正常系]1002_複数のジョブ(直列)が含まれるジョブネット_を試してみる
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1050_dsl_version_in_dsl.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
+    もし ジョブネット"jobnet1050"を実行する
+    かつ ジョブネット"jobnet1050"が完了することを確認する
+    
+    ならば ジョブネット"/jobnet1050" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1050/job1" のステータスが正常終了であること
+
+    # -----------------------------
+    # tengine_job_test job1 start
+    # tengine_job_test job1 finish
+    # -----------------------------
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
+    かつ "tengine_job_test job1 finish"と"スクリプトログ"の末尾に出力されていること
+
+
+
   # ./usecases/job/dsl/1060_jobnet_directory
   #
   @1060
