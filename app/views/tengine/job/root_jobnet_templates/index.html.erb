@@ -1,7 +1,6 @@
 <h1><%= page_title Tengine::Job::RootJobnetTemplate, :list %></h1>
 
-<p id="notice"><%= notice %></p>
-
+<%= message :complete, notice %>
 <div class="TreeViewContents">
   <div class="DataView">
     <div class="Wrap">
@@ -11,6 +10,10 @@
             <%= field_set_tag do -%>
               <legend><%= I18n.t(:search_caption,:scope => [:views, :pages]) %></legend>
               <table class="TableForm4rows">
+                <colgroup>
+                  <col class="Row1 RowTh">
+                  <col class="Row2 RowTd">
+                </colgroup>
                 <tbody>
                   <tr>
                     <th><%= f.label :id, Tengine::Job::RootJobnetTemplate.human_attribute_name(:id) %></th>
@@ -43,37 +46,43 @@
         </div>
       </div>
 
-      <%= paginate @root_jobnet_templates, :items => @root_jobnet_templates %>
+      <div class="Section">
+        <%= paginate @root_jobnet_templates, :items => @root_jobnet_templates %>
 
-      <table class="TableBase">
-        <colgroup>
-        </colgroup>
-        <thead>
-          <tr>
-            <% query_without_page = request.query_parameters.select{|k,v| %w(category finder).include?(k.to_s) } -%>
-            <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:id), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:id))), :class => sort_class(:id) %></th>
-            <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:name), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name) %></th>
-            <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:description), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:desc))), :class => sort_class(:desc) %></th>
-            <th><%= I18n.t(:operation, :scope => [:views, :pages]) %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @root_jobnet_templates.each do |root_jobnet_template| %>
-            <tr class="<%= cycle("even", "odd") %>" >
-              <td><%= root_jobnet_template.id %></td>
-              <td><%= root_jobnet_template.name %></td>
-              <td><%= root_jobnet_template.description %></td>
-              <td>
-                <%= link_to_show root_jobnet_template, :class => "ActionDetail" %>
-                <%= link_to I18n.t(:run, :scope => [:views, :links]), new_tengine_job_execution_path(:root_jobnet_id => root_jobnet_template) %>
-              </td>
+        <table class="TableBase">
+          <colgroup>
+            <col class="Row1">
+            <col class="Row2">
+            <col class="Row3">
+            <col class="Row4 RowW100">
+          </colgroup>
+          <thead>
+            <tr>
+              <% query_without_page = request.query_parameters.select{|k,v| %w(category finder).include?(k.to_s) } -%>
+              <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:id), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:id))), :class => sort_class(:id) %></th>
+              <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:name), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name) %></th>
+              <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:description), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:desc))), :class => sort_class(:desc) %></th>
+              <th><%= I18n.t(:operation, :scope => [:views, :pages]) %></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @root_jobnet_templates.each do |root_jobnet_template| %>
+              <tr class="<%= cycle("even", "odd") %>" >
+                <td><%= root_jobnet_template.id %></td>
+                <td><%= root_jobnet_template.name %></td>
+                <td><%= root_jobnet_template.description %></td>
+                <td>
+                  <%= link_to_show root_jobnet_template, :class => "ActionDetail" %>
+                  <%= link_to I18n.t(:run, :scope => [:views, :links]), new_tengine_job_execution_path(:root_jobnet_id => root_jobnet_template) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
 
-      <%= paginate @root_jobnet_templates, :items => @root_jobnet_templates %>
+        <%= paginate @root_jobnet_templates, :items => @root_jobnet_templates %>
 
+      </div>
     </div>
   </div><!-- DataView -->
 
