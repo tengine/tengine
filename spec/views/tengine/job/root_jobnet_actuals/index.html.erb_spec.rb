@@ -345,10 +345,10 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
         assign(:root_jobnet_actuals, Kaminari.paginate_array(templates).page(1).per(5))
       end
 
-      it "強制停止のリンクが表示されていないこと" do
+      it "強制停止のリンクが表示されていること" do
         render
 
-        rendered.should_not have_xpath("//a", :text => I18n.t("views.links.force_exit"))
+        rendered.should have_xpath("//a", :text => I18n.t("views.links.force_exit"))
       end
 
       it "再実行のリンクが表示されていないこと" do
@@ -388,10 +388,10 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
         assign(:root_jobnet_actuals, Kaminari.paginate_array(templates).page(1).per(5))
       end
 
-      it "強制停止のリンクが表示されていないこと" do
+      it "強制停止のリンクが表示されていること" do
         render
 
-        rendered.should_not have_xpath("//a", :text => I18n.t("views.links.force_exit"))
+        rendered.should have_xpath("//a", :text => I18n.t("views.links.force_exit"))
       end
 
       it "再実行のリンクが表示されていないこと" do

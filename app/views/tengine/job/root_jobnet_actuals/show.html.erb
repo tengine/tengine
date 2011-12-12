@@ -131,7 +131,7 @@
               <% if %w(initialized success error stuck).include?(jobnet_actual.phase_key.to_s) -%>
                 <%= link_to t("views.links.rerun"), new_tengine_job_execution_path(:root_jobnet_id => @root_jobnet_actual, :target_actual_ids => [jobnet_actual.id.to_s], :retry => true) %>
               <% end -%>
-              <% if %w(running).include?(jobnet_actual.phase_key.to_s) -%>
+              <% if %w(ready starting running).include?(jobnet_actual.phase_key.to_s) -%>
                 <%= link_to t("views.links.force_exit"), tengine_job_root_jobnet_actual_jobnet_actual_path(jobnet_actual, :root_jobnet_actual_id => @root_jobnet_actual), :method => "delete", confirm: t(".confirm.destroy") %>
               <% end -%>
             </td>
@@ -139,7 +139,7 @@
         <% end -%>
       </tbody>
     </table>
-    <% if %w(running).include?(@root_jobnet_actual.phase_key.to_s) -%>
+    <% if %w(ready starting running).include?(@root_jobnet_actual.phase_key.to_s) -%>
       <p class="BoxBtns">
         <%= button_link_to t("views.links.force_exit"),
           tengine_job_root_jobnet_actual_path(@root_jobnet_actual),
