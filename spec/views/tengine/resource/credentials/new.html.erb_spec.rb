@@ -19,7 +19,10 @@ describe "tengine/resource/credentials/new.html.erb" do
         assert_select "select#credential_auth_type_cd", :name => "credential[auth_type_cd]"
         assert_select "input#credential_auth_values_username", :name => "credential[auth_values][username]"
         assert_select "input#credential_auth_values_password", :name => "credential[auth_values][password]"
+
       end
+
+      rendered.should have_xpath("//input[@type='submit'][@class='BtnAdd']")
     end
   end
   describe "SSH パスワード認証を選択したとき" do

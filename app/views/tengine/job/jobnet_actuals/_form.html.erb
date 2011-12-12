@@ -137,7 +137,13 @@
       <% end %>
 
       <div class="BoxBtns">
-        <span class="BtnWrap"><%= f.submit :class => "BtnEdit" %></span>
+        <span class="BtnWrap">
+          <% if @jobnet_actual.persisted? -%>
+            <%= f.submit :class => "BtnNext" %>
+          <% else -%>
+            <%= f.submit :class => "BtnAdd" %>
+          <% end -%>
+        </span>
         <% unless defined?(cancel_path) -%>
           <% cancel_path = tengine_job_root_jobnet_actual_jobnet_actuals_path(@root_jobnet_actual) -%>
         <% end %>
