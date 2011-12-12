@@ -183,7 +183,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
         ])
       end
 
-      it "操作のリンクが表示されていないこと" do
+      it "強制停止のリンクが表示されていないこと" do
         render
 
         rendered.should_not have_link(I18n.t("views.links.edit_status"),
@@ -192,7 +192,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
         rendered.should_not have_link(I18n.t("views.links.rerun"),
           :href => new_tengine_job_execution_path(
             :root_jobnet_id => @root_jobnet_actual, :retry => true))
-        rendered.should_not have_link(I18n.t("views.links.force_exit"),
+        rendered.should have_link(I18n.t("views.links.force_exit"),
           :href => tengine_job_root_jobnet_actual_jobnet_actual_path(@job1.id.to_s,
             :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
       end
@@ -217,7 +217,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
         ])
       end
 
-      it "操作のリンクが表示されていないこと" do
+      it "強制停止のリンクが表示されていないこと" do
         render
 
         rendered.should_not have_link(I18n.t("views.links.edit_status"),
@@ -226,7 +226,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
         rendered.should_not have_link(I18n.t("views.links.rerun"),
           :href => new_tengine_job_execution_path(
             :root_jobnet_id => @root_jobnet_actual, :retry => true))
-        rendered.should_not have_link(I18n.t("views.links.force_exit"),
+        rendered.should have_link(I18n.t("views.links.force_exit"),
           :href => tengine_job_root_jobnet_actual_jobnet_actual_path(@job1.id.to_s,
             :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
       end
