@@ -1,6 +1,6 @@
 [
   {
-    "id": "virtual_server_uuid_92",
+    "id": "virtual_server_uuid_98",
     "state": "scheduling",
     "image_id": "vertual_server_image_uuid_01",
     "hostname": "physical_server_uuid_01",
@@ -21,7 +21,7 @@
   },
 
   {
-    "id": "virtual_server_uuid_93",
+    "id": "virtual_server_uuid_99",
     "state": "scheduling",
     "image_id": "vertual_server_image_uuid_01",
     "hostname": "physical_server_uuid_01",
@@ -42,7 +42,7 @@
   },
 
   {
-    "id": "virtual_server_uuid_94",
+    "id": "virtual_server_uuid_100",
     "state": "scheduling",
     "image_id": "vertual_server_image_uuid_01",
     "hostname": "physical_server_uuid_01",
@@ -63,7 +63,7 @@
   },
 
   {
-    "id": "virtual_server_uuid_95",
+    "id": "virtual_server_uuid_101",
     "state": "scheduling",
     "image_id": "vertual_server_image_uuid_01",
     "hostname": "physical_server_uuid_01",
@@ -84,7 +84,7 @@
   },
 
   {
-    "id": "virtual_server_uuid_96",
+    "id": "virtual_server_uuid_102",
     "state": "scheduling",
     "image_id": "vertual_server_image_uuid_01",
     "hostname": "physical_server_uuid_01",
