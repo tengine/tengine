@@ -65,6 +65,8 @@ Tamaのテストモードはjson形式で記述されたファイルを使用す
    cp 13_describe_instances_after_terminate_instances.json describe_instances
  * 13の後、一定時間が経過して停止済みの仮想サーバのレスポンスが帰ってこない状態を想定した仮想サーバのレスポンスを返却する
    cp 14_describe_instances_after_terminate_instances_destroy.json describe_instances
+ * 仮想サーバ名の重複チェックを行うための過仮想サーバのレスポンスを返却する
+   cp 15_describe_instances_validation_run_instances.json describe_instances
 
 * describe_images.jon
  * 0件の仮想サーバイメージのレスポンスを返却する
@@ -89,6 +91,8 @@ Tamaのテストモードはjson形式で記述されたファイルを使用す
    cp 42_run_instances_5_virtual_servers.json run_instances.json
  * 1件の仮想サーバ起動時のレスポンスを返却する(41とは異なるaws_idを返す、重複確認用)
    cp 43_run_instances_1_virtual_servers_other_aws_id.json run_instances.json
+ * 5件の仮想サーバ起動時のレスポンスを返却する(42とは異なるaws_idを返す、重複確認用)
+   cp 44_run_instances_5_virtual_servers_other_aws_id.json run_instances.json
 
 * terminate_instances
  * 0件の仮想サーバ停止時のレスポンスを返却する(未使用)
