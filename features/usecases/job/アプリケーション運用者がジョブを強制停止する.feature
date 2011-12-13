@@ -15,6 +15,7 @@
     かつ "Tengineコンソールプロセス"が起動している
     かつ Tengine周辺のサーバの時刻が同期されている
 
+  @3001
   シナリオ: [正常系]fork前、ルートジョブネットの最初
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -69,7 +70,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0004|jn0004| | |強制停止済|再実行 監視|
 
-
+  @3002
   シナリオ: [正常系]実行中のジョブ一つで停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -127,7 +128,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0004|jn0004| | |強制停止済|再実行 監視|
 
-
+  @3003
   シナリオ: [正常系]実行中のジョブが２つで片方を強制停止_片方強制停止時にもう片方が動いている_もう片方が「正常終了」する
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -193,6 +194,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0004|jn0004| | |強制停止済|再実行 監視|
 
+  @3004
   シナリオ: [正常系]実行中のジョブが２つで片方を強制停止_片方強制停止時にもう片方が動いている_もう片方が「エラー終了」する
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -258,7 +260,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0004|jn0004| | |エラー終了|再実行 監視|
 
-
+  @3005
   シナリオ: [正常系]実行中のジョブが２つで片方を強制停止_片方強制停止時にもう片方が「正常終了」している
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -314,6 +316,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0004|jn0004| | |強制停止済|再実行 監視|
 
+  @3006
   シナリオ: [正常系]実行中のジョブが２つで片方を強制停止_片方強制停止時にもう片方が「エラー終了」している
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -370,6 +373,7 @@
     |  |jn0004|jn0004| | |エラー終了|再実行 監視|
 
 
+  @3007
   シナリオ: [正常系]実行中のジョブが２つで２つとも強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -430,6 +434,7 @@
     |  |jn0004|jn0004| | |強制停止済|再実行 監視|
 
 
+  @3008
   シナリオ: [正常系]retry1のj4を実行中にj4を強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -485,6 +490,7 @@
     |  |jn0004|jn0004| | |強制停止済|再実行 監視|
 
 
+  @3009
   シナリオ: [正常系]retry1のj4を実行中にルートジョブネットを強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -545,6 +551,7 @@
     |  |jn0004|jn0004| | |強制停止済|再実行 監視|
 
 
+  @3010
   シナリオ: [正常系]retry1のjn0004_fを実行中にjn0004_fを強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -599,7 +606,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0004|jn0004| | |強制停止済|再実行 監視|
 
-
+  @3011
   シナリオ: [正常系]retry1のjn0004_fを実行中にfinallyを強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -654,6 +661,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0004|jn0004| | |強制停止済|再実行 監視|
 
+  @3012
   シナリオ: [正常系]retry1のjn0004_fを実行中にjn0004_fを強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -716,6 +724,7 @@
 
 #--retry2--
 
+  @3013
   シナリオ: [正常系]fork前、ルートジョブネットの最初
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -824,6 +833,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0005|jn0005| | |強制停止済|再実行 監視|
 
+  @3014
   シナリオ: [正常系]ジョブネットの停止_単一指定_ジョブネット指定でジョブ稼働_稼働中のジョブが一つ_片方強制停止時にもう片方が動いている_もう片方が「正常終了」する_ジョブネット
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -932,7 +942,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0005|jn0005| | |強制停止済|再実行 監視|
 
-
+  @3015
   シナリオ: [正常系]ジョブネットの停止_単一指定_ジョブネット指定でジョブ稼働_稼働中のジョブが一つ_片方強制停止時にもう片方が動いている_もう片方が「正常終了」する_ジョブ
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -1041,6 +1051,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0005|jn0005| | |強制停止済|再実行 監視|
 
+  @3016
   シナリオ: [正常系]ジョブネットの停止_単一指定_ジョブ指定でジョブネット稼働_稼働中のジョブが一つ_3経路動いているときに1経路目を強制停止、2経路目を「異常終了」,３経路目を「正常終了」
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -1150,7 +1161,8 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0005|jn0005| | |エラー終了|再実行 監視|
 
-シナリオ: [正常系]実行中[異常]が実行中[強制停止したジョブあり]で上書きされないか確認する
+  @3017
+  シナリオ: [正常系]実行中[異常]が実行中[強制停止したジョブあり]で上書きされないか確認する
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
@@ -1276,7 +1288,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0005|jn0005| | |エラー終了|再実行 監視|
 
-
+  @3018
   シナリオ: [正常系]ジョブネットの停止_単一指定_ジョブネット指定_稼働中のジョブが2つ
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -1365,7 +1377,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0005|jn0005| | |強制停止済|再実行 監視|
 
-
+  @3019
   シナリオ: [正常系]ジョブネットの停止_ルートジョブネット指定_稼働中のジョブが一つ
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -1459,7 +1471,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0005|jn0005| | |強制停止済|再実行 監視|
 
-
+  @3020
   シナリオ: [正常系]ジョブネットの停止_ルートジョブネット指定_ジョブネット指定_稼働中のジョブが2つ
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -1553,7 +1565,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0005|jn0005| | |強制停止済|再実行 監視|
 
-
+  @3021
   シナリオ: [正常系]ルートジョブネット内のジョブネットのfinally実行中に強制停止_ジョブ指定
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -1642,6 +1654,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0005|jn0005| | |強制停止済|再実行 監視|
 
+  @3022
   シナリオ: [正常系]ルートジョブネット内のジョブネットのfinally実行中に強制停止_finally指定
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -1730,6 +1743,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0005|jn0005| | |強制停止済|再実行 監視|
 
+  @3023
   シナリオ: [正常系]ルートジョブネット内のジョブネットのfinally実行中に強制停止_ルートジョブネット
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -1824,6 +1838,7 @@
     |  |jn0005|jn0005| | |強制停止済|再実行 監視|
 
 
+  @3024
   シナリオ: [正常系]finally内finally実行中に強制停止_ジョブ指定
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -1913,6 +1928,7 @@
     |  |jn0005|jn0005| | |強制停止済|再実行 監視|
 
   
+  @3025
   シナリオ: [正常系]finally内finally実行中に強制停止_finally指定
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -2001,7 +2017,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0005|jn0005| | |強制停止済|再実行 監視|
 
-
+  @3026
   シナリオ: [正常系]finally内finally実行中に強制停止_ジョブネット指定
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -2094,7 +2110,7 @@
 
 
 
-
+  @3027
   シナリオ: [正常系]finally内finally実行中に強制停止_ルートジョブネット
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -2191,7 +2207,7 @@
 
 #--retry3--
 
-
+  @3028
   シナリオ: [正常系]ジョブネットの中のジョブネット内にあるジョブをジョブを指定して強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0006_retry_three_layer.rb -D"で起動している
 
@@ -2288,6 +2304,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0006|jn0006| | |強制停止済|再実行 監視|
 
+  @3029
   シナリオ: [正常系]ジョブネットの中のジョブネット内にあるジョブを1つ上のジョブネットを指定して強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0006_retry_three_layer.rb -D"で起動している
 
@@ -2384,6 +2401,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0006|jn0006| | |強制停止済|再実行 監視|
 
+  @3030
   シナリオ: [正常系]ジョブネットの中のジョブネット内にあるジョブを２つ上のジョブネットを指定して強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0006_retry_three_layer.rb -D"で起動している
 
@@ -2480,7 +2498,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0006|jn0006| | |強制停止済|再実行 監視|
 
-
+  @3031
   シナリオ: [正常系]ジョブネットの中のジョブネット内にあるジョブをルートジョブネットを指定して強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0006_retry_three_layer.rb -D"で起動している
 
@@ -2588,6 +2606,7 @@
 #ジョブ実行サーバのジョブ実行ユーザの~/bash_profileに~/binあたりをパスに追加して、ファイルを配置するのが無難です
 #retry1
 
+  @3032
   シナリオ: [正常系]ジョブの状態が「開始中」で強制停止を行う
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -2654,7 +2673,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0004|jn0004| | |強制停止済|再実行 監視|
 
-
+  @3033
   シナリオ: [正常系]状態が「開始中」でルートジョブネットを指定してジョブが実行されている
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -2722,6 +2741,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0004|jn0004| | |強制停止済|再実行 監視|
 
+  @3034
   シナリオ: [正常系]ジョブの状態が「開始中」で強制停止を行う際に、別経路でジョブが実行されている
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -2784,6 +2804,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0004|jn0004| | |強制停止済|再実行 監視|
 
+  @3035
   シナリオ: [正常系]ジョブの状態が「開始中」で強制停止を行う際に、別経路でジョブが実行されている_ルートジョブネット
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -2851,7 +2872,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0004|jn0004| | |強制停止済|再実行 監視|
 
-
+  @3036
   シナリオ: [正常系]ジョブの状態が「開始中」で強制停止を行う_代替ジョブネット
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -2915,7 +2936,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0004|jn0004| | |強制停止済|再実行 監視|
 
-
+  @3037
   シナリオ: [正常系]状態が「開始中」でルートジョブネットを指定してジョブが実行されている
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
 
@@ -2985,7 +3006,7 @@
 
 #--retry2--
 
-
+  @3038
   シナリオ: [正常系]ジョブネットが「開始中に」ジョブネットを指定して強制停止を行う
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
 
@@ -3096,7 +3117,7 @@
 
 #--retry3--
 
-
+  @3039
   シナリオ: [正常系]ジョブネットが開始中にジョブネットの中のジョブネット内にあるジョブをジョブを指定して強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0006_retry_three_layer.rb -D"で起動している
 
@@ -3217,6 +3238,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0006|jn0006| | |強制停止済|再実行 監視|
 
+  @3040
   シナリオ: [正常系]ジョブネットの中のジョブネット内にあるジョブを1つ上のジョブネットを指定して強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0006_retry_three_layer.rb -D"で起動している
 
@@ -3337,7 +3359,7 @@
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0006|jn0006| | |強制停止済|再実行 監視|
 
-
+  @3041
   シナリオ: [正常系]ジョブネットの中のジョブネット内にあるジョブを２つ上のジョブネットを指定して強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0006_retry_three_layer.rb -D"で起動している
 
@@ -3459,7 +3481,7 @@
     |  |jn0006|jn0006| | |強制停止済|再実行 監視|
 
 
-
+  @3042
   シナリオ: [正常系]ジョブネットの中のジョブネット内にあるジョブをルートジョブネットを指定して強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0006_retry_three_layer.rb -D"で起動している
 
