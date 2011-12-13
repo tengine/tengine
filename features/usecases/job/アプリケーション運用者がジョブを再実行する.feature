@@ -38,22 +38,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
 
     もし "j1"の"再実行"リンクをクリックする
@@ -68,22 +68,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -111,22 +111,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -137,22 +137,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -179,22 +179,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -205,22 +205,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -247,22 +247,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -274,22 +274,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -301,22 +301,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "j3"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -327,22 +327,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -369,22 +369,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -396,12 +396,12 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "j3"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -413,32 +413,32 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 30秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし 30秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -466,12 +466,12 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -483,22 +483,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 30秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -528,22 +528,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
 
     もし "j1"の"再実行"リンクをクリックする
@@ -558,22 +558,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -600,22 +600,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -626,22 +626,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -668,22 +668,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -694,22 +694,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -736,22 +736,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -763,22 +763,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示 再実行|
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -790,22 +790,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示 再実行|
 
     もし "j3"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -816,22 +816,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -858,22 +858,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -885,12 +885,12 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "j3"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -902,32 +902,32 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 30秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示 再実行|
 
     もし 30秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -955,12 +955,12 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -972,22 +972,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 30秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1017,22 +1017,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1047,22 +1047,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1089,22 +1089,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1119,22 +1119,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1161,22 +1161,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1191,22 +1191,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1233,22 +1233,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1269,22 +1269,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1313,22 +1313,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |エラー終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |エラー終了| |表示 再実行|
 
 
     もし "jn4_f"の"再実行"リンクをクリックする
@@ -1343,22 +1343,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |実行中| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |実行中| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1385,22 +1385,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |エラー終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |エラー終了| |表示 再実行|
 
 
     もし "jn4_f"の"再実行"リンクをクリックする
@@ -1415,22 +1415,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |実行中| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |実行中| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1457,22 +1457,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |エラー終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |エラー終了| |表示 再実行|
 
 
     もし "jn0004/finally"の"再実行"リンクをクリックする
@@ -1487,22 +1487,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |実行中| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |実行中| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1529,22 +1529,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |エラー終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |エラー終了| |表示 再実行|
 
 
     もし "jn0004/finally"の"再実行"リンクをクリックする
@@ -1559,22 +1559,22 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |実行中| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |実行中| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1607,45 +1607,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "j41"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -1659,44 +1659,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1723,45 +1723,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |エラー終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |エラー終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |エラー終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |エラー終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "j41"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -1775,44 +1775,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |エラー終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |エラー終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |エラー終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |エラー終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |エラー終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |エラー終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |エラー終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |エラー終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1839,45 +1839,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -1891,44 +1891,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -1955,45 +1955,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -2007,44 +2007,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -2071,45 +2071,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|ステータス変更 再実行|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|表示 再実行|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
     
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -2123,65 +2123,65 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 40秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
 
     もし "実行ジョブ一覧画面"を表示する
@@ -2209,45 +2209,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "j41"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -2261,44 +2261,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -2326,45 +2326,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -2378,44 +2378,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "j2の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -2429,44 +2429,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -2493,45 +2493,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
 
     もし "j2の"再実行"リンクをクリックする
@@ -2547,23 +2547,23 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -2577,65 +2577,65 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 30秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
 
     もし "実行ジョブ一覧画面"を表示する
@@ -2666,45 +2666,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "j41"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -2718,44 +2718,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -2782,45 +2782,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |エラー終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |エラー終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |エラー終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |エラー終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "j41"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -2834,44 +2834,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |エラー終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |エラー終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |エラー終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |エラー終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -2898,45 +2898,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -2950,44 +2950,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -3014,45 +3014,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -3066,44 +3066,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -3130,45 +3130,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更 再実行|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|ステータス変更 再実行|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示 再実行|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|表示 再実行|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
     
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -3182,65 +3182,65 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 40秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
 
     もし "実行ジョブ一覧画面"を表示する
@@ -3268,45 +3268,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "j41"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -3320,44 +3320,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -3384,45 +3384,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -3436,44 +3436,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "j2の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -3487,44 +3487,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -3551,45 +3551,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
 
     もし "j2の"再実行"リンクをクリックする
@@ -3605,23 +3605,23 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -3635,65 +3635,65 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 30秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
 
     もし "実行ジョブ一覧画面"を表示する
@@ -3724,45 +3724,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -3777,44 +3777,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -3843,45 +3843,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |エラー終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |エラー終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "jn4_f"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -3895,44 +3895,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |実行中||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |実行中||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -3959,45 +3959,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |エラー終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |エラー終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "jn4_f"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -4011,44 +4011,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |実行中||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |実行中||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -4075,45 +4075,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |エラー終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |エラー終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "jn4/finally"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -4127,44 +4127,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |実行中||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |実行中||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -4191,45 +4191,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |エラー終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |エラー終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |エラー終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |エラー終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "jn4/finally"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -4243,44 +4243,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |実行中|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |実行中||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |実行中|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |実行中||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -4309,45 +4309,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "jn0005_f1"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -4361,44 +4361,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |実行中|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |実行中|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -4425,45 +4425,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "jn0005_fjn"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -4477,44 +4477,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |実行中|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |実行中|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -4541,45 +4541,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "finally"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -4593,44 +4593,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |実行中|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |実行中|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -4659,45 +4659,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "jn0005_fif"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -4711,44 +4711,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -4775,45 +4775,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "jn0005_fjn/finally"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -4827,44 +4827,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -4893,45 +4893,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "jn0005_f1"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -4945,44 +4945,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |実行中|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |実行中|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -5009,45 +5009,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "jn0005_fjn"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -5061,44 +5061,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |実行中|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |実行中|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -5125,45 +5125,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "finally"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -5177,44 +5177,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |実行中|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |実行中|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -5242,45 +5242,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "jn0005_fif"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -5294,44 +5294,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -5358,45 +5358,45 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|ステータス変更 強制停止 |
-    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|j2, j3|表示 強制停止 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |初期化済||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |エラー終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし "jn0005_fjn/finally"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -5410,44 +5410,44 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |実行中| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |実行中|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |実行中| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|ステータス変更 再実行|
-    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|ステータス変更|
-    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|ステータス変更|
-    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|ステータス変更|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|ステータス変更|
-    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |ステータス変更|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|ステータス変更|
-    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|ステータス変更|
-    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |ステータス変更|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
+    |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
+    |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
+    |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |エラー終了| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1| | |正常終了|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |エラー終了|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -5479,26 +5479,26 @@ language:ja
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |エラー終了|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |エラー終了|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |エラー終了|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |エラー終了|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし "j111"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -5508,50 +5508,50 @@ language:ja
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |実行中|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |実行中|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |実行中|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |実行中|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |正常終了|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |正常終了|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |正常終了|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |正常終了|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -5580,26 +5580,26 @@ language:ja
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |エラー終了|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |エラー終了|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |エラー終了|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |エラー終了|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし "jn11"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -5609,50 +5609,50 @@ language:ja
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |実行中|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |実行中|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |初期化済|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |実行中|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |実行中|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |初期化済|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |正常終了|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |正常終了|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |正常終了|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |正常終了|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -5681,26 +5681,26 @@ language:ja
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |エラー終了|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |エラー終了|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |エラー終了|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |エラー終了|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし "jn1"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -5710,50 +5710,50 @@ language:ja
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |実行中|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |実行中|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |初期化済|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |実行中|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |実行中|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |初期化済|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |正常終了|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |正常終了|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |正常終了|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |正常終了|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -5782,26 +5782,26 @@ language:ja
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |エラー終了|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |エラー終了|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |エラー終了|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |エラー終了|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし "j111"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -5811,50 +5811,50 @@ language:ja
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |実行中|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |実行中|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |初期化済|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |初期化済||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |実行中|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |実行中|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |初期化済|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |初期化済||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |初期化済||表示| 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |正常終了|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |正常終了|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |正常終了|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |正常終了|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |正常終了|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |正常終了|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |正常終了|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |正常終了|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -5883,26 +5883,26 @@ language:ja
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |エラー終了|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |エラー終了|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |エラー終了|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |エラー終了|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし "jn11"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -5912,50 +5912,50 @@ language:ja
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |実行中|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |実行中|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |初期化済|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |初期化済||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |実行中|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |実行中|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |初期化済|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |初期化済||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |初期化済||表示| 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |正常終了|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |正常終了|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |正常終了|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |正常終了|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |正常終了|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |正常終了|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |正常終了|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |正常終了|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -5984,26 +5984,26 @@ language:ja
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |エラー終了|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |エラー終了|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |エラー終了|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |エラー終了|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし "jn1"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
@@ -6013,50 +6013,50 @@ language:ja
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |実行中|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |実行中|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |初期化済|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |初期化済||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |実行中|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |実行中|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |初期化済|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |初期化済||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |初期化済||表示| 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |正常終了|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |正常終了|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |正常終了|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |正常終了|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |正常終了|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |正常終了|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |正常終了|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |正常終了|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -6087,26 +6087,26 @@ language:ja
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |エラー終了|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |エラー終了|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |エラー終了|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |エラー終了|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -6120,50 +6120,50 @@ language:ja
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |実行中|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |実行中|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |初期化済|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |初期化済||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |初期化済||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |実行中|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |実行中|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |実行中|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |初期化済|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |初期化済|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |初期化済|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |初期化済||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |初期化済||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |初期化済||表示| 
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |正常終了|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |正常終了|j112|ステータス変更|
-    |  |    j112     |j112|            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|ステータス変更|
-    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|ステータス変更|
-    |  |  j12        |j12 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |jn2          |jn2 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  j21        |j21 |            |test_server1|test_credential1| | |正常終了|jn22|ステータス変更|
-    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    j221     |j221 |            |test_server1|test_credential1| | |正常終了|j222|ステータス変更|
-    |  |    j222     |j222 |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |正常終了||ステータス変更|
-    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |正常終了| |ステータス変更|
-    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||ステータス変更|  
-    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||ステータス変更| 
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|jn2|表示 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |正常終了|j12|表示 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |正常終了|j112|表示|
+    |  |    j112     |j112|            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了|finally|表示|
+    |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |正常終了|jn11_f|表示|
+    |  |  j12        |j12 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    jn_1f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn2          |jn2 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |  j21        |j21 |            |test_server1|test_credential1| | |正常終了|jn22|表示|
+    |  |  jn22       |jn22 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    j221     |j221 |            |test_server1|test_credential1| | |正常終了|j222|表示|
+    |  |    j222     |j222 |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |    finally  |finally |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |      jn22_f |jn22_f |            |test_server1|test_credential1| | |正常終了||表示|
+    |  |  finally    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |    jn_2f    |finally |            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |finally      |finally |            |test_server1|test_credential1| | |正常終了||表示|  
+    |  |  jn_f         |jn_f |            |test_server1|test_credential1| | |正常終了||表示| 
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
