@@ -1,67 +1,77 @@
 <h1><%= page_title Tengine::Resource::VirtualServerImage, :list %></h1>
 
-<p id="notice"><%= notice %></p>
-
-<div class="BoxBorder BoxSearchForm">
-  <%= form_for(:finder, :html => {:method => :get}) do |f| %>
-  <fieldset>
-    <legend><%= I18n.t(:search_caption,:scope => [:views, :pages]) %></legend>
-    <table class="TableForm4rows">
-      <tbody class="CelRow2">
-        <tr>
-          <th><%= f.label :name, Tengine::Resource::VirtualServerImage.human_attribute_name(:name) %></th>
-          <td><%= f.text_field :name , :class => "InputText"%></td>
-        </tr>
-        <tr>
-          <th><%= f.label :description, Tengine::Resource::VirtualServerImage.human_attribute_name(:description) %></th>
-          <td><%= f.text_field :description, :class => "InputText" %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :provided_id, Tengine::Resource::VirtualServerImage.human_attribute_name(:provided_id) %></th>
-          <td><%= f.text_field :provided_id,  :class => "InputText"%></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="BoxBtns">
-      <span class= "BtnWrap"><%= f.submit(I18n.t(:search, :scope => [:views, :links]), :class => "BtnSearch") %></span>
-      <span class= "BtnWrap"><%= tag :input, { "type" => "reset", "name" => "reset", "value" => I18n.t(:reset, :scope => [:views, :links]) , :class => "BtnCancel"} %></span>
-    </div>
-  </fieldset>
-  <% end %>
+<div class="Section">
+  <%= message :complete, notice %>
+  <div class="BoxBorder BoxSearchForm">
+    <%= form_for(:finder, :html => {:method => :get}) do |f| %>
+    <fieldset>
+      <legend><%= I18n.t(:search_caption,:scope => [:views, :pages]) %></legend>
+      <table class="TableForm4rows">
+        <tbody>
+          <tr>
+            <th><%= f.label :name, Tengine::Resource::VirtualServerImage.human_attribute_name(:name) %></th>
+            <td><%= f.text_field :name , :class => "InputText"%></td>
+          </tr>
+          <tr>
+            <th><%= f.label :description, Tengine::Resource::VirtualServerImage.human_attribute_name(:description) %></th>
+            <td><%= f.text_field :description, :class => "InputText" %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :provided_id, Tengine::Resource::VirtualServerImage.human_attribute_name(:provided_id) %></th>
+            <td><%= f.text_field :provided_id,  :class => "InputText"%></td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <div class="BoxBtns">
+        <span class= "BtnWrap"><%= f.submit(I18n.t(:search, :scope => [:views, :links]), :class => "BtnSearch") %></span>
+        <%= reset_tag t("views.links.reset") %>
+      </div>
+    </fieldset>
+    <% end %>
+  </div>
 </div>
 
-<%= paginate @virtual_server_images, :items => @virtual_server_images %>
+<div class="Section">
 
+  <%= paginate @virtual_server_images, :items => @virtual_server_images %>
 
-<table class="TableBase">
-  <thead>
-    <tr>
-      <% query_without_page = request.query_parameters.select{|k,v| %w(category finder).include?(k.to_s) } -%>
-      <th scope="col"><%= link_to Tengine::Resource::VirtualServerImage.human_attribute_name(:name), tengine_resource_virtual_server_images_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name) %></th>
-      <th><%= link_to Tengine::Resource::VirtualServerImage.human_attribute_name(:provided_id), tengine_resource_virtual_server_images_path(query_without_page.merge(sort_param(:provided_id))), :class => sort_class(:provided_id) %></th>
-      <th><%= link_to Tengine::Resource::VirtualServerImage.human_attribute_name(:provided_description), tengine_resource_virtual_server_images_path(query_without_page.merge(sort_param(:provided_description))), :class => sort_class(:provided_description) %></th>
-      <th><%= link_to Tengine::Resource::VirtualServerImage.human_attribute_name(:description), tengine_resource_virtual_server_images_path(query_without_page.merge(sort_param(:description))), :class => sort_class(:description) %></th>
-      <th><%= I18n.t(:operation, :scope => [:views, :pages]) %></th>
-    </tr>
-  </thead>
+  <table class="TableBase">
+    <colgroup>
+      <col class="Row1" />
+      <col class="Row2" />
+      <col class="Row3" />
+      <col class="Row4" />
+      <col class="Row5 Row80" />
+    </colgroup>
+    <thead>
+      <tr>
+        <% query_without_page = request.query_parameters.select{|k,v| %w(category finder).include?(k.to_s) } -%>
+        <th scope="col"><%= link_to Tengine::Resource::VirtualServerImage.human_attribute_name(:name), tengine_resource_virtual_server_images_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name) %></th>
+        <th><%= link_to Tengine::Resource::VirtualServerImage.human_attribute_name(:provided_id), tengine_resource_virtual_server_images_path(query_without_page.merge(sort_param(:provided_id))), :class => sort_class(:provided_id) %></th>
+        <th><%= link_to Tengine::Resource::VirtualServerImage.human_attribute_name(:provided_description), tengine_resource_virtual_server_images_path(query_without_page.merge(sort_param(:provided_description))), :class => sort_class(:provided_description) %></th>
+        <th><%= link_to Tengine::Resource::VirtualServerImage.human_attribute_name(:description), tengine_resource_virtual_server_images_path(query_without_page.merge(sort_param(:description))), :class => sort_class(:description) %></th>
+        <th><%= I18n.t(:operation, :scope => [:views, :pages]) %></th>
+      </tr>
+    </thead>
+  
+  
+    <% @virtual_server_images.each do |virtual_server_image| %>
+      <tr class="<%= cycle("even", "odd") %>" >
+        <td><%= virtual_server_image.name %></td>
+        <td><%= virtual_server_image.provided_id %></td>
+        <td>
+          <%= description_format virtual_server_image.provided_description, 20,
+                id:"yamlProvidedDescription" %>
+        </td>
+        <td>
+          <%= description_format virtual_server_image.description, 20, id:"yamlDescription" %>
+        </td>
+        <td><%= link_to_edit edit_tengine_resource_virtual_server_image_path(virtual_server_image), :class => "ActionEdit" %></td>
+      </tr>
+    <% end %>
+  </table>
 
+  <%= paginate @virtual_server_images, :items => @virtual_server_images %>
 
-  <% @virtual_server_images.each do |virtual_server_image| %>
-    <tr class="<%= cycle("even", "odd") %>" >
-      <td><%= virtual_server_image.name %></td>
-      <td><%= virtual_server_image.provided_id %></td>
-      <td>
-        <%= description_format virtual_server_image.provided_description, 20,
-              id:"yamlProvidedDescription" %>
-      </td>
-      <td>
-        <%= description_format virtual_server_image.description, 20, id:"yamlDescription" %>
-      </td>
-      <td><%= link_to_edit edit_tengine_resource_virtual_server_image_path(virtual_server_image), :class => "ActionEdit" %></td>
-    </tr>
-  <% end %>
-</table>
-
-<%= paginate @virtual_server_images, :items => @virtual_server_images %>
-
+</div>

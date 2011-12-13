@@ -14,44 +14,47 @@
     </colgroup>
     <tbody>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:name) %>:</th>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:name) %></th>
         <td><%= @root_jobnet_actual.name %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:id) %>:</th>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:id) %></th>
         <td><%= @root_jobnet_actual.id %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:description) %>:</th>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:description) %></th>
         <td><%= @root_jobnet_actual.description %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:server_name) %>:</th>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:server_name) %></th>
         <td><%= @root_jobnet_actual.server_name %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:credential_name) %>:</th>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:credential_name) %></th>
         <td><%= @root_jobnet_actual.credential_name %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:started_at) %>:</th>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:started_at) %></th>
         <td><%= @root_jobnet_actual.started_at %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at) %>:</th>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at) %></th>
         <td><%= @root_jobnet_actual.finished_at %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:phase_cd) %>:</th>
+        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:phase_cd) %></th>
         <td><%= @root_jobnet_actual.phase_name %></td>
       </tr>
     </tbody>
   </table>
 </div><!-- /.Section -->
 
-<%= link_to t(".links.events"), tengine_core_events_path(:finder => @finder, :commit => "submit") %>
+<p class="BoxBtns">
+  <%= button_link_to t(".links.events"),
+        tengine_core_events_path(:finder => @finder, :commit => "submit") %>
+</p>
 
-<p id="notice"><%= notice %></p>
+<%= message :complete, notice %>
 
 <% unless @jobnet_actuals.blank? -%>
   <div class="Section">
@@ -59,7 +62,7 @@
 
     <div class="BoxActionLinksRight">
       <%= form_for(:refresher, :url => tengine_job_root_jobnet_actual_path(@root_jobnet_actual), :method => :get, html:{novalidate:true}) do |f| %>
-        <%= f.label :refresh_interval, t(".form.refresh_interval") %>:
+        <%= f.label :refresh_interval, t(".form.refresh_interval") %>
         <%= f.number_field :refresh_interval, min:0, class:"InputText" %>
         <%= t("datetime.prompts.second") %>
         <span class="BtnWrap">
@@ -75,6 +78,14 @@
         <col class="Row3">
         <col class="Row4">
         <col class="Row5">
+        <col class="Row6">
+        <col class="Row7">
+        <col class="Row8">
+        <col class="Row9">
+        <col class="Row10">
+        <col class="Row11">
+        <col class="Row12">
+        <col class="Row13 RowW100">
       </colgroup>
       <thead>
         <tr>
@@ -124,6 +135,7 @@
             <td><%= jobnet_actual.exit_status %></td>
             <td class="Last">
               <%= link_to_show tengine_job_root_jobnet_actual_jobnet_actual_path(jobnet_actual, :root_jobnet_actual_id => @root_jobnet_actual) %>
+              <% unless jobnet_actual.chained_box? -%>
 
               <% if %w(stuck).include?(jobnet_actual.phase_key.to_s) -%>
                 <%= link_to t("views.links.edit_status"), edit_tengine_job_root_jobnet_actual_jobnet_actual_path(jobnet_actual, :root_jobnet_actual_id => @root_jobnet_actual) %>
@@ -133,6 +145,8 @@
               <% end -%>
               <% if %w(ready starting running).include?(jobnet_actual.phase_key.to_s) -%>
                 <%= link_to t("views.links.force_exit"), tengine_job_root_jobnet_actual_jobnet_actual_path(jobnet_actual, :root_jobnet_actual_id => @root_jobnet_actual), :method => "delete", confirm: t(".confirm.destroy") %>
+              <% end -%>
+
               <% end -%>
             </td>
           </tr>

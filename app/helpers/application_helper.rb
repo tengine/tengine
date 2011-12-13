@@ -203,13 +203,14 @@ module ApplicationHelper
   end
 
   def message(type, text, &block)
+    return "".html_safe if text.blank?
     klass = case type.to_s
-            when "warning"  then "MsgWarning"
-            when "complete" then "MsgComplete"
-            when "delete"   then "MsgCompleteDelete"
+            when "warning"  then " MsgWarning"
+            when "complete" then " MsgComplete"
+            when "delete"   then " MsgCompleteDelete"
             end
 
-    html = %|<div class="Msg #{klass}">|
+    html = %|<div class="Msg#{klass}">|
     html << "<p>#{text}</p>"
     html << capture(&block) if block_given?
     html << "</div>"
