@@ -47,7 +47,8 @@
             </tr>
           </tbody>
         </table>
-        <%= hidden_field_tag "refresher[refresh_interval]", @refresh_interval %>
+        <%= hidden_field_tag "refresher[refresh_interval]", @refresh_interval,
+              id:"hidden_refresher_refresh_interval" %>
       <% end -%>
       <div class="BoxBtns">
         <span class="BtnWrap">
@@ -70,13 +71,18 @@
       <%= f.number_field :refresh_interval, :class => "InputText", :min => 0 %>
       <%= t("datetime.prompts.second") %>
 
-      <%= hidden_field_tag "finder[physical_server_name]", @finder.physical_server_name %>
-      <%= hidden_field_tag "finder[virtual_server_name]", @finder.virtual_server_name %>
-      <%= hidden_field_tag "finder[provided_id]", @finder.provided_id %>
-      <%= hidden_field_tag "finder[description]", @finder.description %>
-      <%= hidden_field_tag "finder[virtual_server_image_name]", @finder.virtual_server_image_name %>
+      <%= hidden_field_tag "finder[physical_server_name]", @finder.physical_server_name,
+        id:"hidden_finder_physical_server_name" %>
+      <%= hidden_field_tag "finder[virtual_server_name]", @finder.virtual_server_name,
+        id:"hidden_finder_virtual_server_name" %>
+      <%= hidden_field_tag "finder[provided_id]", @finder.provided_id,
+        id:"hidden_finder_provided_id" %>
+      <%= hidden_field_tag "finder[description]", @finder.description,
+        id:"hidden_finder_description" %>
+      <%= hidden_field_tag "finder[virtual_server_image_name]", @finder.virtual_server_image_name, id:"hidden_finder_virtual_server_image_name" %>
       <% @finder.status_ids.each do |status| -%>
-        <%= hidden_field_tag "finder[status_ids][]", status %>
+        <%= hidden_field_tag "finder[status_ids][]", status,
+          id:"hidden_finder_status_ids_" %>
       <% end -%>
 
       <span class="BtnWrap">
@@ -165,15 +171,22 @@
       </tbody>
     </table>
 
-    <%= hidden_field_tag "finder[physical_server_name]", @finder.physical_server_name %>
-    <%= hidden_field_tag "finder[virtual_server_name]", @finder.virtual_server_name %>
-    <%= hidden_field_tag "finder[provided_id]", @finder.provided_id %>
-    <%= hidden_field_tag "finder[description]", @finder.description %>
-    <%= hidden_field_tag "finder[virtual_server_image_name]", @finder.virtual_server_image_name %>
+    <%= hidden_field_tag "finder[physical_server_name]", @finder.physical_server_name,
+      id:"hidden_finder_physical_server_name" %>
+    <%= hidden_field_tag "finder[virtual_server_name]", @finder.virtual_server_name,
+      id:"hidden_finder_virtual_server_name" %>
+    <%= hidden_field_tag "finder[provided_id]", @finder.provided_id,
+      id:"hidden_finder_provided_id" %>
+    <%= hidden_field_tag "finder[description]", @finder.description,
+      id:"hidden_finder_description" %>
+    <%= hidden_field_tag "finder[virtual_server_image_name]",
+      @finder.virtual_server_image_name, id:"hidden_finder_virtual_server_image_name"  %>
     <% @finder.status_ids.each do |status| -%>
-      <%= hidden_field_tag "finder[status_ids][]", status %>
+      <%= hidden_field_tag "finder[status_ids][]", status,
+        id:"hidden_finder_status_ids_" %>
     <% end -%>
-    <%= hidden_field_tag "refresher[refresh_interval]", @refresh_interval %>
+    <%= hidden_field_tag "refresher[refresh_interval]", @refresh_interval,
+      id:"hidden_refresher_refresh_interval" %>
 
     <p class="BoxActionLinksRight">
       <span class="BtnWrap">

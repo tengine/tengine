@@ -239,7 +239,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
 
     render
 
-    rendered.should have_xpath("//input[@type='hidden'][@id='refresher_refresh_interval'][@value='10']")
+    rendered.should have_xpath("//input[@type='hidden'][@id='hidden_refresher_refresh_interval'][@value='10']")
   end
 
   it "@finderの値が画面の更新間隔のフォームのhiddenフィールドとしてあること" do
@@ -254,13 +254,13 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
 
     render
 
-    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='finder_physical_server_name'][@value='test']")
-    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='finder_virtual_server_name'][@value='vserver']")
-    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='finder_provided_id'][@value='server']")
-    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='finder_description'][@value='testdesc']")
-    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='finder_virtual_server_image_name'][@value='vimage']")
-    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='finder_status_ids_'][@value='starting']")
-    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='finder_status_ids_'][@value='running']")
+    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_physical_server_name'][@value='test']")
+    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_virtual_server_name'][@value='vserver']")
+    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_provided_id'][@value='server']")
+    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_description'][@value='testdesc']")
+    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_virtual_server_image_name'][@value='vimage']")
+    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_status_ids_'][@value='starting']")
+    rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_status_ids_'][@value='running']")
   end
 
   it "@refresh_intervalの値が仮想サーバ停止のフォームにhiddenフィールドとしてあること" do
@@ -268,7 +268,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
 
     render
 
-    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='refresher_refresh_interval'][@value='10']")
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='hidden_refresher_refresh_interval'][@value='10']")
   end
 
   it "@finderの値が仮想サーバ停止のフォームにhiddenフィールドとしてあること" do
@@ -283,13 +283,13 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
 
     render
 
-    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_physical_server_name'][@value='test']")
-    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_virtual_server_name'][@value='vserver']")
-    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_provided_id'][@value='server']")
-    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_description'][@value='testdesc']")
-    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_virtual_server_image_name'][@value='vimage']")
-    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_status_ids_'][@value='starting']")
-    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='finder_status_ids_'][@value='running']")
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='hidden_finder_physical_server_name'][@value='test']")
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='hidden_finder_virtual_server_name'][@value='vserver']")
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='hidden_finder_provided_id'][@value='server']")
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='hidden_finder_description'][@value='testdesc']")
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='hidden_finder_virtual_server_image_name'][@value='vimage']")
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='hidden_finder_status_ids_'][@value='starting']")
+    rendered.should have_xpath("//form[@method='post']/input[@type='hidden'][@id='hidden_finder_status_ids_'][@value='running']")
   end
 
   it "仮想サーバ名で絞り込みを行ったとき絞り込んだ仮想サーバが表示されていること" do
