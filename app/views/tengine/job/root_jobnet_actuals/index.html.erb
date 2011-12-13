@@ -55,7 +55,8 @@
            <% if @category -%>
              <%= hidden_field_tag :category, @category.id %>
            <% end -%>
-           <%= hidden_field_tag "finder[reflesh_interval]", @finder.reflesh_interval %>
+           <%= hidden_field_tag "finder[reflesh_interval]", @finder.reflesh_interval,
+             id:"hidden_finder_reflesh_interval" %>
   
             <div class = "BoxBtns">
               <span class = "BtnWrap" >
@@ -76,15 +77,20 @@
             <%= f.label :reflesh_interval, t(".refresher.form.refresh_interval") %>
             <%= f.number_field :reflesh_interval, min:0, class:"InputText" %><%= t("datetime.prompts.second") %>
 
-            <%= hidden_field_tag "finder[duration]", @finder.duration %>
+            <%= hidden_field_tag "finder[duration]", @finder.duration,
+              id:"hidden_finder_duration" %>
             <% %w(year mon day hour min).each_with_index do |method, i| -%>
-              <%= hidden_field_tag "finder[duration_start(#{i}i)]", @finder.duration_start.send(method) %>
-              <%= hidden_field_tag "finder[duration_finish(#{i}i)]", @finder.duration_finish.send(method) %>
+              <%= hidden_field_tag "finder[duration_start(#{i}i)]",
+                @finder.duration_start.send(method),
+                id:"hidden_finder_duration_start_#{i}i_" %>
+              <%= hidden_field_tag "finder[duration_finish(#{i}i)]",
+                @finder.duration_finish.send(method),
+                id:"hidden_finder_duration_finish_#{i}i_" %>
             <% end -%>
-            <%= hidden_field_tag "finder[id]", @finder.id %>
-            <%= hidden_field_tag "finder[name]", @finder.name %>
+            <%= hidden_field_tag "finder[id]", @finder.id, id:"hidden_finder_id" %>
+            <%= hidden_field_tag "finder[name]", @finder.name, id:"hidden_finder_name" %>
             <% @finder.phase_ids.each do |status| -%>
-              <%= hidden_field_tag "finder[phase_ids][]", status %>
+              <%= hidden_field_tag "finder[phase_ids][]", status, id:"hidden_finder_phase_ids_" %>
             <% end -%>
 
             <span class="BtnWrap">
