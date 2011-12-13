@@ -3,9 +3,9 @@
 ##############################
 # setting server and roles
 ##############################
-role :web, "192.168.1.61"
-role :app, "192.168.1.61"
-role :db,  "192.168.1.61"
+role :web, "zbtgncr1", "zbtgncr2"
+role :app, "zbtgncr1"
+role :db,  "zbtgncr1"
 
 set :user,              'tengine'
 set :password do
