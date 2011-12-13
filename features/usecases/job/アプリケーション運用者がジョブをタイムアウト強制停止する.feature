@@ -682,9 +682,9 @@
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |起動中|jn2|ステータス変更 |
-    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |起動中|j12|ステータス変更 強制停止|
-    |  |    j111     |jn111 |            |test_server1|test_credential1| | |起動中|j112|ステータス変更|
+    |  |jn1          |jn1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |準備中|jn2|ステータス変更 |
+    |  |  jn11       |jn11 |            |test_server1|test_credential1| | |準備中|j12|ステータス変更 強制停止|
+    |  |    j111     |jn111 |            |test_server1|test_credential1| | |準備中|j112|ステータス変更|
     |  |    j112     |j112|            |test_server1|test_credential1| | |初期化済||ステータス変更|
     |  |    finally  |finally |            |test_server1|test_credential1| | |初期化済|finally|ステータス変更|
     |  |      jn11_f |jn11_f |            |test_server1|test_credential1| | |初期化済|jn11_f|ステータス変更|
