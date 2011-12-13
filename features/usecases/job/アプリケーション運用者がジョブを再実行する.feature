@@ -296,7 +296,6 @@ language:ja
 
     もし "ジョブネット実行設定画面"を表示する
     かつ "再実行方法"の"選択したジョブのみを再実行する"を選択する
-    かつ "事前実行コマンド"に"export J2_FAIL=true"と入力する
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
@@ -3896,11 +3895,11 @@ language:ja
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
     |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
     |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |実行中||j4|表示|
     |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
     |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
     |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||表示|
     |  |  finally   |finally |           |test_server1|test_credential1| | |実行中|j4|表示|
     |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |実行中||表示|
     |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
@@ -3921,7 +3920,7 @@ language:ja
     |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
     |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
     |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||表示|
     |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
     |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
@@ -4012,11 +4011,11 @@ language:ja
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
     |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
     |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |実行中||j4|表示|
     |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
     |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
     |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||表示|
     |  |  finally   |finally |           |test_server1|test_credential1| | |実行中|j4|表示|
     |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |実行中||表示|
     |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
@@ -4037,7 +4036,7 @@ language:ja
     |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
     |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
     |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||表示|
     |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
     |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
@@ -4128,11 +4127,11 @@ language:ja
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
     |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
     |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |実行中||j4|表示|
     |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
     |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
     |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||表示|
     |  |  finally   |finally |           |test_server1|test_credential1| | |実行中|j4|表示|
     |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |実行中||表示|
     |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
@@ -4153,7 +4152,7 @@ language:ja
     |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
     |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
     |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||表示|
     |  |  finally   |finally |           |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |正常終了||表示|
     |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
@@ -4244,11 +4243,11 @@ language:ja
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
     |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, j3|表示 再実行|
     |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
-    |  |jn4     |jn4 |            |test_server1|test_credential1| |正常終了||j4|表示|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| |実行中||j4|表示|
     |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
     |  |  j42   |j42 |           |test_server1|test_credential1| | |正常終了|j44|表示|
     |  |  j43   |j43 |           |test_server1|test_credential1| | |正常終了|j44|表示|
-    |  |  j44   |j44 |           |test_server1|test_credential1| | |正常終了||表示|
+    |  |  j44   |j44 |           |test_server1|test_credential1| | |エラー終了||表示|
     |  |  finally   |finally |           |test_server1|test_credential1| | |実行中|j4|表示|
     |  |    jn4_f   |jn4_f |           |test_server1|test_credential1| | |実行中||表示|
     |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
@@ -6110,9 +6109,9 @@ language:ja
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
-    |  |jn0004|jn0004| | |エラー終了|再実行 監視|
+    |  |jn0006|jn0006| | |エラー終了|再実行 監視|
 
-    もし "jn0004"の"再実行"リンクをクリックする
+    もし "jn0006"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
 
     もし "ジョブネット実行設定画面"を表示する
