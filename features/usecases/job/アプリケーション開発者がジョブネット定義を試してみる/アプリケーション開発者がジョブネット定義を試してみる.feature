@@ -4182,7 +4182,7 @@
   #   end
   # end
 
-  @11102
+  @1102
   シナリオ: [正常系]finally付きのジョブネットを試してみる_fork前で失敗
   
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -4210,7 +4210,7 @@
     かつ "tengine_job_test /jn0004/jn0004_f finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/jn0004_f start"の後であること
 
 
-  @11103
+  @1103
   シナリオ: [正常系]finally付きのジョブネットを試してみる_fork後で片方が失敗
   
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -4242,7 +4242,7 @@
     かつ "tengine_job_test /jn0004/jn0004_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0004/jn0004_f start"の後であること
 
 
-  @11104
+  @1104
   シナリオ: [正常系]finally付きのジョブネットを試してみる_fork後で両方が失敗
   
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
