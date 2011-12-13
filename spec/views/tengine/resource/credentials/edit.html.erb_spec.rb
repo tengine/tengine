@@ -27,6 +27,8 @@ describe "tengine/resource/credentials/edit.html.erb" do
         assert_select "input#credential_auth_values_password", :name => "credential[auth_values][password]"
         assert_select "input#credential_auth_values_username", :name => "credential[auth_values][username]"
       end
+
+      rendered.should have_xpath("//input[@type='submit'][@class='BtnNext']")
     end
   end
 

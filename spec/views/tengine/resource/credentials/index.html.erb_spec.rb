@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe "tengine/resource/credentials/index.html.erb" do
   before(:each) do
-    assign(:credentials, Kaminari.paginate_array([
+    assign(:credentials, mock_pagination([
       @cr1 = stub_model(Tengine::Resource::Credential,
         :id=>BSON::ObjectId("4eb6a247df46903c8600007b"),
         :name => "ssh_password",
@@ -25,7 +25,7 @@ describe "tengine/resource/credentials/index.html.erb" do
         :created_at => Time.now,
         :updated_at => Time.now
       ),
-    ]).page(1))
+    ]))
     @check_status = {
       "auth_type_cd_01" => "checked",
       "auth_type_cd_02" => "checked"
@@ -102,7 +102,8 @@ describe "tengine/resource/credentials/index.html.erb" do
     assert_select "input[id='finder_description']", :text => "", :count => 1
     assert_select "input[id='finder_auth_type_cd_01'][type = checkbox][value = 1]"
     assert_select "input[id='finder_auth_type_cd_02'][type = checkbox][value = 1]"
-    
+    assert_select "label[for='finder_auth_type_cd_01']", :count => 1
+    assert_select "label[for='finder_auth_type_cd_02']", :count => 1
   end
 
   it "検索ボタンが表示されていること" do
