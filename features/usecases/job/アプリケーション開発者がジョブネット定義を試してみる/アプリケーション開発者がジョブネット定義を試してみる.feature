@@ -363,7 +363,7 @@
     かつ "tengine_job_test job4 start"と"スクリプトログ"に出力されており、"tengine_job_test job3 finish"と"tengine_job_test job4 finish"の間であること
     かつ "tengine_job_test job4 finish"と"スクリプトログ"の末尾に出力されていること
 
-  # ./usecases/job/dsl/1006_expansion_in_jobnet.rb
+  # ./usecases/job/dsl/1006_expansion_in_jobnet_2.rb
   #  -------------------
   # 
   # require 'tengine_job'
