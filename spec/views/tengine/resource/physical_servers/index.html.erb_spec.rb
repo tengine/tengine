@@ -125,6 +125,8 @@ describe "tengine/resource/physical_servers/index.html.erb" do
       assert_select "input[name='finder[status_01]'][value = 0]"
       assert_select "input[name='finder[status_02]'][value = 0]"
 
+      rendered.should have_xpath("//label[@for='finder_status_01']")
+      rendered.should have_xpath("//label[@for='finder_status_02']")
     end
 
     it "検索ボタンが表示されていること" do
@@ -163,7 +165,6 @@ describe "tengine/resource/physical_servers/index.html.erb" do
     end
   end
 
-=begin
   context "ページの2ページ目を表示したとき" do
     before(:each) do
       assign(:physical_servers, Kaminari.paginate_array([
@@ -187,22 +188,43 @@ describe "tengine/resource/physical_servers/index.html.erb" do
           :status => "online",
           :properties => {:aa => "bb", :cc=> "dd"},
         ),
+        stub_model(Tengine::Resource::PhysicalServer,
+          :id => BSON::ObjectId("4e855633c3406b3a9f000032"),
+          :name => "physical5",
+          :provided_id=>"aaaaaa5",
+          :description => "aiueo",
+          :cpu_core => "2",
+          :memory_size => "4096",
+          :status => "online",
+          :properties => {:aa => "bb", :cc=> "dd"},
+        ),
       ]).page(2).per(2))
       @request.query_parameters[:page] = 2
       @request.params[:controller] = "tengine/resource/physical_servers"
       @request.params[:action] = "index"
       @request.params[:page] = 2
+      @check_status = {
+        "status_01" => ["unchecked", :online],
+        "status_02" => ["unchecked", :offline]
+      }
+    end
+
+    it "ページネーションが表示されていること" do
+      render
+
+      rendered.should have_xpath("//div[@class='PageStats']", count:2)
     end
 
     it "件数が表示されていること" do
       render
 
-      rendered.should have_content("全2件中2〜2件を表示")
+      rendered.should have_content("全3件中3〜3件を表示")
     end
 
     context "nameで検索していたとき" do
       before do
         @request.query_parameters[:finder] = { :name => "physical" }
+        @request.params[:finder] = { :name => "physical" }
       end
 
       it "ソートのリンクに検索のクエリーパラメータのみ付加されていること" do
@@ -222,10 +244,9 @@ describe "tengine/resource/physical_servers/index.html.erb" do
         rendered.should have_link(
           Tengine::Resource::PhysicalServer.human_attribute_name(:description),
           :href=>tengine_resource_physical_servers_path(
-            query_param.merge(:sort => {:desc => :asc}))
+            query_param.merge(:sort => {:description => :asc}))
         )
       end
     end
   end
-=end
 end

@@ -75,6 +75,8 @@ describe "tengine/resource/virtual_servers/edit.html.erb" do
       assert_select "input#virtual_server_name", :name => "virtual_server[name]"
       assert_select "textarea#virtual_server_description", :name => "virtual_server[description]"
     end
+
+    rendered.should have_xpath("//input[@type='submit'][@class='BtnNext']")
   end
 
   it "renders the virtual_server info" do

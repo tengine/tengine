@@ -75,6 +75,14 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
     assert_select "tr>td", :text => "Description".to_s, :count => 2
   end
 
+  it "noticeがあるとき表示されていること" do
+    flash[:notice] = "test notice"
+    render
+
+    rendered.should have_content("test notice")
+    rendered.should have_xpath("//div[@class='Msg MsgComplete']")
+  end
+
   it "idのソートのリンクに昇順のクエリーパラメータが付加されていてclassが空文字列となっていること" do
     render
 

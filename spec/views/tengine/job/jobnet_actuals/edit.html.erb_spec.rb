@@ -31,6 +31,8 @@ describe "tengine/job/jobnet_actuals/edit.html.erb" do
     assert_select "form", :action => tengine_job_root_jobnet_actual_jobnet_actuals_path(@jobnet_actual, :root_jobnet_actual_id => @root_jobnet_actual), :method => "post" do
       assert_select "select#jobnet_actual_phase_cd", :name => "jobnet_actual[phase_cd]"
     end
+
+    rendered.should have_xpath("//input[@type='submit'][@class='BtnNext']")
   end
 
   it "ジョブネットの情報が表示されていること" do
