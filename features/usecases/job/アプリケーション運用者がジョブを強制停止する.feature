@@ -1669,7 +1669,7 @@
     ならば "ジョブネット実行設定画面"を表示していること
 
     もし "ジョブネット実行設定画面"を表示する
-    かつ "事前実行コマンド"に"export J4N4_F_SLEEP=60"と入力する
+    かつ "事前実行コマンド"に"export JN4_F_SLEEP=60"と入力する
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
 
@@ -1758,7 +1758,7 @@
     ならば "ジョブネット実行設定画面"を表示していること
 
     もし "ジョブネット実行設定画面"を表示する
-    かつ "事前実行コマンド"に"export J4N4_F_SLEEP=60"と入力する
+    かつ "事前実行コマンド"に"export JN4_F_SLEEP=60"と入力する
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
 
@@ -2169,8 +2169,8 @@
     |  |  finally   |finally |            |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |  jn4_f   |jn4_f |            |test_server1|test_credential1| | |正常終了| |表示|
     |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1|| |正常終了|jn0005_f|表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |強制停止中| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1|| |強制停止中|jn0005_f|表示|
     |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示|
     |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示|
     |  |    finally|finally|            |test_server1|test_credential1| | |強制停止中| |表示|
@@ -2191,8 +2191,8 @@
     |  |  finally   |finally |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
     |  |  jn4_f   |jn4_f |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
     |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
-    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1|| |正常終了|jn0005_f|表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |強制停止済| |表示 再実行|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1|| |強制停止済|jn0005_f|表示 再実行|
     |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |正常終了|jn0005_f2|表示 再実行|
     |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
     |  |    finally|finally|            |test_server1|test_credential1| | |強制停止済| |表示 再実行|
