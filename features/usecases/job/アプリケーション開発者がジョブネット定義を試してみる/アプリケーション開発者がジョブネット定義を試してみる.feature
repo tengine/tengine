@@ -425,7 +425,7 @@
     もし "Tengineコアプロセス"の停止を行うために"tengined -k stop"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
    
-    もし テストを行うために"mv ./usecases/job/dsl/1006_expansion_in_jobnet.rb ./usecases/job/dsl/1006_expansion_in_jobnet.rb_tmp"というコマンドを実行する 
+    もし テストを行うために"mv ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb_tmp"というコマンドを実行する 
    
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_expansion_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -438,7 +438,7 @@
     かつ ジョブ"/jobnet1006/jobnet1006_2/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1006/job3" のステータスが正常終了であること
 
-    もし 後始末を行うために"mv ./usecases/job/dsl/1006_expansion_in_jobnet.rb_tmp ./usecases/job/dsl/1006_expansion_in_jobnet.rb"というコマンドを実行する 
+    もし 後始末を行うために"mv ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb_tmp ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb"というコマンドを実行する 
 
 
   # ./usecases/job/dsl/1007_boot_jobs_in_jobnet.rb
