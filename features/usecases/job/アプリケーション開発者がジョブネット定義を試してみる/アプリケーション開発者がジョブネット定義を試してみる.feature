@@ -363,7 +363,7 @@
     かつ "tengine_job_test job4 start"と"スクリプトログ"に出力されており、"tengine_job_test job3 finish"と"tengine_job_test job4 finish"の間であること
     かつ "tengine_job_test job4 finish"と"スクリプトログ"の末尾に出力されていること
 
-  # ./usecases/job/dsl/1006_expansion_in_jobnet.rb
+  # ./usecases/job/dsl/1006_expansion_in_jobnet_2.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -2183,78 +2183,57 @@
 
   # ./usecases/job/dsl/1060_jobnet_directory
   #
+	@manual
   @1060
   シナリオ: [正常系]1060_ディレクトリ構成の読込_を試してみる
-    
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1060_jobnet_directory -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
-    
-    もし ジョブネット"jobnet1060_a"を実行する
-    かつ ジョブネット"jobnet1060_a"が完了することを確認する   
-    ならば ジョブネット"/jobnet1060_a" のステータスが正常終了であること
-    かつ ジョブ"/jobnet1060_a/job1" のステータスが正常終了であること
 
-    もし ジョブネット"jobnet1060_b"を実行する
-    かつ ジョブネット"jobnet1060_b"が完了することを確認する   
-    ならば ジョブネット"/jobnet1060_b" のステータスが正常終了であること
-    かつ ジョブ"/jobnet1060_b/job1" のステータスが正常終了であること
+    ならば ルートのカテゴリの子に"1060_jobnet_directory"というカテゴリが存在すること
+    かつ "1060_jobnet_directory"のカテゴリの子に"jobnetgroup_x"というカテゴリが存在すること
+    かつ "1060_jobnet_directory"のカテゴリの子に"jobnetgroup_y"というカテゴリが存在すること
+    かつ "1060_jobnet_directory"のカテゴリの子に"jobnetgroup_z"というカテゴリが存在すること
 
-    もし ジョブネット"jobnet1060_c"を実行する
-    かつ ジョブネット"jobnet1060_c"が完了することを確認する   
-    ならば ジョブネット"/jobnet1060_c" のステータスが正常終了であること
-    かつ ジョブ"/jobnet1060_c/job1" のステータスが正常終了であること
+    もし "全体"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1060_a|jobnet1060_a|
+    |jobnet1060_b|jobnet1060_b|
+    |jobnet1060_c|jobnet1060_c|
+    |jobnet1060_d|jobnet1060_d|
+    |jobnet1060_e|jobnet1060_e|
+    |jobnet1060_f|jobnet1060_f|
+    |jobnet1060_g|jobnet1060_g|
+    |jobnet1060_h|jobnet1060_h|
+    |jobnet1060_i|jobnet1060_i|
 
-    もし ジョブネット"jobnet1060_d"を実行する
-    かつ ジョブネット"jobnet1060_d"が完了することを確認する   
-    ならば ジョブネット"/jobnet1060_d" のステータスが正常終了であること
-    かつ ジョブ"/jobnet1060_d/job1" のステータスが正常終了であること
+    もし "1060_jobnet_directory"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1060_a|jobnet1060_a|
+    |jobnet1060_b|jobnet1060_b|
+    |jobnet1060_c|jobnet1060_c|
+    |jobnet1060_d|jobnet1060_d|
+    |jobnet1060_e|jobnet1060_e|
+    |jobnet1060_f|jobnet1060_f|
+    |jobnet1060_g|jobnet1060_g|
+    |jobnet1060_h|jobnet1060_h|
+    |jobnet1060_i|jobnet1060_i|
 
-    もし ジョブネット"jobnet1060_e"を実行する
-    かつ ジョブネット"jobnet1060_e"が完了することを確認する   
-    ならば ジョブネット"/jobnet1060_e" のステータスが正常終了であること
-    かつ ジョブ"/jobnet1060_e/job1" のステータスが正常終了であること
+    もし "jobnetgroup_x"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1060_d|jobnet1060_d|
+    |jobnet1060_e|jobnet1060_e|
+    |jobnet1060_f|jobnet1060_f|
 
-    もし ジョブネット"jobnet1060_f"を実行する
-    かつ ジョブネット"jobnet1060_f"が完了することを確認する   
-    ならば ジョブネット"/jobnet1060_f" のステータスが正常終了であること
-    かつ ジョブ"/jobnet1060_f/job1" のステータスが正常終了であること
+    もし "jobnetgroup_y"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1060_g|jobnet1060_g|
+    |jobnet1060_h|jobnet1060_h|
+    |jobnet1060_i|jobnet1060_i|
 
-    もし ジョブネット"jobnet1060_g"を実行する
-    かつ ジョブネット"jobnet1060_g"が完了することを確認する   
-    ならば ジョブネット"/jobnet1060_g" のステータスが正常終了であること
-    かつ ジョブ"/jobnet1060_g/job1" のステータスが正常終了であること
-
-    もし ジョブネット"jobnet1060_h"を実行する
-    かつ ジョブネット"jobnet1060_h"が完了することを確認する   
-    ならば ジョブネット"/jobnet1060_h" のステータスが正常終了であること
-    かつ ジョブ"/jobnet1060_h/job1" のステータスが正常終了であること
-
-    もし ジョブネット"jobnet1060_i"を実行する
-    かつ ジョブネット"jobnet1060_i"が完了することを確認する   
-    ならば ジョブネット"/jobnet1060_i" のステータスが正常終了であること
-    かつ ジョブ"/jobnet1060_i/job1" のステータスが正常終了であること
-
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
-    ならば "tengine_job_test jobnet1060_a-job1 start"と"スクリプトログ"の先頭に出力されていること
-    かつ "tengine_job_test jobnet1060_a-job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_a-job1 start"と"tengine_job_test jobnet1060_b-job1 start"の間であること
-    かつ "tengine_job_test jobnet1060_b-job1 start"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_a-job1 finish"と"tengine_job_test jobnet1060_b-job1 finish"の間であること
-    かつ "tengine_job_test jobnet1060_b-job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_b-job1 start"と"tengine_job_test jobnet1060_c-job1 start"の間であること
-    かつ "tengine_job_test jobnet1060_c-job1 start"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_b-job1 finish"と"tengine_job_test jobnet1060_c-job1 finish"の間であること
-    かつ "tengine_job_test jobnet1060_c-job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_c-job1 start"と"tengine_job_test jobnet1060_d-job1 start"の間であること
-    かつ "tengine_job_test jobnet1060_d-job1 start"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_c-job1 finish"と"tengine_job_test jobnet1060_d-job1 finish"の間であること
-    かつ "tengine_job_test jobnet1060_d-job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_d-job1 start"と"tengine_job_test jobnet1060_e-job1 start"の間であること
-    かつ "tengine_job_test jobnet1060_e-job1 start"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_d-job1 finish"と"tengine_job_test jobnet1060_e-job1 finish"の間であること
-    かつ "tengine_job_test jobnet1060_e-job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_e-job1 start"と"tengine_job_test jobnet1060_f-job1 start"の間であること
-    かつ "tengine_job_test jobnet1060_f-job1 start"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_e-job1 finish"と"tengine_job_test jobnet1060_f-job1 finish"の間であること
-    かつ "tengine_job_test jobnet1060_f-job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_f-job1 start"と"tengine_job_test jobnet1060_g-job1 start"の間であること
-    かつ "tengine_job_test jobnet1060_g-job1 start"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_f-job1 finish"と"tengine_job_test jobnet1060_g-job1 finish"の間であること
-    かつ "tengine_job_test jobnet1060_g-job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_g-job1 start"と"tengine_job_test jobnet1060_h-job1 start"の間であること
-    かつ "tengine_job_test jobnet1060_h-job1 start"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_g-job1 finish"と"tengine_job_test jobnet1060_h-job1 finish"の間であること
-    かつ "tengine_job_test jobnet1060_h-job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_h-job1 start"と"tengine_job_test jobnet1060_i-job1 start"の間であること
-    かつ "tengine_job_test jobnet1060_i-job1 start"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_h-job1 finish"と"tengine_job_test jobnet1060_i-job1 finish"の間であること
-    かつ "tengine_job_test jobnet1060_i-job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1060_i-job1 start"の後であること
+    もし "jobnetgroup_z"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
 
   
   # ./usecases/job/dsl/1061_dictionary_yml
@@ -2267,11 +2246,11 @@
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    ならば ルートのカテゴリの子に物理名"1061_dictionary_yml"、論理名"1061_dictionary_yml"というカテゴリが存在すること
-    かつ "ジョブネットグループ1061"のカテゴリの子に物理名"jobnetgroup_x"、論理名"ジョブネットグループX"というカテゴリが存在すること
-    かつ "ジョブネットグループ1061"のカテゴリの子に物理名"jobnetgroup_y"、論理名"ジョブネットグループY"というカテゴリが存在すること
+    ならば ルートのカテゴリの子に"1061_dictionary_yml"というカテゴリが存在すること
+    かつ "ジョブネットグループ1061"のカテゴリの子に"ジョブネットグループX"というカテゴリが存在すること
+    かつ "ジョブネットグループ1061"のカテゴリの子に"ジョブネットグループY"というカテゴリが存在すること
 
-    もし 論理名"全体"のカテゴリを選択すると以下の行が表示されること
+    もし "全体"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明|
     |jobnet1061_a|jobnet1061_a|
     |jobnet1061_b|jobnet1061_b|
@@ -2283,7 +2262,7 @@
     |jobnet1061_h|jobnet1061_h|
     |jobnet1061_i|jobnet1061_i|
 
-    もし 論理名"1061_dictionary_yml"のカテゴリを選択すると以下の行が表示されること
+    もし "1061_dictionary_yml"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明|
     |jobnet1061_a|jobnet1061_a|
     |jobnet1061_b|jobnet1061_b|
@@ -2295,13 +2274,13 @@
     |jobnet1061_h|jobnet1061_h|
     |jobnet1061_i|jobnet1061_i|
 
-    もし 論理名"ジョブネットグループX"のカテゴリを選択すると以下の行が表示されること
+    もし "ジョブネットグループX"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明|
     |jobnet1061_d|jobnet1061_d|
     |jobnet1061_e|jobnet1061_e|
     |jobnet1061_f|jobnet1061_f|
 
-    もし 論理名"ジョブネットグループY"のカテゴリを選択すると以下の行が表示されること
+    もし "ジョブネットグループY"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明|
     |jobnet1061_g|jobnet1061_g|
     |jobnet1061_h|jobnet1061_h|
@@ -2317,11 +2296,11 @@
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    ならば ルートのカテゴリの子に物理名"1061_dictionary_yml"、論理名"ジョブネットグループ1061"というカテゴリが存在すること
-    かつ "ジョブネットグループ1061"のカテゴリの子に物理名"jobnetgroup_x"、論理名"ジョブネットグループX"というカテゴリが存在すること
-    かつ "ジョブネットグループ1061"のカテゴリの子に物理名"jobnetgroup_y"、論理名"ジョブネットグループY"というカテゴリが存在すること
+    ならば ルートのカテゴリの子に"ジョブネットグループ1061"というカテゴリが存在すること
+    かつ "ジョブネットグループ1061"のカテゴリの子に"ジョブネットグループX"というカテゴリが存在すること
+    かつ "ジョブネットグループ1061"のカテゴリの子に"ジョブネットグループY"というカテゴリが存在すること
 
-    もし 論理名"全体"のカテゴリを選択すると以下の行が表示されること
+    もし "全体"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明|
     |jobnet1061_a|jobnet1061_a|
     |jobnet1061_b|jobnet1061_b|
@@ -2333,7 +2312,7 @@
     |jobnet1061_h|jobnet1061_h|
     |jobnet1061_i|jobnet1061_i|
 
-    もし 論理名"ジョブネットグループ1061"のカテゴリを選択すると以下の行が表示されること
+    もし "ジョブネットグループ1061"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明|
     |jobnet1061_a|jobnet1061_a|
     |jobnet1061_b|jobnet1061_b|
@@ -2345,22 +2324,19 @@
     |jobnet1061_h|jobnet1061_h|
     |jobnet1061_i|jobnet1061_i|
 
-    もし 論理名"ジョブネットグループX"のカテゴリを選択すると以下の行が表示されること
+    もし "ジョブネットグループX"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明|
     |jobnet1061_d|jobnet1061_d|
     |jobnet1061_e|jobnet1061_e|
     |jobnet1061_f|jobnet1061_f|
 
-    もし 論理名"ジョブネットグループY"のカテゴリを選択すると以下の行が表示されること
+    もし "ジョブネットグループY"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明|
     |jobnet1061_g|jobnet1061_g|
     |jobnet1061_h|jobnet1061_h|
     |jobnet1061_i|jobnet1061_i|
 
   # ./usecases/job/dsl/1062_incorrect_dictionary_yml
-  #  -------------------
-  # 
-  #  -------------------
   @manual
   @1062
   シナリオ: [正常系]1062_dictionary.ymlの内容が間違っている_を試してみる
@@ -2369,41 +2345,55 @@
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    # jobnet_b.rb は定義がない
-    # jobnet_c.rb は空が指定されている
-    # jobnetgroup_z の定義がない
-    ならば ルートのカテゴリの下に物理名"jobnet_a.rb"、論理名"ジョブネットA"というカテゴリが存在すること
-    かつ ルートのカテゴリの子に物理名"jobnet_b.rb"、論理名"jobnet_b.rb"というカテゴリが存在すること
-    かつ ルートのカテゴリの子に物理名"jobnet_c.rb"、論理名"jobnet_c.rb"というカテゴリが存在すること
-    かつ ルートのカテゴリの子に物理名"jobnetgroup_x"、論理名"ジョブネットグループX"というカテゴリが存在すること
-    かつ ルートのカテゴリの子に物理名"jobnetgroup_y"、論理名"ジョブネットグループY"というカテゴリが存在すること
-    かつ ルートのカテゴリの子に物理名"jobnetgroup_z"、論理名"jobnetgroup_z"というカテゴリが存在すること
+    ならば ルートのカテゴリの子に"1062_incorrect_dictionary_yml"というカテゴリが存在すること
+    かつ "1062_incorrect_dictionary_yml"のカテゴリの子に"ジョブネットグループX"というカテゴリが存在すること
+    かつ "1062_incorrect_dictionary_yml"のカテゴリの子に"ジョブネットグループY"というカテゴリが存在すること
+    かつ "1062_incorrect_dictionary_yml"のカテゴリの子に"jobnetgroup_y"というカテゴリが存在すること
+ 
+    もし "全体"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1061_a|jobnet1061_a|
+    |jobnet1061_b|jobnet1061_b|
+    |jobnet1061_c|jobnet1061_c|
+    |jobnet1061_d|jobnet1061_d|
+    |jobnet1061_e|jobnet1061_e|
+    |jobnet1061_f|jobnet1061_f|
+    |jobnet1061_g|jobnet1061_g|
+    |jobnet1061_h|jobnet1061_h|
+    |jobnet1061_i|jobnet1061_i|
+    |jobnet1061_j|jobnet1061_j|
+    |jobnet1061_k|jobnet1061_k|
 
-    # dictionary.yml がない
-    かつ 物理名"jobnetgroup_x"のカテゴリの子に物理名"jobnet_d.rb"、論理名"jobnet_d.rb"というカテゴリが存在すること
-    かつ 物理名"jobnetgroup_x"のカテゴリの子に物理名"jobnet_e.rb"、論理名"jobnet_e.rb"というカテゴリが存在すること
-    かつ 物理名"jobnetgroup_x"のカテゴリの子に物理名"jobnet_f.rb"、論理名"jobnet_f.rb"というカテゴリが存在すること
+   もし "1062_incorrect_dictionary_yml"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1061_a|jobnet1061_a|
+    |jobnet1061_b|jobnet1061_b|
+    |jobnet1061_c|jobnet1061_c|
+    |jobnet1061_d|jobnet1061_d|
+    |jobnet1061_e|jobnet1061_e|
+    |jobnet1061_f|jobnet1061_f|
+    |jobnet1061_g|jobnet1061_g|
+    |jobnet1061_h|jobnet1061_h|
+    |jobnet1061_i|jobnet1061_i|
+    |jobnet1061_j|jobnet1061_j|
+    |jobnet1061_k|jobnet1061_k|
 
-    # jobnet_j.rb: ジョブネットJ という不要な定義がある。
-    かつ 物理名"jobnetgroup_y"のカテゴリの子に物理名"jobnet_g.rb"、論理名"ジョブネットG"というカテゴリが存在すること
-    かつ 物理名"jobnetgroup_y"のカテゴリの子に物理名"jobnet_h.rb"、論理名"ジョブネットH"というカテゴリが存在すること
-    かつ 物理名"jobnetgroup_y"のカテゴリの子に物理名"jobnet_i.rb"、論理名"ジョブネットI"というカテゴリが存在すること
+   もし "ジョブネットグループX"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1061_d|jobnet1061_d|
+    |jobnet1061_e|jobnet1061_e|
+    |jobnet1061_f|jobnet1061_f|
 
-    # dictionary.yml が不正でパースエラーになる
-    かつ 物理名"jobnetgroup_z"のカテゴリの子に物理名"jobnet_j.rb"、論理名"jobnet_j.rb"というカテゴリが存在すること
-    かつ 物理名"jobnetgroup_z"のカテゴリの子に物理名"jobnet_k.rb"、論理名"jobnet_k.rb"というカテゴリが存在すること
+   もし "jobnetgroup_y"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1061_g|jobnet1061_g|
+    |jobnet1061_h|jobnet1061_h|
+    |jobnet1061_i|jobnet1061_i|
 
-    かつ ジョブネット"jobnet1062_a" のカテゴリは物理名"jobnet_a.rb"、論理名"ジョブネットA"であること
-    かつ ジョブネット"jobnet1062_b" のカテゴリは物理名"jobnet_b.rb"、論理名"jobnet_b.rb"であること
-    かつ ジョブネット"jobnet1062_c" のカテゴリは物理名"jobnet_c.rb"、論理名"jobnet_c.rb"であること
-    かつ ジョブネット"jobnet1062_d" のカテゴリは物理名"jobnet_d.rb"、論理名"jobnet_d.rb"であること
-    かつ ジョブネット"jobnet1062_e" のカテゴリは物理名"jobnet_e.rb"、論理名"jobnet_e.rb"であること
-    かつ ジョブネット"jobnet1062_f" のカテゴリは物理名"jobnet_f.rb"、論理名"jobnet_f.rb"であること
-    かつ ジョブネット"jobnet1062_g" のカテゴリは物理名"jobnet_g.rb"、論理名"ジョブネットG"であること
-    かつ ジョブネット"jobnet1062_h" のカテゴリは物理名"jobnet_h.rb"、論理名"ジョブネットH"であること
-    かつ ジョブネット"jobnet1062_i" のカテゴリは物理名"jobnet_i.rb"、論理名"ジョブネットI"であること
-    かつ ジョブネット"jobnet1062_j" のカテゴリは物理名"jobnet_j.rb"、論理名"jobnet_j.rb"であること
-    かつ ジョブネット"jobnet1062_k" のカテゴリは物理名"jobnet_k.rb"、論理名"jobnet_k.rb"であること
+   もし "ジョブネットグループY"のカテゴリを選択すると以下の行が表示されること
+    |ジョブネット名|説明|
+    |jobnet1061_j|jobnet1061_j|
+    |jobnet1061_k|jobnet1061_k|
 
 
   # ./usecases/job/dsl/1071_rootjobnet_includes_parallel_jobs.rb
@@ -4182,7 +4172,7 @@
   #   end
   # end
 
-  @11102
+  @1102
   シナリオ: [正常系]finally付きのジョブネットを試してみる_fork前で失敗
   
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -4210,7 +4200,7 @@
     かつ "tengine_job_test /jn0004/jn0004_f finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/jn0004_f start"の後であること
 
 
-  @11103
+  @1103
   シナリオ: [正常系]finally付きのジョブネットを試してみる_fork後で片方が失敗
   
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -4242,7 +4232,7 @@
     かつ "tengine_job_test /jn0004/jn0004_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0004/jn0004_f start"の後であること
 
 
-  @11104
+  @1104
   シナリオ: [正常系]finally付きのジョブネットを試してみる_fork後で両方が失敗
   
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
@@ -4564,7 +4554,7 @@
     
     ならば ジョブネット"/jn0005" のステータスがエラー終了であること
     かつ ジョブ"/jn0005/j1" のステータスが正常終了であること
-    かつ ジョブ"/jn0005/j2" のステータスがエラー終了であること
+    かつ ジョブ"/jn0005/j2" のステータスが正常終了であること
     かつ ジョブネット"/jn0005/jn4" のステータスが正常終了であること
     かつ ジョブ"/jn0005/jn4/j41" のステータスが正常終了であること
     かつ ジョブ"/jn0005/jn4/j42" のステータスが正常終了であること
@@ -4734,7 +4724,7 @@
     
     ならば ジョブネット"/jn0006" のステータスがエラー終了であること
     かつ ジョブネット"/jn0006/jn1/" のステータスがエラー終了であること
-    かつ ジョブネット"/jn0006/jn1/jn11" のステータスが正常終了であること
+    かつ ジョブネット"/jn0006/jn1/jn11" のステータスがエラー終了であること
     かつ ジョブ"/jn0006/jn1/jn11/j111" のステータスが正常終了であること
     かつ ジョブ"/jn0006/jn1/jn11/j112" のステータスが正常終了であること
     かつ ジョブネット"/jn0006/jn1/jn11/finally" のステータスがエラー終了であること
@@ -4744,10 +4734,10 @@
     かつ ジョブ"/jn0006/jn1/finally/jn1_f" のステータスが正常終了であること
     かつ ジョブネット"/jn0006/jn2/" のステータスが初期化済であること
     かつ ジョブ"/jn0006/jn2/j21" のステータスが初期化済であること
-    かつ ジョブネット"/jn0006/jn2/jn22" のステータスが初期化済終了であること
+    かつ ジョブネット"/jn0006/jn2/jn22" のステータスが初期化済であること
     かつ ジョブ"/jn0006/jn2/jn22/j221" のステータスが初期化済であること
     かつ ジョブ"/jn0006/jn2/jn22/j222" のステータスが初期化済であること
-    かつ ジョブ"/jn0006/jn2/jn22//finally/jn22_f" のステータスが初期化済であること
+    かつ ジョブ"/jn0006/jn2/jn22/finally/jn22_f" のステータスが初期化済であること
     かつ ジョブ"/jn0006/jn2/finally/jn2_f" のステータスが初期化済であること
     かつ ジョブネット"/jn0006/finally" のステータスが正常終了であること
     かつ ジョブ"/jn0006/finally/jn_f" のステータスが正常終了であること

@@ -85,7 +85,7 @@
     ならば "ジョブネット実行設定画面"を表示していること
 
     もし "ジョブネット実行設定画面"を表示する
-    かつ "事前実行コマンド"に"export J2_SLEEP=60 && J3_SLEEP=60"と入力する
+    かつ "事前実行コマンド"に"export J2_SLEEP=60 && export J3_SLEEP=60"と入力する
     かつ "実行"ボタンをクリックする
 
     ならば "ジョブネット監視画面"を表示していること
@@ -108,7 +108,7 @@
     |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
     |  |jn3001_f|jn3001_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
-    もし "テンプレートジョブネット一覧画面"を表示する
+    もし "実行ジョブ一覧画面"を表示する
     かつ "jn3001"の"強制停止"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
     かつ 以下の行が表示されていること
@@ -209,8 +209,8 @@
     |  |  j42   |j42 |            |test_server1|test_credential1| | |初期化済|j44|表示 再実行|
     |  |  j43   |j43 |            |test_server1|test_credential1| | |初期化済|j44|表示 再実行|
     |  |  j44   |j44 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
-    |  |  finally   |finally |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
-    |  |  jn4_f   |jn4_f |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |  finally   |finally |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
+    |  |  jn4_f   |jn4_f |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
     |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済|j4|表示 再実行|
     |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
     |  |  jn3002_fjn|jn3002_fjn|            |test_server1|test_credential1|| |正常終了|jn3002_f|表示 再実行|
@@ -264,7 +264,7 @@
     |  |      jn3002_fif|jn3002_fif|            |test_server3|test_credential3| | |初期化済| |表示|
     |  |  jn3002_f|jn3002_f|            |test_server1|test_credential1| | |初期化済| |表示|
 
-    もし "テンプレートジョブネット一覧画面"を表示する
+    もし "実行ジョブ一覧画面"を表示する
     かつ "jn3002"の"強制停止"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
     かつ 以下の行が表示されていること
