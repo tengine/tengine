@@ -4652,7 +4652,7 @@ language:ja
     ならば "ジョブネット実行設定画面"を表示していること
 
     もし "ジョブネット実行設定画面"を表示する
-    かつ "事前実行コマンド"に"export J4_FAIL=true && export JN0005_F1_FAIL=true && JN0005_FIF_FAIL=true"と入力する
+    かつ "事前実行コマンド"に"export J4_FAIL=true && export JN0005_F1_FAIL=true && export JN0005_FIF_FAIL=true"と入力する
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
