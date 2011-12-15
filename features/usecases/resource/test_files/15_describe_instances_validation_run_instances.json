@@ -8,7 +8,7 @@
         "host_node": "physical_server_uuid_01",
         "image_id": "virtual_server_image_uuid_01",
         "instance_spec_id": "virtual_server_spec_uuid_01",
-        "state": "terminated",
+        "state": "running",
         "network": [
           {
             "network_name": "nw-data",
