@@ -1,49 +1,51 @@
-<div class="BoxBorder BoxSearchForm">
-  <%= model_error_messages(@physical_server) %>
-  <%= form_for(@physical_server, as:"physical_server") do |f| %>
-    <% field_set_tag do -%>
-      <table class= "TableForm4rows" >
-        <tbody class= "CelRow2">
-          <tr>
-            <th><%= f.label :name %></th>
-            <td><%= @physical_server.name %></td>
-          </tr>
-          <tr>
-            <th><%= f.label :provided_id %></th>
-            <td><%= @physical_server.provided_id %></td>
-          </tr>
-          <tr>
-            <th><%= f.label :cpu_cores %></th>
-            <td><%= @physical_server.cpu_cores %></td>
-          </tr>
-          <tr>
-            <th><%= f.label :memory_size %></th>
-            <td><%=  @physical_server.memory_size %></td>
-          </tr>
-          <tr>
-            <th><%= f.label :status %></th>
-            <td><%= @physical_server.status %></td>
-          </tr>
-          <tr>
-            <th><%= f.label :properties %></th>
-            <td><%== format_map_yml_value(@physical_server, :properties) %></td>
-          </tr>
-          <tr>
-            <th><%= f.label :description %></th>
-            <td><%= f.text_area :description, class: "InputText" %></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="BoxBtns">
-        <span class="BtnWrap">
-          <%= f.submit :class => "BtnNext" %>
-        </span>
-        <span class="BtnWrap">
-          <%= submit_tag t(:cancel), :class => "BtnCancel" %>
-        </span>
-      </div>
-
+<div class="Section">
+  <div class="BoxBorder BoxSearchForm">
+    <%= model_error_messages(@physical_server) %>
+    <%= form_for(@physical_server, as:"physical_server") do |f| %>
+      <% field_set_tag do -%>
+        <table class= "TableForm4rows" >
+          <tbody>
+            <tr>
+              <th><%= f.label :name %></th>
+              <td><%= @physical_server.name %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :provided_id %></th>
+              <td><%= @physical_server.provided_id %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :cpu_cores %></th>
+              <td><%= @physical_server.cpu_cores %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :memory_size %></th>
+              <td><%=  @physical_server.memory_size %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :status %></th>
+              <td><%= @physical_server.status %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :properties %></th>
+              <td><%== format_map_yml_value(@physical_server, :properties) %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :description %></th>
+              <td><%= f.text_area :description, class: "InputText", rows:10 %></td>
+            </tr>
+          </tbody>
+        </table>
+  
+        <div class="BoxBtns">
+          <span class="BtnWrap">
+            <%= f.submit :class => "BtnNext" %>
+          </span>
+          <span class="BtnWrap">
+            <%= submit_tag t("views.links.cancel"), :class => "BtnCancel" %>
+          </span>
+        </div>
+  
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>

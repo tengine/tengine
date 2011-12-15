@@ -134,12 +134,13 @@ legend{
 /* エラー時、エラー項目のinputの右上に表示 */
 .WrapInputError {
   margin: -2px;
-  padding: 5px 32px 5px 5px;
+  padding: 5px 32px 8px 5px;
   background: #FFDDDD url(<%= asset_path 'icon/Red_mark.png' %>) no-repeat 98% 5px;
 }
 
 .WrapInputError input[type='text'],
 .WrapInputError input[type='password'],
+.WrapInputError input[type='number'],
 .WrapInputError textarea {
 	border: 1px solid #f00;
 	background-color: #fff;

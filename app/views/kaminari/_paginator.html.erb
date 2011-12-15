@@ -11,7 +11,11 @@
     <% if defined? items -%>
       <div class="PageInfo">
         <span class="caption">
-          <%= I18n.t(:caption, :scope => [:views, :pagination], :total_number => items.total_count, :first_number => items.offset_value+1, :last_number => ((current_page.last?) ? items.total_count : (items.current_page * per_page))) %>
+          <%== I18n.t(:caption, :scope => [:views, :pagination],
+                 :total_number => "<strong>#{items.total_count}</strong>",
+                 :first_number => "<strong>#{items.offset_value+1}</strong>",
+                 :last_number => "<strong>#{((current_page.last?) ? items.total_count : (items.current_page * per_page))}</strong>"
+          ) %>
         </span>
       </div>
     <% end -%>

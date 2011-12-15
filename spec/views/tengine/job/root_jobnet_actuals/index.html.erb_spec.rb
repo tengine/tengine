@@ -181,6 +181,54 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
         rendered.should_not have_xpath("//input[@type='hidden'][@id='category']")
       end
 
+      it "@reflesh_intervalの値が絞り込みのフォームのhiddenフィールドとしてあること" do
+        finder = Tengine::Job::RootJobnetActual::Finder.new(reflesh_interval:10)
+        assign(:finder, finder)
+
+        render
+
+        rendered.should have_xpath("//input[@type='hidden'][@id='hidden_finder_reflesh_interval'][@value='10']")
+      end
+
+      it "@finderの値が画面の更新間隔のフォームのhiddenフィールドとしてあること" do
+        finder = Tengine::Job::RootJobnetActual::Finder.new(
+          duration:"finished_at",
+          "duration_start(0i)" => "2011",
+          "duration_start(1i)" => "11",
+          "duration_start(2i)" => "11",
+          "duration_start(3i)" => "11",
+          "duration_start(4i)" => "11",
+          "duration_finish(0i)" => "2012",
+          "duration_finish(1i)" => "11",
+          "duration_finish(2i)" => "11",
+          "duration_finish(3i)" => "11",
+          "duration_finish(4i)" => "11",
+          id:"12344",
+          name:"testname",
+        )
+        finder.stub(:phase_ids).and_return(["20", "30"])
+
+        assign(:finder, finder)
+
+        render
+
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_duration'][@value='finished_at']")
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_duration_start_0i_'][@value='2011']")
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_duration_start_1i_'][@value='11']")
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_duration_start_2i_'][@value='11']")
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_duration_start_3i_'][@value='11']")
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_duration_start_4i_'][@value='11']")
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_duration_finish_0i_'][@value='2012']")
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_duration_finish_1i_'][@value='11']")
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_duration_finish_2i_'][@value='11']")
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_duration_finish_3i_'][@value='11']")
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_duration_finish_4i_'][@value='11']")
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_id'][@value='12344']")
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_name'][@value='testname']")
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_phase_ids_'][@value='20']")
+        rendered.should have_xpath("//form[@method='get']/input[@type='hidden'][@id='hidden_finder_phase_ids_'][@value='30']")
+      end
+
       context "@categoryが設定されているとき" do
         before do
           @category = @foo
@@ -345,10 +393,10 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
         assign(:root_jobnet_actuals, Kaminari.paginate_array(templates).page(1).per(5))
       end
 
-      it "強制停止のリンクが表示されていないこと" do
+      it "強制停止のリンクが表示されていること" do
         render
 
-        rendered.should_not have_xpath("//a", :text => I18n.t("views.links.force_exit"))
+        rendered.should have_xpath("//a", :text => I18n.t("views.links.force_exit"))
       end
 
       it "再実行のリンクが表示されていないこと" do
@@ -388,10 +436,10 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
         assign(:root_jobnet_actuals, Kaminari.paginate_array(templates).page(1).per(5))
       end
 
-      it "強制停止のリンクが表示されていないこと" do
+      it "強制停止のリンクが表示されていること" do
         render
 
-        rendered.should_not have_xpath("//a", :text => I18n.t("views.links.force_exit"))
+        rendered.should have_xpath("//a", :text => I18n.t("views.links.force_exit"))
       end
 
       it "再実行のリンクが表示されていないこと" do

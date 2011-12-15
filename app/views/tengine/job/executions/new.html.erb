@@ -15,18 +15,18 @@
   <% klass = @root_jobnet.class -%>
   <tbody>
     <tr>
-      <th scope="row"><%= klass.human_attribute_name(:name) %>:</th>
+      <th scope="row"><%= klass.human_attribute_name(:name) %></th>
       <td><%= @root_jobnet.name %></td>
     </tr>
     <tr>
-      <th scope="row"><%= klass.human_attribute_name(:template_id) %>:</th>
+      <th scope="row"><%= klass.human_attribute_name(:template_id) %></th>
       <td>
         <% template_id = @retry ? @root_jobnet.template_id : @root_jobnet.id -%>
         <%= link_to template_id, tengine_job_root_jobnet_template_path(template_id) %>
       </td>
     </tr>
     <tr>
-      <th scope="row"><%= klass.human_attribute_name(:description) %>:</th>
+      <th scope="row"><%= klass.human_attribute_name(:description) %></th>
       <td><%= @root_jobnet.description %></td>
     </tr>
   </tbody>
@@ -49,7 +49,7 @@
       <tbody>
         <% if @retry && !@select_root_jobnet -%>
         <tr>
-          <th><%= f.label :spot %>:</th>
+          <th><%= f.label :spot %></th>
           <td>
             <%= f.radio_button :spot, false %><%= f.label :spot_false %>
             <br /><%= f.radio_button :spot, true %><%= f.label :spot_true %>
@@ -57,21 +57,21 @@
         </tr>
         <% end -%>
         <tr>
-          <th><%= f.label :preparation_command %>:</th>
+          <th><%= f.label :preparation_command %></th>
           <td>
             <%= f.text_field :preparation_command, :class => "InputText" %>
             <br /><span class="TextNotice"><%= t(".form.notice.preparation_command") %></span>
           </td>
         </tr>
         <tr>
-          <th><%= f.label :actual_base_timeout_alert %>:</th>
+          <th><%= f.label :actual_base_timeout_alert %></th>
           <td>
             <%= f.number_field :actual_base_timeout_alert, :min => 0, :class => "InputText" %><%= t("datetime.prompts.minute")%>
             <span class="TextNotice"><%= t(".form.notice.actual_base_timeout_alert") %></span>
           </td>
         </tr>
         <tr>
-          <th><%= f.label :actual_base_timeout_termination %>:</th>
+          <th><%= f.label :actual_base_timeout_termination %></th>
           <td>
             <%= f.number_field :actual_base_timeout_termination, :min => 0, :class => "InputText" %><%= t("datetime.prompts.minute")%>
             <span class="TextNotice"><%= t(".form.notice.actual_base_timeout_termination") %></span>
