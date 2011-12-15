@@ -141,9 +141,9 @@
     かつ "仮想サーバタイプ"から"virtual_server_spec_uuid_01"を選択する
     かつ "起動"ボタンをクリックする
 
-    # 動的に連番が振られる「run_3_virtual_servers001」が重複するためにバリデーションチェックに引っかかる
+    # 動的に連番が振られる「run_3_virtual_servers001, run_3_virtual_servers002, run_3_virtual_servers003」が重複するためにバリデーションチェックに引っかかる
     ならば "仮想サーバ起動"画面が表示されていること
-    かつ "仮想サーバ名 はすでに使用されています"と表示されていること
+    かつ "run_3_virtual_servers001,run_3_virtual_servers002,run_3_virtual_servers003は既に登録されています"と表示されていること
     # サーバ仮想基盤に起動要求が送信されていないことを確認する
     かつ tengine_console のログに以下の文言が表示されないこと # 起動リクエストを送信していないことを確認する
     """
