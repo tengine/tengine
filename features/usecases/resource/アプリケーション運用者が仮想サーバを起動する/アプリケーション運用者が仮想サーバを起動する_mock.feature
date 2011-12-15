@@ -76,7 +76,7 @@
     """
     ならば "仮想サーバ起動結果"画面が表示されること
     かつ  "仮想サーバ起動結果"画面に以下の表示があること
-    virtual_server_id_91
+    virtual_server_uuid_91
     もし "閉じる"ボタンを押下する
     ならば "仮想サーバ一覧"画面が表示されていること
 
@@ -97,11 +97,11 @@
     """
     ならば "仮想サーバ起動結果"ダイアログが表示されること
     かつ  "仮想サーバ起動結果"ダイアログに以下の表示があること
-    virtual_server_id_92
-    virtual_server_id_93
-    virtual_server_id_94
-    virtual_server_id_95
-    virtual_server_id_96
+    virtual_server_uuid_92
+    virtual_server_uuid_93
+    virtual_server_uuid_94
+    virtual_server_uuid_95
+    virtual_server_uuid_96
     もし "閉じる"ボタンを押下する
     ならば "仮想サーバ一覧"画面が表示されていること
 
@@ -112,12 +112,12 @@
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
-    |physical_server_name_01|run_1_virtual_server001|virtual_server_id_91|仮想サーバを1台起動テストの説明|private_ip_address: 192.168.2.91 <br>nw-data: 192.168.2.91 <br>nw-outside: 172.16.0.91 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
-    |                       |run_5_virtual_servers001|virtual_server_id_92|仮想サーバを5台起動テストの説明|private_ip_address: 192.168.2.92 <br>nw-data: 192.168.2.92 <br>nw-outside: 172.16.0.92 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
-    |                       |run_5_virtual_servers002|virtual_server_id_93|仮想サーバを5台起動テストの説明|private_ip_address: 192.168.2.93 <br>nw-data: 192.168.2.93 <br>nw-outside: 172.16.0.93 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
-    |                       |run_5_virtual_servers003|virtual_server_id_94|仮想サーバを5台起動テストの説明|private_ip_address: 192.168.2.94 <br>nw-data: 192.168.2.94 <br>nw-outside: 172.16.0.94 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
-    |                       |run_5_virtual_servers004|virtual_server_id_95|仮想サーバを5台起動テストの説明|private_ip_address: 192.168.2.95 <br>nw-data: 192.168.2.95 <br>nw-outside: 172.16.0.95 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
-    |                       |run_5_virtual_servers005|virtual_server_id_96|仮想サーバを5台起動テストの説明|private_ip_address: 192.168.2.96 <br>nw-data: 192.168.2.96 <br>nw-outside: 172.16.0.96 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |physical_server_name_01|run_1_virtual_server001|virtual_server_uuid_91|仮想サーバを1台起動テストの説明|private_ip_address: 192.168.2.91 <br>nw-data: 192.168.2.91 <br>nw-outside: 172.16.0.91 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |run_5_virtual_servers001|virtual_server_uuid_92|仮想サーバを5台起動テストの説明|private_ip_address: 192.168.2.92 <br>nw-data: 192.168.2.92 <br>nw-outside: 172.16.0.92 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |                       |run_5_virtual_servers002|virtual_server_uuid_93|仮想サーバを5台起動テストの説明|private_ip_address: 192.168.2.93 <br>nw-data: 192.168.2.93 <br>nw-outside: 172.16.0.93 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |                       |run_5_virtual_servers003|virtual_server_uuid_94|仮想サーバを5台起動テストの説明|private_ip_address: 192.168.2.94 <br>nw-data: 192.168.2.94 <br>nw-outside: 172.16.0.94 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |                       |run_5_virtual_servers004|virtual_server_uuid_95|仮想サーバを5台起動テストの説明|private_ip_address: 192.168.2.95 <br>nw-data: 192.168.2.95 <br>nw-outside: 172.16.0.95 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
+    |                       |run_5_virtual_servers005|virtual_server_uuid_96|仮想サーバを5台起動テストの説明|private_ip_address: 192.168.2.96 <br>nw-data: 192.168.2.96 <br>nw-outside: 172.16.0.96 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
     |physical_server_name_02|仮想サーバは起動していません。|||||||
     |physical_server_name_03|仮想サーバは起動していません。|||||||
     |physical_server_name_04|仮想サーバは起動していません。|||||||
@@ -252,7 +252,7 @@
 
     # 動的に連番が振られる「run_1_virtual_server001」が重複するためにバリデーションチェックに引っかかる
     ならば "仮想サーバ起動"画面が表示されていること
-    かつ "仮想サーバ名 はすでに使用されています"と表示されていること
+    かつ "run_1_virtual_server001は既に登録されています"と表示されていること
     # サーバ仮想基盤に起動要求が送信されていないことを確認する
     かつ tengine_console のログに以下の文言が表示されないこと # 起動リクエストを送信していないことを確認する
     """
@@ -277,9 +277,9 @@
     かつ "仮想サーバタイプ"から"virtual_server_spec_uuid_02"を選択する
     かつ "起動"ボタンをクリックする
 
-    # 動的に連番が振られる「run_5_virtual_servers003」が重複するためにバリデーションチェックに引っかかる
+    # 動的に連番が振られる「run_5_virtual_servers003, run_5_virtual_servers004, run_5_virtual_servers005」が重複するためにバリデーションチェックに引っかかる
     ならば "仮想サーバ起動"画面が表示されていること
-    かつ "仮想サーバ名 はすでに使用されています"と表示されていること
+    かつ "仮想サーバ名 に指定されたrun_5_virtual_servers003,run_5_virtual_servers004,run_5_virtual_servers005は既に登録されています"と表示されていること
     # サーバ仮想基盤に起動要求が送信されていないことを確認する
     かつ tengine_console のログに以下の文言が表示されないこと # 起動リクエストを送信していないことを確認する
     """
