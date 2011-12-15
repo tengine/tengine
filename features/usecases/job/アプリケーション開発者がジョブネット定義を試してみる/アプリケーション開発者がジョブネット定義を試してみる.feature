@@ -4140,7 +4140,30 @@
     かつ "tengine_job_test fj4 finish"と"スクリプトログ1"に出力されており、"tengine_job_test fj4 start"の後であること
 
 
-#------ failure ------    
+#------ failure ------
+
+
+  @1101
+  シナリオ: [正常系]1つのジョブが含まれるジョブネットが失敗
+  
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1101_one_job_in_jobnet_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"jobnet1101"を実行する
+    かつ ジョブネット"jobnet1101"が完了することを確認する
+    
+    ならば ジョブネット"/jobnet1101" のステータスがエラー終了であること
+
+    もし ジョブ"/jobnet1101/job1"の"ジョブ詳細"リンクをクリックする
+    ならば "ジョブ詳細画面"が表示していること
+    かつ "エラーメッセージ"に"Job process failed. STDOUT and STDERR were redirected to files. You can see them at #{標準出力のファイルパス} and #{標準エラー出力のファイルパス} on the server #{サーバ名}"と表示されていること
+  
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    かつ "tengine_job_failure_test job1 start"と"スクリプトログ"に出力されていること
+    かつ "tengine_job_failure_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_failure_test job1 start"の後であること
+
 
   # ../tengine_job/examples/0004_retry_one_layer.rb
   #  -------------------
