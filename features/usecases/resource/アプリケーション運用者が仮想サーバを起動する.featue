@@ -31,16 +31,16 @@
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
-    |physical_server_name_01||||||||
-    |physical_server_name_02||||||||
-    |physical_server_name_03||||||||
-    |physical_server_name_04||||||||
-    |physical_server_name_05||||||||
-    |physical_server_name_06||||||||
-    |physical_server_name_07||||||||
-    |physical_server_name_08||||||||
-    |physical_server_name_09||||||||
-    |physical_server_name_10||||||||
+    |physical_server_name_01|仮想サーバは起動していません。|||||||
+    |physical_server_name_02|仮想サーバは起動していません。|||||||
+    |physical_server_name_03|仮想サーバは起動していません。|||||||
+    |physical_server_name_04|仮想サーバは起動していません。|||||||
+    |physical_server_name_05|仮想サーバは起動していません。|||||||
+    |physical_server_name_06|仮想サーバは起動していません。|||||||
+    |physical_server_name_07|仮想サーバは起動していません。|||||||
+    |physical_server_name_08|仮想サーバは起動していません。|||||||
+    |physical_server_name_09|仮想サーバは起動していません。|||||||
+    |physical_server_name_10|仮想サーバは起動していません。|||||||
 
     # 起動可能数の確認
     # physical_server_uuid_01 CPU:100, メモリ:100000
@@ -71,7 +71,9 @@
     かつ "説明"に"仮想サーバを1台起動テストの説明"と入力する
     かつ "起動"ボタンをクリックする
     ならば tengine_console のログに以下の文言が表示されること
+    """
     Tama::Controllers::TamaTestController#run_instances("virtual_server_image_uuid_01", 1, 1, [], nil, "", nil, "virtual_server_spec_uuid_01", nil, nil, "physical_server_uuid_01", nil)
+    """
     ならば "仮想サーバ起動結果"画面が表示されること
     かつ  "仮想サーバ起動結果"画面に以下の表示があること
     virtual_server_id_91
@@ -90,7 +92,9 @@
     かつ "説明"に"仮想サーバを5台起動テストの説明"と入力する
     かつ "起動"ボタンをクリックする
     ならば tengine_console のログに以下の文言が表示されること
+    """
     Tama::Controllers::TamaTestController#run_instances("virtual_server_image_uuid_01", 5, 5, [], nil, "", nil, "virtual_server_spec_uuid_01", nil, nil, "physical_server_uuid_01", nil)
+    """
     ならば "仮想サーバ起動結果"ダイアログが表示されること
     かつ  "仮想サーバ起動結果"ダイアログに以下の表示があること
     virtual_server_id_92
@@ -114,15 +118,15 @@
     |                       |run_5_virtual_servers003|virtual_server_id_94|仮想サーバを5台起動テストの説明|nw-data: 192.168.2.94 <br>nw-outside: 172.16.0.94 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
     |                       |run_5_virtual_servers004|virtual_server_id_95|仮想サーバを5台起動テストの説明|nw-data: 192.168.2.95 <br>nw-outside: 172.16.0.95 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
     |                       |run_5_virtual_servers005|virtual_server_id_96|仮想サーバを5台起動テストの説明|nw-data: 192.168.2.96 <br>nw-outside: 172.16.0.96 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
-    |physical_server_name_02||||||||
-    |physical_server_name_03||||||||
-    |physical_server_name_04||||||||
-    |physical_server_name_05||||||||
-    |physical_server_name_06||||||||
-    |physical_server_name_07||||||||
-    |physical_server_name_08||||||||
-    |physical_server_name_09||||||||
-    |physical_server_name_10||||||||
+    |physical_server_name_02|仮想サーバは起動していません。|||||||
+    |physical_server_name_03|仮想サーバは起動していません。|||||||
+    |physical_server_name_04|仮想サーバは起動していません。|||||||
+    |physical_server_name_05|仮想サーバは起動していません。|||||||
+    |physical_server_name_06|仮想サーバは起動していません。|||||||
+    |physical_server_name_07|仮想サーバは起動していません。|||||||
+    |physical_server_name_08|仮想サーバは起動していません。|||||||
+    |physical_server_name_09|仮想サーバは起動していません。|||||||
+    |physical_server_name_10|仮想サーバは起動していません。|||||||
 
     # 起動可能数の確認
     # physical_server_uuid_01 CPU:100, メモリ:100000
@@ -195,6 +199,37 @@
     もし "Tengineリソースウォッチャ"プロセスを停止する
 
     #
+    # 起動可能数のチェック
+    #
+    もし"仮想サーバ起動"ボタンをクリックする
+    ならば "仮想サーバ起動画面"を表示していること
+    もし "仮想サーバタイプ"から"virtual_server_spec_uuid_03"を選択する
+    # CPU (100 - 5) / 5 = 19
+    ならば "起動可能数"に"19"と表示されること
+
+    # 起動可能数より多い起動サーバ数を指定
+    もし 以下の項目を入力する
+    |仮想サーバ名       |run_many_virtual_servers|
+    |起動サーバ数       |100|
+    かつ "物理サーバ名"から"physical_server_name_01"を選択する
+    かつ "仮想サーバイメージ名"から"virtual_server_image_uuid_01"を選択する
+    かつ "仮想サーバタイプ"から"virtual_server_spec_uuid_03"を選択する
+    かつ "起動"ボタンをクリックする
+    ならば "仮想サーバ起動画面"を表示していること
+    かつ "起動サーバ数 は19以下の値にしてください"と表示されていること
+
+    # マイナス値の起動サーバ数を指定
+    もし 以下の項目を入力する
+    |仮想サーバ名       |run_many_virtual_servers|
+    |起動サーバ数       |-1|
+    かつ "物理サーバ名"から"physical_server_name_01"を選択する
+    かつ "仮想サーバイメージ名"から"virtual_server_image_uuid_01"を選択する
+    かつ "仮想サーバタイプ"から"virtual_server_spec_uuid_03"を選択する
+    かつ "起動"ボタンをクリックする
+    ならば "仮想サーバ起動画面"を表示していること
+    かつ "起動サーバ数 は0より大きい値にしてください"と表示されていること
+
+    #
     # 重複した仮想サーバ名で仮想サーバを1台起動
     #
 
@@ -219,8 +254,10 @@
     ならば "仮想サーバ起動"画面が表示されていること
     かつ "仮想サーバ名 はすでに使用されています"と表示されていること
     # サーバ仮想基盤に起動要求が送信されていないことを確認する
-    かつ tengine_console のログに以下の文言が表示されないこと
+    かつ tengine_console のログに以下の文言が表示されないこと # 起動リクエストを送信していないことを確認する
+    """
     Tama::Controllers::TamaTestController#run_instances("virtual_server_image_uuid_01", 1, 1, [], nil, "", nil, "virtual_server_spec_uuid_01", nil, nil, "physical_server_uuid_01", nil)
+    """
 
     #
     # 複数台の仮想サーバを起動する際、一部の仮想サーバ名が重複する
@@ -244,8 +281,10 @@
     ならば "仮想サーバ起動"画面が表示されていること
     かつ "仮想サーバ名 はすでに使用されています"と表示されていること
     # サーバ仮想基盤に起動要求が送信されていないことを確認する
-    かつ tengine_console のログに以下の文言が表示されないこと
+    かつ tengine_console のログに以下の文言が表示されないこと # 起動リクエストを送信していないことを確認する
+    """
     Tama::Controllers::TamaTestController#run_instances("virtual_server_image_uuid_01", 5, 5, [], nil, "", nil, "virtual_server_spec_uuid_02", nil, nil, "physical_server_uuid_01", nil)
+    """
 
     # 仮想サーバ一覧を確認して、仮想サーバのプロバイダによるIDが変わっていないことを確認する
     もし "仮想サーバ一覧画面"を表示する
