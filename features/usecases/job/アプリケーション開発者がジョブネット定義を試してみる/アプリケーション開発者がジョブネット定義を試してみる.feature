@@ -425,7 +425,7 @@
     もし "Tengineコアプロセス"の停止を行うために"tengined -k stop"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
    
-    もし テストを行うために"mv ./usecases/job/dsl/1006_expansion_in_jobnet.rb ./usecases/job/dsl/1006_expansion_in_jobnet.rb_tmp"というコマンドを実行する 
+    もし テストを行うために"mv ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb_tmp"というコマンドを実行する 
    
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_expansion_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -438,7 +438,7 @@
     かつ ジョブ"/jobnet1006/jobnet1006_2/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1006/job3" のステータスが正常終了であること
 
-    もし 後始末を行うために"mv ./usecases/job/dsl/1006_expansion_in_jobnet.rb_tmp ./usecases/job/dsl/1006_expansion_in_jobnet.rb"というコマンドを実行する 
+    もし 後始末を行うために"mv ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb_tmp ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb"というコマンドを実行する 
 
 
   # ./usecases/job/dsl/1007_boot_jobs_in_jobnet.rb
@@ -1679,7 +1679,7 @@
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
-    もし 予定実行時間を10分に設定して、ジョブネット"jobnet1048"を実行する
+    もし ジョブネット"jobnet1048"を実行する
     かつ ジョブネット"jobnet1048"が完了することを確認する
     
     ならば ジョブネット"/jobnet1048" のステータスが正常終了であること
@@ -1983,7 +1983,7 @@
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
-    もし 予定実行時間を10分に設定して、ジョブネット"jobnet1049"を実行する
+    もし ジョブネット"jobnet1049"を実行する
     かつ ジョブネット"jobnet1049"が完了することを確認する
     
     ならば ジョブネット"/jobnet1049" のステータスが正常終了であること
