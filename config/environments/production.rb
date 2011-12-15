@@ -1,3 +1,8 @@
+require 'mongoid'
+require 'amqp/session'
+require 'tengine/support/yaml_with_erb'
+Tengine::Event.config = YAML.load_file(File.expand_path('../event_sender.yml.erb', File.dirname(__FILE__)))
+
 TengineConsole::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -26,6 +31,10 @@ TengineConsole::Application.configure do
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
+  l = config.logger = Tengine.logger = Mongoid.logger = AMQP::Session.logger = ActiveSupport::BufferedLogger.new(config.paths["log"].to_a.first)
+  l.level = ActiveSupport::BufferedLogger.const_get(config.log_level.to_s.upcase)
+  l.auto_flushing = false
+  l.debug("Tengine::Event.config:\n" << YAML.dump(Tengine::Event.config))
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
@@ -49,8 +58,3 @@ TengineConsole::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 end
-
-require 'tengine/support/yaml_with_erb'
-Tengine::Event.config = YAML.load_file(File.expand_path('../event_sender.yml.erb', File.dirname(__FILE__)))
-Tengine.logger = Rails.logger
-Tengine.logger.debug("Tengine::Event.config:\n" << YAML.dump(Tengine::Event.config))
