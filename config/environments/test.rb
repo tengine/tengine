@@ -1,3 +1,6 @@
+require 'mongoid'
+require 'amqp/session'
+
 TengineConsole::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -36,6 +39,7 @@ TengineConsole::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
-end
 
-Tengine.logger = Rails.logger
+  l = config.logger = Tengine.logger = Mongoid.logger = AMQP::Session.logger = ActiveSupport::BufferedLogger.new(config.paths["log"].to_a.first)
+  l.level = ActiveSupport::BufferedLogger.const_get(config.log_level.to_s.upcase)
+end

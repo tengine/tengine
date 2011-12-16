@@ -64,6 +64,8 @@ class Tengine::Resource::VirtualServersController < ApplicationController
     _starting_number = starting_number.to_i
     starting_number_max = (params[:starting_number_max] || 0).to_i
     @virtual_server = Tengine::Resource::VirtualServer.new(params[:virtual_server])
+    @virtual_server.launch_count = _starting_number
+    @virtual_server.launch_count_max = starting_number_max
 
     respond_to do |format|
       if @virtual_server.valid? &&

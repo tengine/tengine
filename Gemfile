@@ -19,10 +19,10 @@ gem "bson_ext", "~> 1.4.0"
 
 gem "kaminari", "~> 0.12.4"
 
-gem "tengine_event"   , "~> 0.3.0"
-gem "tengine_core"    , "~> 0.5.0"
-gem "tengine_resource", "~> 0.5.0"
-gem "tengine_job"     , "~> 0.5.0"
+gem "tengine_event"   , "~> 0.4.0"
+gem "tengine_core"    , "~> 0.5.4"
+gem "tengine_resource", "~> 0.5.4"
+gem "tengine_job"     , "~> 0.5.5"
 
 gem "wakame-adapters-tengine", "~> 0.0.0"
 
