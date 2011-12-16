@@ -1859,7 +1859,7 @@ language:ja
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, jn4|表示 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, jn4|表示 再実行|
     |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
     |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|表示|
@@ -1889,7 +1889,7 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, jn4|表示 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, jn4|表示 再実行|
     |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
     |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
@@ -1910,7 +1910,7 @@ language:ja
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, jn4|表示 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, jn4|表示 再実行|
     |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
@@ -2918,7 +2918,7 @@ language:ja
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, jn4|表示 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, jn4|表示 再実行|
     |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
     |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|表示|
@@ -2948,7 +2948,7 @@ language:ja
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, jn4|表示 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, jn4|表示 再実行|
     |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |jn4     |jn4 |            |test_server1|test_credential1| | |実行中|j4|表示|
     |  |  j41   |j41 |            |test_server1|test_credential1| | |実行中|j42, j43|表示|
@@ -2969,7 +2969,7 @@ language:ja
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, jn4|表示 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, jn4|表示 再実行|
     |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
@@ -3744,7 +3744,7 @@ language:ja
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, jn4|表示 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, jn4|表示 再実行|
     |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |jn4     |jn4 |            |test_server1|test_credential1| | |エラー終了|j4|表示|
     |  |  j41   |j41 |            |test_server1|test_credential1| | |エラー終了|j42, j43|表示|
@@ -3796,7 +3796,7 @@ language:ja
     もし 20秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
-    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, jn4|表示 再実行|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, jn4|表示 再実行|
     |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |jn4     |jn4 |            |test_server1|test_credential1| | |正常終了|j4|表示|
     |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42, j43|表示|
