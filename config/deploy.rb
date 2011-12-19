@@ -44,7 +44,7 @@ set :deploy_via,        :copy
 set :deploy_to,         "/var/lib/#{application}"
 set :deploy_env,        "production"
 set :bundle_dir,        "./vendor/bundle"
-set :bundle_without,    [:development, :test, :assets]
+set :bundle_without,    [:development, :test, :js_engine, :assets]
 
 # passenger-recipesの設定
 set :target_os,    :centos
