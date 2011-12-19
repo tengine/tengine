@@ -22,6 +22,7 @@
     # 代替コースB: 管理下の仮想サーバイメージが存在しない
     # 仮想サーバイメージが0件のファイル
     もし Wakameのモックファイル"./features/usecases/resource/test_files/20_describe_images_0_virtual_server_images.json"を"./features/usecases/resource/test_files/describe_images.json"にコピーする
+    かつ "Tengineリソースウォッチャ"プロセスを再起動する
     もし "仮想サーバイメージ一覧"画面を表示する
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること
     # tableには何も表示されない
@@ -41,7 +42,11 @@
     |virtual_server_image_uuid_04|virtual_server_image_uuid_04|virtual_server_image_description_04||
     |virtual_server_image_uuid_05|virtual_server_image_uuid_05|virtual_server_image_description_05||
 
+    もし"イベント一覧"画面を表示する
+    ならば "種別名"に"Tengine::Resource::VirtualServerImage.created.tengine_resource_watchd"のイベントが5件表示されていること
+
     # 仮想サーバイメージの説明を編集する
+    もし "仮想サーバイメージ一覧"画面を表示する
     もし "仮想サーバイメージ名"が"virtual_server_image_uuid_01"列の"編集"リンクをクリックする
     ならば "仮想サーバイメージ編集"画面が表示されていること
     かつ "仮想サーバイメージ編集"画面に"virtual_server_image_uuid_01"と表示されていること
