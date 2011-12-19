@@ -55,7 +55,6 @@
     # 基本コース:
     # 仮想サーバが10件のファイル
     もし Wakameのモックファイル"./features/usecases/resource/test_files/11_describe_instances_10_virtual_servers.json"を"./features/usecases/resource/test_files/describe_instances.json"にコピーする
-    かつ "Tengineリソースウォッチャ"プロセスを再起動する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
@@ -77,7 +76,11 @@
     |physical_server_name_09|仮想サーバは起動していません。|||||||
     |physical_server_name_10|仮想サーバは起動していません。|||||||
 
+    もし"イベント一覧"画面を表示する
+    ならば"種別名"に"Tengine::Resource::VirtualServer.created.tengine_resource_watchd"のイベントが10件表示されていること
+
     # 仮想サーバの仮想サーバ名、説明を編集する
+    もし "仮想サーバ一覧"画面を表示する
     もし "プロバイダによるID"が"virtual_server_uuid_01"列の"編集"リンクをクリックする
     ならば "仮想サーバ編集"画面が表示されていること
     かつ "仮想サーバ編集"画面に"virtual_server_uuid_01"と表示されていること

@@ -58,6 +58,9 @@
     |                       |run_3_virtual_servers002|virtual_server_uuid_02|仮想サーバを3台起動テストの説明|private_ip_address: 192.168.1.2|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
     |                       |run_3_virtual_servers003|virtual_server_uuid_03|仮想サーバを3台起動テストの説明|private_ip_address: 192.168.1.3|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
 
+    もし"イベント一覧"画面を表示する
+    ならば"種別名"に"Tengine::Resource::VirtualServer.created.tengine_resource_watchd"のイベントが<仮想サーバの件数>件表示されていること
+
     # 仮想サーバの仮想サーバ名、説明を編集する
     もし "仮想サーバ名"が"run_3_virtual_servers001"列の"編集"リンクをクリックする
     ならば "仮想サーバ編集"画面が表示されていること

@@ -62,7 +62,11 @@
     |                       |virtual_server_uuid_92|virtual_server_uuid_92|  |private_ip_address: 192.168.2.92 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
     |                       |virtual_server_uuid_93|virtual_server_uuid_93|  |private_ip_address: 192.168.2.93 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
 
+    もし"イベント一覧"画面を表示する
+    ならば "種別名"に"Tengine::Resource::VirtualServer.updateed.tengine_resource_watchd"のイベントが1件表示されていること
+
     # 起動可能数の確認
+    もし"イベント一覧"画面を表示する
     もし"仮想サーバ起動"ボタンをクリックする
     ならば "仮想サーバ起動"画面が表示されていること
     かつ "仮想サーバタイプ"に"virtual_server_spec_uuid_01"を選択する
