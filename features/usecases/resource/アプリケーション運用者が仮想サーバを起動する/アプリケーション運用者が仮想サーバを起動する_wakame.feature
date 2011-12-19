@@ -1,5 +1,5 @@
 #language:ja
-機能: アプリケーション運用屋が仮想サーバを起動する(wakame)
+機能: アプリケーション運用者が仮想サーバを起動する(wakame)
   分散ジョブを実行するために
   アプリケーション運用者
   は仮想サーバを起動したい
@@ -11,12 +11,24 @@
     # かつ Wakameがセットアップされている
     # かつ TengineにWakameの接続先の設定を以下のファイルに対して行なっている
     #  > vi features/usecases/resource/scripts/create_providor_wakame_real.rb
+    #  12行目あたりのconnection_settings変数を実際の環境に合わせて修正する
+    #  connection_settings = {
+    #    :account => 'a-zzzzzzxx',
+    #    :ec2_host => '127.0.0.1',
+    #    :ec2_port => '9005',
+    #    :ec2_protocol => 'http',
+    #    :wakame_host => '127.0.0.1',
+    #    :wakame_port => '9001',
+    #    :wakame_protocol => 'http'
+    #  }
     # かつ TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
     #  > rails runner features/usecases/resource/scripts/create_providor_wakame_real.rb
     # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
     #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
     #  > tengine_resource_watchd
+    # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
+    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb 
 
     #
     # 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプはテストを行うWakameの環境に応じて読み替えてください
@@ -36,7 +48,7 @@
     もし"仮想サーバ起動"ボタンをクリックする
     ならば "仮想サーバ起動"画面が表示されていること
     かつ "仮想サーバタイプ"に"virtual_server_spec_uuid_01"を選択する
-    ならば "起動可能数"を確認する # 仮想サーバ起動後に起動可能数が減少していることを確認します
+    ならば "起動可能数"を確認する # 後に実行する仮想サーバ起動の後に起動可能数が増加することを確認します
 
     # 仮想サーバを3台起動
     もし "仮想サーバ名"に"run_3_virtual_servers"と入力する
@@ -59,15 +71,18 @@
     ならば "仮想サーバ一覧"画面が表示されていること
 
     # 起動後の画面状態を確認
-    もし Wakameのモックファイル"./features/usecases/resource/test_files/12_describe_instances_after_run_instances.json"を"./features/usecases/resource/test_files/describe_instances.json"にコピーする
-    もし "Tengineリソースウォッチャ"プロセスを起動する
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。
+    # ステータスがrunningになるまで時間がかかります(環境によって異なります)
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
     |physical_server_name_01|run_3_virtual_servers001|virtual_server_uuid_01|仮想サーバを3台起動テストの説明|private_ip_address: 192.168.1.1|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
     |                       |run_3_virtual_servers002|virtual_server_uuid_02|仮想サーバを3台起動テストの説明|private_ip_address: 192.168.1.2|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
     |                       |run_3_virtual_servers003|virtual_server_uuid_03|仮想サーバを3台起動テストの説明|private_ip_address: 192.168.1.3|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+
+    # 起動イベントの確認
+    もし"イベント一覧"画面を表示する
+    ならば "種別名"に"Tengine::Resource::VirtualServer.created.tengine_resource_watchd"のイベントが3件表示されていること
 
     # 起動可能数の確認
     ならば "仮想サーバ起動"画面が表示されていること

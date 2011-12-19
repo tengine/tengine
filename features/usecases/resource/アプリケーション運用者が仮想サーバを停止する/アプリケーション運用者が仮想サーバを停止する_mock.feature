@@ -1,5 +1,5 @@
 #language:ja
-機能: アプリケーション運用屋が仮想サーバを停止する
+機能: アプリケーション運用者が仮想サーバを停止する
   分散ジョブの実行後に物理サーバのリソースを確保するために
   アプリケーション運用者
   は仮想サーバを停止したい
@@ -11,11 +11,13 @@
     # かつ サーバ仮想基盤がセットアップされている
     # かつ Tengineにサーバ仮想基盤の接続先の設定を行なっている
     # かつ TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
-    #  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb <テストファイル群の配置ディレクトリ>
+    #  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb features/usecases/resource/scripts/test_files -e production
     # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
-    #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb
+    #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb -e production
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
     #  > tengine_resource_watchd
+    # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
+    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb 
 
   @manual
   シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面から仮想サーバの停止を行う
@@ -86,12 +88,16 @@
     |physical_server_name_09|仮想サーバは起動していません。|||||||
     |physical_server_name_10|仮想サーバは起動していません。|||||||
 
+    もし"イベント一覧"画面を表示する
+    ならば "種別名"に"Tengine::Resource::VirtualServer.updateed.tengine_resource_watchd"のイベントが3件表示されていること
+
     # 起動可能数の確認
     # physical_server_name_01 CPU:100, メモリ:100000
     # virtual_server_spec_uuid_03 CPU:5, メモリ:1
     # virtual_server_spec_uuid_04 CPU:1, メモリ:1500
     # physical_server_name_01 内で起動中の仮想サーバの合計 CPU:(1*0)+(2*4)=8, メモリ:(256*0)+(512*4)=2048
-    もし"仮想サーバ起動"ボタンをクリックする
+    もし "仮想サーバ一覧"画面を表示する
+    もし "仮想サーバ起動"ボタンをクリックする
     ならば "仮想サーバ起動"画面が表示されていること
     かつ "仮想サーバタイプ"に"virtual_server_spec_uuid_03"を選択する
     # CPU (100 - 8) / 5 = 18
@@ -124,4 +130,4 @@
     |physical_server_name_10|仮想サーバは起動していません。|||||||
     # 発火イベントの確認
     もし"イベント一覧"画面を表示する
-    ならば "種別名"に"Tengine::Resource::VirtualServerImage.destroyed.tengine_resource_watchd"のイベントが一件表示されていること
+    ならば "種別名"に"Tengine::Resource::VirtualServer.destroyed.tengine_resource_watchd"のイベントが1件表示されていること

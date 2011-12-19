@@ -1,5 +1,5 @@
 #language:ja
-機能: アプリケーション運用屋が仮想サーバを起動する
+機能: アプリケーション運用者が仮想サーバを起動する
   分散ジョブを実行するために
   アプリケーション運用者
   は仮想サーバを起動したい
@@ -11,9 +11,11 @@
     # かつ サーバ仮想基盤がセットアップされている
     # かつ Tengineにサーバ仮想基盤の接続先の設定を行なっている
     # かつ TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
-    #  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb <テストファイル群の配置ディレクトリ>
+    #  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb features/usecases/resource/scripts/test_files -e production
     # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
-    #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb
+    #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb -e production
+    # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
+    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb 
 
   @manual
   シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面から仮想サーバの起動を行う
@@ -127,6 +129,10 @@
     |physical_server_name_08|仮想サーバは起動していません。|||||||
     |physical_server_name_09|仮想サーバは起動していません。|||||||
     |physical_server_name_10|仮想サーバは起動していません。|||||||
+
+    # 起動イベントの確認
+    もし"イベント一覧"画面を表示する
+    ならば "種別名"に"Tengine::Resource::VirtualServer.created.tengine_resource_watchd"のイベントが6件表示されていること
 
     # 起動可能数の確認
     # physical_server_uuid_01 CPU:100, メモリ:100000

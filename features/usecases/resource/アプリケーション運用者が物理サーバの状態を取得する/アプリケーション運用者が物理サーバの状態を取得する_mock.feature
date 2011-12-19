@@ -1,5 +1,5 @@
 #language:ja
-機能: アプリケーション運用屋が物理サーバの状態を取得する
+機能: アプリケーション運用者が物理サーバの状態を取得する
   仮想サーバを起動するために
   アプリケーション運用者
   は物理サーバの状態を取得したい
@@ -11,11 +11,13 @@
     # かつ サーバ仮想基盤がセットアップされている
     # かつ Tengineにサーバ仮想基盤の接続先の設定を行なっている
     # かつ TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
-    #  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb <テストファイル群の配置ディレクトリ>
+    #  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb features/usecases/resource/scripts/test_files -e production
     # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
-    #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb
+    #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb -e production
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
     #  > tengine_resource_watchd
+    # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
+    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb 
 
   @manual
   シナリオ: [正常系]アプリケーション運用者は物理サーバ一覧画面を開き、物理サーバが表示されていることを確認する
@@ -44,7 +46,11 @@
     |physical_server_name_09|physical_server_uuid_09||900 |900000|online|
     |physical_server_name_10|physical_server_uuid_10||100 |100000|offline|
 
+    もし"イベント一覧"画面を表示する
+    ならば "種別名"に"Tengine::Resource::PhysicalServer.created.tengine_resource_watchd"のイベントが10件表示されていること
+
     # 物理サーバの説明を編集する
+    もし "物理サーバ一覧"画面を表示する
     もし "物理サーバ名"が"physical_server_name_01"列の"編集"リンクをクリックする
     ならば "物理サーバ編集"画面が表示されていること
     かつ "物理サーバ編集"画面に"physical_server_name_01"と表示されていること
