@@ -2210,7 +2210,7 @@
     ならば ルートのカテゴリの子に"1060_jobnet_directory"というカテゴリが存在すること
     かつ "1060_jobnet_directory"のカテゴリの子に"jobnetgroup_x"というカテゴリが存在すること
     かつ "1060_jobnet_directory"のカテゴリの子に"jobnetgroup_y"というカテゴリが存在すること
-    かつ "1060_jobnet_directory"のカテゴリの子に"jobnetgroup_z"というカテゴリが存在すること
+    かつ "1060_jobnet_directory"のカテゴリの子に"jobnetgroup_z"というカテゴリが存在しないこと
 
     もし "全体"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明|
@@ -2247,9 +2247,6 @@
     |jobnet1060_g|jobnet1060_g|
     |jobnet1060_h|jobnet1060_h|
     |jobnet1060_i|jobnet1060_i|
-
-    もし "jobnetgroup_z"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
 
   
   # ./usecases/job/dsl/1061_dictionary_yml
