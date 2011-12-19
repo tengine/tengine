@@ -19,7 +19,7 @@ gem "bson_ext", "~> 1.4.0"
 
 gem "kaminari", "~> 0.12.4"
 
-gem "tengine_event"   , "~> 0.4.0"
+gem "tengine_event"   , "~> 0.4.1"
 gem "tengine_core"    , "~> 0.5.4"
 gem "tengine_resource", "~> 0.5.4"
 gem "tengine_job"     , "~> 0.5.5"
@@ -46,15 +46,16 @@ group :test, :development do
   # gem "rcov", ">= 0"
   gem "simplecov", "~> 0.5.3"
 
-  if RUBY_PLATFORM =~ /linux/ then
-    gem 'therubyracer', "~> 0.9.4"
-  end
-
   gem 'capistrano'       , "~> 2.9.0"
   gem 'capistrano-ext'   , "~> 1.2.1"
   gem 'capistrano_colors', "~> 0.5.5"
 end
 
+group :js_engine do
+  if RUBY_PLATFORM =~ /linux/ then
+    gem 'therubyracer', "~> 0.9.4"
+  end
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
