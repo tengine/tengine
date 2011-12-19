@@ -54,7 +54,7 @@
     # 発火イベントの確認
     もし"60"秒間待機する # 秒数はWakameの環境によって異なります
     もし"イベント一覧"画面を表示する
-    ならば"種別名"に"Tengine::Resource::VirtualServerImage.updated.tengine_resource_watchd"のイベントが1件表示されていること
+    ならば"種別名"に"Tengine::Resource::VirtualServer.updated.tengine_resource_watchd"のイベントが1件表示されていること
     もし"仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること # 停止処理を行った仮想サーバのステータスが"terminated"になることを確認する
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
@@ -73,7 +73,7 @@
     # 発火イベントの確認
     もし"15"分間待機する # 分数はWakameの環境によって異なります
     もし"イベント一覧"画面を表示する
-    ならば "種別名"に"Tengine::Resource::VirtualServerImage.destroyed.tengine_resource_watchd"のイベントが1件表示されていること
+    ならば "種別名"に"Tengine::Resource::VirtualServer.destroyed.tengine_resource_watchd"のイベントが1件表示されていること
     もし"仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること # 停止処理を行った仮想サーバが存在しないことを確認する
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|

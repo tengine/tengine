@@ -124,4 +124,4 @@
     |physical_server_name_10|仮想サーバは起動していません。|||||||
     # 発火イベントの確認
     もし"イベント一覧"画面を表示する
-    ならば "種別名"に"Tengine::Resource::VirtualServerImage.destroyed.tengine_resource_watchd"のイベントが1件表示されていること
+    ならば "種別名"に"Tengine::Resource::VirtualServer.destroyed.tengine_resource_watchd"のイベントが1件表示されていること

@@ -128,6 +128,10 @@
     |physical_server_name_09|仮想サーバは起動していません。|||||||
     |physical_server_name_10|仮想サーバは起動していません。|||||||
 
+    # 起動イベントの確認
+    もし"イベント一覧"画面を表示する
+    ならば "種別名"に"Tengine::Resource::VirtualServer.created.tengine_resource_watchd"のイベントが6件表示されていること
+
     # 起動可能数の確認
     # physical_server_uuid_01 CPU:100, メモリ:100000
     # virtual_server_spec_uuid_03 CPU:5, メモリ:1

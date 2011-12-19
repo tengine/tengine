@@ -89,5 +89,3 @@
     |physical_server_name_01|run_3_virtual_servers002|virtual_server_uuid_02|仮想サーバを3台起動テストの説明|private_ip_address: 192.168.1.2|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
     |                       |run_3_virtual_servers003|virtual_server_uuid_03|仮想サーバを3台起動テストの説明|private_ip_address: 192.168.1.3|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
     |                       |virtual_server_name_01|virtual_server_uuid_01|仮想サーバ説明01|private_ip_address: 192.168.2.1 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
-
-
