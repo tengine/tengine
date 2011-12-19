@@ -64,6 +64,16 @@
     |virtual_server_image_uuid_04|virtual_server_image_uuid_04|virtual_server_image_description_04||
     |virtual_server_image_uuid_05|virtual_server_image_uuid_05|virtual_server_image_description_05||
 
+    # 仮想サーバイメージ名のバリデーションチェック
+    もし "プロバイダによるID"が"virtual_server_image_uuid_02"列の"編集"リンクをクリックする
+    ならば "仮想サーバイメージ編集"画面が表示されていること
+    かつ "仮想サーバイメージ編集"画面に"virtual_server_uuid_02"と表示されていること
+
+    もし "仮想サーバイメージ名"に"virtual_server_image_name_01"と入力する　# すでに使用している名前を入力する
+    かつ "更新"ボタンをクリックする
+    ならば "仮想サーバイメージ編集"画面が表示されていること
+    かつ "仮想サーバイメージ名 はすでに使用されています"と表示されていること
+
     # 代替コースA: 仮想サーバイメージ一覧表を絞り込み検索して表示する
     # 仮想サーバイメージ名で検索を行う
     もし "仮想サーバイメージ一覧"を表示する
