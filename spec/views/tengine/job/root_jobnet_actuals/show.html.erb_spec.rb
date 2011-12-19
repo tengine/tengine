@@ -17,7 +17,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
       :exit_status => "0",
       :was_expansion => false,
       :phase_cd => 20,
-      :phase_name => "initialized",
+      :human_phase_name => "初期化済",
       :phase_key => :initialized,
       :stop_reason => "Stop Reason",
       :category => nil,
@@ -37,7 +37,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
     rendered.should match(/Server Name/)
     rendered.should match(/Credential Name/)
     rendered.should match(/Description/)
-    rendered.should match(/initialized/)
+    rendered.should match(/初期化済/)
     rendered.should match(/#{Regexp.escape(Time.new(2011, 11, 5).to_s)}/)
     rendered.should match(/#{Regexp.escape(Time.new(2011, 11, 6).to_s)}/)
   end
@@ -108,7 +108,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
       rendered.should have_xpath("//td", :text => @job1.script)
       rendered.should have_xpath("//td", :text => @job1.server_name)
       rendered.should have_xpath("//td", :text => @job1.credential_name)
-      rendered.should have_xpath("//td", :text => @job1.phase_name)
+      rendered.should have_xpath("//td", :text => @job1.human_phase_name)
       rendered.should have_xpath("//td", :text => @job1.started_at.to_s)
       rendered.should have_xpath("//td", :text => @job1.finished_at.to_s)
     end

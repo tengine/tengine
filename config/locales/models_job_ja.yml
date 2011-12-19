@@ -103,6 +103,12 @@ ja:
     tengine/job/jobnet_actual:
       phase_cd:
         <<: *phase_cds
+      human_phase_name:
+        <<: *phase_cds
+        stopping_by_user: "強制停止中"
+        stopped_by_user: "強制停止済"
+        stopping_by_timeout: "タイムアウト強制停止中"
+        stopped_by_timeout: "タイムアウト強制停止済"
     tengine/job/execution:
       phase_cd:
         <<: *phase_cds

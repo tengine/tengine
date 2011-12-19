@@ -107,6 +107,7 @@ class Tengine::Job::JobnetActualsController < ApplicationController
     properties = {
       :execution_id => result.id.to_s,
       :root_jobnet_id => root_jobnet_id,
+      :stop_reason => "user_stop"
     }
 
     target_id = target.id.to_s
