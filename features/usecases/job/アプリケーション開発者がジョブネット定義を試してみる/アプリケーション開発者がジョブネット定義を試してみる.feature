@@ -1706,6 +1706,8 @@
     かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
+		
     ならば "job1"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/jobnet1048_2/job1"であること
     かつ "job1"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
     かつ "job1"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
@@ -1713,6 +1715,7 @@
     かつ "job1"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "job1"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "job1"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+		かつ "job1"の"MM_SERVER_NAME"の値が"test_server1"であること
 
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/finally/jobnet1048_finally"であること
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
@@ -1721,7 +1724,9 @@
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+		かつ "jobnet1048_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
 
+		
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
@@ -1807,6 +1812,7 @@
     かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
   
     ならば "jobnet1048_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048_failure/finally/jobnet1048_finally"であること
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
@@ -1815,7 +1821,8 @@
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-
+		かつ "jobnet1048_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
+		
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
@@ -1908,6 +1915,8 @@
     かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
+		
     ならば "jobnet1048_finally_in_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048_finally_failure/finally/jobnet1048_2_finally_jobnet/finally/jobnet1048_finally_in_finally"であること
     かつ "jobnet1048_finally_in_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
     かつ "jobnet1048_finally_in_finally"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
@@ -1915,6 +1924,7 @@
     かつ "jobnet1048_finally_in_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally_in_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally_in_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+		かつ "jobnet1048_finally_in_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
 
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
@@ -2008,6 +2018,8 @@
     かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
+		
     ならば "job1"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1049/jobnet1049_2/job1"であること
     かつ "job1"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
     かつ "job1"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
@@ -2015,7 +2027,8 @@
     かつ "job1"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "job1"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "job1"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-
+		かつ "job1"の"MM_SERVER_NAME"の値が"test_server1"であること
+		
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
@@ -2103,6 +2116,8 @@
     かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
+		
     ならば "jobnet1049_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1049_failure/jobnet1049_2/finally/jobnet1049_finally"であること
     かつ "jobnet1049_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
     かつ "jobnet1049_finally"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
@@ -2110,7 +2125,8 @@
     かつ "jobnet1049_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1049_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1049_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-
+		かつ "jobnet1049_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
+		
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
