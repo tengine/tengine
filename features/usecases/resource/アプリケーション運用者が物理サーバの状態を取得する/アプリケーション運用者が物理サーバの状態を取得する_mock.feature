@@ -1,5 +1,5 @@
 #language:ja
-機能: アプリケーション運用屋が物理サーバの状態を取得する
+機能: アプリケーション運用者が物理サーバの状態を取得する
   仮想サーバを起動するために
   アプリケーション運用者
   は物理サーバの状態を取得したい
@@ -44,7 +44,11 @@
     |physical_server_name_09|physical_server_uuid_09||900 |900000|online|
     |physical_server_name_10|physical_server_uuid_10||100 |100000|offline|
 
+    もし"イベント一覧"画面を表示する
+    ならば "種別名"に"Tengine::Resource::PhysicalServer.created.tengine_resource_watchd"のイベントが10件表示されていること
+
     # 物理サーバの説明を編集する
+    もし "物理サーバ一覧"画面を表示する
     もし "物理サーバ名"が"physical_server_name_01"列の"編集"リンクをクリックする
     ならば "物理サーバ編集"画面が表示されていること
     かつ "物理サーバ編集"画面に"physical_server_name_01"と表示されていること
