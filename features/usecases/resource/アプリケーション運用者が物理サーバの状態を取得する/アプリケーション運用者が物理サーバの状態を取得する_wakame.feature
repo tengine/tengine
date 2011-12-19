@@ -1,5 +1,5 @@
 #language:ja
-機能: アプリケーション運用屋が物理サーバの状態を取得する
+機能: アプリケーション運用者が物理サーバの状態を取得する
   仮想サーバを起動するために
   アプリケーション運用者
   は物理サーバの状態を取得したい
@@ -27,6 +27,8 @@
     #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb -e production
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
     #  > tengine_resource_watchd
+    # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
+    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb 
 
     #
     # 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプはテストを行うWakameの環境に応じて読み替えてください

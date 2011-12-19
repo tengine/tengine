@@ -1,5 +1,5 @@
 #language:ja
-機能: アプリケーション運用屋が物理サーバの状態を取得する
+機能: アプリケーション運用者が物理サーバの状態を取得する
   仮想サーバを起動するために
   アプリケーション運用者
   は仮想サーバイメージの状態を取得したい
@@ -11,11 +11,13 @@
     # かつ サーバ仮想基盤がセットアップされている
     # かつ Tengineにサーバ仮想基盤の接続先の設定を行なっている
     # かつ TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
-    #  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb <テストファイル群の配置ディレクトリ>
+    #  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb features/usecases/resource/scripts/test_files -e production
     # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
-    #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb
+    #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb -e production
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
     #  > tengine_resource_watchd
+    # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
+    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb 
 
   @manual
   シナリオ: [正常系]アプリケーション運用者は仮想サーバイメージ一覧画面を開き、仮想サーバイメージが表示されていることを確認する

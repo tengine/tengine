@@ -11,11 +11,11 @@
     # かつ サーバ仮想基盤がセットアップされている
     # かつ Tengineにサーバ仮想基盤の接続先の設定を行なっている
     # かつ TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
-    #  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb <テストファイル群の配置ディレクトリ>
+    #  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb features/usecases/resource/scripts/test_files -e production
     # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
-    #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb
-    # かつ "Tengineリソースウォッチャ"プロセスが起動している
-    #  > tengine_resource_watchd
+    #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb -e production
+    # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
+    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb 
 
   @manual
   シナリオ: [正常系]アプリケーション運用者は物理サーバ一覧画面を開き、物理サーバが表示されていることを確認する
@@ -26,9 +26,9 @@
     かつ Wakameのモックファイル"./features/usecases/resource/test_files/10_describe_instances_0_virtual_servers.json"を"./features/usecases/resource/test_files/describe_instances.json"にコピーする
     # 仮想サーバイメージが5件のファイル
     かつ Wakameのモックファイル"./features/usecases/resource/test_files/21_describe_images_5_virtual_server_images.json"を"./features/usecases/resource/test_files/describe_images.json"にコピーする
-    # 仮想サーバタイプが2件のファイル
+    # 仮想サーバタイプが4件のファイル
     かつ Wakameのモックファイル"./features/usecases/resource/test_files/31_describe_instance_specs_4_virtual_server_specs.json"を"./features/usecases/resource/test_files/31_describe_instance_specs.json"にコピーする
-    かつ "Tengineリソースウォッチャ"プロセスを再起動する
+    かつ "Tengineリソースウォッチャ"プロセスを起動する
     # > tengine_resource_watchd
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
