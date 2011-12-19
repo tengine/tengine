@@ -8,6 +8,7 @@ require 'pp'
 puts "#{Time.new}\tstart\t#{__FILE__}"
 
 # Wakame用の接続設定用の変数
+# 実際に使用する環境に合わせて書き換える必要があります
 connection_settings = {
   :account => 'a-zzzzzzxx',
   :ec2_host => '127.0.0.1',

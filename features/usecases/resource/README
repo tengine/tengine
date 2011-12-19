@@ -1,10 +1,14 @@
-リソース系のテストに関してTamaのテストモードを使用する
+
+#
+# モックファイルを使用したテストを行う
+#
+リソース系のテストに関してファイル名が"*_mock.feature"のテストに関してはTamaのテストモードを使用する
 Tamaのテストモードはjson形式で記述されたファイルを使用する
 参考: https://github.com/tengine/wakame-adapters-tengine
 
 手動テスト実行時に実行する rails runner スクリプト
-  1. 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
-  > rails runner features/usecases/resource/scripts/delete_all_resources.rb
+  1. 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する(-e オプションは必要に応じて変更する)
+  > rails runner features/usecases/resource/scripts/delete_all_resources.rb -e production
   * 削除するデータは以下のとおり
     * Tengine::Resource::VirtualServer
     * Tengine::Resource::PhysicalServer
@@ -12,7 +16,7 @@ Tamaのテストモードはjson形式で記述されたファイルを使用す
     * Tengine::Resource::VirtualServerType
 
   2. TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
-  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb features/usecases/resource/test_files
+  > rails runner features/usecases/resource/scripts/create_providor_wakame_test.rb features/usecases/resource/test_files -e production
 
   * ファイル名は以下のとおり
     * describe_instances.json      # 仮想サーバの状態
@@ -99,3 +103,34 @@ Tamaのテストモードはjson形式で記述されたファイルを使用す
    cp 50_terminate_instances_0_virtual_servers.json terminate_instances.json
  * 3件の仮想サーバ停止時のレスポンスを返却する
    cp 51_terminate_instances_3_virtual_servers.json terminate_instances.json
+
+#
+# 実際にWakameに接続したテストを行う
+#
+リソース系のテストに関してファイル名が"*_wakame.feature"のテストに関しては実際にWakameのサーバに接続したテストを行う
+手動テスト実行時に実行する rails runner スクリプト
+  1. 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する(-e オプションは必要に応じて変更する)
+  > rails runner features/usecases/resource/scripts/delete_all_resources.rb -e production
+  * 削除するデータは以下のとおり
+    * Tengine::Resource::VirtualServer
+    * Tengine::Resource::PhysicalServer
+    * Tengine::Resource::VirtualServerImage
+    * Tengine::Resource::VirtualServerType
+
+  2. TengineリソースでWakameの接続設定を登録するため、Tengine::Resource::Provider#connection_settingsに設定する
+  > vim features/usecases/resource/scripts/create_providor_wakame_test.rb
+  # 12行目あたりの connection_settings変数を修正する
+  connection_settings = {
+    :account => 'a-zzzzzzxx',
+    :ec2_host => '127.0.0.1',
+    :ec2_port => '9005',
+    :ec2_protocol => 'http',
+    :wakame_host => '127.0.0.1',
+    :wakame_port => '9001',
+    :wakame_protocol => 'http'
+  }
+  > rails runner features/usecases/resource/scripts/create_providor_wakame_real.rb -e production
+
+  注). シナリオに記述している、物理サーバ、仮想サーバ、仮想サーバタイプ、仮想サーバイメージの名称や登録数などはWakameの環境により異なります。
+  実際の環境にあわせて読み替えてください。
+  また、ページの切り替えなど環境によってはテストできないステップも存在します。
