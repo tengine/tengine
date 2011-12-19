@@ -43,7 +43,7 @@
       </tr>
       <tr>
         <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:phase_cd) %></th>
-        <td><%= @root_jobnet_actual.phase_name %></td>
+        <td><%= @root_jobnet_actual.human_phase_name %></td>
       </tr>
     </tbody>
   </table>
@@ -116,7 +116,7 @@
             <td><%= jobnet_actual.credential_name %></td>
             <td><%= jobnet_actual.started_at %></td>
             <td><%= jobnet_actual.finished_at %></td>
-            <td><%= jobnet_actual.phase_name %></td>
+            <td><%= jobnet_actual.human_phase_name %></td>
             <td>
               <% unless (edges = jobnet_actual.next_edges).blank? -%>
                 <% if (dest = edges.first.destination).instance_of?(Tengine::Job::JobnetActual) -%>
