@@ -1706,6 +1706,8 @@
     かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
+		
     ならば "job1"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/jobnet1048_2/job1"であること
     かつ "job1"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
     かつ "job1"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
@@ -1713,6 +1715,7 @@
     かつ "job1"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "job1"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "job1"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+		かつ "job1"の"MM_SERVER_NAME"の値が"test_server1"であること
 
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/finally/jobnet1048_finally"であること
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
@@ -1721,7 +1724,9 @@
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+		かつ "jobnet1048_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
 
+		
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
@@ -1807,6 +1812,7 @@
     かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
   
     ならば "jobnet1048_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048_failure/finally/jobnet1048_finally"であること
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
@@ -1815,7 +1821,8 @@
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-
+		かつ "jobnet1048_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
+		
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
@@ -1908,6 +1915,8 @@
     かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
+		
     ならば "jobnet1048_finally_in_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048_finally_failure/finally/jobnet1048_2_finally_jobnet/finally/jobnet1048_finally_in_finally"であること
     かつ "jobnet1048_finally_in_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
     かつ "jobnet1048_finally_in_finally"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
@@ -1915,6 +1924,7 @@
     かつ "jobnet1048_finally_in_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally_in_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally_in_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+		かつ "jobnet1048_finally_in_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
 
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
@@ -2008,6 +2018,8 @@
     かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
+		
     ならば "job1"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1049/jobnet1049_2/job1"であること
     かつ "job1"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
     かつ "job1"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
@@ -2015,7 +2027,8 @@
     かつ "job1"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "job1"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "job1"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-
+		かつ "job1"の"MM_SERVER_NAME"の値が"test_server1"であること
+		
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
@@ -2103,6 +2116,8 @@
     かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
+		
     ならば "jobnet1049_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1049_failure/jobnet1049_2/finally/jobnet1049_finally"であること
     かつ "jobnet1049_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
     かつ "jobnet1049_finally"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
@@ -2110,7 +2125,8 @@
     かつ "jobnet1049_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1049_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1049_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-
+		かつ "jobnet1049_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
+		
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
@@ -2194,7 +2210,7 @@
     ならば ルートのカテゴリの子に"1060_jobnet_directory"というカテゴリが存在すること
     かつ "1060_jobnet_directory"のカテゴリの子に"jobnetgroup_x"というカテゴリが存在すること
     かつ "1060_jobnet_directory"のカテゴリの子に"jobnetgroup_y"というカテゴリが存在すること
-    かつ "1060_jobnet_directory"のカテゴリの子に"jobnetgroup_z"というカテゴリが存在すること
+    かつ "1060_jobnet_directory"のカテゴリの子に"jobnetgroup_z"というカテゴリが存在しないこと
 
     もし "全体"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明|
@@ -2231,9 +2247,6 @@
     |jobnet1060_g|jobnet1060_g|
     |jobnet1060_h|jobnet1060_h|
     |jobnet1060_i|jobnet1060_i|
-
-    もし "jobnetgroup_z"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
 
   
   # ./usecases/job/dsl/1061_dictionary_yml
@@ -4143,7 +4156,30 @@
     かつ "tengine_job_test fj4 finish"と"スクリプトログ1"に出力されており、"tengine_job_test fj4 start"の後であること
 
 
-#------ failure ------    
+#------ failure ------
+
+
+  @1101
+  シナリオ: [正常系]1つのジョブが含まれるジョブネットが失敗
+  
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1101_one_job_in_jobnet_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"jobnet1101"を実行する
+    かつ ジョブネット"jobnet1101"が完了することを確認する
+    
+    ならば ジョブネット"/jobnet1101" のステータスがエラー終了であること
+
+    もし ジョブ"/jobnet1101/job1"の"ジョブ詳細"リンクをクリックする
+    ならば "ジョブ詳細画面"が表示していること
+    かつ "エラーメッセージ"に"Job process failed. STDOUT and STDERR were redirected to files. You can see them at #{標準出力のファイルパス} and #{標準エラー出力のファイルパス} on the server #{サーバ名}"と表示されていること
+  
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    かつ "tengine_job_failure_test job1 start"と"スクリプトログ"に出力されていること
+    かつ "tengine_job_failure_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_failure_test job1 start"の後であること
+
 
   # ../tengine_job/examples/0004_retry_one_layer.rb
   #  -------------------

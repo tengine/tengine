@@ -44,6 +44,10 @@ echo "`date` <$$> $2 MM_FAILED_JOB_ID: $MM_FAILED_JOB_ID" >> $LOGFILE
 # MM_FAILED_JOB_ANCESTOR_IDS : ジョブが失敗した場合にrecoverやfinally内のジョブを実行時に設定される、失敗したジョブの祖先のMM上でのIDをセミコロンで繋げた文字列。
 echo "`date` <$$> $2 MM_FAILED_JOB_ANCESTOR_IDS: $MM_FAILED_JOB_ANCESTOR_IDS" >> $LOGFILE
 
+# MM_SERVER_NAME : 仮想サーバ名
+echo "`date` <$$> $2 MM_SERVER_NAME: $MM_SERVER_NAME" >> $LOGFILE
+
+
 # 実行スケジュールに設定された環境変数
 # ※ スクリプトの第3引数以降に指定した名称の変数を出力します。
 shift 2
