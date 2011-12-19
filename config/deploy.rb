@@ -59,6 +59,7 @@ set :apache_group, "apache"
 # these http://github.com/rails/irs_process_scripts
 
 after "deploy:setup",       "app:setup_shared"
+after "deploy:setup",       "app:make_uuid_file"
 
 before "deploy:update"    , "app:chown_deploy_path"
 after "deploy:update_code", "app:symlinks"
@@ -78,6 +79,12 @@ namespace :app do
 
   task :chown_deploy_path do
     run "#{sudo} chown -R #{user}:#{user} #{deploy_to}"
+  end
+
+  task :make_uuid_file do
+    # run "#{sudo} -u #{apache_user} -H sh -c 'touch $HOME/.ruby-uuid'"
+    run "#{sudo} touch /var/www/.ruby-uuid"
+    run "#{sudo} chown #{apache_user}:#{apache_group} /var/www/.ruby-uuid"
   end
 
   desc "Make symlink for config_file"
