@@ -2196,6 +2196,74 @@
     かつ "tengine_job_test job1 finish"と"スクリプトログ"の末尾に出力されていること
 
 
+  # ./usecases/job/dsl/1051_loop_job.rb
+  #  -------------------
+  # require 'tengine_job'
+  #
+  # jobnet("jobnet1051", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("job1")
+  #   job("job1", "$HOME/tengine_job_test.sh 0 job1", :to => "job2")
+  #   job("job2", "$HOME/tengine_job_test.sh 0 job2", :to => "job1")
+  # end
+  # -------------------
+  #
+  @1051
+  シナリオ: [正常系]循環参照するジョブを読み込ませてみる
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1051_loop_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力に"circular dependency"と表示されていること
+    かつ "Tengineコアプロセス"の標準出力に"Tengine::Job::DslError"と表示されていること
+ 
+
+  # ./usecases/job/dsl/1052_loop_expansion_job.rb
+  #  -------------------
+  #
+  # jobnet("jobnet1052", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("job1")
+  #   job("job1", "$HOME/tengine_job_test.sh 0 job1", :to => "jobnet1052_2")
+  #   expansion("jobnet1052_2", :to => "jobnet1052_3")
+  #   expansion("jobnet1052_3", :to => "jobnet1052_2")
+  # end
+  # jobnet("jobnet1052_2", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("job2")
+  #   job("job2", "$HOME/tengine_job_test.sh 0 job2")
+  # end
+  # jobnet("jobnet1052_3", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("job3")
+  #   job("job3", "$HOME/tengine_job_test.sh 0 job2")
+  # end
+  # -------------------
+  #
+  @1052
+  シナリオ: [正常系]循環参照するexpansionのジョブを読み込ませてみる
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1052_loop_expansion_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    ならば "Tengineコアプロセス"の標準出力に"circular dependency"と表示されていること
+    かつ "Tengineコアプロセス"の標準出力に"Tengine::Job::DslError"と表示されていること
+
+  # ./usecases/job/dsl/1053_loop_expansion_job_to_expansion_job.rb
+  #  -------------------
+  # 
+  # require 'tengine_job'
+  # 
+  # jobnet("jobnet1053", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("job1")
+  #   job("job1", "$HOME/tengine_job_test.sh 0 job1", :to => "jobnet1053_2")
+  #   expansion("jobnet1053_2", :to => "job3")
+  #   job("job3", "$HOME/tengine_job_test.sh 0 job3")
+  # end
+  # jobnet("jobnet1053_2", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("job2")
+  #   job("job2", "$HOME/tengine_job_test.sh 0 job2", :to => "jobnet1053")
+  #   expansion("jobnet1053")
+  # end
+  # -------------------
+  #
+  @pending
+  @1053
+  シナリオ: [正常系]expansionされるジョブネット内で、expansion元のジョブネットをexpansionで指定して循環したジョブを読み込ませてみる
+    #MM1の頃の仕様と合わせるべきだが、TengineでどのようにMM1の頃の仕様を表現するかは未決定。対応時期も未定のため、featureは作成していません
+
 
   # ./usecases/job/dsl/1060_jobnet_directory
   #
