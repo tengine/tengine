@@ -41,6 +41,7 @@
   # tengined
   #
   ####################
+  @6001
   @manual
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でtenginedのハートビートを確認する
     #
@@ -87,6 +88,7 @@
     かつ "イベントキー"が変更されていないこと
 
   @manual
+  @6002
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でtenginedの不達イベントを確認する
     #
     # 【注意】
@@ -128,6 +130,7 @@
   #
   ####################
   @manual
+  @6003
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でジョブのハートビートを確認する
     #
     # 【注意】
@@ -190,6 +193,7 @@
     |jn0004      |正常終了  |
 
   @manual
+  @6004
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でジョブの不達イベントを確認する
     #
     # 【注意】
@@ -252,6 +256,7 @@
   #
   ####################
   @manual
+  @6005
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でハートビートウォッチャのハートビートを確認する
     前提 以下のコマンドを実行し、イベントのデータを全削除している
     # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
@@ -287,6 +292,7 @@
     |hbw.heartbeat.tengine|<uuid>    |process:/<PID>|yyyy-MM-dd HH:mm:ss+0900|debug    |true      |process:/<PID>|
 
   @manual
+  @6006
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でハートビートウォッチャの不達イベントを確認する
     #
     # 【注意】
@@ -327,6 +333,7 @@
   #
   ####################
   @manual
+  @6007
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でリソースウォッチャのハートビートを確認する
     前提 以下のコマンドを実行し、イベントのデータを全削除している
     # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
@@ -364,6 +371,7 @@
     |resourcew.heartbeat.tengine|<uuid>    |process:/<PID>|yyyy-MM-dd HH:mm:ss+0900|debug    |true      |process:/<PID>|
 
   @manual
+  @6008
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でリソースウォッチャの不達イベントを確認する
     前提 以下のコマンドを実行し、イベントのデータを全削除している
     # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
@@ -400,6 +408,7 @@
   #
   ####################
   @manual
+  @6009
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でスケジュールキーパーのハートビートを確認する
     前提 以下のコマンドを実行し、イベントのデータを全削除している
     # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
@@ -437,6 +446,7 @@
     |atd.heartbeat.tengine|<uuid>    |process:/<PID>|yyyy-MM-dd HH:mm:ss+0900|debug    |true      |process:/<PID>|
 
   @manual
+  @6010
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でスケジュールキーパーの不達イベントを確認する
     前提 以下のコマンドを実行し、イベントのデータを全削除している
     # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
