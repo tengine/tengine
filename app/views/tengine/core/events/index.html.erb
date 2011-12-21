@@ -65,7 +65,7 @@
 </div>
 
 <div class="Section">
-  <table class="TableBase">
+  <table class="Events">
     <thead>
       <tr>
         <th><%= Tengine::Core::Event.human_attribute_name(:event_type_name) %></th>
@@ -80,9 +80,9 @@
         <th></th>
       </tr>
     </thead>
-  
+
     <tbody>
-  <% @events.each do |event| 
+  <% @events.each do |event|
    properties_yaml = event.properties_yaml
   %>
     <tr>
@@ -97,12 +97,10 @@
       <td><%= link_to_edit edit_tengine_core_event_path(event), class:"ActionEdit" %></td>
       <td><%= link_to_destroy event, confirm: 'Are you sure?', method: :delete, class: "ActionDelete" %></td>
     </tr>
-  <% unless event.properties.blank? -%>
     <tr>
       <td colspan="1"></td>
       <td colspan="9"><%= format_map_yml_value event, :properties %></td>
     </tr>
-  <% end %>
   <% end %>
     </tbody>
   </table>
