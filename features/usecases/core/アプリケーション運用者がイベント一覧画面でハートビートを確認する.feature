@@ -52,7 +52,7 @@
     #
 
     前提 以下のコマンドを実行し、イベントのデータを全削除している
-    # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
+    # rails runner "Tengine::Core::Event.delete_all" -e production
 
     # tenginedの終了イベントを受け取るためにtengined を追加する
     かつ 以下のコマンドを実行し、"tengined"を起動する
@@ -100,7 +100,7 @@
     #
 
     前提 以下のコマンドを実行し、イベントのデータを全削除している
-    # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
+    # rails runner "Tengine::Core::Event.delete_all" -e production
 
     # tenginedの終了イベントを受け取るためにtengined を追加する
     かつ 以下のコマンドを実行し、"tengined"を起動する
@@ -151,7 +151,7 @@
     # シナリオでは tengine_job/examples/0004_retry_one_layer.rb をデプロイしている前提で記述します
     #
     前提 以下のコマンドを実行し、イベントのデータを全削除している
-    # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
+    # rails runner "Tengine::Core::Event.delete_all" -e production
 
     # ジョブの実行
     もし "テンプレートジョブネット一覧画面"を表示する
@@ -216,7 +216,7 @@
     # シナリオでは tengine_job/examples/0004_retry_one_layer.rb をデプロイしている前提で記述します
     #
     前提 以下のコマンドを実行し、イベントのデータを全削除している
-    # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
+    # rails runner "Tengine::Core::Event.delete_all" -e production
 
     # ジョブの実行
     もし "テンプレートジョブネット一覧画面"を表示する
@@ -266,9 +266,9 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ジョブネット名|ステータス|
-    |jn0004      |実行中   |
-
-
+    |jn0004      |実行中[状態が不明なジョブあり]|
+		
+		
   ####################
   #
   # ハートビートウォッチャ
@@ -278,7 +278,7 @@
   @6005
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でハートビートウォッチャのハートビートを確認する
     前提 以下のコマンドを実行し、イベントのデータを全削除している
-    # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
+    # rails runner "Tengine::Core::Event.delete_all" -e production
 
     もし "イベント一覧画面"を表示する
     ならば イベント一覧に以下の行が存在すること
@@ -295,7 +295,7 @@
     かつ "イベントキー"が変更されていないこと
 
     もし 以下のコマンドを実行し、"ハートビートウォッチャプロセス"を停止する　#Ctrl+cで停止してもいいです
-    # cap -f Capfile_daemon production deploy:heartbeat_watchd:stop
+    # bundle exec cap -f Capfile_daemons deploy:heartbeat_watchd:stop
 
     もし "イベント一覧画面"を表示する
 
@@ -320,11 +320,11 @@
     #
 
     前提 以下のコマンドを実行し、イベントのデータを全削除している
-    # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
+    # rails runner "Tengine::Core::Event.delete_all" -e production
 
     # expired.hbw.heartbeat.tengine を発生させるために tengine_heartbeat_watchd を追加する
     かつ 以下のコマンドを実行し、"tengine_heartbeat_watchd"を起動する
-    # tengine_heartbeat_watchd -f ./config/hbw.yml.erb --process-daemon
+		# cap -f Capfile_daemons deploy:heartbeat_watchd:start
     かつ 標準出力からPIDを取得する
 
     もし 30秒待機する # ハートビートの送信間隔はデフォルトで30秒です
@@ -364,9 +364,9 @@
   @6007
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でリソースウォッチャのハートビートを確認する
     前提 以下のコマンドを実行し、イベントのデータを全削除している
-    # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
+    # rails runner "Tengine::Core::Event.delete_all" -e production
     前提 "リソースウォッチャプロセス"が起動している
-    # cap -f Capfile_daemon production deploy:resource_watchd:start
+		# cap -f Capfile_daemons deploy:resource_watchd:start
 
     もし 30秒待機する # ハートビートの送信間隔はデフォルトで30秒です
 
@@ -404,9 +404,9 @@
   @6008
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でリソースウォッチャの不達イベントを確認する
     前提 以下のコマンドを実行し、イベントのデータを全削除している
-    # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
+    # rails runner "Tengine::Core::Event.delete_all" -e production
     かつ "リソースウォッチャプロセス"が起動している
-    # cap -f Capfile_daemon production deploy:resource_watchd:start
+		# cap -f Capfile_daemons deploy:resource_watchd:start
 
     もし 30秒待機する # ハートビートの送信間隔はデフォルトで30秒です
 
@@ -451,9 +451,9 @@
   @6009
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でスケジュールキーパーのハートビートを確認する
     前提 以下のコマンドを実行し、イベントのデータを全削除している
-    # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
+    # rails runner "Tengine::Core::Event.delete_all" -e production
     かつ "スケジュールキーパープロセス"が起動している
-    # cap -f Capfile_daemon production deploy:atd:start
+    # cap -f Capfile_daemons deploy:atd:start
 
     もし 30秒待機する # ハートビートの送信間隔はデフォルトで30秒です
 
@@ -491,9 +491,9 @@
   @6010
   シナリオ: [正常系]アプリケーション運用者がイベント一覧画面でスケジュールキーパーの不達イベントを確認する
     前提 以下のコマンドを実行し、イベントのデータを全削除している
-    # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
+    # rails runner "Tengine::Core::Event.delete_all" -e production
     かつ "スケジュールキーパープロセス"が起動している
-    # cap -f Capfile_daemon production deploy:atd:start
+    # cap -f Capfile_daemons deploy:atd:start
 
     もし 30秒待機する # ハートビートの送信間隔はデフォルトで30秒です
 
