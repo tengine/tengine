@@ -1169,3 +1169,72 @@
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
     |  |jn0005|jn0005| | |強制停止済|再実行 監視|
+
+
+
+  # このシナリオは、バグ [タイムアウト強制停止が発生した場合エラー終了しているジョブのステータスが全てタイムアウト強制停止済みになってしまう]
+	# https://www.pivotaltracker.com/story/show/22618833
+	# のテストを行うために追加しました。
+  @5015
+  シナリオ: [正常系]エラー終了しているジョブがある状態でタイムアウト強制停止が発生
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
+
+    もし "テンプレートジョブネット一覧画面"を表示する
+    ならば "テンプレートジョブネット一覧画面"を表示していること
+    かつ 以下の行が表示されていること
+    |ジョブネット名|説明|操作|
+    |jn0005|jn0005|閲覧 実行|
+
+    もし "テンプレートジョブネット一覧画面"を表示する
+    かつ "jn0005"の"実行"リンクをクリックする
+    ならば "ジョブネット実行設定画面"を表示していること
+
+    もし "ジョブネット実行設定画面"を表示する
+		かつ "事前実行コマンド"に"export J2_FAIL='true' && export J42_SLEEP=120 && export J43_FAIL='true'"と入力する
+    かつ "強制停止設定"に"1"と入力する
+    かつ "実行"ボタンをクリックする
+    ならば "ジョブネット監視画面"を表示していること
+    かつ 以下の行が表示されていること
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |準備中|j2, jn4|表示 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |初期化済|j4|表示 強制停止|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |初期化済|j42,j43|表示|
+    |  |  j42   |j42 |            |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j43   |j43 |            |test_server1|test_credential1| | |初期化済|j44|表示|
+    |  |  j44   |j44 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  finally   |finally |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  jn4_f   |jn4_f |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1|| |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
+
+    もし 70秒間待機する
+    かつ 以下の行が表示されていること
+    |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|開始日時|終了日時|ステータス|次のジョブ|操作|
+    |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |正常終了|j2, jn4|表示 |
+    |  |j2     |j2 |            |test_server1|test_credential1| | |エラー終了|j4|表示 強制停止|
+    |  |jn4     |jn4 |            |test_server1|test_credential1| | |タイムアウト強制停止済|j4|表示|
+    |  |  j41   |j41 |            |test_server1|test_credential1| | |正常終了|j42,j43|表示|
+    |  |  j42   |j42 |            |test_server1|test_credential1| | |タイムアウト強制停止済|j44|表示|
+    |  |  j43   |j43 |            |test_server1|test_credential1| | |エラー終了|j44|表示|
+    |  |  j44   |j44 |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  finally   |finally |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |  jn4_f   |jn4_f |            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済|j4|表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_fjn|jn_0005_fjn|            |test_server1|test_credential1|| |初期化済|jn0005_f|表示|
+    |  |    jn0005_f1|jn_0005_f1|            |test_server1|test_credential1| | |初期化済|jn0005_f2|表示|
+    |  |    jn0005_f2|jn_0005_f2|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |    finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |      jn0005_fif|jn_0005_fif|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |  jn0005_f|jn_0005_f|            |test_server1|test_credential1| | |初期化済| |表示|
+
+    もし "実行ジョブ一覧画面"を表示する
+    ならば 以下の行が表示されていること
+    |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
+    |  |jn0005|jn0005| | |タイムアウト強制停止済|再実行 監視|
