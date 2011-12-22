@@ -246,9 +246,8 @@ __end_of_dsl__
   describe "DELETE destroy" do
     before do
       EM.should_receive(:run).and_yield
-      mock_sender = mock(:sender)
-      Tengine::Event.stub(:default_sender).and_return(mock_sender)
-      mock_sender.should_receive(:fire)
+      @mock_sender = mock(:sender)
+      Tengine::Event.stub(:default_sender).and_return(@mock_sender)
     end
 
     it "destroys the requested jobnet_actual" do
@@ -259,7 +258,10 @@ __end_of_dsl__
       jobnet_actual.stub(:children).and_return([job_actual])
       Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
         and_return(jobnet_actual)
-
+      @mock_sender.should_receive(:fire).with(:"stop.jobnet.job.tengine", an_instance_of(Hash)) do |_, fire_options|
+        fire_options[:properties].should be_a(Hash)
+        fire_options[:properties][:stop_reason].should == "user_stop"
+      end
       delete :destroy, :id => jobnet_actual.id.to_s,
         :root_jobnet_actual_id => root_jobnet_actual.id.to_s
     end
@@ -273,7 +275,10 @@ __end_of_dsl__
       job_actual.stub(:parent).and_return(jobnet_actual)
       Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
         and_return(job_actual)
-
+      @mock_sender.should_receive(:fire).with(:"stop.job.job.tengine", an_instance_of(Hash)) do |_, fire_options|
+        fire_options[:properties].should be_a(Hash)
+        fire_options[:properties][:stop_reason].should == "user_stop"
+      end
       delete :destroy, :id => job_actual.id.to_s,
         :root_jobnet_actual_id => root_jobnet_actual.id.to_s
     end
@@ -286,6 +291,10 @@ __end_of_dsl__
       jobnet_actual.stub(:children).and_return([job_actual])
       Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
         and_return(jobnet_actual)
+      @mock_sender.should_receive(:fire).with(:"stop.jobnet.job.tengine", an_instance_of(Hash)) do |_, fire_options|
+        fire_options[:properties].should be_a(Hash)
+        fire_options[:properties][:stop_reason].should == "user_stop"
+      end
       delete :destroy, :id => jobnet_actual.id.to_s,
         :root_jobnet_actual_id => root_jobnet_actual.id.to_s
       response.should redirect_to(tengine_job_root_jobnet_actual_path(root_jobnet_actual))

@@ -172,6 +172,7 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
           :execution_id => result.id.to_s,
           :root_jobnet_id => root_jobnet_id,
           :target_jobnet_id => root_jobnet_id.to_s,
+          :stop_reason => "user_stop",
         })
     end
 
