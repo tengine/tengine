@@ -82,7 +82,7 @@
 
     # 起動イベントの確認
     もし"イベント一覧"画面を表示する
-    ならば "種別名"に"Tengine::Resource::VirtualServer.created.tengine_resource_watchd"のイベントが3件表示されていること
+    ならば "種別名"に"Tengine::Resource::VirtualServer.updated.tengine_resource_watchd"のイベントが3件表示されていること
 
     # 起動可能数の確認
     ならば "仮想サーバ起動"画面が表示されていること
