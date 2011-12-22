@@ -56,8 +56,10 @@
 
     # tenginedの終了イベントを受け取るためにtengined を追加する
     かつ 以下のコマンドを実行し、"tengined"を起動する
-    # tengined -f ./config/tengine.yml.erb -T .app -D
+    # tengined -f ./config/tengine.yml.erb -T .app --process-daemon
     かつ 標準出力からPIDを取得する
+
+    もし 30秒待機する # ハートビートの送信間隔はデフォルトで30秒です
 
     もし "イベント一覧画面"を表示する
     ならば イベント一覧に以下の行が存在すること # tengined を複数起動ているので、2つのハートビートが送られます
@@ -102,8 +104,10 @@
 
     # tenginedの終了イベントを受け取るためにtengined を追加する
     かつ 以下のコマンドを実行し、"tengined"を起動する
-    # tengined -f ./config/tengine.yml.erb -T .app -D
+    # tengined -f ./config/tengine.yml.erb -T .app --process-daemon
     かつ 標準出力からPIDを取得する
+
+    もし 30秒待機する # ハートビートの送信間隔はデフォルトで30秒です
 
     もし "イベント一覧画面"を表示する
     ならば イベント一覧に以下の行が存在すること # tengined を複数起動ているので、2つのハートビートが送られます
@@ -114,13 +118,22 @@
     もし 以下のコマンドを実行し、"tengined"を強制停止する # 取得したPIDを引数に追加起動したプロセスを停止する
     # kill -9 <PID>
 
+    かつ "tengined.*.pid"ファイルを削除する
+    # kill -9 で強制停止した場合、pidファイルが残ってしまうので削除する必要があります
+    # ./config/tengined.yml.erb の process:pid_dir にpidファイルの保存先を指定しています
+    # 特に設定ファイルを変更していない場合は、以下の場所にあります
+    #  => /var/lib/tengine_core/shared/tmp/tengined_pids/
+    #  この中から強制停止したPIDが記載されているPIDファイルを削除してください
+
+    もし 120秒待機する # 不達イベントの検知秒数はデフォルトで120秒です
+
     もし "イベント一覧画面"を表示する
 
     # 一連のハートビートで同じイベントキーを使用していることを確認する
     ならば イベント一覧に以下の行が存在すること
-    |種別名                       |イベントキー|発生源名       |発生時刻                 |通知レベル|通知確認済み|送信者名       |
-    |core.heartbeat.tengine      |<uuid>    |process:/<PID>|yyyy-MM-dd HH:mm:ss+0900|debug    |true      |process:/<PID>|
-    |expired.process.core.tengine|<uuid>    |process:/<PID>|yyyy-MM-dd HH:mm:ss+0900|info     |false     |process:/<PID>|
+    |種別名                         |イベントキー|発生源名       |発生時刻                 |通知レベル|通知確認済み|送信者名       |
+    |core.heartbeat.tengine        |<uuid>    |process:/<PID>|yyyy-MM-dd HH:mm:ss+0900|debug    |true      |process:/<PID>|
+    |expired.core.heartbeat.tengine|<uuid>    |process:/<PID>|yyyy-MM-dd HH:mm:ss+0900|error    |false     |process:/<PID>|
     かつ "イベントキー"が変更されていないこと
 
 
@@ -157,6 +170,8 @@
     |ジョブネット名|ステータス|
     |jn0004      |実行中   |
 
+    もし 5秒待機する # ハートビートの送信間隔はデフォルトで5秒です
+
     もし "イベント一覧画面"を表示する
     ならば イベント一覧に以下の行が存在すること
     |種別名                |イベントキー|発生源名           |発生時刻                 |通知レベル|通知確認済み|送信者名                               |
@@ -178,7 +193,7 @@
     # 一連のハートビートで同じイベントキーを使用していることを確認する
     ならば イベント一覧に以下の行が存在すること
     |種別名                       |イベントキー|発生源名           |発生時刻                 |通知レベル|通知確認済み|送信者名                               |
-    |finished.process.job.tengine|<uuid>    |job:/<PID>/xxx/xxx|yyyy-MM-dd HH:mm:ss+0900|debug    |false     |agent:<Host名>/<PID>/tengine_job_agent|
+    |finished.process.job.tengine|<uuid>    |job:/<PID>/xxx/xxx|yyyy-MM-dd HH:mm:ss+0900|info    |false     |agent:<Host名>/<PID>/tengine_job_agent|
     かつ "イベントキー"が変更されていないこと
 
     # 一連のハートビートで同じイベントキーを使用していることを確認する
@@ -220,6 +235,8 @@
     |ジョブネット名|ステータス|
     |jn0004      |実行中   |
 
+    もし 5秒待機する # ハートビートの送信間隔はデフォルトで5秒です
+
     もし "イベント一覧画面"を表示する
     ならば イベント一覧に以下の行が存在すること
     |種別名                |イベントキー|発生源名           |発生時刻                 |通知レベル|通知確認済み|送信者名                               |
@@ -230,12 +247,14 @@
     かつ 以下のコマンドを実行し、"tengine_job_agent_watchdog"を強制停止する
     # kill -9 <PID>
 
+    もし 20秒待機する # 不達イベントの検知秒数はデフォルトで20秒です
+
     もし "イベント一覧画面"を表示する
 
     # 一連のハートビートで同じイベントキーを使用していることを確認する
     ならば イベント一覧に以下の行が存在すること
-    |種別名                       |イベントキー|発生源名           |発生時刻                 |通知レベル|通知確認済み|送信者名                               |
-    |expired.process.job.tengine|<uuid>    |job:/<PID>/xxx/xxx|yyyy-MM-dd HH:mm:ss+0900|debug    |false     |agent:<Host名>/<PID>/tengine_job_agent|
+    |種別名                        |イベントキー|発生源名           |発生時刻                 |通知レベル|通知確認済み|送信者名                               |
+    |expired.job.heartbeat.tengine|<uuid>    |job:/<PID>/xxx/xxx|yyyy-MM-dd HH:mm:ss+0900|error    |false     |agent:<Host名>/<PID>/tengine_job_agent|
     かつ "イベントキー"が変更されていないこと
 
     # 一連のハートビートで同じイベントキーを使用していることを確認する
@@ -303,10 +322,12 @@
     前提 以下のコマンドを実行し、イベントのデータを全削除している
     # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
 
-    # expired.job.heartbeat.tengine を発生させるために tengine_heartbeat_watchd を追加する
+    # expired.hbw.heartbeat.tengine を発生させるために tengine_heartbeat_watchd を追加する
     かつ 以下のコマンドを実行し、"tengine_heartbeat_watchd"を起動する
-    # tengine_heartbeat_watchd -f ./config/hbw.yml.erb -D
+    # tengine_heartbeat_watchd -f ./config/hbw.yml.erb --process-daemon
     かつ 標準出力からPIDを取得する
+
+    もし 30秒待機する # ハートビートの送信間隔はデフォルトで30秒です
 
     もし "イベント一覧画面"を表示する
     ならば イベント一覧に以下の行が存在すること # すでに起動しているプロセスと追加起動したプロセスの2件
@@ -317,6 +338,13 @@
     もし 以下のコマンドを実行し、"tengine_heartbeat_watchd"を強制停止する # 取得したPIDを引数に追加起動したプロセスを停止する
     # kill -9 <PID>
 
+    かつ "tengine_heartbeat_watchd*.pid"ファイルを削除する
+    # kill -9 で強制停止した場合、pidファイルが残ってしまうので削除する必要があります
+    # ./config/heartbeat_watchd.yml.erb の process:pid_dir にpidファイルの保存先を指定しています
+    # 特に設定ファイルを変更していない場合は、以下の場所にあります
+    #  => /var/lib/tengine_daemons/shared/pids/
+    #  この中のtengine_heartbeat_watchd*.pidから強制停止したPIDが記載されているPIDファイルを削除してください
+
     もし 120秒待機する # 不達イベントを検知する時間はデフォルトで120秒です
 
     もし "イベント一覧画面"を表示する
@@ -324,7 +352,7 @@
     ならば イベント一覧に以下の行が存在すること
     |種別名                        |イベントキー|発生源名       |発生時刻                 |通知レベル|通知確認済み|送信者名       |
     |expired.hbw.heartbeat.tengine|<uuid>    |process:/<PID>|yyyy-MM-dd HH:mm:ss+0900|error    |false     |process:/<PID>|
-    |hbw.heartbeat.tengine        |<uuid>    |process:/<PID>|yyyy-MM-dd HH:mm:ss+0900|true     |false     |process:/<PID>|
+    |hbw.heartbeat.tengine        |<uuid>    |process:/<PID>|yyyy-MM-dd HH:mm:ss+0900|debug    |false     |process:/<PID>|
 
 
   ####################
@@ -339,6 +367,8 @@
     # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
     前提 "リソースウォッチャプロセス"が起動している
     # cap -f Capfile_daemon production deploy:resource_watchd:start
+
+    もし 30秒待機する # ハートビートの送信間隔はデフォルトで30秒です
 
     もし "イベント一覧画面"を表示する
     ならば イベント一覧に以下の行が存在すること
@@ -378,6 +408,8 @@
     かつ "リソースウォッチャプロセス"が起動している
     # cap -f Capfile_daemon production deploy:resource_watchd:start
 
+    もし 30秒待機する # ハートビートの送信間隔はデフォルトで30秒です
+
     もし "イベント一覧画面"を表示する
     ならば イベント一覧に以下の行が存在すること # すでに起動しているプロセスと追加起動したプロセスの2件
     |種別名                      |イベントキー|発生源名       |発生時刻                 |通知レベル|通知確認済み|送信者名       |
@@ -386,7 +418,15 @@
     もし 以下のコマンドを実行し、"tengine_resource_watchd"のPIDを取得する
     # ps -ef | grep tengine_resource_watchd | grep -v grep
     かつ 以下のコマンドを実行し、"tengine_resource_watchd"を強制停止する # 追加起動したプロセスを停止する
+
     # kill -9 <PID>
+
+    かつ "tengine_resourcewd*.pid"ファイルを削除する
+    # kill -9 で強制停止した場合、pidファイルが残ってしまうので削除する必要があります
+    # ./config/tengined.yml.erb の process:pid_dir にpidファイルの保存先を指定しています
+    # 特に設定ファイルを変更していない場合は、以下の場所にあります
+    #  => /var/lib/tengine_daemons/shared/pids/
+    #  この中のtengine_resourcewd*.pidに強制停止したPIDが記載されている事を確認して削除してください
 
     もし 120秒待機する # 不達イベントを検知する時間はデフォルトで120秒です
 
@@ -414,6 +454,8 @@
     # rails runner "rails runner "Tengine::Core::Event.delete_all" -e production
     かつ "スケジュールキーパープロセス"が起動している
     # cap -f Capfile_daemon production deploy:atd:start
+
+    もし 30秒待機する # ハートビートの送信間隔はデフォルトで30秒です
 
     もし "イベント一覧画面"を表示する
     ならば イベント一覧に以下の行が存在すること
@@ -453,15 +495,24 @@
     かつ "スケジュールキーパープロセス"が起動している
     # cap -f Capfile_daemon production deploy:atd:start
 
+    もし 30秒待機する # ハートビートの送信間隔はデフォルトで30秒です
+
     もし "イベント一覧画面"を表示する
     ならば イベント一覧に以下の行が存在すること # すでに起動しているプロセスと追加起動したプロセスの2件
     |種別名                |イベントキー|発生源名       |発生時刻                 |通知レベル|通知確認済み|送信者名       |
     |atd.heartbeat.tengine|<uuid>    |process:/<PID>|yyyy-MM-dd HH:mm:ss+0900|debug    |true      |process:/<PID>|
 
-    もし 以下のコマンドを実行し、"tengine_resource_watchd"のPIDを取得する
+    もし 以下のコマンドを実行し、"tengine_atd"のPIDを取得する
     # ps -ef | grep tengine_atd | grep -v grep
     かつ 以下のコマンドを実行し、"tengine_atd"を強制停止する # 追加起動したプロセスを停止する
     # kill -9 <PID>
+
+    かつ "tengine_atd*.pid"ファイルを削除する
+    # kill -9 で強制停止した場合、pidファイルが残ってしまうので削除する必要があります
+    # ./config/atd.yml.erb の process:pid_dir にpidファイルの保存先を指定しています
+    # 特に設定ファイルを変更していない場合は、以下の場所にあります
+    #  => /var/lib/tengine_daemons/shared/pids/
+    #  この中のtengine_atd*.pidに強制停止したPIDが記載されている事を確認して削除してください
 
     もし 120秒待機する # 不達イベントを検知する時間はデフォルトで120秒です
 
