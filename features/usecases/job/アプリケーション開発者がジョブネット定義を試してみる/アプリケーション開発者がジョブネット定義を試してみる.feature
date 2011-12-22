@@ -2175,7 +2175,7 @@
   # -------------------
   #
   @1050
-  シナリオ: [正常系]1002_複数のジョブ(直列)が含まれるジョブネット_を試してみる
+  シナリオ: [正常系]ジョブネット定義内でdsl_versionを利用する
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1050_dsl_version_in_dsl.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
