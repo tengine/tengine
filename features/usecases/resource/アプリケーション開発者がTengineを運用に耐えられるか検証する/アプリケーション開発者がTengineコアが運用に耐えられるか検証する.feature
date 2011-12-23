@@ -145,6 +145,20 @@
     | handler01|
 
 
+    # 起動後の画面状態を確認
+    もし "仮想サーバ一覧"画面を表示する
+    ならば "仮想サーバ一覧"画面に以下の行が表示されていること
+    # 仮想サーバ名、説明はつけていないので、空の状態です。
+    # ステータスがrunningになるまで時間がかかります(環境によって異なります)
+    |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
+    |physical_server_name_01|run_3_virtual_servers001|virtual_server_uuid_01|仮想サーバを3台起動テストの説明|private_ip_address: 192.168.1.1|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |run_3_virtual_servers002|virtual_server_uuid_02|仮想サーバを3台起動テストの説明|private_ip_address: 192.168.1.2|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |run_3_virtual_servers003|virtual_server_uuid_03|仮想サーバを3台起動テストの説明|private_ip_address: 192.168.1.3|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+
+    # 起動イベントの確認
+    もし"イベント一覧"画面を表示する
+    ならば "種別名"に"Tengine::Resource::VirtualServer.updated.tengine_resource_watchd"のイベントが3件表示されていること
+
 
 		
     # フェイルバックを行います。
