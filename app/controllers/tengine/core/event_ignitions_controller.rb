@@ -50,7 +50,7 @@ class Tengine::Core::EventIgnitionsController < ApplicationController
     end
 
     respond_to do |format|
-      if !@core_event.errors
+      if @core_event.errors.empty?
         format.html { redirect_to action: 'new'}
         format.json { head :ok }
       else

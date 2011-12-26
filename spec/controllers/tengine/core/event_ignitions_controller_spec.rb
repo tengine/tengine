@@ -28,7 +28,7 @@ describe Tengine::Core::EventIgnitionsController do
       }
       post 'fire', event: event
       assigns[:core_event].errors.should be_empty
-      response.should be_success
+      response.should redirect_to(tengine_core_event_ignitions_new_url)
     end
     it "should not be valid" do
       event = {
