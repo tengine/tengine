@@ -51,7 +51,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明||開始日時|終了日時|ステータス|操作|
-    |  |jobnet1001|jobnet1001| | |正常終了|再実行 監視|
+    |  |jobnet1001|jobnet1001| | |正常終了|監視 再実行|
 
     もし  強制停止を行ったTengineコアプロセスのPIDファイルを削除する
     かつ "TengineコアプロセスC"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsl/1001_one_job_in_jobnet.rb --process-daemon"で起動している

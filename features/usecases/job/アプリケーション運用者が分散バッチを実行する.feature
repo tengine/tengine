@@ -18,7 +18,7 @@
   シナリオ: [正常系]アプリケーション運用者がルートジョブネットの実行する_一階層のジョブネット定義
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
-    かつ "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsls/0004_retry_one_layer.rb -D"で起動している
+    かつ "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsls/0004_retry_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -42,7 +42,7 @@
    シナリオ: [正常系]アプリケーション運用者がルートジョブネットの実行する_一階層のジョブネット定義_タイムアウト警告
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
-    かつ "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsls/0004_retry_one_layer.rb -D"で起動してい
+    かつ "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsls/0004_retry_one_layer.rb --process-daemon"で起動してい
     #DSLでsleepする時間を動的に変えられようにしたいので環境変数を使うように変更する
 
     もし "テンプレートジョブネット一覧画面"を表示する
@@ -68,7 +68,7 @@
   シナリオ: [正常系]アプリケーション運用者がルートジョブネットの実行する_二階層のジョブネット定義
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
-    かつ "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsls/0005_retry_two_layer.rb -D"で起動している
+    かつ "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsls/0005_retry_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -92,7 +92,7 @@
   シナリオ: [正常系]アプリケーション運用者がルートジョブネットの実行する_二階層のジョブネット定義_タイムアウト強制停止
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
-    かつ "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsls/0005_retry_two_layer.rb -D"で起動している
+    かつ "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsls/0005_retry_two_layer.rb --process-daemon"で起動している
     #DSLでsleepする時間を動的に変えられようにしたいので環境変数を使うように変更する
 
     もし "テンプレートジョブネット一覧画面"を表示する
