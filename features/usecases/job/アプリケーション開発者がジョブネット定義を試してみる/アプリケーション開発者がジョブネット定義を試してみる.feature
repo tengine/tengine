@@ -1730,32 +1730,32 @@
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|説明|操作|
-    |jobnet1048のテンプレートID|jobnet1048|説明jobnet1048|表示 実行|
+    |ID                        |ジョブネット名|説明          |操作     |
+    |jobnet1048のテンプレートID|jobnet1048    |説明jobnet1048|表示 実行|
 
     もし "jobnet1048"の"表示"リンクをクリックする
     ならば "テンプレートジョブ画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|名称|表示名|実行するスクリプト|接続サーバ名|認証情報名|次のジョブ|
-    |jobnet1048_2のテンプレートID|jobnet1048_2|jobnet1048_2||test_server1|test_credential1|
-    |job1のテンプレートID|job1|job1|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1||
-    |finallyのテンプレートID|finally|finally||test_server1|test_credential1||
-    |jobnet1048_finallyのテンプレートID|finally|finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1||
+    |ID                                |ジョブネット名|名称        |表示名                              |実行するスクリプト|接続サーバ名    |認証情報名|次のジョブ|
+    |jobnet1048_2のテンプレートID      |jobnet1048_2  |jobnet1048_2|                                    |test_server1      |test_credential1|
+    |job1のテンプレートID              |job1          |job1        |$HOME/tengine_job_env_test.sh 0 job1|test_server1      |test_credential1|
+    |finallyのテンプレートID           |finally       |finally     |                                    |test_server1      |test_credential1|
+    |jobnet1048_finallyのテンプレートID|finally       |finally     |$HOME/tengine_job_env_test.sh 0 job1|test_server1      |test_credential1|
    
    
     もし "実行中のジョブ一覧画面"を表示する
     ならば "実行ジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|説明|ステータス|操作|
-    |jobnet1048の実行時ID|jobnet1048|jobnet1048|完了|監視 再実行|
+    |ID                  |ジョブネット名|説明      |ステータス|操作       |
+    |jobnet1048の実行時ID|jobnet1048    |jobnet1048|完了      |監視 再実行|
 
     もし "jobnet1048"の"監視"リンクをクリックする
     ならば "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|ステータス|次のジョブ|操作|
-    |jobnet1048_2の実行時ID|jobnet1048_2|jobnet1048_2||test_server1|test_credential1|完了||再実行|
-    |job1の実行時ID|job1|job1|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了||再実行|
-    |finallyの実行時ID|finally|finally||test_server1|test_credential1|完了||再実行|
-    |jobnet1048_finallyの実行時ID|finally|finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了||再実行|
+    |ID                          |ジョブ名    |説明        |実行スクリプト                      |接続サーバ名|認証情報名      |ステータス|次のジョブ|操作  |
+    |jobnet1048_2の実行時ID      |jobnet1048_2|jobnet1048_2|                                    |test_server1|test_credential1|完了      |          |再実行|
+    |job1の実行時ID              |job1        |job1        |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了      |          |再実行|
+    |finallyの実行時ID           |finally     |finally     |                                    |test_server1|test_credential1|完了      |          |再実行|
+    |jobnet1048_finallyの実行時ID|finally     |finally     |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了      |          |再実行|
 
     もし "ジョブ実行一覧画面"を表示する
     ならば "ジョブ実行一覧画面"が表示されること
@@ -1826,32 +1826,32 @@
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|説明|操作|
+    |ID                                |ジョブネット名    |説明                  |操作     |
     |jobnet1048_failureのテンプレートID|jobnet1048_failure|説明jobnet1048_failure|表示 実行|
 
     もし "jobnet1048_failure"の"表示"リンクをクリックする
     ならば "テンプレートジョブ画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|名称|表示名|実行するスクリプト|接続サーバ名|認証情報名|次のジョブ|
-    |jobnet1048_2のテンプレートID|jobnet1048_2|jobnet1048_2||test_server1|test_credential1|
-    |job1のテンプレートID|job1|job1|exit 1|test_server1|test_credential1||
-    |finallyのテンプレートID|finally|finally||test_server1|test_credential1||
-    |jobnet1048_finallyのテンプレートID|finally|finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1||
+    |ID                                |ジョブネット名|名称        |表示名                              |実行するスクリプト|接続サーバ名    |認証情報名|次のジョブ|
+    |jobnet1048_2のテンプレートID      |jobnet1048_2  |jobnet1048_2|                                    |test_server1      |test_credential1|
+    |job1のテンプレートID              |job1          |job1        |exit 1                              |test_server1      |test_credential1|
+    |finallyのテンプレートID           |finally       |finally     |                                    |test_server1      |test_credential1|
+    |jobnet1048_finallyのテンプレートID|finally       |finally     |$HOME/tengine_job_env_test.sh 0 job1|test_server1      |test_credential1|
    
    
     もし "実行中のジョブ一覧画面"を表示する
     ならば "実行ジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|説明|ステータス|操作|
-    |jobnet1048_failureの実行時ID|jobnet1048_failure|jobnet1048_failure|完了|監視 再実行|
+    |ID                          |ジョブネット名    |説明              |ステータス|操作       |
+    |jobnet1048_failureの実行時ID|jobnet1048_failure|jobnet1048_failure|完了      |監視 再実行|
 
     もし "jobnet1048"の"監視"リンクをクリックする
     ならば "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|ステータス|次のジョブ|操作|
-    |jobnet1048_2の実行時ID|jobnet1048_2|jobnet1048_2||test_server1|test_credential1|完了||再実行|
-    |job1の実行時ID|job1|job1|exit 1|test_server1|test_credential1|完了||再実行|
-    |finallyの実行時ID|finally|finally||test_server1|test_credential1|完了||再実行|
-    |jobnet1048_finallyの実行時ID|finally|finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了||再実行|
+    |ID                          |ジョブ名    |説明        |実行スクリプト                      |接続サーバ名|認証情報名      |ステータス|次のジョブ|操作  |
+    |jobnet1048_2の実行時ID      |jobnet1048_2|jobnet1048_2|                                    |test_server1|test_credential1|完了      |          |再実行|
+    |job1の実行時ID              |job1        |job1        |exit 1                              |test_server1|test_credential1|完了      |          |再実行|
+    |finallyの実行時ID           |finally     |finally     |                                    |test_server1|test_credential1|完了      |          |再実行|
+    |jobnet1048_finallyの実行時ID|finally     |finally     |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了      |          |再実行|
 
     もし "ジョブ実行一覧画面"を表示する
     ならば "ジョブ実行一覧画面"が表示されること
@@ -1929,37 +1929,37 @@
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|説明|操作|
+    |ID                                        |ジョブネット名            |説明                          |操作     |
     |jobnet1048_finally_failureのテンプレートID|jobnet1048_finally_failure|説明jobnet1048_finally_failure|表示 実行|
 
     もし "jobnet1048_finally_failure"の"表示"リンクをクリックする
     ならば "テンプレートジョブ画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|名称|表示名|実行するスクリプト|接続サーバ名|認証情報名|次のジョブ|
-    |jobnet1048_2のテンプレートID|jobnet1048_2|jobnet1048_2||test_server1|test_credential1|
-    |job1のテンプレートID|job1|job1|exit 1|test_server1|test_credential1||
-    |jobnet1048_finally_failure/finallyのテンプレートID|finally|finally||test_server1|test_credential1||
-    |jobnet1048_2_finally_jobnetのテンプレートID|jobnet1048_2_finally_jobnet|jobnet1048_2_finally_jobnet||test_server1|test_credential1||
-    |jobnet1048_finallyのテンプレートID|jobnet1048_finally|jobnet1048_finally|exit 1|test_server1|test_credential1||
-    |jobnet1048_2_finally_jobnet/finallyのテンプレートID|finally|finally||test_server1|test_credential1||
-    |jobnet1048_finally_in_finallyのテンプレートID|jobnet1048_finally_in_finally|jobnet1048_finally_in_finally|$HOME/tengine_job_env_test.sh 0 jobnet1048_finally_in_finally|test_server1|test_credential1||
+    |ID                                                 |ジョブネット名               |名称                         |表示名                                                       |実行するスクリプト|接続サーバ名    |認証情報名|次のジョブ|
+    |jobnet1048_2のテンプレートID                       |jobnet1048_2                 |jobnet1048_2                 |                                                             |test_server1      |test_credential1|
+    |job1のテンプレートID                               |job1                         |job1                         |exit 1                                                       |test_server1      |test_credential1|
+    |jobnet1048_finally_failure/finallyのテンプレートID |finally                      |finally                      |                                                             |test_server1      |test_credential1|
+    |jobnet1048_2_finally_jobnetのテンプレートID        |jobnet1048_2_finally_jobnet  |jobnet1048_2_finally_jobnet  |                                                             |test_server1      |test_credential1|
+    |jobnet1048_finallyのテンプレートID                 |jobnet1048_finally           |jobnet1048_finally           |exit 1                                                       |test_server1      |test_credential1|
+    |jobnet1048_2_finally_jobnet/finallyのテンプレートID|finally                      |finally                      |                                                             |test_server1      |test_credential1|
+    |jobnet1048_finally_in_finallyのテンプレートID      |jobnet1048_finally_in_finally|jobnet1048_finally_in_finally|$HOME/tengine_job_env_test.sh 0 jobnet1048_finally_in_finally|test_server1      |test_credential1|
 
     もし "実行中のジョブ一覧画面"を表示する
     ならば "実行ジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|説明|ステータス|操作|
-    |jobnet1048_finally_failureの実行時ID|jobnet1048_finally_failure|jobnet1048_finally_failure|完了|監視 再実行|
+    |ID                                  |ジョブネット名            |説明                      |ステータス|操作       |
+    |jobnet1048_finally_failureの実行時ID|jobnet1048_finally_failure|jobnet1048_finally_failure|完了      |監視 再実行|
 
     もし "jobnet1048_finally_failure"の"監視"リンクをクリックする
     ならば "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|ステータス|次のジョブ|操作|
-    |jobnet1048_2の実行時ID|jobnet1048_2|jobnet1048_2||test_server1|test_credential1|完了||再実行|
-    |job1の実行時ID|job1|job1|exit 1|test_server1|test_credential1|完了||再実行|
-    |jobnet1048_finally_failure/finallyの実行時ID|finally|finally||test_server1|test_credential1|完了||再実行|
-    |jobnet1048_2_finally_jobnetの実行時ID|jobnet1048_2_finally_jobnet|jobnet1048_2_finally_jobnet||test_server1|test_credential1|完了||再実行|
-    |jobnet1048_finallyの実行時ID|jobnet1048_finally|jobnet1048_finally|exit 1|test_server1|test_credential1|完了||再実行|
-    |jobnet1048_2_finally_jobnet/finallyの実行時ID|finally|finally||test_server1|test_credential1|完了||再実行|
-    |jobnet1048_finally_in_finallyの実行時ID|jobnet1048_finally_in_finally|jobnet1048_finally_in_finally|$HOME/tengine_job_env_test.sh 0 jobnet1048_finally_in_finally|test_server1|test_credential1|完了||再実行|
+    |ID                                           |ジョブ名                     |説明                         |実行スクリプト                                               |接続サーバ名|認証情報名      |ステータス|次のジョブ|操作  |
+    |jobnet1048_2の実行時ID                       |jobnet1048_2                 |jobnet1048_2                 |                                                             |test_server1|test_credential1|完了      |          |再実行|
+    |job1の実行時ID                               |job1                         |job1                         |exit 1                                                       |test_server1|test_credential1|完了      |          |再実行|
+    |jobnet1048_finally_failure/finallyの実行時ID |finally                      |finally                      |                                                             |test_server1|test_credential1|完了      |          |再実行|
+    |jobnet1048_2_finally_jobnetの実行時ID        |jobnet1048_2_finally_jobnet  |jobnet1048_2_finally_jobnet  |                                                             |test_server1|test_credential1|完了      |          |再実行|
+    |jobnet1048_finallyの実行時ID                 |jobnet1048_finally           |jobnet1048_finally           |exit 1                                                       |test_server1|test_credential1|完了      |          |再実行|
+    |jobnet1048_2_finally_jobnet/finallyの実行時ID|finally                      |finally                      |                                                             |test_server1|test_credential1|完了      |          |再実行|
+    |jobnet1048_finally_in_finallyの実行時ID      |jobnet1048_finally_in_finally|jobnet1048_finally_in_finally|$HOME/tengine_job_env_test.sh 0 jobnet1048_finally_in_finally|test_server1|test_credential1|完了      |          |再実行|
 
 
     もし "ジョブ実行一覧画面"を表示する
@@ -2032,28 +2032,28 @@
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|説明|操作|
-    |jobnet1049のテンプレートID|jobnet1049|説明jobnet1049|表示 実行|
+    |ID                        |ジョブネット名|説明          |操作     |
+    |jobnet1049のテンプレートID|jobnet1049    |説明jobnet1049|表示 実行|
 
     もし "jobnet1049"の"表示"リンクをクリックする
     ならば "テンプレートジョブ画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|名称|表示名|実行するスクリプト|接続サーバ名|認証情報名|次のジョブ|
-    |jobnet1049_2のテンプレートID|jobnet1049_2|jobnet1049_2||test_server1|test_credential1|
-    |job1のテンプレートID|job1|job1|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1||
+    |ID                          |ジョブネット名|名称        |表示名                              |実行するスクリプト|接続サーバ名    |認証情報名|次のジョブ|
+    |jobnet1049_2のテンプレートID|jobnet1049_2  |jobnet1049_2|                                    |test_server1      |test_credential1|
+    |job1のテンプレートID        |job1          |job1        |$HOME/tengine_job_env_test.sh 0 job1|test_server1      |test_credential1|
     
    
     もし "実行中のジョブ一覧画面"を表示する
     ならば "実行ジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|説明|ステータス|操作|
-    |jobnet1049の実行時ID|jobnet1049|jobnet1049|完了|監視 再実行|
+    |ID                  |ジョブネット名|説明      |ステータス|操作       |
+    |jobnet1049の実行時ID|jobnet1049    |jobnet1049|完了      |監視 再実行|
 
     もし "jobnet1049"の"監視"リンクをクリックする
     ならば "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|ステータス|次のジョブ|操作|
-    |jobnet1049_2の実行時ID|jobnet1049_2|jobnet1049_2||test_server1|test_credential1|完了||再実行|
-    |job1の実行時ID|job1|job1|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了||再実行|
+    |ID                    |ジョブ名    |説明        |実行スクリプト                      |接続サーバ名|認証情報名      |ステータス|次のジョブ|操作  |
+    |jobnet1049_2の実行時ID|jobnet1049_2|jobnet1049_2|                                    |test_server1|test_credential1|完了      |          |再実行|
+    |job1の実行時ID        |job1        |job1        |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了      |          |再実行|
 
     もし "ジョブ実行一覧画面"を表示する
     ならば "ジョブ実行一覧画面"が表示されること
@@ -2130,31 +2130,31 @@
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|説明|操作|
+    |ID                                |ジョブネット名    |説明                  |操作     |
     |jobnet1049_failureのテンプレートID|jobnet1049_failure|説明jobnet1049_failure|表示 実行|
 
     もし "jobnet1049_failure"の"表示"リンクをクリックする
     ならば "テンプレートジョブ画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|名称|表示名|実行するスクリプト|接続サーバ名|認証情報名|次のジョブ|
-    |jobnet1049_2のテンプレートID|jobnet1049_2|jobnet1049_2||test_server1|test_credential1|
-    |job1のテンプレートID|job1|job1|exit 1|test_server1|test_credential1||
-    |finallyのテンプレートID|finally|finally||test_server1|test_credential1||
-    |jobnet1049_finallyのテンプレートID|jobnet1049_finally|jobnet1049_finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1||
+    |ID                                |ジョブネット名    |名称              |表示名                              |実行するスクリプト|接続サーバ名    |認証情報名|次のジョブ|
+    |jobnet1049_2のテンプレートID      |jobnet1049_2      |jobnet1049_2      |                                    |test_server1      |test_credential1|
+    |job1のテンプレートID              |job1              |job1              |exit 1                              |test_server1      |test_credential1|
+    |finallyのテンプレートID           |finally           |finally           |                                    |test_server1      |test_credential1|
+    |jobnet1049_finallyのテンプレートID|jobnet1049_finally|jobnet1049_finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1      |test_credential1|
 
     もし "実行中のジョブ一覧画面"を表示する
     ならば "実行ジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブネット名|説明|ステータス|操作|
+    |ID                          |ジョブネット名    |説明              |ステータス|操作       |
     |jobnet1049_failureの実行時ID|jobnet1049_failure|jobnet1049_failure|エラー終了|監視 再実行|
 
     もし "jobnet1049_failure"の"監視"リンクをクリックする
     ならば "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID|ジョブ名|説明|実行スクリプト|接続サーバ名|認証情報名|ステータス|次のジョブ|操作|
-    |jobnet1049_2の実行時ID|jobnet1049_2|jobnet1049_2||test_server1|test_credential1|完了||再実行|
-    |job1の実行時ID|job1|job1|exit 1|test_server1|test_credential1|完了||再実行|
-    |jobnet1049_failure/finallyのテンプレートID|finally|finally||test_server1|test_credential1||
-    |jobnet1049_finallyのテンプレートID|jobnet1049_finally|jobnet1049_finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1||
+    |ID                                        |ジョブ名          |説明              |実行スクリプト                      |接続サーバ名|認証情報名      |ステータス|次のジョブ|操作  |
+    |jobnet1049_2の実行時ID                    |jobnet1049_2      |jobnet1049_2      |                                    |test_server1|test_credential1|完了      |          |再実行|
+    |job1の実行時ID                            |job1              |job1              |exit 1                              |test_server1|test_credential1|完了      |          |再実行|
+    |jobnet1049_failure/finallyのテンプレートID|finally           |finally           |                                    |test_server1|test_credential1|
+    |jobnet1049_finallyのテンプレートID        |jobnet1049_finally|jobnet1049_finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|
     もし "ジョブ実行一覧画面"を表示する
     ならば "ジョブ実行一覧画面"が表示されること
 
@@ -2281,40 +2281,40 @@
     かつ "1060_jobnet_directory"のカテゴリの子に"jobnetgroup_z"というカテゴリが存在しないこと
 
     もし "全体"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1060_a|jobnet1060_a|
-    |jobnet1060_b|jobnet1060_b|
-    |jobnet1060_c|jobnet1060_c|
-    |jobnet1060_d|jobnet1060_d|
-    |jobnet1060_e|jobnet1060_e|
-    |jobnet1060_f|jobnet1060_f|
-    |jobnet1060_g|jobnet1060_g|
-    |jobnet1060_h|jobnet1060_h|
-    |jobnet1060_i|jobnet1060_i|
+    |ジョブネット名|説明        |
+    |jobnet1060_a  |jobnet1060_a|
+    |jobnet1060_b  |jobnet1060_b|
+    |jobnet1060_c  |jobnet1060_c|
+    |jobnet1060_d  |jobnet1060_d|
+    |jobnet1060_e  |jobnet1060_e|
+    |jobnet1060_f  |jobnet1060_f|
+    |jobnet1060_g  |jobnet1060_g|
+    |jobnet1060_h  |jobnet1060_h|
+    |jobnet1060_i  |jobnet1060_i|
 
     もし "1060_jobnet_directory"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1060_a|jobnet1060_a|
-    |jobnet1060_b|jobnet1060_b|
-    |jobnet1060_c|jobnet1060_c|
-    |jobnet1060_d|jobnet1060_d|
-    |jobnet1060_e|jobnet1060_e|
-    |jobnet1060_f|jobnet1060_f|
-    |jobnet1060_g|jobnet1060_g|
-    |jobnet1060_h|jobnet1060_h|
-    |jobnet1060_i|jobnet1060_i|
+    |ジョブネット名|説明        |
+    |jobnet1060_a  |jobnet1060_a|
+    |jobnet1060_b  |jobnet1060_b|
+    |jobnet1060_c  |jobnet1060_c|
+    |jobnet1060_d  |jobnet1060_d|
+    |jobnet1060_e  |jobnet1060_e|
+    |jobnet1060_f  |jobnet1060_f|
+    |jobnet1060_g  |jobnet1060_g|
+    |jobnet1060_h  |jobnet1060_h|
+    |jobnet1060_i  |jobnet1060_i|
 
     もし "jobnetgroup_x"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1060_d|jobnet1060_d|
-    |jobnet1060_e|jobnet1060_e|
-    |jobnet1060_f|jobnet1060_f|
+    |ジョブネット名|説明        |
+    |jobnet1060_d  |jobnet1060_d|
+    |jobnet1060_e  |jobnet1060_e|
+    |jobnet1060_f  |jobnet1060_f|
 
     もし "jobnetgroup_y"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1060_g|jobnet1060_g|
-    |jobnet1060_h|jobnet1060_h|
-    |jobnet1060_i|jobnet1060_i|
+    |ジョブネット名|説明        |
+    |jobnet1060_g  |jobnet1060_g|
+    |jobnet1060_h  |jobnet1060_h|
+    |jobnet1060_i  |jobnet1060_i|
 
   
   # ./usecases/job/dsl/1061_dictionary_yml
@@ -2332,40 +2332,40 @@
     かつ "ジョブネットグループ1061"のカテゴリの子に"ジョブネットグループY"というカテゴリが存在すること
 
     もし "全体"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1061_a|jobnet1061_a|
-    |jobnet1061_b|jobnet1061_b|
-    |jobnet1061_c|jobnet1061_c|
-    |jobnet1061_d|jobnet1061_d|
-    |jobnet1061_e|jobnet1061_e|
-    |jobnet1061_f|jobnet1061_f|
-    |jobnet1061_g|jobnet1061_g|
-    |jobnet1061_h|jobnet1061_h|
-    |jobnet1061_i|jobnet1061_i|
+    |ジョブネット名|説明        |
+    |jobnet1061_a  |jobnet1061_a|
+    |jobnet1061_b  |jobnet1061_b|
+    |jobnet1061_c  |jobnet1061_c|
+    |jobnet1061_d  |jobnet1061_d|
+    |jobnet1061_e  |jobnet1061_e|
+    |jobnet1061_f  |jobnet1061_f|
+    |jobnet1061_g  |jobnet1061_g|
+    |jobnet1061_h  |jobnet1061_h|
+    |jobnet1061_i  |jobnet1061_i|
 
     もし "1061_dictionary_yml"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1061_a|jobnet1061_a|
-    |jobnet1061_b|jobnet1061_b|
-    |jobnet1061_c|jobnet1061_c|
-    |jobnet1061_d|jobnet1061_d|
-    |jobnet1061_e|jobnet1061_e|
-    |jobnet1061_f|jobnet1061_f|
-    |jobnet1061_g|jobnet1061_g|
-    |jobnet1061_h|jobnet1061_h|
-    |jobnet1061_i|jobnet1061_i|
+    |ジョブネット名|説明        |
+    |jobnet1061_a  |jobnet1061_a|
+    |jobnet1061_b  |jobnet1061_b|
+    |jobnet1061_c  |jobnet1061_c|
+    |jobnet1061_d  |jobnet1061_d|
+    |jobnet1061_e  |jobnet1061_e|
+    |jobnet1061_f  |jobnet1061_f|
+    |jobnet1061_g  |jobnet1061_g|
+    |jobnet1061_h  |jobnet1061_h|
+    |jobnet1061_i  |jobnet1061_i|
 
     もし "ジョブネットグループX"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1061_d|jobnet1061_d|
-    |jobnet1061_e|jobnet1061_e|
-    |jobnet1061_f|jobnet1061_f|
+    |ジョブネット名|説明        |
+    |jobnet1061_d  |jobnet1061_d|
+    |jobnet1061_e  |jobnet1061_e|
+    |jobnet1061_f  |jobnet1061_f|
 
     もし "ジョブネットグループY"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1061_g|jobnet1061_g|
-    |jobnet1061_h|jobnet1061_h|
-    |jobnet1061_i|jobnet1061_i|
+    |ジョブネット名|説明        |
+    |jobnet1061_g  |jobnet1061_g|
+    |jobnet1061_h  |jobnet1061_h|
+    |jobnet1061_i  |jobnet1061_i|
 
   # ./usecases/job/dsl/1061_2_dictionary_yml
   @manual
@@ -2382,40 +2382,40 @@
     かつ "ジョブネットグループ1061"のカテゴリの子に"ジョブネットグループY"というカテゴリが存在すること
 
     もし "全体"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1061_a|jobnet1061_a|
-    |jobnet1061_b|jobnet1061_b|
-    |jobnet1061_c|jobnet1061_c|
-    |jobnet1061_d|jobnet1061_d|
-    |jobnet1061_e|jobnet1061_e|
-    |jobnet1061_f|jobnet1061_f|
-    |jobnet1061_g|jobnet1061_g|
-    |jobnet1061_h|jobnet1061_h|
-    |jobnet1061_i|jobnet1061_i|
+    |ジョブネット名|説明        |
+    |jobnet1061_a  |jobnet1061_a|
+    |jobnet1061_b  |jobnet1061_b|
+    |jobnet1061_c  |jobnet1061_c|
+    |jobnet1061_d  |jobnet1061_d|
+    |jobnet1061_e  |jobnet1061_e|
+    |jobnet1061_f  |jobnet1061_f|
+    |jobnet1061_g  |jobnet1061_g|
+    |jobnet1061_h  |jobnet1061_h|
+    |jobnet1061_i  |jobnet1061_i|
 
     もし "ジョブネットグループ1061"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1061_a|jobnet1061_a|
-    |jobnet1061_b|jobnet1061_b|
-    |jobnet1061_c|jobnet1061_c|
-    |jobnet1061_d|jobnet1061_d|
-    |jobnet1061_e|jobnet1061_e|
-    |jobnet1061_f|jobnet1061_f|
-    |jobnet1061_g|jobnet1061_g|
-    |jobnet1061_h|jobnet1061_h|
-    |jobnet1061_i|jobnet1061_i|
+    |ジョブネット名|説明        |
+    |jobnet1061_a  |jobnet1061_a|
+    |jobnet1061_b  |jobnet1061_b|
+    |jobnet1061_c  |jobnet1061_c|
+    |jobnet1061_d  |jobnet1061_d|
+    |jobnet1061_e  |jobnet1061_e|
+    |jobnet1061_f  |jobnet1061_f|
+    |jobnet1061_g  |jobnet1061_g|
+    |jobnet1061_h  |jobnet1061_h|
+    |jobnet1061_i  |jobnet1061_i|
 
     もし "ジョブネットグループX"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1061_d|jobnet1061_d|
-    |jobnet1061_e|jobnet1061_e|
-    |jobnet1061_f|jobnet1061_f|
+    |ジョブネット名|説明        |
+    |jobnet1061_d  |jobnet1061_d|
+    |jobnet1061_e  |jobnet1061_e|
+    |jobnet1061_f  |jobnet1061_f|
 
     もし "ジョブネットグループY"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1061_g|jobnet1061_g|
-    |jobnet1061_h|jobnet1061_h|
-    |jobnet1061_i|jobnet1061_i|
+    |ジョブネット名|説明        |
+    |jobnet1061_g  |jobnet1061_g|
+    |jobnet1061_h  |jobnet1061_h|
+    |jobnet1061_i  |jobnet1061_i|
 
   # ./usecases/job/dsl/1062_incorrect_dictionary_yml
   @manual
@@ -2432,49 +2432,49 @@
     かつ "1062_incorrect_dictionary_yml"のカテゴリの子に"jobnetgroup_y"というカテゴリが存在すること
  
     もし "全体"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1061_a|jobnet1061_a|
-    |jobnet1061_b|jobnet1061_b|
-    |jobnet1061_c|jobnet1061_c|
-    |jobnet1061_d|jobnet1061_d|
-    |jobnet1061_e|jobnet1061_e|
-    |jobnet1061_f|jobnet1061_f|
-    |jobnet1061_g|jobnet1061_g|
-    |jobnet1061_h|jobnet1061_h|
-    |jobnet1061_i|jobnet1061_i|
-    |jobnet1061_j|jobnet1061_j|
-    |jobnet1061_k|jobnet1061_k|
+    |ジョブネット名|説明        |
+    |jobnet1061_a  |jobnet1061_a|
+    |jobnet1061_b  |jobnet1061_b|
+    |jobnet1061_c  |jobnet1061_c|
+    |jobnet1061_d  |jobnet1061_d|
+    |jobnet1061_e  |jobnet1061_e|
+    |jobnet1061_f  |jobnet1061_f|
+    |jobnet1061_g  |jobnet1061_g|
+    |jobnet1061_h  |jobnet1061_h|
+    |jobnet1061_i  |jobnet1061_i|
+    |jobnet1061_j  |jobnet1061_j|
+    |jobnet1061_k  |jobnet1061_k|
 
    もし "1062_incorrect_dictionary_yml"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1061_a|jobnet1061_a|
-    |jobnet1061_b|jobnet1061_b|
-    |jobnet1061_c|jobnet1061_c|
-    |jobnet1061_d|jobnet1061_d|
-    |jobnet1061_e|jobnet1061_e|
-    |jobnet1061_f|jobnet1061_f|
-    |jobnet1061_g|jobnet1061_g|
-    |jobnet1061_h|jobnet1061_h|
-    |jobnet1061_i|jobnet1061_i|
-    |jobnet1061_j|jobnet1061_j|
-    |jobnet1061_k|jobnet1061_k|
+    |ジョブネット名|説明        |
+    |jobnet1061_a  |jobnet1061_a|
+    |jobnet1061_b  |jobnet1061_b|
+    |jobnet1061_c  |jobnet1061_c|
+    |jobnet1061_d  |jobnet1061_d|
+    |jobnet1061_e  |jobnet1061_e|
+    |jobnet1061_f  |jobnet1061_f|
+    |jobnet1061_g  |jobnet1061_g|
+    |jobnet1061_h  |jobnet1061_h|
+    |jobnet1061_i  |jobnet1061_i|
+    |jobnet1061_j  |jobnet1061_j|
+    |jobnet1061_k  |jobnet1061_k|
 
    もし "ジョブネットグループX"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1061_d|jobnet1061_d|
-    |jobnet1061_e|jobnet1061_e|
-    |jobnet1061_f|jobnet1061_f|
+    |ジョブネット名|説明        |
+    |jobnet1061_d  |jobnet1061_d|
+    |jobnet1061_e  |jobnet1061_e|
+    |jobnet1061_f  |jobnet1061_f|
 
    もし "jobnetgroup_y"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1061_g|jobnet1061_g|
-    |jobnet1061_h|jobnet1061_h|
-    |jobnet1061_i|jobnet1061_i|
+    |ジョブネット名|説明        |
+    |jobnet1061_g  |jobnet1061_g|
+    |jobnet1061_h  |jobnet1061_h|
+    |jobnet1061_i  |jobnet1061_i|
 
    もし "ジョブネットグループY"のカテゴリを選択すると以下の行が表示されること
-    |ジョブネット名|説明|
-    |jobnet1061_j|jobnet1061_j|
-    |jobnet1061_k|jobnet1061_k|
+    |ジョブネット名|説明        |
+    |jobnet1061_j  |jobnet1061_j|
+    |jobnet1061_k  |jobnet1061_k|
 
 
   # ./usecases/job/dsl/1071_rootjobnet_includes_parallel_jobs.rb
@@ -2488,7 +2488,7 @@
   # #
   # #        |-->[job1]-->|
   # #        |            |
-  # # [S1]-->|            |-->[E1]
+  # # [S1]-->|            |-->[E1]|
   # #        |            |
   # #        |-->[job2]-->|
   # #
@@ -2700,19 +2700,19 @@
   # #
   # #            {-[jobnet1074-1]-------}
   # #            {                      }
-  # #        |-->{  [S2]-->[j1]-->[E2]  }-->|
-  # #        |   {                      }   |
-  # #        |   {________finally_______}   |
-  # #        |   {                      }   |
-  # #        |   { [S3]-->[jf1]-->[E3]  }   |
-  # #        |   {                      }   |
-  # #        |   {----------------------}   |
-  # #        |                              |
+  # #|-->{  [S2]-->[j1]-->[E2]  }-->|
+  # #|   {                      }   |
+  # #|   {________finally_______}   |
+  # #|   {                      }   |
+  # #|   { [S3]-->[jf1]-->[E3]  }   |
+  # #|   {                      }   |
+  # #|   {----------------------}   |
+  # #|                              |
   # # [S1]-->F                              J-->[E1]
-  # #        |                              |
-  # #        |   {-[jobnet1074-2]-------}   |
-  # #        |   {                      }   |
-  # #        |-->{  [S4]-->[j2]-->[E4]  }-->|
+  # #|                              |
+  # #|   {-[jobnet1074-2]-------}   |
+  # #|   {                      }   |
+  # #|-->{  [S4]-->[j2]-->[E4]  }-->|
   # #            {                      }
   # #            {________finally_______}
   # #            {                      }
@@ -2908,19 +2908,19 @@
   # #
   # #            {-[jobnet1076-1]-------}
   # #            {                      }
-  # #        |-->{  [S2]-->[j1]-->[E2]  }-->|
-  # #        |   {                      }   |
-  # #        |   {________finally_______}   |
-  # #        |   {                      }   |
-  # #        |   { [S3]-->[jf1]-->[E3]  }   |
-  # #        |   {                      }   |
-  # #        |   {----------------------}   |
-  # #        |                              |
+  # #|-->{  [S2]-->[j1]-->[E2]  }-->|
+  # #|   {                      }   |
+  # #|   {________finally_______}   |
+  # #|   {                      }   |
+  # #|   { [S3]-->[jf1]-->[E3]  }   |
+  # #|   {                      }   |
+  # #|   {----------------------}   |
+  # #|                              |
   # # [S1]-->F                              J-->[E1]
-  # #        |                              |
-  # #        |   {-[jobnet1076-2]-------}   |
-  # #        |   {                      }   |
-  # #        |-->{  [S4]-->[j2]-->[E4]  }-->|
+  # #|                              |
+  # #|   {-[jobnet1076-2]-------}   |
+  # #|   {                      }   |
+  # #|-->{  [S4]-->[j2]-->[E4]  }-->|
   # #            {                      }
   # #            {________finally_______}
   # #            {                      }
@@ -3009,19 +3009,19 @@
   # #
   # #            {-[jobnet1077-1]-------}
   # #            {                      }
-  # #        |-->{  [S2]-->[j1]-->[E2]  }-->|
-  # #        |   {                      }   |
-  # #        |   {________finally_______}   |
-  # #        |   {                      }   |
-  # #        |   { [S3]-->[jf1]-->[E3]  }   |
-  # #        |   {                      }   |
-  # #        |   {----------------------}   |
-  # #        |                              |
+  # #|-->{  [S2]-->[j1]-->[E2]  }-->|
+  # #|   {                      }   |
+  # #|   {________finally_______}   |
+  # #|   {                      }   |
+  # #|   { [S3]-->[jf1]-->[E3]  }   |
+  # #|   {                      }   |
+  # #|   {----------------------}   |
+  # #|                              |
   # # [S1]-->F                              J-->[E1]
-  # #        |                              |
-  # #        |   {-[jobnet1077-2]-------}   |
-  # #        |   {                      }   |
-  # #        |-->{  [S4]-->[j2]-->[E4]  }-->|
+  # #|                              |
+  # #|   {-[jobnet1077-2]-------}   |
+  # #|   {                      }   |
+  # #|-->{  [S4]-->[j2]-->[E4]  }-->|
   # #            {                      }
   # #            {________finally_______}
   # #            {                      }
@@ -3119,11 +3119,11 @@
   # # [S1]-->[j1]-->[E1]
   # #                     __________finally___________
   # #                    {                            }
-  # #                    {       |-->[fj1]-->|        }
-  # #                    {       |           |        }
+  # #                    {|-->[fj1]-->|        }|
+  # #                    {|           |        }|
   # #                    {[S4]-->F           J-->[E4] }
-  # #                    {       |           |        }
-  # #                    {       |-->[fj2]-->|        }
+  # #                    {|           |        }|
+  # #                    {|-->[fj2]-->|        }|
   # #                    {____________________________}
   # 
   # jobnet("jobnet1078", :instance_name => "test_server1", :credential_name => "test_credential1") do
@@ -3341,18 +3341,18 @@
   # #                    {             _[jobnet1081-1]______             }
   # #                    {            {                     }            }
   # #                    {            {                     }            }
-  # #                    {        |-->{ [S3]-->[j2]-->[E3]  }-->|        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   {______finally________}   |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   { [S4]-->[fj1]-->[E4] }   |        }
-  # #                    {        |   {_____________________}   |        }
-  # #                    {        |                             |        }
+  # #                    {|-->{ [S3]-->[j2]-->[E3]  }-->|        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   {______finally________}   |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   { [S4]-->[fj1]-->[E4] }   |        }|
+  # #                    {|   {_____________________}   |        }|
+  # #                    {|                             |        }|
   # #                    { [S2]-->F                             J-->[E2] }
-  # #                    {        |    _[jobnet1081-2]______    |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |-->{ [S5]-->[j3]-->[E5]  }-->|        }
+  # #                    {|    _[jobnet1081-2]______    |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|-->{ [S5]-->[j3]-->[E5]  }-->|        }|
   # #                    {            {                     }            }
   # #                    {            {______finally________}            }
   # #                    {            {                     }            }
@@ -3442,18 +3442,18 @@
   # #                    {             _[jobnet1082-1]______             }
   # #                    {            {                     }            }
   # #                    {            {                     }            }
-  # #                    {        |-->{ [S3]-->[j2]-->[E3]  }-->|        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   {______finally________}   |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   { [S4]-->[fj1]-->[E4] }   |        }
-  # #                    {        |   {_____________________}   |        }
-  # #                    {        |                             |        }
+  # #                    {|-->{ [S3]-->[j2]-->[E3]  }-->|        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   {______finally________}   |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   { [S4]-->[fj1]-->[E4] }   |        }|
+  # #                    {|   {_____________________}   |        }|
+  # #                    {|                             |        }|
   # #                    { [S2]-->F                             J-->[E2] }
-  # #                    {        |    _[jobnet1082-2]______    |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |-->{ [S5]-->[j3]-->[E5]  }-->|        }
+  # #                    {|    _[jobnet1082-2]______    |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|-->{ [S5]-->[j3]-->[E5]  }-->|        }|
   # #                    {            {                     }            }
   # #                    {            {______finally________}            }
   # #                    {            {                     }            }
@@ -3546,18 +3546,18 @@
   # #                    {             _[jobnet1083-1]______             }
   # #                    {            {                     }            }
   # #                    {            {                     }            }
-  # #                    {        |-->{ [S3]-->[j2]-->[E3]  }-->|        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   {______finally________}   |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   { [S4]-->[fj1]-->[E4] }   |        }
-  # #                    {        |   {_____________________}   |        }
-  # #                    {        |                             |        }
+  # #                    {|-->{ [S3]-->[j2]-->[E3]  }-->|        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   {______finally________}   |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   { [S4]-->[fj1]-->[E4] }   |        }|
+  # #                    {|   {_____________________}   |        }|
+  # #                    {|                             |        }|
   # #                    { [S2]-->F                             J-->[E2] }
-  # #                    {        |    _[jobnet1083-2]______    |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |-->{ [S5]-->[j3]-->[E5]  }-->|        }
+  # #                    {|    _[jobnet1083-2]______    |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|-->{ [S5]-->[j3]-->[E5]  }-->|        }|
   # #                    {            {                     }            }
   # #                    {            {______finally________}            }
   # #                    {            {                     }            }
@@ -3706,11 +3706,11 @@
   # # [S1]-->[j1]-->[E1]
   # #                     __________finally___________
   # #                    {                            }
-  # #                    {       |-->[fj1]-->|        }
-  # #                    {       |           |        }
+  # #                    {|-->[fj1]-->|        }|
+  # #                    {|           |        }|
   # #                    {[S4]-->F           J-->[E4] }
-  # #                    {       |           |        }
-  # #                    {       |-->[fj2]-->|        }
+  # #                    {|           |        }|
+  # #                    {|-->[fj2]-->|        }|
   # #                    {____________________________}
   # 
   # jobnet("jobnet1085", :instance_name => "test_server1", :credential_name => "test_credential1") do
@@ -3766,18 +3766,18 @@
   # #                    {             _[jobnet1086]________             }
   # #                    {            {                     }            }
   # #                    {            {                     }            }
-  # #                    {        |-->{ [S3]-->[j2]-->[E3]  }-->|        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   {______finally________}   |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   { [S4]-->[fj1]-->[E4] }   |        }
-  # #                    {        |   {_____________________}   |        }
-  # #                    {        |                             |        }
+  # #                    {|-->{ [S3]-->[j2]-->[E3]  }-->|        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   {______finally________}   |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   { [S4]-->[fj1]-->[E4] }   |        }|
+  # #                    {|   {_____________________}   |        }|
+  # #                    {|                             |        }|
   # #                    { [S2]-->F                             J-->[E2] }
-  # #                    {        |    _[jobnet1086]________    |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |-->{ [S3]-->[j2]-->[E3]  }-->|        }
+  # #                    {|    _[jobnet1086]________    |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|-->{ [S3]-->[j2]-->[E3]  }-->|        }|
   # #                    {            {                     }            }
   # #                    {            {______finally________}            }
   # #                    {            {                     }            }
@@ -3918,11 +3918,11 @@
   # # [S1]-->[j1]-->[E1]
   # #                     __________finally___________
   # #                    {                            }
-  # #                    {       |-->[fj1]-->|        }
-  # #                    {       |           |        }
+  # #                    {|-->[fj1]-->|        }|
+  # #                    {|           |        }|
   # #                    {[S4]-->F           J-->[E4] }
-  # #                    {       |           |        }
-  # #                    {       |-->[fj2]-->|        }
+  # #                    {|           |        }|
+  # #                    {|-->[fj2]-->|        }|
   # #                    {____________________________}
   # 
   # jobnet("jobnet1088", :instance_name => "test_server1", :credential_name => "test_credential1") do
@@ -3960,18 +3960,18 @@
   # #                    {             _[jobnet1089]________             }
   # #                    {            {                     }            }
   # #                    {            {                     }            }
-  # #                    {        |-->{ [S3]-->[j2]-->[E3]  }-->|        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   {______finally________}   |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   { [S4]-->[fj1]-->[E4] }   |        }
-  # #                    {        |   {_____________________}   |        }
-  # #                    {        |                             |        }
+  # #                    {|-->{ [S3]-->[j2]-->[E3]  }-->|        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   {______finally________}   |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   { [S4]-->[fj1]-->[E4] }   |        }|
+  # #                    {|   {_____________________}   |        }|
+  # #                    {|                             |        }|
   # #                    { [S2]-->F                             J-->[E2] }
-  # #                    {        |    _[jobnet1089]________    |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |-->{ [S3]-->[j2]-->[E3]  }-->|        }
+  # #                    {|    _[jobnet1089]________    |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|-->{ [S3]-->[j2]-->[E3]  }-->|        }|
   # #                    {            {                     }            }
   # #                    {            {______finally________}            }
   # #                    {            {                     }            }
@@ -4070,19 +4070,19 @@
   # #
   # #            {-[jobnet1091-1]-------}
   # #            {                      }
-  # #        |-->{  [S2]-->[j1]-->[E2]  }-->|
-  # #        |   {                      }   |
-  # #        |   {________finally_______}   |
-  # #        |   {                      }   |
-  # #        |   { [S3]-->[jf1]-->[E3]  }   |
-  # #        |   {                      }   |
-  # #        |   {----------------------}   |
-  # #        |                              |
+  # #|-->{  [S2]-->[j1]-->[E2]  }-->|
+  # #|   {                      }   |
+  # #|   {________finally_______}   |
+  # #|   {                      }   |
+  # #|   { [S3]-->[jf1]-->[E3]  }   |
+  # #|   {                      }   |
+  # #|   {----------------------}   |
+  # #|                              |
   # # [S1]-->F                              J-->[E1]
-  # #        |                              |
-  # #        |   {-[jobnet1091-2]-------}   |
-  # #        |   {                      }   |
-  # #        |-->{  [S4]-->[j2]-->[E4]  }-->|
+  # #|                              |
+  # #|   {-[jobnet1091-2]-------}   |
+  # #|   {                      }   |
+  # #|-->{  [S4]-->[j2]-->[E4]  }-->|
   # #            {                      }
   # #            {________finally_______}
   # #            {                      }
@@ -4095,18 +4095,18 @@
   # #                    {             _[jobnet1091-3]______             }
   # #                    {            {                     }            }
   # #                    {            {                     }            }
-  # #                    {        |-->{ [S7]-->[j3]-->[E7]  }-->|        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   {______finally________}   |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   { [S8]-->[fj3]-->[E8] }   |        }
-  # #                    {        |   {_____________________}   |        }
-  # #                    {        |                             |        }
+  # #                    {|-->{ [S7]-->[j3]-->[E7]  }-->|        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   {______finally________}   |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   { [S8]-->[fj3]-->[E8] }   |        }|
+  # #                    {|   {_____________________}   |        }|
+  # #                    {|                             |        }|
   # #                    { [S6]-->F                             J-->[E6] }
-  # #                    {        |    _[jobnet1091-4]______    |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |   {                     }   |        }
-  # #                    {        |-->{ [S9]-->[j4]-->[E9]  }-->|        }
+  # #                    {|    _[jobnet1091-4]______    |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|   {                     }   |        }|
+  # #                    {|-->{ [S9]-->[j4]-->[E9]  }-->|        }|
   # #                    {            {                     }            }
   # #                    {            {______finally________}            }
   # #                    {            {                     }            }
@@ -4257,7 +4257,7 @@
   #
   ## [jn0004]
   ##               |-->[j2]-->
-  ##               |         |
+  ##||
   ## [S1]-->[j1]-->          |-->[j4]-->[E1]
   ##               |-->[j3]-->
   ##                     _________finally________
@@ -4382,13 +4382,13 @@
   #                     ________________[jn4]________________
   #                   {                                          }
   #                   {               |-->[j42]-->               }
-  #                   {               |          |               }
+  #                   {||               }|
   # [S1]-->[j1]-->F-->{ [S2]-->[j41]-->          |-->[j44]-->[E2]}-->J--[j4]-->[E1]
-  #               |   {               |-->[j43]-->               }   |
-  #               |   {         __________finally__________      }   |
-  #               |   {        { [S3]-->[jn4_f]-->[E3] }     }   |
-  #               |   { _________________________________________}   |
-  #                 |-------------------->[j2]------------------------>|
+  #|   {                                              |-->[j43]-->               }|
+  #|   {         __________finally__________      }   |
+  #|   {        { [S3]-->[jn4_f]-->[E3] }     }       |
+  #|   { _________________________________________}   |
+  #|-------------------->[j2]------------------------>|
   #
   #   ________________________________finally________________________________
   #  {         _____________________jn0005_fjn__________                     }
