@@ -4242,7 +4242,12 @@
 
     もし ジョブ"/jobnet1101/job1"の"ジョブ詳細"リンクをクリックする
     ならば "ジョブ詳細画面"が表示していること
-    かつ "エラーメッセージ"に"Job process failed. STDOUT and STDERR were redirected to files. You can see them at #{標準出力のファイルパス} and #{標準エラー出力のファイルパス} on the server #{サーバ名}"と表示されていること
+    かつ "エラーメッセージ"に以下のメッセージが表示されていること
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    "Job process failed. STDOUT and STDERR were redirected to files."
+    "You can see them at '#{標準出力のファイルパス}' and '#{標準エラー出力のファイルパス}'"
+    "on the server '#{サーバ名}'"
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
     もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     かつ "tengine_job_failure_test job1 start"と"スクリプトログ"に出力されていること
