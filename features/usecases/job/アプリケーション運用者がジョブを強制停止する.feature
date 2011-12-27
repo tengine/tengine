@@ -35,35 +35,35 @@
 
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |実行中    |j2, j3    |表示 強制停止|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |実行中    |j2, j3    |表示 強制停止|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
 
 
     もし "j1"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止中|j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止中|j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止済|j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止済|j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -89,13 +89,13 @@
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |実行中    |j2, j3    |表示 強制停止|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |実行中    |j2, j3    |表示 強制停止|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -105,23 +105,23 @@
     もし "jn0004"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止中|j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止中|j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止済|j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止済|j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -149,45 +149,45 @@
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
 
 
     もし "j2"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |強制停止中|j4        |表示         |
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |強制停止中|j4        |表示         |
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示       |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示       |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示       |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示       |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
 
     もし 40秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -215,45 +215,45 @@
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
 
 
     もし "j2"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |強制停止中|j4        |表示         |
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |強制停止中|j4        |表示         |
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示       |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示       |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示       |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示       |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
 
     もし 40秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |エラー終了|j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |エラー終了|j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -281,35 +281,35 @@
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行  |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行  |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
 
 
     もし "j2"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示       |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |強制停止中|j4        |表示       |
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示       |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |強制停止中|j4        |表示       |
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -337,35 +337,35 @@
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |エラー終了|j4        |表示 再実行  |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |エラー終了|j4        |表示 再実行  |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
 
 
     もし "j2"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示       |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |強制停止中|j4        |表示       |
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |エラー終了|j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示       |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |強制停止中|j4        |表示       |
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |エラー終了|j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示       |
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |エラー終了|j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |エラー終了|j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -394,13 +394,13 @@
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 再実行  |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 強制停止|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |実行中    |j4        |表示 再実行  |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -410,23 +410,23 @@
     もし "jn0004"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |強制停止中|j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |強制停止中|j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |強制停止中|j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |強制停止中|j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -455,34 +455,34 @@
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 強制停止|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行  |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 強制停止|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行  |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
 
     もし "j4"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時 |ステータス|次のジョブ |操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|         |正常終了  |j2, j3     |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |         |正常終了  |j4         |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   | 正常終了|j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |         |正常終了  |           |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |         |正常終了  |           |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時 |ステータス|次のジョブ |操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|         |正常終了  |j2, j3     |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |         |正常終了  |j4         |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   | 正常終了|j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |         |正常終了  |           |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |         |正常終了  |           |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -511,13 +511,13 @@
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 強制停止|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行  |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 強制停止|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行  |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -527,23 +527,23 @@
     もし "jn0004"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時 |ステータス|次のジョブ |操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|         |正常終了済|j2, j3     |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |         |正常終了  |j4         |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   | 正常終了|j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |         |初期化済  |           |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |         |初期化済  |           |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時 |ステータス|次のジョブ |操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|         |正常終了済|j2, j3     |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |         |正常終了  |j4         |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   | 正常終了|j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |         |初期化済  |           |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |         |初期化済  |           |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -572,34 +572,34 @@
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 強制停止|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行  |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 強制停止|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行  |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
 
     もし "jn0004_f"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |          |正常終了  |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |          |正常終了  |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時 |ステータス|次のジョブ |操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|         |正常終了  |j2, j3     |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |         |正常終了  |j4         |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   | 正常終了|j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |         |正常終了  |           |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時 |ステータス|次のジョブ |操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|         |正常終了  |j2, j3     |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |         |正常終了  |j4         |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   | 正常終了|j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |         |正常終了  |           |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -627,34 +627,34 @@
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 強制停止|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行  |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 強制停止|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行  |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
 
     もし "finally"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |          |正常終了  |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |          |正常終了  |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時 |ステータス|次のジョブ |操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|         |正常終了  |j2, j3     |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |         |正常終了  |j4         |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   | 正常終了|j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |         |正常終了  |           |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時 |ステータス|次のジョブ |操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|         |正常終了  |j2, j3     |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |         |正常終了  |j4         |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   | 正常終了|j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |         |正常終了  |           |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -682,13 +682,13 @@
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 強制停止|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行  |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示         |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 強制停止|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行  |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |実行中    |          |表示         |
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -698,23 +698,23 @@
     もし "jn0004"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |          |正常終了  |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |          |正常終了  |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |強制停止中|          |表示|
 
     もし 20秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時 |ステータス|次のジョブ |操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|         |正常終了  |j2, j3     |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |         |正常終了  |j4         |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   | 正常終了|j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |         |正常終了  |           |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時 |ステータス|次のジョブ |操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|         |正常終了  |j2, j3     |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |         |正常終了  |j4         |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   | 正常終了|j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |         |正常終了  |           |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |         |強制停止済|           |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -2625,48 +2625,48 @@
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |初期化済  |j2, j3    |表示 強制停止|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |初期化済  |j2, j3    |表示 強制停止|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
 
 
     もし "j1"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |初期化済  |j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |初期化済  |j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
     もし "j1"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
 
     もし 40秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止済|j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止済|j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -2692,13 +2692,13 @@
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |j2, j3    |表示 強制停止|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |j2, j3    |表示 強制停止|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示         |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示         |
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -2708,33 +2708,33 @@
     もし "jn0004"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
     もし 40秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止済|j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止済|j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -2760,44 +2760,44 @@
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
 
     もし "j2"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示       |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示       |
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示       |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示       |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示       |
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示       |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
     もし 40秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -2823,13 +2823,13 @@
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -2839,33 +2839,33 @@
     もし "jn0004"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示       |
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示       |
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示       |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示       |
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示       |
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |開始中    |j4        |表示       |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
     もし 40秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |強制停止済|j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -2891,45 +2891,45 @@
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 強制停止|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示         |
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示         |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |開始中    |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |開始中    |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 強制停止|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示         |
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示         |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |開始中    |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |開始中    |          |表示         |
 
 
     もし "jn0004_f"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |開始中    |          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |開始中    |          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |開始中    |          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |開始中    |          |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |開始中    |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |開始中    |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |開始中    |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |開始中    |          |表示 再実行|
 
     もし 40秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |強制停止済|          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |強制停止済|          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |強制停止済|          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |強制停止済|          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -2955,13 +2955,13 @@
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 強制停止|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示         |
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示         |
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示         |
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示         |
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |開始中    |          |表示         |
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 強制停止|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示         |
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示         |
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示         |
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |正常終了  |          |表示         |
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |開始中    |          |表示         |
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -2971,33 +2971,33 @@
     もし "jn0004"の"強制停止"リンクをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |開始中    |          |表示|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |開始中    |          |表示|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作|
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |開始中    |          |表示|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |開始中    |          |表示|
 
     もし 10秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |開始中    |          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |開始中    |          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |開始中    |          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |開始中    |          |表示 再実行|
 
     もし 40秒間待機する
     ならば 以下の行が表示されていること
-    |ID|ジョブ名|説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
-    |  |j1      |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止済|j2, j3    |表示 再実行|
-    |  |j2      |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
-    |  |j3      |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
-    |  |j4      |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
-    |  |finally |finally  |              |test_server1|test_credential1|                   |        |強制停止済|          |表示 再実行|
-    |  |jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |強制停止済|          |表示 再実行|
+    |ID|ジョブ名  |説明     |実行スクリプト|接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作       |
+    |  |j1        |j1       |              |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止済|j2, j3    |表示 再実行|
+    |  |j2        |j2       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
+    |  |j3        |j3       |              |test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行|
+    |  |j4        |j4       |              |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |  |finally   |finally  |              |test_server1|test_credential1|                   |        |強制停止済|          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|              |test_server1|test_credential1|                   |        |強制停止済|          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
