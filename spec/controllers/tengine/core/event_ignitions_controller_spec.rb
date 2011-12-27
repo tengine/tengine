@@ -20,4 +20,24 @@ describe Tengine::Core::EventIgnitionsController do
 #    end
 #  end
 
+  describe :validation do
+    it "should be valid" do
+      event = {
+        "event_type_name" => "ssss",
+        "key" => "fff",
+      }
+      post 'fire', event: event
+      assigns[:core_event].errors.should be_empty
+      response.should redirect_to(tengine_core_event_ignitions_new_url)
+    end
+    it "should not be valid" do
+      event = {
+        "event_type_name" => "",
+        "key" => "",
+      }
+      post 'fire', event: event
+      assigns[:core_event].errors.should_not be_empty
+      response.should be_success
+    end
+  end
 end

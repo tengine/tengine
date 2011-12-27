@@ -3,6 +3,7 @@
 <p id="notice"><%= notice %></p>
 
 <%= form_for(@event, as:"event", url: {:action => 'fire'} ) do |f| %>
+  <%= model_error_messages(@core_event) %>
 
   <div class="field">
     <%= f.label :event_type_name %><br />
