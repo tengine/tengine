@@ -120,7 +120,7 @@
     # ジョブ実行サーバのログを確認
     ###############################
     
-    もし 仮想サーバ"test_server1"のファイル"~/log/tengine_job_test.log"を開く。このファイルを"tengine_job_runログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"tengine_job_runログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"tengine_job_runログ"に出力されていること
     かつ "tengine_job_test job1 finish"と"tengine_job_runログ"に出力されており、"tengine_job_test job1 start"の後であること
     
