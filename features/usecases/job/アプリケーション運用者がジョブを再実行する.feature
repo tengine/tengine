@@ -887,8 +887,8 @@ language:ja
     |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
     |  |j3     |j3 |            |test_server1|test_credential1| | |初期化済|j4|表示|
     |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし "j3"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -904,8 +904,8 @@ language:ja
     |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示|
     |  |j3     |j3 |            |test_server1|test_credential1| | |実行中|j4|表示|
     |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示|
 
     もし 30秒間待機する
     ならば 以下の行が表示されていること
@@ -914,8 +914,8 @@ language:ja
     |  |j2     |j2 |            |test_server1|test_credential1| | |実行中|j4|表示 再実行|
     |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
     |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
-    |  |finally|finally|            |test_server1|test_credential1| | |初期化済| |表示 再実行|
-    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |初期化済| |表示 再実行|
+    |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし 30秒間待機する
     ならば 以下の行が表示されていること
@@ -923,14 +923,14 @@ language:ja
     |  |j1     |j1 |            |test_server1|test_credential1|2011/11/25 14:43:22 | |エラー終了|j2, j3|表示 再実行|
     |  |j2     |j2 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
     |  |j3     |j3 |            |test_server1|test_credential1| | |正常終了|j4|表示 再実行|
-    |  |j4     |j4 |            |test_server1|test_credential1| | |正常終了| |表示 再実行|
+    |  |j4     |j4 |            |test_server1|test_credential1| | |初期化済| |表示 再実行|
     |  |finally|finally|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
     |  |jn0004_f|jn_0004_f|            |test_server1|test_credential1| | |正常終了| |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明|開始日時|終了日時|ステータス|操作|
-    |  |jn0004|jn0004| | |正常終了|監視 再実行|
+    |  |jn0004|jn0004| | |エラー終了|監視 再実行|
 
   @4012
   シナリオ: [正常系]retry1のj2がエラー終了しており、j2を再実行する_j3が実行中で追い抜く_指定したジョブを起点
