@@ -17,7 +17,7 @@
 
   @5001
   シナリオ: [正常系]fork前、ルートジョブネットの最初
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -61,7 +61,7 @@
 
   @5002
   シナリオ: [正常系]実行中のジョブが２つで２つともタイムアウト強制停止
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -115,7 +115,7 @@
 
   @5003
   シナリオ: [正常系]実行中のジョブが1つで片方が正常終了している状態でタイムアウト強制停止
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -169,7 +169,7 @@
 
   @5004
   シナリオ: [正常系]実行中のジョブが1つで片方がエラー終了している状態でタイムアウト強制停止
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -223,7 +223,7 @@
 
   @5005
   シナリオ: [正常系]finally実行中にタイムアウト強制停止
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -279,7 +279,7 @@
 #--retry2--
   @5006
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のジョブ
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -343,7 +343,7 @@
 
   @5007
   シナリオ: [正常系]ルートジョブネット内のジョブネット内で実行中のジョブが２つ
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -407,7 +407,7 @@
 
   @5008
   シナリオ: [正常系]ルートジョブネット内のジョブネット内で実行中のジョブが1つ_片方が正常終了
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -471,7 +471,7 @@
 
   @5009
   シナリオ: [正常系]ルートジョブネット内のジョブネット内で実行中のジョブが1つ_片方がエラー終了
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -535,7 +535,7 @@
 
   @5010
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のfinallyが実行中にタイムアウト強制停止
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -599,7 +599,7 @@
 
   @5011
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のfinallyのfinallyが実行中にタイムアウト強制停止
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -663,7 +663,7 @@
 
   @5012
   シナリオ: [正常系]ジョブネットの中のジョブネット内にあるジョブを実行中にタイムアウト強制停止
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0006_retry_three_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0006_retry_three_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -740,7 +740,7 @@
 #retry1
   @5013
   シナリオ: [正常系]ジョブの状態が「開始中」で強制停止を行う
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -885,7 +885,7 @@
 #--retry2
   @5014
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のジョブ
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -1177,7 +1177,7 @@
 	# のテストを行うために追加しました。
   @5015
   シナリオ: [正常系]エラー終了しているジョブがある状態でタイムアウト強制停止が発生
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること

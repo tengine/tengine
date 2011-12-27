@@ -17,7 +17,7 @@
 
   @3101
   シナリオ: [正常系]複数サーバ動いているジョブを強制停止_ジョブ指定
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsl/3001_force_stop_multi_server_one_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsl/3001_force_stop_multi_server_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -72,7 +72,7 @@
 
   @3102
   シナリオ: [正常系]複数サーバ動いているジョブを強制停止_ルートジョブネット指定
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsl/3001_force_stop_multi_server_one_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsl/3001_force_stop_multi_server_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -140,7 +140,7 @@
 
   @3103
   シナリオ: [正常系]複数サーバ動いているジョブネットの中のジョブを強制停止_ジョブ指定
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsl/3002_force_stop_multi_server_two_layer.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsl/3002_force_stop_multi_server_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
@@ -227,7 +227,7 @@
 
   @3104
   シナリオ: [正常系]複数サーバ動いているジョブネットの中のジョブを強制停止_ルートジョブネット指定
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsl/3002_force_stop_multi_server_two_layer.rb.rb -D"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsl/3002_force_stop_multi_server_two_layer.rb.rb --process-daemon"で起動している
 
     もし "テンプレートジョブネット一覧画面"を表示する
     ならば "テンプレートジョブネット一覧画面"を表示していること
