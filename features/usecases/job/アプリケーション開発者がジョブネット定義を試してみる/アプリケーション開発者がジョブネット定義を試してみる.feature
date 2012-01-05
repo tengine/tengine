@@ -1707,6 +1707,12 @@
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
     かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
+    かつ "スクリプトログ"の"SSH_ID"を確認する
+    かつ "スクリプトログ"の"JOBTRACKER_HOST"を確認する
+    かつ "スクリプトログ"の"NAMENODE_HOST"を確認する
+    かつ "スクリプトログ"の"SECONDARY_NAMENODE_HOST"を確認する
+    かつ "スクリプトログ"の"SLAVE_HOSTS"を確認する
+    かつ "スクリプトログ"の"HOSTS"を確認する
 		
     ならば "job1"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/jobnet1048_2/job1"であること
     かつ "job1"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
@@ -1715,7 +1721,13 @@
     かつ "job1"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "job1"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "job1"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-		かつ "job1"の"MM_SERVER_NAME"の値が"test_server1"であること
+    かつ "job1"の"MM_SERVER_NAME"の値が"test_server1"であること
+    かつ "job1"の"SSH_ID"の値が"/home/kiban/.ssh/id_rsa-tengine"であること
+    かつ "job1"の"JOBTRACKER_HOST"の値が""であること
+    かつ "job1"の"NAMENODE_HOST"の値が""であること
+    かつ "job1"の"SECONDARY_NAMENODE_HOST"の値が""であること
+    かつ "job1"の"SLAVE_HOSTS"の値が"test_server1"であること
+    かつ "job1"の"HOSTS"の値が"test_server1"であること
 
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/finally/jobnet1048_finally"であること
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
@@ -1724,7 +1736,13 @@
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-		かつ "jobnet1048_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
+    かつ "jobnet1048_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
+    かつ "jobnet1048_finally"の"SSH_ID"の値が"/home/kiban/.ssh/id_rsa-tengine"であること
+    かつ "jobnet1048_finally"の"JOBTRACKER_HOST"の値が""であること
+    かつ "jobnet1048_finally"の"NAMENODE_HOST"の値が""であること
+    かつ "jobnet1048_finally"の"SECONDARY_NAMENODE_HOST"の値が""であること
+    かつ "jobnet1048_finally"の"SLAVE_HOSTS"の値が"test_server1"であること
+    かつ "jobnet1048_finally"の"HOSTS"の値が"test_server1"であること
 
 		
     もし "テンプレートジョブ一覧画面"を表示する
@@ -1813,6 +1831,12 @@
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
     かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
+    かつ "スクリプトログ"の"SSH_ID"を確認する
+    かつ "スクリプトログ"の"JOBTRACKER_HOST"を確認する
+    かつ "スクリプトログ"の"NAMENODE_HOST"を確認する
+    かつ "スクリプトログ"の"SECONDARY_NAMENODE_HOST"を確認する
+    かつ "スクリプトログ"の"SLAVE_HOSTS"を確認する
+    かつ "スクリプトログ"の"HOSTS"を確認する
   
     ならば "jobnet1048_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048_failure/finally/jobnet1048_finally"であること
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
@@ -1821,7 +1845,13 @@
     かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-		かつ "jobnet1048_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
+    かつ "jobnet1048_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
+    かつ "jobnet1048_finally"の"SSH_ID"の値が"/home/kiban/.ssh/id_rsa-tengine"であること
+    かつ "jobnet1048_finally"の"JOBTRACKER_HOST"の値が""であること
+    かつ "jobnet1048_finally"の"NAMENODE_HOST"の値が""であること
+    かつ "jobnet1048_finally"の"SECONDARY_NAMENODE_HOST"の値が""であること
+    かつ "jobnet1048_finally"の"SLAVE_HOSTS"の値が"test_server1"であること
+    かつ "jobnet1048_finally"の"HOSTS"の値が"test_server1"であること
 		
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
@@ -1916,6 +1946,12 @@
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
     かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
+    かつ "スクリプトログ"の"SSH_ID"を確認する
+    かつ "スクリプトログ"の"JOBTRACKER_HOST"を確認する
+    かつ "スクリプトログ"の"NAMENODE_HOST"を確認する
+    かつ "スクリプトログ"の"SECONDARY_NAMENODE_HOST"を確認する
+    かつ "スクリプトログ"の"SLAVE_HOSTS"を確認する
+    かつ "スクリプトログ"の"HOSTS"を確認する
 		
     ならば "jobnet1048_finally_in_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048_finally_failure/finally/jobnet1048_2_finally_jobnet/finally/jobnet1048_finally_in_finally"であること
     かつ "jobnet1048_finally_in_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
@@ -1924,7 +1960,13 @@
     かつ "jobnet1048_finally_in_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally_in_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1048_finally_in_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-		かつ "jobnet1048_finally_in_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
+    かつ "jobnet1048_finally_in_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
+    かつ "jobnet1048_finally"の"SSH_ID"の値が"/home/kiban/.ssh/id_rsa-tengine"であること
+    かつ "jobnet1048_finally"の"JOBTRACKER_HOST"の値が""であること
+    かつ "jobnet1048_finally"の"NAMENODE_HOST"の値が""であること
+    かつ "jobnet1048_finally"の"SECONDARY_NAMENODE_HOST"の値が""であること
+    かつ "jobnet1048_finally"の"SLAVE_HOSTS"の値が"test_server1"であること
+    かつ "jobnet1048_finally"の"HOSTS"の値が"test_server1"であること
 
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
@@ -1966,6 +2008,129 @@
     ならば "ジョブ実行一覧画面"が表示されること
 
     もし "jobnet1048_finally_failure"の"表示"リンクをクリックする
+    ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
+
+
+  @1048_3
+  @manual
+  シナリオ: [正常系]1048_HADOOP環境を作成して、HADOOP関連の環境変数がシェルスクリプトに渡される_を試してみる
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1048_jobnet_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし Hadoop環境を設定するために"rails runner **"コマンドを実行する
+    かつ "仮想サーバ一覧画面"を表示する
+    ならば 以下の行が表示されること
+    |物理サーバ名             |仮想サーバ名      |プロバイダによるID |説明 |IPアドレス                                              |ステータス|仮想サーバイメージ名|仮想サーバタイプ|
+    |test_physical_server1  |rac1-ZPPPS001M001|rac1-ZPPPS001M001|    |private_ip_address: 10.0.2.81 nw-hadoop: 192.168.11.81 |running  |                 |             |
+    |                       |rac1-ZPPPS001S002|rac1-ZPPPS001S002|    |private_ip_address: 10.0.2.82 nw-hadoop: 192.168.11.82 |running  |                 |             |
+    |                       |hadoop_slave1    |hadoop_slave1    |    |private_ip_address: 10.0.2.83 nw-hadoop: 192.168.11.83 |running  |                 |             |
+    |                       |hadoop_slave2    |hadoop_slave2    |    |private_ip_address: 10.0.2.84 nw-hadoop: 192.168.11.84 |running  |                 |             |
+    |                       |test_server1     |test_server1     |    |private_ip_address: 10.0.2.8                           |running  |                 |             |
+  
+    もし ジョブネット"jobnet1048"を実行する
+    かつ ジョブネット"jobnet1048"が完了することを確認する
+    
+    ならば ジョブネット"/jobnet1048" のステータスが正常終了であること
+    かつ ジョブネット"/jobnet1048/jobnet1048_2" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1048/jobnet1048_2/job1" のステータスが正常終了であること
+    かつ ジョブネット"/jobnet1048/finally" のステータスが正常終了であること
+    かつ ジョブ"/jobnet1048/finally/jobnet1048_finally" のステータスが正常終了であること
+
+    ########################################
+    # シェルスクリプトに渡された環境変数をログファイルから確認
+    ########################################
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_NAME_PATH"の値を確認する
+    かつ "スクリプトログ"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値を確認する 
+    かつ "スクリプトログ"の"MM_TEMPLATE_JOB_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ID"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ESTIMATED_TIME"の値を確認する
+    かつ "スクリプトログ"の"MM_SCHEDULE_ESTIMATED_END"の値を確認する
+# TODO 未実装。対応時期の確認が必要。
+    かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
+# TODO 未実装。対応時期の確認が必要。
+    かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
+    かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
+    かつ "スクリプトログ"の"SSH_ID"を確認する
+    かつ "スクリプトログ"の"JOBTRACKER_HOST"を確認する
+    かつ "スクリプトログ"の"NAMENODE_HOST"を確認する
+    かつ "スクリプトログ"の"SECONDARY_NAMENODE_HOST"を確認する
+    かつ "スクリプトログ"の"SLAVE_HOSTS"を確認する
+    かつ "スクリプトログ"の"HOSTS"を確認する
+		
+    ならば "job1"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/jobnet1048_2/job1"であること
+    かつ "job1"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
+    かつ "job1"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
+    かつ "job1"の"MM_SCHEDULE_ESTIMATED_END"の値が""であること
+    かつ "job1"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "job1"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "job1"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "job1"の"MM_SERVER_NAME"の値が"test_server1"であること
+
+    かつ "job1"の"SSH_ID"の値が"/home/kiban/.ssh/id_rsa-tengine"であること
+    かつ "job1"の"JOBTRACKER_HOST"の値が"rac1-ZPPPS001M001"であること
+    かつ "job1"の"NAMENODE_HOST"の値が"rac1-ZPPPS001M001"であること
+    かつ "job1"の"SECONDARY_NAMENODE_HOST"の値が"rac1-ZPPPS001S002"であること
+    かつ "job1"の"SLAVE_HOSTS"の値が"hadoop_slave1,hadoop_slave2,test_server1"であること
+    かつ "job1"の"HOSTS"の値が"rac1-ZPPPS001M001, rac1-ZPPPS001M002, hadoop_slave1, hadoop_slave2, test_server1"であること
+
+    かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/finally/jobnet1048_finally"であること
+    かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
+    かつ "jobnet1048_finally"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
+    かつ "jobnet1048_finally"の"MM_SCHEDULE_ESTIMATED_END"の値が""であること
+    かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "jobnet1048_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "jobnet1048_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
+    かつ "jobnet1048_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
+
+    かつ "jobnet1048_finally"の"SSH_ID"の値が"/home/kiban/.ssh/id_rsa-tengine"であること
+    かつ "jobnet1048_finally"の"JOBTRACKER_HOST"の値が"rac1-ZPPPS001M001"であること
+    かつ "jobnet1048_finally"の"NAMENODE_HOST"の値が"rac1-ZPPPS001M001"であること
+    かつ "jobnet1048_finally"の"SECONDARY_NAMENODE_HOST"の値が"rac1-ZPPPS001S002"であること
+    かつ "jobnet1048_finally"の"SLAVE_HOSTS"の値が"hadoop_slave1,hadoop_slave2,test_server1"であること
+    かつ "jobnet1048_finally"の"HOSTS"の値が"rac1-ZPPPS001M001, rac1-ZPPPS001M002, hadoop_slave1, hadoop_slave2, test_server1"であること
+
+		
+    もし "テンプレートジョブ一覧画面"を表示する
+    ならば "テンプレートジョブ一覧画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID                        |ジョブネット名|説明          |操作     |
+    |jobnet1048のテンプレートID|jobnet1048    |説明jobnet1048|表示 実行|
+
+    もし "jobnet1048"の"表示"リンクをクリックする
+    ならば "テンプレートジョブ画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID                                |ジョブネット名|名称        |表示名                              |実行するスクリプト|接続サーバ名    |認証情報名|次のジョブ|
+    |jobnet1048_2のテンプレートID      |jobnet1048_2  |jobnet1048_2|                                    |test_server1      |test_credential1|
+    |job1のテンプレートID              |job1          |job1        |$HOME/tengine_job_env_test.sh 0 job1|test_server1      |test_credential1|
+    |finallyのテンプレートID           |finally       |finally     |                                    |test_server1      |test_credential1|
+    |jobnet1048_finallyのテンプレートID|finally       |finally     |$HOME/tengine_job_env_test.sh 0 job1|test_server1      |test_credential1|
+   
+   
+    もし "実行中のジョブ一覧画面"を表示する
+    ならば "実行ジョブ一覧画面"が表示されていること
+    かつ "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID                  |ジョブネット名|説明      |ステータス|操作       |
+    |jobnet1048の実行時ID|jobnet1048    |jobnet1048|完了      |監視 再実行|
+
+    もし "jobnet1048"の"監視"リンクをクリックする
+    ならば "スクリプトログ"と同じ内容の以下の行が表示されること
+    |ID                          |ジョブ名    |説明        |実行スクリプト                      |接続サーバ名|認証情報名      |ステータス|次のジョブ|操作  |
+    |jobnet1048_2の実行時ID      |jobnet1048_2|jobnet1048_2|                                    |test_server1|test_credential1|完了      |          |再実行|
+    |job1の実行時ID              |job1        |job1        |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了      |          |再実行|
+    |finallyの実行時ID           |finally     |finally     |                                    |test_server1|test_credential1|完了      |          |再実行|
+    |jobnet1048_finallyの実行時ID|finally     |finally     |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了      |          |再実行|
+
+    もし "ジョブ実行一覧画面"を表示する
+    ならば "ジョブ実行一覧画面"が表示されること
+
+    もし "jobnet1048"の"表示"リンクをクリックする
     ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
 
 
@@ -2019,7 +2184,13 @@
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
     かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
-		
+    かつ "スクリプトログ"の"SSH_ID"を確認する
+    かつ "スクリプトログ"の"JOBTRACKER_HOST"を確認する
+    かつ "スクリプトログ"の"NAMENODE_HOST"を確認する
+    かつ "スクリプトログ"の"SECONDARY_NAMENODE_HOST"を確認する
+    かつ "スクリプトログ"の"SLAVE_HOSTS"を確認する
+    かつ "スクリプトログ"の"HOSTS"を確認する
+
     ならば "job1"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1049/jobnet1049_2/job1"であること
     かつ "job1"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
     かつ "job1"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
@@ -2027,7 +2198,13 @@
     かつ "job1"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "job1"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "job1"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-		かつ "job1"の"MM_SERVER_NAME"の値が"test_server1"であること
+    かつ "job1"の"MM_SERVER_NAME""SSH_ID"の値が"test_server1"であること
+    かつ "job1"の"SSH_ID"の値が"/home/kiban/.ssh/id_rsa-tengine"であること
+    かつ "job1"の"JOBTRACKER_HOST"の値が""であること
+    かつ "job1"の"NAMENODE_HOST"の値が""であること
+    かつ "job1"の"SECONDARY_NAMENODE_HOST"の値が""であること
+    かつ "job1"の"SLAVE_HOSTS"の値が"test_server1"であること
+    かつ "job1"の"HOSTS"の値が"test_server1"であること
 		
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
@@ -2117,6 +2294,12 @@
 # TODO 未実装。対応時期の確認が必要。
     かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
     かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
+    かつ "スクリプトログ"の"SSH_ID"を確認する
+    かつ "スクリプトログ"の"JOBTRACKER_HOST"を確認する
+    かつ "スクリプトログ"の"NAMENODE_HOST"を確認する
+    かつ "スクリプトログ"の"SECONDARY_NAMENODE_HOST"を確認する
+    かつ "スクリプトログ"の"SLAVE_HOSTS"を確認する
+    かつ "スクリプトログ"の"HOSTS"を確認する
 		
     ならば "jobnet1049_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1049_failure/jobnet1049_2/finally/jobnet1049_finally"であること
     かつ "jobnet1049_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
@@ -2125,7 +2308,13 @@
     かつ "jobnet1049_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1049_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
     かつ "jobnet1049_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-		かつ "jobnet1049_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
+    かつ "jobnet1049_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
+    かつ "jobnet1049_finally"の"SSH_ID"の値が"/home/kiban/.ssh/id_rsa-tengine"であること
+    かつ "jobnet1049_finally"の"JOBTRACKER_HOST"の値が""であること
+    かつ "jobnet1049_finally"の"NAMENODE_HOST"の値が""であること
+    かつ "jobnet1049_finally"の"SECONDARY_NAMENODE_HOST"の値が""であること
+    かつ "jobnet1049_finally"の"SLAVE_HOSTS"の値が"test_server1"であること
+    かつ "jobnet1049_finally"の"HOSTS"の値が"test_server1"であること
 		
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること

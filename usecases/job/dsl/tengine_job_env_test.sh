@@ -47,6 +47,24 @@ echo "`date` <$$> $2 MM_FAILED_JOB_ANCESTOR_IDS: $MM_FAILED_JOB_ANCESTOR_IDS" >>
 # MM_SERVER_NAME : 仮想サーバ名
 echo "`date` <$$> $2 MM_SERVER_NAME: $MM_SERVER_NAME" >> $LOGFILE
 
+# SSH_ID ジョブ実行サーバがssh接続に用いる秘密鍵のパスが渡される。現在は /home/kiban/.ssh/id_rsa-tengineが渡される
+echo "`date` <$$> $2 SSH_ID: $SSH_ID" >> $LOGFILE
+
+#JOBTRACKER_HOST JobTrackerのホスト名。仮想サーバー名 "rac1-ZPPPS001M001" を必ず渡している
+echo "`date` <$$> $2 JOBTRACKER_HOST: $JOBTRACKER_HOST" >> $LOGFILE
+
+#NAMENODE_HOST NAMENODEのホスト名。仮想サーバー名 "rac1-ZPPPS001M001" を必ず渡している
+echo "`date` <$$> $2 NAMENODE_HOST: $NAMENODE_HOST" >> $LOGFILE
+
+#SECONDARY_NAMENODE_HOST SecondaryNameNodeのホスト名。SecondaryNameNodeを立ち上げない場合は渡さない。 仮想サーバー名 "rac1-ZPPPS001S002" を必ず渡している
+echo "`date` <$$> $2 SECONDARY_NAMENODE_HOST: $SECONDARY_NAMENODE_HOST" >> $LOGFILE
+
+#SLAVE_HOSTS rac1-ZPPPS001M001, rac1-ZPPPS001S002以外のホスト名をカンマ区切りで渡す
+echo "`date` <$$> $2 SLAVE_HOSTS: $SLAVE_HOSTS" >> $LOGFILE
+
+#HOSTS 全てのホスト名をカンマ区切りで渡す
+echo "`date` <$$> $2 HOSTS: $HOSTS" >> $LOGFILE
+
 
 # 実行スケジュールに設定された環境変数
 # ※ スクリプトの第3引数以降に指定した名称の変数を出力します。
