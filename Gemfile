@@ -14,15 +14,15 @@ gem "selectable_attr", "~> 0.3.14"
 gem "selectable_attr_rails", "~> 0.3.14"
 
 gem "mongoid", "~> 2.3.3"
-gem "mongo", "~> 1.4.0"
-gem "bson_ext", "~> 1.4.0"
+gem "mongo", "~> 1.5.2"
+gem "bson_ext", "~> 1.5.2"
 
 gem "kaminari", "~> 0.12.4"
 
 gem "tengine_event"   , "~> 0.4.1"
 gem "tengine_core"    , "~> 0.5.4"
 gem "tengine_resource", "~> 0.5.4"
-gem "tengine_job"     , "~> 0.5.8"
+gem "tengine_job"     , "~> 0.6.2"
 
 gem "wakame-adapters-tengine", "~> 0.0.0"
 
