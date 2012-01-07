@@ -29,6 +29,8 @@ class Tengine::Core::EventIgnitionsController < ApplicationController
 
   def fire
     @core_event = Tengine::Core::Event.new(params[:event])
+    @core_event.key = nil if @core_event.key.blank?
+    @core_event.key ||= Tengine::Event.uuid_gen.generate
     if @core_event.valid?
       begin
         event = params[:event]

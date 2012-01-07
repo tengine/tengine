@@ -21,23 +21,50 @@ describe Tengine::Core::EventIgnitionsController do
 #  end
 
   describe :validation do
-    it "should be valid" do
-      event = {
-        "event_type_name" => "ssss",
-        "key" => "fff",
-      }
-      post 'fire', event: event
-      assigns[:core_event].errors.should be_empty
-      response.should redirect_to(tengine_core_event_ignitions_new_url)
+    context "valid" do
+      it "種別名とイベントキーが指定されている場合" do
+        event = {
+          "event_type_name" => "event_ignitions_controller_test",
+          "key" => "test_key-#{Time.now.iso8601}",
+        }
+        post 'fire', event: event
+        assigns[:core_event].errors.should be_empty
+        response.should redirect_to(tengine_core_event_ignitions_new_url)
+      end
+
+      it "種別名が指定されているが、イベントキーは指定されていない場合" do
+        event = {
+          "event_type_name" => "event_ignitions_controller_test",
+          "key" => "",
+        }
+        post 'fire', event: event
+        assigns[:core_event].errors.should be_empty
+        response.should redirect_to(tengine_core_event_ignitions_new_url)
+      end
     end
-    it "should not be valid" do
-      event = {
-        "event_type_name" => "",
-        "key" => "",
-      }
-      post 'fire', event: event
-      assigns[:core_event].errors.should_not be_empty
-      response.should be_success
+
+    context "invalid" do
+      it "種別名とイベントキーのどちらも指定されていない場合" do
+        event = {
+          "event_type_name" => "",
+          "key" => "",
+        }
+        post 'fire', event: event
+        assigns[:core_event].errors.should_not be_empty
+        response.should be_success
+      end
+
+
+      it "イベントキーは指定されているが、種別名が指定されていない場合" do
+        event = {
+          "event_type_name" => "",
+          "key" => "test_key-#{Time.now.iso8601}",
+        }
+        post 'fire', event: event
+        assigns[:core_event].errors.should_not be_empty
+        response.should be_success
+      end
     end
+
   end
 end
