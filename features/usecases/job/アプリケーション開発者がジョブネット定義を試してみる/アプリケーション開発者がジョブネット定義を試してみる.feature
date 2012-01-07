@@ -2264,10 +2264,49 @@
   シナリオ: [正常系]expansionされるジョブネット内で、expansion元のジョブネットをexpansionで指定して循環したジョブを読み込ませてみる
     #MM1の頃の仕様と合わせるべきだが、TengineでどのようにMM1の頃の仕様を表現するかは未決定。対応時期も未定のため、featureは作成していません
 
+  # ./usecases/job/dsl/1054_preparation_check.rb
+  #  -------------------
+  # # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  # require "socket" 
+  # 
+  # jobnet("rjn1054", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   boot_jobs("j1")
+  #   job("j1", "$HOME/preparation.sh", :to => "j2", :preparation => proc{ "export IP_MESSAGE=#{IPSocket::getaddress(Socket::gethostname)}_j1"})
+  #   job("j2", "$HOME/preparation.sh", :to => "j3")
+  #   job("j3", "$HOME/preparation.sh", :to => "j4", :preparation => proc{ "export IP_MESSAGE=#{IPSocket::getaddress(Socket::gethostname)}_j3"})
+  #   job("j4", "$HOME/preparation.sh")
+  # end
+  #  -------------------
+  @success
+  @1054
+  シナリオ: [正常系]1054_ジョブの動的な事前実行コマンドを求める:preparationオプションを試してみる
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1054_preparation_check.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    
+    もし ジョブネット"rjn1054"を実行する
+    かつ ジョブネット"rjn1054"が完了することを確認する
+    
+    ならば ジョブネット"/rjn1054" のステータスが正常終了であること
+    かつ ジョブ"/rjn1054/j1" のステータスが正常終了であること
+    かつ ジョブ"/rjn1054/j2" のステータスが正常終了であること
+    かつ ジョブ"/rjn1054/j3" のステータスが正常終了であること
+    かつ ジョブ"/rjn1054/j4" のステータスが正常終了であること
+
+    もし IPアドレスを確認するために"ifconfig"コマンドを実行する
+
+    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "preparation /rjn1054/j1 #{IP}_j1"と"スクリプトログ"に出力されていること
+    かつ "preparation /rjn1054/j2"と"スクリプトログ"に出力されており、"preparation /rjn1054/j1 #{IP}_j1"の後であること
+    ならば "preparation /rjn1054/j3 #{IP}_j3"と"スクリプトログ"に出力されており、"preparation /rjn1054/j2"の後であること
+    かつ ""preparation /rjn1054/j4"と"スクリプトログ"に出力されており、"preparation /rjn1054/j3 #{IP}_j3"の後であること
+
 
   # ./usecases/job/dsl/1060_jobnet_directory
   #
-	@manual
+  @manual
   @1060
   シナリオ: [正常系]1060_ディレクトリ構成の読込_を試してみる
 
