@@ -53,7 +53,8 @@
     |ID|ジョブネット名|説明      |開始日時|終了日時|ステータス|操作       |
     |  |jobnet1001    |jobnet1001|        |        |正常終了  |監視 再実行|
 
+    # 強制停止したプロセスの復旧を行う(PIDファイルを削除してプロセスの起動を行う)
     もし  強制停止を行ったTengineコアプロセスのPIDファイルを削除する
     かつ "TengineコアプロセスC"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsl/1001_one_job_in_jobnet.rb --process-daemon"で起動している
     かつ "TengineコアプロセスC"のPIDを確認する
-    ならば "TengineコアプロセスC"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
+    ならば "TengineコアプロセスC"が起動していることをPIDを用いて"ps -ef | grep PID | grep -v grep"というコマンドで確認できること
