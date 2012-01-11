@@ -221,7 +221,7 @@ GEM
       amqp (~> 0.8.0)
       tengine_support (>= 0.3.24)
       uuid (~> 2.3.4)
-    tengine_job (0.6.6)
+    tengine_job (0.6.7)
       tengine_core (~> 0.5.10)
       tengine_resource (~> 0.5.4)
       tengine_support (~> 0.3.12)
