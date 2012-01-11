@@ -6586,7 +6586,7 @@ language:ja
     ならば "ジョブネット実行設定画面"を表示していること
 
     もし "ジョブネット実行設定画面"を表示する
-    かつ "事前実行コマンド"に"export J4_FAIL=true && export JN0005_F1_FAIL=true"と入力する
+    かつ "事前実行コマンド"に"export J4_FAIL=true && export JN0005_F1_FAIL=true && export JN0005_FIF_FAIL=true"と入力する
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
@@ -6680,7 +6680,7 @@ language:ja
     |  |    jn0005_f2   |jn_0005_f2 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
     |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
-    |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
