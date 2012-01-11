@@ -2601,8 +2601,11 @@
 
 
 #--start~running--
-#ここから下のDSLを実行する場合は、features/script/tengine_job_agebt_runをジョブ実行サーバのジョブ実行ユーザの優先度が最も高いパスに配置します
-#ジョブ実行サーバのジョブ実行ユーザの~/bash_profileに~/binあたりをパスに追加して、ファイルを配置するのが無難です
+#
+# ここから下のDSLを実行する場合は、
+# 以下のスクリプトをジョブ実行環境に配置し、配置したパスをtenginedを実行するユーザの環境変数MM_RUNNER_PATHに設定して下さい
+# https://github.com/tengine/tengine_console/blob/develop/features/script/tengine_job_agent_run_proxy
+#
 #retry1
 
   @3032
