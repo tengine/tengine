@@ -1066,7 +1066,7 @@
     ならば "ジョブネット実行設定画面"を表示していること
 
     もし "ジョブネット実行設定画面"を表示する
-    かつ "事前実行コマンド"に"export J2_SLEEP=60 && export J42_SLEEP=60 && export J43_SLEEP=60 && export J42_FAIL=true"と入力する
+    かつ "事前実行コマンド"に"export J2_SLEEP=60 && export J42_SLEEP=40 && export J43_SLEEP=60 && export J42_FAIL=true"と入力する
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
 
