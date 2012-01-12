@@ -1,6 +1,6 @@
 #language:ja
 機能: アプリケーション運用者がジョブを強制停止する
-  
+
 
   ジョブがおかしくなった場合や、誤ったジョブを実行してしまった場合、
   アプリケーション運用者
@@ -707,8 +707,8 @@
     |  |      jn22_f|jn22_f |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  finally   |finally|                               |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |    jn_2f   |jn_2f  |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
-    |  |finally     |finally|                               |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |  
-    |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |  
+    |  |finally     |finally|                               |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+    |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
 
     もし 80秒間待機する
     ならば 以下の行が表示されていること
@@ -731,8 +731,8 @@
     |  |      jn22_f|jn22_f |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |  finally   |finally|                               |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |    jn_2f   |jn_2f  |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
-    |  |finally     |finally|                               |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|  
-    |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|  
+    |  |finally     |finally|                               |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
+    |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
 
 
     もし "実行ジョブ一覧画面"を表示する
@@ -796,21 +796,21 @@
     かつ 実行ジョブ"jn0004"のエッジ"next!/jn0004/j1"を"e2"と呼ぶことにする
 
     # prev!/jn0004/j2 => e3
-    かつ 実行ジョブ"jn0004"のエッジ"prev!/jn0004/j1"を"e3"と呼ぶことにする
+    かつ 実行ジョブ"jn0004"のエッジ"prev!/jn0004/j2"を"e3"と呼ぶことにする
     # /jn0004/j2 => j2
     もし 実行ジョブ"jn0004"のジョブ"/jn0004/j2"を"j2"と呼ぶことにする
     # next!/jn0004/j2 => e4
     かつ 実行ジョブ"jn0004"のエッジ"next!/jn0004/j2"を"e4"と呼ぶことにする
 
     # prev!/jn0004/j3 => e5
-    かつ 実行ジョブ"jn0004"のエッジ"prev!/jn0004/j1"を"e5"と呼ぶことにする
+    かつ 実行ジョブ"jn0004"のエッジ"prev!/jn0004/j3"を"e5"と呼ぶことにする
     # /jn0004/j3 => j3
     もし 実行ジョブ"jn0004"のジョブ"/jn0004/j3"を"j3"と呼ぶことにする
-    # next!/jn0004/j2 => e6
+    # next!/jn0004/j3 => e6
     かつ 実行ジョブ"jn0004"のエッジ"next!/jn0004/j3"を"e6"と呼ぶことにする
 
     # prev!/jn0004/j4 => e7
-    かつ 実行ジョブ"jn0004"のエッジ"prev!/jn0004/j1"を"e7"と呼ぶことにする
+    かつ 実行ジョブ"jn0004"のエッジ"prev!/jn0004/j4"を"e7"と呼ぶことにする
     # /jn0004/j4 => j4
     もし 実行ジョブ"jn0004"のジョブ"/jn0004/j4"を"j4"と呼ぶことにする
     # next!/jn0004/j4 => e8
@@ -1181,8 +1181,8 @@
 
 
   # このシナリオは、バグ [タイムアウト強制停止が発生した場合エラー終了しているジョブのステータスが全てタイムアウト強制停止済みになってしまう]
-	# https://www.pivotaltracker.com/story/show/22618833
-	# のテストを行うために追加しました。
+        # https://www.pivotaltracker.com/story/show/22618833
+        # のテストを行うために追加しました。
   @5015
   シナリオ: [正常系]エラー終了しているジョブがある状態でタイムアウト強制停止が発生
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
@@ -1198,7 +1198,7 @@
     ならば "ジョブネット実行設定画面"を表示していること
 
     もし "ジョブネット実行設定画面"を表示する
-		かつ "事前実行コマンド"に"export J2_FAIL='true' && export J42_SLEEP=120 && export J43_FAIL='true'"と入力する
+                かつ "事前実行コマンド"に"export J2_FAIL='true' && export J42_SLEEP=120 && export J43_FAIL='true'"と入力する
     かつ "強制停止設定"に"1"と入力する
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
