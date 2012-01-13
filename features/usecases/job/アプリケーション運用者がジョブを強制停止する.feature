@@ -435,7 +435,7 @@
 
 
   @3008
-  シナリオ: [正常系]retry1のj4を実行中にj4を強制停止
+  シナリオ: [正常系]join後のジョブを実行中にジョブを指定して強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブ一覧画面"を表示する
@@ -491,7 +491,7 @@
 
 
   @3009
-  シナリオ: [正常系]retry1のj4を実行中にルートジョブネットを強制停止
+  シナリオ: [正常系]join後のジョブを実行中にルートジョブネットを強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブ一覧画面"を表示する
@@ -552,7 +552,7 @@
 
 
   @3010
-  シナリオ: [正常系]retry1のjn0004_fを実行中にjn0004_fを強制停止
+  シナリオ: [正常系]代替ジョブネットを実行中に代替ジョブネット内のジョブ指定して強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブ一覧画面"を表示する
@@ -607,7 +607,7 @@
     |  |jn0004        |jn0004|        |        |強制停止済|監視 再実行|
 
   @3011
-  シナリオ: [正常系]retry1のjn0004_fを実行中にfinallyを強制停止
+  シナリオ: [正常系]代替ジョブネットを実行中に代替ジョブネットを指定して強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブ一覧画面"を表示する
@@ -662,7 +662,7 @@
     |  |jn0004        |jn0004|        |        |強制停止済|監視 再実行|
 
   @3012
-  シナリオ: [正常系]retry1のjn0004_fを実行中にjn0004_fを強制停止
+  シナリオ: [正常系]代替ジョブネットを実行中にルートジョブネットを指定して強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブ一覧画面"を表示する
