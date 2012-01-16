@@ -15,7 +15,7 @@ class Tengine::Test::Ssh
 
   validates :command, :presence => true
 
-  after_create :execute_command
+  before_create :execute_command
 
   def execute_command
     Timeout.timeout(self.timeout) do
@@ -32,10 +32,8 @@ class Tengine::Test::Ssh
         end
       end
     end
-    save!
   rescue => e
     self.error_message = "[#{e.class}] #{e.message}"
-    save!
   end
 
 end
