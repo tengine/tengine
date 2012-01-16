@@ -11,17 +11,11 @@
     </div>
   <% end %>
 
+  <%= hidden_field_tag :from_index, "true" if @from_index  %>
+
   <div class="field">
     <%= f.label :code %><br />
-    <%= f.text_field :code %>
-  </div>
-  <div class="field">
-    <%= f.label :result %><br />
-    <%= f.text_field :result %>
-  </div>
-  <div class="field">
-    <%= f.label :message %><br />
-    <%= f.text_field :message %>
+    <%= f.text_area :code, :cols => 80, :rows => 10 %>
   </div>
   <div class="actions">
     <%= f.submit %>
