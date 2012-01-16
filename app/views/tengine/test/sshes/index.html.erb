@@ -8,8 +8,8 @@
 
 <table>
   <tr>
-    <th><%= Tengine::Test::Ssh.human_attribute_name(:host) %></th>
     <th><%= Tengine::Test::Ssh.human_attribute_name(:exec_type) %></th>
+    <th><%= Tengine::Test::Ssh.human_attribute_name(:host) %></th>
     <th><%= Tengine::Test::Ssh.human_attribute_name(:user) %></th>
     <th><%= Tengine::Test::Ssh.human_attribute_name(:options) %></th>
     <th><%= Tengine::Test::Ssh.human_attribute_name(:timeout) %></th>
@@ -24,8 +24,8 @@
 
 <% @sshes.each do |ssh| %>
   <tr class="<%= cycle("even", "odd") %>" >
-    <td><%= ssh.host %></td>
     <td><%= ssh.exec_type %></td>
+    <td><%= ssh.host %></td>
     <td><%= ssh.user %></td>
     <td><pre style="max-height:20em; overflow-y:auto;"><%= ssh.options_yaml %></pre></td>
     <td><%= ssh.exec_type %></td>
