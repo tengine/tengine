@@ -1,0 +1,43 @@
+<h1><%= page_title Tengine::Test::Ssh, :list %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th><%= Tengine::Test::Ssh.human_attribute_name(:host) %></th>
+    <th><%= Tengine::Test::Ssh.human_attribute_name(:user) %></th>
+    <th><%= Tengine::Test::Ssh.human_attribute_name(:options) %></th>
+    <th><%= Tengine::Test::Ssh.human_attribute_name(:command) %></th>
+    <th><%= Tengine::Test::Ssh.human_attribute_name(:timeout) %></th>
+    <th><%= Tengine::Test::Ssh.human_attribute_name(:stdout) %></th>
+    <th><%= Tengine::Test::Ssh.human_attribute_name(:stderr) %></th>
+    <th><%= Tengine::Test::Ssh.human_attribute_name(:error_message) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sshes.each do |ssh| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= ssh.host %></td>
+    <td><%= ssh.user %></td>
+    <td><pre><%= ssh.options_yaml %></pre></td>
+    <td><%= ssh.command %></td>
+    <td><%= ssh.timeout %></td>
+    <td><%= ssh.stdout %></td>
+    <td><%= ssh.stderr %></td>
+    <td><%= ssh.error_message %></td>
+    <td><%= link_to_show ssh %></td>
+    <td><%= link_to_edit edit_tengine_test_ssh_path(ssh) %></td>
+    <td><%= link_to_destroy ssh, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= paginate @sshes %>
+
+<br />
+
+<%= link_to_new Tengine::Test::Ssh, new_tengine_test_ssh_path %>
