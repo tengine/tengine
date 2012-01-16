@@ -2,7 +2,9 @@ class Tengine::Test::SshesController < ApplicationController
   # GET /tengine/test/sshes
   # GET /tengine/test/sshes.json
   def index
-    @sshes = Tengine::Test::Ssh.all(:sort => [[:_id]]).page(params[:page])
+    @ssh = Tengine::Test::Ssh.new
+
+    @sshes = Tengine::Test::Ssh.all(:sort => [[:created_at, :desc]]).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -44,7 +46,11 @@ class Tengine::Test::SshesController < ApplicationController
 
     respond_to do |format|
       if @ssh.save
-        format.html { redirect_to @ssh, notice: successfully_created(@ssh) }
+        if params[:from_index]
+          format.html { redirect_to tengine_test_sshes_url, notice: successfully_created(@ssh) }
+        else
+          format.html { redirect_to @ssh, notice: successfully_created(@ssh) }
+        end
         format.json { render json: @ssh, status: :created, location: @ssh }
       else
         format.html { render action: "new" }

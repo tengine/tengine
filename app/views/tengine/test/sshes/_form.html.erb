@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <%= hidden_field_tag :from_index, "true" if @from_index  %>
+
   <div class="field">
     <%= f.label :host %><br />
     <%= f.text_field :host %>

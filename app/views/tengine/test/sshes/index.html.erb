@@ -2,6 +2,10 @@
 
 <p id="notice"><%= notice %></p>
 
+<% @from_index = true -%>
+<%= render 'form' %>
+
+
 <table>
   <tr>
     <th><%= Tengine::Test::Ssh.human_attribute_name(:host) %></th>
