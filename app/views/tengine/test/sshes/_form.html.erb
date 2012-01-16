@@ -16,6 +16,10 @@
     <%= f.text_field :host %>
   </div>
   <div class="field">
+    <%= f.label :local %><br />
+    <%= f.check_box :local %>
+  </div>
+  <div class="field">
     <%= f.label :user %><br />
     <%= f.text_field :user %>
   </div>
@@ -24,12 +28,12 @@
     <%= f.text_area :options_yaml, :rows => 5, :cols => 80 %>
   </div>
   <div class="field">
-    <%= f.label :command %><br />
-    <%= f.text_area :command, :rows => 5, :cols => 80 %>
-  </div>
-  <div class="field">
     <%= f.label :timeout %><br />
     <%= f.number_field :timeout %>
+  </div>
+  <div class="field">
+    <%= f.label :command %><br />
+    <%= f.text_area :command, :rows => 5, :cols => 80 %>
   </div>
   <div class="actions">
     <%= f.submit %>

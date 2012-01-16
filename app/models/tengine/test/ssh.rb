@@ -1,14 +1,13 @@
-require 'net/ssh'
-require 'timeout'
 class Tengine::Test::Ssh
   include Mongoid::Document
   include Mongoid::Timestamps
   field :host, :type => String, :default => "localhost"
+  field :local, :type => Boolean
   field :user, :type => String, :default => "goku"
   field :options, :type => Hash, :default => {:password => "dragonball"}
   map_yaml_accessor :options
-  field :command, :type => String
   field :timeout, :type => Integer, :default => 300 # seconds
+  field :command, :type => String
   field :stdout, :type => String, :default => ""
   field :stderr, :type => String, :default => ""
   field :error_message, :type => String
@@ -35,5 +34,4 @@ class Tengine::Test::Ssh
   rescue => e
     self.error_message = "[#{e.class}] #{e.message}"
   end
-
 end

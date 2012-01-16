@@ -5,6 +5,7 @@
 <table>
   <tr>
     <th><%= Tengine::Test::Ssh.human_attribute_name(:host) %></th>
+    <th><%= Tengine::Test::Ssh.human_attribute_name(:local) %></th>
     <th><%= Tengine::Test::Ssh.human_attribute_name(:user) %></th>
     <th><%= Tengine::Test::Ssh.human_attribute_name(:options) %></th>
     <th><%= Tengine::Test::Ssh.human_attribute_name(:timeout) %></th>
@@ -20,13 +21,14 @@
 <% @sshes.each do |ssh| %>
   <tr class="<%= cycle("even", "odd") %>" >
     <td><%= ssh.host %></td>
+    <td><%= ssh.local %></td>
     <td><%= ssh.user %></td>
     <td><pre style="max-height:20em; overflow-y:auto;"><%= ssh.options_yaml %></pre></td>
     <td><%= ssh.timeout %></td>
-    <td><pre style="max-height:20em; overflow-y:auto;"><code><%= ssh.command %></code></pre></td>
-    <td><pre style="max-height:20em; overflow-y:auto;"><code><%= ssh.stdout %></code></pre></td>
-    <td><pre style="max-height:20em; overflow-y:auto;"><code><%= ssh.stderr %></code></pre></td>
-    <td><pre style="max-height:20em; overflow-y:auto;"><code><%= ssh.error_message %></code></pre></td>
+    <td><pre style="max-height:20em; overflow-y:auto;"><%= ssh.command %></pre></td>
+    <td><pre style="max-height:20em; overflow-y:auto;"><%= ssh.stdout %></pre></td>
+    <td><pre style="max-height:20em; overflow-y:auto;"><%= ssh.stderr %></pre></td>
+    <td><pre style="max-height:20em; overflow-y:auto;"><%= ssh.error_message %></pre></td>
     <td><%= link_to_show ssh %></td>
     <td><%= link_to_edit edit_tengine_test_ssh_path(ssh) %></td>
     <td><%= link_to_destroy ssh, confirm: 'Are you sure?', method: :delete %></td>

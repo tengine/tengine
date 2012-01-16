@@ -3,10 +3,11 @@
 FactoryGirl.define do
   factory :"tengine/test/ssh" do
     host("MyString")
+    local(false)
     user("MyString")
     options({"a"=>"1", "b"=>"2"})
-    command("MyString")
     timeout(1)
+    command("MyString")
     stdout("MyString")
     stderr("MyString")
     error_message("MyString")

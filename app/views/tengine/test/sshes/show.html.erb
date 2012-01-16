@@ -8,6 +8,11 @@
 </p>
 
 <p>
+  <b><%= Tengine::Test::Ssh.human_attribute_name(:local) %>:</b>
+  <%= @ssh.local %>
+</p>
+
+<p>
   <b><%= Tengine::Test::Ssh.human_attribute_name(:user) %>:</b>
   <%= @ssh.user %>
 </p>
@@ -24,23 +29,22 @@
 
 <p>
   <b><%= Tengine::Test::Ssh.human_attribute_name(:command) %>:</b>
-  <pre><code><%= @ssh.command %></code></pre>
+  <pre><%= @ssh.command %></pre>
 </p>
 
 <p>
   <b><%= Tengine::Test::Ssh.human_attribute_name(:stdout) %>:</b>
-  <pre><code><%= @ssh.stdout %></code></pre>
-</code></pre>
+  <pre><%= @ssh.stdout %></pre>
 </p>
 
 <p>
   <b><%= Tengine::Test::Ssh.human_attribute_name(:stderr) %>:</b>
-  <pre><code><%= @ssh.stderr %></code></pre>
+  <pre><%= @ssh.stderr %></pre>
 </p>
 
 <p>
   <b><%= Tengine::Test::Ssh.human_attribute_name(:error_message) %>:</b>
-  <pre><code><%= @ssh.error_message %></code></pre>
+  <pre><%= @ssh.error_message %></pre>
 </p>
 
 
