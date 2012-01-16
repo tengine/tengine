@@ -1,0 +1,22 @@
+<h1><%= page_title Tengine::Test::Script, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Test::Script.human_attribute_name(:code) %>:</b>
+  <%= @script.code %>
+</p>
+
+<p>
+  <b><%= Tengine::Test::Script.human_attribute_name(:result) %>:</b>
+  <%= @script.result %>
+</p>
+
+<p>
+  <b><%= Tengine::Test::Script.human_attribute_name(:message) %>:</b>
+  <%= @script.message %>
+</p>
+
+
+<%= link_to_edit edit_tengine_test_script_path(@script) %> |
+<%= link_to_back_list tengine_test_scripts_path %>

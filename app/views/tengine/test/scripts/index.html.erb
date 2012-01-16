@@ -1,0 +1,33 @@
+<h1><%= page_title Tengine::Test::Script, :list %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th><%= Tengine::Test::Script.human_attribute_name(:code) %></th>
+    <th><%= Tengine::Test::Script.human_attribute_name(:result) %></th>
+    <th><%= Tengine::Test::Script.human_attribute_name(:message) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @scripts.each do |script| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= script.code %></td>
+    <td><%= script.result %></td>
+    <td><%= script.message %></td>
+    <td><%= link_to_show script %></td>
+    <td><%= link_to_edit edit_tengine_test_script_path(script) %></td>
+    <td><%= link_to_destroy script, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= paginate @scripts %>
+
+<br />
+
+<%= link_to_new Tengine::Test::Script, new_tengine_test_script_path %>

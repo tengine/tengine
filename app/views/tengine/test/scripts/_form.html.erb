@@ -1,0 +1,29 @@
+<%= form_for(@script, as:"script") do |f| %>
+  <% if @script.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= I18n.t('activerecord.errors.template.header', :count => @script.errors.size, :model => @script.class.human_name) %></h2>
+
+      <ul>
+      <% @script.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %><br />
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :result %><br />
+    <%= f.text_field :result %>
+  </div>
+  <div class="field">
+    <%= f.label :message %><br />
+    <%= f.text_field :message %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
