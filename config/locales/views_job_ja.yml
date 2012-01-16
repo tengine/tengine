@@ -20,6 +20,15 @@ ja:
             destroy: "本当に強制停止しますか？"
           links:
             events: "メッセージ一覧"
+        vertecs:
+          title: "ジョブネット詳細"
+          links:
+            events: "メッセージ一覧"
+          form:
+            refresh_interval: "画面の更新間隔"
+            submit: "更新"
+          confirm:
+            destroy: "本当に強制停止しますか？"
       jobnet_actuals:
         edit:
           title: "ジョブステータス変更"

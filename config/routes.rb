@@ -24,6 +24,7 @@ TengineConsole::Application.routes.draw do
     namespace :job do
       resources :root_jobnet_actuals do
         resources :jobnet_actuals
+        member{ get :vertecs }
       end
     end
   end

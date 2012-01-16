@@ -45,16 +45,10 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     end
   end
 
-  # GET /tengine/job/root_jobnet_actuals/1
-  # GET /tengine/job/root_jobnet_actuals/1.json
-  def show
+  private
+  def show_impl(&block)
     @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:id])
-    @jobnet_actuals = []
-    visitor = Tengine::Job::Vertex::AllVisitor.new do |vertex|
-                if vertex.instance_of?(Tengine::Job::JobnetActual)
-                  @jobnet_actuals << [vertex, (vertex.ancestors.size - 1)]
-                end
-              end
+    visitor = Tengine::Job::Vertex::AllVisitor.new(&block)
     @root_jobnet_actual.accept_visitor(visitor)
 
     @refresher = OpenStruct.new
@@ -81,6 +75,28 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
       format.json { render json: @root_jobnet_actual }
     end
   end
+
+
+  public
+
+  # GET /tengine/job/root_jobnet_actuals/1
+  # GET /tengine/job/root_jobnet_actuals/1.json
+  def show
+    @jobnet_actuals = []
+    show_impl do |vertex|
+      if vertex.instance_of?(Tengine::Job::JobnetActual)
+        @jobnet_actuals << [vertex, (vertex.ancestors.size - 1)]
+      end
+    end
+  end
+
+  def vertecs
+    @vertecs = []
+    show_impl do |vertex|
+      @vertecs << vertex
+    end
+  end
+
 
   # GET /tengine/job/root_jobnet_actuals/new
   # GET /tengine/job/root_jobnet_actuals/new.json
