@@ -66,4 +66,9 @@ module TengineConsole
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
   end
+
+  def self.test_console?
+    ENV['TEST_CONSOLE'] =~ /true|on/i
+  end
+
 end
