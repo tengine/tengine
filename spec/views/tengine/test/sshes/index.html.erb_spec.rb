@@ -5,7 +5,7 @@ describe "tengine/test/sshes/index.html.erb" do
     mock_pagination(assign(:sshes, [
       stub_model(Tengine::Test::Ssh,
         :host => "Host",
-        :local => false,
+        :exec_type => "Exec Type",
         :user => "User",
         :options => {"a"=>"1", "b"=>"2"},
         :timeout => 1,
@@ -16,7 +16,7 @@ describe "tengine/test/sshes/index.html.erb" do
       ),
       stub_model(Tengine::Test::Ssh,
         :host => "Host",
-        :local => false,
+        :exec_type => "Exec Type",
         :user => "User",
         :options => {"a"=>"1", "b"=>"2"},
         :timeout => 1,
@@ -32,7 +32,7 @@ describe "tengine/test/sshes/index.html.erb" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "Host".to_s, :count => 2
-    assert_select "tr>td", :text => false.to_s, :count => 2
+    assert_select "tr>td", :text => "Exec Type".to_s, :count => 2
     assert_select "tr>td", :text => "User".to_s, :count => 2
     assert_select "tr>td>pre", :text => CGI.escapeHTML(YAML.dump({"a"=>"1", "b"=>"2"})), :count => 2
     assert_select "tr>td", :text => 1.to_s, :count => 2

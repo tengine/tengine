@@ -16,8 +16,8 @@
     <%= f.text_field :host %>
   </div>
   <div class="field">
-    <%= f.label :local %><br />
-    <%= f.check_box :local %>
+    <%= f.label :exec_type %><br />
+    <%= f.select :exec_type, %w[ssh spawn system backquote] %>
   </div>
   <div class="field">
     <%= f.label :user %><br />

@@ -4,7 +4,7 @@ describe "tengine/test/sshes/new.html.erb" do
   before(:each) do
     assign(:ssh, stub_model(Tengine::Test::Ssh,
       :host => "MyString",
-      :local => false,
+      :exec_type => "MyString",
       :user => "MyString",
       :options => {"a"=>"1", "b"=>"2"},
       :timeout => 1,
@@ -21,7 +21,7 @@ describe "tengine/test/sshes/new.html.erb" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => tengine_test_sshes_path, :method => "post" do
       assert_select "input#ssh_host", :name => "ssh[host]"
-      assert_select "input#ssh_local", :name => "ssh[local]"
+      assert_select "input#ssh_exec_type", :name => "ssh[exec_type]"
       assert_select "input#ssh_user", :name => "ssh[user]"
       assert_select "textarea#ssh_options_yaml", :name => "ssh[options_yaml]"
       assert_select "input#ssh_timeout", :name => "ssh[timeout]"
