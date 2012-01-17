@@ -51,12 +51,12 @@ class Tengine::Test::Ssh
 
   def execute_by_system
     result = system(command, options || {})
-    self.error_message = "system(...) returns #{result.inspect}\nstatus:#{$?.inspect}"
+    self.error_message = "returns #{result.inspect} exitstatus: #{$?.exitstatus.inspect} \nstatus:#{$?.inspect}"
   end
 
   def execute_by_backquote
     self.stdout = `#{command}`
-    self.error_message = "status:#{$?.inspect}"
+    self.error_message = "exitstatus: #{$?.exitstatus.inspect} #{$?.inspect}"
   end
 
 end
