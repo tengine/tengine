@@ -1,6 +1,20 @@
 <h1><%= page_title Tengine::Test::Script, :list %></h1>
 
+<% content_for :end_of_head do -%>
+<style>
+pre {
+  max-height:20em;
+  max-width: 80em;
+  overflow-x:auto;
+  overflow-y:auto;
+}
+</style>
+<% end -%>
+
 <p id="notice"><%= notice %></p>
+
+<% @from_index = true -%>
+<%= render 'form' %>
 
 <table>
   <tr>
@@ -16,11 +30,11 @@
 
 <% @scripts.each do |script| %>
   <tr class="<%= cycle("even", "odd") %>" >
-    <td><%= script.kind %></td>
-    <td><%= script.code %></td>
+    <td><%= script.kind_name %></td>
+    <td><pre><%= script.code %></pre></td>
     <td><pre><%= script.options_yaml %></pre></td>
     <td><%= script.timeout %></td>
-    <td><pre><%= script.messages_yaml %></pre></td>
+    <td><pre><%= script.messages_yaml.gsub(/\n\n/, "\n") %></pre></td>
     <td><%= link_to_show script %></td>
     <td><%= link_to_edit edit_tengine_test_script_path(script) %></td>
     <td><%= link_to_destroy script, confirm: 'Are you sure?', method: :delete %></td>

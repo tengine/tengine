@@ -2,7 +2,9 @@ class Tengine::Test::ScriptsController < ApplicationController
   # GET /tengine/test/scripts
   # GET /tengine/test/scripts.json
   def index
-    @scripts = Tengine::Test::Script.all(:sort => [[:_id]]).page(params[:page])
+    @script = Tengine::Test::Script.new
+
+    @scripts = Tengine::Test::Script.all(:sort => [[:created_at, :desc]]).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -44,7 +46,11 @@ class Tengine::Test::ScriptsController < ApplicationController
 
     respond_to do |format|
       if @script.save
-        format.html { redirect_to @script, notice: successfully_created(@script) }
+        if params[:from_index]
+          format.html { redirect_to tengine_test_scripts_url, notice: successfully_created(@script) }
+        else
+          format.html { redirect_to @script, notice: successfully_created(@script) }
+        end
         format.json { render json: @script, status: :created, location: @script }
       else
         format.html { render action: "new" }

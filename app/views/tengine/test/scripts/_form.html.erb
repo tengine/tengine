@@ -11,25 +11,23 @@
     </div>
   <% end %>
 
+  <%= hidden_field_tag :from_index, "true" if @from_index  %>
+
   <div class="field">
     <%= f.label :kind %><br />
-    <%= f.text_field :kind %>
+    <%= f.select :kind %>
   </div>
   <div class="field">
     <%= f.label :code %><br />
-    <%= f.text_field :code %>
+    <%= f.text_area :code, :cols => 80, :rows => 5 %>
   </div>
   <div class="field">
     <%= f.label :options_yaml %><br />
-    <%= f.text_area :options_yaml %>
+    <%= f.text_area :options_yaml, :cols => 80, :rows => 5 %>
   </div>
   <div class="field">
     <%= f.label :timeout %><br />
     <%= f.number_field :timeout %>
-  </div>
-  <div class="field">
-    <%= f.label :messages_yaml %><br />
-    <%= f.text_area :messages_yaml %>
   </div>
   <div class="actions">
     <%= f.submit %>

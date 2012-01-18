@@ -4,12 +4,12 @@
 
 <p>
   <b><%= Tengine::Test::Script.human_attribute_name(:kind) %>:</b>
-  <%= @script.kind %>
+  <%= @script.kind_name %>
 </p>
 
 <p>
   <b><%= Tengine::Test::Script.human_attribute_name(:code) %>:</b>
-  <%= @script.code %>
+  <pre><%= @script.code %></pre>
 </p>
 
 <p>
@@ -24,7 +24,7 @@
 
 <p>
   <b><%= Tengine::Test::Script.human_attribute_name(:messages) %>:</b>
-  <pre><%= @script.messages_yaml %></pre>
+  <pre><%= @script.messages_yaml.gsub(/\n\n/, "\n") %></pre>
 </p>
 
 
