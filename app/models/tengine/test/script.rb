@@ -23,12 +23,13 @@ class Tengine::Test::Script
 
     entry '02', :ssh, 'SSH' do
       def validate(script)
-        script.errors.add(:options, ":host can't be blank") if script.options[:host].blank?
-        script.errors.add(:options, ":user can't be blank") if script.options[:user].blank?
+        opts = (script.options || {}).symbolize_keys
+        script.errors.add(:options, ":host can't be blank") if opts[:host].blank?
+        script.errors.add(:options, ":user can't be blank") if opts[:user].blank?
       end
 
       def execute(script)
-        opts = script.options.dup
+        opts = script.options.symbolize_keys
         host = opts.delete(:host)
         user = opts.delete(:user)
         Net::SSH.start(host, user, opts) do |ssh|
@@ -46,13 +47,13 @@ class Tengine::Test::Script
 
     entry '03', :spawn, 'spawn' do
       def execute(script)
-        script.messages[:pid] = spawn(script.code, script.options || {})
+        script.messages[:pid] = spawn(script.code, (script.options || {}).symbolize_keys)
       end
     end
 
     entry '04', :system, 'system' do
       def execute(script)
-        result = system(script.code, script.options || {})
+        result = system(script.code, (script.options || {}).symbolize_keys)
         script.messages[:result] = result
         script.messages[:exitstatus] = $?.exitstatus.inspect
         script.messages[:status] = $?.inspect

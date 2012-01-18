@@ -14,7 +14,7 @@
 
 <p>
   <b><%= Tengine::Test::Script.human_attribute_name(:options) %>:</b>
-  <pre><%= @script.options_yaml %></pre>
+  <pre><%= @script.options.is_a?(Hash) ? @script.options_yaml : @script.options.inspect %></pre>
 </p>
 
 <p>
