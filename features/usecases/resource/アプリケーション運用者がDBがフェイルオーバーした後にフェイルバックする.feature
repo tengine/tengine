@@ -24,7 +24,9 @@
 # > Mongoid.load!("path/to/your/mongoid.yml")
 # > db = Mongoid.config.database
 # > db.connection.primary
-
+    かつ resource_watchdが動作しているサーバのIPを"resource_watchd_ip"と呼ぶ
+    かつ heartbeat_watchdが動作しているサーバのIPを"heartbeat_watchd_ip"と呼ぶ
+    かつ atdが動作しているサーバのIPを"atd_ip"と呼ぶ
 
 # --------------------------
 
@@ -102,12 +104,63 @@
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
     |physical_server_name_01|run_1_virtual_servers001|virtual_server_uuid_01|仮想サーバを1台起動テストの説明|private_ip_address: 192.168.1.1|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
 
+   かつ tengine_resource_watchdプロセスが起動していることを確認するために"ssh root@#{resource_watchd_ip} command \"ps aux|grep tengine_resource_watchd|grep -v grep\""コマンドを実行する
+   かつ 20秒間待機する
+   ならば tengine_resource_watchdプロセスが起動していること
+
+   かつ tengine_heartbeat_watchdプロセスが起動していることを確認するために"ssh root@#{heartbeat_watchd_ip} command \"ps aux|grep tengine_heartbeat_watchd|grep -v grep\""コマンドを実行する
+   かつ 20秒間待機する
+   ならば tengine_heartbeat_watchdプロセスが起動していること
+
+   もし tengine_atdプロセスが起動していることを確認するために"ssh root@#{atd_ip} command \"ps aux|grep tengine_atd|grep -v grep\""コマンドを実行する
+   かつ 20秒間待機する
+   ならば tengine_atdプロセスが起動していること
+
    もし mongod_pを起動しなおすために"ssh root@#{mongod_p_ip} command \"mongod --replSet tengine_rs --port 27017 --dbpath /home/tengine/mongo_data/replSet/data --logpath /home/tengine/mongo_data/replSet/tengine.log --fork --logappend --rest --journal\""コマンドを実行する
    かつ mongod_pが起動していることを確認するために"ssh root@#{mongod_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
    かつ 20秒間待機する
    かつ mongod_pがSECONDARYになっていることを確認するために"ssh root@#{mongod_p_ip} command \"mongo features/step_definitions/mongodb/status.js"コマンドを実行する
    ならば mongod_pの"stateStr"が"SECONDARY"と表示されていること
    
-   #これでシナリオを終了する
-   #このシナリオの最後の状態は、MongoDBが正しく動く状態となっているため、再度ジョブを流し直す必要はありません
 
+#　DBがダウンしたとしてもtengine_heartbeat_watchdが正常に動作しているか検証する
+
+    もし "仮想サーバ一覧画面"を表示する
+    ならば "仮想サーバ一覧"画面に以下の行が表示されていること
+    |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
+    |physical_server_name_01|run_1_virtual_servers001|virtual_server_uuid_01|仮想サーバ1を1台起動テストの説明|private_ip_address: 192.168.1.1|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+
+    もし"仮想サーバ起動"ボタンをクリックする
+    ならば "仮想サーバ起動"画面が表示されていること
+
+    もし "仮想サーバタイプ"に"virtual_server_spec_uuid_02"を選択する
+    かつ "仮想サーバ名"に"run_virtual_servers"と入力する
+    かつ "物理サーバ名"に"physical_server_name_02"を選択する
+    かつ "仮想サーバイメージ名"に"virtual_server_image_uuid_01"を選択する
+    かつ "仮想サーバタイプ"に"virtual_server_spec_uuid_01"を選択する
+    かつ "起動サーバ数"に1を選択する
+    かつ "説明"に"仮想サーバ2を1台起動テストの説明"と入力する
+    かつ "起動"ボタンをクリックする
+    ならば "仮想サーバ起動結果"画面が表示されること
+    かつ  "仮想サーバ起動結果"画面に以下の表示があること
+    virtual_server_uuid_01
+
+    もし "閉じる"ボタンを押下する
+    ならば "仮想サーバ一覧"画面が表示されていること
+
+    もし "仮想サーバ一覧"画面を表示する
+    ならば "仮想サーバ一覧"画面に以下の行が表示されていること
+    # 仮想サーバ名、説明はつけていないので、空の状態です。
+    # ステータスがstartingになるまで時間がかかります(環境によって異なります)
+    |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
+    |physical_server_name_01|run_1_virtual_servers001|virtual_server_uuid_01|仮想サーバ1を1台起動テストの説明|private_ip_address: 192.168.1.1|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |run_1_virtual_servers002|virtual_server_uuid_01|仮想サーバ2を1台起動テストの説明|private_ip_address: 192.168.1.2|starting|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+
+   もし 120秒間待機する
+   かつ "仮想サーバ一覧"画面を表示する
+    ならば "仮想サーバ一覧"画面に以下の行が表示されていること
+    # 仮想サーバ名、説明はつけていないので、空の状態です。
+    # ステータスがrunningになるまで時間がかかります(環境によって異なります)
+    |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
+    |physical_server_name_01|run_1_virtual_servers001|virtual_server_uuid_01|仮想サーバ1を1台起動テストの説明|private_ip_address: 192.168.1.1|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
+    |                       |run_1_virtual_servers002|virtual_server_uuid_01|仮想サーバ2を1台起動テストの説明|private_ip_address: 192.168.1.2|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
