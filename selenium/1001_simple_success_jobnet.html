@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:3000/" />
+<title>1001_simple_success_jobnet</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">1001_simple_success_jobnet</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/tengine/test/scripts</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=スクリプト一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>Tengine::Test::Ssh.delete_all <br />Tengine::Test::Script.delete_all <br />Tengine::Job::Execution.delete_all <br />Tengine::Job::RootJobnetActual.delete_all<br /></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=コマンド一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_command</td>
+	<td>rm ~/tengine_job_test.log</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=ssh_exec_type</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_options_yaml</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_command</td>
+	<td>rm tmp/tengined_status/* &amp;&amp; rm log/tengined_app.log</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_command</td>
+	<td>rm log/tengined_app.log</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=ssh_exec_type</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_options_yaml</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_command</td>
+	<td>bundle exec tengined -T usecases/job/dsl/1001_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=ssh_exec_type</td>
+	<td>label=spawn</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_options_yaml</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>PID:</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=スクリプト一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>require 'timeout'<br />results = []<br />timeout(30) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result = `bundle exec tengined -k status`<br />&nbsp;&nbsp;&nbsp;&nbsp;break if result.split(&quot;\n&quot;).any?{|line| line =~ /running/}<br />&nbsp;&nbsp;end<br />end<br />results<br /></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=コマンド一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_command</td>
+	<td>bundle exec tengined -k status</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=ssh_exec_type</td>
+	<td>label=backquote</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_options_yaml</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>exitstatus: 0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>running</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=テンプレートジョブ一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=実行</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=コマンド一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_command</td>
+	<td>cat ~/tengine_job_test.log</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=ssh_exec_type</td>
+	<td>label=backquote</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_options_yaml</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_command</td>
+	<td>cat log/tengined_app.log</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=ssh_exec_type</td>
+	<td>label=backquote</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_options_yaml</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=スクリプト一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>require 'timeout'<br />results = []<br />timeout(30) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;root_jobnet_actual = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;&nbsp;&nbsp;result = root_jobnet_actual.phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:success, :error, :stuck].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results<br /></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=コマンド一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_command</td>
+	<td>cat ~/tengine_job_test.log</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>tengine_job_test job1 start</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>tengine_job_test job1 finish</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
