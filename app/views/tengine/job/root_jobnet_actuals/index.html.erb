@@ -134,7 +134,7 @@
               <td><%= root_jobnet_actual.description %></td>
               <td><%= root_jobnet_actual.started_at.to_s %></td>
               <td><%= root_jobnet_actual.finished_at %></td>
-              <td><%= root_jobnet_actual.phase_name %></td>
+              <td><%= root_jobnet_actual.human_phase_name %></td>
               <td>
                 <%= link_to(t("views.links.watch"), root_jobnet_actual) %>
                 <% if %w(initialized success error stuck).include?(root_jobnet_actual.phase_key.to_s) -%>

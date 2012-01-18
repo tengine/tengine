@@ -23,8 +23,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
           :exit_status => "Exit Status",
           :was_expansion => false,
           :phase_cd => 20,
-          :phase_name => "initialized",
-          :stop_reason => "Stop Reason",
+          :human_phase_name => "初期化済",
           :lock_version => 4,
           :template => stub_template
         ),
@@ -42,8 +41,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
           :exit_status => "Exit Status",
           :was_expansion => false,
           :phase_cd => 20,
-          :phase_name => "initialized",
-          :stop_reason => "Stop Reason",
+          :human_phase_name => "初期化済",
           :lock_version => 4,
           :template => stub_template
         )
@@ -63,7 +61,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       assert_select "tr>td", :text => BSON::ObjectId("4e955633c3406b3a9f000001").to_s
       assert_select "tr>td", :text => "Name".to_s, :count => 2
       assert_select "tr>td", :text => "Description".to_s, :count => 2
-      assert_select "tr>td", :text => "initialized", :count => 2
+      assert_select "tr>td", :text => "初期化済", :count => 2
     end
 
     it "ページタイトルが表示されていること" do
