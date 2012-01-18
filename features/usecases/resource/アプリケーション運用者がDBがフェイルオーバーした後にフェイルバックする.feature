@@ -84,7 +84,7 @@
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
     |physical_server_name_01|run_1_virtual_servers001|virtual_server_uuid_01|仮想サーバを1台起動テストの説明|private_ip_address: 192.168.1.1|starting|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
 
-   もし mongod_pをダウンさせるために"ssh root@#{mongod_p_ip} command \"ps -eo pid -o cmd|grep mongod|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
+   もし mongod_pをダウンさせるために"ssh root@#{mongod_p_ip} command \"ps -eo pid,command|grep mongod|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
    かつ 10秒間待機する
    かつ mongod_pがダウンしているか確認するために"ssh root@#{mongod_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
    ならば mongod_pがダウンしていること
