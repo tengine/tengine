@@ -2,14 +2,13 @@
 
 <p id="notice"><%= notice %></p>
 
-<% @from_index = true -%>
-<%= render 'form' %>
-
 <table>
   <tr>
+    <th><%= Tengine::Test::Script.human_attribute_name(:kind) %></th>
     <th><%= Tengine::Test::Script.human_attribute_name(:code) %></th>
-    <th><%= Tengine::Test::Script.human_attribute_name(:result) %></th>
-    <th><%= Tengine::Test::Script.human_attribute_name(:message) %></th>
+    <th><%= Tengine::Test::Script.human_attribute_name(:options) %></th>
+    <th><%= Tengine::Test::Script.human_attribute_name(:timeout) %></th>
+    <th><%= Tengine::Test::Script.human_attribute_name(:messages) %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -17,9 +16,11 @@
 
 <% @scripts.each do |script| %>
   <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= script.kind %></td>
     <td><%= script.code %></td>
-    <td><%= script.result %></td>
-    <td><%= script.message %></td>
+    <td><pre><%= script.options_yaml %></pre></td>
+    <td><%= script.timeout %></td>
+    <td><pre><%= script.messages_yaml %></pre></td>
     <td><%= link_to_show script %></td>
     <td><%= link_to_edit edit_tengine_test_script_path(script) %></td>
     <td><%= link_to_destroy script, confirm: 'Are you sure?', method: :delete %></td>

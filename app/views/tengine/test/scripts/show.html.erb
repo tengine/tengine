@@ -3,18 +3,28 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <b><%= Tengine::Test::Script.human_attribute_name(:kind) %>:</b>
+  <%= @script.kind %>
+</p>
+
+<p>
   <b><%= Tengine::Test::Script.human_attribute_name(:code) %>:</b>
   <%= @script.code %>
 </p>
 
 <p>
-  <b><%= Tengine::Test::Script.human_attribute_name(:result) %>:</b>
-  <%= @script.result %>
+  <b><%= Tengine::Test::Script.human_attribute_name(:options) %>:</b>
+  <pre><%= @script.options_yaml %></pre>
 </p>
 
 <p>
-  <b><%= Tengine::Test::Script.human_attribute_name(:message) %>:</b>
-  <%= @script.message %>
+  <b><%= Tengine::Test::Script.human_attribute_name(:timeout) %>:</b>
+  <%= @script.timeout %>
+</p>
+
+<p>
+  <b><%= Tengine::Test::Script.human_attribute_name(:messages) %>:</b>
+  <pre><%= @script.messages_yaml %></pre>
 </p>
 
 

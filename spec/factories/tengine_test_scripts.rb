@@ -2,8 +2,10 @@
 
 FactoryGirl.define do
   factory :"tengine/test/script" do
+    kind("MyString")
     code("MyString")
-    result("MyString")
-    message("MyString")
+    options({"a"=>"1", "b"=>"2"})
+    timeout(1)
+    messages({"a"=>"1", "b"=>"2"})
   end
 end
