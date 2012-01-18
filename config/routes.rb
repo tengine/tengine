@@ -1,7 +1,6 @@
 TengineConsole::Application.routes.draw do
   if TengineConsole.test_console?
     namespace :tengine do  namespace :test do resources :scripts end end
-    namespace :tengine do  namespace :test do resources :sshes end end
   end
 
   namespace :tengine do  namespace :resource do resources :virtual_server_types end end
