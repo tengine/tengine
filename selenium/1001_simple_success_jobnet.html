@@ -24,7 +24,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>Tengine::Test::Ssh.delete_all <br />Tengine::Test::Script.delete_all <br />Tengine::Job::Execution.delete_all <br />Tengine::Job::RootJobnetActual.delete_all<br /></td>
+	<td>Tengine::Test::Ssh.delete_all <br />Tengine::Test::Script.delete_all <br />Tengine::Job::Execution.delete_all <br />Tengine::Job::RootJobnetActual.delete_all</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -119,7 +119,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>require 'timeout'<br />results = []<br />timeout(30) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result = `bundle exec tengined -k status`<br />&nbsp;&nbsp;&nbsp;&nbsp;break if result.split(&quot;\n&quot;).any?{|line| line =~ /running/}<br />&nbsp;&nbsp;end<br />end<br />results<br /></td>
+	<td>require 'timeout'<br />results = []<br />timeout(30) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result = `bundle exec tengined -k status`<br />&nbsp;&nbsp;&nbsp;&nbsp;break if result.split(&quot;\n&quot;).any?{|line| line =~ /running/}<br />&nbsp;&nbsp;end<br />end<br />results</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -178,58 +178,38 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=コマンド一覧</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=ssh_command</td>
-	<td>cat ~/tengine_job_test.log</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>id=ssh_exec_type</td>
-	<td>label=backquote</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=ssh_options_yaml</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>name=commit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=ssh_command</td>
-	<td>cat log/tengined_app.log</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>id=ssh_exec_type</td>
-	<td>label=backquote</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=ssh_options_yaml</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>name=commit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
 	<td>link=スクリプト一覧</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>require 'timeout'<br />results = []<br />timeout(30) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;root_jobnet_actual = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;&nbsp;&nbsp;result = root_jobnet_actual.phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:success, :error, :stuck].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results<br /></td>
+	<td>require 'timeout'<br />results = []<br />timeout(30) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;root_jobnet_actual = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;&nbsp;&nbsp;result = root_jobnet_actual.phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:success, :error, :stuck].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=コマンド一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_command</td>
+	<td>cat log/tengined_app.log | grep &quot; -&gt; &quot;</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=ssh_exec_type</td>
+	<td>label=backquote</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ssh_options_yaml</td>
+	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -261,7 +241,86 @@
 	<td>tengine_job_test job1 finish</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:0 Tengine::Job::Execution initialized -&gt; ready</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:0 Tengine::Job::Execution ready -&gt; starting</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:0 /jobnet1001 initialized -&gt; ready</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:1 /jobnet1001 ready -&gt; starting</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:1 Tengine::Job::Execution starting -&gt; running</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:1 edge[from /jobnet1001/start to /jobnet1001/job1] active -&gt; transmitting</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:1 /jobnet1001/job1 initialized -&gt; ready</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:2 edge[from /jobnet1001/start to /jobnet1001/job1] transmitting -&gt; transmitted</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:2 /jobnet1001/job1 ready -&gt; starting</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:2 /jobnet1001 starting -&gt; running</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:3 /jobnet1001/job1 starting -&gt; running</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:4 /jobnet1001/job1 running -&gt; success</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:5 edge[from /jobnet1001/job1 to /jobnet1001/end] active -&gt; transmitting</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:5 edge[from /jobnet1001/job1 to /jobnet1001/end] transmitting -&gt; transmitted</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:5 /jobnet1001 running -&gt; success</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>version:6 Tengine::Job::Execution running -&gt; success </td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>
