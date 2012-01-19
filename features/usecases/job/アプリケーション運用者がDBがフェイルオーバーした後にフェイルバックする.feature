@@ -24,7 +24,9 @@
 # > Mongoid.load!("path/to/your/mongoid.yml")
 # > db = Mongoid.config.database
 # > db.connection.primary
-
+    かつ resource_watchdが動作しているサーバのIPを"resource_watchd_ip"と呼ぶ
+    かつ heartbeat_watchdが動作しているサーバのIPを"heartbeat_watchd_ip"と呼ぶ
+    かつ atdが動作しているサーバのIPを"atd_ip"と呼ぶ
 
 # --------------------------
 
@@ -67,6 +69,8 @@
 
     もし "ジョブネット実行設定画面"を表示する
     かつ "事前実行コマンド"に"export SLEEP=120"と入力する
+# SLEEPの時間は、MongoDBがフェールオーバする時間を考慮して長めにしていますが、実際にテストはしていないため、この長さでも短い可能性があります
+# もし、connect failureとエラーが出力された場合は、SLEEP時間を長く設定して下さい。おおよそ、この時間で問題ないという値がわかれば、このfeatureを編集してSLEEPの値を変更し、このコメントを削除して下さい。
     かつ "実行"ボタンをクリックする
     かつ 10秒間待機する
     ならば "ジョブネット監視画面"を表示していること
@@ -74,7 +78,7 @@
     |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
     |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
 
-   もし mongod_pをダウンさせるために"ssh root@#{mongod_p_ip} command \"ps -eo pid -o cmd|grep mongod|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
+   もし mongod_pをダウンさせるために"ssh root@#{mongod_p_ip} command \"ps -eo pid,commnad|grep mongod|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
    かつ 10秒間待機する
    かつ mongod_pがダウンしているか確認するために"ssh root@#{mongod_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
    ならば mongod_pがダウンしていること
@@ -94,14 +98,80 @@
     |ID|ジョブネット名|説明      |開始日時  |終了日時 |ステータス|操作       |
     |  |jobnet1001  |jobnet1001|        |        |正常終了  |監視 再実行|
 
+   かつ tengine_resource_watchdプロセスが起動していることを確認するために"ssh root@#{resource_watchd_ip} command \"ps aux|grep tengine_resource_watchd|grep -v grep\""コマンドを実行する
+   かつ 20秒間待機する
+   ならば tengine_resource_watchdプロセスが起動していること
+
+   かつ tengine_heartbeat_watchdプロセスが起動していることを確認するために"ssh root@#{heartbeat_watchd_ip} command \"ps aux|grep tengine_heartbeat_watchd|grep -v grep\""コマンドを実行する
+   かつ 20秒間待機する
+   ならば tengine_heartbeat_watchdプロセスが起動していること
+
+   もし tengine_atdプロセスが起動していることを確認するために"ssh root@#{atd_ip} command \"ps aux|grep tengine_atd|grep -v grep\""コマンドを実行する
+   かつ 20秒間待機する
+   ならば tengine_atdプロセスが起動していること
+
    もし mongod_pを起動しなおすために"ssh root@#{mongod_p_ip} command \"mongod --replSet tengine_rs --port 27017 --dbpath /home/tengine/mongo_data/replSet/data --logpath /home/tengine/mongo_data/replSet/tengine.log --fork --logappend --rest --journal\""コマンドを実行する
    かつ mongod_pが起動していることを確認するために"ssh root@#{mongod_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
    かつ 20秒間待機する
    かつ mongod_pがSECONDARYになっていることを確認するために"ssh root@#{mongod_p_ip} command \"mongo features/step_definitions/mongodb/status.js"コマンドを実行する
    ならば mongod_pの"stateStr"が"SECONDARY"と表示されていること
-   
-   #これでシナリオを終了する
-   #このシナリオの最後の状態は、MongoDBが正しく動く状態となっているため、再度ジョブを流し直す必要はありません
+
+
+# DBがダウンしたとしてもtengine_atdが正常に動作しているか検証する
+    もし "テンプレートジョブ一覧画面"を表示する
+    かつ "jobnet1001"の"実行"リンクをクリックする
+    ならば "ジョブネット実行設定画面"を表示していること
+
+    もし "ジョブネット実行設定画面"を表示する
+    かつ "事前実行コマンド"に"export SLEEP=90"と入力する
+    かつ "強制停止設定"に1と入力する
+    かつ "実行"ボタンをクリックする
+    かつ 10秒間待機する
+    ならば "ジョブネット監視画面"を表示していること
+    かつ 以下の行が表示されていること
+    |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
+    |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
+
+   もし 60秒間待機する
+   ならば 以下の行が表示されていること
+    |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
+    |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |タイムアウト強制停止済    |          |表示 再実行  |
+
+    もし "実行ジョブ一覧画面"を表示する
+    ならば 以下の行が表示されていること
+    |ID|ジョブネット名|説明      |開始日時  |終了日時 |ステータス|操作       |
+    |  |jobnet1001  |jobnet1001|        |        |タイムアウト強制停止済  |監視 再実行|
+
+#　DBがダウンしたとしてもtengine_heartbeat_watchdが正常に動作しているか検証する
+
+    もし "テンプレートジョブ一覧画面"を表示する
+    かつ "jobnet1001"の"実行"リンクをクリックする
+    ならば "ジョブネット実行設定画面"を表示していること
+
+    もし "ジョブネット実行設定画面"を表示する
+    かつ "事前実行コマンド"に"export SLEEP=60"と入力する
+    かつ "実行"ボタンをクリックする
+    かつ 10秒間待機する
+    ならば "ジョブネット監視画面"を表示していること
+    かつ 以下の行が表示されていること
+    |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
+    |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
+
+   もし 10秒間待機する
+   もし tengine_job_agent_watchdogをダウンさせるために"ssh root@#{job_server_ip} command \"ps -eo pid,commnad|grep tengine_job_agent_watchdog|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
+   かつ tengine_job_agent_watchdogがダウンしているか確認するために"ssh root@#{job_server_i} command \"ps aux|grep tengine_job_agent_watchdog|grep -v grep\""コマンドを実行する
+   ならば tengine_job_agent_watchdogがダウンしていること
+
+   もし 60秒間待機する
+   ならば 以下の行が表示されていること
+    |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
+    |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |状態不明    |          |表示 ステータス変更 |
+
+    もし "実行ジョブ一覧画面"を表示する
+    ならば 以下の行が表示されていること
+    |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
+    |  |jobnet1001         |jobnet1001|        |        |実行中|監視 再実行|
+
 
 
 
