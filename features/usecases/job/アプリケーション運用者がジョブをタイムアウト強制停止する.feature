@@ -1,10 +1,10 @@
 #language:ja
-機能: アプリケーション運用者がジョブを強制停止する
+機能: アプリケーション運用者がジョブをタイムアウト強制停止する
 
 
-  ジョブがおかしくなった場合や、誤ったジョブを実行してしまった場合、
+  ジョブの実行時間が正常な動作ではあり得ないほど長い場合
   アプリケーション運用者
-  はジョブを強制停止したい
+  はジョブを自動的に強制停止したい
 
   背景:
     前提 日本語でアクセスする
@@ -742,7 +742,7 @@
 
 
 #== startingからdying ==
-#ここから下のDSLを実行する場合は、features/script/tengine_job_agebt_runをジョブ実行サーバのジョブ実行ユーザの優先度が最も高いパスに配置します
+#ここから下のDSLを実行する場合は、features/script/tengine_job_agebt_run_proxyをジョブ実行サーバのジョブ実行ユーザの優先度が最も高いパスに配置します
 #ジョブ実行サーバのジョブ実行ユーザの~/bash_profileに~/binあたりをパスに追加して、ファイルを配置するのが無難です
 #retry1
   @5013
@@ -935,9 +935,9 @@
     かつ 以下の行が表示されていること
     |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス          |次のジョブ|操作       |
     |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了            |j2, jn4   |表示 再実行|
-    |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止|j4        |表示 再実行|
-    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |タイムアウト強制停止|j4        |表示 再実行|
-    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止|j42,j43   |表示 再実行|
+    |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了            |j4        |表示 再実行|
+    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j42,j43   |表示 再実行|
     |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済            |j44       |表示 再実行|
     |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済            |j44       |表示 再実行|
     |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済            |          |表示 再実行|
@@ -969,7 +969,7 @@
     かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/j1"を"e2"と呼ぶことにする
 
     # prev!/jn0005/j2 => e3
-    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/j1"を"e3"と呼ぶことにする
+    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/j2"を"e3"と呼ぶことにする
     # /jn0005/j2 => j2
     もし 実行ジョブ"jn0005"のジョブ"/jn0005/j2"を"j2"と呼ぶことにする
     # next!/jn0005/j2 => e4
@@ -982,12 +982,12 @@
     # next!/jn0005/jn4 => e6
     かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4"を"e6"と呼ぶことにする
 
-    # next!start@/jn0005/jn4/j41 => e7
+    # next!start@/jn0005/jn4 => e7
     かつ 実行ジョブ"jn0005"のエッジ"next!start@/jn0005/jn4"を"e7"と呼ぶことにする
      # /jn0005/jn4/j41 => j41
     もし 実行ジョブ"jn0005"のジョブ"/jn0005/jn41"を"jn41"と呼ぶことにする
     # next!/jn0005/jn4/j41 => e8
-    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4"を"e8"と呼ぶことにする
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4/j41"を"e8"と呼ぶことにする
 
     # prev!/jn0005/jn4/j42 => e9
     かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/jn4/j42"を"e9"と呼ぶことにする
@@ -997,30 +997,30 @@
     かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4/j42"を"e10"と呼ぶことにする
 
     # prev!/jn0005/jn4/j43 => e11
-    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/jn4/j43"を"e9"と呼ぶことにする
+    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/jn4/j43"を"e11"と呼ぶことにする
     # /jn0005/jn4/j43 => j43
     もし 実行ジョブ"jn0005"のジョブ"/jn0005/jn4/j43"を"j43"と呼ぶことにする
     # next!/jn0005/jn4/j43 => e12
-    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4/j43"を"e10"と呼ぶことにする
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4/j43"を"e12"と呼ぶことにする
 
     # prev!/jn0005/jn4/j44 => e13
-    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/jn4/j44"を"e9"と呼ぶことにする
+    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/jn4/j44"を"e13"と呼ぶことにする
     # /jn0005/jn4/j44 => j44
     もし 実行ジョブ"jn0005"のジョブ"/jn0005/jn4/j44"を"j44"と呼ぶことにする
     # next!/jn0005/jn4/j44 => e14
-    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4/j44"を"e10"と呼ぶことにする
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4/j44"を"e14"と呼ぶことにする
 
     # /jn0005/jn4/finally => jn4/finally
     もし 実行ジョブ"jn0005"のジョブ"/jn0005/jn4/finally"を"jn4/finally"と呼ぶことにする
-    # prev!/jn0005/jn4/finally/jn4_f => e15
-    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/finally/jn4_f"を"e15"と呼ぶことにする
+    # "next!start@/jn0005/jn4/finally" => e15
+    かつ 実行ジョブ"jn0005"のエッジ"next!start@/jn0005/jn4/finally"を"e15"と呼ぶことにする
     # /jn0005/jn4/finally/jn4_f => jn4_f
-    もし 実行ジョブ"jn0005"のジョブ"/jn0005/j3"を"j3"と呼ぶことにする
-    # next!/jn0005/jn4/finally/jn0005_f => e16
-    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_f"を"e16"と呼ぶことにする
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/jn4/finally/jn4_f"を"jn4_f"と呼ぶことにする
+    # next!/jn0005/jn4/finally/jn4_f => e16
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4/finally/jn4_f"を"e16"と呼ぶことにする
 
     # prev!/jn0005/j4 => e17
-    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/j1"を"e17"と呼ぶことにする
+    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/j4"を"e17"と呼ぶことにする
     # /jn0005/j4 => j4
     もし 実行ジョブ"jn0005"のジョブ"/jn0005/j4"を"j4"と呼ぶことにする
     # next!/jn0005/j4 => e18
@@ -1028,45 +1028,38 @@
 
     # /jn0005/finally => finally
     もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally"を"finally"と呼ぶことにする
-    # prev!/jn0005/finally/jn0005_fjn => e19
-    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/finally/jn0005_f"を"e19"と呼ぶことにする
+    # next!start@/jn0005/finally => e19
+    かつ 実行ジョブ"jn0005"のエッジ"next!start@/jn0005/finally"を"e19"と呼ぶことにする
     # /jn0005/finally/jn0005_fjn => jn0005_fjn
     もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_fjn"を"jn0005_fjn"と呼ぶことにする
     # next!/jn0005/finally/jn0005_fjn => e20
-    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_f"を"e20"と呼ぶことにする
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_fjn"を"e20"と呼ぶことにする
 
     # next!start@/jn0005/finally/jn0005_fjn => e21
     かつ 実行ジョブ"jn0005"のエッジ"next!start@/jn0005/finally/jn0005_fjn"を"e21"と呼ぶことにする
-     # /jn0005/finally/jn0005_fjn => jn0005_fjn
-    もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_fjn"を"jn0005_fjn"と呼ぶことにする
-    # next!/jn0005/finally/jn0005_fjn => e22
-    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_fjn"を"e22"と呼ぶことにする
-
-    # next!start@/jn0005/finally/jn0005_fjn/jn0005_f1 => e23
-    かつ 実行ジョブ"jn0005"のエッジ"next!start@/jn0005/finally/jn0005_fjn"を"e23"と呼ぶことにする
-     # /jn0005/finally/jn0005_fjn/jn0005_f1 => jn0005_f1
+    # /jn0005/finally/jn0005_fjn/jn0005_f1 => jn0005_f1
     もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_fjn/jn0005_f1"を"jn0005_f1"と呼ぶことにする
-    # next!/jn0005/finally/jn0005_fjn/jn0005_f1 => e24
-    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_fjn"を"e24"と呼ぶことにする
-
+    # next!/jn0005/finally/jn0005_fjn/jn0005_f1 => e22
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_fjn/jn0005_f1"を"e22"と呼ぶことにする
     # /jn0005/finally/jn0005_fjn/jn0005_f2 => jn0005_f2
-    もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_fjn/jn0005_f2"を"j44"と呼ぶことにする
-    # next!/jn0005/finally/jn0005_fjn/jn0005_f2 => e25
-    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_fjn/jn0005_f2"を"e25"と呼ぶことにする
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_fjn/jn0005_f2"を"jn0005_f2"と呼ぶことにする
+    # next!/jn0005/finally/jn0005_fjn/jn0005_f2 => e23
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_fjn/jn0005_f2"を"e23"と呼ぶことにする
+
 
     # /jn0005/finally/jn0005_fjn/finally => jn0005_fjn/finally
     もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_fjn/finally"を"jn0005_fjn/finally"と呼ぶことにする
-    # prev!/jn0005/finally/jn0005_fjn => e26
-    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/finally/jn0005_f"を"e26"と呼ぶことにする
-    # /jn0005/finally/jn0005_fjn => jn0005_fjn
-    もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_fjn"を"jn0005_fjn"と呼ぶことにする
-    # next!/jn0005/finally/jn0005_fjn => e27
-    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_f"を"e27"と呼ぶことにする
+    # next!start@/jn0005/finally/jn0005_fjn => e24
+    かつ 実行ジョブ"jn0005"のエッジ"next!start@/jn0005/finally/jn0005_fjn"を"e24"と呼ぶことにする
+    # /jn0005/finally/jn0005_fjn/finally/jn0005_fif => jn0005_fif
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_fjn/finally/jn0005_fif"を"jn0005_fif"と呼ぶことにする
+    # next!/jn0005/finally/jn0005_fjn/finally/jn0005_fif => e25
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_fjn/finally/jn0005_fif"を"e25"と呼ぶことにする
 
     # /jn0005/finally/jn0005_f => jn0005_f
     もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_f"を"jn0005_f"と呼ぶことにする
-    # next!/jn0005/finally/jn0005_fjn => e28
-    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_f"を"e28"と呼ぶことにする
+    # next!/jn0005/finally/jn0005_f => e26
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_f"を"e26"と呼ぶことにする
 
     # receive event "start.execution.job.tengine"
     ならば "Tengineコアプロセス"のアプリケーションログに"#{execution} initialized -> ready"とジョブのフェーズが変更した情報が出力されていること
@@ -1093,8 +1086,8 @@
 
     # receive event "success.job.job.tengine"
     かつ "Tengineコアプロセス"のアプリケーションログに"#{e2} active -> transmitting"とジョブのフェーズが変更した情報が出力されており、"#{j1} running -> success"の後であること
-
     かつ "Tengineコアプロセス"のアプリケーションログに"#{e5} active -> transmitting"とジョブのフェーズが変更した情報が出力されており、"#{e2} active -> transmitting"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e2} transmitting -> transmitted"とジョブのフェーズが変更した情報が出力されており、"#{e2} active -> transmitting"の後であること
     かつ "Tengineコアプロセス"のアプリケーションログに"#{jn4} initialized -> ready"とジョブのフェーズが変更した情報が出力されており、"#{e5} active -> transmitting"の後であること
 
     # receive event "start.jobnet.job.tengine"
