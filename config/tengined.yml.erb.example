@@ -23,7 +23,7 @@ db:
   password:
   database: 'tengine_production'
   read_secondary: false
-  max_retries_on_connection_failure: 3
+  max_retries_on_connection_failure: 100
 
 event_queue:
   connection:
