@@ -11,15 +11,15 @@
     かつ "Tengineコンソールプロセス"が起動している
     かつ テンプレートジョブが1件も登録されていない
     かつ 実行ジョブが1件もない
-    かつ イベントが1件もない
     かつ 仮想サーバがインスタンス識別子:"test_server1"で登録されていること
     かつ 認証情報が名称:"test_credential1"で登録されている
     かつ イベントキューにメッセージが1件もない
     かつ Replica Setsを設定したMongoDBが3台のサーバで動作していること
     かつ Replica SetsのPRIMARYノードで動作しているmongodプロセスをmongod_pと呼ぶ
-    かつ Replica SetsのSECONDARYノードで動作しているmongodプロセスをmongod_sと呼ぶ
+    かつ Replica SetsのSECONDARYノードで動作しているmongodプロセスをmongod_s1, mongod_s2と呼ぶ
     かつ mongod_pが動作しているサーバのIPをmongod_p_ipと呼ぶ
-    かつ mongod_sが動作しているサーバのIPをmongod_s_ipと呼ぶ
+    かつ mongod_s1が動作しているサーバのIPをmongod_s1_ipと呼ぶ
+    かつ mongod_s2が動作しているサーバのIPをmongod_s2_ipと呼ぶ
 # $ bundle exec irb -rmongoid
 # > Mongoid.load!("path/to/your/mongoid.yml")
 # > db = Mongoid.config.database
@@ -52,11 +52,29 @@
   シナリオ: [異常系]ジョブのスクリプト実行中にMongoDBのプライマリーのプロセスがダウンした際にフェイルオーバーし、その後アプリケーション運用者がDBプロセスをフェールバックする
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1001_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
-    もし "Tengineコアプロセス"の標準出力からPIDを確認する
-    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    もし "tengined"の設定ファイル"config/tengined.yml.erb"の"max_retries_on_connection_failure"の値が"100"である
+    かつ "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1001_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
+    かつ "Tengineコアプロセス"の標準出力からPIDを確認する
+    かつ "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+    #2プロセス起動します
+    かつ "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1001_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
+    かつ "Tengineコアプロセス"の標準出力からPIDを確認する
+    かつ "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    もし "テンプレートジョブ一覧画面"を表示する
+    かつ "tengine_heartbeat_watchd"の設定ファイル"config/heartbeat_watchd.yml.erb"の"max_retries_on_connection_failure"の値が"100"である
+    かつ "tengine_heartbeat_watchd"の起動行うために"tengine_atd -f config/heartbeat_watchd.yml.erb"というコマンドを実行する
+    #2プロセス起動します
+    かつ "tengine_heartbeat_watchd"の起動行うために"tengine_atd -f config/heartbeat_watchd.yml.erb"というコマンドを実行する
+
+    かつ "tengine_atd"の設定ファイル"config/atd.yml.erb"の"max_retries_on_connection_failure"の値が"100"である
+    かつ "tengine_atd"の起動行うために"tengine_atd -f config/atd.yml.erb"というコマンドを実行する
+    #2プロセス起動します
+    かつ "tengine_atd"の起動行うために"tengine_atd -f config/atd.yml.erb"というコマンドを実行する
+
+    かつ "tengine_resouce_watchd"の設定ファイル"config/resouce_watchd.yml.erb"の"max_retries_on_connection_failure"の値が"100"である
+    かつ "tengine_resource_watchd"の起動行うために"tengine_resource_watchd -f config/resource_watchd.yml.erb"というコマンドを実行する
+
+    かつ "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"を表示していること
     かつ 以下の行が表示されていること
     |ジョブネット名|説明  |操作     |
@@ -84,9 +102,9 @@
    ならば mongod_pがダウンしていること
 
    もし 60秒間待機する
-   かつ mongod_sがPRIMARYになっていることを確認するために"ssh root@#{mongod_s_ip} command \"mongo features/step_definitions/mongodb/status.js"コマンドを実行する
+   かつ  mongod_s1,mongod_s2のいずれかがPRIMARYになっていることを確認するために"ssh root@#{mongod_s1_ip} command \"mongo features/step_definitions/mongodb/status.js"コマンドを実行する
    ならば mongod_pの"stateStr"が"(not reachable/healthy)"と表示されていること
-   ならば mongod_sのいずれかの"stateStr"が"PRIMARY"と表示されていること
+   ならば mongod_s1,mongod_s2のいずれかの"stateStr"が"PRIMARY"と表示されていること
 
    もし 50秒間待機する
    ならば 以下の行が表示されていること
