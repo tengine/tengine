@@ -266,12 +266,13 @@ __end_of_dsl__
         :root_jobnet_actual_id => root_jobnet_actual.id.to_s
     end
 
-    it "destroys the requested actual job" do
+    it "destroys the requested actual job. example: job, hadoop_job_run (script_executable? => true)" do
       root_jobnet_actual = \
         Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
       jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
       job_actual = Tengine::Job::JobnetActual.create! valid_attributes
-      job_actual.stub(:children).and_return(nil)
+      # job_actual.stub(:children).and_return(nil)
+      job_actual.stub(:script_executable?).and_return(true)
       job_actual.stub(:parent).and_return(jobnet_actual)
       Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
         and_return(job_actual)
@@ -283,12 +284,13 @@ __end_of_dsl__
         :root_jobnet_actual_id => root_jobnet_actual.id.to_s
     end
 
-    it "redirects to the tengine_job_jobnet_actuals list" do
+    it "redirects to the tengine_job_jobnet_actuals list. example: jobnet (script_executable? => false)" do
       root_jobnet_actual = \
         Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
       jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
       job_actual = Tengine::Job::JobnetActual.create! valid_attributes
-      jobnet_actual.stub(:children).and_return([job_actual])
+      # jobnet_actual.stub(:children).and_return([job_actual])
+      jobnet_actual.stub(:script_executable?).and_return(false)
       Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
         and_return(jobnet_actual)
       @mock_sender.should_receive(:fire).with(:"stop.jobnet.job.tengine", an_instance_of(Hash)) do |_, fire_options|

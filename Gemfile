@@ -20,8 +20,8 @@ gem "bson_ext", "~> 1.5.2"
 gem "kaminari", "~> 0.12.4"
 
 gem "tengine_event"   , "~> 0.4.1"
-gem "tengine_core"    , "~> 0.5.4"
-gem "tengine_resource", "~> 0.5.4"
+gem "tengine_core"    , "~> 0.5.20"
+gem "tengine_resource", "~> 0.5.11"
 gem "tengine_job"     , "~> 0.6.2"
 
 gem "wakame-adapters-tengine", "~> 0.0.0"

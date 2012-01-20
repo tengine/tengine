@@ -111,7 +111,8 @@ class Tengine::Job::JobnetActualsController < ApplicationController
     }
 
     target_id = target.id.to_s
-    if target.children.blank?
+    # if target.children.blank?
+    if target.script_executable?
       event = :"stop.job.job.tengine"
       properties[:target_job_id] = target_id
       properties[:target_jobnet_id] = target.parent.id.to_s
