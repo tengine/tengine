@@ -52,18 +52,29 @@
   シナリオ: [異常系]ジョブのスクリプト実行中にMongoDBのプライマリーのプロセスがダウンした際にフェイルオーバーし、その後アプリケーション運用者がDBプロセスをフェールバックする
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1001_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
-    もし "Tengineコアプロセス"の標準出力からPIDを確認する
-    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
-    もし "tengine_heartbeat_watchd"の起動行うために"tengine_atd -f config/heartbeat_watchd.yml.erb"というコマンドを実行する
+    もし "tengined"の設定ファイル"config/tengined.yml.erb"の"max_retries_on_connection_failure"の値が"100"である
+    かつ "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1001_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
+    かつ "Tengineコアプロセス"の標準出力からPIDを確認する
+    かつ "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     #2プロセス起動します
-    もし "tengine_heartbeat_watchd"の起動行うために"tengine_atd -f config/heartbeat_watchd.yml.erb"というコマンドを実行する
-    もし "tengine_atd"の起動行うために"tengine_atd -f config/atd.yml.erb"というコマンドを実行する
-    #2プロセス起動します
-    もし "tengine_atd"の起動行うために"tengine_atd -f config/atd.yml.erb"というコマンドを実行する
-    もし "tengine_resource_watchd"の起動行うために"tengine_resource_watchd -f config/resource_watchd.yml.erb"というコマンドを実行する
+    かつ "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1001_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
+    かつ "Tengineコアプロセス"の標準出力からPIDを確認する
+    かつ "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    もし "テンプレートジョブ一覧画面"を表示する
+    かつ "tengine_heartbeat_watchd"の設定ファイル"config/heartbeat_watchd.yml.erb"の"max_retries_on_connection_failure"の値が"100"である
+    かつ "tengine_heartbeat_watchd"の起動行うために"tengine_atd -f config/heartbeat_watchd.yml.erb"というコマンドを実行する
+    #2プロセス起動します
+    かつ "tengine_heartbeat_watchd"の起動行うために"tengine_atd -f config/heartbeat_watchd.yml.erb"というコマンドを実行する
+
+    かつ "tengine_atd"の設定ファイル"config/atd.yml.erb"の"max_retries_on_connection_failure"の値が"100"である
+    かつ "tengine_atd"の起動行うために"tengine_atd -f config/atd.yml.erb"というコマンドを実行する
+    #2プロセス起動します
+    かつ "tengine_atd"の起動行うために"tengine_atd -f config/atd.yml.erb"というコマンドを実行する
+
+    かつ "tengine_resouce_watchd"の設定ファイル"config/resouce_watchd.yml.erb"の"max_retries_on_connection_failure"の値が"100"である
+    かつ "tengine_resource_watchd"の起動行うために"tengine_resource_watchd -f config/resource_watchd.yml.erb"というコマンドを実行する
+
+    かつ "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"を表示していること
     かつ 以下の行が表示されていること
     |ジョブネット名|説明  |操作     |
