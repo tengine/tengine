@@ -96,7 +96,7 @@
     |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
     |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
 
-   もし mongod_pをダウンさせるために"ssh root@#{mongod_p_ip} command \"ps -eo pid,commnad|grep mongod|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
+   もし mongod_pをダウンさせるために"ssh root@#{mongod_p_ip} command \"ps -eo pid,command|grep mongod|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
    かつ 10秒間待機する
    かつ mongod_pがダウンしているか確認するために"ssh root@#{mongod_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
    ならば mongod_pがダウンしていること
@@ -176,7 +176,7 @@
     |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
 
    もし 10秒間待機する
-   もし tengine_job_agent_watchdogをダウンさせるために"ssh root@#{job_server_ip} command \"ps -eo pid,commnad|grep tengine_job_agent_watchdog|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
+   もし tengine_job_agent_watchdogをダウンさせるために"ssh root@#{job_server_ip} command \"ps -eo pid,command|grep tengine_job_agent_watchdog|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
    かつ tengine_job_agent_watchdogがダウンしているか確認するために"ssh root@#{job_server_i} command \"ps aux|grep tengine_job_agent_watchdog|grep -v grep\""コマンドを実行する
    ならば tengine_job_agent_watchdogがダウンしていること
 
