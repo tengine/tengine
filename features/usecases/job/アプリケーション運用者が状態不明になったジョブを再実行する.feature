@@ -65,7 +65,7 @@
     もし "tengine_job_agent_watchdog"のPIDを取得する
 
     # tengine_job_agent_watchdog を強制終了する
-    もし `kill -9 #{PID}`コマンド を実行する
+    もし `kill #{PID}`コマンド を実行する
     かつ `ps -ef | grep tengine_job_agent_watchdog | grep -v grep`コマンドを実行する
     ならば "tengine_job_agent_watchdog"プロセスが存在しないこと
 
@@ -96,18 +96,20 @@
     もし 100秒間待機する # j3のスリープを120秒としているため。
     もし "test_server1"サーバにログインする
     かつ "~/tengine_job_test.log"を開く
-    ならば 以下の記述があること # jn0004/j3 が終了していることを確認する
+    ならば 以下の記述があること # tengine_job_agent_watchdog が停止すると、スクリプトも停止するため、 /jn0004/j3 finish は出力されない
     """"""""""""""""""""""""""""""
-    Mon Jan 30 13:59:42 JST 2012 tengine_job_test /jn0004/j1 start
-    Mon Jan 30 13:59:42 JST 2012 tengine_job_test /jn0004/j1 finish
-    Mon Jan 30 13:59:43 JST 2012 tengine_job_test /jn0004/j2 start
-    Mon Jan 30 13:59:43 JST 2012 tengine_job_test /jn0004/j2 finish
-    Mon Jan 30 13:59:44 JST 2012 tengine_job_test /jn0004/j3 start
-    Mon Jan 30 14:01:44 JST 2012 tengine_job_test /jn0004/j3 finish
+    Mon Jan 30 15:13:20 JST 2012 tengine_job_test /jn0004/j1 start
+    Mon Jan 30 15:13:20 JST 2012 tengine_job_test /jn0004/j1 finish
+    Mon Jan 30 15:13:21 JST 2012 tengine_job_test /jn0004/j2 start
+    Mon Jan 30 15:13:21 JST 2012 tengine_job_test /jn0004/j2 finish
+    Mon Jan 30 15:13:23 JST 2012 tengine_job_test /jn0004/j3 start
     """"""""""""""""""""""""""""""
 
+    もし `ps -ef | grep 0004_retry_one_layer.sh | grep -v grep`コマンドを実行する
+    ならば "0004_retry_one_layer.sh"プロセスが存在しないこと
+
     #
-    # 状態不明になったジョブのステータスを正常終了に変更する
+    # 状態不明になったジョブのステータスをエラー終了に変更する
     #
     もし "実行中のジョブ一覧"画面を表示する
     ならば 以下の行が表示されていること
@@ -119,22 +121,22 @@
     かつ "j3"の"ステータス変更"リンクをクリックする
     ならば "ジョブステータス変更"画面を表示していること
 
-    もし "ステータス"として"正常終了"を選択する
+    もし "ステータス"として"エラー終了"を選択する
     かつ "更新する"ボタンをクリックする
     ならば "ジョブネット監視"画面を表示していること
     かつ 以下の行が表示されていること # j4 のステータスが「正常終了」になっている
     |ID|ジョブ名  |説明     |実行スクリプト               |接続サーバ名|認証情報名      |開始日時                 |終了日時                 |ステータス|次のジョブ|操作        |
     |  |j1        |j1       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|yyyy-MM-dd HH:mm:ss +0900|yyyy-MM-dd HH:mm:ss +0900|正常終了  |j2, j3    |表示 再実行 |
     |  |j2        |j2       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|yyyy-MM-dd HH:mm:ss +0900|yyyy-MM-dd HH:mm:ss +0900|正常終了  |j4        |表示 再実行 |
-    |  |j3        |j3       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|yyyy-MM-dd HH:mm:ss +0900|                         |正常終了  |j4        |表示 再実行 |
+    |  |j3        |j3       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|yyyy-MM-dd HH:mm:ss +0900|                         |エラー終了|j4        |表示 再実行 |
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                         |                         |初期化済  |          |表示 再実行 |
     |  |finally   |finally  |                             |test_server1|test_credential1|                         |                         |初期化済  |          |表示 再実行 |
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                         |                         |初期化済  |          |表示 再実行 |
 
     #
-    # 後続ジョブの実行を行う
+    # ジョブの再実行を行う
     #
-    もし "j4"の"再実行"ボタンをクリックする
+    もし "j3"の"再実行"ボタンをクリックする
     ならば "ジョブネット再実行設定"画面を表示していること
     もし "再実行方法"として"選択したジョブを起点をして再実行する。"を選択する
     かつ "実行"ボタンをクリックする
@@ -143,8 +145,8 @@
     |ID|ジョブ名  |説明     |実行スクリプト               |接続サーバ名|認証情報名      |開始日時                 |終了日時                 |ステータス|次のジョブ|操作          |
     |  |j1        |j1       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|yyyy-MM-dd HH:mm:ss +0900|yyyy-MM-dd HH:mm:ss +0900|正常終了  |j2, j3    |表示 再実行   |
     |  |j2        |j2       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|yyyy-MM-dd HH:mm:ss +0900|yyyy-MM-dd HH:mm:ss +0900|正常終了  |j4        |表示 再実行   |
-    |  |j3        |j3       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|yyyy-MM-dd HH:mm:ss +0900|                         |正常終了  |j4        |表示 再実行   |
-    |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|yyyy-MM-dd HH:mm:ss +0900|yyyy-MM-dd HH:mm:ss +0900|実行中    |          |表示 強制停止 |
+    |  |j3        |j3       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|yyyy-MM-dd HH:mm:ss +0900|                         |実行中    |j4        |表示 強制停止 |
+    |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                         |                         |初期化済  |          |表示 再実行   |
     |  |finally   |finally  |                             |test_server1|test_credential1|                         |                         |初期化済  |          |表示 再実行   |
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                         |                         |初期化済  |          |表示 再実行   |
 
@@ -170,14 +172,15 @@
     かつ "~/tengine_job_test.log"を開く
     ならば 以下の記述があること # jn0004/j4 以降が実行されていることを確認する
     """"""""""""""""""""""""""""""
-    Mon Jan 30 13:59:42 JST 2012 tengine_job_test /jn0004/j1 start
-    Mon Jan 30 13:59:42 JST 2012 tengine_job_test /jn0004/j1 finish
-    Mon Jan 30 13:59:43 JST 2012 tengine_job_test /jn0004/j2 start
-    Mon Jan 30 13:59:43 JST 2012 tengine_job_test /jn0004/j2 finish
-    Mon Jan 30 13:59:44 JST 2012 tengine_job_test /jn0004/j3 start
-    Mon Jan 30 14:01:44 JST 2012 tengine_job_test /jn0004/j3 finish
-    Mon Jan 30 14:02:43 JST 2012 tengine_job_test /jn0004/j4 start
-    Mon Jan 30 14:02:43 JST 2012 tengine_job_test /jn0004/j4 finish
-    Mon Jan 30 14:02:44 JST 2012 tengine_job_test /jn0004/finally/jn0004_f start
-    Mon Jan 30 14:02:44 JST 2012 tengine_job_test /jn0004/finally/jn0004_f finish
+    Mon Jan 30 15:13:20 JST 2012 tengine_job_test /jn0004/j1 start
+    Mon Jan 30 15:13:20 JST 2012 tengine_job_test /jn0004/j1 finish
+    Mon Jan 30 15:13:21 JST 2012 tengine_job_test /jn0004/j2 start
+    Mon Jan 30 15:13:21 JST 2012 tengine_job_test /jn0004/j2 finish
+    Mon Jan 30 15:13:23 JST 2012 tengine_job_test /jn0004/j3 start
+    Mon Jan 30 15:19:48 JST 2012 tengine_job_test /jn0004/j3 start
+    Mon Jan 30 15:19:48 JST 2012 tengine_job_test /jn0004/j3 finish
+    Mon Jan 30 15:19:50 JST 2012 tengine_job_test /jn0004/j4 start
+    Mon Jan 30 15:19:50 JST 2012 tengine_job_test /jn0004/j4 finish
+    Mon Jan 30 15:19:51 JST 2012 tengine_job_test /jn0004/finally/jn0004_f start
+    Mon Jan 30 15:19:51 JST 2012 tengine_job_test /jn0004/finally/jn0004_f finish
     """"""""""""""""""""""""""""""
