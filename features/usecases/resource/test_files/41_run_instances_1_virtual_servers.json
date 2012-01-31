@@ -2,9 +2,9 @@
   {
     "id": "virtual_server_uuid_91",
     "state": "scheduling",
-    "image_id": "vertual_server_image_uuid_01",
-    "hostname": "physical_server_uuid_01",
-    "instance_spec_id": "virtual_server_spec_uuid_01",
+    "image_id": "",
+    "hostname": "",
+    "instance_spec_id": "",
     "vif": [],
     "status": "init",
     "memory_size": 256,
