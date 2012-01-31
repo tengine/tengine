@@ -55,7 +55,7 @@
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
-    |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
+    |  |job1     |job1    |$HOME/tengine_job_test.sh 0 job1|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
 
    もし resource_watchd1をダウンさせるために"ssh root@#{resource_watchd1_ip} command \"kill -9 #{resource_watchd1_pid}\""コマンドを実行する
    かつ 10秒間待機する
@@ -65,7 +65,7 @@
    もし 60秒間待機する
    ならば 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
-    |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |正常終了    |          |表示 再実行  |
+    |  |job1     |job1    |$HOME/tengine_job_test.sh 0 job1|test_server1|test_credential1|2011/11/25 14:43:22|       |正常終了    |          |表示 再実行  |
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること

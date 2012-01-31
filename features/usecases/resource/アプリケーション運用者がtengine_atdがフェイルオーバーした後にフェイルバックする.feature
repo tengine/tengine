@@ -15,12 +15,13 @@
     かつ 仮想サーバがインスタンス識別子:"test_server1"で登録されていること
     かつ 認証情報が名称:"test_credential1"で登録されている
     かつ イベントキューにメッセージが1件もない
+    かつ pidを保存するディレクトリをpids_dirと呼ぶ
     かつ atd.yml.erbに以下の設定がされてる
     process:
       daemon:  true
-      pid_dir: "/tmp/tengine_test/pids"
-    かつ /tmp/tengine_test/pidsディレクトリが存在する
-    # mkdir -p /tmp/tengine_test/pids
+      pid_dir: "#{pids_dir}"
+    かつ pids_dirディレクトリが存在する
+    # mkdir -p #{pids_dir}
     かつ "tengine_atdプロセス"が2台のサーバで起動している
     かつ サーバ1で起動しているtengine_atdプロセスを"atd1"と呼ぶ
     かつ サーバ2で起動しているtengine_atdプロセスを"atd2"と呼ぶ
@@ -32,7 +33,7 @@
 
   @success
   @1000
-  シナリオ: [異常系]ジョブのスクリプト実行中にtengine_atdのプロセスがダウンした際にフェイルオーバーし、その後アプリケーション運用者がtengine_atdプロセスをフェールバックする
+  シナリオ: [異常系]仮想マシン起動中にtengine_atdのプロセスがダウンした際にフェイルオーバーし、その後アプリケーション運用者がtengine_atdプロセスをフェールバックする
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1001_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
@@ -82,7 +83,7 @@
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
     |physical_server_name_01|run_1_virtual_servers001|virtual_server_uuid_01|仮想サーバを1台起動テストの説明|private_ip_address: 192.168.1.1|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
 
-   もし tengine_atdプロセスを起動しなおすために"ssh root@#{atd1_ip} command \"rm -rf /tmp/tengine_test/pids/tengine_atd0.pid && cd #{tengine_atdのデプロイ先のパス} && bundle exec tengine_atd -k start -f config/atd.yml.erb\""コマンドを実行する
+   もし tengine_atdプロセスを起動しなおすために"ssh root@#{atd1_ip} command \"rm -rf #{pids_dir}/tengine_atd0.pid && cd #{tengine_atdのデプロイ先のパス} && bundle exec tengine_atd -k start -f config/atd.yml.erb\""コマンドを実行する
    かつ tengine_atdプロセスが起動していることを確認するために"ssh root@#{atd1_ip} command \"ps aux|grep tengine_atd|grep -v grep\""コマンドを実行する
    かつ 20秒間待機する
    ならば tengine_atdプロセスが起動していること
@@ -108,12 +109,12 @@
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
-    |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
+    |  |job1     |job1    |$HOME/tengine_job_test.sh 0 job1|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
 
    もし 70秒間待機する
    ならば 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス               |次のジョブ   |操作        |
-    |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |タイムアウト強制停止済    |          |表示 再実行  |
+    |  |job1     |job1    |$HOME/tengine_job_test.sh 0 job1|test_server1|test_credential1|2011/11/25 14:43:22|       |タイムアウト強制停止済    |          |表示 再実行  |
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
