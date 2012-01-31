@@ -56,7 +56,7 @@
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
-    |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
+    |  |job1     |job1    |$HOME/tengine_job_test.sh 0 job1|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
 
    もし heartbeat_watchd1をダウンさせるために"ssh root@#{heartbeat_watchd1_ip} command \"kill -9 #{heartbeat_watchd1_pid}\""コマンドを実行する
    かつ 10秒間待機する
@@ -70,7 +70,7 @@
    もし 60秒間待機する
    ならば 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
-    |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |状態不明    |          |表示 ステータス変更 |
+    |  |job1     |job1    |$HOME/tengine_job_test.sh 0 job1|test_server1|test_credential1|2011/11/25 14:43:22|       |状態不明    |          |表示 ステータス変更 |
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -83,3 +83,41 @@
    ならば tengine_heartbeat_watchdプロセスが起動していること
 
 
+#tengine_heartbeat_watchdがフェイルバックできていることを確認する。
+#タイミングによっては、フェイルバックしていないtengine_heartbeat_watchdのみがイベントを発火する可能性があるのでイベントフェイルバックしたtengine_heartbeat_watchdが同左するまで繰り返す
+
+    もし "テンプレートジョブ一覧画面"を表示する
+    ならば "テンプレートジョブ一覧画面"を表示していること
+    かつ 以下の行が表示されていること
+    |ジョブネット名|説明  |操作     |
+    |jobnet1001        |jobnet1001|閲覧 実行|
+
+    もし "テンプレートジョブ一覧画面"を表示する
+    かつ "jobnet1001"の"実行"リンクをクリックする
+    ならば "ジョブネット実行設定画面"を表示していること
+
+    もし "ジョブネット実行設定画面"を表示する
+    かつ "事前実行コマンド"に"export SLEEP=60"と入力する
+    かつ "実行"ボタンをクリックする
+    かつ 10秒間待機する
+    ならば "ジョブネット監視画面"を表示していること
+    かつ 以下の行が表示されていること
+    |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
+    |  |job1     |job1    |$HOME/tengine_job_test.sh 0 job1|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
+
+   もし tengine_job_agent_watchdogをダウンさせるために"ssh root@#{job_server_ip} command \"ps -eo pid,commnad|grep tengine_job_agent_watchdog|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
+   かつ tengine_job_agent_watchdogがダウンしているか確認するために"ssh root@#{job_server_i} command \"ps aux|grep tengine_job_agent_watchdog|grep -v grep\""コマンドを実行する
+   ならば tengine_job_agent_watchdogがダウンしていること
+
+   もし 60秒間待機する
+   ならば 以下の行が表示されていること
+    |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
+    |  |job1     |job1    |$HOME/tengine_job_test.sh 0 job1|test_server1|test_credential1|2011/11/25 14:43:22|       |状態不明    |          |表示 ステータス変更 |
+
+    もし "実行ジョブ一覧画面"を表示する
+    ならば 以下の行が表示されていること
+    |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
+    |  |jobnet1001         |jobnet1001|        |        |実行中|監視 再実行|
+
+
+   
