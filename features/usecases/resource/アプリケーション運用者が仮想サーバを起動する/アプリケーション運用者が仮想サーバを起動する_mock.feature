@@ -106,7 +106,7 @@
     virtual_server_uuid_94
     virtual_server_uuid_95
     virtual_server_uuid_96
-    もし "閉じる"ボタンを押下する
+    もし "一覧に戻る"ボタンを押下する
     ならば "仮想サーバ一覧"画面が表示されていること
 
     # 起動後の画面状態を確認
