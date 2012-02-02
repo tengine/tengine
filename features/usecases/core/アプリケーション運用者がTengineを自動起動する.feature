@@ -34,7 +34,7 @@
   # MongoDB … DBサーバ
   #  mogod を起動、停止するためのスクリプトを作成し /etc/init.d に配置する
   #    Runlevel => 0:off 1:off 2:on 3:on 4:on 5:on 6:off
-  #  ReplicaSetのステータスを取得するため、rs.staus() の実行結果を返す、スクリプトを zbtgndb1 に配置する
+  #  Replica Setsのステータスを取得するため、rs.staus() の実行結果を返す、スクリプトを zbtgndb1 に配置する
   #
   # Apache(tengine_console) … フロントエンドサーバ
   #  Apacheを起動、停止するためのスクリプトを作成し /etc/init.d に配置追加する
@@ -45,7 +45,7 @@
   #  tengined, tengine_heartbeat_watchd, tengine_atd, tengine_resource_watchd を起動、停止するためのスクリプトを作成し /etc/init.d に配置に追加する
   #    Runlevel => 0:off 1:off 2:on 3:on 4:on 5:on 6:off
   #
-  # Redhatのランレベル
+  # Red Hatのランレベル
   #  0: システム停止
   #  1: シングルユーザモード
   #  2: 未使用

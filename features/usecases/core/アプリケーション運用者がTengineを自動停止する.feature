@@ -34,7 +34,7 @@
   # MongoDB … DBサーバ
   #  mogod を起動、停止するためのスクリプトを作成し /etc/init.d に配置する
   #    Runlevel => 0:off 1:off 2:on 3:on 4:on 5:on 6:off
-  #  ReplicaSetのステータスを取得するため、rs.staus() の実行結果を返す、スクリプトを zbtgndb1 に配置する
+  #  Replica Setsのステータスを取得するため、rs.staus() の実行結果を返す、スクリプトを zbtgndb1 に配置する
   #
   # Apache(tengine_console) … フロントエンドサーバ
   #  Apacheを起動、停止するためのスクリプトを作成し /etc/init.d に配置追加する
@@ -45,7 +45,7 @@
   #  tengined, tengine_heartbeat_watchd, tengine_atd, tengine_resource_watchd を起動、停止するためのスクリプトを作成し /etc/init.d に配置に追加する
   #    Runlevel => 0:off 1:off 2:on 3:on 4:on 5:on 6:off
   #
-  # Redhatのランレベル
+  # Red Hatのランレベル
   #  0: システム停止
   #  1: シングルユーザモード
   #  2: 未使用
@@ -79,7 +79,7 @@
     かつ コアサーバ停止時に"Tengineリソースウォッチャプロセス"を停止する設定をしている
 
   @manual
-  シナリオ: [正常系]アプリケーション運用者がTengineを自動起動する
+  シナリオ: [正常系]アプリケーション運用者がTengineを自動停止する
 
     #
     # 仮想サーバのシャットダウン
@@ -89,17 +89,17 @@
     かつ `~/tengine_virtual_servers.sh `コマンドを実行する
     ならば 以下の結果を含んでいること
     """
-    yyyy-MM-dd HH:mm:ss zbtgncr1 server stopped
-    yyyy-MM-dd HH:mm:ss zbtgncr2 server stopped
-    yyyy-MM-dd HH:mm:ss zbtgnwb1 server stopped
-    yyyy-MM-dd HH:mm:ss zbtgnwb2 server stopped
-    yyyy-MM-dd HH:mm:ss zbtgnmq1 server stopped
-    yyyy-MM-dd HH:mm:ss zbtgnmq2 server stopped
-    yyyy-MM-dd HH:mm:ss zbtgndb1 server stopped
-    yyyy-MM-dd HH:mm:ss zbtgndb2 server stopped
-    yyyy-MM-dd HH:mm:ss zbtgndb3 server stopped
-    yyyy-MM-dd HH:mm:ss zbtgnsc1 server stopped
-    yyyy-MM-dd HH:mm:ss zbtgnsc2 server stopped
+    yyyy-MM-dd HH:mm:ss zbtgncr1 server shut off
+    yyyy-MM-dd HH:mm:ss zbtgncr2 server shut off
+    yyyy-MM-dd HH:mm:ss zbtgnwb1 server shut off
+    yyyy-MM-dd HH:mm:ss zbtgnwb2 server shut off
+    yyyy-MM-dd HH:mm:ss zbtgnmq1 server shut off
+    yyyy-MM-dd HH:mm:ss zbtgnmq2 server shut off
+    yyyy-MM-dd HH:mm:ss zbtgndb1 server shut off
+    yyyy-MM-dd HH:mm:ss zbtgndb2 server shut off
+    yyyy-MM-dd HH:mm:ss zbtgndb3 server shut off
+    yyyy-MM-dd HH:mm:ss zbtgnsc1 server shut off
+    yyyy-MM-dd HH:mm:ss zbtgnsc2 server shut off
     """
 
     #
