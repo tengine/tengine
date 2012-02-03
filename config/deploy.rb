@@ -120,7 +120,7 @@ namespace :apache do
   %w(start stop reload).each do |command|
     desc "apache #{command}"
     task(command, :roles => [:web]) do
-      run "#{sudo} #{apache_bin_path} #{command}"
+      run "#{sudo} #{apache_bin_path} #{command}; sleep 1"
     end
   end
 
