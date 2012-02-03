@@ -29,21 +29,25 @@
   #
   # heartbeat(RabbitMQ) … MQサーバ
   #  heartbeat を chkconfig に追加する
-  #    Runlevel => 0:off 1:off 2:on 3:on 4:on 5:on 6:off
+  #  Runlevel => heaetbeat 0:off 1:off 2:on 3:on 4:on 5:on 6:off
   #
   # MongoDB … DBサーバ
-  #  mogod を起動、停止するためのスクリプトを作成し /etc/init.d に配置する
-  #    Runlevel => 0:off 1:off 2:on 3:on 4:on 5:on 6:off
-  #  Replica Setsのステータスを取得するため、rs.staus() の実行結果を返す、スクリプトを zbtgndb1 に配置する
+  #  mongod を起動、停止するためのスクリプトを作成し /etc/init.d に配置する
+  #  Runlevel => mongod 0:off 1:off 2:on 3:on 4:on 5:on 6:off
   #
   # Apache(tengine_console) … フロントエンドサーバ
   #  Apacheを起動、停止するためのスクリプトを作成し /etc/init.d に配置追加する
-  #    Runlevel => 0:off 1:off 2:on 3:on 4:on 5:on 6:off
+  #  Runlevel => tengine_console 0:off 1:off 2:on 3:on 4:on 5:on 6:off
   #  注) Apacheを起動する際は、RabbitMQ、MongoDB が起動していることを確認してApacheを起動する
   #
   # tengined, tengine_heartbeat_watchd, tengine_atd, tengine_resource_watchd … コアサーバ
   #  tengined, tengine_heartbeat_watchd, tengine_atd, tengine_resource_watchd を起動、停止するためのスクリプトを作成し /etc/init.d に配置に追加する
-  #    Runlevel => 0:off 1:off 2:on 3:on 4:on 5:on 6:off
+  #  RabbitMQ、MongoDBと接続できない場合は、起動を行わない。
+  #  tengine_resource_watchd のみ Wakameと接続できない場合は起動しない
+  #  Runlevel => tengined                 0:off 1:off 2:on 3:on 4:on 5:on 6:off
+  #              tengine_heartbeat_watchd 0:off 1:off 2:on 3:on 4:on 5:on 6:off
+  #              tengine_atd              0:off 1:off 2:on 3:on 4:on 5:on 6:off
+  #              tengine_resource_watchd  0:off 1:off 2:on 3:on 4:on 5:on 6:off
   #
   # Red Hatのランレベル
   #  0: システム停止
@@ -70,6 +74,10 @@
     かつ コアサーバ起動時に"Tengineハートビートウォッチャプロセス"を起動する設定をしている
     かつ コアサーバ起動時に"Tengineリソースウォッチャプロセス"を起動する設定をしている
 
+
+  #
+  # 正常系
+  #
   @manual
   シナリオ: [正常系]アプリケーション運用者がTengineを自動起動する
 
@@ -236,7 +244,7 @@
     # Frontendサーバ起動
     #
     もし "zbtgnwb1"仮想サーバを起動する
-    もし 300秒待機する #リトライを諦めるのが約270秒
+    もし 300秒待機する #リトライを諦めるの3が約270秒
 
     もし `ssh tengine@zbtgnwb1 ps aux | grep -e apache | grep -v grep`コマンドを実行する
     ならば 以下の記述を含んでいなこと
@@ -297,7 +305,7 @@
     もし `ssh tengine@zbtgnwb1 cat /var/log/boot.log`コマンドを実行する
     ならば 以下の記述を含んでいること
     """
-    Starting tengine console:                                           [FAILED]
+    Starting tengine_console:                                           [FAILED]
 
     """
     かつ 以下の記述を10回含んでいること
@@ -306,21 +314,236 @@
     Errno::ECONNREFUSED: Connection refused - connect(2)
     """
 
-
   #
   # RabbitMQ、MongoDBに接続できない状態で、Coreサーバを起動しても tengined, tengine_heartbeat_watchd, tengine_atd, tengine_resource_watchd を起動しない
   # Wakameに接続できない状態で、Coreサーバを起動しても tengine_resource_watchd を起動しない
-  # RabbitMQ、MongoDB(、Wakame)に接続出来なかった場合、接続に失敗したことをログに出力しリトライを行う。
-  # さらにリトライ回数が指定回数に達した場合は、自動起動に失敗したことをログに出力する。
+  # RabbitMQ、MongoDB(、Wakame)に接続出来なかった場合、接続に失敗したことをブートログに出力しリトライを行う。
+  # さらにリトライ回数が指定回数に達した場合は、自動起動に失敗したことをブートログに出力する。
+  #
+  # ブートログ…/var/log/boot.log
+  # リトライは30秒おきに10回行う
   #
   @manual
-  シナリオ: [異常系]アプリケーション運用者がMQサーバ、DBサーバ停止時にCoreサーバを起動する
-
-  @manual
   シナリオ: [異常系]アプリケーション運用者がMQサーバ停止時にCoreサーバを起動する
+    前提 "zbtgn001"物理サーバが起動している
+    かつ "zbtgn002"物理サーバが起動している
+    かつ "zbtgn003"物理サーバが起動している
+
+    # Coreサーバ…停止
+    かつ "zbtgncr1"仮想サーバが停止している
+    かつ "zbtgncr2"仮想サーバが停止している
+    # MQサーバ…停止
+    かつ "zbtgnmq1"仮想サーバが停止している
+    かつ "zbtgnmq2"仮想サーバが停止している
+    # DBサーバ…起動
+    かつ "zbtgndb1"仮想サーバが起動している
+    かつ "zbtgndb2"仮想サーバが起動している
+    かつ "zbtgndb3"仮想サーバが起動している
+
+    かつ Wakameに接続できる
+
+    #
+    # Coreサーバ起動
+    #
+    もし "zbtgncr1"仮想サーバを起動する
+    もし 300秒待機する #リトライを諦めるのが約270秒
+
+    もし `ssh tengine@zbtgncr1 ps aux | grep -e tengined -e tengine_heartbeat_watchd -e tengine_atd -e tengine_resource_watchd | grep -v grep`コマンドを実行する
+    ならば 以下の記述が存在しないこと
+    """
+    tengined *****  ***  *** ******* ***** *       **   ***** ****** tengined.0
+    tengined *****  ***  *** ******* ***** *       **   ***** ****** tengine_atd
+    tengined *****  ***  *** ******* ***** *       **   ***** ****** tengine_heartbeat_watchd
+    tengined *****  ***  *** ******* ***** *       **   ***** ****** tengine_resource_watchd
+    """
+
+    #
+    # ログを確認して、原因を調べる
+    #
+    もし `ssh tengine@zbtgnwb1 cat /var/log/boot.log`コマンドを実行する
+    ならば 以下の記述を含んでいること
+
+    # tengined が自動起動に失敗
+    """
+    Starting tengined:                                           [FAILED]
+
+    """
+    かつ 以下の記述を10回含んでいること
+    """
+    Connecting to <MQのVIP>:5672
+    Errno::ECONNREFUSED: Connection refused - connect(2)
+    """
+
+    # tengine_atd が自動起動に失敗
+    かつ 以下の記述を含んでいること
+    """
+    Starting tengine_atd:                                        [FAILED]
+
+    """
+    かつ 以下の記述を10回含んでいること
+    """
+    Connecting to <MQのVIP>:5672
+    Errno::ECONNREFUSED: Connection refused - connect(2)
+    """
+
+    # tengine_heartbeat_watchd が自動起動に失敗
+    かつ 以下の記述を含んでいること
+    """
+    Starting tengine_heartbeat_watchd:                           [FAILED]
+
+    """
+    かつ 以下の記述を10回含んでいること
+    """
+    Connecting to <MQのVIP>:5672
+    Errno::ECONNREFUSED: Connection refused - connect(2)
+    """
+
+    # tengine_resource_watchd が自動起動に失敗
+    かつ 以下の記述を含んでいること
+    """
+    Starting tengine_resource_watchd:                            [FAILED]
+
+    """
+    かつ 以下の記述を10回含んでいること
+    """
+    Connecting to <MQのVIP>:5672
+    Errno::ECONNREFUSED: Connection refused - connect(2)
+    """
 
   @manual
   シナリオ: [異常系]アプリケーション運用者がDBサーバ停止時にCoreサーバを起動する
+    前提 "zbtgn001"物理サーバが起動している
+    かつ "zbtgn002"物理サーバが起動している
+    かつ "zbtgn003"物理サーバが起動している
+
+    # Coreサーバ…停止
+    かつ "zbtgncr1"仮想サーバが停止している
+    かつ "zbtgncr2"仮想サーバが停止している
+    # MQサーバ…起動
+    かつ "zbtgnmq1"仮想サーバが起動している
+    かつ "zbtgnmq2"仮想サーバが起動している
+    # DBサーバ…停止
+    かつ "zbtgndb1"仮想サーバが停止している
+    かつ "zbtgndb2"仮想サーバが停止している
+    かつ "zbtgndb3"仮想サーバが停止している
+
+    かつ Wakameに接続できる
+
+    #
+    # Coreサーバ起動
+    #
+    もし "zbtgncr1"仮想サーバを起動する
+    もし 300秒待機する #リトライを諦めるのが約270秒
+
+    もし `ssh tengine@zbtgncr1 ps aux | grep -e tengined -e tengine_heartbeat_watchd -e tengine_atd -e tengine_resource_watchd | grep -v grep`コマンドを実行する
+    ならば 以下の記述が存在しないこと
+    """
+    tengined *****  ***  *** ******* ***** *       **   ***** ****** tengined.0
+    tengined *****  ***  *** ******* ***** *       **   ***** ****** tengine_atd
+    tengined *****  ***  *** ******* ***** *       **   ***** ****** tengine_heartbeat_watchd
+    tengined *****  ***  *** ******* ***** *       **   ***** ****** tengine_resource_watchd
+    """
+
+    #
+    # ログを確認して、原因を調べる
+    #
+    もし `ssh tengine@zbtgnwb1 cat /var/log/boot.log`コマンドを実行する
+    ならば 以下の記述を含んでいること
+
+    # tengined が自動起動に失敗
+    """
+    Starting tengined:                                           [FAILED]
+
+    """
+    かつ 以下の記述を10回含んでいること
+    """
+    Connecting to <zbtgndb1のIP>:27017
+    Errno::ECONNREFUSED: Connection refused - connect(2)
+    """
+
+    # tengine_atd が自動起動に失敗
+    かつ 以下の記述を含んでいること
+    """
+    Starting tengine_atd:                                        [FAILED]
+
+    """
+    かつ 以下の記述を10回含んでいること
+    """
+    Connecting to <zbtgndb1のIP>:27017
+    Errno::ECONNREFUSED: Connection refused - connect(2)
+    """
+
+    # tengine_heartbeat_watchd が自動起動に失敗
+    かつ 以下の記述を含んでいること
+    """
+    Starting tengine_heartbeat_watchd:                           [FAILED]
+
+    """
+    かつ 以下の記述を10回含んでいること
+    """
+    Connecting to <zbtgndb1のIP>:27017
+    Errno::ECONNREFUSED: Connection refused - connect(2)
+    """
+
+    # tengine_resource_watchd が自動起動に失敗
+    かつ 以下の記述を含んでいること
+    """
+    Starting tengine_resource_watchd:                            [FAILED]
+
+    """
+    かつ 以下の記述を10回含んでいること
+    """
+    Connecting to <zbtgndb1のIP>:27017
+    Errno::ECONNREFUSED: Connection refused - connect(2)
+    """
 
   @manual
   シナリオ: [異常系]アプリケーション運用者がWakameに接続できない時にCoreサーバを起動する
+    前提 "zbtgn001"物理サーバが起動している
+    かつ "zbtgn002"物理サーバが起動している
+    かつ "zbtgn003"物理サーバが起動している
+
+    # Coreサーバ…停止
+    かつ "zbtgncr1"仮想サーバが停止している
+    かつ "zbtgncr2"仮想サーバが停止している
+    # MQサーバ…起動
+    かつ "zbtgnmq1"仮想サーバが起動している
+    かつ "zbtgnmq2"仮想サーバが起動している
+    # DBサーバ…起動
+    かつ "zbtgndb1"仮想サーバが起動している
+    かつ "zbtgndb2"仮想サーバが起動している
+    かつ "zbtgndb3"仮想サーバが起動している
+
+    かつ Wakameに接続できない
+
+    #
+    # Coreサーバ起動
+    #
+    もし "zbtgncr1"仮想サーバを起動する
+    もし 300秒待機する #リトライを諦めるのが約270秒
+
+    # tengined, tengine_heartbeat_watchd, tengine_atd は起動する。
+    # tengine_resource_watchd は起動しない。
+    もし `ssh tengine@zbtgncr1 ps aux | grep -e tengined -e tengine_heartbeat_watchd -e tengine_atd -e tengine_resource_watchd | grep -v grep`コマンドを実行する
+    ならば 以下の記述が存在すること
+    """
+    tengined *****  ***  *** ******* ***** *       **   ***** ****** tengined.0
+    tengined *****  ***  *** ******* ***** *       **   ***** ****** tengine_atd
+    tengined *****  ***  *** ******* ***** *       **   ***** ****** tengine_heartbeat_watchd
+    """
+
+    #
+    # ログを確認して、原因を調べる
+    #
+    もし `ssh tengine@zbtgnwb1 cat /var/log/boot.log`コマンドを実行する
+    ならば 以下の記述を含んでいること
+
+    """
+    Starting tengine_resource_watchd:                            [FAILED]
+
+    """
+    かつ 以下の記述を10回含んでいること
+    """
+    Connecting to <zbtgndb1のIP>:27017
+    Errno::ECONNREFUSED: Connection refused - connect(2)
+    """
