@@ -23,6 +23,7 @@ task:check do
   Syslog.open 'local7' # boot.log
 
   # RabbitMQ読み込み
+  retries = 0
   begin
     c = YAML.load_file './config/event_sender.yml.erb'
     c.deep_symbolize_keys!
@@ -36,18 +37,21 @@ task:check do
   rescue AMQP::TCPConnectionFailed => e
     Syslog.err e.message
     EM.stop if EM.reactor_running?
-    sleep 1
-    retry
+    sleep SLEEP
+    retries += 1
+    retry if retries < RETRIES
   end
   Syslog.info "(1/2) OK, AMQP is up."
 
   # Mongoid読み込み
+  retries = 0
   begin
     Mongoid.load! './config/mongoid.yml'
   rescue Mongo::ConnectionFailure => e
     Syslog.err e.message
-    sleep 1
-    retry
+    sleep SLEEP
+    retries += 1
+    retry if retries < RETRIES
   end
   Syslog.info "(2/2) OK, Mongoid is up."
 end
