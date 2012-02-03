@@ -202,3 +202,125 @@
     tengined *****  ***  *** ******* ***** *       **   ***** ****** tengine_heartbeat_watchd
     tengined *****  ***  *** ******* ***** *       **   ***** ****** tengine_resource_watchd
     """
+
+
+  #
+  # Frontendサーバ異常系
+  # RabbitMQ、MongoDBに接続できない状態で、Frontendサーバを起動しても httpd を起動しない
+  # RabbitMQ、MongoDBに接続出来なかった場合、接続に失敗したことをブートログに出力しリトライを行う。
+  # さらにリトライ回数が指定回数に達した場合は、自動起動に失敗したことをブートログに出力する。
+  #
+  # ブートログ…/var/log/boot.log
+  # リトライは30秒おきに10回行う
+  #
+
+  @manual
+  シナリオ: [異常系]アプリケーション運用者がMQサーバ停止時にFrontendサーバを起動する
+
+    前提 "zbtgn001"物理サーバが起動している
+    かつ "zbtgn002"物理サーバが起動している
+    かつ "zbtgn003"物理サーバが起動している
+
+    # Frontendサーバ…停止
+    かつ "zbtgnwb1"仮想サーバが停止している
+    かつ "zbtgnwb2"仮想サーバが停止している
+    # MQサーバ…停止
+    かつ "zbtgnmq1"仮想サーバが停止している
+    かつ "zbtgnmq2"仮想サーバが停止している
+    # DBサーバ…起動
+    かつ "zbtgndb1"仮想サーバが起動している
+    かつ "zbtgndb2"仮想サーバが起動している
+    かつ "zbtgndb3"仮想サーバが起動している
+
+    #
+    # Frontendサーバ起動
+    #
+    もし "zbtgnwb1"仮想サーバを起動する
+    もし 300秒待機する #リトライを諦めるのが約270秒
+
+    もし `ssh tengine@zbtgnwb1 ps aux | grep -e apache | grep -v grep`コマンドを実行する
+    ならば 以下の記述を含んでいなこと
+    """
+    apache   *****  ***  *** ******  **** *        *    *****   **** /usr/sbin/httpd
+
+    """
+
+    #
+    # ログを確認して、原因を調べる
+    #
+    もし `ssh tengine@zbtgnwb1 cat /var/log/boot.log`コマンドを実行する
+    ならば 以下の記述を含んでいること
+    """
+    Starting tengine console:                                           [FAILED]
+
+    """
+    かつ 以下の記述を10回含んでいること
+    """
+    Connecting to <MQのVIP>:5672
+    Errno::ECONNREFUSED: Connection refused - connect(2)
+    """
+
+  @manual
+  シナリオ: [異常系]アプリケーション運用者がDBサーバが停止時にFrontendサーバを起動する
+
+    前提 "zbtgn001"物理サーバが起動している
+    かつ "zbtgn002"物理サーバが起動している
+    かつ "zbtgn003"物理サーバが起動している
+
+    # Frontendサーバ…停止
+    かつ "zbtgnwb1"仮想サーバが停止している
+    かつ "zbtgnwb2"仮想サーバが停止している
+    # MQサーバ…起動
+    かつ "zbtgnmq1"仮想サーバが起動している
+    かつ "zbtgnmq2"仮想サーバが起動している
+    # DBサーバ…停止
+    かつ "zbtgndb1"仮想サーバが停止している
+    かつ "zbtgndb2"仮想サーバが停止している
+    かつ "zbtgndb3"仮想サーバが停止している
+
+    #
+    # Frontendサーバ起動
+    #
+    もし "zbtgnwb1"仮想サーバを起動する
+    もし 300秒待機する #リトライを諦めるのが約270秒
+
+    もし `ssh tengine@zbtgnwb1 ps aux | grep -e apache | grep -v grep`コマンドを実行する
+    ならば 以下の記述を含んでいなこと
+    """
+    apache   *****  ***  *** ******  **** *        *    *****   **** /usr/sbin/httpd
+
+    """
+
+    #
+    # ログを確認して、原因を調べる
+    #
+    もし `ssh tengine@zbtgnwb1 cat /var/log/boot.log`コマンドを実行する
+    ならば 以下の記述を含んでいること
+    """
+    Starting tengine console:                                           [FAILED]
+
+    """
+    かつ 以下の記述を10回含んでいること
+    """
+    Connecting to <zbtgndb1のIP>:27017
+    Errno::ECONNREFUSED: Connection refused - connect(2)
+    """
+
+
+  #
+  # RabbitMQ、MongoDBに接続できない状態で、Coreサーバを起動しても tengined, tengine_heartbeat_watchd, tengine_atd, tengine_resource_watchd を起動しない
+  # Wakameに接続できない状態で、Coreサーバを起動しても tengine_resource_watchd を起動しない
+  # RabbitMQ、MongoDB(、Wakame)に接続出来なかった場合、接続に失敗したことをログに出力しリトライを行う。
+  # さらにリトライ回数が指定回数に達した場合は、自動起動に失敗したことをログに出力する。
+  #
+  @manual
+  シナリオ: [異常系]アプリケーション運用者がMQサーバ、DBサーバ停止時にCoreサーバを起動する
+
+  @manual
+  シナリオ: [異常系]アプリケーション運用者がMQサーバ停止時にCoreサーバを起動する
+
+  @manual
+  シナリオ: [異常系]アプリケーション運用者がDBサーバ停止時にCoreサーバを起動する
+
+  @manual
+  シナリオ: [異常系]アプリケーション運用者がWakameに接続できない時にCoreサーバを起動する
