@@ -15,12 +15,13 @@
     かつ 仮想サーバがインスタンス識別子:"test_server1"で登録されていること
     かつ 認証情報が名称:"test_credential1"で登録されている
     かつ イベントキューにメッセージが1件もない
+    かつ pidを保存するディレクトリをpids_dirと呼ぶ
     かつ atd.yml.erbに以下の設定がされてる
     process:
       daemon:  true
-      pid_dir: "/tmp/tengine_test/pids"
-    かつ /tmp/tengine_test/pidsディレクトリが存在する
-    # mkdir -p /tmp/tengine_test/pids
+      pid_dir: "#{pids_dir}"
+    かつ pids_dirディレクトリが存在する
+    # mkdir -p #{pids_dir}
     かつ "tengine_atdプロセス"が2台のサーバで起動している
     かつ サーバ1で起動しているtengine_atdプロセスを"atd1"と呼ぶ
     かつ サーバ2で起動しているtengine_atdプロセスを"atd2"と呼ぶ
@@ -56,7 +57,7 @@
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
-    |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
+    |  |job1     |job1    |$HOME/tengine_job_test.sh 0 job1|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
 
    もし atd1をダウンさせるために"ssh root@#{atd1_ip} command \"kill -9 #{atd1_pid}\""コマンドを実行する
    かつ 10秒間待機する
@@ -66,14 +67,14 @@
    もし 70秒間待機する
    ならば 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス               |次のジョブ   |操作        |
-    |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |タイムアウト強制停止済    |          |表示 再実行  |
+    |  |job1     |job1    |$HOME/tengine_job_test.sh 0 job1|test_server1|test_credential1|2011/11/25 14:43:22|       |タイムアウト強制停止済    |          |表示 再実行  |
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
     |  |jobnet1001         |jobnet1001|        |        |タイムアウト強制停止済|監視 再実行|
 
-   もし tengine_atdプロセスを起動しなおすために"ssh root@#{atd1_ip} command \"rm -rf /tmp/tengine_test/pids/tengine_atd0.pid && cd #{tengine_atdのデプロイ先のパス} && bundle exec tengine_atd -k start -f config/atd.yml.erb\""コマンドを実行する
+   もし tengine_atdプロセスを起動しなおすために"ssh root@#{atd1_ip} command \"rm -rf #{pids_dir}/tengine_atd0.pid && cd #{tengine_atdのデプロイ先のパス} && bundle exec tengine_atd -k start -f config/atd.yml.erb\""コマンドを実行する
    かつ tengine_atdプロセスが起動していることを確認するために"ssh root@#{atd1_ip} command \"ps aux|grep tengine_atd|grep -v grep\""コマンドを実行する
    かつ 20秒間待機する
    ならば tengine_atdプロセスが起動していること
@@ -99,12 +100,12 @@
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
-    |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
+    |  |job1     |job1    |$HOME/tengine_job_test.sh 0 job1|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
 
    もし 70秒間待機する
    ならば 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス               |次のジョブ   |操作        |
-    |  |job1     |job1    |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|       |タイムアウト強制停止済    |          |表示 再実行  |
+    |  |job1     |job1    |$HOME/tengine_job_test.sh 0 job1|test_server1|test_credential1|2011/11/25 14:43:22|       |タイムアウト強制停止済    |          |表示 再実行  |
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること

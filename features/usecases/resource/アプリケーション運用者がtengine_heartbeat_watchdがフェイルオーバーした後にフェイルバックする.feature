@@ -32,7 +32,7 @@
 
   @success
   @1000
-  シナリオ: [異常系]ジョブのスクリプト実行中にtengine_heartbeat_watchdのプロセスがダウンした際にフェイルオーバーし、その後アプリケーション運用者がtengine_heartbeat_watchdプロセスをフェールバックする
+  シナリオ: [異常系]仮想マシン起動中にtengine_heartbeat_watchdのプロセスがダウンした際にフェイルオーバーし、その後アプリケーション運用者がtengine_heartbeat_watchdプロセスをフェールバックする
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1001_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
