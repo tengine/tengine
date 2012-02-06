@@ -36,7 +36,7 @@ describe Tengine::Job::JobnetActualsController do
   def load_dsl(dir, filename)
     @bootstrap = Tengine::Core::Bootstrap.new({
       :action => "load",
-      :tengined => { :load_path => File.expand_path(filename, dir) },
+      :tengined => { :load_path => File.expand_path(filename, dir), :cache_drivers => true },
     })
     @bootstrap.boot
   end
