@@ -82,7 +82,7 @@
     ならば "仮想サーバ起動結果"画面が表示されること
     かつ  "仮想サーバ起動結果"画面に以下の表示があること
     virtual_server_uuid_91
-    もし "閉じる"ボタンを押下する
+    もし "一覧に戻る"ボタンを押下する
     ならば "仮想サーバ一覧"画面が表示されていること
 
     # 仮想サーバを5台起動
@@ -135,7 +135,7 @@
 
     # 起動イベントの確認
     もし"イベント一覧"画面を表示する
-    ならば "種別名"に"Tengine::Resource::VirtualServer.created.tengine_resource_watchd"のイベントが6件表示されていること
+    ならば "種別名"に"Tengine::Resource::VirtualServer.updated.tengine_resource_watchd"のイベントが6件表示されていること
 
     # 起動可能数の確認
     # physical_server_uuid_01 CPU:100, メモリ:100000

@@ -15,11 +15,12 @@
     # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
     #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb -e production
     # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
-    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb 
+    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb
 
   @manual
-  シナリオ: [正常系]アプリケーション運用者は物理サーバ一覧画面を開き、物理サーバが表示されていることを確認する
-　  # 代替コースC: 管理下の物理サーバが存在しない
+  @7001
+  シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面を開き、仮想サーバが表示されていることを確認する
+    # 代替コースC: 管理下の物理サーバが存在しない
     # 物理サーバが0件のファイル
     もし Wakameのモックファイル"./features/usecases/resource/test_files/00_describe_host_nodes_0_physical_servers.json"を"./features/usecases/resource/test_files/describe_host_nodes.json"にコピーする
     # 仮想サーバが0件のファイル
@@ -27,7 +28,7 @@
     # 仮想サーバイメージが5件のファイル
     かつ Wakameのモックファイル"./features/usecases/resource/test_files/21_describe_images_5_virtual_server_images.json"を"./features/usecases/resource/test_files/describe_images.json"にコピーする
     # 仮想サーバタイプが4件のファイル
-    かつ Wakameのモックファイル"./features/usecases/resource/test_files/31_describe_instance_specs_4_virtual_server_specs.json"を"./features/usecases/resource/test_files/31_describe_instance_specs.json"にコピーする
+    かつ Wakameのモックファイル"./features/usecases/resource/test_files/31_describe_instance_specs_4_virtual_server_specs.json"を"./features/usecases/resource/test_files/describe_instance_specs.json"にコピーする
     かつ "Tengineリソースウォッチャ"プロセスを起動する
     # > tengine_resource_watchd
     もし "仮想サーバ一覧"画面を表示する
@@ -140,11 +141,11 @@
     ならば "仮想サーバ編集"画面が表示されていること
     かつ "仮想サーバ編集"画面に"virtual_server_uuid_02"と表示されていること
 
-    もし "仮想サーバ名"に"virtual_server_name_01"と入力する　# すでに使用している名前を入力する
+    もし "仮想サーバ名"に"virtual_server_name_01"と入力する # すでに使用している名前を入力する
     かつ "更新"ボタンをクリックする
     ならば "仮想サーバ編集"画面が表示されていること
     かつ "仮想サーバ名 はすでに使用されています"と表示されていること
- 
+
     もし "キャンセル"リンクをクリックする
     ならば "仮想サーバ一覧"画面が表示されていること
     かつ "仮想サーバ一覧"画面に以下の行が表示されていること #virtual_server_uuid_02 の仮想サーバ名が更新されていないこと
@@ -212,6 +213,7 @@
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
 
   @manual
+  @7002
   シナリオ: [正常系]仮想サーバイメージ名の変更が仮想サーバ一覧画面の仮想サーバイメージ名に反映されることを確認する
     # 物理サーバが10件のファイル
     もし Wakameのモックファイル"./features/usecases/resource/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/usecases/resource/test_files/describe_host_nodes.json"にコピーする
@@ -272,15 +274,15 @@
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること # 仮想サーバイメージ名の"virtual_server_image_uuid_01"が"virtual_server_image_name_01"に変わっていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
-    |physical_server_name_01|virtual_server_uuid_01|virtual_server_uuid_01|    |private_ip_address: 192.168.2.1 <br>nw-data: 192.168.2.1 <br>nw-outside: 172.16.0.1 |running|virtual_server_image_name_01|virtual_server_spec_uuid_01|
-    |                       |virtual_server_uuid_02|virtual_server_uuid_02|    |private_ip_address: 192.168.2.2 <br>nw-data: 192.168.2.2 <br>nw-outside: 172.16.0.2 |running|virtual_server_image_name_01|virtual_server_spec_uuid_01|
-    |                       |virtual_server_uuid_03|virtual_server_uuid_03|    |private_ip_address: 192.168.2.3 <br>nw-data: 192.168.2.3 <br>nw-outside: 172.16.0.3 |starting|virtual_server_image_name_01|virtual_server_spec_uuid_01|
-    |                       |virtual_server_uuid_04|virtual_server_uuid_04|    |private_ip_address: 192.168.2.4 <br>nw-data: 192.168.2.4 <br>nw-outside: 172.16.0.4 |shuttingdown|virtual_server_image_name_01|virtual_server_spec_uuid_01|
-    |                       |virtual_server_uuid_05|virtual_server_uuid_05|    |private_ip_address: 192.168.2.5 <br>nw-data: 192.168.2.5 <br>nw-outside: 172.16.0.5 |terminated|virtual_server_image_name_01|virtual_server_spec_uuid_01|
+    |physical_server_name_01|virtual_server_uuid_01|virtual_server_uuid_01|    |private_ip_address: 192.168.2.1 <br>nw-data: 192.168.2.1 <br>nw-outside: 172.16.0.1 |running|virtual_server_image_name_01(仮想サーバイメージ説明01)|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_02|virtual_server_uuid_02|    |private_ip_address: 192.168.2.2 <br>nw-data: 192.168.2.2 <br>nw-outside: 172.16.0.2 |running|virtual_server_image_name_01(仮想サーバイメージ説明01)|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_03|virtual_server_uuid_03|    |private_ip_address: 192.168.2.3 <br>nw-data: 192.168.2.3 <br>nw-outside: 172.16.0.3 |starting|virtual_server_image_name_01(仮想サーバイメージ説明01)|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_04|virtual_server_uuid_04|    |private_ip_address: 192.168.2.4 <br>nw-data: 192.168.2.4 <br>nw-outside: 172.16.0.4 |shuttingdown|virtual_server_image_name_01(仮想サーバイメージ説明01)|virtual_server_spec_uuid_01|
+    |                       |virtual_server_uuid_05|virtual_server_uuid_05|    |private_ip_address: 192.168.2.5 <br>nw-data: 192.168.2.5 <br>nw-outside: 172.16.0.5 |terminated|virtual_server_image_name_01(仮想サーバイメージ説明01)|virtual_server_spec_uuid_01|
     |physical_server_name_02|virtual_server_uuid_06|virtual_server_uuid_06|    |private_ip_address: 192.168.2.6 <br>nw-data: 192.168.2.6 <br>nw-outside: 172.16.0.6 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
     |                       |virtual_server_uuid_07|virtual_server_uuid_07|    |private_ip_address: 192.168.2.7 <br>nw-data: 192.168.2.7 <br>nw-outside: 172.16.0.7 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
     |                       |virtual_server_uuid_08|virtual_server_uuid_08|    |private_ip_address: 192.168.2.8 <br>nw-data: 192.168.2.8 <br>nw-outside: 172.16.0.8 |running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
-    |physical_server_name_03|virtual_server_uuid_09|virtual_server_uuid_09|    |private_ip_address: 192.168.2.9 <br>nw-data: 192.168.2.9 <br>nw-outside: 172.16.0.9 |running|virtual_server_image_name_01|virtual_server_spec_uuid_01|
+    |physical_server_name_03|virtual_server_uuid_09|virtual_server_uuid_09|    |private_ip_address: 192.168.2.9 <br>nw-data: 192.168.2.9 <br>nw-outside: 172.16.0.9 |running|virtual_server_image_name_01(仮想サーバイメージ説明01)|virtual_server_spec_uuid_01|
     |                       |virtual_server_uuid_10|virtual_server_uuid_10|    |private_ip_address: 192.168.2.10 <br>nw-data: 192.168.2.10<br>nw-outside: 172.16.0.10|running|virtual_server_image_uuid_02|virtual_server_spec_uuid_02|
     |physical_server_name_04|仮想サーバは起動していません。|||||||
     |physical_server_name_05|仮想サーバは起動していません。|||||||

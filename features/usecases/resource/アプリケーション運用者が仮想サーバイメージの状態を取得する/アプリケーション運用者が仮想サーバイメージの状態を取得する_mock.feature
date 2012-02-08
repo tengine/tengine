@@ -17,9 +17,10 @@
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
     #  > tengine_resource_watchd
     # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
-    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb 
+    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb
 
   @manual
+  @7006
   シナリオ: [正常系]アプリケーション運用者は仮想サーバイメージ一覧画面を開き、仮想サーバイメージが表示されていることを確認する
     # 代替コースB: 管理下の仮想サーバイメージが存在しない
     # 仮想サーバイメージが0件のファイル

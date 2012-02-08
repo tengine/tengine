@@ -17,9 +17,10 @@
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
     #  > tengine_resource_watchd
     # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
-    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb 
+    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb
 
   @manual
+  @7005
   シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面から仮想サーバの停止を行う
     # 物理サーバが10件のファイル
     もし Wakameのモックファイル"./features/usecases/resource/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/usecases/resource/test_files/describe_host_nodes.json"にコピーする
