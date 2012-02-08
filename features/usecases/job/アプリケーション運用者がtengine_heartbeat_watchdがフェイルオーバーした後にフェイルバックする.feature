@@ -29,6 +29,8 @@
     かつ ジョブ実行環境のIPを"job_server_ip"と呼ぶ
     かつ heartbeat_watchd1のPIDを"heartbeat_watchd1_pid"と呼ぶ
     かつ heartbeat_watchd2のPIDを"heartbeat_watchd2_pid"と呼ぶ
+    かつ heartbeat_watchd1のログファイルを"heartbeat_watchd1_log"と呼ぶ # log/tengine_heartbeat_watchd_#{サーバ名}.log
+    かつ heartbeat_watchd2のログファイルを"heartbeat_watchd2_log"と呼ぶ
 
   @success
   @1000
@@ -84,7 +86,7 @@
 
 
 #tengine_heartbeat_watchdがフェイルバックできていることを確認する。
-#タイミングによっては、フェイルバックしていないtengine_heartbeat_watchdのみがイベントを発火する可能性があるのでイベントフェイルバックしたtengine_heartbeat_watchdが同左するまで繰り返す
+#タイミングによっては、フェイルバックしていないtengine_heartbeat_watchdのみがイベントを発火する可能性があるのでイベントフェイルバックしたtengine_heartbeat_watchdが動作するまで繰り返す
 
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"を表示していること
@@ -119,5 +121,11 @@
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
     |  |jobnet1001         |jobnet1001|        |        |実行中|監視 再実行|
 
+    もし heartbeat_watchd1_logを開く
+    ならば 以下の記述があること
+    """
+    yyyy-MM-ddTHH:mm:ss+09:00 INFO  Heartbeat expiration detected! for job.heartbeat.tengine of job:test_server1/*****/************************/************************: last seen yyyy-MM-dd HH:mm:ss +0900 (************ secs before)
+    """
+# もし heartbeat_watchd1_log でなく heartbeat_watchd2_log に上記の記述がある場合、
+# 「tengine_heartbeat_watchdがフェイルバックできていることを確認する。」からやり直す
 
-   
