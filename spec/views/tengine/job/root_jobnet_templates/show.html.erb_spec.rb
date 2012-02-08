@@ -10,7 +10,7 @@ describe "tengine/job/root_jobnet_templates/show.html.erb" do
   def load_dsl(dir, filename)
     @bootstrap = Tengine::Core::Bootstrap.new({
       :action => "load",
-      :tengined => { :load_path => File.expand_path(filename, dir) },
+      :tengined => { :load_path => File.expand_path(filename, dir), :cache_drivers => true },
     })
     @bootstrap.boot
   end
