@@ -34,14 +34,15 @@
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
     #  > tengine_resource_watchd
     # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
-    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb 
+    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb
 
     #
     # 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプはテストを行うWakameの環境に応じて読み替えてください
     #
 
   @manual
-  シナリオ: [正常系]アプリケーション運用者は物理サーバ一覧画面を開き、物理サーバが表示されていることを確認する
+  @7101
+  シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面を開き、仮想サーバが表示されていることを確認する
     # 代替コースB：管理下の仮想サーバが存在しない
     # この状態はすでに仮想サーバが起動している環境では確認できません
     もし "仮想サーバ一覧"画面を表示する
@@ -61,7 +62,9 @@
     |                       |run_3_virtual_servers003|virtual_server_uuid_03|仮想サーバを3台起動テストの説明|private_ip_address: 192.168.1.3|running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
 
     もし"イベント一覧"画面を表示する
-    ならば"種別名"に"Tengine::Resource::VirtualServer.updated.tengine_resource_watchd"のイベントが<仮想サーバの件数>件表示されていること
+    ならば 以下のイベントが3件表示されていること
+    |種別名    |"Tengine::Resource::VirtualServer.updated.tengine_resource_watchd"である|
+    |プロパティ|"status:"が"running"に変わっている                                      |
 
     # 仮想サーバの仮想サーバ名、説明を編集する
     もし "仮想サーバ名"が"run_3_virtual_servers001"列の"編集"リンクをクリックする
@@ -82,11 +85,11 @@
     ならば "仮想サーバ編集"画面が表示されていること
     かつ "仮想サーバ編集"画面に"run_3_virtual_servers002"と表示されていること
 
-    もし "仮想サーバ名"に"virtual_server_name_01"と入力する　# すでに使用している名前を入力する
+    もし "仮想サーバ名"に"virtual_server_name_01"と入力する # すでに使用している名前を入力する
     かつ "更新"ボタンをクリックする
     ならば "仮想サーバ編集"画面が表示されていること
     かつ "仮想サーバ名 はすでに使用されています"と表示されていること
- 
+
     もし "キャンセル"リンクをクリックする
     ならば "仮想サーバ一覧"画面が表示されていること
     かつ "仮想サーバ一覧"画面に以下の行が表示されていること #virtual_server_uuid_02 の仮想サーバ名が更新されていないこと

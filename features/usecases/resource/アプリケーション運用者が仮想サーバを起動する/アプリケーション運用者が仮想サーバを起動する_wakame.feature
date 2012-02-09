@@ -35,6 +35,7 @@
     #
 
   @manual
+  @7102
   シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面から仮想サーバの起動を行う
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
@@ -82,7 +83,10 @@
 
     # 起動イベントの確認
     もし"イベント一覧"画面を表示する
-    ならば "種別名"に"Tengine::Resource::VirtualServer.updated.tengine_resource_watchd"のイベントが3件表示されていること
+    ならば 以下のイベントが3件表示されていること
+    |種別名    |"Tengine::Resource::VirtualServer.updated.tengine_resource_watchd"である|
+    |プロパティ|"status:"が"running"に変わっている                                      |
+
 
     # 起動可能数の確認
     ならば "仮想サーバ起動"画面が表示されていること
@@ -173,3 +177,4 @@
     |physical_server_name_01|run_3_virtual_servers001|virtual_server_uuid_01|
     |                       |run_3_virtual_servers002|virtual_server_uuid_02|
     |                       |run_3_virtual_servers003|virtual_server_uuid_03|
+
