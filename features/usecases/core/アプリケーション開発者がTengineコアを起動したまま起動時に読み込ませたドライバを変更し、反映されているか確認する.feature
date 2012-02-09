@@ -19,7 +19,7 @@
 
     もし テストを行う為に、"\cp -rf tengine_console/usecases/core/dsls/uc100_change_loaded_handler_origin.rb tengine_console/usecases/core/dsls/uc100_change_loaded_handler.rb"コマンドを実行する
     
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/core/dsl/uc100_change_loaded_handler.rb --tengined-cache-drivers "というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/core/dsl/uc100_change_loaded_handler.rb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力からPIDを確認する
     かつ "Tengineコアプロセス"が起動していることをPIDを用いて"ps -eo pid PID"というコマンドで確認できること
 

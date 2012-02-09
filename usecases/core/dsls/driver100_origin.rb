@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+puts "*" * 100
+puts "#{__FILE__} is loaded"
 require 'tengine/core'
 
 class Driver100
