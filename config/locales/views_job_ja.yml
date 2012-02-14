@@ -20,6 +20,8 @@ ja:
             destroy: "本当に強制停止しますか？"
           links:
             events: "メッセージ一覧"
+        edit:
+          title: "ジョブネットステータス変更"
       jobnet_actuals:
         edit:
           title: "ジョブステータス変更"
