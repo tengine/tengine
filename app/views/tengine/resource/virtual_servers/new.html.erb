@@ -63,7 +63,7 @@
         <% end -%>
 
         <div class="BoxBtns">
-          <span class="BtnWrap"><%= f.submit t(".pages.run"), :class => "BtnAdd" %></span>
+          <span class="BtnWrap"><%= f.submit t(".pages.run"), :class => "BtnAdd", :disable_with => t(".pages.run") %></span>
           <%= link_to tengine_resource_virtual_servers_url, :class => "BtnWrap" do -%>
             <span class="BtnCancel"><%= t("views.links.cancel") %></span>
           <% end -%>
