@@ -129,7 +129,7 @@
             <tr>
               <th><%= f.label :phase_cd %>:</th>
               <td>
-                <%= f.select :phase_cd, Tengine::Job::JobnetActual.phase_hash_array.map{|hash| [hash[:name].to_s, hash[:id]] if [:success, :error].include?(hash[:key]) }.compact %>
+                <%= f.select :phase_cd, Tengine::Job::JobnetActual.phase_hash_array.map{|hash| [hash[:name].to_s, hash[:id]] if [:initialized, :success, :error].include?(hash[:key]) }.compact %>
               </td>
             </tr>
           </tbody>
