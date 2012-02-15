@@ -639,14 +639,22 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
             :executing_pid => "Executing Pid",
             :exit_status => "Exit Status",
             :was_expansion => false,
-            :phase_cd => 80,
-            :phase_name => "initialized",
+            :phase_key => :stuck,
+            :phase_name => "stuck",
             :stop_reason => "Stop Reason",
             :lock_version => 4,
             :template => stub_template
           ),
         ]
         assign(:root_jobnet_actuals, Kaminari.paginate_array(templates).page(1).per(5))
+      end
+
+      it "ステータス変更のリンクが表示されていること" do
+        render
+
+        href = edit_tengine_job_root_jobnet_actual_path(@actual1)
+        rendered.should have_xpath("//a[@href='#{href}']",
+          :text => I18n.t("views.links.edit_status"))
       end
 
       it "強制停止のリンクが表示されていないこと" do

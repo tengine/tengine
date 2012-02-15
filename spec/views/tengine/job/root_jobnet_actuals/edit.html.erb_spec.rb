@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe "tengine/job/root_jobnet_actuals/edit.html.erb" do
@@ -27,22 +28,33 @@ describe "tengine/job/root_jobnet_actuals/edit.html.erb" do
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => tengine_job_root_jobnet_actuals_path(@root_jobnet_actual), :method => "post" do
-      assert_select "input#root_jobnet_actual_name", :name => "root_jobnet_actual[name]"
-      assert_select "input#root_jobnet_actual_server_name", :name => "root_jobnet_actual[server_name]"
-      assert_select "input#root_jobnet_actual_credential_name", :name => "root_jobnet_actual[credential_name]"
-      assert_select "input#root_jobnet_actual_killing_signals_text", :name => "root_jobnet_actual[killing_signals_text]"
-      assert_select "input#root_jobnet_actual_killing_signal_interval", :name => "root_jobnet_actual[killing_signal_interval]"
-      assert_select "input#root_jobnet_actual_description", :name => "root_jobnet_actual[description]"
-      assert_select "input#root_jobnet_actual_script", :name => "root_jobnet_actual[script]"
-      assert_select "input#root_jobnet_actual_jobnet_type_cd", :name => "root_jobnet_actual[jobnet_type_cd]"
-      assert_select "input#root_jobnet_actual_executing_pid", :name => "root_jobnet_actual[executing_pid]"
-      assert_select "input#root_jobnet_actual_exit_status", :name => "root_jobnet_actual[exit_status]"
-      assert_select "input#root_jobnet_actual_was_expansion", :name => "root_jobnet_actual[was_expansion]"
-      assert_select "input#root_jobnet_actual_phase_cd", :name => "root_jobnet_actual[phase_cd]"
-      assert_select "input#root_jobnet_actual_stop_reason", :name => "root_jobnet_actual[stop_reason]"
-      assert_select "input#root_jobnet_actual_category_id", :name => "root_jobnet_actual[category_id]"
-      assert_select "input#root_jobnet_actual_lock_version", :name => "root_jobnet_actual[lock_version]"
-      assert_select "input#root_jobnet_actual_template_id", :name => "root_jobnet_actual[template_id]"
+      assert_select "select#root_jobnet_actual_phase_cd", :name => "root_jobnet_actual[phase_cd]"
     end
   end
+
+  it "ジョブネットの情報が表示されていること" do
+    render
+
+    rendered.should have_xpath("//td", :text => @root_jobnet_actual.name)
+    rendered.should have_xpath("//td", :text => @root_jobnet_actual.id.to_s)
+    rendered.should have_xpath("//td", :text => @root_jobnet_actual.description)
+    rendered.should have_xpath("//td", :text => @root_jobnet_actual.server_name)
+    rendered.should have_xpath("//td", :text => @root_jobnet_actual.credential_name)
+    rendered.should have_xpath("//td", :text => @root_jobnet_actual.started_at.to_s)
+    rendered.should have_xpath("//td", :text => @root_jobnet_actual.finished_at.to_s)
+  end
+
+  it "ページタイトルが表示されていること" do
+    render(:file => "tengine/job/root_jobnet_actuals/edit")
+
+    rendered.should have_xpath("//h1",
+      :text => I18n.t("tengine.job.root_jobnet_actuals.edit.title"))
+  end
+
+  it "キャンセルのリンクが表示されていること" do
+    render
+
+    rendered.should have_xpath("//a[@href='#{tengine_job_root_jobnet_actuals_path}']", :text => I18n.t("views.links.cancel"))
+  end
+
 end

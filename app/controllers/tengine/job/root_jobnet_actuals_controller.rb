@@ -122,7 +122,9 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
 
     respond_to do |format|
       if @root_jobnet_actual.update_attributes(params[:root_jobnet_actual])
-        format.html { redirect_to @root_jobnet_actual, notice: successfully_updated(@root_jobnet_actual) }
+        format.html do
+          redirect_to tengine_job_root_jobnet_actual_path
+        end
         format.json { head :ok }
       else
         format.html { render action: "edit" }

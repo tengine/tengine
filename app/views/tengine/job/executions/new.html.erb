@@ -88,7 +88,7 @@
 
     <div class="BoxBtns">
       <span class="BtnWrap">
-        <%= f.submit t("views.links.run"), :class => "BtnAdd" %>
+        <%= f.submit t("views.links.run"), :class => "BtnAdd", :disable_with => t("views.links.run") %>
       </span>
       <% if @retry -%>
         <%= button_link_to t("views.links.cancel"),

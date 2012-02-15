@@ -408,6 +408,71 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
       end
     end
 
+    context "@jobnet1のステータスがstuck, @job2のステータスがrunningのとき" do
+      before do
+        @jobnet1 = stub_model(Tengine::Job::JobnetActual,
+          :id => BSON::ObjectId("4e955633c3406b3a9f000002"),
+          :name => "job1 name",
+          :description => "job1 description",
+          :server_name => "job1 server_name",
+          :credential_name => "job1 credential_name",
+          :phase_cd => 90,
+          :phase_name => "stuck",
+          :phase_key => :stuck,
+          :started_at => Time.new(2011, 11, 5),
+        )
+        @job2 = stub_model(Tengine::Job::JobnetActual,
+          :id => BSON::ObjectId("4e955633c3406b3a9f000003"),
+          :name => "job2 name",
+          :description => "job2 description",
+          :script => "job2 script",
+          :server_name => "job1 server_name",
+          :credential_name => "job1 credential_name",
+          :phase_cd => 90,
+          :phase_name => "running",
+          :phase_key => :running,
+          :started_at => Time.new(2011, 11, 5),
+          :parent => @jobnet1,
+        )
+        @jobnet_actuals = assign(:jobnet_actuals, [
+          [@jobnet1, 0],
+          [@job2, 1],
+        ])
+      end
+
+      it "@jobnet1はステータス変更と再実行のリンクが表示されていること" do
+        render
+
+        rendered.should have_link(I18n.t("views.links.edit_status"),
+          :href => edit_tengine_job_root_jobnet_actual_jobnet_actual_path(
+            @jobnet1, :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
+        rendered.should have_link(I18n.t("views.links.rerun"),
+          :href => new_tengine_job_execution_path(
+            :root_jobnet_id => @root_jobnet_actual,
+            :target_actual_ids => [@jobnet1.id.to_s],
+            :retry => true))
+        rendered.should_not have_link(I18n.t("views.links.force_exit"),
+          :href => tengine_job_root_jobnet_actual_jobnet_actual_path(@jobnet1.id.to_s,
+            :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
+      end
+
+      it "@job2はステータス変更と強制停止のリンクが表示されていること" do
+        render
+
+        rendered.should have_link(I18n.t("views.links.edit_status"),
+          :href => edit_tengine_job_root_jobnet_actual_jobnet_actual_path(
+            @job2, :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
+        rendered.should_not have_link(I18n.t("views.links.rerun"),
+          :href => new_tengine_job_execution_path(
+            :root_jobnet_id => @root_jobnet_actual,
+            :target_actual_ids => [@job2.id.to_s],
+            :retry => true))
+        rendered.should have_link(I18n.t("views.links.force_exit"),
+          :href => tengine_job_root_jobnet_actual_jobnet_actual_path(@job2.id.to_s,
+            :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
+      end
+    end
+
     context "@root_jobnet_actualのステータスがrunningのとき" do
       before(:each) do
         @root_jobnet_actual = assign(:root_jobnet_actual, stub_model(Tengine::Job::RootJobnetActual,
