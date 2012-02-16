@@ -3,7 +3,7 @@
 
 if [ "$1" = "start" ]; then
     echo "Waiting for dependencies"
-    cd /var/lib/tengine_console/current && sudo -u apache env PATH=/usr/local/bin:$PATH bundle exec rake check || exit 1
+    cd /var/lib/tengine_console/current && sudo -u apache env PATH=/usr/local/bin:$PATH env RAILS_ENV=production bundle exec rake check || exit 1
 fi
 
 /sbin/service httpd "$1"
