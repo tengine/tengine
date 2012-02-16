@@ -29,6 +29,7 @@ driver :jobnet_control_driver do
     `echo start.jobnet.job.tengine_1_1  >> /tmp/core_server_down_txt`
     `echo please poweroff this server >> /tmp/core_server_down_txt`
     sleep 300
+    `echo Timeout, I wakeup >> /tmp/core_server_down_txt`
     signal.execution.safely(safemode(Tengine::Job::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit

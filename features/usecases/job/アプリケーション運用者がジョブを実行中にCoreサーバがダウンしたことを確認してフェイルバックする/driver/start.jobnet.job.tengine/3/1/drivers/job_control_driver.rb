@@ -15,8 +15,6 @@ end
 driver :job_control_driver do
 
   on :'start.job.job.tengine' do
-    `echo please poweroff 3_1_server >> /tmp/core_server_down_txt`
-    sleep 300
     signal = Tengine::Job::Signal.new(event)
     # activate
     root_jobnet = Tengine::Job::RootJobnetActual.find(event[:root_jobnet_id])
