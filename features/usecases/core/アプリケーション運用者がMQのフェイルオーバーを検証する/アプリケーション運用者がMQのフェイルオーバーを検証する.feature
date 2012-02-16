@@ -16,8 +16,8 @@
     かつ tenginedの設定ファイルはVIPにアクセスするように設定されている
 
     かつ このファイルと同じディレクトリにあるdslディレクトリを $dsl と呼ぶことにする
-    かつ MQのサービスをcrm_resourceから停止/再開する方法を調べておく
-    かつ VIPを停止/再開する方法を調べておく
+    かつ Pacemakerで管理しているMQのリソース名を bunny であるとする
+    かつ Pacemakerで管理しているVIPのリソース名を ip であるとする
     かつ MQサーバの仮想マシンを停止/再開する方法を調べておく
 
   @manual
@@ -27,7 +27,7 @@
 
     # MQの停止
 
-    MQのプロセスを停止するためにPacemakerから"sudo crm_resource -r MQ -p target-role -v stopped"を実行する。
+    MQのプロセスを停止するためにPacemakerから"sudo crm_resource -r bunny -p target-role -v Stopped"を実行する。
 
     # 1回目
 
@@ -36,11 +36,11 @@
 
     # MQの再起動
 
-    MQのプロセスを起動するためにPacemakerから"sudo crm_resource -r MQ -p target-role -v started"を実行する。
+    MQのプロセスを起動するためにPacemakerから"sudo crm_resource -r bunny -p target-role -v Started"を実行する。
     # rabbitmq-serverが起動してきたことをなんらかの方法で確認する
 
     # 2回目
-    
+
     もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -58,7 +58,7 @@
 
     # MQの停止
 
-    VIPを停止する # どうやって?
+    VIPを停止するためにPacemakerから"sudo crm_resource -r ip -p target-role -v Stopped"を実行する
 
     # 1回目
 
@@ -67,10 +67,10 @@
 
     # MQの停止
 
-    VIPを再起動する # どうやって?
+    VIPを起動するためにPacemakerから"sudo crm_resource -r ip -p target-role -v Started"を実行する
 
     # 2回目
-    
+
     もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -95,8 +95,8 @@
     # MQの停止から再起動
 
     # rabbitmqを直接落として、Pacemakerに再起動させる
-    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl stop"というコマンドを実行する
-    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl status"というコマンドを実行する
+    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl -n rabbit@localhost stop"というコマンドを実行する
+    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl -n rabbit@localhost status"というコマンドを実行する
     ならば '{running_applications,[{rabbit,"RabbitMQ",' という内容を含む出力を得ること
 
     # イベント実行
@@ -147,8 +147,8 @@
 
     # MQの停止から再起動
 
-    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl stop"というコマンドを実行する
-    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl status"というコマンドを実行する
+    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl -n rabbit@localhost stop"というコマンドを実行する
+    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl -n rabbit@localhost status"というコマンドを実行する
     ならば '{running_applications,[{rabbit,"RabbitMQ",' という内容を含む出力を得ること
 
     # 2回目
@@ -204,8 +204,8 @@
 
     # MQの停止から再起動
 
-    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl stop"というコマンドを実行する
-    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl status"というコマンドを実行する
+    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl -n rabbit@localhost stop"というコマンドを実行する
+    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl -n rabbit@localhost status"というコマンドを実行する
     ならば '{running_applications,[{rabbit,"RabbitMQ",' という内容を含む出力を得ること
 
     # イベント実行
@@ -261,8 +261,8 @@
 
     # MQの停止から再起動
 
-    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl stop"というコマンドを実行する
-    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl status"というコマンドを実行する
+    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl -n rabbit@localhost stop"というコマンドを実行する
+    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl -n rabbit@localhost status"というコマンドを実行する
     ならば '{running_applications,[{rabbit,"RabbitMQ",' という内容を含む出力を得ること
 
     # 2回目
@@ -320,8 +320,8 @@
 
     # MQの停止から再起動
 
-    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl stop"というコマンドを実行する
-    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl status"というコマンドを実行する
+    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl -n rabbit@localhost stop"というコマンドを実行する
+    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl -n rabbit@localhost status"というコマンドを実行する
     ならば '{running_applications,[{rabbit,"RabbitMQ",' という内容を含む出力を得ること
 
     # イベント実行
@@ -375,8 +375,8 @@
 
     # MQの停止から再起動
 
-    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl stop"というコマンドを実行する
-    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl status"というコマンドを実行する
+    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl -n rabbit@localhost stop"というコマンドを実行する
+    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl -n rabbit@localhost status"というコマンドを実行する
     ならば '{running_applications,[{rabbit,"RabbitMQ",' という内容を含む出力を得ること
 
     # 2回目
