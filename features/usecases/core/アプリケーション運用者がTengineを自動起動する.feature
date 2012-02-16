@@ -40,14 +40,12 @@
   #  Runlevel => tengine_console 0:off 1:off 2:on 3:on 4:on 5:on 6:off
   #  注) Apacheを起動する際は、RabbitMQ、MongoDB が起動していることを確認してApacheを起動する
   #
-  # tengined, tengine_heartbeat_watchd, tengine_atd, tengine_resource_watchd … コアサーバ
-  #  tengined, tengine_heartbeat_watchd, tengine_atd, tengine_resource_watchd を起動、停止するためのスクリプトを作成し /etc/init.d に配置に追加する
+  # tengique … コアサーバ
+  #  tengique(tengined, tengine_heartbeat_watchd, tengine_atd, tengine_resource_watchd) を起動、停止するためのスクリプトを作成し /etc/init.d に配置に追加する
   #  RabbitMQ、MongoDBと接続できない場合は、起動を行わない。
-  #  tengine_resource_watchd のみ Wakameと接続できない場合は起動しない
-  #  Runlevel => tengined                 0:off 1:off 2:on 3:on 4:on 5:on 6:off
-  #              tengine_heartbeat_watchd 0:off 1:off 2:on 3:on 4:on 5:on 6:off
-  #              tengine_atd              0:off 1:off 2:on 3:on 4:on 5:on 6:off
-  #              tengine_resource_watchd  0:off 1:off 2:on 3:on 4:on 5:on 6:off
+  #  ただし、tengine_resource_watchd のみ Wakameと接続できない場合は起動しない
+  #  Runlevel => tengique                 0:off 1:off 2:on 3:on 4:on 5:on 6:off
+  #
   #
   # Red Hatのランレベル
   #  0: システム停止
@@ -65,14 +63,14 @@
   背景:
     前提 日本語でアクセスする
     かつ 物理サーバが停止している
-    かつ 物理サーバ起動時に仮想サーバを自動起動する設定をしている
-    かつ DBサーバ起動時に"DBプロセス"を起動する設定をしている
-    かつ MQサーバ起動時に"キュープロセス"を起動する設定をしている
-    かつ フロントエンドサーバ起動時に"Tengineコンソールプロセス"を起動する設定をしている
-    かつ コアサーバ起動時に"Tengineコアプロセス"を起動する設定をしている
-    かつ コアサーバ起動時に"Tengineスケジュールキーパープロセス"を起動する設定をしている
-    かつ コアサーバ起動時に"Tengineハートビートウォッチャプロセス"を起動する設定をしている
-    かつ コアサーバ起動時に"Tengineリソースウォッチャプロセス"を起動する設定をしている
+    かつ 「物理サーバ起動時に仮想サーバを自動起動する」設定をしている
+    かつ 「DBサーバ起動時に"DBプロセス"を起動する」設定をしている
+    かつ 「MQサーバ起動時に"キュープロセス"を起動する」設定をしている
+    かつ 「フロントエンドサーバ起動時に"Tengineコンソールプロセス"を起動する」設定をしている
+    かつ 「コアサーバ起動時に"Tengineコアプロセス"を起動する」設定をしている
+    かつ 「コアサーバ起動時に"Tengineスケジュールキーパープロセス"を起動する」設定をしている
+    かつ 「コアサーバ起動時に"Tengineハートビートウォッチャプロセス"を起動する」設定をしている
+    かつ 「コアサーバ起動時に"Tengineリソースウォッチャプロセス"を起動する」設定をしている
 
 
   #
@@ -96,7 +94,7 @@
     # 仮想サーバが起動していることを確認する
     #
     もし "zbtgn001"物理サーバにログインする
-    かつ `sudo virsh list`コマンドを実行する
+    かつ `sudo virsh list --all`コマンドを実行する
     ならば 以下の結果を含んでいること
     """
     ** zbtgnmq2             running
@@ -106,7 +104,7 @@
     """
 
     もし "zbtgn002"物理サーバにログインする
-    かつ `sudo virsh list`コマンドを実行する
+    かつ `sudo virsh list --all`コマンドを実行する
     ならば 以下の結果を含んでいること
     """
     ** zbtgnsc1             running
@@ -115,7 +113,7 @@
     """
 
     もし "zbtgn003"物理サーバにログインする
-    かつ `sudo virsh list`コマンドを実行する
+    かつ `sudo virsh list --all`コマンドを実行する
     ならば 以下の結果を含んでいること
     """
     ** zbtgnsc2             running
@@ -131,7 +129,7 @@
     # DBプロセスが正しく起動していることを確認する
     #
     # rs_status.js は shellPrint(rs.status()) を実行するのみのスクリプトを作成する
-    もし `ssh tengine@zbtgndb1 /usr/local/mongodb/bin/mongo admin rs_status.js`コマンドを実行する
+    もし `ssh root@zbtgndb1 service mongod rs_status`コマンドを実行する
     ならば 以下の記述が存在すること
     """
     "name" : "zbtgndb1:27017",
@@ -203,7 +201,7 @@
     """
 
     もし `ssh tengine@zbtgncr2 ps aux | grep -e tengined -e tengine_heartbeat_watchd -e tengine_atd -e tengine_resource_watchd | grep -v grep`コマンドを実行する
-    ならば 以下の記述が存在すること
+    ならば 以下の記述が存在すること # "tengined.1" などの様に 末尾が "0" 以外の数値になっていないこと
     """
     tengined *****  ***  *** ******* ***** *       **   ***** ****** tengined.0
     tengined *****  ***  *** ******* ***** *       **   ***** ****** tengine_atd
@@ -213,7 +211,6 @@
 
 
   #
-  # Frontendサーバ異常系
   # RabbitMQ、MongoDBに接続できない状態で、Frontendサーバを起動しても httpd を起動しない
   # RabbitMQ、MongoDBに接続出来なかった場合、接続に失敗したことをブートログに出力しリトライを行う。
   # さらにリトライ回数が指定回数に達した場合は、自動起動に失敗したことをブートログに出力する。
@@ -257,15 +254,14 @@
     # ログを確認して、原因を調べる
     #
     もし `ssh tengine@zbtgnwb1 cat /var/log/boot.log`コマンドを実行する
-    ならば 以下の記述を含んでいること
+    ならば 以下の記述を10回含んでいること
     """
-    Starting tengine console:                                           [FAILED]
+    [amqp] Detected TCP connection failure
 
     """
-    かつ 以下の記述を10回含んでいること
+    かつ 以下の記述を含んでいること
     """
-    Connecting to <MQのVIP>:5672
-    Errno::ECONNREFUSED: Connection refused - connect(2)
+    (1/2) NG, AMQP is not up.
     """
 
   @manual
@@ -303,21 +299,19 @@
     # ログを確認して、原因を調べる
     #
     もし `ssh tengine@zbtgnwb1 cat /var/log/boot.log`コマンドを実行する
-    ならば 以下の記述を含んでいること
+    ならば 以下の記述を10回含んでいること
     """
-    Starting tengine_console:                                           [FAILED]
+    Cannot connect to a replica set using seeds zbtgndb1:27017, zbtgndb2:27017, zbtgndb3:27017
 
     """
-    かつ 以下の記述を10回含んでいること
+    かつ 以下の記述を含んでいること
     """
-    Connecting to <zbtgndb1のIP>:27017
-    Errno::ECONNREFUSED: Connection refused - connect(2)
+    (2/2) NG, Mongoid is not up.
     """
 
   #
-  # RabbitMQ、MongoDBに接続できない状態で、Coreサーバを起動しても tengined, tengine_heartbeat_watchd, tengine_atd, tengine_resource_watchd を起動しない
-  # Wakameに接続できない状態で、Coreサーバを起動しても tengine_resource_watchd を起動しない
-  # RabbitMQ、MongoDB(、Wakame)に接続出来なかった場合、接続に失敗したことをブートログに出力しリトライを行う。
+  # RabbitMQ、MongoDBに接続できない状態で、Coreサーバを起動しても tengique を起動しない
+  # RabbitMQ、MongoDBに接続出来なかった場合、接続に失敗したことをブートログに出力しリトライを行う。
   # さらにリトライ回数が指定回数に達した場合は、自動起動に失敗したことをブートログに出力する。
   #
   # ブートログ…/var/log/boot.log
@@ -362,52 +356,18 @@
     #
     もし `ssh tengine@zbtgnwb1 cat /var/log/boot.log`コマンドを実行する
     ならば 以下の記述を含んでいること
-
-    # tengined が自動起動に失敗
     """
-    Starting tengined:                                           [FAILED]
+    starting tengique(in /var/lib/tengine_core/releases/**************)
 
     """
     かつ 以下の記述を10回含んでいること
     """
-    Connecting to <MQのVIP>:5672
-    Errno::ECONNREFUSED: Connection refused - connect(2)
-    """
+    [amqp] Detected TCP connection failure
 
-    # tengine_atd が自動起動に失敗
+    """
     かつ 以下の記述を含んでいること
     """
-    Starting tengine_atd:                                        [FAILED]
-
-    """
-    かつ 以下の記述を10回含んでいること
-    """
-    Connecting to <MQのVIP>:5672
-    Errno::ECONNREFUSED: Connection refused - connect(2)
-    """
-
-    # tengine_heartbeat_watchd が自動起動に失敗
-    かつ 以下の記述を含んでいること
-    """
-    Starting tengine_heartbeat_watchd:                           [FAILED]
-
-    """
-    かつ 以下の記述を10回含んでいること
-    """
-    Connecting to <MQのVIP>:5672
-    Errno::ECONNREFUSED: Connection refused - connect(2)
-    """
-
-    # tengine_resource_watchd が自動起動に失敗
-    かつ 以下の記述を含んでいること
-    """
-    Starting tengine_resource_watchd:                            [FAILED]
-
-    """
-    かつ 以下の記述を10回含んでいること
-    """
-    Connecting to <MQのVIP>:5672
-    Errno::ECONNREFUSED: Connection refused - connect(2)
+    (1/2) NG, AMQP is not up.
     """
 
   @manual
@@ -449,52 +409,17 @@
     #
     もし `ssh tengine@zbtgnwb1 cat /var/log/boot.log`コマンドを実行する
     ならば 以下の記述を含んでいること
-
-    # tengined が自動起動に失敗
     """
-    Starting tengined:                                           [FAILED]
+    starting tengique(in /var/lib/tengine_core/releases/**************)
 
     """
     かつ 以下の記述を10回含んでいること
     """
-    Connecting to <zbtgndb1のIP>:27017
-    Errno::ECONNREFUSED: Connection refused - connect(2)
+    Cannot connect to a replica set using seeds zbtgndb1:27017, zbtgndb2:27017, zbtgndb3:27017
     """
-
-    # tengine_atd が自動起動に失敗
     かつ 以下の記述を含んでいること
     """
-    Starting tengine_atd:                                        [FAILED]
-
-    """
-    かつ 以下の記述を10回含んでいること
-    """
-    Connecting to <zbtgndb1のIP>:27017
-    Errno::ECONNREFUSED: Connection refused - connect(2)
-    """
-
-    # tengine_heartbeat_watchd が自動起動に失敗
-    かつ 以下の記述を含んでいること
-    """
-    Starting tengine_heartbeat_watchd:                           [FAILED]
-
-    """
-    かつ 以下の記述を10回含んでいること
-    """
-    Connecting to <zbtgndb1のIP>:27017
-    Errno::ECONNREFUSED: Connection refused - connect(2)
-    """
-
-    # tengine_resource_watchd が自動起動に失敗
-    かつ 以下の記述を含んでいること
-    """
-    Starting tengine_resource_watchd:                            [FAILED]
-
-    """
-    かつ 以下の記述を10回含んでいること
-    """
-    Connecting to <zbtgndb1のIP>:27017
-    Errno::ECONNREFUSED: Connection refused - connect(2)
+    (2/2) NG, Mongoid is not up.
     """
 
   @manual
@@ -531,6 +456,10 @@
     tengined *****  ***  *** ******* ***** *       **   ***** ****** tengine_atd
     tengined *****  ***  *** ******* ***** *       **   ***** ****** tengine_heartbeat_watchd
     """
+    かつ 以下の記述が存在しないこと
+    """
+    tengined *****  ***  *** ******* ***** *       **   ***** ****** tengine_resource_watchd
+    """
 
     #
     # ログを確認して、原因を調べる
@@ -539,11 +468,16 @@
     ならば 以下の記述を含んでいること
 
     """
-    Starting tengine_resource_watchd:                            [FAILED]
+    (1/2) OK, AMQP is up.
+    (2/2) OK, Mongoid is up.
+    """
 
+    もし `ssh tengine@zbtgnwb1 cat /var/lib/tengine_daemons/current/log`コマンドを実行する
+    ならば 以下の記述を30回含んでいること #tengine_resource_watchdがWakameにリトライする回数
     """
-    かつ 以下の記述を10回含んでいること
+    retry[*]: No route to host - connect(2)
     """
-    Connecting to <zbtgndb1のIP>:27017
-    Errno::ECONNREFUSED: Connection refused - connect(2)
+    かつ 以下の記述を含んでいること
+    """
+    Errno::EHOSTUNREACH No route to host - connect(2)
     """
