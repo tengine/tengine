@@ -1,423 +1,423 @@
-#language:ja
+﻿#language:ja
 
 @manual
-��ǽ: ���ץꥱ��������ѼԤ�MQ�Υե����륪���С��򸡾ڤ��� [������]
+機能: アプリケーション運用者がMQのフェイルオーバーを検証する [コア編]
 
-  MQ�����Ф������󤷤��ݤˡ�
-  ���ץꥱ��������Ѽ�
-  �ϡ�MQ�����Ф��ե����륪���С����뤳�Ȥ򸡾ڤ�������
-
-  @manual
-  �ط�:
-
-    ���� MQ������A��¸�ߤ��롣�����IP���ɥ쥹��zbtgnmq1�Ǥ���Ȥ���
-    ���� MQ������B��¸�ߤ��롣�����IP���ɥ쥹��zbtgnmq2�Ǥ���Ȥ���
-    ���� VIP�����åȥ��åפ���Ƥ���
-    ���� tengined������ե������VIP�˥�����������褦�����ꤵ��Ƥ���
-
-    ���� ���Υե������Ʊ���ǥ��쥯�ȥ�ˤ���dsl�ǥ��쥯�ȥ�� $dsl �ȸƤ֤��Ȥˤ���
-    ���� MQ�Υ����ӥ���crm_resource�������/�Ƴ�������ˡ��Ĵ�٤Ƥ���
-    ���� VIP�����/�Ƴ�������ˡ��Ĵ�٤Ƥ���
-    ���� MQ�����Фβ��ۥޥ�������/�Ƴ�������ˡ��Ĵ�٤Ƥ���
+  MQサーバがダウンした際に、
+  アプリケーション運用者
+  は、MQサーバがフェイルオーバーすることを検証したい。
 
   @manual
-  ���ʥꥪ: [�۾��]tengined��ư����MQ�ץ������������󤷤��ݤ˥ե����륪���С�����
+  背景:
 
-    ���� ���������о�� "/tmp/tmp.txt" �ե����뤬¸�ߤ��ʤ�����
+    前提 MQサーバAが存在する。これのIPアドレスをzbtgnmq1であるとする
+    かつ MQサーバBが存在する。これのIPアドレスをzbtgnmq2であるとする
+    かつ VIPがセットアップされている
+    かつ tenginedの設定ファイルはVIPにアクセスするように設定されている
 
-    # MQ�����
+    かつ このファイルと同じディレクトリにあるdslディレクトリを $dsl と呼ぶことにする
+    かつ MQのサービスをcrm_resourceから停止/再開する方法を調べておく
+    かつ VIPを停止/再開する方法を調べておく
+    かつ MQサーバの仮想マシンを停止/再開する方法を調べておく
 
-    MQ�Υץ���������ߤ��뤿���Pacemaker����"sudo crm_resource -r MQ -p target-role -v stopped"��¹Ԥ��롣
+  @manual
+  シナリオ: [異常系]tengined起動時、MQプロセスがダウンした際にフェイルオーバーする
 
-    # 1����
+    前提 コアサーバ上に "/tmp/tmp.txt" ファイルが存在しないこと
 
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �ʤ�� tengined����ư���ʤ����Ȥ��ǧ���롣
+    # MQの停止
 
-    # MQ�κƵ�ư
+    MQのプロセスを停止するためにPacemakerから"sudo crm_resource -r MQ -p target-role -v stopped"を実行する。
 
-    MQ�Υץ�������ư���뤿���Pacemaker����"sudo crm_resource -r MQ -p target-role -v started"��¹Ԥ��롣
-    # rabbitmq-server����ư���Ƥ������Ȥ�ʤ�餫����ˡ�ǳ�ǧ����
+    # 1回目
 
-    # 2����
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    ならば tenginedが起動しないことを確認する。
+
+    # MQの再起動
+
+    MQのプロセスを起動するためにPacemakerから"sudo crm_resource -r MQ -p target-role -v started"を実行する。
+    # rabbitmq-serverが起動してきたことをなんらかの方法で確認する
+
+    # 2回目
     
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ "Tengine�����ץ�����"��ɸ����Ϥ���PID���ǧ����
-    �⤷ "Tengine�����ץ�����"�ξ��֤�"��Ư��"�Ǥ��뤳�Ȥ��ǧ����
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    �⤷ ���٥��ȯ�в��̤���"event_at_first"��ȯ�Ф���
+    もし イベント発火画面から"event_at_first"を発火する
 
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first called" �Ƚ񤫤�Ƥ��뤳��
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first called" と書かれていること
 
 
   @manual
-  ���ʥꥪ: [�۾��]tengined��ư����MQ�����Ф������󤷤��ݤ˥ե����륪���С�����
+  シナリオ: [異常系]tengined起動時、MQサーバがダウンした際にフェイルオーバーする
 
-    ���� ���������о�� "/tmp/tmp.txt" �ե����뤬¸�ߤ��ʤ�����
+    前提 コアサーバ上に "/tmp/tmp.txt" ファイルが存在しないこと
 
-    # MQ�����
+    # MQの停止
 
-    VIP����ߤ��� # �ɤ���ä�?
+    VIPを停止する # どうやって?
 
-    # 1����
+    # 1回目
 
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �ʤ�� tengined����ư���ʤ����Ȥ��ǧ���롣
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    ならば tenginedが起動しないことを確認する。
 
-    # MQ�����
+    # MQの停止
 
-    VIP��Ƶ�ư���� # �ɤ���ä�?
+    VIPを再起動する # どうやって?
 
-    # 2����
+    # 2回目
     
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ "Tengine�����ץ�����"��ɸ����Ϥ���PID���ǧ����
-    �⤷ "Tengine�����ץ�����"�ξ��֤�"��Ư��"�Ǥ��뤳�Ȥ��ǧ����
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    �⤷ ���٥��ȯ�в��̤���"event_at_first"��ȯ�Ф���
+    もし イベント発火画面から"event_at_first"を発火する
 
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first called" �Ƚ񤫤�Ƥ��뤳��
-
-
-  ################################################################################################################################################
-
-  @manual
-  ���ʥꥪ: [�۾��]���٥�ȼ����塢MQ�ץ������������󤷤��ݤ˥ե����륪���С�����(ack at_first)
-
-    ���� VIP�����꤬zbtgnmq1������Ƥ��뤳��
-
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ "Tengine�����ץ�����"��ɸ����Ϥ���PID���ǧ����
-    �⤷ "Tengine�����ץ�����"�ξ��֤�"��Ư��"�Ǥ��뤳�Ȥ��ǧ����
-
-    # MQ����ߤ���Ƶ�ư
-
-    # rabbitmq��ľ����Ȥ��ơ�Pacemaker�˺Ƶ�ư������
-    �⤷ MQ�ץ���������ߤ��뤿��� zbtgnmq1�ˤ� "sudo rabbitmqctl stop"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ Pacemaker��MQ�ץ�������Ƶ�ư���Ƥ���Τ��ǧ���뤿��� "sudo rabbitmqctl status"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �ʤ�� '{running_applications,[{rabbit,"RabbitMQ",' �Ȥ������Ƥ�ޤ���Ϥ����뤳��
-
-    # ���٥�ȼ¹�
-
-    �⤷ ���٥��ȯ�в��̤���"event_at_first"��ȯ�Ф���
-
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first called" �Ƚ񤫤�Ƥ��뤳��
-
-
-  @manual
-  ���ʥꥪ: [�۾��]���٥�������塢MQ�����Ф������󤷤��ݤ˥ե����륪���С�����(ack at_first)
-
-    ���� VIP�����꤬zbtgnmq1������Ƥ��뤳��
-
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ "Tengine�����ץ�����"��ɸ����Ϥ���PID���ǧ����
-    �⤷ "Tengine�����ץ�����"�ξ��֤�"��Ư��"�Ǥ��뤳�Ȥ��ǧ����
-
-    # MQ����ߤ���Ƶ�ư
-
-    �⤷ zbtgnmq1�β��ۥޥ������Ȥ�
-    �⤷ VIP���ڤ��ؤ�ä�zbtgnmq2����������Ȥ��ǧ���� # ping�Ȥ�
-
-    # 2����
-
-    �⤷ ���٥��ȯ�в��̤���"event_at_first"��ȯ�Ф���
-
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first called" �Ƚ񤫤�Ƥ��뤳��
-
-
-  @manual
-  ���ʥꥪ: [�۾��]���٥�ȼ����塢MQ�ץ������������󤷤��ݤ˥ե����륪���С�����(ack at_first)
-
-    ���� VIP�����꤬zbtgnmq1������Ƥ��뤳��
-
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ "Tengine�����ץ�����"��ɸ����Ϥ���PID���ǧ����
-    �⤷ "Tengine�����ץ�����"�ξ��֤�"��Ư��"�Ǥ��뤳�Ȥ��ǧ����
-
-    # 1����
-
-    �⤷ ���٥��ȯ�в��̤���"event_at_first"��ȯ�Ф���
-
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first called" �Ƚ񤫤�Ƥ��뤳��
-
-    # MQ����ߤ���Ƶ�ư
-
-    �⤷ MQ�ץ���������ߤ��뤿��� zbtgnmq1�ˤ� "sudo rabbitmqctl stop"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ Pacemaker��MQ�ץ�������Ƶ�ư���Ƥ���Τ��ǧ���뤿��� "sudo rabbitmqctl status"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �ʤ�� '{running_applications,[{rabbit,"RabbitMQ",' �Ȥ������Ƥ�ޤ���Ϥ����뤳��
-
-    # 2����
-
-    �⤷ ���������о��"/tmp/tmp.txt"��������
-    ���� ���٥��ȯ�в��̤���"event_at_first"��ȯ�Ф���
-
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first called" �Ƚ񤫤�Ƥ��뤳��
-
-
-  @manual
-  ���ʥꥪ: [�۾��]���٥�������塢MQ�����Ф������󤷤��ݤ˥ե����륪���С�����(ack at_first)
-
-    ���� VIP�����꤬zbtgnmq1������Ƥ��뤳��
-
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ "Tengine�����ץ�����"��ɸ����Ϥ���PID���ǧ����
-    �⤷ "Tengine�����ץ�����"�ξ��֤�"��Ư��"�Ǥ��뤳�Ȥ��ǧ����
-
-    # 1����
-
-    �⤷ ���٥��ȯ�в��̤���"event_at_first"��ȯ�Ф���
-
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first called" �Ƚ񤫤�Ƥ��뤳��
-
-    # MQ����ߤ���Ƶ�ư
-
-    �⤷ zbtgnmq1�β��ۥޥ������Ȥ�
-    �⤷ VIP���ڤ��ؤ�ä�zbtgnmq2����������Ȥ��ǧ���� # ping�Ȥ�
-
-    # 2����
-
-    �⤷ ���������о��"/tmp/tmp.txt"��������
-    ���� ���٥��ȯ�в��̤���"event_at_first"��ȯ�Ф���
-
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first called" �Ƚ񤫤�Ƥ��뤳��
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first called" と書かれていること
 
 
   ################################################################################################################################################
 
-  # ���Τ�ư���ʤ����ʥꥪ
   @manual
-  ���ʥꥪ: [�۾��]���٥�ȼ����塢MQ�ץ������������󤷤��ݤ˥ե����륪���С�����(ack at_first_submit)
+  シナリオ: [異常系]イベント受信後、MQプロセスがダウンした際にフェイルオーバーする(ack at_first)
 
-    ���� VIP�����꤬zbtgnmq1������Ƥ��뤳��
+    前提 VIPの設定がzbtgnmq1を向いていること
 
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ "Tengine�����ץ�����"��ɸ����Ϥ���PID���ǧ����
-    �⤷ "Tengine�����ץ�����"�ξ��֤�"��Ư��"�Ǥ��뤳�Ȥ��ǧ����
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    # MQ����ߤ���Ƶ�ư
+    # MQの停止から再起動
 
-    �⤷ MQ�ץ���������ߤ��뤿��� zbtgnmq1�ˤ� "sudo rabbitmqctl stop"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ Pacemaker��MQ�ץ�������Ƶ�ư���Ƥ���Τ��ǧ���뤿��� "sudo rabbitmqctl status"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �ʤ�� '{running_applications,[{rabbit,"RabbitMQ",' �Ȥ������Ƥ�ޤ���Ϥ����뤳��
+    # rabbitmqを直接落として、Pacemakerに再起動させる
+    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl stop"というコマンドを実行する
+    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl status"というコマンドを実行する
+    ならば '{running_applications,[{rabbit,"RabbitMQ",' という内容を含む出力を得ること
 
-    # ���٥�ȼ¹�
+    # イベント実行
 
-    �⤷ ���٥��ȯ�в��̤���"event_at_first_submit"��ȯ�Ф���
+    もし イベント発火画面から"event_at_first"を発火する
 
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first_submit1 called" �Ƚ񤫤�Ƥ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first_submit2 called" �Ƚ񤫤�Ƥ��뤳��
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first called" と書かれていること
 
 
-  # ���Τ�ư���ʤ����ʥꥪ
   @manual
-  ���ʥꥪ: [�۾��]���٥�������塢MQ�����Ф������󤷤��ݤ˥ե����륪���С�����(ack at_first_submit)
+  シナリオ: [異常系]イベント送信後、MQサーバがダウンした際にフェイルオーバーする(ack at_first)
 
-    ���� VIP�����꤬zbtgnmq1������Ƥ��뤳��
+    前提 VIPの設定がzbtgnmq1を向いていること
 
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ "Tengine�����ץ�����"��ɸ����Ϥ���PID���ǧ����
-    �⤷ "Tengine�����ץ�����"�ξ��֤�"��Ư��"�Ǥ��뤳�Ȥ��ǧ����
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    # MQ����ߤ���Ƶ�ư
+    # MQの停止から再起動
 
-    �⤷ zbtgnmq1�β��ۥޥ������Ȥ�
-    �⤷ VIP���ڤ��ؤ�ä�zbtgnmq2����������Ȥ��ǧ���� # ping�Ȥ�
+    もし zbtgnmq1の仮想マシンを落とす
+    もし VIPが切り替わってzbtgnmq2を向いたことを確認する # pingとか
 
-    # 2����
+    # 2回目
 
-    �⤷ ���٥��ȯ�в��̤���"event_at_first_submit"��ȯ�Ф���
+    もし イベント発火画面から"event_at_first"を発火する
 
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first_submit1 called" �Ƚ񤫤�Ƥ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first_submit2 called" �Ƚ񤫤�Ƥ��뤳��
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first called" と書かれていること
 
 
-  # ���Τ�ư���ʤ����ʥꥪ
   @manual
-  ���ʥꥪ: [�۾��]���٥�ȼ����塢MQ�ץ������������󤷤��ݤ˥ե����륪���С�����(ack at_first_submit)
+  シナリオ: [異常系]イベント受信後、MQプロセスがダウンした際にフェイルオーバーする(ack at_first)
 
-    ���� VIP�����꤬zbtgnmq1������Ƥ��뤳��
+    前提 VIPの設定がzbtgnmq1を向いていること
 
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ "Tengine�����ץ�����"��ɸ����Ϥ���PID���ǧ����
-    �⤷ "Tengine�����ץ�����"�ξ��֤�"��Ư��"�Ǥ��뤳�Ȥ��ǧ����
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    # 1����
+    # 1回目
 
-    �⤷ ���٥��ȯ�в��̤���"event_at_first_submit"��ȯ�Ф���
+    もし イベント発火画面から"event_at_first"を発火する
 
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first_submit1 called" �Ƚ񤫤�Ƥ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first_submit2 called" �Ƚ񤫤�Ƥ��뤳��
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first called" と書かれていること
 
-    # MQ����ߤ���Ƶ�ư
+    # MQの停止から再起動
 
-    �⤷ MQ�ץ���������ߤ��뤿��� zbtgnmq1�ˤ� "sudo rabbitmqctl stop"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ Pacemaker��MQ�ץ�������Ƶ�ư���Ƥ���Τ��ǧ���뤿��� "sudo rabbitmqctl status"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �ʤ�� '{running_applications,[{rabbit,"RabbitMQ",' �Ȥ������Ƥ�ޤ���Ϥ����뤳��
+    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl stop"というコマンドを実行する
+    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl status"というコマンドを実行する
+    ならば '{running_applications,[{rabbit,"RabbitMQ",' という内容を含む出力を得ること
 
-    # 2����
+    # 2回目
 
-    �⤷ ���������о��"/tmp/tmp.txt"��������
-    ���� ���٥��ȯ�в��̤���"event_at_first_submit"��ȯ�Ф���
+    もし コアサーバ上で"/tmp/tmp.txt"を削除する
+    かつ イベント発火画面から"event_at_first"を発火する
 
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first_submit1 called" �Ƚ񤫤�Ƥ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first_submit2 called" �Ƚ񤫤�Ƥ��뤳��
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first called" と書かれていること
 
 
-  # ���Τ�ư���ʤ����ʥꥪ
   @manual
-  ���ʥꥪ: [�۾��]���٥�������塢MQ�����Ф������󤷤��ݤ˥ե����륪���С�����(ack at_first_submit)
+  シナリオ: [異常系]イベント送信後、MQサーバがダウンした際にフェイルオーバーする(ack at_first)
 
-    ���� VIP�����꤬zbtgnmq1������Ƥ��뤳��
+    前提 VIPの設定がzbtgnmq1を向いていること
 
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ "Tengine�����ץ�����"��ɸ����Ϥ���PID���ǧ����
-    �⤷ "Tengine�����ץ�����"�ξ��֤�"��Ư��"�Ǥ��뤳�Ȥ��ǧ����
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    # 1����
+    # 1回目
 
-    �⤷ ���٥��ȯ�в��̤���"event_at_first_submit"��ȯ�Ф���
+    もし イベント発火画面から"event_at_first"を発火する
 
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first_submit1 called" �Ƚ񤫤�Ƥ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first_submit2 called" �Ƚ񤫤�Ƥ��뤳��
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first called" と書かれていること
 
-    # MQ����ߤ���Ƶ�ư
+    # MQの停止から再起動
 
-    �⤷ zbtgnmq1�β��ۥޥ������Ȥ�
-    �⤷ VIP���ڤ��ؤ�ä�zbtgnmq2����������Ȥ��ǧ���� # ping�Ȥ�
+    もし zbtgnmq1の仮想マシンを落とす
+    もし VIPが切り替わってzbtgnmq2を向いたことを確認する # pingとか
 
-    # 2����
+    # 2回目
 
-    �⤷ ���������о��"/tmp/tmp.txt"��������
-    ���� ���٥��ȯ�в��̤���"event_at_first_submit"��ȯ�Ф���
+    もし コアサーバ上で"/tmp/tmp.txt"を削除する
+    かつ イベント発火画面から"event_at_first"を発火する
 
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first_submit1 called" �Ƚ񤫤�Ƥ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_at_first_submit2 called" �Ƚ񤫤�Ƥ��뤳��
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first called" と書かれていること
+
+
+  ################################################################################################################################################
+
+  # 既知の動かないシナリオ
+  @manual
+  シナリオ: [異常系]イベント受信後、MQプロセスがダウンした際にフェイルオーバーする(ack at_first_submit)
+
+    前提 VIPの設定がzbtgnmq1を向いていること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    # MQの停止から再起動
+
+    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl stop"というコマンドを実行する
+    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl status"というコマンドを実行する
+    ならば '{running_applications,[{rabbit,"RabbitMQ",' という内容を含む出力を得ること
+
+    # イベント実行
+
+    もし イベント発火画面から"event_at_first_submit"を発火する
+
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first_submit1 called" と書かれていること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first_submit2 called" と書かれていること
+
+
+  # 既知の動かないシナリオ
+  @manual
+  シナリオ: [異常系]イベント送信後、MQサーバがダウンした際にフェイルオーバーする(ack at_first_submit)
+
+    前提 VIPの設定がzbtgnmq1を向いていること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    # MQの停止から再起動
+
+    もし zbtgnmq1の仮想マシンを落とす
+    もし VIPが切り替わってzbtgnmq2を向いたことを確認する # pingとか
+
+    # 2回目
+
+    もし イベント発火画面から"event_at_first_submit"を発火する
+
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first_submit1 called" と書かれていること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first_submit2 called" と書かれていること
+
+
+  # 既知の動かないシナリオ
+  @manual
+  シナリオ: [異常系]イベント受信後、MQプロセスがダウンした際にフェイルオーバーする(ack at_first_submit)
+
+    前提 VIPの設定がzbtgnmq1を向いていること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    # 1回目
+
+    もし イベント発火画面から"event_at_first_submit"を発火する
+
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first_submit1 called" と書かれていること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first_submit2 called" と書かれていること
+
+    # MQの停止から再起動
+
+    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl stop"というコマンドを実行する
+    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl status"というコマンドを実行する
+    ならば '{running_applications,[{rabbit,"RabbitMQ",' という内容を含む出力を得ること
+
+    # 2回目
+
+    もし コアサーバ上で"/tmp/tmp.txt"を削除する
+    かつ イベント発火画面から"event_at_first_submit"を発火する
+
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first_submit1 called" と書かれていること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first_submit2 called" と書かれていること
+
+
+  # 既知の動かないシナリオ
+  @manual
+  シナリオ: [異常系]イベント送信後、MQサーバがダウンした際にフェイルオーバーする(ack at_first_submit)
+
+    前提 VIPの設定がzbtgnmq1を向いていること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    # 1回目
+
+    もし イベント発火画面から"event_at_first_submit"を発火する
+
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first_submit1 called" と書かれていること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first_submit2 called" と書かれていること
+
+    # MQの停止から再起動
+
+    もし zbtgnmq1の仮想マシンを落とす
+    もし VIPが切り替わってzbtgnmq2を向いたことを確認する # pingとか
+
+    # 2回目
+
+    もし コアサーバ上で"/tmp/tmp.txt"を削除する
+    かつ イベント発火画面から"event_at_first_submit"を発火する
+
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first_submit1 called" と書かれていること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_at_first_submit2 called" と書かれていること
 
   ################################################################################################################################################
 
   @manual
-  ���ʥꥪ: [�۾��]���٥�ȼ����塢MQ�ץ������������󤷤��ݤ˥ե����륪���С�����(ack after_all)
+  シナリオ: [異常系]イベント受信後、MQプロセスがダウンした際にフェイルオーバーする(ack after_all)
 
-    ���� VIP�����꤬zbtgnmq1������Ƥ��뤳��
+    前提 VIPの設定がzbtgnmq1を向いていること
 
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ "Tengine�����ץ�����"��ɸ����Ϥ���PID���ǧ����
-    �⤷ "Tengine�����ץ�����"�ξ��֤�"��Ư��"�Ǥ��뤳�Ȥ��ǧ����
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    # MQ����ߤ���Ƶ�ư
+    # MQの停止から再起動
 
-    �⤷ MQ�ץ���������ߤ��뤿��� zbtgnmq1�ˤ� "sudo rabbitmqctl stop"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ Pacemaker��MQ�ץ�������Ƶ�ư���Ƥ���Τ��ǧ���뤿��� "sudo rabbitmqctl status"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �ʤ�� '{running_applications,[{rabbit,"RabbitMQ",' �Ȥ������Ƥ�ޤ���Ϥ����뤳��
+    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl stop"というコマンドを実行する
+    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl status"というコマンドを実行する
+    ならば '{running_applications,[{rabbit,"RabbitMQ",' という内容を含む出力を得ること
 
-    # ���٥�ȼ¹�
+    # イベント実行
 
-    �⤷ ���٥��ȯ�в��̤���"event_after_all"��ȯ�Ф���
+    もし イベント発火画面から"event_after_all"を発火する
 
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_after_all1 called" �Ƚ񤫤�Ƥ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_after_all2 called" �Ƚ񤫤�Ƥ��뤳��
-
-
-  @manual
-  ���ʥꥪ: [�۾��]���٥�������塢MQ�����Ф������󤷤��ݤ˥ե����륪���С�����(ack after_all)
-
-    ���� VIP�����꤬zbtgnmq1������Ƥ��뤳��
-
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ "Tengine�����ץ�����"��ɸ����Ϥ���PID���ǧ����
-    �⤷ "Tengine�����ץ�����"�ξ��֤�"��Ư��"�Ǥ��뤳�Ȥ��ǧ����
-
-    # MQ����ߤ���Ƶ�ư
-
-    �⤷ zbtgnmq1�β��ۥޥ������Ȥ�
-    �⤷ VIP���ڤ��ؤ�ä�zbtgnmq2����������Ȥ��ǧ���� # ping�Ȥ�
-
-    # 2����
-
-    �⤷ ���٥��ȯ�в��̤���"event_after_all"��ȯ�Ф���
-
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_after_all1 called" �Ƚ񤫤�Ƥ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_after_all2 called" �Ƚ񤫤�Ƥ��뤳��
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_after_all1 called" と書かれていること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_after_all2 called" と書かれていること
 
 
   @manual
-  ���ʥꥪ: [�۾��]���٥�ȼ����塢MQ�ץ������������󤷤��ݤ˥ե����륪���С�����(ack after_all)
+  シナリオ: [異常系]イベント送信後、MQサーバがダウンした際にフェイルオーバーする(ack after_all)
 
-    ���� VIP�����꤬zbtgnmq1������Ƥ��뤳��
+    前提 VIPの設定がzbtgnmq1を向いていること
 
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ "Tengine�����ץ�����"��ɸ����Ϥ���PID���ǧ����
-    �⤷ "Tengine�����ץ�����"�ξ��֤�"��Ư��"�Ǥ��뤳�Ȥ��ǧ����
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    # 1����
+    # MQの停止から再起動
 
-    �⤷ ���٥��ȯ�в��̤���"event_after_all"��ȯ�Ф���
+    もし zbtgnmq1の仮想マシンを落とす
+    もし VIPが切り替わってzbtgnmq2を向いたことを確認する # pingとか
 
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_after_all1 called" �Ƚ񤫤�Ƥ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_after_all2 called" �Ƚ񤫤�Ƥ��뤳��
+    # 2回目
 
-    # MQ����ߤ���Ƶ�ư
+    もし イベント発火画面から"event_after_all"を発火する
 
-    �⤷ MQ�ץ���������ߤ��뤿��� zbtgnmq1�ˤ� "sudo rabbitmqctl stop"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ Pacemaker��MQ�ץ�������Ƶ�ư���Ƥ���Τ��ǧ���뤿��� "sudo rabbitmqctl status"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �ʤ�� '{running_applications,[{rabbit,"RabbitMQ",' �Ȥ������Ƥ�ޤ���Ϥ����뤳��
-
-    # 2����
-
-    �⤷ ���������о��"/tmp/tmp.txt"��������
-    ���� ���٥��ȯ�в��̤���"event_after_all"��ȯ�Ф���
-
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_after_all1 called" �Ƚ񤫤�Ƥ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_after_all2 called" �Ƚ񤫤�Ƥ��뤳��
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_after_all1 called" と書かれていること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_after_all2 called" と書かれていること
 
 
   @manual
-  ���ʥꥪ: [�۾��]���٥�������塢MQ�����Ф������󤷤��ݤ˥ե����륪���С�����(ack after_all)
+  シナリオ: [異常系]イベント受信後、MQプロセスがダウンした際にフェイルオーバーする(ack after_all)
 
-    ���� VIP�����꤬zbtgnmq1������Ƥ��뤳��
+    前提 VIPの設定がzbtgnmq1を向いていること
 
-    �⤷ "Tengine�����ץ�����"�ε�ư��Ԥ������"tengined -T $dsl"�Ȥ������ޥ�ɤ�¹Ԥ���
-    �⤷ "Tengine�����ץ�����"��ɸ����Ϥ���PID���ǧ����
-    �⤷ "Tengine�����ץ�����"�ξ��֤�"��Ư��"�Ǥ��뤳�Ȥ��ǧ����
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-    # 1����
+    # 1回目
 
-    �⤷ ���٥��ȯ�в��̤���"event_after_all"��ȯ�Ф���
+    もし イベント発火画面から"event_after_all"を発火する
 
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_after_all1 called" �Ƚ񤫤�Ƥ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_after_all2 called" �Ƚ񤫤�Ƥ��뤳��
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_after_all1 called" と書かれていること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_after_all2 called" と書かれていること
 
-    # MQ����ߤ���Ƶ�ư
+    # MQの停止から再起動
 
-    �⤷ zbtgnmq1�β��ۥޥ������Ȥ�
-    �⤷ VIP���ڤ��ؤ�ä�zbtgnmq2����������Ȥ��ǧ���� # ping�Ȥ�
+    もし MQプロセスを停止するために zbtgnmq1にて "sudo rabbitmqctl stop"というコマンドを実行する
+    もし PacemakerがMQプロセスを再起動してくるのを確認するために "sudo rabbitmqctl status"というコマンドを実行する
+    ならば '{running_applications,[{rabbit,"RabbitMQ",' という内容を含む出力を得ること
 
-    # 2����
+    # 2回目
 
-    �⤷ ���������о��"/tmp/tmp.txt"��������
-    ���� ���٥��ȯ�в��̤���"event_after_all"��ȯ�Ф���
+    もし コアサーバ上で"/tmp/tmp.txt"を削除する
+    かつ イベント発火画面から"event_after_all"を発火する
 
-    �ʤ�� �����ץ���������ư���������о�� "/tmp/tmp.txt" ��¸�ߤ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_after_all1 called" �Ƚ񤫤�Ƥ��뤳��
-    ���� "/tmp/tmp.txt" �򳫤��� "FileWritingDriver#event_after_all2 called" �Ƚ񤫤�Ƥ��뤳��
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_after_all1 called" と書かれていること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_after_all2 called" と書かれていること
+
+
+  @manual
+  シナリオ: [異常系]イベント送信後、MQサーバがダウンした際にフェイルオーバーする(ack after_all)
+
+    前提 VIPの設定がzbtgnmq1を向いていること
+
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    # 1回目
+
+    もし イベント発火画面から"event_after_all"を発火する
+
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_after_all1 called" と書かれていること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_after_all2 called" と書かれていること
+
+    # MQの停止から再起動
+
+    もし zbtgnmq1の仮想マシンを落とす
+    もし VIPが切り替わってzbtgnmq2を向いたことを確認する # pingとか
+
+    # 2回目
+
+    もし コアサーバ上で"/tmp/tmp.txt"を削除する
+    かつ イベント発火画面から"event_after_all"を発火する
+
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_after_all1 called" と書かれていること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_after_all2 called" と書かれていること
 
 
