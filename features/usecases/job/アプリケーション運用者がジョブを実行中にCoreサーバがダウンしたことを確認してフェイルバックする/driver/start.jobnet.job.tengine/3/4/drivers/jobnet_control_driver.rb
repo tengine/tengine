@@ -37,8 +37,8 @@ driver :jobnet_control_driver do
 
     if target_jobnet_test.name_path == "/jobnet1055"
       `echo start.jobnet.job.tengine_3_4  >> /tmp/core_server_down_txt`
-      `echo I sleep 300 second .please poweroff this server when the anoher core_server show "please poweroff 3_4_server" in /tmp/core_server_down_txt >> /tmp/core_server_down_txt`
-      sleep 300
+      `echo I sleep 60 second .please poweroff this server when the anoher core_server show "please poweroff 3_4_server" in /tmp/core_server_down_txt >> /tmp/core_server_down_txt`
+      sleep 60
       `echo Timeout, I wakeup >> /tmp/core_server_down_txt`
     end
 

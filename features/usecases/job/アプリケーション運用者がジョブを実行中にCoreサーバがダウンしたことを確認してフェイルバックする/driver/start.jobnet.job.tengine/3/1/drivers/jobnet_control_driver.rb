@@ -31,7 +31,7 @@ driver :jobnet_control_driver do
     sleep 30
     `echo start.jobnet.job.tengine_3_1  >> /tmp/core_server_down_txt`
     `echo please poweroff this server >> /tmp/core_server_down_txt`
-    sleep 500
+    sleep 60
     `echo Timeout, I wakeup >> /tmp/core_server_down_txt`
     submit
   end

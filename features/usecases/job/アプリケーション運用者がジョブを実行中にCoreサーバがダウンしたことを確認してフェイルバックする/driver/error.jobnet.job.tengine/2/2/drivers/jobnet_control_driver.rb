@@ -178,7 +178,7 @@ driver :jobnet_control_driver do
     target_jobnet_test = root_jobnet.find_descendant(event[:target_jobnet_id]) || root_jobnet
     if target_jobnet_test.name_path == "/jn0004"
       `echo please poweroff 2_2_server >> /tmp/core_server_down_txt`
-      sleep 300
+      sleep 60
     end
 
     signal = Tengine::Job::Signal.new(event)
@@ -208,8 +208,8 @@ driver :jobnet_control_driver do
 
     if target_jobnet_test.name_path == "/jn0004/finally"
       `echo error.jobnet.job.tengine_2_2  >> /tmp/core_server_down_txt`
-      `echo I sleep 300 second .please poweroff this server when the anoher core_server show "please poweroff 2_2_server" in /tmp/core_server_down_txt >> /tmp/core_server_down_txt`
-      sleep 300
+      `echo I sleep 60 second .please poweroff this server when the anoher core_server show "please poweroff 2_2_server" in /tmp/core_server_down_txt >> /tmp/core_server_down_txt`
+      sleep 60
       `echo Timeout, I wakeup >> /tmp/core_server_down_txt`
     end
 

@@ -35,7 +35,7 @@ driver :job_control_driver do
     
     `echo finish.process.job.tengine_3_1  >> /tmp/core_server_down_txt`
     `echo please poweroff this server >> /tmp/core_server_down_txt`
-    sleep 300
+    sleep 60
     `echo Timeout, I wakeup >> /tmp/core_server_down_txt`
 
     if signal.callback

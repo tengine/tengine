@@ -111,7 +111,7 @@ driver :job_control_driver do
     if target_job.name_path == "/jn0004/j1"
       `echo finished.process.job.tengine_2_1  >> /tmp/core_server_down_txt`
       `echo please poweroff this server >> /tmp/core_server_down_txt`
-      sleep 300
+      sleep 60
       `echo Timeout, I wakeup >> /tmp/core_server_down_txt`
     end
 

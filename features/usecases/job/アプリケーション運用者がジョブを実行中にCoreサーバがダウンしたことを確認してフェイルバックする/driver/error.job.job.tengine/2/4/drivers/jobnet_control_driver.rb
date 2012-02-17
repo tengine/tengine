@@ -105,8 +105,8 @@ driver :jobnet_control_driver do
     signal.reservations.each{|r| fire(*r.fire_args)}
 
     `echo error.job.job.tengine_2_4  >> /tmp/core_server_down_txt`
-    `echo I sleep 300 second .please poweroff this server when the anoher core_server show "please poweroff 2_4_server" in /tmp/core_server_down_txt >> /tmp/core_server_down_txt`
-    sleep 300
+    `echo I sleep 60 second .please poweroff this server when the anoher core_server show "please poweroff 2_4_server" in /tmp/core_server_down_txt >> /tmp/core_server_down_txt`
+    sleep 60
     `echo Timeout, I wakeup >> /tmp/core_server_down_txt`
 
     submit
@@ -184,7 +184,7 @@ driver :jobnet_control_driver do
     target_jobnet_test = root_jobnet.find_descendant(event[:target_jobnet_id]) || root_jobnet
     if target_jobnet_test.name_path == "/jn0004/finally"
       `echo please poweroff 2_4_server >> /tmp/core_server_down_txt`
-      sleep 300
+      sleep 60
     end
 
     signal = Tengine::Job::Signal.new(event)

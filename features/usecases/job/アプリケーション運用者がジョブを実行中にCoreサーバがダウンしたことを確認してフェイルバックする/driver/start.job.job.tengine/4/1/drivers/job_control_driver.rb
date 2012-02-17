@@ -38,7 +38,7 @@ driver :job_control_driver do
     signal.reservations.each{|r| fire(*r.fire_args)}
     `echo start.jobnet.job.tengine_4_1  >> /tmp/core_server_down_txt`
     `echo please poweroff this server >> /tmp/core_server_down_txt`
-    sleep 300
+    sleep 60
     `echo Timeout, I wakeup >> /tmp/core_server_down_txt`
     submit
   end
