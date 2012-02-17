@@ -35,6 +35,12 @@ driver :job_control_driver do
     if signal.callback
       root_jobnet.update_with_lock(&signal.callback)
     end
+
+    `echo start.job.job.tengine_1_1  >> /tmp/core_server_down_txt`
+    `echo please poweroff this server >> /tmp/core_server_down_txt`
+    sleep 60
+    `echo Timeout, I wakeup >> /tmp/core_server_down_txt`
+
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
   end
