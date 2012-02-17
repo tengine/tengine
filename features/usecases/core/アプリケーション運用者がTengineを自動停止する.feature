@@ -56,13 +56,30 @@
   #
 
   #
+  # 自動停止スクリプト概要
+  #
+  # 自動停止スクリプトでは[仮想サーバを停止する順序](後述)の仮想サーバ群を停止する
+  # 物理サーバの停止は行わないので、手動で停止を行う必要がある
+  #
+  # 仮想サーバの停止コマンド実行後、仮想サーバが停止するまで指定時間(リトライ回数と間隔)の待ち合わせを行う
+  # 仮想サーバが停止したことを受けて、次の仮想サーバの停止を行う
+  # 停止対象の仮想サーバがすでに停止している場合、スキップする
+  #
+  # 仮想サーバの停止コマンド
+  # `virsh destroy <ドメイン名>`
+  #
+  # 仮想サーバが停止していることを確認するコマンド
+  # `virsh domstate <ドメイン名>` の実行結果が "shut off"であること
+  #
+
+  #
   # 仮想サーバを停止する順序
   #
-  # 1. コアサーバ
-  # 2. フロントエンドサーバ
-  # 3. MQサーバ
-  # 4. DBサーバ
-  # 5. SCMサーバ
+  # 1. コアサーバ(zbtgncr1, zbtgncr2)
+  # 2. フロントエンドサーバ(zbtgnwb1, zbtgnwb2)
+  # 3. MQサーバ(zbtgnmq1, zbtgnwb2)
+  # 4. DBサーバ(zbtgndb1, zbtgndb2, zbtgndb3)
+  # 5. SCMサーバ(zbtgnsc1, zbtgnsc2)
   #
 
   # @manual
@@ -86,27 +103,27 @@
     #
     もし "zbtgn001"物理サーバにログインする
     # 仮想サーバシャットダウンスクリプトの実行
-    かつ `~/tengine_virtual_servers.sh `コマンドを実行する
+    かつ `~/shutdown_virtual_servers.sh `コマンドを実行する
     ならば 以下の結果を含んでいること
     """
-    yyyy-MM-dd HH:mm:ss zbtgncr1 server shut off
-    yyyy-MM-dd HH:mm:ss zbtgncr2 server shut off
-    yyyy-MM-dd HH:mm:ss zbtgnwb1 server shut off
-    yyyy-MM-dd HH:mm:ss zbtgnwb2 server shut off
-    yyyy-MM-dd HH:mm:ss zbtgnmq1 server shut off
-    yyyy-MM-dd HH:mm:ss zbtgnmq2 server shut off
-    yyyy-MM-dd HH:mm:ss zbtgndb1 server shut off
-    yyyy-MM-dd HH:mm:ss zbtgndb2 server shut off
-    yyyy-MM-dd HH:mm:ss zbtgndb3 server shut off
-    yyyy-MM-dd HH:mm:ss zbtgnsc1 server shut off
-    yyyy-MM-dd HH:mm:ss zbtgnsc2 server shut off
+    yyyy-MM-dd HH:mm:ss zbtgncr1 state is shut off
+    yyyy-MM-dd HH:mm:ss zbtgncr2 state is shut off
+    yyyy-MM-dd HH:mm:ss zbtgnwb1 state is shut off
+    yyyy-MM-dd HH:mm:ss zbtgnwb2 state is shut off
+    yyyy-MM-dd HH:mm:ss zbtgnmq1 state is shut off
+    yyyy-MM-dd HH:mm:ss zbtgnmq2 state is shut off
+    yyyy-MM-dd HH:mm:ss zbtgndb1 state is shut off
+    yyyy-MM-dd HH:mm:ss zbtgndb2 state is shut off
+    yyyy-MM-dd HH:mm:ss zbtgndb3 state is shut off
+    yyyy-MM-dd HH:mm:ss zbtgnsc1 state is shut off
+    yyyy-MM-dd HH:mm:ss zbtgnsc2 state is shut off
     """
 
     #
     # 仮想サーバが停止していることを確認する
     #
     もし "zbtgn001"物理サーバにログインする
-    かつ `sudo virsh list`コマンドを実行する
+    かつ `sudo virsh list --all`コマンドを実行する
     ならば 以下の結果を含んでいること
     """
        zbtgnmq2             shut off
@@ -116,7 +133,7 @@
     """
 
     もし "zbtgn002"物理サーバにログインする
-    かつ `sudo virsh list`コマンドを実行する
+    かつ `sudo virsh list --all`コマンドを実行する
     ならば 以下の結果を含んでいること
     """
        zbtgnsc1             shut off
@@ -125,7 +142,7 @@
     """
 
     もし "zbtgn003"物理サーバにログインする
-    かつ `sudo virsh list`コマンドを実行する
+    かつ `sudo virsh list --all`コマンドを実行する
     ならば 以下の結果を含んでいること
     """
        zbtgnsc2             shut off
@@ -137,6 +154,6 @@
     #
     # 物理サーバのシャットダウン
     #
-    もし "zbtgn001"物理サーバをシャットダウンする
-    かつ "zbtgn002"物理サーバをシャットダウンする
-    かつ "zbtgn003"物理サーバをシャットダウンする
+    もし "zbtgn001"物理サーバを手動でシャットダウンする
+    かつ "zbtgn002"物理サーバを手動でシャットダウンする
+    かつ "zbtgn003"物理サーバを手動でシャットダウンする
