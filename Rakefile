@@ -36,12 +36,17 @@ task:check do
     end
   rescue AMQP::TCPConnectionFailed => e
     Syslog.err e.message
+    puts e.message
     EM.stop if EM.reactor_running?
     sleep SLEEP
     retries += 1
     retry if retries < RETRIES
+    Syslog.info "(1/2) NG, AMQP is not up."
+    puts "(1/2) NG, AMQP is not up."
+    raise e
   end
   Syslog.info "(1/2) OK, AMQP is up."
+  puts "(1/2) OK, AMQP is up."
 
   # Mongoid読み込み
   retries = 0
@@ -49,9 +54,14 @@ task:check do
     Mongoid.load! './config/mongoid.yml'
   rescue Mongo::ConnectionFailure => e
     Syslog.err e.message
+    puts e.message
     sleep SLEEP
     retries += 1
     retry if retries < RETRIES
+    Syslog.info "(2/2) NG, Mongoid is not up."
+    puts "(2/2) NG, Mongoid is not up."
+    raise e
   end
   Syslog.info "(2/2) OK, Mongoid is up."
+  puts "(2/2) OK, Mongoid is up."
 end
