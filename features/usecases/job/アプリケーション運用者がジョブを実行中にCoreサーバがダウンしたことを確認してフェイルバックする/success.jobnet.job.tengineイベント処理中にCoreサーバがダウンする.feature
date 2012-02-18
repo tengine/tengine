@@ -1,5 +1,64 @@
 # success.jobnet.job.tengine(1) #
   シナリオ: [異常系]success.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする
+    もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
+    もし "Coreサーバ1"上で"Tengineコアプロセス1"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
+    ならば "Tengineコアプロセス1"の状態が"稼働中"であることを確認できること
+
+    もし Coreサーバを落とすために"Coreサーバ2"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
+    もし "Coreサーバ2"上で"Tengineコアプロセス2"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
+    ならば "Tengineコアプロセス2"の状態が"稼働中"であることを確認できること
+
+    もし "テンプレートジョブ一覧画面"を表示する
+    ならば "テンプレートジョブ一覧画面"を表示していること
+    かつ 以下の行が表示されていること
+    |ジョブネット名|説明  |操作     |
+    |jn0004        |jn0004|閲覧 実行|
+
+    もし "テンプレートジョブ一覧画面"を表示する
+    かつ "jn0004"の"実行"リンクをクリックする
+    ならば "ジョブネット実行設定画面"を表示していること
+
+    もし "ジョブネット実行設定画面"を表示する
+    かつ "実行"ボタンをクリックする
+    ならば "ジョブネット監視画面"を表示していること
+
+    もし 10秒間待機する
+    ならば 以下の行が表示されていること
+    |ジョブ名   |ステータス|操作         |
+    |j1        |正常終了  |表示 再実行  |
+    |j2        |正常終了  |表示 再実行  |
+    |j3        |正常終了  |表示 再実行  |
+    |j4        |正常終了  |表示 再実行  |
+    |finally   |正常終了  |表示 ステータス変更 再実行  |
+    |  jn0004_f|正常終了|表示 ステータス変更 再実行  |
+
+    もし 60秒間待機する
+    ならば 以下の行が表示されていること
+    |ジョブ名   |ステータス|操作         |
+    |j1        |正常終了  |表示 再実行  |
+    |j2        |正常終了  |表示 再実行  |
+    |j3        |正常終了  |表示 再実行  |
+    |j4        |正常終了  |表示 再実行  |
+    |finally   |正常終了  |表示 ステータス変更 再実行  |
+    |  jn0004_f|正常終了|表示 ステータス変更 再実行  |
+
+    もし 60秒間待機する
+    ならば 以下の行が表示されていること
+    |ジョブネット名|ステータス|操作       |
+    |jn0004      |状態不明  |監視 ステータス変更 再実行|
+
+    もし test_server1でjn0004_fのスクリプトが実行されたか、スクリプトログを見て確認する
+    ならば 正常終了していること
+
+    もし "jn0004"の"再実行"リンクをクリックする
+    ならば "ジョブネット再実行設定画面"を表示していること
+
+    もし "ステータス"として"正常終了"を選択する
+    かつ "更新する"ボタンをクリックする
+    ならば 以下の行が表示されていること
+    |ジョブネット名|ステータス|操作       |
+    |jn0004      |正常終了  |監視 ステータス変更 再実行|
+
 
 # success.jobnet.job.tengine(2) #
   シナリオ: [異常系]success.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineをいくつか発火した後に、Coreサーバがダウンする
