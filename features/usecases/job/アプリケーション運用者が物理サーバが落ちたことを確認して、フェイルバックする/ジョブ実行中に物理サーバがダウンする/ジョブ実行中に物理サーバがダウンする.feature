@@ -39,12 +39,12 @@
     かつ "物理サーバ3"上に"Coreサーバ2, "DBサーバ3", "Frontendサーバ1" が動作していること
 
   #start.jobnet.job.tengine
-  シナリオ: [異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される
+  シナリオ: [異常系]start.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される
     
     以下のシナリオのフェイルバックの前まで行う(仮想サーバでなく、仮想サーバが動作している物理サーバをシャットダウンする)
     #tengine_console/features/usecases/job/アプリケーション運用者がジョブを実行中にCoreサーバがダウンしたことを確認してフェイルバックする/start.jobnet.job.tengineイベント処理中にCoreサーバがダウンする.feature
     #(1-1) 
-    #[異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、Coreサーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される
+    #[異常系]start.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される
 
     # 以下フェイルバックの確認
     もし 落ちたサーバを確認し、落ちた物理サーバを"down_physical_server"と呼ぶ
@@ -108,15 +108,15 @@
     
     
   #start.job.job.tengine
-  シナリオ: [異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される
+  シナリオ: [異常系]start.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される
 
     以下のシナリオのフェイルバックの前まで行う(仮想サーバでなく、仮想サーバが動作している物理サーバをシャットダウンする)
     #tengine_console/features/usecases/job/アプリケーション運用者がジョブを実行中にCoreサーバがダウンしたことを確認してフェイルバックする/start.job.job.tengineイベント処理中にCoreサーバがダウンする.feature
     #(3-1)
-    #[異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、Coreサーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される
+    #[異常系]start.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される
 
     # 以下フェイルバックの確認
-    #「[異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
+    #「[異常系]start.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
     
 
   #finished.process.job.tengine
@@ -128,7 +128,7 @@
     #[異常系][異常系]finished.process.core.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする_スクリプトが正常終了していた
 
     # 以下フェイルバックの確認
-    #「[異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
+    #「[異常系]start.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
 
   #success.job.job.tengine
   シナリオ: [異常系][異常系]success.job.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする
@@ -139,7 +139,7 @@
     #[異常系]success.job.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする
 
     # 以下フェイルバックの確認
-    #「[異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
+    #「[異常系]start.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
 
   #success.jobnet.job.tengine
   シナリオ: [異常系]success.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする
@@ -150,7 +150,7 @@
     #[異常系]success.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする
 
     # 以下フェイルバックの確認
-    #「[異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
+    #「[異常系]start.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
 
   #error.job.job.tengine
   シナリオ: [異常系]error.job.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする
@@ -161,7 +161,7 @@
     #[異常系]error.job.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする
 
     # 以下フェイルバックの確認
-    #「[異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
+    #「[異常系]start.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
 
   #error.jobnet.job.tengine
   シナリオ: [異常系]error.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする
@@ -172,7 +172,7 @@
     #[異常系]error.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする
 
     # 以下フェイルバックの確認
-    #「[異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
+    #「[異常系]start.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
 
 
   #stop.jobnet.job.tengine
@@ -184,7 +184,7 @@
     #[異常系]stop.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする
 
     # 以下フェイルバックの確認
-    #「[異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
+    #「[異常系]start.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
 
   #stop.job.job.tengine
   シナリオ: [異常系]stop.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする
@@ -195,4 +195,4 @@
     #[異常系]stop.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする
 
     # 以下フェイルバックの確認
-    #「[異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
+    #「[異常系]start.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される」のフェイルバックの確認を参照
