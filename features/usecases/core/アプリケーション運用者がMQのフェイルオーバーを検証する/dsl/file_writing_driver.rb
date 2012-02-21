@@ -39,11 +39,21 @@ class FileWritingDriver
   end
 
   on :event_after_all
-  def event_at_first_submit2
+  def event_after_all2
     open "/tmp/tmp.txt", "ab" do |fp|
       fp.puts "#{Time.now} FileWritingDriver#event_after_all2 called"
     end
     submit
+  end
+
+  on :event_sleep_and_after_all
+  def event_sleep_and_after_all
+    open "/tmp/tmp.txt", "ab" do |fp|
+      fp.puts "#{Time.now} FileWritingDriver#event_sleep_and_after_all called"
+      fp.puts "#{Time.now} I'll sleep for 60 secs."
+      sleep 60
+      fp.puts "#{Time.now} I woke up."
+    end
   end
 end
 
