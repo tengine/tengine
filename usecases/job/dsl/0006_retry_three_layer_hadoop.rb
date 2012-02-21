@@ -6,8 +6,8 @@ require 'tengine_job'
 # [jn0006]
 #          __________________________[jn1]____________________________        ______________[jn2]_____________________________________
 #         {          __________[jn11]_______________                  }     {                 _____________[jn22]____________         }
-#         {         {                               }                 }     {                {                              }         } 
-#  [S1]-->{ [S2]--> { [S3]-->[j111]-->[j112]-->[E3] } -->[j12]-->[E2] } --> { [S6]-->[j21]-->{ [S7]-->[j221]-->[j222]-->[E7]} -->[E6] } -->[E1] 
+#         {         {                               }                 }     {                {                              }         }
+#  [S1]-->{ [S2]--> { [S3]-->[j111]-->[j112]-->[E3] } -->[j12]-->[E2] } --> { [S6]-->[j21]-->{ [S7]-->[j221]-->[j222]-->[E7]} -->[E6] } -->[E1]
 #         {         {                               }                 }     {                {                              }         }
 #         {         {   _______finally_______       }                 }     {                {  _________finally_______     }         }
 #         {         {  {[S4]-->[jn11_f]-->[E4]}     }                 }     {                {  {[S8]-->[jn22_f]-->[E8]}    }         }
@@ -20,7 +20,7 @@ require 'tengine_job'
 #                                                                                           _______finally_______
 #                                                                                          {[S10]-->[jn_f]-->[E10]}
 #
-jobnet("jn0006", :instance_name => "test_server1", :credential_name => "test_credential1") do
+jobnet("jn0006_hadoop", :instance_name => "test_server1", :credential_name => "test_credential1") do
   boot_jobs("jn1")
   jobnet("jn1", :to => "jn2") do
    boot_jobs("jn11")
@@ -33,7 +33,7 @@ jobnet("jn0006", :instance_name => "test_server1", :credential_name => "test_cre
        hadoop_job("hadoop_job112")
      end
      finally do
-       hadoop_job_run("jn11_f","$HOME/0006_retry_three_layer.sh") do 
+       hadoop_job_run("jn11_f","$HOME/0006_retry_three_layer.sh") do
          hadoop_job("hadoop_jn11_f")
        end
      end
@@ -72,7 +72,7 @@ jobnet("jn0006", :instance_name => "test_server1", :credential_name => "test_cre
      end
    end
   end
-  finally do 
+  finally do
     hadoop_job_run("jn_f","$HOME/0006_retry_three_layer.sh") do
        hadoop_job("hadoop_jn_f")
      end

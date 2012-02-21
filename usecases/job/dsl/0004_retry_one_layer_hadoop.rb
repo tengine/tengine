@@ -11,8 +11,8 @@ require 'tengine_job'
 #                    {                        }
 #                    {[S2]-->[jn0004_f]-->[E2]}
 #                    {________________________}
-#                     
-jobnet("jn0004", :instance_name => "test_server1", :credential_name => "test_credential1") do
+#
+jobnet("jn0004_hadoop", :instance_name => "test_server1", :credential_name => "test_credential1") do
   boot_jobs("j1")
   hadoop_job_run("j1", "$HOME/0004_retry_one_layer.sh", :to => ["j2", "j3"]) do
     hadoop_job("hadoop_job1")

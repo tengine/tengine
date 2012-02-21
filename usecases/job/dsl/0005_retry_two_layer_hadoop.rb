@@ -24,17 +24,17 @@ require 'tengine_job'
 #  {        {_________________________________________}                    }
 #  { ______________________________________________________________________}
 
-jobnet("jn0005", :instance_name => "test_server1", :credential_name => "test_credential1") do
+jobnet("jn0005_hadoop", :instance_name => "test_server1", :credential_name => "test_credential1") do
   boot_jobs("j1")
   hadoop_job_run("j1", "$HOME/0005_retry_two_layer.sh", :to => ["j2", "jn4"]) do
     hadoop_job("hadoop_job1")
   end
-  hadoop_job_run("j2", "$HOME/0005_retry_two_layer.sh", :to => "j4") do 
+  hadoop_job_run("j2", "$HOME/0005_retry_two_layer.sh", :to => "j4") do
     hadoop_job("hadoop_job2")
   end
   jobnet("jn4", :to => "j4") do
     boot_jobs("j41")
-    hadoop_job_run("j41", "$HOME/0005_retry_two_layer.sh", :to => ["j42", "j43"]) do 
+    hadoop_job_run("j41", "$HOME/0005_retry_two_layer.sh", :to => ["j42", "j43"]) do
       hadoop_job("hadoop_job41")
     end
     hadoop_job_run("j42", "$HOME/0005_retry_two_layer.sh", :to => "j44") do
@@ -52,7 +52,7 @@ jobnet("jn0005", :instance_name => "test_server1", :credential_name => "test_cre
       end
     end
   end
-  hadoop_job_run("j4", "$HOME/0005_retry_two_layer.sh") do 
+  hadoop_job_run("j4", "$HOME/0005_retry_two_layer.sh") do
     hadoop_job("hadoop_job4")
   end
   finally do
@@ -66,12 +66,12 @@ jobnet("jn0005", :instance_name => "test_server1", :credential_name => "test_cre
         hadoop_job("hadoop_job1")
       end
       finally do
-        hadoop_job_run("jn0005_fif","$HOME/0005_retry_two_layer.sh") do 
+        hadoop_job_run("jn0005_fif","$HOME/0005_retry_two_layer.sh") do
           hadoop_job("hadoop_job1")
         end
-      end 
+      end
     end
-    hadoop_job_run("jn0005_f", "$HOME/0005_retry_two_layer.sh") do 
+    hadoop_job_run("jn0005_f", "$HOME/0005_retry_two_layer.sh") do
       hadoop_job("hadoop_job1")
     end
   end
