@@ -116,7 +116,7 @@
     #[異常系]start.job.job.tengineのイベント処理中に、スクリプトのPIDが帰ってきてからジョブストアのジョブネットの状態を更新する間に、Coreサーバがダウンする_finished.process.job.tengineがイベント処理失敗イベントの前に処理される
 
     # 以下フェイルバックの確認
-    #「[異常系]start.job.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする」のフェイルバックの確認を参照
+    #「[異常系]start.job.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、物理サーバがダウンする」のフェイルバックの確認を参照
     
 
   #finished.process.job.tengine
