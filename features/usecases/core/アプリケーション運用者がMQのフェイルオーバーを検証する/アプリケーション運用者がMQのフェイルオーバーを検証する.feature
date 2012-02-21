@@ -21,6 +21,37 @@
     かつ MQサーバの仮想マシンを停止/再開する方法を調べておく
 
   @manual
+  シナリオ：[異常系]tenginedがイベントハンドリング中に、MQプロセスがダウンした際にフェールオーバーする
+
+    前提 コアサーバ1、コアサーバ2上に "/tmp/tmp.txt" ファイルが存在しないこと
+
+    もし "Tengineコアプロセス1"の起動を行うためにコアサーバ1で"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス1"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス1"の状態が"稼働中"であることを確認する
+
+    もし "Tengineコアプロセス2"の起動を行うためにコアサーバ2で"tengined -T $dsl"というコマンドを実行する
+    もし "Tengineコアプロセス2"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス2"の状態が"稼働中"であることを確認する
+
+    もし イベント発火画面から"event_sleep_and_after_all"を発火する
+
+    ならば zbtgnmq1で"mq_list_queues"を行い、consumersが2であること
+    かつ messages_unacknowledgedが1であること
+
+    # MQの停止から再起動
+    もし 10秒間待機する
+    もし zbtgnmq1の仮想マシンを落とす
+    もし zbtgnmq2で"crm_mon -f"を行いVIPが切り替わってzbtgnmq2を向いたことを確認する
+
+    もし 30秒間待機する
+    ならば コアプロセスが起動したサーバ上で "/tmp/tmp.txt" が存在すること
+    かつ "/tmp/tmp.txt" を開くと "FileWritingDriver#event_sleep_and_after_all called" と書かれていること
+    かつ "/tmp/tmp.txt" を開くと "I'll sleep for 60 secs." と書かれていること
+    かつ "/tmp/tmp.txt" を開くと "I woke up." と書かれていること
+    かつ イベント一覧画面に"event_sleep_after_all.failed.tengined"が表示されていること
+    かつ コアサーバ1とコアサーバ2で"ps aux | grep -e tengined"を実行し、プロセスが落ちていなこと
+
+  @manual
   シナリオ: [異常系]tengined起動時、MQプロセスがダウンした際にフェイルオーバーする
 
     前提 コアサーバ上に "/tmp/tmp.txt" ファイルが存在しないこと
