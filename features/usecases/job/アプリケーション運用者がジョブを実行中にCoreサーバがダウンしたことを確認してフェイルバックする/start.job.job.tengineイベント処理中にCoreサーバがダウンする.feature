@@ -1,11 +1,14 @@
 # start.job.job.tengine(1) #
+# (1)
   シナリオ: [異常系]start.job.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする
   
-    もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
-    もし "Coreサーバ1"上で"Tengineコアプロセス1"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
-    ならば "Tengineコアプロセス1"の状態が"稼働中"であることを確認できること
+    もし Coreサーバのドライバの場所を確認するために"Coreサーバ1, Coreサーバ2"で"cd tengine_console && echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i echo {}tengine/job/drivers"コマンドを実行する
+    かつ オリジナルのドライバを退避する為に"Coreサーバ1, Coreサーバ2"で"echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i \cp -rf {}tengine/job/drivers /tmp"コマンドを実行する
+    #tengine_consoleのパスを適切なパスに変更して下さい
+    かつ Coreサーバを落とすテストのためのドライバに置き換えるために"Coreサーバ1, Coreサーバ2"、"echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i \cp -rf tengine_console/features/usecases/job/アプリケーション運用者がジョブを実行中にCoreサーバがダウンしたことを確認してフ ェイルバックする/driver/start.job.job.tengine/1/1/drivers {}tengine/job/drivers"コマンドを実行する
 
-    もし Coreサーバを落とすために"Coreサーバ2"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
+    もし "Coreサーバ2"上で"Tengineコアプロセス1"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
+    ならば "Tengineコアプロセス1"の状態が"稼働中"であることを確認できること
     もし "Coreサーバ2"上で"Tengineコアプロセス2"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
     ならば "Tengineコアプロセス2"の状態が"稼働中"であることを確認できること
 
@@ -23,7 +26,10 @@
     かつ "実行"ボタンをクリックする
     ならば "ジョブネット監視画面"を表示していること
 
-    もし 10秒間待機する
+    もし "Coreサーバ1, Coreサーバ2"で"/tmp/core_server_down_txt"を表示し続けている
+    かつ "/tmp/core_server_down_txt"に"please poweroff this server"と表示される
+    かつ "please poweroff this server"と表示された"Coreサーバ"をダウン(電源断)する
+    かつ 120秒間待機する
     かつ 以下の行が表示されていること
     |ジョブ名   |ステータス|操作         |
     |j1        |状態不明  |表示 ステータス変更 再実行  |
@@ -131,18 +137,22 @@
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
 # start.job.job.tengine(2) #
+# (1)
   シナリオ: [異常系]start.job.job.tengineのイベント処理中に、sshでtengine_job_agent_runを実行してからスクリプトのPIDが返ってくる間に、Coreサーバがダウンする
     #実はいらない?
 
 
 # start.job.job.tengine(3) #
+# (1)
   シナリオ: [異常系]start.job.job.tengineのイベント処理中に、スクリプトのPIDが帰ってきてからジョブストアのジョブネットの状態を更新する間に、Coreサーバがダウンする_finished.process.job.tengineがイベント処理失敗イベントの前に処理される
   
-    もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
-    もし "Coreサーバ1"上で"Tengineコアプロセス1"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
-    ならば "Tengineコアプロセス1"の状態が"稼働中"であることを確認できること
+    もし Coreサーバのドライバの場所を確認するために"Coreサーバ1, Coreサーバ2"で"cd tengine_console && echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i echo {}tengine/job/drivers"コマンドを実行する
+    かつ オリジナルのドライバを退避する為に"Coreサーバ1, Coreサーバ2"で"echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i \cp -rf {}tengine/job/drivers /tmp"コマンドを実行する
+    #tengine_consoleのパスを適切なパスに変更して下さい
+    かつ Coreサーバを落とすテストのためのドライバに置き換えるために"Coreサーバ1, Coreサーバ2"、"echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i \cp -rf tengine_console/features/usecases/job/アプリケーション運用者がジョブを実行中にCoreサーバがダウンしたことを確認してフ ェイルバックする/driver/start.job.job.tengine/3/1/drivers {}tengine/job/drivers"コマンドを実行する
 
-    もし Coreサーバを落とすために"Coreサーバ2"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
+    もし "Coreサーバ2"上で"Tengineコアプロセス1"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
+    ならば "Tengineコアプロセス1"の状態が"稼働中"であることを確認できること
     もし "Coreサーバ2"上で"Tengineコアプロセス2"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
     ならば "Tengineコアプロセス2"の状態が"稼働中"であることを確認できること
 
@@ -170,8 +180,11 @@
     |finally   |初期化済  |表示 再実行  |
     |  jn0004_f|初期化済  |表示 再実行  |
 
-    もし 10秒間待機する
-    かつ 以下の行が表示されていること
+    もし "Coreサーバ1, Coreサーバ2"で"/tmp/core_server_down_txt"を表示し続けている
+    かつ "/tmp/core_server_down_txt"に"please poweroff this server"と表示される
+    かつ "please poweroff this server"と表示された"Coreサーバ"をダウン(電源断)する
+    かつ 120秒間待機する
+    ならば 以下の行が表示されていること
     |ジョブ名   |ステータス|操作         |
     |j1        |状態不明  |表示 ステータス変更 再実行  |
     |j2        |正常終了  |表示 再実行  |
@@ -247,7 +260,7 @@
     |ジョブネット名|ステータス|操作       |
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
-
+# (2)
   シナリオ: [異常系]start.job.job.tengineのイベント処理中に、スクリプトのPIDが帰ってきてからジョブストアのジョブネットの状態を更新する間に、Coreサーバがダウンする_finished.process.job.tengineがイベント失敗イベントの後に処理される
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
     もし "Coreサーバ1"上で"Tengineコアプロセス1"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
@@ -392,6 +405,7 @@
 
 
 # start.job.job.tengine(4) #
+# (1)
   シナリオ: [異常系]start.job.job.tengineのイベント処理中に、スクリプトのPIDが帰ってきてジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする_finished.process.job.tengineがイベント失敗イベントの前に処理される
   
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
