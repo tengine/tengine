@@ -60,6 +60,12 @@
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
     |  |jn0004        |jn0004|        |        |タイムアウト強制停止済|監視 再実行|
 
+    もし "イベント一覧画面"を表示する
+    ならば 以下の行のように同じイベントキーのstop.execution.job.tengineが1件だけ表示されていること
+    |種別名                     |イベントキー|
+    |stop.execution.job.tengine| #{unique_event_key}|
+
+
   @5002
   シナリオ: [正常系]実行中のジョブが２つで２つともタイムアウト強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している

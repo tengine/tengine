@@ -28,13 +28,14 @@
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
     #  > tengine_resource_watchd
     # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
-    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb 
+    #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb
 
     #
     # 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプはテストを行うWakameの環境に応じて読み替えてください
     #
 
   @manual
+  @7103
   シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面から仮想サーバの停止を行う
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
@@ -55,8 +56,7 @@
 
     # 発火イベントの確認
     もし"60"秒間待機する # 秒数はWakameの環境によって異なります
-    もし"イベント一覧"画面を表示する
-    ならば"種別名"に"Tengine::Resource::VirtualServer.updated.tengine_resource_watchd"のイベントが1件表示されていること
+
     もし"仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること # 停止処理を行った仮想サーバのステータスが"terminated"になることを確認する
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
@@ -65,7 +65,9 @@
     |                       |virtual_server_uuid_93|virtual_server_uuid_93|  |private_ip_address: 192.168.2.93 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_02|
 
     もし"イベント一覧"画面を表示する
-    ならば "種別名"に"Tengine::Resource::VirtualServer.updateed.tengine_resource_watchd"のイベントが1件表示されていること
+    ならば 以下のイベントが1件表示されていること
+    |種別名    |"Tengine::Resource::VirtualServer.updated.tengine_resource_watchd"である|
+    |プロパティ|"status:"が"terminated"に変わっている                                   |
 
     # 起動可能数の確認
     もし"イベント一覧"画面を表示する
