@@ -106,9 +106,9 @@ ja:
       human_phase_name:
         <<: *phase_cds
         stopping_by_user: "強制停止中"
-        stopped_by_user: "強制停止済"
-        stopping_by_timeout: "タイムアウト強制停止中"
-        stopped_by_timeout: "タイムアウト強制停止済"
+        stopped_by_user: "エラー終了(強制停止済)"
+        stopping_by_timeout: "強制停止中(タイムアウト強制停止中)"
+        stopped_by_timeout: "エラー終了(タイムアウト強制停止済)"
     tengine/job/execution:
       phase_cd:
         <<: *phase_cds

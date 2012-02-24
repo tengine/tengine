@@ -137,7 +137,7 @@
               <%= link_to_show tengine_job_root_jobnet_actual_jobnet_actual_path(jobnet_actual, :root_jobnet_actual_id => @root_jobnet_actual) %>
               <% unless jobnet_actual.chained_box? -%>
 
-              <% if %w(stuck).include?(jobnet_actual.phase_key.to_s) -%>
+              <% if (%w(stuck).include?(jobnet_actual.phase_key.to_s)) || (jobnet_actual.ancestors.any?{|a|%w(stuck).include?(a.phase_key.to_s)}) -%>
                 <%= link_to t("views.links.edit_status"), edit_tengine_job_root_jobnet_actual_jobnet_actual_path(jobnet_actual, :root_jobnet_actual_id => @root_jobnet_actual) %>
               <% end -%>
               <% if %w(initialized success error stuck).include?(jobnet_actual.phase_key.to_s) -%>

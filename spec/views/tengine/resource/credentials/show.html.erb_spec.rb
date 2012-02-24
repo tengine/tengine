@@ -29,6 +29,9 @@ describe "tengine/resource/credentials/show.html.erb" do
       value = ERB::Util.html_escape(
         YAML.dump({"username"=>"user"}).sub(/^---( )?(! )?\n?/, ''))
       rendered.should match(/#{Regexp.escape(value)}/)
+
+      # BSON::OrderedHash#to_yamlの結果に不要な情報が入っていない事を確認
+      rendered.should_not match(/!map:BSON::OrderedHash/)
     end
 
     it "編集ボタンが表示される" do

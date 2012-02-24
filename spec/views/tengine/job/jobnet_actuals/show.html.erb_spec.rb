@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe "tengine/job/jobnet_actuals/show.html.erb" do
@@ -17,7 +18,7 @@ describe "tengine/job/jobnet_actuals/show.html.erb" do
       :executing_pid => "Executing Pid",
       :exit_status => "Exit Status",
       :was_expansion => false,
-      :phase_cd => 1,
+      :human_phase_name => "タイムアウト強制停止済",
       :stop_reason => "Stop Reason",
       :error_messages => ["foo", "bar"]
     ))
@@ -37,7 +38,7 @@ describe "tengine/job/jobnet_actuals/show.html.erb" do
     rendered.should match(/Executing Pid/)
     rendered.should match(/Exit Status/)
     rendered.should match(/false/)
-    rendered.should match(/1/)
+    rendered.should match(/タイムアウト強制停止済/)
     rendered.should match(/Stop Reason/)
     rendered.should match(/foo/)
     rendered.should match(/bar/)
