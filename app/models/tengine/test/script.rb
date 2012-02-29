@@ -79,6 +79,10 @@ class Tengine::Test::Script
     end
   end
 
+  before_validation do |script|
+    script.code.gsub! "\r\n", "\n"
+  end
+
   before_create :execute
 
   def execute
