@@ -136,7 +136,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>require 'timeout'<br />results = []<br />timeout(30) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result = `bundle exec tengined -k status`<br />&nbsp;&nbsp;&nbsp;&nbsp;break if result.split(&quot;\<br />&quot;).select{|line| line =~ /running/}.count == 1<br />&nbsp;&nbsp;end<br />end<br />results</td>
+	<td>require 'timeout'<br />results = []<br />timeout(30) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result = `bundle exec tengined -k status`<br />&nbsp;&nbsp;&nbsp;&nbsp;break if result.each_line.grep(/running/).count.nonzero?<br />&nbsp;&nbsp;end<br />end<br />results</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -169,7 +169,7 @@
 	<td>name=commit</td>
 	<td></td>
 </tr>
-<!--/jn0004/j2を待つ-->
+<!--/jn0004/j2, /jn0004/j3を待つ(verifyTextと整合させる)-->
 <tr>
 	<td>clickAndWait</td>
 	<td>link=スクリプト一覧</td>
@@ -178,7 +178,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>require 'timeout'<br />results = []<br />timeout(20) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;root_jobnet_actual = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;&nbsp;&nbsp;result = root_jobnet_actual.element('/jn0004/j2').phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:running].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results</td>
+	<td>require 'timeout'<br />results = []<br />timeout(20) do<br />&nbsp;&nbsp;rja = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;rja.reload<br />&nbsp;&nbsp;&nbsp;&nbsp;a = [rja.element('/jn0004/j2'), rja.element('/jn0004/j3')].map(&amp;:phase_key)<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; a<br />&nbsp;&nbsp;&nbsp;&nbsp;break if a.all? {|i| i == :running }<br /><br />&nbsp;&nbsp;end<br />end<br />results</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -287,7 +287,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>require 'timeout'<br />results = []<br />timeout(120) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(1)<br />&nbsp;&nbsp;&nbsp;&nbsp;root_jobnet_actual = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;&nbsp;&nbsp;result = root_jobnet_actual.phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:success, :error, :stuck].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results</td>
+	<td>require 'timeout'<br />results = []<br />timeout(120) do<br />&nbsp;&nbsp;rja = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(1)<br />&nbsp;&nbsp;&nbsp;&nbsp;result = rja.reload.phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:success, :error, :stuck].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
