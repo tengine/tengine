@@ -71,6 +71,21 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
+	<td>rm tmp/tengined_status/*</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
 	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T ../tengine_job/examples/0004_retry_one_layer.rb \<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
 </tr>
 <tr>
