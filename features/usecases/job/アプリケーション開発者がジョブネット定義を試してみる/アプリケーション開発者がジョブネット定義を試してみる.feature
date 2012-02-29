@@ -12,30 +12,6 @@
     かつ 認証情報が名称:"test_credential1"で登録されている
     かつ イベントキューにメッセージが1件もない
 
-  @success
-  @1000
-  シナリオ: [正常系]1000_1つのジョブが含まれるジョブネット_を試してみる
-
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1001_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
-    もし "Tengineコアプロセス"の標準出力からPIDを確認する
-    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
-    
-    もし ジョブネット"jobnet1001"を実行する
-    かつ ジョブネット"jobnet1001"が完了することを確認する
-    
-    ならば ジョブネット"/jobnet1001" のステータスが正常終了であること
-    かつ ジョブ"/jobnet1001/job1" のステータスが正常終了であること
-
-    # -----------------------------
-    # tengine_job_test job1 start
-    # tengine_job_test job1 finish
-    # -----------------------------
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
-    ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
-    かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"の後であること
-
-    
   # ./usecases/job/dsl/1001_one_job_in_jobnet.rb
   # -------------------
   # require 'tengine_job'
@@ -50,7 +26,7 @@
   @1001
   シナリオ: [正常系]1001_1つのジョブが含まれるジョブネット_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1001_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -65,7 +41,7 @@
     # tengine_job_test job1 start
     # tengine_job_test job1 finish
     # -----------------------------
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"の後であること
 
@@ -120,7 +96,7 @@
     # ジョブ実行サーバのログを確認
     ###############################
     
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"tengine_job_runログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"tengine_job_runログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"tengine_job_runログ"に出力されていること
     かつ "tengine_job_test job1 finish"と"tengine_job_runログ"に出力されており、"tengine_job_test job1 start"の後であること
     
@@ -140,7 +116,7 @@
   @success
   @1002
   シナリオ: [正常系]1002_複数のジョブ(直列)が含まれるジョブネット_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1002_series_jobs_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -158,7 +134,7 @@
     # tengine_job_test job2 start
     # tengine_job_test job2 finish
     # -----------------------------
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
@@ -179,7 +155,7 @@
   @success
   @1003
   シナリオ: [正常系]1003_複数のジョブ(並列)が含まれるジョブネット
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1003_parallel_jobs_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -191,7 +167,7 @@
     かつ ジョブ"/jobnet1003/job1" のステータスが正常終了であること
     かつ ジョブ"/jobnet1003/job2" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"の後であること
     ならば "tengine_job_test job2 start"と"スクリプトログ"に出力されていること
@@ -217,7 +193,7 @@
   @success
   @1004
   シナリオ: [正常系]1004_hadoopジョブが含まれるジョブネット_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1004_hadoop_job_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -230,7 +206,7 @@
     かつ ジョブ"/jobnet1004/hadoop_job_run1" のステータスが正常終了であること
     かつ ジョブ"/jobnet1004/job2" のステータスが正常終了であること
                                    
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test import_hdfs start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test import_hdfs finish"と"スクリプトログ"に出力されており、"tengine_job_test import_hdfs start"と"tengine_job_test hadoop_job_run start"の間であること
     かつ "tengine_job_test hadoop_job_run start"と"スクリプトログ"に出力されており、"tengine_job_test import_hdfs start"と"tengine_job_test hadoop_job_run finish"の間であること
@@ -255,7 +231,7 @@
   @success
   @1005
   シナリオ: [正常系]1005_finallyが含まれるジョブネット_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1005_finally_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -267,7 +243,7 @@
     かつ ジョブ"/jobnet1005/job1" のステータスが正常終了であること
     かつ ジョブ"/jobnet1005/finally/jobnet1005_finally" のステータスが正常終了であること
                                    
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test jobnet1005_finally start"の間であること
     かつ "tengine_job_test jobnet1005_finally start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test jobnet1005_finally finish"の間であること
@@ -293,7 +269,7 @@
   @success
   @1006
   シナリオ: [正常系]1006_expansionが含まれるジョブネット_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_expansion_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -306,7 +282,7 @@
     かつ ジョブ"/jobnet1006/jobnet1006_2/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1006/job3" のステータスが正常終了であること
                                    
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
@@ -339,7 +315,7 @@
   @success
   @1006_2
   シナリオ: [正常系]expansionされたジョブネット内で更にexpansionされているジョブネット_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -353,7 +329,7 @@
     かつ ジョブ"/jobnet1006/jobnet1006_2_2/jobnet1006_2_3/job3" のステータスが正常終了であること
     かつ ジョブ"/jobnet1006/job4" のステータスが正常終了であること
                                    
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
@@ -382,7 +358,7 @@
   @manual
   @1006_3
   シナリオ: [正常系]expansionで指定するジョブネット名が、以前のtengined起動時に読み込んでいたジョブネット名と被っている場合でも同じバージョンのジョブネットが利用される
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_expansion_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -409,7 +385,7 @@
   @manual
   @1006_4
   シナリオ: [正常系]expansionで指定するジョブネット名が、以前のtengined起動時に読み込んでいたジョブネット名と被っている場合でも同じバージョンのジョブネットが利用される_パターン2
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -454,7 +430,7 @@
   @success
   @1007
   シナリオ: [正常系]1007_boot_jobsが含まれるジョブネット_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1007_boot_jobs_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -465,7 +441,7 @@
     ならば ジョブネット"/jobnet1007" のステータスが正常終了であること
     かつ ジョブ"/jobnet1007/job1" のステータスが正常終了であること
                                    
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"の末尾に出力されていること
   
@@ -484,7 +460,7 @@
   @success
   @1008
   シナリオ: [正常系]1008_auto_sequenceが含まれるジョブネット_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1008_auto_sequence_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -497,7 +473,7 @@
     かつ ジョブ"/jobnet1008/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1008/job3" のステータスが正常終了であること
                                    
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
@@ -523,7 +499,7 @@
   @success
   @1009
   シナリオ: [正常系]1009_入れ子(2階層)が含まれるジョブネット_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1009_2_layer_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -535,7 +511,7 @@
     かつ ジョブ"/jobnet1009/job1" のステータスが正常終了であること
     かつ ジョブ"/jobnet1009/jobnet1009_2/job2" のステータスが正常終了であること
                                    
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
@@ -563,7 +539,7 @@
   @success
   @1010
   シナリオ: [正常系]1010_入れ子(3階層)が含まれるジョブネット_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1010_3_layer_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -576,7 +552,7 @@
     かつ ジョブ"/jobnet1010/jobnet1010_2/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1010/jobnet1010_2/jobnet1010_3/job3" のステータスが正常終了であること
                                    
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
@@ -604,7 +580,7 @@
   @success
   @1011
   シナリオ: [正常系]1011_入れ子(2階層)のfinallyが含まれるジョブネット_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1011_2_layer_finally_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -616,7 +592,7 @@
     かつ ジョブ"/jobnet1011/job1" のステータスが正常終了であること
     かつ ジョブ"/jobnet1011/finally/jobnet1011_2/job2" のステータスが正常終了であること
                                    
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
@@ -646,7 +622,7 @@
   @success
   @1012
   シナリオ: [正常系]1012_入れ子(3階層)のfinallyが含まれるジョブネット_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1012_3_layer_finally_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -659,7 +635,7 @@
     かつ ジョブ"/jobnet1012/finally/jobnet1012_2/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1012/finally/jobnet1012_2/jobnet1012_3/job3" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
@@ -690,9 +666,9 @@
   @success
   @1013
   シナリオ: [正常系]1013_入れ子の中でinstanceとcredential_nameが違うジョブネット_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    かつ 仮想サーバ"test_server2"のファイル:"~/tengine_job_test.log"が存在しないこと
-    かつ 仮想サーバ"test_server3"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    かつ 仮想サーバ"test_server2"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    かつ 仮想サーバ"test_server3"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     
     かつ 仮想サーバがインスタンス識別子:"test_server2"で登録されていること
     かつ 認証情報が名称:"test_credential2"で登録されている
@@ -711,15 +687,15 @@
     かつ ジョブ"/jobnet1013/jobnet1013_2/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1013/jobnet1013_2/jobnet1013_3/job3" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ1"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ1"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ1"に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ1"に出力されており、"tengine_job_test job1 start"の後であること
     
-    もし 仮想サーバ"test_server2"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ2"と呼ぶこととする。
+    もし 仮想サーバ"test_server2"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ2"と呼ぶこととする。
     ならば "tengine_job_test job2 start"と"スクリプトログ2"に出力されていること
     かつ "tengine_job_test job2 finish"と"スクリプトログ2"に出力されており、"tengine_job_test job2 start"の後であること
 
-    もし 仮想サーバ"test_server3"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ3"と呼ぶこととする。
+    もし 仮想サーバ"test_server3"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ3"と呼ぶこととする。
     ならば "tengine_job_test job3 start"と"スクリプトログ3"に出力されていること
     かつ "tengine_job_test job3 finish"と"スクリプトログ3"に出力されており、"tengine_job_test job3 start"の後であること
 
@@ -747,9 +723,9 @@
   @success
   @1014
   シナリオ: [正常系]1014_finallyの入れ子の中でinstanceとcredential_nameが違うジョブネット_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    かつ 仮想サーバ"test_server2"のファイル:"~/tengine_job_test.log"が存在しないこと
-    かつ 仮想サーバ"test_server3"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    かつ 仮想サーバ"test_server2"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    かつ 仮想サーバ"test_server3"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     
     かつ 仮想サーバがインスタンス識別子:"test_server2"で登録されていること
     かつ 認証情報が名称:"test_credential2"で登録されている
@@ -768,15 +744,15 @@
     かつ ジョブ"/jobnet1014/finally/jobnet1014_2/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1014/finally/jobnet1014_2/jobnet1014_3/job3" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ1"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ1"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ1"に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ1"に出力されており、"tengine_job_test job1 start"の後であること
     
-    もし 仮想サーバ"test_server2"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ2"と呼ぶこととする。
+    もし 仮想サーバ"test_server2"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ2"と呼ぶこととする。
     ならば "tengine_job_test job2 start"と"スクリプトログ2"に出力されていること
     かつ "tengine_job_test job2 finish"と"スクリプトログ2"に出力されており、"tengine_job_test job2 start"の後であること
 
-    もし 仮想サーバ"test_server3"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ3"と呼ぶこととする。
+    もし 仮想サーバ"test_server3"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ3"と呼ぶこととする。
     ならば "tengine_job_test job3 start"と"スクリプトログ3"に出力されていること
     かつ "tengine_job_test job3 finish"と"スクリプトログ3"に出力されており、"tengine_job_test job3 start"の後であること
 
@@ -832,7 +808,7 @@
   @success
   @1015
   シナリオ: [正常系]1015_複雑なジョブネット１_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1015_complicated_jobnet_1.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -867,7 +843,7 @@
     かつ ジョブ"/complicated_jobnet/i_jobnet1-3/i_job2-0" のステータスが初期化済であること
     かつ ジョブ"/complicated_jobnet/i_jobnet1-3/i_job3" のステータスが初期化済であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
 
     # i_jobnet1-3 以外
     ならば "tengine_job_test jobnet1-1 start"と"スクリプトログ"に出力されていること
@@ -1021,7 +997,7 @@
   @success  
   @1024
   シナリオ: [正常系]1024_finallyがjobnetの途中に書かれている_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1024_finally_not_last_of_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1034,7 +1010,7 @@
     かつ ジョブ"/jobnet1024/finally/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1024/job3" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job3 start"の間であること
     かつ "tengine_job_test job3 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job3 finish"の間であること
@@ -1060,7 +1036,7 @@
   @success
   @1025
   シナリオ: [正常系]1025_boot_jobsがjobnetの途中に書かれている_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1025_boot_jobs_not_first_of_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1073,7 +1049,7 @@
     かつ ジョブ"/jobnet1025/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1025/finally/job3" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
@@ -1097,7 +1073,7 @@
   @success
   @1026
   シナリオ: [正常系]1026_auto_sequenceがjobnetの途中に書かれている_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1026_auto_sequence_not_first_of_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1110,7 +1086,7 @@
     かつ ジョブ"/jobnet1026/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1026/job3" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
@@ -1202,7 +1178,7 @@
   @success
   @1030
   シナリオ: [正常系]1030_jobnetが1つもない_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1030_no_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
 
@@ -1220,7 +1196,7 @@
   @1031
   シナリオ: [正常系]1031_job/hadoop_job_runが1つもない_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1031_no_job_or_hadoop_job_run_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1270,7 +1246,7 @@
   #  -------------------
   @1033
   シナリオ: [正常系]1033_実行時にエラーとなる_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1033_execute_on_error.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1283,7 +1259,7 @@
     かつ ジョブ"/jobnet1033/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1033/job3" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
@@ -1397,7 +1373,7 @@
   #  -------------------
   @1038
   シナリオ: [正常系]1038_どこからも参照されないジョブがある_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1038_not_refrenced_job_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1409,7 +1385,7 @@
     かつ ジョブ"/jobnet1038/job1" のステータスが正常終了であること
     かつ ジョブ"/jobnet1038/job2" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
@@ -1431,7 +1407,7 @@
   @failure
   @1039
   シナリオ: [正常系]1039_boot_jobsでジョブネットの途中のジョブを指定する_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1039_set_boot_jobs_future_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1444,7 +1420,7 @@
     かつ ジョブ"/jobnet1039/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1039/job3" のステータスが正常終了であること
     
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
@@ -1469,7 +1445,7 @@
   @1040
   シナリオ: [正常系]1040_toでジョブネットの途中のジョブを指定する_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1040_set_to_future_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1482,7 +1458,7 @@
     かつ ジョブ"/jobnet1040/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1040/job3" のステータスが正常終了であること
     
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"と"tengine_job_test job2 start"の間であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1 finish"と"tengine_job_test job2 finish"の間であること
@@ -1530,7 +1506,7 @@
   @success
   @1042
   シナリオ: [正常系]1042_別の階層に同一名のジョブネットが含まれる_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1042_duplicated_jobname_on_diff_layer.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1543,7 +1519,7 @@
     かつ ジョブネット"/jobnet1042/jobnet1042_2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1042/jobnet1042_2/job1" のステータスが正常終了であること
     
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1-1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1-1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1-1 start"と"tengine_job_test job1-2 start"の間であること
     かつ "tengine_job_test job1-2 start"と"スクリプトログ"に出力されており、"tengine_job_test job1-1 finish"と"tengine_job_test job1-2 finish"の間であること
@@ -1620,7 +1596,7 @@
   @1046
   シナリオ: [異常系]1046_スクリプトに実行権限がない_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1046_permission_denied_script.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1645,7 +1621,7 @@
   @1047
   シナリオ: [異常系]1047_スクリプトが存在しない_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1047_no_such_script.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1674,7 +1650,7 @@
   @1048
   @manual
   シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1048_jobnet_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1691,7 +1667,7 @@
     ########################################
     # シェルスクリプトに渡された環境変数をログファイルから確認
     ########################################
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     かつ "スクリプトログ"の"MM_ACTUAL_JOB_ID"の値を確認する
     かつ "スクリプトログ"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
     かつ "スクリプトログ"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
@@ -1747,21 +1723,21 @@
     ならば "実行ジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
     |ID                  |ジョブネット名|説明      |ステータス|操作       |
-    |jobnet1048の実行時ID|jobnet1048    |jobnet1048|完了      |監視 再実行|
+    |jobnet1048の実行時ID|jobnet1048    |jobnet1048|正常終了      |監視 再実行|
 
     もし "jobnet1048"の"監視"リンクをクリックする
     ならば "スクリプトログ"と同じ内容の以下の行が表示されること
     |ID                          |ジョブ名    |説明        |実行スクリプト                      |接続サーバ名|認証情報名      |ステータス|次のジョブ|操作  |
-    |jobnet1048_2の実行時ID      |jobnet1048_2|jobnet1048_2|                                    |test_server1|test_credential1|完了      |          |再実行|
-    |job1の実行時ID              |job1        |job1        |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了      |          |再実行|
-    |finallyの実行時ID           |finally     |finally     |                                    |test_server1|test_credential1|完了      |          |再実行|
-    |jobnet1048_finallyの実行時ID|finally     |finally     |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了      |          |再実行|
+    |jobnet1048_2の実行時ID      |jobnet1048_2|jobnet1048_2|                                    |test_server1|test_credential1|正常終了      |          |再実行|
+    |job1の実行時ID              |job1        |job1        |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|正常終了      |          |再実行|
+    |finallyの実行時ID           |finally     |finally     |                                    |test_server1|test_credential1|正常終了      |          |再実行|
+    |jobnet1048_finallyの実行時ID|finally     |finally     |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|正常終了      |          |再実行|
 
     もし "ジョブ実行一覧画面"を表示する
     ならば "ジョブ実行一覧画面"が表示されること
 
     もし "jobnet1048"の"表示"リンクをクリックする
-    ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
+    ならば ならば URLのexecutionのIDと"スクリプトログ"のMM_SCHEDULE_IDが一緒であること
 
   # ./usecases/job/dsl/1048_jobnet_script_env_failure.rb
   #  -------------------
@@ -1780,7 +1756,7 @@
   @1048_1
   @manual
   シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる_ジョブが失敗した場合
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1048_jobnet_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1789,15 +1765,15 @@
     かつ ジョブネット"jobnet1048_failure"が完了することを確認する
     
     ならば ジョブネット"/jobnet1048_failure" のステータスがエラー終了であること
-    かつ ジョブネット"/jobnet1048_failure/jobnet1048_2" のステータスが正常終了であること
-    かつ ジョブ"/jobnet1048_failure/jobnet1048_2/job1" のステータスが正常終了であること
+    かつ ジョブネット"/jobnet1048_failure/jobnet1048_2" のステータスがエラー終了であること
+    かつ ジョブ"/jobnet1048_failure/jobnet1048_2/job1" のステータスがエラー終了であること
     かつ ジョブネット"/jobnet1048_failure/finally" のステータスが正常終了であること
     かつ ジョブ"/jobnet1048_failure/finally/jobnet1048_finally" のステータスが正常終了であること
 
     ########################################
     # シェルスクリプトに渡された環境変数をログファイルから確認
     ########################################
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     かつ "スクリプトログ"の"MM_ACTUAL_JOB_ID"の値を確認する
     かつ "スクリプトログ"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
     かつ "スクリプトログ"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
@@ -1843,21 +1819,21 @@
     ならば "実行ジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
     |ID                          |ジョブネット名    |説明              |ステータス|操作       |
-    |jobnet1048_failureの実行時ID|jobnet1048_failure|jobnet1048_failure|完了      |監視 再実行|
+    |jobnet1048_failureの実行時ID|jobnet1048_failure|jobnet1048_failure|正常終了      |監視 再実行|
 
     もし "jobnet1048"の"監視"リンクをクリックする
     ならば "スクリプトログ"と同じ内容の以下の行が表示されること
     |ID                          |ジョブ名    |説明        |実行スクリプト                      |接続サーバ名|認証情報名      |ステータス|次のジョブ|操作  |
-    |jobnet1048_2の実行時ID      |jobnet1048_2|jobnet1048_2|                                    |test_server1|test_credential1|完了      |          |再実行|
-    |job1の実行時ID              |job1        |job1        |exit 1                              |test_server1|test_credential1|完了      |          |再実行|
-    |finallyの実行時ID           |finally     |finally     |                                    |test_server1|test_credential1|完了      |          |再実行|
-    |jobnet1048_finallyの実行時ID|finally     |finally     |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了      |          |再実行|
+    |jobnet1048_2の実行時ID      |jobnet1048_2|jobnet1048_2|                                    |test_server1|test_credential1|正常終了      |          |再実行|
+    |job1の実行時ID              |job1        |job1        |exit 1                              |test_server1|test_credential1|正常終了      |          |再実行|
+    |finallyの実行時ID           |finally     |finally     |                                    |test_server1|test_credential1|正常終了      |          |再実行|
+    |jobnet1048_finallyの実行時ID|finally     |finally     |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|正常終了      |          |再実行|
 
     もし "ジョブ実行一覧画面"を表示する
     ならば "ジョブ実行一覧画面"が表示されること
 
     もし "jobnet1048_failure"の"表示"リンクをクリックする
-    ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
+    ならば URLのexecutionのIDと"スクリプトログ"のMM_SCHEDULE_IDが一緒であること
 
 
   # ./usecases/job/dsl/1048_jobnet_script_env_failure.rb
@@ -1882,7 +1858,7 @@
   @1048_2
   @manual
   シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる_finallyのジョブが失敗した場合
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1048_jobnet_script_env_finally_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1900,7 +1876,7 @@
     ########################################
     # シェルスクリプトに渡された環境変数をログファイルから確認
     ########################################
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     かつ "スクリプトログ"の"MM_ACTUAL_JOB_ID"の値を確認する
     かつ "スクリプトログ"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
     かつ "スクリプトログ"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
@@ -1948,25 +1924,25 @@
     ならば "実行ジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
     |ID                                  |ジョブネット名            |説明                      |ステータス|操作       |
-    |jobnet1048_finally_failureの実行時ID|jobnet1048_finally_failure|jobnet1048_finally_failure|完了      |監視 再実行|
+    |jobnet1048_finally_failureの実行時ID|jobnet1048_finally_failure|jobnet1048_finally_failure|正常終了      |監視 再実行|
 
     もし "jobnet1048_finally_failure"の"監視"リンクをクリックする
     ならば "スクリプトログ"と同じ内容の以下の行が表示されること
     |ID                                           |ジョブ名                     |説明                         |実行スクリプト                                               |接続サーバ名|認証情報名      |ステータス|次のジョブ|操作  |
-    |jobnet1048_2の実行時ID                       |jobnet1048_2                 |jobnet1048_2                 |                                                             |test_server1|test_credential1|完了      |          |再実行|
-    |job1の実行時ID                               |job1                         |job1                         |exit 1                                                       |test_server1|test_credential1|完了      |          |再実行|
-    |jobnet1048_finally_failure/finallyの実行時ID |finally                      |finally                      |                                                             |test_server1|test_credential1|完了      |          |再実行|
-    |jobnet1048_2_finally_jobnetの実行時ID        |jobnet1048_2_finally_jobnet  |jobnet1048_2_finally_jobnet  |                                                             |test_server1|test_credential1|完了      |          |再実行|
-    |jobnet1048_finallyの実行時ID                 |jobnet1048_finally           |jobnet1048_finally           |exit 1                                                       |test_server1|test_credential1|完了      |          |再実行|
-    |jobnet1048_2_finally_jobnet/finallyの実行時ID|finally                      |finally                      |                                                             |test_server1|test_credential1|完了      |          |再実行|
-    |jobnet1048_finally_in_finallyの実行時ID      |jobnet1048_finally_in_finally|jobnet1048_finally_in_finally|$HOME/tengine_job_env_test.sh 0 jobnet1048_finally_in_finally|test_server1|test_credential1|完了      |          |再実行|
+    |jobnet1048_2の実行時ID                       |jobnet1048_2                 |jobnet1048_2                 |                                                             |test_server1|test_credential1|正常終了      |          |再実行|
+    |job1の実行時ID                               |job1                         |job1                         |exit 1                                                       |test_server1|test_credential1|正常終了      |          |再実行|
+    |jobnet1048_finally_failure/finallyの実行時ID |finally                      |finally                      |                                                             |test_server1|test_credential1|正常終了      |          |再実行|
+    |jobnet1048_2_finally_jobnetの実行時ID        |jobnet1048_2_finally_jobnet  |jobnet1048_2_finally_jobnet  |                                                             |test_server1|test_credential1|正常終了      |          |再実行|
+    |jobnet1048_finallyの実行時ID                 |jobnet1048_finally           |jobnet1048_finally           |exit 1                                                       |test_server1|test_credential1|正常終了      |          |再実行|
+    |jobnet1048_2_finally_jobnet/finallyの実行時ID|finally                      |finally                      |                                                             |test_server1|test_credential1|正常終了      |          |再実行|
+    |jobnet1048_finally_in_finallyの実行時ID      |jobnet1048_finally_in_finally|jobnet1048_finally_in_finally|$HOME/tengine_job_env_test.sh 0 jobnet1048_finally_in_finally|test_server1|test_credential1|正常終了      |          |再実行|
 
 
     もし "ジョブ実行一覧画面"を表示する
     ならば "ジョブ実行一覧画面"が表示されること
 
     もし "jobnet1048_finally_failure"の"表示"リンクをクリックする
-    ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
+    ならば URLのexecutionのIDと"スクリプトログ"のMM_SCHEDULE_IDが一緒であること
 
 
   # ./usecases/job/dsl/1049_expantion_script_env.rb
@@ -1988,7 +1964,7 @@
   @manual
   シナリオ: [正常系]1049_expantionを利用したシェルスクリプトに環境変数が渡される_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1049_expantion_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -2003,7 +1979,7 @@
     ########################################
     # シェルスクリプトに渡された環境変数をログファイルから確認
     ########################################
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     かつ "スクリプトログ"の"MM_ACTUAL_JOB_ID"の値を確認する
     かつ "スクリプトログ"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
     かつ "スクリプトログ"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
@@ -2047,19 +2023,19 @@
     ならば "実行ジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
     |ID                  |ジョブネット名|説明      |ステータス|操作       |
-    |jobnet1049の実行時ID|jobnet1049    |jobnet1049|完了      |監視 再実行|
+    |jobnet1049の実行時ID|jobnet1049    |jobnet1049|正常終了      |監視 再実行|
 
     もし "jobnet1049"の"監視"リンクをクリックする
     ならば "スクリプトログ"と同じ内容の以下の行が表示されること
     |ID                    |ジョブ名    |説明        |実行スクリプト                      |接続サーバ名|認証情報名      |ステータス|次のジョブ|操作  |
-    |jobnet1049_2の実行時ID|jobnet1049_2|jobnet1049_2|                                    |test_server1|test_credential1|完了      |          |再実行|
-    |job1の実行時ID        |job1        |job1        |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|完了      |          |再実行|
+    |jobnet1049_2の実行時ID|jobnet1049_2|jobnet1049_2|                                    |test_server1|test_credential1|正常終了      |          |再実行|
+    |job1の実行時ID        |job1        |job1        |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|正常終了      |          |再実行|
 
     もし "ジョブ実行一覧画面"を表示する
     ならば "ジョブ実行一覧画面"が表示されること
 
     もし "jobnet1049"の"表示"リンクをクリックする
-    ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
+    ならば URLのexecutionのIDと"スクリプトログ"のMM_SCHEDULE_IDが一緒であること
 
 
   # ./usecases/job/dsl/1049_expantion_script_env_failure.rb
@@ -2084,15 +2060,15 @@
   @manual
   シナリオ: [正常系]1049_expantion_failureを利用したシェルスクリプトに環境変数が渡される_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1049_expantion_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
     もし 予定実行時間を10分に設定して、ジョブネット"jobnet1049"を実行する
-    かつ ジョブネット"jobnet1049"が完了することを確認する
+    かつ ジョブネット"jobnet1049"がエラー終了することを確認する
     
-    ならば ジョブネット"/jobnet1049_failure" のステータスが正常終了であること
+    ならば ジョブネット"/jobnet1049_failure" のステータスがエラー終了であること
     かつ ジョブネット"/jobnet1049_failure/jobnet1049_2" のステータスがエラー終了であること
     かつ ジョブ"/jobnet1049_failure/jobnet1049_2/job1" のステータスがエラー終了であること
     かつ ジョブ"/jobnet1049_failure/finally/finally" のステータスが正常終了であること
@@ -2101,7 +2077,7 @@
     ########################################
     # シェルスクリプトに渡された環境変数をログファイルから確認
     ########################################
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     かつ "スクリプトログ"の"MM_ACTUAL_JOB_ID"の値を確認する
     かつ "スクリプトログ"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
     かつ "スクリプトログ"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
@@ -2151,15 +2127,15 @@
     もし "jobnet1049_failure"の"監視"リンクをクリックする
     ならば "スクリプトログ"と同じ内容の以下の行が表示されること
     |ID                                        |ジョブ名          |説明              |実行スクリプト                      |接続サーバ名|認証情報名      |ステータス|次のジョブ|操作  |
-    |jobnet1049_2の実行時ID                    |jobnet1049_2      |jobnet1049_2      |                                    |test_server1|test_credential1|完了      |          |再実行|
-    |job1の実行時ID                            |job1              |job1              |exit 1                              |test_server1|test_credential1|完了      |          |再実行|
-    |jobnet1049_failure/finallyのテンプレートID|finally           |finally           |                                    |test_server1|test_credential1|
-    |jobnet1049_finallyのテンプレートID        |jobnet1049_finally|jobnet1049_finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|
+    |jobnet1049_2の実行時ID                    |jobnet1049_2      |jobnet1049_2      |                                    |test_server1|test_credential1|エラー終了   |          |再実行|
+    |job1の実行時ID                            |job1              |job1              |exit 1                              |test_server1|test_credential1|エラー終了   |          |再実行|
+    |jobnet1049_failure/finallyのテンプレートID|finally           |finally           |                                    |test_server1|test_credential1|正常終了      |          |再実行|
+    |jobnet1049_finallyのテンプレートID        |jobnet1049_finally|jobnet1049_finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|正常終了      |          |再実行|
     もし "ジョブ実行一覧画面"を表示する
     ならば "ジョブ実行一覧画面"が表示されること
 
     もし "jobnet1049_failure"の"表示"リンクをクリックする
-    ならば URLのexecuteのIDとログのexecuteのIDが一緒であること
+    ならば URLのexecutionのIDと"スクリプトログ"のMM_SCHEDULE_IDが一緒であること
 
 
   # ./usecases/job/dsl/1050_dsl_version_in_dsl.rb
@@ -2176,7 +2152,7 @@
   #
   @1050
   シナリオ: [正常系]ジョブネット定義内でdsl_versionを利用する
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1050_dsl_version_in_dsl.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -2191,7 +2167,7 @@
     # tengine_job_test job1 start
     # tengine_job_test job1 finish
     # -----------------------------
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"の末尾に出力されていること
 
@@ -2209,7 +2185,7 @@
   #
   @1051
   シナリオ: [正常系]循環参照するジョブを読み込ませてみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1051_loop_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力に"circular dependency"と表示されていること
     かつ "Tengineコアプロセス"の標準出力に"Tengine::Job::DslError"と表示されていること
@@ -2236,7 +2212,7 @@
   #
   @1052
   シナリオ: [正常系]循環参照するexpansionのジョブを読み込ませてみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1052_loop_expansion_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力に"circular dependency"と表示されていること
     かつ "Tengineコアプロセス"の標準出力に"Tengine::Job::DslError"と表示されていること
@@ -2281,7 +2257,7 @@
   @success
   @1054
   シナリオ: [正常系]1054_ジョブの動的な事前実行コマンドを求める:preparationオプションを試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1054_preparation_check.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -2297,7 +2273,7 @@
 
     もし IPアドレスを確認するために"ifconfig"コマンドを実行する
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "preparation /rjn1054/j1 #{IP}_j1"と"スクリプトログ"に出力されていること
     かつ "preparation /rjn1054/j2"と"スクリプトログ"に出力されており、"preparation /rjn1054/j1 #{IP}_j1"の後であること
     ならば "preparation /rjn1054/j3 #{IP}_j3"と"スクリプトログ"に出力されており、"preparation /rjn1054/j2"の後であること
@@ -2361,7 +2337,7 @@
   @1061
   シナリオ: [正常系]1061_dictionary.ymlの内容が正しく表示される_を試してみる
   
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1061_dictionary_yml -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -2411,7 +2387,7 @@
   @1061_2
   シナリオ: [正常系]dictionary.ymlの内容が正しく表示される_を試してみる_読み込むディレクトリー自体がdictionary.ymlでカテゴリー名が指定されている
   
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1061_2_dictionary_yml -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -2472,48 +2448,48 @@
  
     もし "全体"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明        |
-    |jobnet1061_a  |jobnet1061_a|
-    |jobnet1061_b  |jobnet1061_b|
-    |jobnet1061_c  |jobnet1061_c|
-    |jobnet1061_d  |jobnet1061_d|
-    |jobnet1061_e  |jobnet1061_e|
-    |jobnet1061_f  |jobnet1061_f|
-    |jobnet1061_g  |jobnet1061_g|
-    |jobnet1061_h  |jobnet1061_h|
-    |jobnet1061_i  |jobnet1061_i|
-    |jobnet1061_j  |jobnet1061_j|
-    |jobnet1061_k  |jobnet1061_k|
+    |jobnet1062_a  |jobnet1062_a|
+    |jobnet1062_b  |jobnet1062_b|
+    |jobnet1062_c  |jobnet1062_c|
+    |jobnet1062_d  |jobnet1062_d|
+    |jobnet1062_e  |jobnet1062_e|
+    |jobnet1062_f  |jobnet1062_f|
+    |jobnet1062_g  |jobnet1062_g|
+    |jobnet1062_h  |jobnet1062_h|
+    |jobnet1062_i  |jobnet1062_i|
+    |jobnet1062_j  |jobnet1062_j|
+    |jobnet1062_k  |jobnet1062_k|
 
    もし "1062_incorrect_dictionary_yml"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明        |
-    |jobnet1061_a  |jobnet1061_a|
-    |jobnet1061_b  |jobnet1061_b|
-    |jobnet1061_c  |jobnet1061_c|
-    |jobnet1061_d  |jobnet1061_d|
-    |jobnet1061_e  |jobnet1061_e|
-    |jobnet1061_f  |jobnet1061_f|
-    |jobnet1061_g  |jobnet1061_g|
-    |jobnet1061_h  |jobnet1061_h|
-    |jobnet1061_i  |jobnet1061_i|
-    |jobnet1061_j  |jobnet1061_j|
-    |jobnet1061_k  |jobnet1061_k|
+    |jobnet1062_a  |jobnet1062_a|
+    |jobnet1062_b  |jobnet1062_b|
+    |jobnet1062_c  |jobnet1062_c|
+    |jobnet1062_d  |jobnet1062_d|
+    |jobnet1062_e  |jobnet1062_e|
+    |jobnet1062_f  |jobnet1062_f|
+    |jobnet1062_g  |jobnet1062_g|
+    |jobnet1062_h  |jobnet1062_h|
+    |jobnet1062_i  |jobnet1062_i|
+    |jobnet1062_j  |jobnet1062_j|
+    |jobnet1062_k  |jobnet1062_k|
 
    もし "ジョブネットグループX"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明        |
-    |jobnet1061_d  |jobnet1061_d|
-    |jobnet1061_e  |jobnet1061_e|
-    |jobnet1061_f  |jobnet1061_f|
+    |jobnet1062_d  |jobnet1062_d|
+    |jobnet1062_e  |jobnet1062_e|
+    |jobnet1062_f  |jobnet1062_f|
 
    もし "jobnetgroup_y"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明        |
-    |jobnet1061_g  |jobnet1061_g|
-    |jobnet1061_h  |jobnet1061_h|
-    |jobnet1061_i  |jobnet1061_i|
+    |jobnet1062_g  |jobnet1062_g|
+    |jobnet1062_h  |jobnet1062_h|
+    |jobnet1062_i  |jobnet1062_i|
 
    もし "ジョブネットグループY"のカテゴリを選択すると以下の行が表示されること
     |ジョブネット名|説明        |
-    |jobnet1061_j  |jobnet1061_j|
-    |jobnet1061_k  |jobnet1061_k|
+    |jobnet1062_j  |jobnet1062_j|
+    |jobnet1062_k  |jobnet1062_k|
 
 
   # ./usecases/job/dsl/1071_rootjobnet_includes_parallel_jobs.rb
@@ -2549,7 +2525,7 @@
   @1071
   シナリオ: [正常系]1071_ルートジョブネットが複数のジョブ(並列)を含むジョブネット_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1071_rootjobnet_includes_parallel_jobs.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -2562,7 +2538,7 @@
     かつ ジョブ"/jobnet1071/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1071/finally/jobnet1071_finally" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"の後であること
     かつ "tengine_job_test job2 start"と"スクリプトログ"に出力されていること
@@ -2614,7 +2590,7 @@
   @success
   @1072
   シナリオ: [正常系]1072_ルートジョブネットがFinally付きのジョブネット１つ_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1072_rootjobnet_includes_one_jobnet_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -2630,7 +2606,7 @@
     かつ ジョブネット"/jobnet1072/finally" のステータスが正常終了であること
     かつ ジョブ"/jobnet1072/finally/jobnet1072_finally" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test job1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_test job1 start"の後であること
 
@@ -2694,7 +2670,7 @@
   @1073
   シナリオ: [正常系]1073_ルートジョブネットがFinally付きのジョブネット(直列)_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1073_rootjobnet_includes_serial_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -2714,7 +2690,7 @@
     かつ ジョブネット"/jobnet1073/finally" のステータスが正常終了であること
     かつ ジョブ"/jobnet1073/finally/jobnet1073_finally" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
     かつ "tengine_job_test jf1 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
@@ -2791,7 +2767,7 @@
   @1074
   シナリオ: [正常系]1074_ルートジョブネットがFinally付きのジョブネット(並列)_を試してみる
   
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1074_rootjobnet_includes_parallel_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -2811,7 +2787,7 @@
     かつ ジョブネット"/jobnet1074/finally" のステータスが正常終了であること
     かつ ジョブ"/jobnet1074/finally/jobnet1074_finally" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
     かつ "tengine_job_test jf1 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
@@ -2898,7 +2874,7 @@
   @1075
   シナリオ: [正常系]1075_ルートジョブネットがFinally付きのジョブネット入れ子3層_を試してみる
   
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1075_rootjobnet_includes_3_layers_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -2920,7 +2896,7 @@
     かつ ジョブネット"/jobnet1075/finally" のステータスが正常終了であること
     かつ ジョブ"/jobnet1075/finally/jobnet1075_finally" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j3 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test j3 finish"と"スクリプトログ"に出力されており、"tengine_job_test j3 start"の後であること
     かつ "tengine_job_test jf3 start"と"スクリプトログ"に出力されており、"tengine_job_test j3 finish"の後であること
@@ -2999,7 +2975,7 @@
   @1076
   シナリオ: [正常系]1076_ルートジョブネットがクレデンシャルが違うジョブネット(並列)_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     かつ 認証情報が名称:"test_credential1-1"で登録されている
     
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1076_rootjobnet_includes_parallel_jobnets_having_finally_and_different_credentials.rb  -f ./features/config/tengined.yml.erb"というコマンドを実行する
@@ -3021,7 +2997,7 @@
     かつ ジョブネット"/jobnet1076/finally" のステータスが正常終了であること
     かつ ジョブ"/jobnet1076/finally/jobnet1076_finally" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
     かつ "tengine_job_test jf1 start"と"スクリプトログ"に出力されており、"tengine_job_test j1 finish"の後であること
@@ -3100,9 +3076,9 @@
   @1077
   シナリオ: [正常系]1077_ルートジョブネットが仮想サーバが違うジョブネット(並列)_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    かつ 仮想サーバ"test_server2"のファイル:"~/tengine_job_test.log"が存在しないこと
-    かつ 仮想サーバ"test_server3"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    かつ 仮想サーバ"test_server2"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    かつ 仮想サーバ"test_server3"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     
     かつ 仮想サーバがインスタンス識別子:"test_server2"で登録されていること
     かつ 認証情報が名称:"test_credential2"で登録されている
@@ -3129,19 +3105,19 @@
     かつ ジョブ"/jobnet1077/finally/jobnet1077_finally" のステータスが正常終了であること
 
 
-    もし 仮想サーバ"test_server2"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ2"と呼ぶこととする。
+    もし 仮想サーバ"test_server2"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ2"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ2"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ2"に出力されており、"tengine_job_test j1 start"の後であること
     かつ "tengine_job_test jf1 start"と"スクリプトログ2"に出力されており、"tengine_job_test j1 finish"の後であること
     かつ "tengine_job_test jf1 finish"と"スクリプトログ2"に出力されており、"tengine_job_test jf1 start"の後であること
 
-    もし 仮想サーバ"test_server3"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ3"と呼ぶこととする。
+    もし 仮想サーバ"test_server3"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ3"と呼ぶこととする。
     かつ "tengine_job_test j2 start"と"スクリプトログ3"に出力されていること
     かつ "tengine_job_test j2 finish"と"スクリプトログ3"に出力されており、"tengine_job_test j2 start"の後であること
     かつ "tengine_job_test jf2 start"と"スクリプトログ3"に出力されており、"tengine_job_test j2 finish"の後であること
     かつ "tengine_job_test jf2 finish"と"スクリプトログ3"に出力されており、"tengine_job_test jf2 start"の後であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ1"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ1"と呼ぶこととする。
     かつ "tengine_job_test jobnet1077_finally start"と"スクリプトログ1"に出力されていること
     かつ "tengine_job_test jobnet1077_finally finish"と"スクリプトログ1"に出力されており、"tengine_job_test jobnet1077_finally start"の後であること
 
@@ -3179,7 +3155,7 @@
   @1078
   シナリオ: [正常系]1078_Finallyに複数のジョブ(並列)を含むジョブネット_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1078_finally_includes_parallel_jobs.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -3193,7 +3169,7 @@
     かつ ジョブ"/jobnet1078/finally/fj1" のステータスが正常終了であること
     かつ ジョブ"/jobnet1078/finally/fj2" のステータスが正常終了であること
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
 
@@ -3247,7 +3223,7 @@
   @1079
   シナリオ: [正常系]1079_FinallyにFinally付きのジョブネット１つ_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1079_finally_includes_one_jobnet_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -3263,7 +3239,7 @@
     かつ ジョブネット"/jobnet1079/finally/jobnet1079-1/finally" のステータスが正常終了であること
     かつ ジョブ"/jobnet1079/finally/jobnet1079-1/finally/fj1" のステータスが正常終了であること
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
 
@@ -3327,7 +3303,7 @@
   @1080
   シナリオ: [正常系]1080_FinallyにFinally付きのジョブネット(直列)_を試してみる
   
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1080_finally_includes_serial_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -3348,7 +3324,7 @@
     かつ ジョブ"/jobnet1080/finally/jobnet1080-2/finally/fj2" のステータスが正常終了であること
     
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
 
@@ -3428,7 +3404,7 @@
   @1081
   シナリオ: [正常系]1081_FinallyにFinally付きのジョブネット(並列)_を試してみる
   
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1081_finally_includes_parallel_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -3449,7 +3425,7 @@
     かつ ジョブ"/jobnet1081/finally/jobnet1081-2/finally/fj2" のステータスが正常終了であること
     
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
 
@@ -3529,7 +3505,7 @@
   @1082
   シナリオ: [正常系]1082_Finallyにクレデンシャルが違うジョブネット(並列)_を試してみる
   
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     かつ 認証情報が名称:"test_credential1-1"で登録されている
     かつ 認証情報が名称:"test_credential1-2"で登録されている
 
@@ -3553,7 +3529,7 @@
     かつ ジョブ"/jobnet1082/finally/jobnet1082-2/finally/fj2" のステータスが正常終了であること
     
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
 
@@ -3633,9 +3609,9 @@
   @1083
   シナリオ: [正常系]1083_Finallyに仮想サーバが違うジョブネット(並列)_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    かつ 仮想サーバ"test_server2"のファイル:"~/tengine_job_test.log"が存在しないこと
-    かつ 仮想サーバ"test_server3"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    かつ 仮想サーバ"test_server2"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    かつ 仮想サーバ"test_server3"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     
     かつ 仮想サーバがインスタンス識別子:"test_server2"で登録されていること
     かつ 認証情報が名称:"test_credential2"で登録されている
@@ -3661,17 +3637,17 @@
     かつ ジョブネット"/jobnet1083/finally/jobnet1083-2/finally" のステータスが正常終了であること
     かつ ジョブ"/jobnet1083/finally/jobnet1083-2/finally/fj2" のステータスが正常終了であること
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ1"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ1"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ1"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ1"に出力されており、"tengine_job_test j1 start"の後であること
 
-    かつ 仮想サーバ"test_server2"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ2"と呼ぶこととする。
+    かつ 仮想サーバ"test_server2"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ2"と呼ぶこととする。
     かつ "tengine_job_test j2 start"と"スクリプトログ2"に出力されていること
     かつ "tengine_job_test j2 finish"と"スクリプトログ2"に出力されており、"tengine_job_test j2 start"の後であること
     かつ "tengine_job_test fj1 start"と"スクリプトログ2"に出力されており、"tengine_job_test j2 finish"の後であること
     かつ "tengine_job_test fj1 finish"と"スクリプトログ2"に出力されており、"tengine_job_test fj1 start"の後であること
 
-    かつ 仮想サーバ"test_server2"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ3"と呼ぶこととする。
+    かつ 仮想サーバ"test_server3"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ3"と呼ぶこととする。
     かつ "tengine_job_test j3 start"と"スクリプトログ3"に出力されていること
     かつ "tengine_job_test j3 finish"と"スクリプトログ3"に出力されており、"tengine_job_test j3 start"の後であること
     かつ "tengine_job_test fj2 start"と"スクリプトログ3"に出力されており、"tengine_job_test j3 finish"の後であること
@@ -3708,7 +3684,7 @@
   @1084
   シナリオ: [正常系]1084_Finallyにauto_sequenceを使用する_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1084_finally_includes_auto_sequence.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -3722,7 +3698,7 @@
     かつ ジョブ"/jobnet1084/finally/fj1" のステータスが正常終了であること
     かつ ジョブ"/jobnet1084/finally/fj2" のステータスが正常終了であること
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
 
@@ -3765,7 +3741,7 @@
   @success
   @1085
   シナリオ: [正常系]1085_Finallyにboot_jobsを使用する_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1085_finally_includes_boot_jobs.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -3779,7 +3755,7 @@
     かつ ジョブ"/jobnet1085/finally/fj1" のステータスが正常終了であること
     かつ ジョブ"/jobnet1085/finally/fj2" のステータスが正常終了であること
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
 
@@ -3856,7 +3832,7 @@
   @success
   @1086
   シナリオ: [正常系]1086_Finallyにexpansionを使用する_を試してみる
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1086_finally_includes_expansion.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -3878,7 +3854,7 @@
     かつ ジョブネット"/jobnet1086/finally/jobnet1086-2/finally" のステータスが正常終了であること
     かつ ジョブ"/jobnet1086/finally/jobnet1086-2/finally/fj2" のステータスが正常終了であること
 
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
 
@@ -4081,7 +4057,7 @@
   @1090
   シナリオ: [正常系]1090_Finallyにブロック内にコードがない_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1090_finally_includes_no_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -4093,7 +4069,7 @@
     かつ ジョブ"/jobnet1090/j1" のステータスが正常終了であること
     かつ ジョブネット"/jobnet1090/finally" のステータスが正常終了であること
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
 
@@ -4197,9 +4173,9 @@
   @1091
   シナリオ: [正常系]1091_Finally付きのジョブネット(並列)を組み合わせた複雑なパターン_を試してみる
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
-    かつ 仮想サーバ"test_server2"のファイル:"~/tengine_job_test.log"が存在しないこと
-    かつ 仮想サーバ"test_server3"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    かつ 仮想サーバ"test_server2"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    かつ 仮想サーバ"test_server3"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     
     かつ 仮想サーバがインスタンス識別子:"test_server2"で登録されていること
     かつ 認証情報が名称:"test_credential2"で登録されている
@@ -4238,20 +4214,20 @@
     かつ ジョブネット"/jobnet1091/finally/jobnet1091-4/finally" のステータスが正常終了であること
     かつ ジョブ"/jobnet1091/finally/jobnet1091-4/finally/fj4" のステータスが正常終了であること
 
-    かつ 仮想サーバ"test_server2"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ2"と呼ぶこととする。
+    かつ 仮想サーバ"test_server2"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ2"と呼ぶこととする。
     かつ "tengine_job_test j1 start"と"スクリプトログ2"に出力されていること
     かつ "tengine_job_test j1 finish"と"スクリプトログ2"に出力されており、"tengine_job_test j1 start"の後であること
     かつ "tengine_job_test fj1 start"と"スクリプトログ2"に出力されており、"tengine_job_test j1 finish"の後であること
     かつ "tengine_job_test fj1 finish"と"スクリプトログ2"に出力されており、"tengine_job_test fj1 start"の後であること
 
-    かつ 仮想サーバ"test_server3"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ3"と呼ぶこととする。
+    かつ 仮想サーバ"test_server3"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ3"と呼ぶこととする。
     かつ "tengine_job_test j2 start"と"スクリプトログ3"に出力されていること
     かつ "tengine_job_test j2 finish"と"スクリプトログ3"に出力されており、"tengine_job_test j2 start"の後であること
     かつ "tengine_job_test fj2 start"と"スクリプトログ3"に出力されており、"tengine_job_test j2 finish"の後であること
     かつ "tengine_job_test fj2 finish"と"スクリプトログ3"に出力されており、"tengine_job_test fj2 start"の後であること
 
     
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ1"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ1"と呼ぶこととする。
     かつ "tengine_job_test j3 start"と"スクリプトログ1"に出力されていること
     かつ "tengine_job_test j3 finish"と"スクリプトログ1"に出力されており、"tengine_job_test j3 start"の後であること
     かつ "tengine_job_test fj3 start"と"スクリプトログ1"に出力されており、"tengine_job_test j3 finish"の後であること
@@ -4269,7 +4245,7 @@
   @1101
   シナリオ: [正常系]1つのジョブが含まれるジョブネットが失敗
   
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1101_one_job_in_jobnet_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -4288,7 +4264,7 @@
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     かつ "tengine_job_failure_test job1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_failure_test job1 finish"と"スクリプトログ"に出力されており、"tengine_job_failure_test job1 start"の後であること
 
@@ -4323,7 +4299,7 @@
   @1102
   シナリオ: [正常系]finally付きのジョブネットを試してみる_fork前で失敗
   
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -4345,7 +4321,7 @@
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0004/j1 finish"と"スクリプトログ"に出力されていないこと
 
@@ -4356,7 +4332,7 @@
   @1103
   シナリオ: [正常系]finally付きのジョブネットを試してみる_fork後で片方が失敗
   
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -4380,7 +4356,7 @@
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0004/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 start"の後であること
     かつ "tengine_job_test /jn0004/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 finish"の後であること
@@ -4393,7 +4369,7 @@
   @1104
   シナリオ: [正常系]finally付きのジョブネットを試してみる_fork後で両方が失敗
   
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -4426,7 +4402,7 @@
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0004/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 start"の後であること
     かつ "tengine_job_test /jn0004/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 finish"の後であること
@@ -4496,7 +4472,7 @@
   シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する
   
   
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0005_retry_two_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -4527,7 +4503,7 @@
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
     かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
@@ -4549,7 +4525,7 @@
   @1106
   シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する_fork後片方
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0005_retry_two_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -4582,7 +4558,7 @@
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
     かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
@@ -4607,7 +4583,7 @@
   @1107
   シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する_fork後片方_ジョブネット外のfork後片方
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0005_retry_two_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -4649,7 +4625,7 @@
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
     かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
@@ -4675,7 +4651,7 @@
   @1108
   シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する_finallyがエラー終了
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0005_retry_two_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -4709,7 +4685,7 @@
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
     かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
@@ -4737,7 +4713,7 @@
   @1109
   シナリオ: [正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する_finally内のfinallyを持つジョブネット内のジョブがエラー終了
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0005_retry_two_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -4773,7 +4749,7 @@
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
     かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
@@ -4858,7 +4834,7 @@
   @1110
   シナリオ: [正常系]ジョブネット内ジョブネット内のジョブが失敗する
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0006_retry_three_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -4895,7 +4871,7 @@
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test /jn0006/jn1/jn11/j111 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0006/jn1/jn11/j111 finish"と"スクリプトログ"に出力されていないこと
     かつ "tengine_job_test /jn0006/jn1/jn11/j112 start"と"スクリプトログ"に出力されていないこと
@@ -4916,7 +4892,7 @@
   @1111
   シナリオ: [正常系]jn0006_ジョブネット内ジョブネット内のfinally内のジョブが失敗する
 
-    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ../tengine_job/examples/0006_retry_three_layer.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -4953,7 +4929,7 @@
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
-    もし 仮想サーバ"test_server1"のファイル"~/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test /jn0006/jn1/jn11/j111 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0006/jn1/jn11/j111 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0006/jn1/jn11/j111 start"の後であること
     かつ "tengine_job_test /jn0006/jn1/jn11/j112 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0006/jn1/jn11/j111 finish"の後であること
