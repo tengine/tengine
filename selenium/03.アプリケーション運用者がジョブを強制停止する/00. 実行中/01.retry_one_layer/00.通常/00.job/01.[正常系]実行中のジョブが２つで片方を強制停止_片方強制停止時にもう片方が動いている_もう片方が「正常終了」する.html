@@ -30,7 +30,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>[Tengine::Test::Script, Tengine::Job::Execution, Tengine::Job::RootJobnetActual, Tengine::Core::Event].map(&amp;:delete_all)</td>
+	<td>[<br /> Tengine::Test::Script,<br /> Tengine::Job::Execution,<br /> Tengine::Job::RootJobnetActual,<br /> Tengine::Core::Event<br />].map(&amp;:delete_all)</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -80,7 +80,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_options_yaml</td>
-	<td>---<br />host: testserver1<br />user: goku<br />password: dragonball</td>
+	<td>---<br />host: test_server1<br />user: goku<br />password: dragonball</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -121,7 +121,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>bundle exec tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb</td>
+	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T ../tengine_job/examples/0004_retry_one_layer.rb \<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -136,7 +136,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>require 'timeout'<br />results = []<br />timeout(30) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result = `bundle exec tengined -k status`<br />&nbsp;&nbsp;&nbsp;&nbsp;break if result.each_line.grep(/running/).count.nonzero?<br />&nbsp;&nbsp;end<br />end<br />results</td>
+	<td>require 'timeout'<br />results = []<br />timeout(30) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;result = `bundle exec tengined -k status`.chomp<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if result.each_line.grep(/running/).count.nonzero?<br />&nbsp;&nbsp;end<br />end<br />results</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -178,7 +178,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>require 'timeout'<br />results = []<br />timeout(20) do<br />&nbsp;&nbsp;rja = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;rja.reload<br />&nbsp;&nbsp;&nbsp;&nbsp;a = [rja.element('/jn0004/j2'), rja.element('/jn0004/j3')].map(&amp;:phase_key)<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; a<br />&nbsp;&nbsp;&nbsp;&nbsp;break if a.all? {|i| i == :running }<br /><br />&nbsp;&nbsp;end<br />end<br />results</td>
+	<td>require 'timeout'<br />results = []<br />timeout(20) do<br />&nbsp;&nbsp;rja = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;rja.reload<br />&nbsp;&nbsp;&nbsp;&nbsp;a = [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rja.element('/jn0004/j2'),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rja.element('/jn0004/j3')<br />&nbsp;&nbsp;&nbsp;&nbsp;].map(&amp;:phase_key)<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; a<br />&nbsp;&nbsp;&nbsp;&nbsp;break if a.all? {|i| [:running, :finished].include?(i) }<br />&nbsp;&nbsp;end<br />end<br />results</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
