@@ -42,6 +42,8 @@ class Tengine::Test::Script
             end
           end
         end
+        script.messages[:stdout] and script.messages[:stdout].each {|i| i.chomp!}
+        script.messages[:stderr] and script.messages[:stderr].each {|i| i.chomp!}
       end
     end
 
