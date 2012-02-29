@@ -4,13 +4,14 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:3000/" />
-<title>3001_0004_stop_first_job</title>
+<title>03_00_01_00_00_00</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">3001_0004_stop_first_job</td></tr>
+<tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
 </thead><tbody>
+<!--下準備-->
 <tr>
 	<td>open</td>
 	<td>/tengine/test/scripts</td>
@@ -29,7 +30,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>Tengine::Test::Script.delete_all <br />Tengine::Job::Execution.delete_all <br />Tengine::Job::RootJobnetActual.delete_all</td>
+	<td>[Tengine::Test::Script, Tengine::Job::Execution, Tengine::Job::RootJobnetActual, Tengine::Core::Event].map(&amp;:delete_all)</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -116,21 +117,7 @@
 	<td>name=commit</td>
 	<td></td>
 </tr>
-<tr>
-	<td>type</td>
-	<td>id=script_code</td>
-	<td>bundle exec tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>id=script_kind</td>
-	<td>label=spawn</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>name=commit</td>
-	<td></td>
-</tr>
+<!--tenginedを起動-->
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
@@ -161,6 +148,7 @@
 	<td>running</td>
 	<td></td>
 </tr>
+<!--ジョブを実行-->
 <tr>
 	<td>clickAndWait</td>
 	<td>link=テンプレートジョブ一覧</td>
@@ -181,6 +169,7 @@
 	<td>name=commit</td>
 	<td></td>
 </tr>
+<!--/jn0004/j1を待つ-->
 <tr>
 	<td>clickAndWait</td>
 	<td>link=スクリプト一覧</td>
@@ -196,6 +185,7 @@
 	<td>name=commit</td>
 	<td></td>
 </tr>
+<!--ステータスの確認-->
 <tr>
 	<td>clickAndWait</td>
 	<td>link=実行中のジョブ一覧</td>
@@ -236,6 +226,7 @@
 	<td>//table/tbody/tr[6]/td[9]</td>
 	<td>初期化済</td>
 </tr>
+<!--強制停止の実施-->
 <tr>
 	<td>click</td>
 	<td>link=強制停止</td>
@@ -246,6 +237,7 @@
 	<td>本当に強制停止しますか？</td>
 	<td></td>
 </tr>
+<!--停止されるまで待つ-->
 <tr>
 	<td>clickAndWait</td>
 	<td>link=スクリプト一覧</td>
@@ -261,6 +253,7 @@
 	<td>name=commit</td>
 	<td></td>
 </tr>
+<!--ステータスの確認-->
 <tr>
 	<td>clickAndWait</td>
 	<td>link=実行中のジョブ一覧</td>
@@ -274,7 +267,7 @@
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[1]/td[9]</td>
-	<td>強制停止済</td>
+	<td>エラー終了(強制停止済)</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -316,7 +309,6 @@
 	<td>//table/tbody/tr[1]/td[6]</td>
 	<td>エラー終了</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
