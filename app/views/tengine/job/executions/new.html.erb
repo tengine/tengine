@@ -1,8 +1,8 @@
 <h1>
   <% if @retry -%>
-    <%= t(".retry_title") %>
+    <%= @page_title = t(".retry_title") %>
   <% else -%>
-    <%= t(".title") %>
+    <%= @page_title = t(".title") %>
   <% end -%>
 </h1>
 
