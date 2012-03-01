@@ -99,7 +99,7 @@ __end_of_dsl__
       @jobnet_templates = []
       visitor = \
         Tengine::Job::Vertex::AllVisitor.new do |vertex|
-          if vertex.instance_of?(Tengine::Job::JobnetTemplate)
+          if vertex.instance_of?(Tengine::Job::JobnetTemplate) or vertex.instance_of?(Tengine::Job::Expansion)
             @jobnet_templates << [vertex, (vertex.ancestors.size - 1)]
           end
         end
@@ -174,7 +174,7 @@ __end_of_dsl__
       @jobnet_templates = []
       visitor = \
         Tengine::Job::Vertex::AllVisitor.new do |vertex|
-          if vertex.instance_of?(Tengine::Job::JobnetTemplate)
+          if vertex.instance_of?(Tengine::Job::JobnetTemplate) or vertex.instance_of?(Tengine::Job::Expansion)
             @jobnet_templates << [vertex, (vertex.ancestors.size - 1)]
           end
         end
@@ -224,7 +224,7 @@ __end_of_dsl__
       @jobnet_templates = []
       visitor = \
         Tengine::Job::Vertex::AllVisitor.new do |vertex|
-          if vertex.instance_of?(Tengine::Job::JobnetTemplate)
+          if vertex.instance_of?(Tengine::Job::JobnetTemplate) or vertex.instance_of?(Tengine::Job::Expansion)
             @jobnet_templates << [vertex, (vertex.ancestors.size - 1)]
           end
         end
@@ -238,6 +238,79 @@ __end_of_dsl__
       rendered.should have_xpath("//td", :text => "echo 'job1'")
       rendered.should have_xpath("//td", :text => "j1_display")
       rendered.should have_xpath("//td", :text => "j2, j3")
+    end
+  end
+
+  describe "ジョブネットにexpansionが含まれているとき" do
+    before do
+      Tengine::Job::RootJobnetTemplate.delete_all
+      @dsl_dir = Dir.tmpdir
+      File.open(File.expand_path("VERSION", @dsl_dir), "w"){|f| f.write("1") }
+      expansion_jobnets = {
+        :jn11_jobnet => "jn11",
+        :jn12_jobnet => "jn12",
+        :jn13_jobnet => "jn13",
+        :jn14_jobnet => "jn14",
+        :jn16_jobnet => "jn16",
+      }
+      expansion_jobnets.each do |k, v|
+        fname = k.to_s
+        File.open(File.expand_path(fname, @dsl_dir), "w") do |f|
+          f.write(<<-__end_of_dsl__)
+# -*- coding: utf-8 -*-
+require 'tengine_job'
+jobnet("#{v}", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  boot_jobs("j1")
+  job("j1", "echo 'j1'")
+end
+__end_of_dsl__
+        end
+        load_dsl(@dsl_dir, fname)
+      end
+
+      fname = "jn1_jobnet"
+      File.open(File.expand_path(fname, @dsl_dir), "w") do |f|
+        f.write(<<-__end_of_dsl__)
+# -*- coding: utf-8 -*-
+require 'tengine_job'
+jobnet("jn1", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  boot_jobs("jn11")
+  expansion("jn11", :to => ["jn12", "jn13"])
+  expansion("jn12", :to => "jn14")
+  expansion("jn13", :to => "jn14")
+  expansion("jn14")
+  job("j15", "echo 'j15'")
+  finally do
+    expansion("jn16")
+  end
+end
+__end_of_dsl__
+      end
+      load_dsl(@dsl_dir, fname)
+      @root_jobnet_template = assign(:root_jobnet_template,
+        Tengine::Job::RootJobnetTemplate.find_by_name("jn1"))
+      @jobnet_templates = []
+
+      visitor = \
+        Tengine::Job::Vertex::AllVisitor.new do |vertex|
+          if vertex.instance_of?(Tengine::Job::JobnetTemplate) or vertex.instance_of?(Tengine::Job::Expansion)
+            @jobnet_templates << [vertex, (vertex.ancestors.size - 1)]
+          end
+        end
+      @root_jobnet_template.accept_visitor(visitor)
+    end
+
+    it "expansionを含むジョブネットの場合、expansionのジョブが表示されること" do
+      render
+
+      rendered.should have_xpath("//td", :text => "jn11")
+      rendered.should have_xpath("//td", :text => "jn12, jn13")
+      rendered.should have_xpath("//td", :text => "jn12")
+      rendered.should have_xpath("//td", :text => "jn13")
+      rendered.should have_xpath("//td", :text => "jn14")
+      rendered.should have_xpath("//td", :text => "j15")
+      rendered.should have_xpath("//td", :text => "finally")
+      rendered.should have_xpath("//td", :text => "jn16")
     end
   end
 end
