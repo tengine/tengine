@@ -153,13 +153,15 @@
         <% end -%>
       </tbody>
     </table>
-    <% if %w(ready starting running).include?(@root_jobnet_actual.phase_key.to_s) -%>
-      <p class="BoxBtns">
+
+    <div class="BoxBtns">
+      <% if %w(ready starting running).include?(@root_jobnet_actual.phase_key.to_s) -%>
         <%= button_link_to t("views.links.force_exit"),
           tengine_job_root_jobnet_actual_path(@root_jobnet_actual),
           method:"delete", confirm:t(".confirm.destroy"), btn_class:"BtnDelete" %>
-      </p>
-    <% end -%>
+      <% end -%>
+      <%= button_link_to t("views.links.back_list"),
+        tengine_job_root_jobnet_actuals_path, :btn_class => "BtnBack" %>
+    </div>
   </div><!-- /.Section -->
 <% end -%>
-

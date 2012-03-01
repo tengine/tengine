@@ -43,4 +43,11 @@ describe "tengine/job/jobnet_actuals/show.html.erb" do
     rendered.should match(/foo/)
     rendered.should match(/bar/)
   end
+
+  it "「一覧に戻る」リンクが表示されていること" do
+    render
+
+    rendered.should_not have_link(I18n.t("views.links.back_list"),
+      :href => tengine_job_root_jobnet_actuals_path)
+  end
 end
