@@ -62,13 +62,9 @@
 
 <div class="Section">
   <div class="BoxActionLinksRight">
-    <%= link_to new_tengine_resource_virtual_server_path, :class => "BtnWrap" do -%>
-      <span class="BtnAdd"><%= t(".links.new") %></span>
-    <% end %>
-
     <%= form_for(:refresher, :url => tengine_resource_virtual_servers_url, :method => :get, :html => {:novalidate => true}) do |f| %>
       <%= f.label :refresh_interval, t(".refresher.form.refresh_interval") %>
-      <%= f.number_field :refresh_interval, :class => "InputText", :min => 0 %>
+      <%= f.number_field :refresh_interval, :class => ["InputText", "InputW100"], :min => 0 %>
       <%= t("datetime.prompts.second") %>
 
       <%= hidden_field_tag "finder[physical_server_name]", @finder.physical_server_name,
@@ -88,10 +84,22 @@
       <span class="BtnWrap">
         <%= f.submit t(".refresher.form.submit"), :class => "BtnNormal" %>
       </span>
+
+      <span class="TextNotice">0または空欄の場合は自動更新しません</span>
     <% end %>
   </div>
 
+  <div class="Clearfix"></div>
+
   <%= form_tag tengine_resource_virtual_servers_url, method: :delete do %>
+    <p class="BoxActionLinksRight">
+      <%= link_to new_tengine_resource_virtual_server_path, :class => "BtnWrap" do -%>
+        <span class="BtnAdd"><%= t(".links.new") %></span>
+      <% end %>
+      <span class="BtnWrap">
+        <%= submit_tag t(".links.delete"), confirm: t(".stop.form.confirm"), class: "BtnDelete", id: "SubmitStopAll", disabled: true  %>
+      </span>
+    </p>
     <table class="TableBase">
       <colgroup>
         <col class="Row1">
@@ -187,11 +195,5 @@
     <% end -%>
     <%= hidden_field_tag "refresher[refresh_interval]", @refresh_interval,
       id:"hidden_refresher_refresh_interval" %>
-
-    <p class="BoxActionLinksRight">
-      <span class="BtnWrap">
-        <%= submit_tag t(".links.delete"), confirm: t(".stop.form.confirm"), class: "BtnDelete", id: "SubmitStopAll", disabled: true  %>
-      </span>
-    </p>
   <% end %>
 </div>
