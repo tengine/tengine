@@ -11,6 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
 </thead><tbody>
+<!--03_00_02_01_02_00 [正常系]ルートジョブネット内のジョブネットのfinally実行中に強制停止_ルートジョブネット-->
 <!--下準備-->
 <tr>
 	<td>setTimeout</td>
@@ -132,6 +133,27 @@
 <tr>
 	<td>clickAndWait</td>
 	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--feature曰く「20秒待機」-->
+<tr>
+	<td>type</td>
+	<td>id=refresher_refresh_interval</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>20000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
 	<td></td>
 </tr>
 <!--/jn0005/jn4/finally/jn4_fを待つ-->
@@ -368,6 +390,27 @@
 	<td>verifyText</td>
 	<td>//table/tbody/tr[17]/td[9]</td>
 	<td>初期化済</td>
+</tr>
+<!--feature曰く「10秒待機」-->
+<tr>
+	<td>type</td>
+	<td>id=refresher_refresh_interval</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>10000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
+	<td></td>
 </tr>
 <!--停止されるまで待つ-->
 <tr>

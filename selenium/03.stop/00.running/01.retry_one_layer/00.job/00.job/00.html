@@ -11,6 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
 </thead><tbody>
+<!--03_00_01_00_00_00 [正常系]fork前、ルートジョブネットの最初-->
 <!--下準備-->
 <tr>
 	<td>setTimeout</td>
@@ -30,7 +31,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>[<br /> Tengine::Test::Script,<br /> Tengine::Job::Execution,<br /> Tengine::Job::RootJobnetActual,<br /> Tengine::Core::Event<br />].map(&amp;:delete_all)</td>
+	<td>[<br /> Tengine::Test::Script,<br /> Tengine::Job::Execution,<br /> Tengine::Job::RootJobnetActual,<br /> Tengine::Job::RootJobnetTemplate,<br /> Tengine::Core::Event<br />].map(&amp;:delete_all)</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -40,7 +41,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>bundle exec tengined\<br />&nbsp;&nbsp;&nbsp;&nbsp;-k stop\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+	<td>bundle exec tengined\<br />&nbsp;&nbsp;-k stop\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -55,7 +56,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>bundle exec tengined\<br />&nbsp;&nbsp;&nbsp;&nbsp;-k force_stop\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+	<td>bundle exec tengined\<br />&nbsp;&nbsp;-k force_stop\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -200,6 +201,27 @@
 <tr>
 	<td>assertConfirmation</td>
 	<td>本当に強制停止しますか？</td>
+	<td></td>
+</tr>
+<!--feature曰く「20秒待機」-->
+<tr>
+	<td>type</td>
+	<td>id=refresher_refresh_interval</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>20000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
 	<td></td>
 </tr>
 <!--停止されるまで待つ-->

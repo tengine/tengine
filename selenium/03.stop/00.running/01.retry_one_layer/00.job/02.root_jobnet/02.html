@@ -11,6 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">03_00_01_00_00_01</td></tr>
 </thead><tbody>
+<!--03_00_01_00_02_02 [正常系]join後のジョブを実行中にルートジョブネットを強制停止-->
 <!--下準備-->
 <tr>
 	<td>setTimeout</td>
@@ -30,7 +31,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>[<br /> Tengine::Test::Script,<br /> Tengine::Job::Execution,<br /> Tengine::Job::RootJobnetActual,<br /> Tengine::Core::Event<br />].map(&amp;:delete_all)</td>
+	<td>[<br /> Tengine::Test::Script,<br /> Tengine::Job::Execution,<br /> Tengine::Job::RootJobnetActual,<br /> Tengine::Job::RootJobnetTemplate,<br /> Tengine::Core::Event<br />].map(&amp;:delete_all)</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -134,7 +135,33 @@
 	<td>name=commit</td>
 	<td></td>
 </tr>
+<!--feature曰く「20秒待機」-->
+<tr>
+	<td>type</td>
+	<td>id=refresher_refresh_interval</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>20000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
 <!--/jn0004/j4を待つ-->
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>link=スクリプト一覧</td>
@@ -243,7 +270,33 @@
 	<td>//table/tbody/tr[6]/td[9]</td>
 	<td>初期化済</td>
 </tr>
+<!--feature曰く「20秒待機」-->
+<tr>
+	<td>type</td>
+	<td>id=refresher_refresh_interval</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>20000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
 <!--停止されるまで待つ-->
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>link=スクリプト一覧</td>

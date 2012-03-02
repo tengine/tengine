@@ -11,6 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
 </thead><tbody>
+<!--03_00_02_00_01_00 [正常系]ジョブネットの停止_単一指定_ジョブネット指定でジョブ稼働_稼働中のジョブが一つ_片方強制停止時にもう片方が動いている_もう片方が「正常終了」する_ジョブネット-->
 <!--下準備-->
 <tr>
 	<td>setTimeout</td>
@@ -257,6 +258,22 @@
 	<td>本当に強制停止しますか？</td>
 	<td></td>
 </tr>
+<!--(trick)jn4のdying待ち-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=スクリプト一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>require 'timeout'<br />results = []<br />timeout(60) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;root_jobnet_actual = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;&nbsp;&nbsp;result = root_jobnet_actual.element('/jn0005/jn4').phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:dying].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
 <!--ステータスの確認-->
 <tr>
 	<td>clickAndWait</td>
@@ -355,31 +372,26 @@
 </tr>
 <!--feature曰く「20秒待機」-->
 <tr>
-	<td>clickAndWait</td>
-	<td>link=スクリプト一覧</td>
-	<td></td>
-</tr>
-<tr>
 	<td>type</td>
-	<td>id=script_code</td>
-	<td>sleep 20</td>
+	<td>id=refresher_refresh_interval</td>
+	<td>1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>name=commit</td>
 	<td></td>
 </tr>
+<tr>
+	<td>pause</td>
+	<td>20000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
 <!--ステータスの確認-->
-<tr>
-	<td>clickAndWait</td>
-	<td>link=実行中のジョブ一覧</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=監視</td>
-	<td></td>
-</tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[1]/td[9]</td>
@@ -464,6 +476,27 @@
 	<td>verifyText</td>
 	<td>//table/tbody/tr[17]/td[9]</td>
 	<td>初期化済</td>
+</tr>
+<!--feature曰く「20秒待機」-->
+<tr>
+	<td>type</td>
+	<td>id=refresher_refresh_interval</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>20000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
+	<td></td>
 </tr>
 <!--停止されるまで待つ-->
 <tr>
