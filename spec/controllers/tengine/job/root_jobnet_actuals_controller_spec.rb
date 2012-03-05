@@ -125,12 +125,12 @@ describe Tengine::Job::RootJobnetActualsController do
         })
       end
 
-      it "ソートパラメータを指定しないとき@root_jobnet_actualsがstarted_atの昇順にソートされていること" do
+      it "ソートパラメータを指定しないとき@root_jobnet_actualsがstarted_atの降順にソートされていること" do
         change_now(2011, 11, 7, 16, 0) do
           get :index
 
           actuals = assigns(:root_jobnet_actuals)
-          [@t4, @t5, @t1, @t2, @t3].each_with_index do |expected, i|
+          [@t3, @t2, @t1, @t5, @t4].each_with_index do |expected, i|
             actuals[i].started_at.should == expected.started_at
           end
         end
