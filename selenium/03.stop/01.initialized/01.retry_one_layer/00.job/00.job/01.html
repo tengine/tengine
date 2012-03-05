@@ -11,7 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
 </thead><tbody>
-<!--03_01_01_00_00_00 [正常系]ジョブの状態が「開始中」で強制停止を行う-->
+<!--03_01_01_00_00_01 [正常系]ジョブの状態が「開始中」で強制停止を行う際に、別経路でジョブが実行されている-->
 <!--下準備-->
 <tr>
 	<td>setTimeout</td>
@@ -127,7 +127,22 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>require 'timeout'<br />results = []<br />timeout(30) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;result = `bundle exec tengined -k status`.chomp<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if result.each_line.grep(/running/).count.nonzero?<br />&nbsp;&nbsp;end<br />end<br />results</td>
+	<td>MM_RUNNER_PATH=&quot;~/bin/tengine_job_agent_run&quot;\<br />&nbsp;&nbsp;bundle exec tengined \<br />&nbsp;&nbsp;-T ../tengine_job/examples/0004_retry_one_layer.rb \<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=spawn</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>require 'timeout'<br />results = []<br />timeout(30) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;result = `bundle exec tengined -k status`.chomp<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if result.each_line.grep(/running/).count&gt;=2<br />&nbsp;&nbsp;end<br />end<br />results</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -153,14 +168,35 @@
 <tr>
 	<td>type</td>
 	<td>id=execution_preparation_command</td>
-	<td>export BEFORE_EXECUTE_SLEEP_TIME=20 &amp;&amp; export J1_SLEEP=10</td>
+	<td>export BEFORE_EXECUTE_SLEEP_TIME=20 &amp;&amp; export J2_SLEEP=10 &amp;&amp; export J3_SLEEP=10</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>name=commit</td>
 	<td></td>
 </tr>
-<!--/jn0004/j1を待つ-->
+<!--featureはここで間違っているので、j1が終了するまでしばらく待つ-->
+<tr>
+	<td>type</td>
+	<td>id=refresher_refresh_interval</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>21000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
+<!--/jn0004/j3を待つ-->
 <tr>
 	<td>clickAndWait</td>
 	<td>link=スクリプト一覧</td>
@@ -169,7 +205,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>require 'timeout'<br />results = []<br />timeout(60) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;root_jobnet_actual = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;&nbsp;&nbsp;result = root_jobnet_actual.element('/jn0004/j1').phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:initialized, :starting].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results</td>
+	<td>require 'timeout'<br />results = []<br />timeout(60) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;root_jobnet_actual = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;&nbsp;&nbsp;result = root_jobnet_actual.element('/jn0004/j3').phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:ready, :starting].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -190,17 +226,17 @@
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[1]/td[9]</td>
-	<td>開始中</td>
+	<td>正常終了</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[2]/td[9]</td>
-	<td>初期化済</td>
+	<td>開始中</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[3]/td[9]</td>
-	<td>初期化済</td>
+	<td>開始中</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -227,6 +263,89 @@
 	<td>assertConfirmation</td>
 	<td>本当に強制停止しますか？</td>
 	<td></td>
+</tr>
+<!--ステータスの確認-->
+<tr>
+	<td>verifyText</td>
+	<td>//table/tbody/tr[1]/td[9]</td>
+	<td>正常終了</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//table/tbody/tr[2]/td[9]</td>
+	<td>開始中</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//table/tbody/tr[3]/td[9]</td>
+	<td>開始中</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//table/tbody/tr[4]/td[9]</td>
+	<td>初期化済</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//table/tbody/tr[5]/td[9]</td>
+	<td>初期化済</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//table/tbody/tr[6]/td[9]</td>
+	<td>初期化済</td>
+</tr>
+<!--featureはここで間違っているので、j2が終了するまでしばらく待つ-->
+<tr>
+	<td>type</td>
+	<td>id=refresher_refresh_interval</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>20000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ステータスの確認-->
+<tr>
+	<td>verifyText</td>
+	<td>//table/tbody/tr[1]/td[9]</td>
+	<td>正常終了</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//table/tbody/tr[2]/td[9]</td>
+	<td>強制停止中</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//table/tbody/tr[3]/td[9]</td>
+	<td>regexp:実行中|開始中</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//table/tbody/tr[4]/td[9]</td>
+	<td>初期化済</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//table/tbody/tr[5]/td[9]</td>
+	<td>初期化済</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//table/tbody/tr[6]/td[9]</td>
+	<td>初期化済</td>
 </tr>
 <!--feature曰く「40秒待機」-->
 <tr>
@@ -279,17 +398,17 @@
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[1]/td[9]</td>
-	<td>エラー終了(強制停止済)</td>
+	<td>正常終了</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[2]/td[9]</td>
-	<td>初期化済</td>
+	<td>エラー終了(強制停止済)</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[3]/td[9]</td>
-	<td>初期化済</td>
+	<td>正常終了</td>
 </tr>
 <tr>
 	<td>verifyText</td>
