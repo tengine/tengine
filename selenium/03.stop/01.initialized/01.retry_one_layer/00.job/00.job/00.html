@@ -169,7 +169,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>require 'timeout'<br />results = []<br />timeout(60) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;root_jobnet_actual = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;&nbsp;&nbsp;result = root_jobnet_actual.element('/jn0004/j1').phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:initialized, :starting].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results</td>
+	<td>require 'timeout'<br />results = []<br />timeout(60) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;root_jobnet_actual = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;&nbsp;&nbsp;result = root_jobnet_actual.element('/jn0004/j1').phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:starting].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
