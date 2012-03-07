@@ -70,10 +70,10 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
       Tengine::Job::RootJobnetTemplate.where(:dsl_version => dsl_version).find(params[:id])
     @jobnet_templates = []
     visitor = Tengine::Job::Vertex::AllVisitor.new do |vertex|
-                if vertex.instance_of?(Tengine::Job::JobnetTemplate)
-                  @jobnet_templates << [vertex, (vertex.ancestors.size - 1)]
-                end
-              end
+      if vertex.instance_of?(Tengine::Job::JobnetTemplate) or vertex.instance_of?(Tengine::Job::Expansion)
+        @jobnet_templates << [vertex, (vertex.ancestors.size - 1)]
+      end
+    end
     @root_jobnet_template.accept_visitor(visitor)
 
     respond_to do |format|

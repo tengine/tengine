@@ -1,4 +1,4 @@
-<h1><%= Tengine::Resource::VirtualServer.human_name %><%= t(".pages.run_result") %></h1>
+<h1><%= @page_title = Tengine::Resource::VirtualServer.human_name + t(".pages.run_result") %></h1>
 
 <div class="Section">
   <% if @provided_ids.blank? -%>

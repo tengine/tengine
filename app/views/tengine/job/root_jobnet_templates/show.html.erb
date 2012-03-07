@@ -73,14 +73,21 @@
           <% jobnet_template, lv = jobnet_template -%>
           <tr>
             <td><%= jobnet_template.id %></td>
-            <td><%== '&nbsp;&nbsp;' * lv %><%= jobnet_template.name %></td>
-            <td><%= jobnet_template.description %></td>
-            <td><%= jobnet_template.script %></td>
+            <% if jobnet_template.instance_of?(Tengine::Job::Expansion) -%>
+              <td><%== '&nbsp;&nbsp;' * lv %><%= link_to jobnet_template.name, tengine_job_root_jobnet_template_path(jobnet_template.root_jobnet_template.id) %></td>
+              <td>expansion</td>
+              <td></td>
+            <% else -%>
+              <td><%== '&nbsp;&nbsp;' * lv %><%= jobnet_template.name %></td>
+              <td><%= jobnet_template.description %></td>
+              <td><%= jobnet_template.script %></td>
+            <% end -%>
             <td><%= jobnet_template.actual_server_name %></td>
             <td><%= jobnet_template.actual_credential_name %></td>
             <td>
               <% unless (edges = jobnet_template.next_edges).blank? -%>
-                <% if (dest = edges.first.destination).instance_of?(Tengine::Job::JobnetTemplate) -%>
+                <% dest = edges.first.destination -%>
+                <% if dest.instance_of?(Tengine::Job::JobnetTemplate) || dest.instance_of?(Tengine::Job::Expansion) -%>
                   <%= dest.name %>
                 <% else -%>
                   <% next_jobs = dest.next_edges.collect { |edge|

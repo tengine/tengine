@@ -121,6 +121,13 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
       rendered.should have_xpath("//td", :text => "#{indent}#{@job2.name}")
     end
 
+    it "「一覧に戻る」リンクが表示されていること" do
+      render
+
+      rendered.should have_link(I18n.t("views.links.back_list"),
+        :href => tengine_job_root_jobnet_actuals_path)
+    end
+
     it "全体の強制停止のリンクが表示されないこと" do
       render
 

@@ -73,7 +73,7 @@
                 <td><%= root_jobnet_template.description %></td>
                 <td>
                   <%= link_to_show root_jobnet_template, :class => "ActionDetail" %>
-                  <%= link_to I18n.t(:run, :scope => [:views, :links]), new_tengine_job_execution_path(:root_jobnet_id => root_jobnet_template) %>
+                  <%= link_to I18n.t(:run, :scope => [:views, :links]), new_tengine_job_execution_path(:root_jobnet_id => root_jobnet_template), :class => "ActionRun" %>
                 </td>
               </tr>
             <% end %>
