@@ -11,7 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
 </thead><tbody>
-<!--03_01_03_00_01_01 [正常系]ジョブネットの中のジョブネット内にあるジョブを２つ上のジョブネットを指定して強制停止-->
+<!--03_01_03_00_02_00 [正常系]ジョブネットの中のジョブネット内にあるジョブをルートジョブネットを指定して強制停止-->
 <!--下準備-->
 <tr>
 	<td>setTimeout</td>
@@ -87,7 +87,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>MM_RUNNER_PATH=&quot;~/bin/tengine_job_agent_run&quot;\<br />&nbsp;&nbsp;bundle exec tengined \<br />&nbsp;&nbsp;-T ../tengine_job/examples/0006_retry_three_layer.rb \<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+	<td>MM_RUNNER_PATH=&quot;~/bin/tengine_job_agent_run&quot;\<br />&nbsp;&nbsp;bundle exec tengined \<br />&nbsp;&nbsp;-T selenium/dsls/0006_retry_three_layer.rb \<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -102,7 +102,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>MM_RUNNER_PATH=&quot;~/bin/tengine_job_agent_run&quot;\<br />&nbsp;&nbsp;bundle exec tengined \<br />&nbsp;&nbsp;-T ../tengine_job/examples/0006_retry_three_layer.rb \<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+	<td>MM_RUNNER_PATH=&quot;~/bin/tengine_job_agent_run&quot;\<br />&nbsp;&nbsp;bundle exec tengined \<br />&nbsp;&nbsp;-T selenium/dsls/0006_retry_three_layer.rb \<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
 </tr>
 <tr>
 	<td>select</td>
