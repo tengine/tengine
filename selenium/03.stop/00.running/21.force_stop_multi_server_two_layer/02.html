@@ -11,7 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
 </thead><tbody>
-<!--03_00_21_00_00_00 [正常系]複数サーバ動いているジョブネットの中のジョブを強制停止_ジョブ指定-->
+<!--03_00_21_00_02_00 [正常系]複数サーバ動いているジョブネットの中のジョブを強制停止_ルートジョブネット指定-->
 <!--下準備-->
 <tr>
 	<td>setTimeout</td>
@@ -148,7 +148,7 @@
 <tr>
 	<td>type</td>
 	<td>id=execution_preparation_command</td>
-	<td>export J41_SLEEP=60</td>
+	<td>export J2_SLEEP=60 &amp;&amp; export J42_SLEEP=60 &amp;&amp; export J43_SLEEP=60</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -176,7 +176,7 @@
 	<td></td>
 	<td></td>
 </tr>
-<!--/jn3002/jn4/j41を待つ-->
+<!--/jn3002/jn4/j43を待つ-->
 <tr>
 	<td>clickAndWait</td>
 	<td>link=スクリプト一覧</td>
@@ -185,7 +185,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>require 'timeout'<br />results = []<br />timeout(60) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;root_jobnet_actual = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;&nbsp;&nbsp;result = root_jobnet_actual.element('/jn3002/jn4/j41').phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:running].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results</td>
+	<td>require 'timeout'<br />results = []<br />timeout(60) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;root_jobnet_actual = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;&nbsp;&nbsp;result = root_jobnet_actual.element('/jn3002/jn4/j43').phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:running].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -211,7 +211,7 @@
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[2]/td[3]</td>
-	<td>正常終了</td>
+	<td>実行中</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -221,17 +221,17 @@
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[4]/td[3]</td>
-	<td>実行中</td>
+	<td>正常終了</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[5]/td[3]</td>
-	<td>初期化済</td>
+	<td>実行中</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[6]/td[3]</td>
-	<td>初期化済</td>
+	<td>実行中</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -291,7 +291,7 @@
 <!--強制停止の実施-->
 <tr>
 	<td>click</td>
-	<td>xpath=(//a[contains(text(),'強制停止')])[2]</td>
+	<td>css=span.BtnDelete</td>
 	<td></td>
 </tr>
 <tr>
@@ -299,7 +299,7 @@
 	<td>本当に強制停止しますか？</td>
 	<td></td>
 </tr>
-<!--(trick)j41のdying待ち-->
+<!--(trick)j43のdying待ち-->
 <tr>
 	<td>clickAndWait</td>
 	<td>link=スクリプト一覧</td>
@@ -308,7 +308,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>require 'timeout'<br />results = []<br />timeout(60) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;root_jobnet_actual = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;&nbsp;&nbsp;result = root_jobnet_actual.element('/jn3002/jn4/j41').phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:dying].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results</td>
+	<td>require 'timeout'<br />results = []<br />timeout(60) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;sleep(0.1)<br />&nbsp;&nbsp;&nbsp;&nbsp;root_jobnet_actual = Tengine::Job::RootJobnetActual.first<br />&nbsp;&nbsp;&nbsp;&nbsp;result = root_jobnet_actual.element('/jn3002/jn4/j43').phase_key<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if [:dying].include?(result)<br />&nbsp;&nbsp;end<br />end<br />results</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -334,27 +334,27 @@
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[2]/td[3]</td>
-	<td>正常終了</td>
+	<td>regexp:強制停止中|エラー終了\(強制停止済\)</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[3]/td[3]</td>
-	<td>実行中</td>
+	<td>regexp:強制停止中|エラー終了\(強制停止済\)</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[4]/td[3]</td>
-	<td>強制停止中</td>
+	<td>正常終了</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[5]/td[3]</td>
-	<td>初期化済</td>
+	<td>regexp:強制停止中|エラー終了\(強制停止済\)</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[6]/td[3]</td>
-	<td>初期化済</td>
+	<td>regexp:強制停止中|エラー終了\(強制停止済\)</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -467,27 +467,27 @@
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[2]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//table/tbody/tr[3]/td[3]</td>
-	<td>エラー終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//table/tbody/tr[4]/td[3]</td>
 	<td>エラー終了(強制停止済)</td>
 </tr>
 <tr>
 	<td>verifyText</td>
+	<td>//table/tbody/tr[3]/td[3]</td>
+	<td>エラー終了(強制停止済)</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//table/tbody/tr[4]/td[3]</td>
+	<td>正常終了</td>
+</tr>
+<tr>
+	<td>verifyText</td>
 	<td>//table/tbody/tr[5]/td[3]</td>
-	<td>初期化済</td>
+	<td>エラー終了(強制停止済)</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[6]/td[3]</td>
-	<td>初期化済</td>
+	<td>エラー終了(強制停止済)</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -497,12 +497,12 @@
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[8]/td[3]</td>
-	<td>正常終了</td>
+	<td>初期化済</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[9]/td[3]</td>
-	<td>正常終了</td>
+	<td>初期化済</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -512,37 +512,37 @@
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[11]/td[3]</td>
-	<td>正常終了</td>
+	<td>初期化済</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[12]/td[3]</td>
-	<td>正常終了</td>
+	<td>初期化済</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[13]/td[3]</td>
-	<td>正常終了</td>
+	<td>初期化済</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[14]/td[3]</td>
-	<td>正常終了</td>
+	<td>初期化済</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[15]/td[3]</td>
-	<td>正常終了</td>
+	<td>初期化済</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[16]/td[3]</td>
-	<td>正常終了</td>
+	<td>初期化済</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[17]/td[3]</td>
-	<td>正常終了</td>
+	<td>初期化済</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -552,7 +552,7 @@
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[1]/td[3]</td>
-	<td>エラー終了</td>
+	<td>エラー終了(強制停止済)</td>
 </tr>
 </tbody></table>
 </body>
