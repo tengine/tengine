@@ -11,7 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
 </thead><tbody>
-<!--[正常系]1002_複数のジョブ(直列)が含まれるジョブネット_を試してみる-->
+<!--[正常系]1004_hadoopジョブが含まれるジョブネット_を試してみる-->
 <!--下準備-->
 <tr>
 	<td>setTimeout</td>
@@ -107,7 +107,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T usecases/job/dsl/1002_series_jobs_in_jobnet.rb\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T usecases/job/dsl/1004_hadoop_job_in_jobnet.rb\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -174,12 +174,17 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr/td[3]</td>
 	<td>正常終了</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[3]</td>
+	<td>正常終了</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[3]</td>
 	<td>正常終了</td>
 </tr>
 <!--ジョブ実行サーバからファイルを取得-->
@@ -212,22 +217,32 @@
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:- ! '.+tengine_job_test job1 start</td>
+	<td>regexp:- ! '.+tengine_job_test import_hdfs start</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job1 start<br />.+tengine_job_test job1 finish</td>
+	<td>regexp:tengine_job_test import_hdfs start<br />.+tengine_job_test import_hdfs finish<br />.+tengine_job_test hadoop_job_run start</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job1 finish<br />.+tengine_job_test job2 start</td>
+	<td>regexp:tengine_job_test import_hdfs start<br />.+tengine_job_test hadoop_job_run start<br />.+tengine_job_test hadoop_job_run finish</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job2 finish'$</td>
+	<td>regexp:tengine_job_test hadoop_job_run start<br />.+tengine_job_test hadoop_job_run finish<br />.+tengine_job_test export_hdfs start</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
+	<td>regexp:tengine_job_test hadoop_job_run finish<br />.+tengine_job_test export_hdfs start<br />.+tengine_job_test export_hdfs finish</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
+	<td>regexp:tengine_job_test export_hdfs finish'$</td>
 </tr>
 </tbody></table>
 </body>
