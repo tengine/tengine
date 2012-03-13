@@ -1,8 +1,8 @@
 <h1>
   <% if @retry -%>
-    <%= t(".retry_title") %>
+    <%= @page_title = t(".retry_title") %>
   <% else -%>
-    <%= t(".title") %>
+    <%= @page_title = t(".title") %>
   <% end -%>
 </h1>
 
@@ -59,7 +59,7 @@
         <tr>
           <th><%= f.label :preparation_command %></th>
           <td>
-            <%= f.text_field :preparation_command, :class => "InputText" %>
+            <%= f.text_field :preparation_command, :class => ["InputText", "InputLarge"] %>
             <br /><span class="TextNotice"><%= t(".form.notice.preparation_command") %></span>
           </td>
         </tr>

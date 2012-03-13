@@ -734,6 +734,103 @@ __end_of_dsl__
         assigns(:jobnet_templates).should == expected
       end
     end
+
+    describe "expansionがあるルートジョブネットテンプレートのIDを指定したとき" do
+      before(:all) do
+        Tengine.plugins.add(Tengine::Job)
+
+        Tengine::Job::RootJobnetTemplate.delete_all
+        dsl_dir = Dir.tmpdir
+        File.open(File.expand_path("VERSION", dsl_dir), "w"){|f| f.write("1") }
+        expansion_jobnets = {
+          :jn11_jobnet => "jn11",
+          :jn12_jobnet => "jn12",
+          :jn13_jobnet => "jn13",
+          :jn14_jobnet => "jn14",
+          :jn16_jobnet => "jn16",
+        }
+        expansion_jobnets.each do |k, v|
+          fname = k.to_s
+          File.open(File.expand_path(fname, dsl_dir), "w") do |f|
+            f.write(<<-__end_of_dsl__)
+# -*- coding: utf-8 -*-
+require 'tengine_job'
+jobnet("#{v}", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  boot_jobs("j1")
+  job("j1", "echo 'j1'")
+end
+__end_of_dsl__
+          end
+          load_dsl(dsl_dir, fname)
+        end
+
+        fname = "jn1_jobnet"
+        File.open(File.expand_path(fname, dsl_dir), "w") do |f|
+          f.write(<<-__end_of_dsl__)
+# -*- coding: utf-8 -*-
+require 'tengine_job'
+jobnet("jn1", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  boot_jobs("jn11")
+  expansion("jn11", :to => ["jn12", "jn13"])
+  expansion("jn12", :to => "jn14")
+  expansion("jn13", :to => "jn14")
+  expansion("jn14")
+  job("j15", "echo 'j15'")
+  finally do
+    expansion("jn16")
+  end
+end
+__end_of_dsl__
+        end
+        load_dsl(dsl_dir, fname)
+        @root_jobnet_template = Tengine::Job::RootJobnetTemplate.find_by_name("jn1")
+      end
+
+      it "@jobnet_templatesの要素が4つあること" do
+        get :show, :id => @root_jobnet_template.id.to_s
+
+        assigns(:jobnet_templates).size.should == 7
+      end
+
+      it "@jobnet_templatesの要素が[<ジョブネットテンプレート>, <階層レベル>]であること" do
+        get :show, :id => @root_jobnet_template.id.to_s
+
+        jn11 = @root_jobnet_template.child_by_name("jn11")
+        jn12 = @root_jobnet_template.child_by_name("jn12")
+        jn13 = @root_jobnet_template.child_by_name("jn13")
+        jn14 = @root_jobnet_template.child_by_name("jn14")
+        j15 = @root_jobnet_template.child_by_name("j15")
+        finally = @root_jobnet_template.child_by_name("finally")
+        jn16 = finally.child_by_name("jn16")
+        expected = [
+          [jn11, 0],
+          [jn12, 0],
+          [jn13, 0],
+          [jn14, 0],
+          [j15, 0],
+          [finally, 0],
+          [jn16, 1],
+        ]
+        assigns(:jobnet_templates).should == expected
+      end
+
+      it "@jobnet_templatesの要素にTengine::Job::Expansionが含まれること" do
+        jn11 = @root_jobnet_template.child_by_name("jn11")
+        jn12 = @root_jobnet_template.child_by_name("jn12")
+        jn13 = @root_jobnet_template.child_by_name("jn13")
+        jn14 = @root_jobnet_template.child_by_name("jn14")
+        j15 = @root_jobnet_template.child_by_name("j15")
+        finally = @root_jobnet_template.child_by_name("finally")
+        jn16 = finally.child_by_name("jn16")
+        jn11.should be_instance_of Tengine::Job::Expansion
+        jn12.should be_instance_of Tengine::Job::Expansion
+        jn13.should be_instance_of Tengine::Job::Expansion
+        jn14.should be_instance_of Tengine::Job::Expansion
+        j15.should be_instance_of Tengine::Job::JobnetTemplate
+        finally.should be_instance_of Tengine::Job::JobnetTemplate
+        jn16.should be_instance_of Tengine::Job::Expansion
+      end
+    end
   end
 
   describe "GET new" do

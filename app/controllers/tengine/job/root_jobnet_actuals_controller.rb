@@ -10,7 +10,7 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     if sort_param = params[:sort]
       order = sort_order(sort_param)
     else
-      default_sort = {:started_at => "asc"}
+      default_sort = {:started_at => "desc"}
       request.query_parameters[:sort] = default_sort
       order = default_sort.to_a
     end

@@ -5,7 +5,7 @@
   var capacities_by_provider = <%= @capacities_by_provider.to_json.html_safe %>;
 <% end -%>
 
-<h1><%= Tengine::Resource::VirtualServer.human_name %><%= t(".pages.run") %></h1>
+<h1><%= @page_title = Tengine::Resource::VirtualServer.human_name + t(".pages.run") %></h1>
 
 <div class="Section">
   <div class="BoxBorder BoxSearchForm">
