@@ -23,7 +23,7 @@
   # end
   #  -------------------
   @01_06_01
-  シナリオ: [正常系]1045_とても時間がかかるジョブ_を試してみる
+  シナリオ: [正常系]とても時間がかかるジョブ_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_06_01_long_time_job.rb -f ./features/config/tengine.yml"というコマンドを実行する
