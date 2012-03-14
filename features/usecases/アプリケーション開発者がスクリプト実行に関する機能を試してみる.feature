@@ -24,7 +24,7 @@
   # end
   #  -------------------
   @01_04_01
-  シナリオ: [異常系]1046_スクリプトに実行権限がない_を試してみる
+  シナリオ: [異常系]スクリプトに実行権限がない_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_04_01_permission_denied_script.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
@@ -49,7 +49,7 @@
   # end
   #  -------------------
   @01_04_02
-  シナリオ: [異常系]1047_スクリプトが存在しない_を試してみる
+  シナリオ: [異常系]スクリプトが存在しない_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/01_04_02_no_such_script.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
@@ -80,7 +80,7 @@
   #  -------------------
   @01_04_03
   @manual
-  シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる
+  シナリオ: [正常系]シェルスクリプトに環境変数が渡される_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_04_03_jobnet_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -186,7 +186,7 @@
   #  -------------------
   @01_04_04
   @manual
-  シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる_ジョブが失敗した場合
+  シナリオ: [正常系]シェルスクリプトに環境変数が渡される_を試してみる_ジョブが失敗した場合
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_04_04_jobnet_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -288,7 +288,7 @@
   #  -------------------
   @01_04_05
   @manual
-  シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる_finallyのジョブが失敗した場合
+  シナリオ: [正常系]シェルスクリプトに環境変数が渡される_を試してみる_finallyのジョブが失敗した場合
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_04_05_jobnet_script_env_finally_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -393,7 +393,7 @@
   #  -------------------
   @01_04_06
   @manual
-  シナリオ: [正常系]1049_expantionを利用したシェルスクリプトに環境変数が渡される_を試してみる
+  シナリオ: [正常系]expantionを利用したシェルスクリプトに環境変数が渡される_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_04_06_expantion_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
@@ -489,7 +489,7 @@
   #  -------------------
   @01_04_07
   @manual
-  シナリオ: [正常系]1049_expantion_failureを利用したシェルスクリプトに環境変数が渡される_を試してみる
+  シナリオ: [正常系]expantion_failureを利用したシェルスクリプトに環境変数が渡される_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_04_07_expantion_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
@@ -585,7 +585,7 @@
   #  -------------------
   @success
   @01_04_08
-  シナリオ: [正常系]1054_ジョブの動的な事前実行コマンドを求める:preparationオプションを試してみる
+  シナリオ: [正常系]ジョブの動的な事前実行コマンドを求める:preparationオプションを試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_04_08_preparation_check.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
