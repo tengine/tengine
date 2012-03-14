@@ -318,72 +318,72 @@
 <tr>
 	<td>verifyExpression</td>
 	<td>${log}</td>
-	<td>regexp:#{execution} initialized -&gt; ready<br />.+#{execution} ready -&gt; starting</td>
+	<td>regexp:#{execution} initialized -&gt; ready(\u000A|.)+#{execution} ready -&gt; starting</td>
 </tr>
 <tr>
 	<td>verifyExpression</td>
 	<td>${log}</td>
-	<td>regexp:#{execution} ready -&gt; starting<br />.+#{root_jobnet} initialized -&gt; ready</td>
+	<td>regexp:#{execution} ready -&gt; starting(\u000A|.)+#{root_jobnet} initialized -&gt; ready</td>
 </tr>
 <tr>
 	<td>verifyExpression</td>
 	<td>${log}</td>
-	<td>regexp:#{root_jobnet} initialized -&gt; ready<br />.+#{root_jobnet} ready -&gt; starting</td>
+	<td>regexp:#{root_jobnet} initialized -&gt; ready(\u000A|.)+#{root_jobnet} ready -&gt; starting</td>
 </tr>
 <tr>
 	<td>verifyExpression</td>
 	<td>${log}</td>
-	<td>regexp:#{root_jobnet} ready -&gt; starting<br />.+#{execution} starting -&gt; running</td>
+	<td>regexp:#{root_jobnet} ready -&gt; starting(\u000A|.)+#{execution} starting -&gt; running</td>
 </tr>
 <tr>
 	<td>verifyExpression</td>
 	<td>${log}</td>
-	<td>regexp:#{execution} starting -&gt; running<br />.+#{e1} active -&gt; transmitting</td>
+	<td>regexp:#{execution} starting -&gt; running(\u000A|.)+#{e1} active -&gt; transmitting</td>
 </tr>
 <tr>
 	<td>verifyExpression</td>
 	<td>${log}</td>
-	<td>regexp:#{e1} active -&gt; transmitting<br />.+#{job1} initialized -&gt; ready</td>
+	<td>regexp:#{e1} active -&gt; transmitting(\u000A|.)+#{job1} initialized -&gt; ready</td>
 </tr>
 <tr>
 	<td>verifyExpression</td>
 	<td>${log}</td>
-	<td>regexp:#{job1} initialized -&gt; ready<br />.+#{e1} transmitting -&gt; transmitted</td>
+	<td>regexp:#{job1} initialized -&gt; ready(\u000A|.)+#{e1} transmitting -&gt; transmitted</td>
 </tr>
 <tr>
 	<td>verifyExpression</td>
 	<td>${log}</td>
-	<td>regexp:#{e1} transmitting -&gt; transmitted<br />.+#{job1} ready -&gt; starting</td>
+	<td>regexp:#{e1} transmitting -&gt; transmitted(\u000A|.)+#{job1} ready -&gt; starting</td>
 </tr>
 <tr>
 	<td>verifyExpression</td>
 	<td>${log}</td>
-	<td>regexp:#{job1} ready -&gt; starting<br />.+#{root_jobnet} starting -&gt; running</td>
+	<td>regexp:#{job1} ready -&gt; starting(\u000A|.)+#{root_jobnet} starting -&gt; running</td>
 </tr>
 <tr>
 	<td>verifyExpression</td>
 	<td>${log}</td>
-	<td>regexp:#{root_jobnet} starting -&gt; running<br />.+#{job1} starting -&gt; running</td>
+	<td>regexp:#{root_jobnet} starting -&gt; running(\u000A|.)+#{job1} starting -&gt; running</td>
 </tr>
 <tr>
 	<td>verifyExpression</td>
 	<td>${log}</td>
-	<td>regexp:#{job1} starting -&gt; running<br />.+#{job1} running -&gt; success</td>
+	<td>regexp:#{job1} starting -&gt; running(\u000A|.)+#{job1} running -&gt; success</td>
 </tr>
 <tr>
 	<td>verifyExpression</td>
 	<td>${log}</td>
-	<td>regexp:#{job1} running -&gt; success<br />.+#{e2} transmitting -&gt; transmitted</td>
+	<td>regexp:#{job1} running -&gt; success(\u000A|.)+#{e2} transmitting -&gt; transmitted</td>
 </tr>
 <tr>
 	<td>verifyExpression</td>
 	<td>${log}</td>
-	<td>regexp:#{e2} transmitting -&gt; transmitted<br />.+#{root_jobnet} running -&gt; success</td>
+	<td>regexp:#{e2} transmitting -&gt; transmitted(\u000A|.)+#{root_jobnet} running -&gt; success</td>
 </tr>
 <tr>
 	<td>verifyExpression</td>
 	<td>${log}</td>
-	<td>regexp:#{root_jobnet} running -&gt; success<br />.+#{execution} running -&gt; success</td>
+	<td>regexp:#{root_jobnet} running -&gt; success(\u000A|.)+#{execution} running -&gt; success</td>
 </tr>
 <!--ジョブ実行サーバからスクリプトログを取得-->
 <tr>
@@ -420,7 +420,7 @@
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job1 start<br />.+tengine_job_test job1 finish</td>
+	<td>regexp:tengine_job_test job1 start(\u000A|.)+tengine_job_test job1 finish</td>
 </tr>
 </tbody></table>
 </body>

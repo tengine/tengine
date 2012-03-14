@@ -222,22 +222,22 @@
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test import_hdfs start<br />.+tengine_job_test import_hdfs finish<br />.+tengine_job_test hadoop_job_run start</td>
+	<td>regexp:tengine_job_test import_hdfs start(\u000A|.)+tengine_job_test import_hdfs finish(\u000A|.)+tengine_job_test hadoop_job_run start</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test import_hdfs start<br />.+tengine_job_test hadoop_job_run start<br />.+tengine_job_test hadoop_job_run finish</td>
+	<td>regexp:tengine_job_test import_hdfs start(\u000A|.)+tengine_job_test hadoop_job_run start(\u000A|.)+tengine_job_test hadoop_job_run finish</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test hadoop_job_run start<br />.+tengine_job_test hadoop_job_run finish<br />.+tengine_job_test export_hdfs start</td>
+	<td>regexp:tengine_job_test hadoop_job_run start(\u000A|.)+tengine_job_test hadoop_job_run finish(\u000A|.)+tengine_job_test export_hdfs start</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test hadoop_job_run finish<br />.+tengine_job_test export_hdfs start<br />.+tengine_job_test export_hdfs finish</td>
+	<td>regexp:tengine_job_test hadoop_job_run finish(\u000A|.)+tengine_job_test export_hdfs start(\u000A|.)+tengine_job_test export_hdfs finish</td>
 </tr>
 <tr>
 	<td>verifyText</td>

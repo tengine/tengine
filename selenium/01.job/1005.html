@@ -217,12 +217,12 @@
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job1 start<br />.+tengine_job_test job1 finish<br />.+tengine_job_test jobnet1005_finally start</td>
+	<td>regexp:tengine_job_test job1 start(\u000A|.)+tengine_job_test job1 finish(\u000A|.)+tengine_job_test jobnet1005_finally start</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job1 finish<br />.+tengine_job_test jobnet1005_finally start<br />.+tengine_job_test jobnet1005_finally finish</td>
+	<td>regexp:tengine_job_test job1 finish(\u000A|.)+tengine_job_test jobnet1005_finally start(\u000A|.)+tengine_job_test jobnet1005_finally finish</td>
 </tr>
 <tr>
 	<td>verifyText</td>
