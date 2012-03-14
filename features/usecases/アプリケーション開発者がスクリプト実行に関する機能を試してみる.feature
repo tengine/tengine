@@ -12,7 +12,7 @@
     かつ 認証情報が名称:"test_credential1"で登録されている
     かつ イベントキューにメッセージが1件もない
 
-  # ./usecases/job/dsl/1046_permission_denied_script.rb
+  # ./usecases/job/dsl/01_04_01_permission_denied_script.rb
   #  -------------------
   # require 'tengine_job'
   # 
@@ -27,7 +27,7 @@
   シナリオ: [異常系]1046_スクリプトに実行権限がない_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1046_permission_denied_script.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_04_01_permission_denied_script.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -38,7 +38,7 @@
     かつ ジョブ"/jobnet1046/job1" のステータスが異常終了であること
 
 
-  # ./usecases/job/dsl/1047_no_such_script.rb
+  # ./usecases/job/dsl/01_04_02_no_such_script.rb
   #  -------------------
   # require 'tengine_job'
   # 
@@ -52,7 +52,7 @@
   シナリオ: [異常系]1047_スクリプトが存在しない_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/1047_no_such_script.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/./usecases/job/dsl/01_04_02_no_such_script.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -64,7 +64,7 @@
 
 
 
-  # ./usecases/job/dsl/1048_jobnet_script_env.rb
+  # ./usecases/job/dsl/01_04_03_jobnet_script_env.rb
   #  -------------------
   # require 'tengine_job'
   # 
@@ -82,7 +82,7 @@
   @manual
   シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1048_jobnet_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_04_03_jobnet_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -170,7 +170,7 @@
     もし "jobnet1048"の"表示"リンクをクリックする
     ならば ならば URLのexecutionのIDと"スクリプトログ"のMM_SCHEDULE_IDが一緒であること
 
-  # ./usecases/job/dsl/1048_jobnet_script_env_failure.rb
+  # ./usecases/job/dsl/01_04_04_jobnet_script_env_failure.rb
   #  -------------------
   # require 'tengine_job'
   # 
@@ -188,7 +188,7 @@
   @manual
   シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる_ジョブが失敗した場合
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1048_jobnet_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_04_04_jobnet_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -267,7 +267,7 @@
     ならば URLのexecutionのIDと"スクリプトログ"のMM_SCHEDULE_IDが一緒であること
 
 
-  # ./usecases/job/dsl/1048_jobnet_script_env_failure.rb
+  # ./usecases/job/dsl/01_04_05_jobnet_script_env_finally_failure.rb
   #  -------------------
   # require 'tengine_job'
   #
@@ -290,7 +290,7 @@
   @manual
   シナリオ: [正常系]1048_シェルスクリプトに環境変数が渡される_を試してみる_finallyのジョブが失敗した場合
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1048_jobnet_script_env_finally_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_04_05_jobnet_script_env_finally_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -376,7 +376,7 @@
     ならば URLのexecutionのIDと"スクリプトログ"のMM_SCHEDULE_IDが一緒であること
 
 
-  # ./usecases/job/dsl/1049_expantion_script_env.rb
+  # ./usecases/job/dsl/01_04_06_expantion_script_env.rb
   #  -------------------
   # require 'tengine_job'
   # 
@@ -396,7 +396,7 @@
   シナリオ: [正常系]1049_expantionを利用したシェルスクリプトに環境変数が渡される_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1049_expantion_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_04_06_expantion_script_env.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -469,7 +469,7 @@
     ならば URLのexecutionのIDと"スクリプトログ"のMM_SCHEDULE_IDが一緒であること
 
 
-  # ./usecases/job/dsl/1049_expantion_script_env_failure.rb
+  # ./usecases/job/dsl/01_04_07_expantion_script_env_failure.rb
   #  -------------------
   #  require 'tengine_job'
   #  
@@ -492,7 +492,7 @@
   シナリオ: [正常系]1049_expantion_failureを利用したシェルスクリプトに環境変数が渡される_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1049_expantion_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_04_07_expantion_script_env_failure.rb -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -569,7 +569,7 @@
     ならば URLのexecutionのIDと"スクリプトログ"のMM_SCHEDULE_IDが一緒であること
 
 
-  # ./usecases/job/dsl/1054_preparation_check.rb
+  # ./usecases/job/dsl/01_04_08_preparation_check.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # require 'tengine_job'
@@ -587,7 +587,7 @@
   @01_04_08
   シナリオ: [正常系]1054_ジョブの動的な事前実行コマンドを求める:preparationオプションを試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1054_preparation_check.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_04_08_preparation_check.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
