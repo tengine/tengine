@@ -13,13 +13,13 @@
     かつ イベントキューにメッセージが1件もない
 
 
-  # ./usecases/job/dsl/1060_jobnet_directory
+  # ./usecases/job/dsl/01_05_01_jobnet_directory
   #
   @manual
   @01_05_01
   シナリオ: [正常系]1060_ディレクトリ構成の読込_を試してみる
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1060_jobnet_directory -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_05_01_jobnet_directory -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
@@ -65,13 +65,13 @@
     |jobnet1060_i  |jobnet1060_i|
 
   
-  # ./usecases/job/dsl/1061_dictionary_yml
+  # ./usecases/job/dsl/01_05_02_dictionary_yml
   @manual
   @01_05_02
   シナリオ: [正常系]1061_dictionary.ymlの内容が正しく表示される_を試してみる
   
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1061_dictionary_yml -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_05_02_dictionary_yml -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
@@ -115,13 +115,13 @@
     |jobnet1061_h  |jobnet1061_h|
     |jobnet1061_i  |jobnet1061_i|
 
-  # ./usecases/job/dsl/1061_2_dictionary_yml
+  # ./usecases/job/dsl/01_05_03_dictionary_yml
   @manual
   @01_05_03
   シナリオ: [正常系]dictionary.ymlの内容が正しく表示される_を試してみる_読み込むディレクトリー自体がdictionary.ymlでカテゴリー名が指定されている
   
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1061_2_dictionary_yml -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_05_03_dictionary_yml -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
@@ -165,12 +165,12 @@
     |jobnet1061_h  |jobnet1061_h|
     |jobnet1061_i  |jobnet1061_i|
 
-  # ./usecases/job/dsl/1062_incorrect_dictionary_yml
+  # ./usecases/job/dsl/01_05_04_incorrect_dictionary_yml
   @manual
   @01_05_04
   シナリオ: [正常系]1062_dictionary.ymlの内容が間違っている_を試してみる
   
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1062_incorrect_dictionary_yml -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_05_04_incorrect_dictionary_yml -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
