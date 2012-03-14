@@ -28,7 +28,7 @@
   #  -------------------
   @success  
   @01_03_01
-  シナリオ: [正常系]1024_finallyがjobnetの途中に書かれている_を試してみる
+  シナリオ: [正常系]finallyがjobnetの途中に書かれている_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_01_finally_not_last_of_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -67,7 +67,7 @@
   #  -------------------
   @success
   @01_03_02
-  シナリオ: [正常系]1025_boot_jobsがjobnetの途中に書かれている_を試してみる
+  シナリオ: [正常系]boot_jobsがjobnetの途中に書かれている_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_02_boot_jobs_not_first_of_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -104,7 +104,7 @@
   #  -------------------
   @success
   @01_03_03
-  シナリオ: [正常系]1026_auto_sequenceがjobnetの途中に書かれている_を試してみる
+  シナリオ: [正常系]auto_sequenceがjobnetの途中に書かれている_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_03_auto_sequence_not_first_of_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -145,7 +145,7 @@
   # end
   #  -------------------
   @01_03_04
-  シナリオ: [正常系]1027_finallyが2回書かれている_を試してみる
+  シナリオ: [正常系]finallyが2回書かれている_を試してみる
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_04_twice_finally_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -170,7 +170,7 @@
   # end
   #  -------------------
   @01_03_05
-  シナリオ: [正常系]1028_auto_sequenceが2回書かれている_を試してみる
+  シナリオ: [正常系]auto_sequenceが2回書かれている_を試してみる
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_05_twice_auto_sequence_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
@@ -193,7 +193,7 @@
   # end
   #  -------------------
   @01_03_06
-  シナリオ: [正常系]1029_auto_sequenceのあとにboot_jobsが定義されている_を試してみる
+  シナリオ: [正常系]auto_sequenceのあとにboot_jobsが定義されている_を試してみる
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_06_boot_jobs_after_auto_sequence.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
@@ -209,7 +209,7 @@
   #  -------------------
   @success
   @01_03_07
-  シナリオ: [正常系]1030_jobnetが1つもない_を試してみる
+  シナリオ: [正常系]jobnetが1つもない_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_07_no_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -232,7 +232,7 @@
   # end
   #  -------------------
   @01_03_08
-  シナリオ: [正常系]1032_DSLにシンタックスエラーがある_を試してみる
+  シナリオ: [正常系]DSLにシンタックスエラーがある_を試してみる
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_08_error_on_execute.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -252,7 +252,7 @@
   # end
   #  -------------------
   @01_03_09
-  シナリオ: [正常系]1034_jobnetのoptionに不正な値が指定されている_を試してみる
+  シナリオ: [正常系]jobnetのoptionに不正な値が指定されている_を試してみる
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_09_unexpected_option_for_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -273,7 +273,7 @@
   # end
   #  -------------------
   @01_03_10
-  シナリオ: [正常系]1035_jobのoptionに不正な値が指定されている_を試してみる
+  シナリオ: [正常系]jobのoptionに不正な値が指定されている_を試してみる
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_10_unexpected_option_for_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -298,7 +298,7 @@
   # end
   #  -------------------
   @01_03_11
-  シナリオ: [正常系]1036_hadoop_job_runのoptionに不正な値が指定されている_を試してみる
+  シナリオ: [正常系]hadoop_job_runのoptionに不正な値が指定されている_を試してみる
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_11_unexpected_option_for_hadoop_job_run.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
@@ -323,7 +323,7 @@
   # end
   #  -------------------
   @01_03_12
-  シナリオ: [正常系]1037_expansionのoptionに不正な値が指定されている_を試してみる
+  シナリオ: [正常系]expansionのoptionに不正な値が指定されている_を試してみる
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_12_unexpected_option_for_expansion.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
@@ -345,7 +345,7 @@
   # end
   #  -------------------
   @01_03_13
-  シナリオ: [正常系]1038_どこからも参照されないジョブがある_を試してみる
+  シナリオ: [正常系]どこからも参照されないジョブがある_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_13_not_refrenced_job_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -379,7 +379,7 @@
   #  -------------------
   @failure
   @01_03_14
-  シナリオ: [正常系]1039_boot_jobsでジョブネットの途中のジョブを指定する_を試してみる
+  シナリオ: [正常系]boot_jobsでジョブネットの途中のジョブを指定する_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_14_set_boot_jobs_future_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -416,7 +416,7 @@
   #  -------------------
   @success
   @01_03_15
-  シナリオ: [正常系]1040_toでジョブネットの途中のジョブを指定する_を試してみる
+  シナリオ: [正常系]toでジョブネットの途中のジョブを指定する_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_15_set_to_future_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
@@ -453,7 +453,7 @@
   # end
   #  -------------------
   @01_03_16
-  シナリオ: [正常系]1041_同一階層内に同一名のジョブネットが含まれる_を試してみる
+  シナリオ: [正常系]同一階層内に同一名のジョブネットが含まれる_を試してみる
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_16_duplicated_jobname_on_same_layer.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
@@ -478,7 +478,7 @@
   #  -------------------
   @success
   @01_03_17
-  シナリオ: [正常系]1042_別の階層に同一名のジョブネットが含まれる_を試してみる
+  シナリオ: [正常系]別の階層に同一名のジョブネットが含まれる_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_17_duplicated_jobname_on_diff_layer.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -509,7 +509,7 @@
   # end
   #  -------------------
   @01_03_18
-  シナリオ: [正常系]1043_:instance_nameが登録されていない_を試してみる
+  シナリオ: [正常系]:instance_nameが登録されていない_を試してみる
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_18_not_registered_instance_name.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -519,7 +519,7 @@
     かつ "Tengineコアプロセス"の状態が"稼働中"であること
     
   
-  # ./usecases/job/dsl/1044_not_registered_credential_name.rb
+  # ./usecases/job/dsl/01_03_19_not_registered_credential_name.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -530,16 +530,16 @@
   # end
   #  -------------------
   @01_03_19
-  シナリオ: [正常系]1044_:credential_nameが登録されていない_を試してみる
+  シナリオ: [正常系]:credential_nameが登録されていない_を試してみる
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1043_not_registered_instance_name.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_19_not_registered_instance_name.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
     
     # W2 credential_name(#{credential_name}) is not registered.
     ならば "Tengineコアプロセス"の標準出力に"credential_name(not_registered) is not registered."と出力されていること
     かつ "Tengineコアプロセス"の状態が"稼働中"であること
 
-  # ./usecases/job/dsl/1087_finally_includes_invalid_option_value_in_jobnet.rb
+  # ./usecases/job/dsl/01_03_20_finally_includes_invalid_option_value_in_jobnet.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -580,8 +580,8 @@
   # end
   #  -------------------
   @01_03_20
-  シナリオ: [正常系]1087_Finallyにjobnetのoptionに不正な値_を試してみる
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1087_finally_includes_invalid_option_value_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+  シナリオ: [正常系]Finallyにjobnetのoptionに不正な値_を試してみる
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_20_finally_includes_invalid_option_value_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
     # E8  #{value} is invalid option.
@@ -589,7 +589,7 @@
     かつ "Tengineコアプロセス"の状態が"停止済"であること
 
   
-  # ./usecases/job/dsl/1088_finally_includes_invalid_option_value_in_job.rb
+  # ./usecases/job/dsl/01_03_21_finally_includes_invalid_option_value_in_job.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -619,8 +619,8 @@
   # end
   #  -------------------
   @01_03_21
-  シナリオ: [正常系]1088_Finallyにjobのoptionに不正な値_を試してみる
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1088_finally_includes_invalid_option_value_in_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+  シナリオ: [正常系]Finallyにjobのoptionに不正な値_を試してみる
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_21_finally_includes_invalid_option_value_in_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
     # E8  #{value} is invalid option.
@@ -628,7 +628,7 @@
     かつ "Tengineコアプロセス"の状態が"停止済"であること
 
   
-  # ./usecases/job/dsl/1089_finally_includes_invalid_option_value_in_expansion.rb
+  # ./usecases/job/dsl/01_03_22_finally_includes_invalid_option_value_in_expansion.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -692,8 +692,8 @@
   # end
   #  -------------------
   @01_03_22
-  シナリオ: [正常系]1089_Finallyにexpansionのoptionに不正な値_を試してみる
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1089_finally_includes_invalid_option_value_in_expansion.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+  シナリオ: [正常系]Finallyにexpansionのoptionに不正な値_を試してみる
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_22_finally_includes_invalid_option_value_in_expansion.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
     # E8  #{value} is invalid option.
