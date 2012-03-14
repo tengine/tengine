@@ -17,7 +17,7 @@
   #
   @manual
   @01_05_01
-  シナリオ: [正常系]1060_ディレクトリ構成の読込_を試してみる
+  シナリオ: [正常系]ディレクトリ構成の読込_を試してみる
 
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_05_01_jobnet_directory -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
@@ -68,7 +68,7 @@
   # ./usecases/job/dsl/01_05_02_dictionary_yml
   @manual
   @01_05_02
-  シナリオ: [正常系]1061_dictionary.ymlの内容が正しく表示される_を試してみる
+  シナリオ: [正常系]dictionary.ymlの内容が正しく表示される_を試してみる
   
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_05_02_dictionary_yml -f ./features/config/tengined.yml.erb"というコマンドを実行する
@@ -168,7 +168,7 @@
   # ./usecases/job/dsl/01_05_04_incorrect_dictionary_yml
   @manual
   @01_05_04
-  シナリオ: [正常系]1062_dictionary.ymlの内容が間違っている_を試してみる
+  シナリオ: [正常系]dictionary.ymlの内容が間違っている_を試してみる
   
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_05_04_incorrect_dictionary_yml -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
