@@ -199,11 +199,6 @@
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>1000</td>
-	<td></td>
-</tr>
-<tr>
 	<td>type</td>
 	<td>id=script_code</td>
 	<td>Tengine::Job::RootJobnetActual.where(name:&quot;jobnet1001&quot;).first.element(&quot;/jobnet1001&quot;).id.to_s</td>
@@ -216,11 +211,6 @@
 <tr>
 	<td>getEval</td>
 	<td>root_jobnet = selenium.getText(&quot;//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre&quot;).replace(&quot;\u000A&quot;, &quot;!&quot;).replace(/.+result: /, '')</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>1000</td>
 	<td></td>
 </tr>
 <tr>
@@ -239,11 +229,6 @@
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>1000</td>
-	<td></td>
-</tr>
-<tr>
 	<td>type</td>
 	<td>id=script_code</td>
 	<td>Tengine::Job::RootJobnetActual.where(name:&quot;jobnet1001&quot;).first.element(&quot;/jobnet1001/job1&quot;).id.to_s</td>
@@ -259,11 +244,6 @@
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>1000</td>
-	<td></td>
-</tr>
-<tr>
 	<td>type</td>
 	<td>id=script_code</td>
 	<td>Tengine::Job::RootJobnetActual.where(name:&quot;jobnet1001&quot;).first.element(&quot;next!/jobnet1001/job1&quot;).id.to_s</td>
@@ -276,11 +256,6 @@
 <tr>
 	<td>getEval</td>
 	<td>e2 = selenium.getText(&quot;//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre&quot;).replace(&quot;\u000A&quot;, &quot;!&quot;).replace(/.+result: /, '')</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>1000</td>
 	<td></td>
 </tr>
 <!--ログを取得して整形-->
@@ -386,11 +361,6 @@
 	<td>regexp:#{root_jobnet} running -&gt; success(\u000A|.)+#{execution} running -&gt; success</td>
 </tr>
 <!--ジョブ実行サーバからスクリプトログを取得-->
-<tr>
-	<td>pause</td>
-	<td>1000</td>
-	<td></td>
-</tr>
 <tr>
 	<td>select</td>
 	<td>id=script_kind</td>
