@@ -5,7 +5,7 @@ echo "`date` tengine_job_test $MM_ACTUAL_JOB_NAME_PATH start" >> $LOGFILE
 case "$MM_ACTUAL_JOB_NAME_PATH" in
   "/jn0005_hadoop/j1" )
     sleep ${J1_SLEEP:=0}
-    if [ $J1_FAIL = "true" ] ; then
+    if [ "$J1_FAIL" = "true" ] ; then
       exit 1
     fi
     ;;
