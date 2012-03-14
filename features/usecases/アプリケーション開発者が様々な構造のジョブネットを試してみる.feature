@@ -12,7 +12,7 @@
     かつ 認証情報が名称:"test_credential1"で登録されている
     かつ イベントキューにメッセージが1件もない
 
-  # ./usecases/job/dsl/1001_one_job_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_01_one_job_in_jobnet.rb
   # -------------------
   # require 'tengine_job'
   #
@@ -22,12 +22,11 @@
   # end
   # -------------------
   #
-  @success
   @01_01_01
-  シナリオ: [正常系]1001_1つのジョブが含まれるジョブネット_を試してみる
+  シナリオ: [正常系]1つのジョブが含まれるジョブネット_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1001_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_01_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -100,7 +99,7 @@
     ならば "tengine_job_test job1 start"と"tengine_job_runログ"に出力されていること
     かつ "tengine_job_test job1 finish"と"tengine_job_runログ"に出力されており、"tengine_job_test job1 start"の後であること
 
-  # ./usecases/job/dsl/1002_series_jobs_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_02_series_jobs_in_jobnet.rb
   #  -------------------
   # require 'tengine_job'
   # 
@@ -111,11 +110,11 @@
   # end
   # -------------------
   #
-  @success
+  
   @01_01_02
-  シナリオ: [正常系]1002_複数のジョブ(直列)が含まれるジョブネット_を試してみる
+  シナリオ: [正常系]複数のジョブ(直列)が含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1002_series_jobs_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_02_series_jobs_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -139,7 +138,7 @@
     かつ "tengine_job_test job2 finish"と"スクリプトログ"の末尾に出力されていること
 
   
-  # ./usecases/job/dsl/1003_parallel_jobs_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_03_parallel_jobs_in_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -150,11 +149,11 @@
   #   job("job2", "$HOME/tengine_job_test.sh 0 job2")
   # end
   #  -------------------
-  @success
+  
   @01_01_03
-  シナリオ: [正常系]1003_複数のジョブ(並列)が含まれるジョブネット
+  シナリオ: [正常系]複数のジョブ(並列)が含まれるジョブネット
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1003_parallel_jobs_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_03_parallel_jobs_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -172,7 +171,7 @@
     かつ "tengine_job_test job2 finish"と"スクリプトログ"に出力されており、"tengine_job_test job2 start"の後であること
 
   
-  # ./usecases/job/dsl/1004_hadoop_job_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_04_hadoop_job_in_jobnet.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -188,11 +187,11 @@
   #   job("job2", "export_hdfs.sh")
   # end
   #  -------------------
-  @success
+  
   @01_01_04
-  シナリオ: [正常系]1004_hadoopジョブが含まれるジョブネット_を試してみる
+  シナリオ: [正常系]hadoopジョブが含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1004_hadoop_job_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_04_hadoop_job_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -213,7 +212,7 @@
     かつ "tengine_job_test export_hdfs finish"と"スクリプトログ"の末尾に出力されていること
 
   
-  # ./usecases/job/dsl/1005_finally_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_05_finally_in_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -226,11 +225,11 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_05
-  シナリオ: [正常系]1005_finallyが含まれるジョブネット_を試してみる
+  シナリオ: [正常系]finallyが含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1005_finally_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_05_finally_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -248,7 +247,7 @@
     かつ "tengine_job_test jobnet1005_finally finish"と"スクリプトログ"の末尾に出力されていること
 
   
-  # ./usecases/job/dsl/1006_expansion_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_06_expansion_in_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -264,11 +263,11 @@
   #   job("job2", "$HOME/tengine_job_test.sh 0 job2")
   # end
   #  -------------------
-  @success
+  
   @01_01_06
-  シナリオ: [正常系]1006_expansionが含まれるジョブネット_を試してみる
+  シナリオ: [正常系]expansionが含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_expansion_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_06_expansion_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -289,7 +288,7 @@
     かつ "tengine_job_test job3 finish"と"スクリプトログ"の末尾に出力されていること
 
 
-  # ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb
+  # ./usecases/job/dsl/01_01_07_expansion_in_jobnet_x2.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -310,11 +309,11 @@
   #   job("job3", "$HOME/tengine_job_test.sh 0 job3")
   # end
   #  -------------------
-  @success
+  
   @01_01_07
   シナリオ: [正常系]expansionされたジョブネット内で更にexpansionされているジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_07_expansion_in_jobnet_x2.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -337,7 +336,7 @@
     かつ "tengine_job_test job4 start"と"スクリプトログ"に出力されており、"tengine_job_test job3 finish"と"tengine_job_test job4 finish"の間であること
     かつ "tengine_job_test job4 finish"と"スクリプトログ"の末尾に出力されていること
 
-  # ./usecases/job/dsl/1006_expansion_in_jobnet_2.rb
+  # ./usecases/job/dsl/01_01_08_expansion_in_jobnet_2.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -357,7 +356,7 @@
   @01_01_08
   シナリオ: [正常系]expansionで指定するジョブネット名が、以前のtengined起動時に読み込んでいたジョブネット名と被っている場合でも同じバージョンのジョブネットが利用される
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_expansion_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_06_expansion_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -372,7 +371,7 @@
     もし "Tengineコアプロセス"の停止を行うために"tengined -k stop"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
     
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_expansion_in_jobnet_2.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_08_expansion_in_jobnet_2.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -384,7 +383,7 @@
   @01_01_09
   シナリオ: [正常系]expansionで指定するジョブネット名が、以前のtengined起動時に読み込んでいたジョブネット名と被っている場合でも同じバージョンのジョブネットが利用される_パターン2
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_07_expansion_in_jobnet_x2.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -399,9 +398,9 @@
     もし "Tengineコアプロセス"の停止を行うために"tengined -k stop"というコマンドを実行する
     ならば "Tengineコアプロセス"が停止していることをPIDを用いて"ps -o pid -o stat | grep PID"というコマンドで確認できること
    
-    もし テストを行うために"mv ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb_tmp"というコマンドを実行する 
+    もし テストを行うために"mv ./usecases/job/dsl/01_01_07_expansion_in_jobnet_x2.rb ./usecases/job/dsl/01_01_07_expansion_in_jobnet_x2.rb_tmp"というコマンドを実行する 
    
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1006_expansion_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_08_expansion_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -412,10 +411,10 @@
     かつ ジョブ"/jobnet1006/jobnet1006_2/job2" のステータスが正常終了であること
     かつ ジョブ"/jobnet1006/job3" のステータスが正常終了であること
 
-    もし 後始末を行うために"mv ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb_tmp ./usecases/job/dsl/1006_2_expansion_in_jobnet_x2.rb"というコマンドを実行する 
+    もし 後始末を行うために"mv ./usecases/job/dsl/01＿01＿07_expansion_in_jobnet_x2.rb_tmp ./usecases/job/dsl/01_01_07_expansion_in_jobnet_x2.rb"というコマンドを実行する 
 
 
-  # ./usecases/job/dsl/1007_boot_jobs_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_10_boot_jobs_in_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -425,11 +424,11 @@
   #   job("job1", "$HOME/tengine_job_test.sh 0 job1")
   # end
   #  -------------------
-  @success
+  
   @01_01_10
-  シナリオ: [正常系]1007_boot_jobsが含まれるジョブネット_を試してみる
+  シナリオ: [正常系]boot_jobsが含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1007_boot_jobs_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_10_boot_jobs_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -443,7 +442,7 @@
     ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
     かつ "tengine_job_test job1 finish"と"スクリプトログ"の末尾に出力されていること
   
-  # ./usecases/job/dsl/1008_auto_sequence_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_11_auto_sequence_in_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -455,11 +454,11 @@
   #   job("job3", "$HOME/tengine_job_test.sh 0 job3")
   # end
   #  -------------------
-  @success
+  
   @01_01_11
-  シナリオ: [正常系]1008_auto_sequenceが含まれるジョブネット_を試してみる
+  シナリオ: [正常系]auto_sequenceが含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1008_auto_sequence_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_11_auto_sequence_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -480,7 +479,7 @@
     かつ "tengine_job_test job3 finish"と"スクリプトログ"の末尾に出力されていること
 
   
-  # ./usecases/job/dsl/1009_2_layer_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_12_2_layer_in_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -494,11 +493,11 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_12
-  シナリオ: [正常系]1009_入れ子(2階層)が含まれるジョブネット_を試してみる
+  シナリオ: [正常系]入れ子(2階層)が含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1009_2_layer_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_12_2_layer_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -516,7 +515,7 @@
     かつ "tengine_job_test job2 finish"と"スクリプトログ"の末尾に出力されていること
 
 
-  # ./usecases/job/dsl/1010_3_layer_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_13_3_layer_in_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -534,11 +533,11 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_13
-  シナリオ: [正常系]1010_入れ子(3階層)が含まれるジョブネット_を試してみる
+  シナリオ: [正常系]入れ子(3階層)が含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1010_3_layer_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_13_3_layer_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -559,7 +558,7 @@
     かつ "tengine_job_test job3 finish"と"スクリプトログ"の末尾に出力されていること
 
 
-  # ./usecases/job/dsl/1011_2_layer_finally_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_14_2_layer_finally_in_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -575,11 +574,11 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_14
-  シナリオ: [正常系]1011_入れ子(2階層)のfinallyが含まれるジョブネット_を試してみる
+  シナリオ: [正常系]入れ子(2階層)のfinallyが含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1011_2_layer_finally_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_14_2_layer_finally_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -597,7 +596,7 @@
     かつ "tengine_job_test job2 finish"と"スクリプトログ"の末尾に出力されていること
 
   
-  # ./usecases/job/dsl/1012_3_layer_finally_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_15_3_layer_finally_in_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -617,11 +616,11 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_15
-  シナリオ: [正常系]1012_入れ子(3階層)のfinallyが含まれるジョブネット_を試してみる
+  シナリオ: [正常系]入れ子(3階層)のfinallyが含まれるジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1012_3_layer_finally_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_15_3_layer_finally_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -643,7 +642,7 @@
 
   
 
-  # ./usecases/job/dsl/1013_3_rayer_complicated_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_16_3_rayer_complicated_in_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -661,9 +660,9 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_16
-  シナリオ: [正常系]1013_入れ子の中でinstanceとcredential_nameが違うジョブネット_を試してみる
+  シナリオ: [正常系]入れ子の中でinstanceとcredential_nameが違うジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     かつ 仮想サーバ"test_server2"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     かつ 仮想サーバ"test_server3"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
@@ -673,7 +672,7 @@
     かつ 仮想サーバがインスタンス識別子:"test_server3"で登録されていること
     かつ 認証情報が名称:"test_credential3"で登録されている
     
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1013_3_rayer_complicated_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_16_3_rayer_complicated_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
     かつ "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
@@ -698,7 +697,7 @@
     かつ "tengine_job_test job3 finish"と"スクリプトログ3"に出力されており、"tengine_job_test job3 start"の後であること
 
   
-  # ./usecases/job/dsl/1014_3_layer_complicated_finally_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_17_3_layer_complicated_finally_in_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -718,9 +717,9 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_17
-  シナリオ: [正常系]1014_finallyの入れ子の中でinstanceとcredential_nameが違うジョブネット_を試してみる
+  シナリオ: [正常系]finallyの入れ子の中でinstanceとcredential_nameが違うジョブネット_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     かつ 仮想サーバ"test_server2"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     かつ 仮想サーバ"test_server3"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
@@ -730,7 +729,7 @@
     かつ 仮想サーバがインスタンス識別子:"test_server3"で登録されていること
     かつ 認証情報が名称:"test_credential3"で登録されている
     
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1014_3_layer_complicated_finally_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_17_3_layer_complicated_finally_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
     かつ "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
@@ -757,7 +756,7 @@
 
   
 
-  # ./usecases/job/dsl/1015_complicated_jobnet_1.rb
+  # ./usecases/job/dsl/01_01_18_complicated_jobnet_1.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -803,11 +802,11 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_18
-  シナリオ: [正常系]1015_複雑なジョブネット１_を試してみる
+  シナリオ: [正常系]複雑なジョブネット１_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1015_complicated_jobnet_1.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_18_complicated_jobnet_1.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -877,9 +876,9 @@
   
 
   @01_01_19
-  シナリオ: [正常系]1016_Asakusaが出力したジョブネットを試してみる
+  シナリオ: [正常系]Asakusaが出力したジョブネットを試してみる
 
-		前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
+    前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1016_large_and_complicated_jobnet_asakusa -f ./features/config/tengine.yml"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -891,7 +890,7 @@
     ならば ジョブネット"/expand_root_jobnet.001" のステータスが正常終了であること
 
 
-  # ./usecases/job/dsl/1020_hadoop_job_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_20_hadoop_job_in_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -903,10 +902,9 @@
   # end
   #  -------------------
   @01_01_20
-  @bug
-  シナリオ: [正常系]1020_jobnetにhadoop_jobが含まれる_を試してみる
+  シナリオ: [正常系]jobnetにhadoop_jobが含まれる_を試してみる
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1020_hadoop_job_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_20_hadoop_job_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
     # E1  jobnet block contains unexpected method(hadoop_job).
@@ -914,7 +912,7 @@
     かつ "Tengineコアプロセス"の状態が"停止済"であること
 
 
-  # ./usecases/job/dsl/1021_job_in_hadoop_job_run.rb
+  # ./usecases/job/dsl/01_01_21_job_in_hadoop_job_run.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -931,10 +929,9 @@
   # end
   #  -------------------
   @01_01_21
-  @bug
-  シナリオ: [正常系]1021_hadoop_job_run にjobが含まれる_を試してみる
+  シナリオ: [正常系]hadoop_job_run にjobが含まれる_を試してみる
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1021_job_in_hadoop_job_run.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_21_job_in_hadoop_job_run.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
     # E2  hadoop_job_run block contains unexpected method(job).
@@ -942,7 +939,7 @@
     かつ "Tengineコアプロセス"の状態が"停止済"であること
 
 
-  # ./usecases/job/dsl/1022_hadoop_job_in_finally.rb
+  # ./usecases/job/dsl/01_01_22_hadoop_job_in_finally.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -956,10 +953,9 @@
   # end
   #  -------------------
   @01_01_22
-  @bug
-  シナリオ: [正常系]1022_finally にhadoop_jobが含まれる_を試してみる
+  シナリオ: [正常系]finally にhadoop_jobが含まれる_を試してみる
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1022_hadoop_job_in_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_22_hadoop_job_in_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
     # E3  finally block contains unexpected method(hadoop_job).
@@ -967,7 +963,7 @@
     かつ "Tengineコアプロセス"の状態が"停止済"であること
 
 
-  # ./usecases/job/dsl/1023_finally_in_finally.rb
+  # ./usecases/job/dsl/01_01_23_finally_in_finally.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -983,17 +979,16 @@
   # end
   #  -------------------
   @01_01_23
-  @bug
-  シナリオ: [正常系]1023_finally にfinallyが含まれる_を試してみる
+  シナリオ: [正常系]finally にfinallyが含まれる_を試してみる
   
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1023_finally_in_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_23_finally_in_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
     # E4  finally block contains unexpected method(finally).
     ならば "Tengineコアプロセス"の標準出力に"finally block contains unexpected method(finally)."と出力されていること
     かつ "Tengineコアプロセス"の状態が"停止済"であること
 
-  # ./usecases/job/dsl/1031_no_job_or_hadoop_job_run_in_jobnet.rb
+  # ./usecases/job/dsl/01_01_24_no_job_or_hadoop_job_run_in_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -1002,10 +997,10 @@
   # end
   #  -------------------
   @01_01_24
-  シナリオ: [正常系]1031_job/hadoop_job_runが1つもない_を試してみる
+  シナリオ: [正常系]job/hadoop_job_runが1つもない_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1031_no_job_or_hadoop_job_run_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_24_no_job_or_hadoop_job_run_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1015,7 +1010,7 @@
     ならば ジョブネット"/jobnet1031" のステータスが正常終了であること
 
 
-  # ./usecases/job/dsl/1050_dsl_version_in_dsl.rb
+  # ./usecases/job/dsl/01_01_25_dsl_version_in_dsl.rb
   #  -------------------
   # require 'tengine_job'
   # 
@@ -1030,7 +1025,7 @@
   @01_01_25
   シナリオ: [正常系]ジョブネット定義内でdsl_versionを利用する
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1050_dsl_version_in_dsl.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_25_dsl_version_in_dsl.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1049,7 +1044,7 @@
     かつ "tengine_job_test job1 finish"と"スクリプトログ"の末尾に出力されていること
 
 
-  # ./usecases/job/dsl/1051_loop_job.rb
+  # ./usecases/job/dsl/01_01_26_loop_job.rb
   #  -------------------
   # require 'tengine_job'
   #
@@ -1063,12 +1058,12 @@
   @01_01_26
   シナリオ: [正常系]循環参照するジョブを読み込ませてみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1051_loop_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_26_loop_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力に"circular dependency"と表示されていること
     かつ "Tengineコアプロセス"の標準出力に"Tengine::Job::DslError"と表示されていること
  
 
-  # ./usecases/job/dsl/1052_loop_expansion_job.rb
+  # ./usecases/job/dsl/01_01_27_loop_expansion_job.rb
   #  -------------------
   #
   # jobnet("jobnet1052", :instance_name => "test_server1", :credential_name => "test_credential1") do
@@ -1090,11 +1085,11 @@
   @01_01_27
   シナリオ: [正常系]循環参照するexpansionのジョブを読み込ませてみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1052_loop_expansion_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_27_loop_expansion_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     ならば "Tengineコアプロセス"の標準出力に"circular dependency"と表示されていること
     かつ "Tengineコアプロセス"の標準出力に"Tengine::Job::DslError"と表示されていること
 
-  # ./usecases/job/dsl/1053_loop_expansion_job_to_expansion_job.rb
+  # ./usecases/job/dsl/01_01_28_loop_expansion_job_to_expansion_job.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -1112,13 +1107,12 @@
   # end
   # -------------------
   #
-  @pending
   @01_01_28
   シナリオ: [正常系]expansionされるジョブネット内で、expansion元のジョブネットをexpansionで指定して循環したジョブを読み込ませてみる
     #MM1の頃の仕様と合わせるべきだが、TengineでどのようにMM1の頃の仕様を表現するかは未決定。対応時期も未定のため、featureは作成していません
 
 
-  # ./usecases/job/dsl/1071_rootjobnet_includes_parallel_jobs.rb
+  # ./usecases/job/dsl/01_01_29_rootjobnet_includes_parallel_jobs.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -1147,12 +1141,12 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_29
-  シナリオ: [正常系]1071_ルートジョブネットが複数のジョブ(並列)を含むジョブネット_を試してみる
+  シナリオ: [正常系]ルートジョブネットが複数のジョブ(並列)を含むジョブネット_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1071_rootjobnet_includes_parallel_jobs.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_29_rootjobnet_includes_parallel_jobs.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1175,7 +1169,7 @@
     かつ "tengine_job_test jobnet1071_finally finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1071_finally start"の後であること
 
 
-  # ./usecases/job/dsl/1072_rootjobnet_includes_one_jobnet_having_finally.rb
+  # ./usecases/job/dsl/01_01_30_rootjobnet_includes_one_jobnet_having_finally.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -1213,11 +1207,11 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_30
-  シナリオ: [正常系]1072_ルートジョブネットがFinally付きのジョブネット１つ_を試してみる
+  シナリオ: [正常系]ルートジョブネットがFinally付きのジョブネット１つ_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1072_rootjobnet_includes_one_jobnet_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_30_rootjobnet_includes_one_jobnet_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1244,7 +1238,7 @@
 
   
 
-  # ./usecases/job/dsl/1073_rootjobnet_includes_serial_jobnets_having_finally.rb
+  # ./usecases/job/dsl/01_01_31_rootjobnet_includes_serial_jobnets_having_finally.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -1292,12 +1286,12 @@
   #   end
   # end
   #  ------------------
-  @success
+  
   @01_01_31
-  シナリオ: [正常系]1073_ルートジョブネットがFinally付きのジョブネット(直列)_を試してみる
+  シナリオ: [正常系]ルートジョブネットがFinally付きのジョブネット(直列)_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1073_rootjobnet_includes_serial_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_31_rootjobnet_includes_serial_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1330,7 +1324,7 @@
     かつ "tengine_job_test jobnet1073_finally start"と"スクリプトログ"に出力されており、"tengine_job_test jf2 finish"の後であること
     かつ "tengine_job_test jobnet1073_finally finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1073_finally start"の後であること
 
-  # ./usecases/job/dsl/1074_rootjobnet_includes_parallel_jobnets_having_finally.rb
+  # ./usecases/job/dsl/01_01_32_rootjobnet_includes_parallel_jobnets_having_finally.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -1389,12 +1383,12 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_32
-  シナリオ: [正常系]1074_ルートジョブネットがFinally付きのジョブネット(並列)_を試してみる
+  シナリオ: [正常系]ルートジョブネットがFinally付きのジョブネット(並列)_を試してみる
   
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1074_rootjobnet_includes_parallel_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_32_rootjobnet_includes_parallel_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1430,7 +1424,7 @@
 
 
   
-  # ./usecases/job/dsl/1075_rootjobnet_includes_3_layers_jobnets_having_finally.rb
+  # ./usecases/job/dsl/01_01_33_rootjobnet_includes_3_layers_jobnets_having_finally.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -1496,12 +1490,12 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_33
-  シナリオ: [正常系]1075_ルートジョブネットがFinally付きのジョブネット入れ子3層_を試してみる
+  シナリオ: [正常系]ルートジョブネットがFinally付きのジョブネット入れ子3層_を試してみる
   
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1075_rootjobnet_includes_3_layers_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_33_rootjobnet_includes_3_layers_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1538,7 +1532,7 @@
     かつ "tengine_job_test jobnet1075_finally finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1075_finally start"の後であること
 
   
-  # ./usecases/job/dsl/1076_rootjobnet_includes_parallel_jobnets_having_finally_and_different_credentials.rb
+  # ./usecases/job/dsl/01_01_34_rootjobnet_includes_parallel_jobnets_having_finally_and_different_credentials.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -1597,14 +1591,14 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_34
-  シナリオ: [正常系]1076_ルートジョブネットがクレデンシャルが違うジョブネット(並列)_を試してみる
+  シナリオ: [正常系]ルートジョブネットがクレデンシャルが違うジョブネット(並列)_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     かつ 認証情報が名称:"test_credential1-1"で登録されている
     
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1076_rootjobnet_includes_parallel_jobnets_having_finally_and_different_credentials.rb  -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_34_rootjobnet_includes_parallel_jobnets_having_finally_and_different_credentials.rb  -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1639,7 +1633,7 @@
     かつ "tengine_job_test jobnet1076_finally finish"と"スクリプトログ"に出力されており、"tengine_job_test jobnet1076_finally start"の後であること
 
   
-  # ./usecases/job/dsl/1077_rootjbonet_includes_parallel_jobnets_having_finally_and_different_server.rb
+  # ./usecases/job/dsl/01_01_35_rootjbonet_includes_parallel_jobnets_having_finally_and_different_server.rb
   #  ------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -1698,9 +1692,9 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_35
-  シナリオ: [正常系]1077_ルートジョブネットが仮想サーバが違うジョブネット(並列)_を試してみる
+  シナリオ: [正常系]ルートジョブネットが仮想サーバが違うジョブネット(並列)_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     かつ 仮想サーバ"test_server2"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
@@ -1711,7 +1705,7 @@
     かつ 仮想サーバがインスタンス識別子:"test_server3"で登録されていること
     かつ 認証情報が名称:"test_credential3"で登録されている
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1077_rootjbonet_includes_parallel_jobnets_having_finally_and_different_server.rb  -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_35_rootjbonet_includes_parallel_jobnets_having_finally_and_different_server.rb  -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1748,7 +1742,7 @@
     かつ "tengine_job_test jobnet1077_finally finish"と"スクリプトログ1"に出力されており、"tengine_job_test jobnet1077_finally start"の後であること
 
     
-  # ./usecases/job/dsl/1078_finally_includes_parallel_jobs.rb
+  # ./usecases/job/dsl/01_01_36_finally_includes_parallel_jobs.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -1777,12 +1771,12 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_36
-  シナリオ: [正常系]1078_Finallyに複数のジョブ(並列)を含むジョブネット_を試してみる
+  シナリオ: [正常系]Finallyに複数のジョブ(並列)を含むジョブネット_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1078_finally_includes_parallel_jobs.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_36_finally_includes_parallel_jobs.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1805,7 +1799,7 @@
     かつ "tengine_job_test fj2 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj2 start"の後であること
 
 
-  # ./usecases/job/dsl/1079_finally_includes_one_jobnet_having_finally.rb
+  # ./usecases/job/dsl/01_01_37_finally_includes_one_jobnet_having_finally.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -1845,12 +1839,12 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_37
-  シナリオ: [正常系]1079_FinallyにFinally付きのジョブネット１つ_を試してみる
+  シナリオ: [正常系]FinallyにFinally付きのジョブネット１つ_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1079_finally_includes_one_jobnet_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_37_finally_includes_one_jobnet_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1877,7 +1871,7 @@
 
 
   
-  # ./usecases/job/dsl/1080_finally_includes_serial_jobnets_having_finally.rb
+  # ./usecases/job/dsl/01_01_38_finally_includes_serial_jobnets_having_finally.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -1925,12 +1919,12 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_38
-  シナリオ: [正常系]1080_FinallyにFinally付きのジョブネット(直列)_を試してみる
+  シナリオ: [正常系]FinallyにFinally付きのジョブネット(直列)_を試してみる
   
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1080_finally_includes_serial_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_38_finally_includes_serial_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -1967,7 +1961,7 @@
     かつ "tengine_job_test fj2 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj2 start"の後であること
     
   
-  # ./usecases/job/dsl/1081_finally_includes_parallel_jobnets_having_finally.rb
+  # ./usecases/job/dsl/01_01_39_finally_includes_parallel_jobnets_having_finally.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -2026,12 +2020,12 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_39
-  シナリオ: [正常系]1081_FinallyにFinally付きのジョブネット(並列)_を試してみる
+  シナリオ: [正常系]FinallyにFinally付きのジョブネット(並列)_を試してみる
   
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1081_finally_includes_parallel_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_39_finally_includes_parallel_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -2068,7 +2062,7 @@
     かつ "tengine_job_test fj2 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj2 start"の後であること
 
   
-  # ./usecases/job/dsl/1082_finally_includes_parallel_jobnets_having_finally_and_different_credentials.rb
+  # ./usecases/job/dsl/01_01_40_finally_includes_parallel_jobnets_having_finally_and_different_credentials.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -2127,15 +2121,15 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_40
-  シナリオ: [正常系]1082_Finallyにクレデンシャルが違うジョブネット(並列)_を試してみる
+  シナリオ: [正常系]Finallyにクレデンシャルが違うジョブネット(並列)_を試してみる
   
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     かつ 認証情報が名称:"test_credential1-1"で登録されている
     かつ 認証情報が名称:"test_credential1-2"で登録されている
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1082_finally_includes_parallel_jobnets_having_finally_and_different_credentials.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_40_finally_includes_parallel_jobnets_having_finally_and_different_credentials.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -2172,7 +2166,7 @@
     かつ "tengine_job_test fj2 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj2 start"の後であること
 
   
-  # ./usecases/job/dsl/1083_finally_includes_parallel_jobnets_having_finally_and_different_server.rb
+  # ./usecases/job/dsl/01_01_41_finally_includes_parallel_jobnets_having_finally_and_different_server.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -2231,9 +2225,9 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_41
-  シナリオ: [正常系]1083_Finallyに仮想サーバが違うジョブネット(並列)_を試してみる
+  シナリオ: [正常系]Finallyに仮想サーバが違うジョブネット(並列)_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     かつ 仮想サーバ"test_server2"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
@@ -2244,7 +2238,7 @@
     かつ 仮想サーバがインスタンス識別子:"test_server3"で登録されていること
     かつ 認証情報が名称:"test_credential3"で登録されている
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1083_finally_includes_parallel_jobnets_having_finally_and_different_server.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_41_finally_includes_parallel_jobnets_having_finally_and_different_server.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -2281,7 +2275,7 @@
 
     
   
-  # ./usecases/job/dsl/1084_finally_includes_auto_sequence.rb
+  # ./usecases/job/dsl/01_01_42_finally_includes_auto_sequence.rb
   #  ------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -2306,12 +2300,12 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_42
-  シナリオ: [正常系]1084_Finallyにauto_sequenceを使用する_を試してみる
+  シナリオ: [正常系]Finallyにauto_sequenceを使用する_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1084_finally_includes_auto_sequence.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_42_finally_includes_auto_sequence.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -2335,7 +2329,7 @@
     かつ "tengine_job_test fj2 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj2 start"の後であること
 
   
-  # ./usecases/job/dsl/1085_finally_includes_boot_jobs.rb
+  # ./usecases/job/dsl/01_01_43_finally_includes_boot_jobs.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -2364,11 +2358,11 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_43
-  シナリオ: [正常系]1085_Finallyにboot_jobsを使用する_を試してみる
+  シナリオ: [正常系]Finallyにboot_jobsを使用する_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1085_finally_includes_boot_jobs.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_43_finally_includes_boot_jobs.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -2392,7 +2386,7 @@
     かつ "tengine_job_test fj2 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj2 start"の後であること
 
   
-  # ./usecases/job/dsl/1086_finally_includes_expansion.rb
+  # ./usecases/job/dsl/01_01_44_finally_includes_expansion.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -2455,11 +2449,11 @@
   #   end
   # end
   #  -------------------
-  @success
+  
   @01_01_44
-  シナリオ: [正常系]1086_Finallyにexpansionを使用する_を試してみる
+  シナリオ: [正常系]Finallyにexpansionを使用する_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1086_finally_includes_expansion.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_44_finally_includes_expansion.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -2497,7 +2491,7 @@
     かつ "tengine_job_test fj2 finish"と"スクリプトログ"に出力されており、"tengine_job_test fj2 start"の後であること
 
 
-  # ./usecases/job/dsl/1090_finally_includes_no_job.rb
+  # ./usecases/job/dsl/01_01_45_finally_includes_no_job.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -2519,10 +2513,10 @@
   # end
   #  -------------------
   @01_01_45
-  シナリオ: [正常系]1090_Finallyにブロック内にコードがない_を試してみる
+  シナリオ: [正常系]Finallyにブロック内にコードがない_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1090_finally_includes_no_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_45_finally_includes_no_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -2538,7 +2532,7 @@
     かつ "tengine_job_test j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test j1 start"の後であること
 
   
-  # ./usecases/job/dsl/1091_rootjobnet_and_finally_include_parallel_jobnets_having_finally.rb
+  # ./usecases/job/dsl/01_01_46_rootjobnet_and_finally_include_parallel_jobnets_having_finally.rb
   #  -------------------
   # # -*- coding: utf-8 -*-
   # 
@@ -2633,9 +2627,8 @@
   #   end
   # end
   #  -------------------
-  @success
   @01_01_46
-  シナリオ: [正常系]1091_Finally付きのジョブネット(並列)を組み合わせた複雑なパターン_を試してみる
+  シナリオ: [正常系]Finally付きのジョブネット(並列)を組み合わせた複雑なパターン_を試してみる
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     かつ 仮想サーバ"test_server2"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
@@ -2646,7 +2639,7 @@
     かつ 仮想サーバがインスタンス識別子:"test_server3"で登録されていること
     かつ 認証情報が名称:"test_credential3"で登録されている
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1091_rootjobnet_and_finally_include_parallel_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_46_rootjobnet_and_finally_include_parallel_jobnets_having_finally.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     

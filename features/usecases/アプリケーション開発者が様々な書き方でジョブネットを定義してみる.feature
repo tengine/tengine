@@ -12,7 +12,7 @@
     かつ 認証情報が名称:"test_credential1"で登録されている
     かつ イベントキューにメッセージが1件もない    
 
-  # ./usecases/job/dsl/1024_finally_not_last_of_jobnet.rb
+  # ./usecases/job/dsl/01_03_01_finally_not_last_of_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -30,7 +30,7 @@
   @01_03_01
   シナリオ: [正常系]1024_finallyがjobnetの途中に書かれている_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1024_finally_not_last_of_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_01_finally_not_last_of_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -51,7 +51,7 @@
     かつ "tengine_job_test job2 finish"と"スクリプトログ"の末尾に出力されていること
 
 
-  # ./usecases/job/dsl/1025_boot_jobs_not_first_of_jobnet.rb
+  # ./usecases/job/dsl/01_03_02_boot_jobs_not_first_of_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -69,7 +69,7 @@
   @01_03_02
   シナリオ: [正常系]1025_boot_jobsがjobnetの途中に書かれている_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1025_boot_jobs_not_first_of_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_02_boot_jobs_not_first_of_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -90,7 +90,7 @@
     かつ "tengine_job_test job3 finish"と"スクリプトログ"の末尾に出力されていること
 
 
-  # ./usecases/job/dsl/1026_auto_sequence_not_first_of_jobnet.rb
+  # ./usecases/job/dsl/01_03_03_auto_sequence_not_first_of_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -106,7 +106,7 @@
   @01_03_03
   シナリオ: [正常系]1026_auto_sequenceがjobnetの途中に書かれている_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1026_auto_sequence_not_first_of_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_03_auto_sequence_not_first_of_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
     
@@ -128,7 +128,7 @@
 
 
   
-  # ./usecases/job/dsl/1027_twice_finally_in_jobnet.rb  
+  # ./usecases/job/dsl/01_03_04_twice_finally_in_jobnet.rb  
   #  -------------------
  # 
   # require 'tengine_job'
@@ -147,7 +147,7 @@
   @01_03_04
   シナリオ: [正常系]1027_finallyが2回書かれている_を試してみる
 
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1027_twice_finally_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_04_twice_finally_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
     # E5  finally is duplicated.
@@ -156,7 +156,7 @@
 
   
 
-  # ./usecases/job/dsl/1028_twice_auto_sequence_in_jobnet.rb
+  # ./usecases/job/dsl/01_03_05_twice_auto_sequence_in_jobnet.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -171,7 +171,7 @@
   #  -------------------
   @01_03_05
   シナリオ: [正常系]1028_auto_sequenceが2回書かれている_を試してみる
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1028_twice_auto_sequence_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_05_twice_auto_sequence_in_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
     # E6  auto_sequence is duplicated.
@@ -179,7 +179,7 @@
     かつ "Tengineコアプロセス"の状態が"停止済"であること
 
 
-  # ./usecases/job/dsl/1029_boot_jobs_after_auto_sequence.rb
+  # ./usecases/job/dsl/01_03_06_boot_jobs_after_auto_sequence.rb
   #  -------------------
   # 
   # require 'tengine_job'
@@ -194,7 +194,7 @@
   #  -------------------
   @01_03_06
   シナリオ: [正常系]1029_auto_sequenceのあとにboot_jobsが定義されている_を試してみる
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1029_boot_jobs_after_auto_sequence.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_06_boot_jobs_after_auto_sequence.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     かつ "Tengineコアプロセス"の標準出力からPIDを確認する
 
     # E10 boot_jobs or auto_sequence is duplicated.
@@ -211,7 +211,7 @@
   @01_03_07
   シナリオ: [正常系]1030_jobnetが1つもない_を試してみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
-    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1030_no_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_03_07_no_jobnet.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
 
     ならば "Tengineコアプロセス"の状態が"稼働中"であること
