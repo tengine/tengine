@@ -4,7 +4,7 @@ class Tengine::Test::ScriptsController < ApplicationController
   def index
     @script = Tengine::Test::Script.new
 
-    @scripts = Tengine::Test::Script.all(:sort => [[:created_at, :desc], [:id, :desc]]).page(params[:page])
+    @scripts = Tengine::Test::Script.all(:sort => [[:_id, :desc]]).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

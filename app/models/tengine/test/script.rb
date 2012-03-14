@@ -95,4 +95,19 @@ class Tengine::Test::Script
     self.messages[:error] = "[#{e.class}] #{e.message}"
   end
 
+  before_create :auto_increment
+
+  class Counter
+    include Mongoid::Document
+    field :key, type: String
+    field :sequence, type: Integer
+  end
+
+  def auto_increment
+    self._id = Counter.collection.find_and_modify(
+      query: { "key" => self.class.name },
+      update: { "$inc" => { "sequence" => 1 } },
+      new: true, upsert: true
+    )["sequence"]
+  end
 end
