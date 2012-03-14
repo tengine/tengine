@@ -385,7 +385,12 @@
 	<td>${log}</td>
 	<td>regexp:#{root_jobnet} running -&gt; success<br />.+#{execution} running -&gt; success</td>
 </tr>
-<!--ジョブ実行サーバからファイルを取得-->
+<!--ジョブ実行サーバからスクリプトログを取得-->
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
 <tr>
 	<td>select</td>
 	<td>id=script_kind</td>
@@ -406,7 +411,7 @@
 	<td>name=commit</td>
 	<td></td>
 </tr>
-<!--ジョブ実行サーバのログを確認-->
+<!--スクリプトログを確認-->
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
