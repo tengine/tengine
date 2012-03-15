@@ -11,7 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
 </thead><tbody>
-<!--[正常系]ジョブネット定義内でdsl_versionを利用する-->
+<!--[正常系]循環参照するexpansionのジョブを読み込ませてみる-->
 <!--下準備-->
 <tr>
 	<td>setTimeout</td>
@@ -117,7 +117,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T usecases/job/dsl/1051_loop_job.rb\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T usecases/job/dsl/1052_loop_expansion_job.rb\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
 </tr>
 <tr>
 	<td>select</td>
