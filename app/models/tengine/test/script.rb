@@ -1,4 +1,5 @@
 require 'selectable_attr'
+require 'open3'
 
 class Tengine::Test::Script
   include Mongoid::Document
@@ -67,6 +68,16 @@ class Tengine::Test::Script
         script.messages[:result] = `#{script.code}`
         script.messages[:exitstatus] = $?.exitstatus.inspect
         script.messages[:status] = $?.inspect
+      end
+    end
+
+    entry '06', :open3, 'open3' do
+      def execute(script)
+        o, e, s = Open3.capture3 script.code, (script.options||{}).symbolize_keys
+        script.messages[:stdout] = o
+        script.messages[:stderr] = e
+        script.messages[:exitstatus] = s.exitstatus.inspect
+        script.messages[:status] = s.inspect
       end
     end
 
