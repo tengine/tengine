@@ -11,7 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
 </thead><tbody>
-<!--[正常系]1015_複雑なジョブネット１_を試してみる-->
+<!--[正常系]ジョブネット定義内でdsl_versionを利用する-->
 <!--下準備-->
 <tr>
 	<td>setTimeout</td>
@@ -117,7 +117,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T usecases/job/dsl/1015_complicated_jobnet_1.rb\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T usecases/job/dsl/1050_dsl_version_in_dsl.rb\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -180,109 +180,12 @@
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/div/table/tbody/tr[8]/td</td>
-	<td>エラー終了</td>
+	<td>正常終了</td>
 </tr>
-<!--jobnet視点-->
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]</td>
 	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[3]</td>
-	<td>エラー終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[14]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[15]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[16]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[17]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[18]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[19]/td[3]</td>
-	<td>初期化済</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[20]/td[3]</td>
-	<td>初期化済</td>
-</tr>
-<!--i_jobnet1-3内のjob視点-->
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[3]</td>
-	<td>エラー終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[11]/td[3]</td>
-	<td>初期化済</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[12]/td[3]</td>
-	<td>初期化済</td>
 </tr>
 <!--ジョブ実行サーバからスクリプトログを取得-->
 <tr>
@@ -311,142 +214,15 @@
 	<td></td>
 </tr>
 <!--スクリプトログを確認-->
-<!--i_jobnet1-3 以外-->
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet1-1 start</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet1-1 start(\u000A|.)+tengine_job_test jobnet1-1 finish</td>
+	<td>regexp:stdout:\u000A.+tengine_job_test job1 start</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet1-2 start</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet1-2 start(\u000A|.)+tengine_job_test jobnet1-2 finish</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet2-1 start</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet2-1 start(\u000A|.)+tengine_job_test jobnet2-1 finish</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet2-2 start</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet2-2 start(\u000A|.)+tengine_job_test jobnet2-2 finish</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet2-1 finish(\u000A|.)+tengine_job_test jobnet2-0 start</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet2-2 finish(\u000A|.)+tengine_job_test jobnet2-0 start</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet2-0 start(\u000A|.)+tengine_job_test jobnet2-0 finish</td>
-</tr>
-<tr>
-	<td>verifyNotText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet3 start</td>
-</tr>
-<tr>
-	<td>verifyNotText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet3 finish</td>
-</tr>
-<!--i_jobnet1-3-->
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job1-1 start</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job1-1 start(\u000A|.)+tengine_job_test job1-1 finish</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job1-2 start</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job1-2 start(\u000A|.)+tengine_job_test job1-2 finish</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job1-3 start</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job1-3 start(\u000A|.)+tengine_job_test job1-3 finish</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_failure_test job2-1 start</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_failure_test job2-1 start(\u000A|.)+tengine_job_failure_test job2-1 finish</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job2-2 start</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job2-2 start(\u000A|.)+tengine_job_test job2-2 finish</td>
-</tr>
-<tr>
-	<td>verifyNotText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job2-0 start</td>
-</tr>
-<tr>
-	<td>verifyNotText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job2-0 finish</td>
-</tr>
-<tr>
-	<td>verifyNotText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job3 start</td>
-</tr>
-<tr>
-	<td>verifyNotText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test job3 finish</td>
+	<td>regexp:tengine_job_test job1 finish$</td>
 </tr>
 </tbody></table>
 </body>
