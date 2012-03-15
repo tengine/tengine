@@ -1,4 +1,4 @@
-  @08_01_08_01
+  @08_06_08_01
 # error.job.job.tengine(1) #
   シナリオ: [異常系]error.job.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、tenginedがダウンする
 
@@ -163,7 +163,7 @@
     |ジョブネット名|ステータス|操作       |
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
-  @08_01_08_02
+  @08_06_08_02
 # error.job.job.tengine(2) #
   シナリオ: [異常系]error.job.job.tengineのイベント処理中に、start.jobnet.job.tengineを発火した後に、tenginedがダウンする_start.jobnet.job.tengineがイベント処理失敗イベントの前に処理される
 
@@ -274,11 +274,11 @@
     |ジョブネット名|ステータス|操作       |
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
-  @08_01_08_03
+  @08_06_08_03
   シナリオ: [異常系]error.job.job.tengineのイベント処理中に、start.jobnet.job.tengineを発火した後に、tenginedがダウンする_start.jobnet.job.tengineがイベント処理失敗イベントの後に処理される
 #上と変わらず
 
-  @08_01_08_04
+  @08_06_08_04
   シナリオ: [異常系]error.job.job.tengineのイベント処理中に、error.jobnet.job.tengineを発火した後に、tenginedがダウンする_error.jobnet.job.tengineがイベント処理失敗イベントの前に処理される
 
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
@@ -426,7 +426,7 @@
     |ジョブネット名|ステータス|操作       |
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
-    @08_01_08_05
+    @08_06_08_05
    シナリオ: [異常系]error.job.job.tengineのイベント処理中に、error.jobnet.job.tengineを発火した後に、tenginedがダウンする_error.jobnet.job.tengineがイベント処理失敗イベントの後に処理される
 
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する

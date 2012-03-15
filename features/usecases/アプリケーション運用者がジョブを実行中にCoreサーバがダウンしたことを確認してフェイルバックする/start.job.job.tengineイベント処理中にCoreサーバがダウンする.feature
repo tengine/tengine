@@ -1,4 +1,4 @@
-  @08_01_04_01
+  @08_06_04_01
 # start.job.job.tengine(1) #
 # (1)
   シナリオ: [異常系]start.job.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、tenginedがダウンする
@@ -137,13 +137,13 @@
     |ジョブネット名|ステータス|操作       |
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
-  @08_01_04_02
+  @08_06_04_02
 # start.job.job.tengine(2) #
 # (1)
   シナリオ: [異常系]start.job.job.tengineのイベント処理中に、sshでtengine_job_agent_runを実行してからスクリプトのPIDが返ってくる間に、tenginedがダウンする
     #実はいらない?
 
-  @08_01_04_03
+  @08_06_04_03
 # start.job.job.tengine(3) #
 # (1)
   シナリオ: [異常系]start.job.job.tengineのイベント処理中に、スクリプトのPIDが帰ってきてからジョブストアのジョブネットの状態を更新する間に、tenginedがダウンする_finished.process.job.tengineがイベント処理失敗イベントの前に処理される
@@ -262,7 +262,7 @@
     |ジョブネット名|ステータス|操作       |
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
-  @08_01_04_04
+  @08_06_04_04
 # (2)
   シナリオ: [異常系]start.job.job.tengineのイベント処理中に、スクリプトのPIDが帰ってきてからジョブストアのジョブネットの状態を更新する間に、tenginedがダウンする_finished.process.job.tengineがイベント失敗イベントの後に処理される
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
@@ -406,7 +406,7 @@
     |ジョブネット名|ステータス|操作       |
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
-  @08_01_04_05
+  @08_06_04_05
 # start.job.job.tengine(4) #
 # (1)
   シナリオ: [異常系]start.job.job.tengineのイベント処理中に、スクリプトのPIDが帰ってきてジョブストアのジョブネットの状態を更新した後に、tenginedがダウンする_finished.process.job.tengineがイベント失敗イベントの前に処理される

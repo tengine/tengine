@@ -1,4 +1,4 @@
-  @08_01_10_01
+  @08_06_10_01
 # stop.jobnet.job.tengine(1) #
   シナリオ: [異常系]stop.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、tenginedがダウンする
 
@@ -159,12 +159,12 @@
     |ジョブネット名|ステータス|操作       |
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
-  @08_01_10_02
+  @08_06_10_02
 # stop.jobnet.job.tengine(2) #
   シナリオ: [異常系]stop.jobnet.job.tengineのイベント処理中に、stop.jobnet.job.tengineやstop.job.job.tengineをいくつか発火した後に、tenginedがダウンする
 
 
-  @08_01_10_03
+  @08_06_10_03
 # stop.jobnet.job.tengine(2) #
   シナリオ: [異常系]stop.jobnet.job.tengineのイベント処理中に、stop.jobnet.job.tengineやstop.job.job.tengineを全て発火した後に、tenginedがダウンする
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する

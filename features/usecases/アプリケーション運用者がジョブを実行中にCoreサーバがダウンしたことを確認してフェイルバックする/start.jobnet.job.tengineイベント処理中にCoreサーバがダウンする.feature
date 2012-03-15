@@ -1,4 +1,4 @@
-  @08_01_03_01
+  @08_06_03_01
 # start.jobnet.job.tengine(1) #
   シナリオ: [異常系]start.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、tenginedがダウンする
 
@@ -155,11 +155,11 @@
     |ジョブネット名|ステータス|操作       |
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
-  @08_01_03_02
+  @08_06_03_02
 # start.jobnet.job.tengine(2) #
   シナリオ: [異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineをいくつか発火した後に、tenginedがダウンする
 
-  @08_01_03_03
+  @08_06_03_03
 # start.jobnet.job.tengine(3) #
   シナリオ: [異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、tenginedがダウンする_start.job.job.tengineがイベント処理失敗イベントの前に処理される
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
@@ -303,7 +303,7 @@
     |ジョブネット名|ステータス|操作       |
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
-  @08_01_03_04
+  @08_06_03_04
   シナリオ: [異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、tenginedがダウンする_start.jobnet.job.tengineがイベント処理失敗イベントの前に処理される
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
     もし "Coreサーバ1"上で"Tengineコアプロセス1"の起動を行うために"tengined -T tengine_console/usecases/job/dsl/1055_2_layer_in_jobnet_boot_jobs_is_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
@@ -395,7 +395,7 @@
     |ジョブネット名|ステータス|操作       |
     |jobnet1055      |正常終了  |監視 ステータス変更 再実行|
 
-  @08_01_03_05
+  @08_06_03_05
   シナリオ: [異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、tenginedがダウンする_start.job.job.tengineがイベント処理失敗イベントの後に処理される
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
     もし "Coreサーバ1"上で"Tengineコアプロセス1"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
@@ -541,7 +541,7 @@
     |ジョブネット名|ステータス|操作       |
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
-  @08_01_03_06
+  @08_06_03_06
   シナリオ: [異常系]start.jobnet.job.tengineのイベント処理中に、start.jobnet.job.tengineやstart.job.job.tengineを全て発火した後に、tenginedがダウンする_start.jobnet.job.tengineがイベント処理失敗イベントの後に処理される
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
     もし "Coreサーバ1"上で"Tengineコアプロセス1"の起動を行うために"tengined -T tengine_console/usecases/job/dsl/1055_2_layer_in_jobnet_boot_jobs_is_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する

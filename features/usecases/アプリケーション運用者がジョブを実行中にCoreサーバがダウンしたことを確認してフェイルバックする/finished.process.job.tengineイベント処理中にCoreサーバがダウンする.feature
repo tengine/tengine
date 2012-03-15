@@ -1,4 +1,4 @@
-  @08_01_05_01
+  @08_06_05_01
 # finished.process.core.tengine(1) #
 # (1)
   シナリオ: [異常系]finished.process.core.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、tenginedがダウンする_スクリプトが正常終了していた
@@ -147,7 +147,7 @@
     |ジョブネット名|ステータス|操作       |
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
-  @08_01_05_02
+  @08_06_05_02
 # (2)
   シナリオ: [異常系]finished.process.core.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、tenginedがダウンする_スクリプトがエラー終了していた
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
@@ -280,7 +280,7 @@
     |ジョブネット名|ステータス|操作       |
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
-  @08_01_05_03
+  @08_06_05_03
 # finished.process.core.tengine(2) #
 # (1)
   シナリオ: [異常系]finished.process.core.tengineのイベント処理中に、success.job.job.tengineを発火した後に、tenginedがダウンする
@@ -388,7 +388,7 @@
     |ジョブネット名|ステータス|操作       |
     |jn0004      |正常終了  |監視 ステータス変更 再実行|
 
-  @08_01_05_04
+  @08_06_05_04
 # (2)
   シナリオ: [異常系]finished.process.core.tengineのイベント処理中に、error.job.job.tengineを発火した後に、tenginedがダウンする
 
