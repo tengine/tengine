@@ -3056,8 +3056,8 @@
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名    |説明   |実行スクリプト                 |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |jn2       |表示 強制停止|
-    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |開始中    |j12       |表示 強制停止|
+    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |実行中    |jn2       |表示 強制停止|
+    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |実行中    |j12       |表示 強制停止|
     |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |開始中    |j112      |表示 強制停止|
     |  |    j112    |j112   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |    finally |finally|                               |test_server1|test_credential1|                   |        |初期化済  |finally   |表示 再実行  |
@@ -3081,9 +3081,9 @@
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名    |説明   |実行スクリプト                 |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |jn2       |表示 強制停止|
-    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |開始中    |j12       |表示 強制停止|
-    |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |開始中    |j112      |表示 強制停止|
+    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |実行中    |jn2       |表示 強制停止|
+    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |実行中    |j12       |表示 強制停止|
+    |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |強制停止中|j112      |表示 強制停止|
     |  |    j112    |j112   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |    finally |finally|                               |test_server1|test_credential1|                   |        |初期化済  |finally   |表示 再実行  |
     |  |      jn11_f|jn11_f |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |jn11_f    |表示 再実行  |
@@ -3153,8 +3153,8 @@
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名    |説明   |実行スクリプト                 |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |jn2       |表示 強制停止|
-    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |開始中    |j12       |表示 強制停止|
+    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |実行中    |jn2       |表示 強制停止|
+    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |実行中    |j12       |表示 強制停止|
     |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |開始中    |j112      |表示 強制停止|
     |  |    j112    |j112   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |    finally |finally|                               |test_server1|test_credential1|                   |        |初期化済  |finally   |表示 再実行  |
@@ -3178,9 +3178,9 @@
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名    |説明   |実行スクリプト                 |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |jn2       |表示 強制停止|
-    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |開始中    |j12       |表示 強制停止|
-    |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |開始中    |j112      |表示 強制停止|
+    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |実行中    |jn2       |表示 強制停止|
+    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |強制停止中|j12       |表示 強制停止|
+    |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |強制停止中|j112      |表示 強制停止|
     |  |    j112    |j112   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |    finally |finally|                               |test_server1|test_credential1|                   |        |初期化済  |finally   |表示 再実行  |
     |  |      jn11_f|jn11_f |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |jn11_f    |表示 再実行  |
@@ -3250,8 +3250,8 @@
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名    |説明   |実行スクリプト                 |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |jn2       |表示 強制停止|
-    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |開始中    |j12       |表示 強制停止|
+    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |実行中    |jn2       |表示 強制停止|
+    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |実行中    |j12       |表示 強制停止|
     |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |開始中    |j112      |表示 強制停止|
     |  |    j112    |j112   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |    finally |finally|                               |test_server1|test_credential1|                   |        |初期化済  |finally   |表示 再実行  |
@@ -3275,9 +3275,9 @@
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名    |説明   |実行スクリプト                 |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |jn2       |表示 強制停止|
-    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |開始中    |j12       |表示 強制停止|
-    |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |開始中    |j112      |表示 強制停止|
+    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止中|jn2       |表示 強制停止|
+    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |強制停止中|j12       |表示 強制停止|
+    |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |強制停止中|j112      |表示 強制停止|
     |  |    j112    |j112   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |    finally |finally|                               |test_server1|test_credential1|                   |        |初期化済  |finally   |表示 再実行  |
     |  |      jn11_f|jn11_f |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |jn11_f    |表示 再実行  |
@@ -3348,8 +3348,8 @@
     もし 10秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名    |説明   |実行スクリプト                 |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |jn2       |表示 強制停止|
-    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |開始中    |j12       |表示 強制停止|
+    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |実行中    |jn2       |表示 強制停止|
+    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |実行中    |j12       |表示 強制停止|
     |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |開始中    |j112      |表示 強制停止|
     |  |    j112    |j112   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |    finally |finally|                               |test_server1|test_credential1|                   |        |初期化済  |finally   |表示 再実行  |
@@ -3379,9 +3379,9 @@
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名    |説明   |実行スクリプト                 |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
-    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |開始中    |jn2       |表示 強制停止|
-    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |開始中    |j12       |表示 強制停止|
-    |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |開始中    |j112      |表示 強制停止|
+    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |強制停止中|jn2       |表示 強制停止|
+    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |強制停止中|j12       |表示 強制停止|
+    |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |強制停止中|j112      |表示 強制停止|
     |  |    j112    |j112   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |    finally |finally|                               |test_server1|test_credential1|                   |        |初期化済  |finally   |表示 再実行  |
     |  |      jn11_f|jn11_f |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |jn11_f    |表示 再実行  |
