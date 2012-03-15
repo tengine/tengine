@@ -37,7 +37,7 @@ class Tengine::Test::Script
             ch.exec(script.code) do |ch, success|
               script.messages[:success] = success
               return unless success
-              ch.on_data{|ch, data| script.messages[:stdout] ||= []; script.messages[:stdout] << data }
+              ch.on_data{|ch, data| script.messages[:stdout] ||= []; script.messages[:stdout].concat data.lines.map{|i| i.chomp }.to_a }
               ch.on_extended_data{|ch, data| script.messages[:stderr] ||= []; script.messages[:stderr] << data }
             end
           end
