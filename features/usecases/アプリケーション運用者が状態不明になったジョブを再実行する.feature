@@ -18,7 +18,7 @@
     かつ "test_servet1"サーバに"test_credential1"認証情報にてログインできる
 
   @success
-  @1000
+  @08_05_01
   シナリオ: [異常系]ジョブの実行中にジョブエージェントのプロセスがダウンした際、アプリケーション運用者がジョブの再実行をする
 
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
