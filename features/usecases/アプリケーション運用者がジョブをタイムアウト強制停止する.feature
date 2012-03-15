@@ -16,7 +16,7 @@
     かつ Tengine周辺のサーバの時刻が同期されている
     かつ "Tengineスケジュールキーパープロセス"が起動している
 
-  @5001
+  @05_01_01_01
   シナリオ: [正常系]fork前、ルートジョブネットの最初
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
@@ -66,7 +66,7 @@
     |stop.execution.job.tengine| #{unique_event_key}|
 
 
-  @5002
+  @05_01_01_02
   シナリオ: [正常系]実行中のジョブが２つで２つともタイムアウト強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
@@ -120,7 +120,7 @@
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
     |  |jn0004        |jn0004|        |        |タイムアウト強制停止済|監視 再実行|
 
-  @5003
+  @05_01_01_03
   シナリオ: [正常系]実行中のジョブが1つで片方が正常終了している状態でタイムアウト強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
@@ -174,7 +174,7 @@
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
     |  |jn0004        |jn0004|        |        |タイムアウト強制停止済|監視 再実行|
 
-  @5004
+  @05_01_01_04
   シナリオ: [正常系]実行中のジョブが1つで片方がエラー終了している状態でタイムアウト強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
@@ -228,7 +228,7 @@
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
     |  |jn0004        |jn0004|        |        |タイムアウト強制停止済|監視 再実行|
 
-  @5005
+  @05_01_01_05
   シナリオ: [正常系]finally実行中にタイムアウト強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
@@ -284,7 +284,7 @@
 
 
 #--retry2--
-  @5006
+  @05_01_01_06
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のジョブ
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
@@ -349,7 +349,7 @@
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
     |  |jn0005        |jn0005|        |        |タイムアウト強制停止済|監視 再実行|
 
-  @5007
+  @05_01_01_07
   シナリオ: [正常系]ルートジョブネット内のジョブネット内で実行中のジョブが２つ
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
@@ -414,7 +414,7 @@
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
     |  |jn0005        |jn0005|        |        |タイムアウト強制停止済|監視 再実行|
 
-  @5008
+  @05_01_01_08
   シナリオ: [正常系]ルートジョブネット内のジョブネット内で実行中のジョブが1つ_片方が正常終了
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
@@ -479,7 +479,7 @@
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
     |  |jn0005        |jn0005|        |        |タイムアウト強制停止済|監視 再実行|
 
-  @5009
+  @05_01_01_09
   シナリオ: [正常系]ルートジョブネット内のジョブネット内で実行中のジョブが1つ_片方がエラー終了
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
@@ -544,7 +544,7 @@
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
     |  |jn0005        |jn0005|        |        |タイムアウト強制停止済|監視 再実行|
 
-  @5010
+  @05_01_01_10
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のfinallyが実行中にタイムアウト強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
@@ -609,7 +609,7 @@
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
     |  |jn0005        |jn0005|        |        |タイムアウト強制停止済|監視 再実行|
 
-  @5011
+  @05_01_01_11
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のfinallyのfinallyが実行中にタイムアウト強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
@@ -674,7 +674,7 @@
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
     |  |jn0005        |jn0005|        |        |タイムアウト強制停止済|監視 再実行|
 
-  @5012
+  @05_01_01_12
   シナリオ: [正常系]ジョブネットの中のジョブネット内にあるジョブを実行中にタイムアウト強制停止
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0006_retry_three_layer.rb --process-daemon"で起動している
 
@@ -751,7 +751,7 @@
 #ここから下のDSLを実行する場合は、features/script/tengine_job_agebt_run_proxyをジョブ実行サーバのジョブ実行ユーザの優先度が最も高いパスに配置します
 #ジョブ実行サーバのジョブ実行ユーザの~/bash_profileに~/binあたりをパスに追加して、ファイルを配置するのが無難です
 #retry1
-  @5013
+  @05_01_01_13
   シナリオ: [正常系]ジョブの状態が「開始中」で強制停止を行う
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
@@ -896,7 +896,7 @@
 
 
 #--retry2
-  @5014
+  @05_01_01_14
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のジョブ
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
@@ -1182,7 +1182,7 @@
   # このシナリオは、バグ [タイムアウト強制停止が発生した場合エラー終了しているジョブのステータスが全てタイムアウト強制停止済みになってしまう]
         # https://www.pivotaltracker.com/story/show/22618833
         # のテストを行うために追加しました。
-  @5015
+  @05_01_01_15
   シナリオ: [正常系]エラー終了しているジョブがある状態でタイムアウト強制停止が発生
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
