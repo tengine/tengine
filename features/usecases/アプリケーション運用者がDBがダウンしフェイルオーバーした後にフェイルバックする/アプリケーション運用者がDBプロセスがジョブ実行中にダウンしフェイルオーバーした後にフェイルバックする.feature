@@ -1,11 +1,11 @@
 #language:ja
-機能: アプリケーション運用者がDBサーバがダウンしフェイルオーバーした後にフェイルバックする
+機能: アプリケーション運用者がDBプロセスがダウンしフェイルオーバーした後にフェイルバックする
 
-  DBサーバがダウンした際に、
+  DBがダウンした際に、
   アプリケーション運用者
   は、フェイルオーバーしていることを確認した後、フェイルバックを行いたい
 
-  背景:DBサーバがダウンした際にフェイルオーバーし、その後アプリケーション運用者がDBサーバをフェールバックする
+  背景:DBプロセスがダウンした際にフェイルオーバーし、その後アプリケーション運用者がDBプロセスをフェールバックする
     前提 "DBプロセス"が起動している
     かつ "キュープロセス"が起動している
     かつ "Tengineコンソールプロセス"が起動している
@@ -15,10 +15,9 @@
     かつ 認証情報が名称:"test_credential1"で登録されている
     かつ イベントキューにメッセージが1件もない
     かつ Replica Setsを設定したMongoDBが3台のサーバで動作していること
-    かつ Replica SetsのPRIMARYノードで動作しているDBサーバをdb_pと呼ぶ
     かつ Replica SetsのPRIMARYノードで動作しているmongodプロセスをmongod_pと呼ぶ
     かつ Replica SetsのSECONDARYノードで動作しているmongodプロセスをmongod_s1, mongod_s2と呼ぶ
-    かつ db_pのIPをdb_p_ipと呼ぶ
+    かつ mongod_pが動作しているサーバのIPをmongod_p_ipと呼ぶ
     かつ mongod_s1が動作しているサーバのIPをmongod_s1_ipと呼ぶ
     かつ mongod_s2が動作しているサーバのIPをmongod_s2_ipと呼ぶ
 # $ bundle exec irb -rmongoid
@@ -49,8 +48,8 @@
 
 
   @success
-  @1000
-  シナリオ: [異常系]ジョブのスクリプト実行中にMongoDBのプライマリーのサーバがダウンした際にフェイルオーバーし、その後アプリケーション運用者がDBサーバをフェールバックする
+  @09_01_01
+  シナリオ: [異常系]ジョブのスクリプト実行中にMongoDBのプライマリーのプロセスがダウンした際にフェイルオーバーし、その後アプリケーション運用者がDBプロセスをフェールバックする
 
     前提 仮想サーバ"test_server1"のジョブ実行ユーザのホームディレクトリにファイル:"tengine_job_test.log"が存在しないこと
     もし "tengined"の設定ファイル"config/tengined.yml.erb"の"max_retries_on_connection_failure"の値が"100"である
@@ -97,12 +96,13 @@
     |ID|ジョブ名  |説明     |実行スクリプト                 |接続サーバ名|認証情報名         |開始日時            |終了日時|ステータス |次のジョブ   |操作        |
     |  |job1     |job1    |$HOME/tengine_job_test.sh 0 job1|test_server1|test_credential1|2011/11/25 14:43:22|       |実行中    |            |表示 強制停止|
 
-   もし db_pをダウンさせる
+   もし mongod_pをダウンさせるために"ssh root@#{mongod_p_ip} command \"ps -eo pid,command|grep mongod|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
    かつ 10秒間待機する
-   かつ db_pがダウンしているか確認するために"ping {db_p_ip}"コマンドを実行する
-   ならば db_pがダウンしていること
+   かつ mongod_pがダウンしているか確認するために"ssh root@#{mongod_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
+   ならば mongod_pがダウンしていること
 
    もし 60秒間待機する
+   かつ mongo_s1,mongod_s2のいずれかにスクリプトをコピーするために"scp tengine_console/features/step_definitions/mongodb/status.js root@#{mongod_s1_ip}:"コマンドを実行する
    かつ mongod_s1,mongod_s2のいずれかがPRIMARYになっていることを確認するために"ssh root@#{mongod_s1_ip} command \"mongo status.js"コマンドを実行する
    ならば mongod_pの"stateStr"が"(not reachable/healthy)"と表示されていること
    ならば mongod_s1,mongod_s2のいずれかの"stateStr"が"PRIMARY"と表示されていること
@@ -129,11 +129,10 @@
    かつ 20秒間待機する
    ならば tengine_atdプロセスが起動していること
 
-   もし db_pを起動しなおす
-   かつ mongod_pを起動し直すために"ssh root@#{db_p_ip} command \"mongod --replSet tengine_rs --port 27017 --dbpath /home/tengine/mongo_data/replSet/data --logpath /home/tengine/mongo_data/replSet/tengine.log --fork --logappend --rest --journal\""コマンドを実行する
-   かつ mongod_pが起動していることを確認するために"ssh root@#{db_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
+   もし mongod_pを起動しなおすために"ssh root@#{mongod_p_ip} command \"mongod --replSet tengine_rs --port 27017 --dbpath /home/tengine/mongo_data/replSet/data --logpath /home/tengine/mongo_data/replSet/tengine.log --fork --logappend --rest --journal\""コマンドを実行する
+   かつ mongod_pが起動していることを確認するために"ssh root@#{mongod_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
    かつ 20秒間待機する
-   かつ mongod_pがSECONDARYになっていることを確認するために"ssh root@#{db_p_ip} command \"mongo features/step_definitions/mongodb/status.js"コマンドを実行する
+   かつ mongod_pがSECONDARYになっていることを確認するために"ssh root@#{mongod_p_ip} command \"mongo features/step_definitions/mongodb/status.js"コマンドを実行する
    ならば mongod_pの"stateStr"が"SECONDARY"と表示されていること
 
 
@@ -194,8 +193,8 @@
 
 
 
-
-  シナリオ: ジョブ実行前にMongoDBのプライマリーのサーバがダウンした際にフェイルオーバーし、その後アプリケーション運用者がDBサーバをフェールバックする
+  @09_01_02
+  シナリオ: ジョブ実行前にMongoDBのプライマリーのプロセスがダウンした際にフェイルオーバーし、その後アプリケーション運用者がDBプロセスをフェールバックする
 
    前提 仮想サーバ"test_server1"のジョブ実行ユーザのホームディレクトリにファイル:"tengine_job_test.log"が存在しないこと
    もし "tengined"の設定ファイル"config/tengined.yml.erb"の"max_retries_on_connection_failure"の値が"100"である
@@ -237,10 +236,11 @@
    # もし、connect failureとエラーが出力された場合は、SLEEP時間を長く設定して下さい。おおよそ、この時間で問題ないという値がわかれば、このfeatureを編集してSLEEPの値を変更し、このコメントを削除して下さい。
    ならば ジョブはまだ実行されていないこと
 
-   もし db_pをダウンさせる
+   # MongoDBのプライマリーのプロセスを停止/停止確認をする
+   もし mongod_pをダウンさせるために"ssh root@#{mongod_p_ip} command \"ps -eo pid,command|grep mongod|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
    かつ 10秒間待機する
-   かつ db_pがダウンしているか確認するために"ping {db_p_ip}"コマンドを実行する
-   ならば db_pがダウンしていること
+   かつ mongod_pがダウンしているか確認するために"ssh root@#{mongod_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
+   ならば mongod_pがダウンしていること
 
    # ジョブを実行する
    もし "実行"ボタンをクリックする
@@ -257,18 +257,18 @@
 
    # フェイルオーバできることの確認
    もし  mongod_s1,mongod_s2のいずれかがPRIMARYになっていることを確認するために"ssh root@#{mongod_s1_ip} command \"mongo status.js"コマンドを実行する
-   ならば db_pの"stateStr"が"(not reachable/healthy)"と表示されていること
+   ならば mongod_pの"stateStr"が"(not reachable/healthy)"と表示されていること
    ならば mongod_s1,mongod_s2のいずれかの"stateStr"が"PRIMARY"と表示されていること
 
    # 停止したDBプロセスをフェイルバックする
-   もし db_pを起動しなおすために"ssh root@#{db_p_ip} command \"mongod --replSet tengine_rs --port 27017 --dbpath /home/tengine/mongo_data/replSet/data --logpath /home/tengine/mongo_data/replSet/tengine.log --fork --logappend --rest --journal\""コマンドを実行する
-   かつ db_pが起動していることを確認するために"ssh root@#{db_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
+   もし mongod_pを起動しなおすために"ssh root@#{mongod_p_ip} command \"mongod --replSet tengine_rs --port 27017 --dbpath /home/tengine/mongo_data/replSet/data --logpath /home/tengine/mongo_data/replSet/tengine.log --fork --logappend --rest --journal\""コマンドを実行する
+   かつ mongod_pが起動していることを確認するために"ssh root@#{mongod_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
    かつ 20秒間待機する
-   かつ db_pがSECONDARYになっていることを確認するために"ssh root@#{db_p_ip} command \"mongo features/step_definitions/mongodb/status.js"コマンドを実行する
-   ならば db_pの"stateStr"が"SECONDARY"と表示されていること
+   かつ mongod_pがSECONDARYになっていることを確認するために"ssh root@#{mongod_p_ip} command \"mongo features/step_definitions/mongodb/status.js"コマンドを実行する
+   ならば mongod_pの"stateStr"が"SECONDARY"と表示されていること
 
 
-
+  @09_01_03
   シナリオ: MongoDBのプライマリーのプロセスがダウンした際にフェールオーバーした際に、ジョブを実行しジョブのスクリプト実行中に強制停止をし、その後アプリケーション運用者がDBプロセスをフェールバックする
 
    前提 仮想サーバ"test_server1"のジョブ実行ユーザのホームディレクトリにファイル:"tengine_job_test.log"が存在しないこと
@@ -312,10 +312,10 @@
    ならば ジョブはまだ実行されていないこと
 
    # MongoDBのプライマリーのプロセスを停止/停止確認をする
-   もし db_pをダウンさせるために"ssh root@#{db_p_ip} command \"ps -eo pid,command|grep mongod|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
+   もし mongod_pをダウンさせるために"ssh root@#{mongod_p_ip} command \"ps -eo pid,command|grep mongod|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
    かつ 10秒間待機する
-   かつ db_pがダウンしているか確認するために"ssh root@#{db_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
-   ならば db_pがダウンしていること
+   かつ mongod_pがダウンしているか確認するために"ssh root@#{mongod_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
+   ならば mongod_pがダウンしていること
 
    # ジョブを実行する
    もし "実行"ボタンをクリックする
@@ -336,19 +336,19 @@
 
    # フェイルオーバできることの確認
    もし  mongod_s1,mongod_s2のいずれかがPRIMARYになっていることを確認するために"ssh root@#{mongod_s1_ip} command \"mongo status.js"コマンドを実行する
-   ならば db_pの"stateStr"が"(not reachable/healthy)"と表示されていること
+   ならば mongod_pの"stateStr"が"(not reachable/healthy)"と表示されていること
    ならば mongod_s1,mongod_s2のいずれかの"stateStr"が"PRIMARY"と表示されていること
 
-   もし db_pを起動しなおす
-   かつ mongod_pを起動し直すために"ssh root@#{db_p_ip} command \"mongod --replSet tengine_rs --port 27017 --dbpath /home/tengine/mongo_data/replSet/data --logpath /home/tengine/mongo_data/replSet/tengine.log --fork --logappend --rest --journal\""コマンドを実行する
-   かつ mongod_pが起動していることを確認するために"ssh root@#{db_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
+   # 停止したDBプロセスをフェイルバックする
+   もし mongod_pを起動しなおすために"ssh root@#{mongod_p_ip} command \"mongod --replSet tengine_rs --port 27017 --dbpath /home/tengine/mongo_data/replSet/data --logpath /home/tengine/mongo_data/replSet/tengine.log --fork --logappend --rest --journal\""コマンドを実行する
+   かつ mongod_pが起動していることを確認するために"ssh root@#{mongod_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
    かつ 20秒間待機する
-   かつ mongod_pがSECONDARYになっていることを確認するために"ssh root@#{db_p_ip} command \"mongo features/step_definitions/mongodb/status.js"コマンドを実行する
+   かつ mongod_pがSECONDARYになっていることを確認するために"ssh root@#{mongod_p_ip} command \"mongo features/step_definitions/mongodb/status.js"コマンドを実行する
    ならば mongod_pの"stateStr"が"SECONDARY"と表示されていること
 
 
-
-  シナリオ: ジョブ再実行前にMongoDBのプライマリーのサーバがダウンした際にフェールオーバーし、その後アプリケーション運用者がDBサーバをフェールバックする
+  @09_01_04
+  シナリオ: ジョブ再実行前にMongoDBのプライマリーのプロセスがダウンした際にフェールオーバーし、その後アプリケーション運用者がDBプロセスをフェールバックする
    前提 仮想サーバ"test_server1"のジョブ実行ユーザのホームディレクトリにファイル:"tengine_job_test.log"が存在しないこと
    もし "tengined"の設定ファイル"config/tengined.yml.erb"の"max_retries_on_connection_failure"の値が"100"である
    かつ "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/1001_one_job_in_jobnet.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
@@ -404,10 +404,11 @@
    # もし、connect failureとエラーが出力された場合は、SLEEP時間を長く設定して下さい。おおよそ、この時間で問題ないという値がわかれば、このfeatureを編集してSLEEPの値を変更し、このコメントを削除して下さい。
    ならば ジョブはまだ実行されていないこと
 
-   もし db_pをダウンさせる
+   # MongoDBのプライマリーのプロセスを停止/停止確認をする
+   もし mongod_pをダウンさせるために"ssh root@#{mongod_p_ip} command \"ps -eo pid,command|grep mongod|grep -v grep| cut -d ' ' -f2|xargs kill -9\""コマンドを実行する
    かつ 10秒間待機する
-   かつ db_pがダウンしているか確認するために"ping {db_p_ip}"コマンドを実行する
-   ならば db_pがダウンしていること
+   かつ mongod_pがダウンしているか確認するために"ssh root@#{mongod_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
+   ならば mongod_pがダウンしていること
 
    # ジョブを実行する
    もし "実行"ボタンをクリックする
@@ -424,12 +425,13 @@
 
    # フェイルオーバできることの確認
    もし  mongod_s1,mongod_s2のいずれかがPRIMARYになっていることを確認するために"ssh root@#{mongod_s1_ip} command \"mongo status.js"コマンドを実行する
-   ならば db_pの"stateStr"が"(not reachable/healthy)"と表示されていること
+   ならば mongod_pの"stateStr"が"(not reachable/healthy)"と表示されていること
    ならば mongod_s1,mongod_s2のいずれかの"stateStr"が"PRIMARY"と表示されていること
 
-   もし db_pを起動しなおす
-   かつ mongod_pを起動し直すために"ssh root@#{db_p_ip} command \"mongod --replSet tengine_rs --port 27017 --dbpath /home/tengine/mongo_data/replSet/data --logpath /home/tengine/mongo_data/replSet/tengine.log --fork --logappend --rest --journal\""コマンドを実行する
-   かつ mongod_pが起動していることを確認するために"ssh root@#{db_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
+   # 停止したDBプロセスをフェイルバックする
+   もし mongod_pを起動しなおすために"ssh root@#{mongod_p_ip} command \"mongod --replSet tengine_rs --port 27017 --dbpath /home/tengine/mongo_data/replSet/data --logpath /home/tengine/mongo_data/replSet/tengine.log --fork --logappend --rest --journal\""コマンドを実行する
+   かつ mongod_pが起動していることを確認するために"ssh root@#{mongod_p_ip} command \"ps aux|grep mongod|grep -v grep\""コマンドを実行する
    かつ 20秒間待機する
-   かつ mongod_pがSECONDARYになっていることを確認するために"ssh root@#{db_p_ip} command \"mongo features/step_definitions/mongodb/status.js"コマンドを実行する
+   かつ mongod_pがSECONDARYになっていることを確認するために"ssh root@#{mongod_p_ip} command \"mongo features/step_definitions/mongodb/status.js"コマンドを実行する
    ならば mongod_pの"stateStr"が"SECONDARY"と表示されていること
+
