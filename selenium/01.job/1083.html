@@ -11,7 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
 </thead><tbody>
-<!--[正常系]1077_ルートジョブネットが仮想サーバが違うジョブネット(並列)_を試してみる-->
+<!--[正常系]1083_Finallyに仮想サーバが違うジョブネット(並列)_を試してみる-->
 <!--下準備-->
 <tr>
 	<td>setTimeout</td>
@@ -228,16 +228,6 @@
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
 	<td>---<br />result:<br />- true</td>
 </tr>
-<tr>
-	<td>type</td>
-	<td>id=script_code</td>
-	<td>Process.waitall.inspect</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>name=commit</td>
-	<td></td>
-</tr>
 <!--tenginedを起動-->
 <tr>
 	<td>type</td>
@@ -257,7 +247,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T usecases/job/dsl/1077_rootjbonet_includes_parallel_jobnets_having_finally_and_different_server.rb\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T usecases/job/dsl/1083_finally_includes_parallel_jobnets_having_finally_and_different_server.rb\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -372,6 +362,43 @@
 	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[3]</td>
 	<td>正常終了</td>
 </tr>
+<!--スクリプトログ1を取得-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=スクリプト一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=SSH</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>cat tengine_job_test.log</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_options_yaml</td>
+	<td>---<br />host: test_server1<br />user: goku<br />password: dragonball<br /></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--スクリプトログ1を確認-->
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
+	<td>regexp:tengine_job_test j1 start</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
+	<td>regexp:tengine_job_test j1 start(\u000A|.)+tengine_job_test j1 finish</td>
+</tr>
 <!--スクリプトログ2を取得-->
 <tr>
 	<td>clickAndWait</td>
@@ -402,24 +429,29 @@
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test j1 start</td>
+	<td>regexp:tengine_job_test j2 start</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test j1 start(\u000A|.)+tengine_job_test j1 finish</td>
+	<td>regexp:tengine_job_test j2 start(\u000A|.)+tengine_job_test j2 finish</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test j1 finish(\u000A|.)+tengine_job_test jf1 start</td>
+	<td>regexp:tengine_job_test j2 finish(\u000A|.)+tengine_job_test fj1 start</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jf1 start(\u000A|.)+tengine_job_test jf1 finish</td>
+	<td>regexp:tengine_job_test fj1 start(\u000A|.)+tengine_job_test fj1 finish</td>
 </tr>
 <!--スクリプトログ3を取得-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=スクリプト一覧</td>
+	<td></td>
+</tr>
 <tr>
 	<td>select</td>
 	<td>id=script_kind</td>
@@ -444,54 +476,22 @@
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test j2 start</td>
+	<td>regexp:tengine_job_test j3 start</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test j2 start(\u000A|.)+tengine_job_test j2 finish</td>
+	<td>regexp:tengine_job_test j3 start(\u000A|.)+tengine_job_test j3 finish</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test j2 finish(\u000A|.)+tengine_job_test jf2 start</td>
+	<td>regexp:tengine_job_test j3 finish(\u000A|.)+tengine_job_test fj2 start</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jf2 start(\u000A|.)+tengine_job_test jf2 finish</td>
-</tr>
-<!--スクリプトログ1を取得-->
-<tr>
-	<td>select</td>
-	<td>id=script_kind</td>
-	<td>label=SSH</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=script_code</td>
-	<td>cat tengine_job_test.log</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=script_options_yaml</td>
-	<td>---<br />host: test_server1<br />user: goku<br />password: dragonball<br /></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>name=commit</td>
-	<td></td>
-</tr>
-<!--スクリプトログ1を確認-->
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet1077_finally start</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test jobnet1077_finally start(\u000A|.)+tengine_job_test jobnet1077_finally finish</td>
+	<td>regexp:tengine_job_test fj2 start(\u000A|.)+tengine_job_test fj2 finish</td>
 </tr>
 </tbody></table>
 </body>
