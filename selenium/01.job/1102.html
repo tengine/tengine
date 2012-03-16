@@ -11,16 +11,16 @@
 <thead>
 <tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
 </thead><tbody>
-<!--[正常系]1つのジョブが含まれるジョブネットが失敗-->
+<!--[正常系]finally付きのジョブネットを試してみる_fork前で失敗-->
 <!--下準備-->
-<tr>
-	<td>setTimeout</td>
-	<td>120000</td>
-	<td></td>
-</tr>
 <tr>
 	<td>open</td>
 	<td>/tengine/test/scripts</td>
+	<td></td>
+</tr>
+<tr>
+	<td>setTimeout</td>
+	<td>120000</td>
 	<td></td>
 </tr>
 <tr>
@@ -117,7 +117,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T usecases/job/dsl/1101_one_job_in_jobnet_failure.rb\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T selenium/dsls/0004_retry_one_layer.rb \<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -156,6 +156,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>type</td>
+	<td>id=execution_preparation_command</td>
+	<td>export J1_FAIL='true'</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>name=commit</td>
 	<td></td>
@@ -182,6 +187,21 @@
 	<td>//div[@id='main']/div/div/table/tbody/tr[8]/td</td>
 	<td>エラー終了</td>
 </tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]</td>
+	<td>エラー終了</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[3]</td>
+	<td>正常終了</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[3]</td>
+	<td>正常終了</td>
+</tr>
 <!--情報収集-->
 <tr>
 	<td>storeText</td>
@@ -196,7 +216,7 @@
 <!--エラー情報の確認-->
 <tr>
 	<td>clickAndWait</td>
-	<td>link=表示</td>
+	<td>xpath=(//a[contains(text(),'表示')])[1]</td>
 	<td></td>
 </tr>
 <tr>
@@ -234,12 +254,22 @@
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_failure_test job1 start</td>
+	<td>regexp:tengine_job_test /jn0004/j1 start</td>
+</tr>
+<tr>
+	<td>verifyNotText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
+	<td>regexp:tengine_job_test /jn0004/j1 finish</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_failure_test job1 start(\u000A|.)+tengine_job_failure_test job1 finish</td>
+	<td>regexp:tengine_job_test /jn0004/j1 start(\u000A|.)+tengine_job_test /jn0004/finally/jn0004_f start</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
+	<td>regexp:tengine_job_test /jn0004/finally/jn0004_f start(\u000A|.)+tengine_job_test /jn0004/finally/jn0004_f finish</td>
 </tr>
 </tbody></table>
 </body>
