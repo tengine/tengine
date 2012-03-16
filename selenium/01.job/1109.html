@@ -11,7 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
 </thead><tbody>
-<!--[正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する_finallyがエラー終了-->
+<!--[正常系]finally付きジョブネットを試してみる_ジョブネット内のジョブが失敗する_finally内のfinallyを持つジョブネット内のジョブがエラー終了-->
 <!--下準備-->
 <tr>
 	<td>open</td>
@@ -158,7 +158,7 @@
 <tr>
 	<td>type</td>
 	<td>id=execution_preparation_command</td>
-	<td>export JN4_F_FAIL='true'</td>
+	<td>export JN0005_F1_FAIL='true'</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -189,7 +189,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr/td[3]</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]</td>
 	<td>正常終了</td>
 </tr>
 <tr>
@@ -200,7 +200,7 @@
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[3]</td>
-	<td>エラー終了</td>
+	<td>正常終了</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -224,28 +224,18 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[3]</td>
-	<td>エラー終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[3]</td>
-	<td>エラー終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
 	<td>//div[@id='main']/div/div[2]/table/tbody/tr[11]/td[3]</td>
-	<td>正常終了</td>
+	<td>エラー終了</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[12]/td[3]</td>
+	<td>エラー終了</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[3]</td>
-	<td>正常終了</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[14]/td[3]</td>
-	<td>正常終了</td>
+	<td>エラー終了</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -260,23 +250,23 @@
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/div[2]/table/tbody/tr[17]/td[3]</td>
-	<td>正常終了</td>
+	<td>初期化済</td>
 </tr>
 <!--情報収集-->
 <tr>
 	<td>storeText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[11]</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[11]</td>
 	<td>pid</td>
 </tr>
 <tr>
 	<td>storeText</td>
-	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[5]</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[5]</td>
 	<td>server</td>
 </tr>
 <!--エラー情報の確認-->
 <tr>
 	<td>clickAndWait</td>
-	<td>xpath=(//a[contains(text(),'表示')])[9]</td>
+	<td>xpath=(//a[contains(text(),'表示')])[13]</td>
 	<td></td>
 </tr>
 <tr>
@@ -374,12 +364,12 @@
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test /jn0005/jn4/j43 finish(\u000A|.)+tengine_job_test /jn0005/jn4/j44 start</td>
+	<td>regexp:tengine_job_test /jn0005/jn4/j42 finish(\u000A|.)+tengine_job_test /jn0005/jn4/j44 start</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test /jn0005/jn4/j42 finish(\u000A|.)+tengine_job_test /jn0005/jn4/j44 start</td>
+	<td>regexp:tengine_job_test /jn0005/jn4/j43 finish(\u000A|.)+tengine_job_test /jn0005/jn4/j44 start</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -392,9 +382,9 @@
 	<td>regexp:tengine_job_test /jn0005/jn4/j44 finish(\u000A|.)+tengine_job_test /jn0005/jn4/finally/jn4_f start</td>
 </tr>
 <tr>
-	<td>verifyNotText</td>
+	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test /jn0005/jn4/finally/jn4_f finish</td>
+	<td>regexp:tengine_job_test /jn0005/jn4/finally/jn4_f start(\u000A|.)+tengine_job_test /jn0005/jn4/finally/jn4_f finish</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -404,27 +394,17 @@
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test /jn0005/jn4/finally/jn4_f start(\u000A|.)+tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start</td>
+	<td>regexp:tengine_job_test /jn0005/jn4/finally/jn4_f finish(\u000A|.)+tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start</td>
+</tr>
+<tr>
+	<td>verifyNotText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
+	<td>regexp:tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start(\u000A|.)+tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish(\u000A|.)+tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 start</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 start(\u000A|.)+tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 finish</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 finish(\u000A|.)+tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start</td>
+	<td>regexp:tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start(\u000A|.)+tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -432,14 +412,9 @@
 	<td>regexp:tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start(\u000A|.)+tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish</td>
 </tr>
 <tr>
-	<td>verifyText</td>
+	<td>verifyNotText</td>
 	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish(\u000A|.)+tengine_job_test /jn0005/finally/jn0005_f finish</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
-	<td>regexp:tengine_job_test /jn0005/finally/jn0005_f start(\u000A|.)+tengine_job_test /jn0005/finally/jn0005_f finish</td>
+	<td>regexp:tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f finish</td>
 </tr>
 </tbody></table>
 </body>
