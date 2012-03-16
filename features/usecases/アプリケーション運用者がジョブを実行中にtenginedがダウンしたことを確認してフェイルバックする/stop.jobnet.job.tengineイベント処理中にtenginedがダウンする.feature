@@ -43,7 +43,7 @@
 
     もし "Coreサーバ1, Coreサーバ2"で"/tmp/core_server_down_txt"を表示し続けている
     かつ "/tmp/core_server_down_txt"に"please poweroff this server"と表示される
-    かつ "please poweroff this server"と表示された"Coreサーバ"をダウン(電源断)する
+    かつ "please poweroff this server"と表示された"Coreサーバで動作するtenginedプロセス"をkillする
     かつ 120秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
