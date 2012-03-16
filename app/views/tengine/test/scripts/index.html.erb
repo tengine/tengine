@@ -34,7 +34,7 @@ pre {
     <td><pre><%= script.code %></pre></td>
     <td><pre><%= script.options.is_a?(Hash) ? script.options_yaml : script.options.inspect %></pre></td>
     <td><%= script.timeout %></td>
-    <td><pre><%= Psych.dump(script.messages).gsub(/'([^']|'')+'/m) {|m| m.gsub(/(\n +)/, ' ') }.gsub(/- ! '(.+)'$/, '- \\1') %></pre></td>
+    <td><pre><%= Psych.dump(script.messages).gsub(/'([^']|'')+'/m) {|m| m.gsub(/(\n +)/, ' ') }.gsub(/(^- .+)\n  (?=\S)/, '\\1 ').gsub(/- ! '(.+)'$/, '- \\1') %></pre></td>
     <td><%= link_to_show script %></td>
     <td><%= link_to_edit edit_tengine_test_script_path(script) %></td>
     <td><%= link_to_destroy script, confirm: 'Are you sure?', method: :delete %></td>
