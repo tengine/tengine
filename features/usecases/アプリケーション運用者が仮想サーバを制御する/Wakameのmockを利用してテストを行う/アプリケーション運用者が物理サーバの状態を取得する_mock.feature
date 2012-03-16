@@ -20,7 +20,7 @@
     #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb
 
   @manual
-  @7007
+  @07_01_08
   シナリオ: [正常系]アプリケーション運用者は物理サーバ一覧画面を開き、物理サーバが表示されていることを確認する
     # 代替コースB: 管理下の物理サーバが存在しない
     # 物理サーバが0件のファイル
