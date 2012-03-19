@@ -20,7 +20,7 @@
     #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb
 
   @manual
-  @7003
+  @07_01_03
   シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面から仮想サーバの起動を行う
     # 物理サーバが10件のファイル
     もし Wakameのモックファイル"./features/usecases/resource/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/usecases/resource/test_files/describe_host_nodes.json"にコピーする
@@ -154,7 +154,7 @@
     ならば "仮想サーバ一覧"画面が表示されていること
 
   @manual
-  @7004
+  @07_01_04
   シナリオ: [正常系]アプリケーション運用者は重複する仮想サーバ名で仮想サーバの起動を試みる
     # このシナリオは以下のシナリオを事前に実施している想定です
     #   シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面から仮想サーバの起動を行う
@@ -316,7 +316,7 @@
     |physical_server_name_10|仮想サーバは起動していません。| |
 
   @manual
-  @7008
+  @07_01_05
   シナリオ: [正常系]アプリケーション運用者は仮想サーバ起動起動後すぐにあらたな仮想サーバの起動を試みる
     #
     # 仮想サーバ名に重複があった場合の確認
