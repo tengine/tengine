@@ -6,7 +6,7 @@
     もし Coreサーバのドライバの場所を確認するために"Coreサーバ1, Coreサーバ2"で"cd tengine_console && echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i echo {}tengine/job/drivers"コマンドを実行する
     かつ オリジナルのドライバを退避する為に"Coreサーバ1, Coreサーバ2"で"echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i \cp -rf {}tengine/job/drivers /tmp"コマンドを実行する
     #tengine_consoleのパスを適切なパスに変更して下さい
-    かつ Coreサーバを落とすテストのためのドライバに置き換えるために"Coreサーバ1, Coreサーバ2"、"echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i \cp -rf tengine_console/features/usecases/job/アプリケーション運用者がジョブを実行中にCoreサーバがダウンしたことを確認してフ ェイルバックする/driver/stop.job.job.tengine/1/1/drivers {}tengine/job/drivers"コマンドを実行する
+    かつ Coreサーバを落とすテストのためのドライバに置き換えるために"Coreサーバ1, Coreサーバ2"、"echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i \cp -rf tengine_console/features/usecases/job/アプリケーション運用者がジョブを実行中にCoreサーバがダウンしたことを確認してフ ェイルバックする/driver/11/01/drivers {}tengine/job/drivers"コマンドを実行する
 
     もし "Coreサーバ2"上で"Tengineコアプロセス1"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
     ならば "Tengineコアプロセス1"の状態が"稼働中"であることを確認できること
@@ -160,7 +160,7 @@
     もし Coreサーバのドライバの場所を確認するために"Coreサーバ1, Coreサーバ2"で"cd tengine_console && echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i echo {}tengine/job/drivers"コマンドを実行する
     かつ オリジナルのドライバを退避する為に"Coreサーバ1, Coreサーバ2"で"echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i \cp -rf {}tengine/job/drivers /tmp"コマンドを実行する
     #tengine_consoleのパスを適切なパスに変更して下さい
-    かつ Coreサーバを落とすテストのためのドライバに置き換えるために"Coreサーバ1, Coreサーバ2"、"echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i \cp -rf tengine_console/features/usecases/job/アプリケーション運用者がジョブを実行中にCoreサーバがダウンしたことを確認してフ ェイルバックする/driver/error.job.job.tengine/1/1/drivers {}tengine/job/drivers"コマンドを実行する
+    かつ Coreサーバを落とすテストのためのドライバに置き換えるために"Coreサーバ1, Coreサーバ2"、"echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i \cp -rf tengine_console/features/usecases/job/アプリケーション運用者がジョブを実行中にCoreサーバがダウンしたことを確認してフ ェイルバックする/driver/11/02/drivers {}tengine/job/drivers"コマンドを実行する
 
     もし "Coreサーバ2"上で"Tengineコアプロセス1"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
     ならば "Tengineコアプロセス1"の状態が"稼働中"であることを確認できること
