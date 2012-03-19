@@ -120,7 +120,7 @@
 
 # 起動しているtengine_atdのどちらかが発火したstop.execution.job.tengine が登録されるので、場合によっては、複数回繰り返さないと送信社名に立ち上げ直したtengine_atdが表示されないことがあります。
 
-
+  @08_02_02
   シナリオ: [異常系]仮想マシン起動中にtengine_atdのプロセスがダウンした際にフェイルオーバーし、その後アプリケーション運用者がtengine_atdプロセスをフェールバックする
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと

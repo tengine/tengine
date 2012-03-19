@@ -129,7 +129,7 @@
 # もし heartbeat_watchd1_log でなく heartbeat_watchd2_log に上記の記述がある場合、
 # 「tengine_heartbeat_watchdがフェイルバックできていることを確認する。」からやり直す
 
-
+  @08_03_02
   シナリオ: [異常系]仮想マシン起動中にtengine_heartbeat_watchdのプロセスがダウンした際にフェイルオーバーし、その後アプリケーション運用者がtengine_heartbeat_watchdプロセスをフェールバックする
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
