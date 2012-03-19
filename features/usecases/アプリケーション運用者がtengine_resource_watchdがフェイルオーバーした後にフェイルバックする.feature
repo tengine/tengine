@@ -30,7 +30,7 @@
     かつ resource_watchd2のPIDを"resource_watchd2_pid"と呼ぶ
 
   @success
-  @1000
+  @08_04_01
   シナリオ: [異常系]ジョブのスクリプト実行中にtengine_resource_watchdのプロセスがダウンした際にフェイルオーバーし、その後アプリケーション運用者がtengine_resouce_watchdプロセスをフェールバックする
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと

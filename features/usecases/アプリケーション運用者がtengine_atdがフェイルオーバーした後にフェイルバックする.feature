@@ -31,7 +31,7 @@
     かつ atd2のPIDを"atd2_pid"と呼ぶ
 
   @success
-  @1000
+  @08_02_01
   シナリオ: [異常系]ジョブのスクリプト実行中にtengine_atdのプロセスがダウンした際にフェイルオーバーし、その後アプリケーション運用者がtengine_atdプロセスをフェールバックする
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと

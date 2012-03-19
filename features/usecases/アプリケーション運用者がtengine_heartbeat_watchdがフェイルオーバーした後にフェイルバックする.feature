@@ -33,7 +33,7 @@
     かつ heartbeat_watchd2のログファイルを"heartbeat_watchd2_log"と呼ぶ
 
   @success
-  @1000
+  @08_03_01
   シナリオ: [異常系]ジョブのスクリプト実行中にtengine_heartbeat_watchdのプロセスがダウンした際にフェイルオーバーし、その後アプリケーション運用者がtengine_heartbeat_watchdプロセスをフェールバックする
 
     前提 仮想サーバ"test_server1"のファイル:"~/tengine_job_test.log"が存在しないこと
