@@ -1,6 +1,6 @@
   @08_06_10_01
 # stop.jobnet.job.tengine(1) #
-  シナリオ: [異常系]stop.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、tenginedがダウンする
+  シナリオ: [異常系]stop.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする
 
     もし Coreサーバのドライバの場所を確認するために"Coreサーバ1, Coreサーバ2"で"cd tengine_console && echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i echo {}tengine/job/drivers"コマンドを実行する
     かつ オリジナルのドライバを退避する為に"Coreサーバ1, Coreサーバ2"で"echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i \cp -rf {}tengine/job/drivers /tmp"コマンドを実行する
@@ -161,12 +161,12 @@
 
   @08_06_10_02
 # stop.jobnet.job.tengine(2) #
-  シナリオ: [異常系]stop.jobnet.job.tengineのイベント処理中に、stop.jobnet.job.tengineやstop.job.job.tengineをいくつか発火した後に、tenginedがダウンする
+  シナリオ: [異常系]stop.jobnet.job.tengineのイベント処理中に、stop.jobnet.job.tengineやstop.job.job.tengineをいくつか発火した後に、Coreサーバがダウンする
 
 
   @08_06_10_03
 # stop.jobnet.job.tengine(2) #
-  シナリオ: [異常系]stop.jobnet.job.tengineのイベント処理中に、stop.jobnet.job.tengineやstop.job.job.tengineを全て発火した後に、tenginedがダウンする
+  シナリオ: [異常系]stop.jobnet.job.tengineのイベント処理中に、stop.jobnet.job.tengineやstop.job.job.tengineを全て発火した後に、Coreサーバがダウンする
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
     もし "Coreサーバ1"上で"Tengineコアプロセス1"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
     ならば "Tengineコアプロセス1"の状態が"稼働中"であることを確認できること

@@ -1,7 +1,7 @@
   @08_06_11_01
 # stop.job.job.tengine(1) #
 # (1)
-  シナリオ: [異常系]stop.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、tenginedがダウンする
+  シナリオ: [異常系]stop.jobnet.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする
 
     もし Coreサーバのドライバの場所を確認するために"Coreサーバ1, Coreサーバ2"で"cd tengine_console && echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i echo {}tengine/job/drivers"コマンドを実行する
     かつ オリジナルのドライバを退避する為に"Coreサーバ1, Coreサーバ2"で"echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i \cp -rf {}tengine/job/drivers /tmp"コマンドを実行する
@@ -156,7 +156,7 @@
   @08_06_11_02
 # stop.job.job.tengine(2) #
 # (1)
-  シナリオ: [異常系]stop.job.job.tengineのイベント処理中に、sshでスクリプトを停止するコマンドを実行した後に、tenginedがダウンする_finished.process.job.tengineがイベント処理失敗イベントの前に処理される
+  シナリオ: [異常系]stop.job.job.tengineのイベント処理中に、sshでスクリプトを停止するコマンドを実行した後に、Coreサーバがダウンする_finished.process.job.tengineがイベント処理失敗イベントの前に処理される
     もし Coreサーバのドライバの場所を確認するために"Coreサーバ1, Coreサーバ2"で"cd tengine_console && echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i echo {}tengine/job/drivers"コマンドを実行する
     かつ オリジナルのドライバを退避する為に"Coreサーバ1, Coreサーバ2"で"echo `bundle exec gem which tengine_job`|sed -e 's/\(.*\)tengine_job.rb/\1/'|xargs -i \cp -rf {}tengine/job/drivers /tmp"コマンドを実行する
     #tengine_consoleのパスを適切なパスに変更して下さい

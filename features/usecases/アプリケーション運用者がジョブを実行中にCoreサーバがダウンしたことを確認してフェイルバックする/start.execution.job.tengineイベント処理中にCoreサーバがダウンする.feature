@@ -1,6 +1,6 @@
   @08_06_02_01
 # start.execution.job.tengine(1) #
-  シナリオ: [異常系]start.execution.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、tenginedがダウンする
+  シナリオ: [異常系]start.execution.job.tengineのイベント処理中に、ジョブストアのジョブネットの状態を更新した後に、Coreサーバがダウンする
 
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
     もし "Coreサーバ1"上で"Tengineコアプロセス1"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
@@ -128,12 +128,12 @@
 
   @08_06_02_02
 # start.execution.job.tengine(2) #
-  シナリオ: [異常系]start.execution.job.tengineのイベント処理中に、start.jobnet.job.tengineを発火した後に、tenginedがダウンする
+  シナリオ: [異常系]start.execution.job.tengineのイベント処理中に、start.jobnet.job.tengineを発火した後に、Coreサーバがダウンする
     #普通にジョブが実行されるだけだからいらない
 
   @08_06_02_03
 # start.execution.job.tengine(3) #
-  シナリオ: [異常系]start.execution.job.tengineのイベント処理中に、スケジュールストアにタイムアウト警告のスケジュールを登録した後に、tenginedがダウンする
+  シナリオ: [異常系]start.execution.job.tengineのイベント処理中に、スケジュールストアにタイムアウト警告のスケジュールを登録した後に、Coreサーバがダウンする
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
     もし "Coreサーバ1"上で"Tengineコアプロセス1"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
     ならば "Tengineコアプロセス1"の状態が"稼働中"であることを確認できること
@@ -239,10 +239,10 @@
 
   @08_06_02_04
 # start.execution.job.tengine(4) #
-  シナリオ: [異常系]start.execution.job.tengineのイベント処理中に、スケジュールストアにタイムアウト強制停止のスケジュールを登録した後に、tenginedがダウンする
+  シナリオ: [異常系]start.execution.job.tengineのイベント処理中に、スケジュールストアにタイムアウト強制停止のスケジュールを登録した後に、Coreサーバがダウンする
 
   @08_06_02_05
-  シナリオ: [異常系]start.execution.job.tengineのイベント処理中に、スケジュールストアにタイムアウト警告のスケジュールを登録した後に、tenginedがダウンする
+  シナリオ: [異常系]start.execution.job.tengineのイベント処理中に、スケジュールストアにタイムアウト警告のスケジュールを登録した後に、Coreサーバがダウンする
     もし Coreサーバを落とすために"Coreサーバ1"で"\cp -f tengine_console/feature/config/emergency_test/start.execution.job.tengine_1_yml tengine_console/config/emergency_test.yml"コマンドを実行する
     もし "Coreサーバ1"上で"Tengineコアプロセス1"の起動を行うために"tengined -T ../tengine_job/examples/0004_retry_one_layer.rb -f ./features/config/tengined.yml.erb "というコマンドを実行する
     ならば "Tengineコアプロセス1"の状態が"稼働中"であることを確認できること
