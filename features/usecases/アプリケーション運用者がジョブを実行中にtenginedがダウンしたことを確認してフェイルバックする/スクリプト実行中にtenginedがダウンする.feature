@@ -15,6 +15,7 @@
     かつ "Tengineコンソールプロセス"が起動している
     かつ Tengine周辺のサーバの時刻が同期されている
 
+  @08_01_01_01
   #2プロセスtenginedを起動し、ジョブを実行中に片系をkillして強制停止する
   シナリオ: [異常系]スクリプトが実行中に複数プロセスで動作しているtenginedのうち1プロセスが落ちる
     前提 "TengineコアプロセスA"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsl/1001_one_job_in_jobnet.rb --process-daemon"で起動している
