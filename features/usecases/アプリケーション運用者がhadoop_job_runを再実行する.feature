@@ -13356,10 +13356,10 @@ language:ja
     |  |        hadoop_job1|        |                                    |test_server1|test_credential1|                   |        |正常終了  |          |表示   |
     |  |          Map      |        |                                    |test_server1|test_credential1|                   |        |正常終了  |          |表示   |
     |  |          Reduce   |        |                                    |test_server1|test_credential1|                   |        |正常終了  |          |表示   |
-    |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
-    |  |    hadoop_job1 |           |                                    |test_server1|test_credential1|                   |        |初期化済  |          |表示   |
-    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |初期化済  |          |表示   |
-    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |初期化済  |          |表示   |
+    |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+    |  |    hadoop_job1 |           |                                    |test_server1|test_credential1|                   |        |正常終了  |          |表示   |
+    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |正常終了  |          |表示   |
+    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |正常終了  |          |表示   |
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
