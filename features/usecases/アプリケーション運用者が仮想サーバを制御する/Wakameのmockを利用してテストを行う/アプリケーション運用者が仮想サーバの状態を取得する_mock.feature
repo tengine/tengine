@@ -18,7 +18,7 @@
     #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb
 
   @manual
-  @07_01_01
+  @07_02_01
   シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面を開き、仮想サーバが表示されていることを確認する
     # 代替コースC: 管理下の物理サーバが存在しない
     # 物理サーバが0件のファイル
@@ -213,7 +213,7 @@
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
 
   @manual
-  @07_01_02
+  @07_02_02
   シナリオ: [正常系]仮想サーバイメージ名の変更が仮想サーバ一覧画面の仮想サーバイメージ名に反映されることを確認する
     # 物理サーバが10件のファイル
     もし Wakameのモックファイル"./features/usecases/resource/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/usecases/resource/test_files/describe_host_nodes.json"にコピーする
