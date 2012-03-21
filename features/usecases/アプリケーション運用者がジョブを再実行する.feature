@@ -52,6 +52,7 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行  |
 
+    かつ "j1"の"開始日時","終了日時","PID"を"j1_start_end_pid"と呼ぶ
 
     もし "j1"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -81,6 +82,8 @@ language:ja
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行  |
+
+    かつ "j1_start_end_pidが更新されていること
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -123,6 +126,7 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行  |
 
+    かつ "j1"の"開始日時","終了日時","PID"を"j1_start_end_pid"と呼ぶ
 
     もし "j1"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -152,6 +156,8 @@ language:ja
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行  |
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行  |
+
+    かつ "j1_start_end_pidが更新されていること
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -195,6 +201,8 @@ language:ja
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行  |
+
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -264,6 +272,8 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行  |
 
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
+
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -332,6 +342,8 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行  |
 
+    かつ "j3"の"開始日時","終了日時","PID"を"j3_start_end_pid"と呼ぶ
+
     もし "j3"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -399,6 +411,7 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行  |
 
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -498,6 +511,8 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行  |
 
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
+
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット実行設定画面"を表示していること
 
@@ -523,6 +538,8 @@ language:ja
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+
+    かつ "j2_start_end_pidが更新されていること
 
     もし "j3"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -591,6 +608,8 @@ language:ja
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+
+    かつ "j3"の"開始日時","終了日時","PID"を"j3_start_end_pid"と呼ぶ
 
     もし "j3"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -767,6 +786,8 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
 
+    かつ "j3"の"開始日時","終了日時","PID"を"j3_start_end_pid"と呼ぶ
+
     もし "j3"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -835,6 +856,8 @@ language:ja
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -906,6 +929,9 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
+    かつ "j1"の"開始日時","終了日時","PID"を"j1_start_end_pid"と呼ぶ
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "j1"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -977,6 +1003,12 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行  |
 
+    かつ "j1"の"開始日時","終了日時","PID"を"j1_start_end_pid"と呼ぶ
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
+    かつ "j3"の"開始日時","終了日時","PID"を"j3_start_end_pid"と呼ぶ
+    かつ "j4"の"開始日時","終了日時","PID"を"j4_start_end_pid"と呼ぶ
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "j1"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -1050,6 +1082,8 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
+
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -1117,6 +1151,8 @@ language:ja
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+
+    かつ "j3"の"開始日時","終了日時","PID"を"j3_start_end_pid"と呼ぶ
 
     もし "j3"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -1186,6 +1222,8 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
+    かつ "j3"の"開始日時","終了日時","PID"を"j3_start_end_pid"と呼ぶ
+
     もし "j3"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -1211,6 +1249,11 @@ language:ja
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+
+    かつ "j3_start_end_pidが更新されていること
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -1308,6 +1351,8 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
 
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
+
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -1333,6 +1378,10 @@ language:ja
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+
+    かつ "j2_start_end_pidが更新されていること
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "j3"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -1401,6 +1450,7 @@ language:ja
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -1489,6 +1539,8 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
 
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
+
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -1548,6 +1600,8 @@ language:ja
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -1609,6 +1663,8 @@ language:ja
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
 
     もし "j2"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -1681,6 +1737,7 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |エラー終了|          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |エラー終了|          |表示 再実行|
 
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "jn0004_f"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -1752,6 +1809,7 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "jn0004_f"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -1824,6 +1882,7 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |エラー終了|          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |エラー終了|          |表示 再実行|
 
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "jn0004_f"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -1895,6 +1954,7 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "jn0004_f"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -1990,6 +2050,8 @@ language:ja
     |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+
+    かつ "j41"の"開始日時","終了日時","PID"を"j41_start_end_pid"と呼ぶ
 
     もし "j41"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -2105,6 +2167,8 @@ language:ja
     |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+
+    かつ "j41"の"開始日時","終了日時","PID"を"j41_start_end_pid"と呼ぶ
 
     もし "j41"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -2222,6 +2286,8 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了    |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了    |          |表示 再実行|
 
+    かつ "j41"の"開始日時","終了日時","PID"を"j41_start_end_pid"と呼ぶ
+
     もし "j41"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -2338,6 +2404,8 @@ language:ja
     |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+
+    かつ "j41"の"開始日時","終了日時","PID"を"j41_start_end_pid"と呼ぶ
 
     もし "j41"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -2794,6 +2862,10 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
+    かつ "j41_start_end_pid"が更新されていること
+    かつ "jn4_finally_start_end_pid"が更新されていること
+    かつ "jn4_f_start_end_pid"が更新されていること
+
     もし "j41"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -2910,6 +2982,12 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
+    かつ "j41_start_end_pid"が更新されていること
+    かつ "j42_start_end_pid"が更新されていること
+    かつ "j43_start_end_pid"が更新されていること
+    かつ "jn4_finally_start_end_pid"が更新されていること
+    かつ "jn4_f_start_end_pid"が更新されていること
+
     もし "j41"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -3024,6 +3102,13 @@ language:ja
     |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+
+    かつ "j41_start_end_pid"が更新されていること
+    かつ "j42_start_end_pid"が更新されていること
+    かつ "j43_start_end_pid"が更新されていること
+    かつ "j44_start_end_pid"が更新されていること
+    かつ "jn4_finally_start_end_pid"が更新されていること
+    かつ "jn4_f_start_end_pid"が更新されていること
 
     もし "j41"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -3306,6 +3391,9 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
+
     もし "j2の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -3422,7 +3510,6 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
-
     もし "j2の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -3453,6 +3540,9 @@ language:ja
     |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -3593,6 +3683,8 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
+    かつ "jn4_f"の"開始日時","終了日時","PID"を"jn4_f_start_end_pid"と呼ぶ
+
     もし "jn4_f"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -3708,6 +3800,8 @@ language:ja
     |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+
+    かつ "jn4_f"の"開始日時","終了日時","PID"を"jn4_f_start_end_pid"と呼ぶ
 
     もし "jn4_f"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -3826,6 +3920,9 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
+    かつ "jn4_finally"の"開始日時","終了日時","PID"を"jn4_finally_start_end_pid"と呼ぶ
+    かつ "jn4_f"の"開始日時","終了日時","PID"を"jn4_f_start_end_pid"と呼ぶ
+
     もし "jn4/finally"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -3943,6 +4040,8 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
+    かつ "jn0005_f1"の"開始日時","終了日時","PID"を"jn0005_f1_start_end_pid"と呼ぶ
+
     もし "jn0005_f1"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -4058,6 +4157,8 @@ language:ja
     |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |エラー終了|          |表示 再実行|
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了|          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+
+    かつ "jn0005_fif"の"開始日時","終了日時","PID"を"jn0005_fif_start_end_pid"と呼ぶ
 
     もし "jn0005_fif"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -4176,6 +4277,10 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
+    かつ "jn0005_f1"の"開始日時","終了日時","PID"を"jn0005_f1_start_end_pid"と呼ぶ
+    かつ "jn0005_fjn_finally"の"開始日時","終了日時","PID"を"jn0005_fjn_finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fif"の"開始日時","終了日時","PID"を"jn0005_fif_start_end_pid"と呼ぶ
+
     もし "jn0005_f1"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -4293,6 +4398,8 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了|          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
+    かつ "jn0005_fif"の"開始日時","終了日時","PID"を"jn0005_fif_start_end_pid"と呼ぶ
+
     もし "jn0005_fif"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -4392,6 +4499,8 @@ language:ja
     |  |    jn_2f   |jn_2f  |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
     |  |finally     |finally|                               |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|  
     |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行| 
+
+    かつ "jn111"の"開始日時","終了日時","PID"を"jn111_start_end_pid"と呼ぶ
 
     もし "j111"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -4493,6 +4602,8 @@ language:ja
     |  |    jn_2f   |jn_2f  |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |finally     |finally|                               |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|  
     |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行| 
+
+    かつ "jn111"の"開始日時","終了日時","PID"を"jn111_start_end_pid"と呼ぶ
 
     もし "j111"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -4597,6 +4708,10 @@ language:ja
     |  |finally     |finally|                               |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|  
     |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行| 
 
+    かつ "jn111"の"開始日時","終了日時","PID"を"jn111_start_end_pid"と呼ぶ
+    かつ "jn11_finally"の"開始日時","終了日時","PID"を"jn11_finally_start_end_pid"と呼ぶ
+    かつ "jn11_f"の"開始日時","終了日時","PID"を"jn11_f_start_end_pid"と呼ぶ
+
     もし "j111"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -4698,6 +4813,11 @@ language:ja
     |  |finally     |finally|                               |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|  
     |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行| 
 
+    かつ "jn111"の"開始日時","終了日時","PID"を"jn111_start_end_pid"と呼ぶ
+    かつ "jn112"の"開始日時","終了日時","PID"を"jn112_start_end_pid"と呼ぶ
+    かつ "jn11_finally"の"開始日時","終了日時","PID"を"jn11_finally_start_end_pid"と呼ぶ
+    かつ "jn11_f"の"開始日時","終了日時","PID"を"jn11_f_start_end_pid"と呼ぶ
+
     もし "j111"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -4796,6 +4916,8 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |エラー終了|          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |エラー終了|          |表示 再実行|
 
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "jn0004/finally"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -4867,6 +4989,8 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "jn0004/finally"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -4939,6 +5063,8 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |エラー終了|          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |エラー終了|          |表示 再実行|
 
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "jn0004/finally"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -5010,6 +5136,8 @@ language:ja
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |正常終了|          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了|          |表示 再実行|
 
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "jn0004/finally"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -5105,6 +5233,11 @@ language:ja
     |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+
+    かつ "jn4"の"開始日時","終了日時","PID"を"jn4_start_end_pid"と呼ぶ
+    かつ "j41"の"開始日時","終了日時","PID"を"j41_start_end_pid"と呼ぶ
+    かつ "jn4_finally"の"開始日時","終了日時","PID"を"jn4_finally_start_end_pid"と呼ぶ
+    かつ "jn4_f"の"開始日時","終了日時","PID"を"jn4_f_start_end_pid"と呼ぶ
 
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -5222,6 +5355,14 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
+    かつ "jn4"の"開始日時","終了日時","PID"を"jn4_start_end_pid"と呼ぶ
+    かつ "j41"の"開始日時","終了日時","PID"を"j41_start_end_pid"と呼ぶ
+    かつ "j42"の"開始日時","終了日時","PID"を"j42_start_end_pid"と呼ぶ
+    かつ "j43"の"開始日時","終了日時","PID"を"j43_start_end_pid"と呼ぶ
+    かつ "j44"の"開始日時","終了日時","PID"を"j44_start_end_pid"と呼ぶ
+    かつ "jn4_finally"の"開始日時","終了日時","PID"を"jn4_finally_start_end_pid"と呼ぶ
+    かつ "jn4_f"の"開始日時","終了日時","PID"を"jn4_f_start_end_pid"と呼ぶ
+
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -5337,7 +5478,12 @@ language:ja
     |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
-    
+
+    かつ "jn4"の"開始日時","終了日時","PID"を"jn4_start_end_pid"と呼ぶ
+    かつ "j41"の"開始日時","終了日時","PID"を"j41_start_end_pid"と呼ぶ
+    かつ "jn4_finally"の"開始日時","終了日時","PID"を"jn4_finally_start_end_pid"と呼ぶ
+    かつ "jn4_f"の"開始日時","終了日時","PID"を"jn4_f_start_end_pid"と呼ぶ
+
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -5477,6 +5623,18 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
+    かつ "jn4"の"開始日時","終了日時","PID"を"jn4_start_end_pid"と呼ぶ
+    かつ "j41"の"開始日時","終了日時","PID"を"j41_start_end_pid"と呼ぶ
+    かつ "jn4_finally"の"開始日時","終了日時","PID"を"jn4_finally_start_end_pid"と呼ぶ
+    かつ "jn4_f"の"開始日時","終了日時","PID"を"jn4_f_start_end_pid"と呼ぶ
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fjn"の"開始日時","終了日時","PID"を"jn0005_fjn_start_end_pid"と呼ぶ
+    かつ "jn0005_f1"の"開始日時","終了日時","PID"を"jn0005_f1_start_end_pid"と呼ぶ
+    かつ "jn0005_f2"の"開始日時","終了日時","PID"を"jn0005_f2_start_end_pid"と呼ぶ
+    かつ "jn0005_fjn_finally"の"開始日時","終了日時","PID"を"jn0005_fjn_finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fif"の"開始日時","終了日時","PID"を"jn0005_fif_start_end_pid"と呼ぶ
+    かつ "jn0005_f"の"開始日時","終了日時","PID"を"jn0005_f_start_end_pid"と呼ぶ
+
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -5591,6 +5749,22 @@ language:ja
     |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
+
+    かつ "jn4"の"開始日時","終了日時","PID"を"jn4_start_end_pid"と呼ぶ
+    かつ "j41"の"開始日時","終了日時","PID"を"j41_start_end_pid"と呼ぶ
+    かつ "j42"の"開始日時","終了日時","PID"を"j42_start_end_pid"と呼ぶ
+    かつ "j43"の"開始日時","終了日時","PID"を"j43_start_end_pid"と呼ぶ
+    かつ "j44"の"開始日時","終了日時","PID"を"j44_start_end_pid"と呼ぶ
+    かつ "jn4_finally"の"開始日時","終了日時","PID"を"jn4_finally_start_end_pid"と呼ぶ
+    かつ "jn4_f"の"開始日時","終了日時","PID"を"jn4_f_start_end_pid"と呼ぶ
+    かつ "j4"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fjn"の"開始日時","終了日時","PID"を"jn0005_fjn_start_end_pid"と呼ぶ
+    かつ "jn0005_f1"の"開始日時","終了日時","PID"を"jn0005_f1_start_end_pid"と呼ぶ
+    かつ "jn0005_f2"の"開始日時","終了日時","PID"を"jn0005_f2_start_end_pid"と呼ぶ
+    かつ "jn0005_fjn_finally"の"開始日時","終了日時","PID"を"jn0005_fjn_finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fif"の"開始日時","終了日時","PID"を"jn0005_fif_start_end_pid"と呼ぶ
+    かつ "jn0005_f"の"開始日時","終了日時","PID"を"jn0005_f_start_end_pid"と呼ぶ
 
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -5707,7 +5881,12 @@ language:ja
     |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
-    
+
+    かつ "jn4"の"開始日時","終了日時","PID"を"jn4_start_end_pid"と呼ぶ
+    かつ "j41"の"開始日時","終了日時","PID"を"j41_start_end_pid"と呼ぶ
+    かつ "jn4_finally"の"開始日時","終了日時","PID"を"jn4_finally_start_end_pid"と呼ぶ
+    かつ "jn4_f"の"開始日時","終了日時","PID"を"jn4_f_start_end_pid"と呼ぶ
+
     もし "jn4"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -5848,6 +6027,9 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
 
+    かつ "jn4_finally"の"開始日時","終了日時","PID"を"jn4_finally_start_end_pid"と呼ぶ
+    かつ "jn4_f"の"開始日時","終了日時","PID"を"jn4_f_start_end_pid"と呼ぶ
+
     もし "jn4/finally"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -5965,6 +6147,11 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
+    かつ "jn0005_fjn"の"開始日時","終了日時","PID"を"jn0005_fjn_start_end_pid"と呼ぶ
+    かつ "jn0005_f1"の"開始日時","終了日時","PID"を"jn0005_f1_start_end_pid"と呼ぶ
+    かつ "jn0005_fjn_finally"の"開始日時","終了日時","PID"を"jn0005_fjn_finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fif"の"開始日時","終了日時","PID"を"jn0005_fif_start_end_pid"と呼ぶ
+
     もし "jn0005_fjn"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -6080,6 +6267,12 @@ language:ja
     |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fjn"の"開始日時","終了日時","PID"を"jn0005_fjn_start_end_pid"と呼ぶ
+    かつ "jn0005_f1"の"開始日時","終了日時","PID"を"jn0005_f1_start_end_pid"と呼ぶ
+    かつ "jn0005_fjn_finally"の"開始日時","終了日時","PID"を"jn0005_fjn_finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fif"の"開始日時","終了日時","PID"を"jn0005_fif_start_end_pid"と呼ぶ
 
     もし "finally"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -6198,6 +6391,9 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
+    かつ "jn0005_fjn_finally"の"開始日時","終了日時","PID"を"jn0005_fjn_finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fif"の"開始日時","終了日時","PID"を"jn0005_fif_start_end_pid"と呼ぶ
+
     もし "jn0005_fjn/finally"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -6313,6 +6509,11 @@ language:ja
     |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
+
+    かつ "jn0005_fjn"の"開始日時","終了日時","PID"を"jn0005_fjn_start_end_pid"と呼ぶ
+    かつ "jn0005_f1"の"開始日時","終了日時","PID"を"jn0005_f1_start_end_pid"と呼ぶ
+    かつ "jn0005_fjn_finally"の"開始日時","終了日時","PID"を"jn0005_fjn_finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fif"の"開始日時","終了日時","PID"を"jn0005_fif_start_end_pid"と呼ぶ
 
     もし "jn0005_fjn"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -6430,6 +6631,12 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fjn"の"開始日時","終了日時","PID"を"jn0005_fjn_start_end_pid"と呼ぶ
+    かつ "jn0005_f1"の"開始日時","終了日時","PID"を"jn0005_f1_start_end_pid"と呼ぶ
+    かつ "jn0005_fjn_finally"の"開始日時","終了日時","PID"を"jn0005_fjn_finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fif"の"開始日時","終了日時","PID"を"jn0005_fif_start_end_pid"と呼ぶ
+
     もし "finally"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -6546,6 +6753,9 @@ language:ja
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了|          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
 
+    かつ "jn0005_fjn_finally"の"開始日時","終了日時","PID"を"jn0005_fjn_finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fif"の"開始日時","終了日時","PID"を"jn0005_fif_start_end_pid"と呼ぶ
+
     もし "jn0005_fjn/finally"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -6644,6 +6854,11 @@ language:ja
     |  |    jn_2f   |jn_2f  |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
     |  |finally     |finally|                               |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|  
     |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行| 
+
+    かつ "jn11"の"開始日時","終了日時","PID"を"jn11_start_end_pid"と呼ぶ
+    かつ "jn111"の"開始日時","終了日時","PID"を"jn111_start_end_pid"と呼ぶ
+    かつ "jn11_finally"の"開始日時","終了日時","PID"を"jn11_finally_start_end_pid"と呼ぶ
+    かつ "jn11_f"の"開始日時","終了日時","PID"を"jn11_f_start_end_pid"と呼ぶ
 
     もし "jn11"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -6746,6 +6961,14 @@ language:ja
     |  |    jn_2f   |jn_2f  |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
     |  |finally     |finally|                               |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|  
     |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行| 
+
+    かつ "jn1"の"開始日時","終了日時","PID"を"jn1_start_end_pid"と呼ぶ
+    かつ "jn11"の"開始日時","終了日時","PID"を"jn11_start_end_pid"と呼ぶ
+    かつ "jn111"の"開始日時","終了日時","PID"を"jn111_start_end_pid"と呼ぶ
+    かつ "jn11_finally"の"開始日時","終了日時","PID"を"jn11_finally_start_end_pid"と呼ぶ
+    かつ "jn11_f"の"開始日時","終了日時","PID"を"jn11_f_start_end_pid"と呼ぶ
+    かつ "jn1_finally"の"開始日時","終了日時","PID"を"jn1_finally_start_end_pid"と呼ぶ
+    かつ "jn_1f"の"開始日時","終了日時","PID"を"jn_1f_start_end_pid"と呼ぶ
 
     もし "jn1"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -6851,6 +7074,13 @@ language:ja
     |  |finally     |finally|                               |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|  
     |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行| 
 
+    かつ "jn11"の"開始日時","終了日時","PID"を"jn11_start_end_pid"と呼ぶ
+    かつ "jn111"の"開始日時","終了日時","PID"を"jn111_start_end_pid"と呼ぶ
+    かつ "jn11_finally"の"開始日時","終了日時","PID"を"jn11_finally_start_end_pid"と呼ぶ
+    かつ "jn11_f"の"開始日時","終了日時","PID"を"jn11_f_start_end_pid"と呼ぶ
+    かつ "jn1_finally"の"開始日時","終了日時","PID"を"jn1_finally_start_end_pid"と呼ぶ
+    かつ "jn_1f"の"開始日時","終了日時","PID"を"jn_1f_start_end_pid"と呼ぶ
+
     もし "jn11"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -6951,6 +7181,14 @@ language:ja
     |  |    jn_2f   |jn_2f  |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|
     |  |finally     |finally|                               |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|  
     |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行| 
+
+    かつ "jn22"の"開始日時","終了日時","PID"を"jn22_start_end_pid"と呼ぶ
+    かつ "j221"の"開始日時","終了日時","PID"を"j221_start_end_pid"と呼ぶ
+    かつ "j222"の"開始日時","終了日時","PID"を"j222_start_end_pid"と呼ぶ
+    かつ "jn22_finally"の"開始日時","終了日時","PID"を"jn22_finally_start_end_pid"と呼ぶ
+    かつ "jn22_f"の"開始日時","終了日時","PID"を"jn22_f_start_end_pid"と呼ぶ
+    かつ "jn2_finally"の"開始日時","終了日時","PID"を"jn2_finally_start_end_pid"と呼ぶ
+    かつ "jn_2f"の"開始日時","終了日時","PID"を"jn_2f_start_end_pid"と呼ぶ
 
     もし "jn22"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -7054,6 +7292,16 @@ language:ja
     |  |    jn_2f   |jn_2f  |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
     |  |finally     |finally|                               |test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行|  
     |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |正常終了  |          |表示 再実行| 
+
+    かつ "jn1"の"開始日時","終了日時","PID"を"jn1_start_end_pid"と呼ぶ
+    かつ "jn11"の"開始日時","終了日時","PID"を"jn11_start_end_pid"と呼ぶ
+    かつ "jn111"の"開始日時","終了日時","PID"を"jn111_start_end_pid"と呼ぶ
+    かつ "jn11_finally"の"開始日時","終了日時","PID"を"jn11_finally_start_end_pid"と呼ぶ
+    かつ "jn11_f"の"開始日時","終了日時","PID"を"jn11_f_start_end_pid"と呼ぶ
+    かつ "jn1_finally"の"開始日時","終了日時","PID"を"jn1_finally_start_end_pid"と呼ぶ
+    かつ "jn_1f"の"開始日時","終了日時","PID"を"jn_1f_start_end_pid"と呼ぶ
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn_f"の"開始日時","終了日時","PID"を"jn_f_start_end_pid"と呼ぶ
 
     もし "jn1"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -7159,6 +7407,10 @@ language:ja
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス|操作       |
     |  |jn0004        |jn0004|        |        |エラー終了|監視 再実行|
 
+    かつ "j1"の"開始日時","終了日時","PID"を"j1_start_end_pid"と呼ぶ
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
+
     もし "jn0004"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -7229,6 +7481,13 @@ language:ja
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス|操作       |
     |  |jn0004        |jn0004|        |        |正常終了|監視 再実行|
+
+    かつ "j1"の"開始日時","終了日時","PID"を"j1_start_end_pid"と呼ぶ
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
+    かつ "j3"の"開始日時","終了日時","PID"を"j3_start_end_pid"と呼ぶ
+    かつ "j4"の"開始日時","終了日時","PID"を"j4_start_end_pid"と呼ぶ
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "jn0004"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -7302,6 +7561,12 @@ language:ja
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス|操作       |
     |  |jn0004        |jn0004|        |        |エラー終了|監視 再実行|
 
+    かつ "j1"の"開始日時","終了日時","PID"を"j1_start_end_pid"と呼ぶ
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
+    かつ "j3"の"開始日時","終了日時","PID"を"j3_start_end_pid"と呼ぶ
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
+
     もし "jn0004"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -7373,6 +7638,12 @@ language:ja
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス|操作       |
     |  |jn0004        |jn0004|        |        |エラー終了|監視 再実行|
+
+    かつ "j1"の"開始日時","終了日時","PID"を"j1_start_end_pid"と呼ぶ
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
+    かつ "j3"の"開始日時","終了日時","PID"を"j3_start_end_pid"と呼ぶ
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "jn0004"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -7451,6 +7722,12 @@ language:ja
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス|操作       |
     |  |jn0004        |jn0004|        |        |エラー終了|監視 再実行|
+
+    かつ "j1"の"開始日時","終了日時","PID"を"j1_start_end_pid"と呼ぶ
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
+    かつ "j3"の"開始日時","終了日時","PID"を"j3_start_end_pid"と呼ぶ
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0004_f"の"開始日時","終了日時","PID"を"jn0004_f_start_end_pid"と呼ぶ
 
     もし "jn0004"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
@@ -7553,6 +7830,20 @@ language:ja
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス|操作       |
     |  |jn0005        |jn0005|        |        |エラー終了|監視 再実行|
 
+    かつ "j1"の"開始日時","終了日時","PID"を"j1_start_end_pid"と呼ぶ
+    かつ "j2"の"開始日時","終了日時","PID"を"j2_start_end_pid"と呼ぶ
+    かつ "jn4"の"開始日時","終了日時","PID"を"jn4_start_end_pid"と呼ぶ
+    かつ "j41"の"開始日時","終了日時","PID"を"j41_start_end_pid"と呼ぶ
+    かつ "jn4_finally"の"開始日時","終了日時","PID"を"jn4_finally_start_end_pid"と呼ぶ
+    かつ "jn4_f"の"開始日時","終了日時","PID"を"jn4_f_start_end_pid"と呼ぶ
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fjn"の"開始日時","終了日時","PID"を"jn0005_fjn_start_end_pid"と呼ぶ
+    かつ "jn0005_f1"の"開始日時","終了日時","PID"を"jn0005_f1_start_end_pid"と呼ぶ
+    かつ "jn0005_f2"の"開始日時","終了日時","PID"を"jn0005_f2_start_end_pid"と呼ぶ
+    かつ "jn0005_fjn_finally"の"開始日時","終了日時","PID"を"jn0005_fjn_finally_start_end_pid"と呼ぶ
+    かつ "jn0005_fif"の"開始日時","終了日時","PID"を"jn0005_fif_start_end_pid"と呼ぶ
+    かつ "jn0005_f"の"開始日時","終了日時","PID"を"jn0005_f_start_end_pid"と呼ぶ
+
     もし "jn0005"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
 
@@ -7653,6 +7944,16 @@ language:ja
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス|操作       |
     |  |jn0006        |jn0006|        |        |エラー終了|監視 再実行|
+
+    かつ "jn1"の"開始日時","終了日時","PID"を"jn1_start_end_pid"と呼ぶ
+    かつ "jn11"の"開始日時","終了日時","PID"を"jn11_start_end_pid"と呼ぶ
+    かつ "jn111"の"開始日時","終了日時","PID"を"jn111_start_end_pid"と呼ぶ
+    かつ "jn11_finally"の"開始日時","終了日時","PID"を"jn11_finally_start_end_pid"と呼ぶ
+    かつ "jn11_f"の"開始日時","終了日時","PID"を"jn11_f_start_end_pid"と呼ぶ
+    かつ "jn1_finally"の"開始日時","終了日時","PID"を"jn1_finally_start_end_pid"と呼ぶ
+    かつ "jn_1f"の"開始日時","終了日時","PID"を"jn_1f_start_end_pid"と呼ぶ
+    かつ "finally"の"開始日時","終了日時","PID"を"finally_start_end_pid"と呼ぶ
+    かつ "jn_f"の"開始日時","終了日時","PID"を"jn_f_start_end_pid"と呼ぶ
 
     もし "jn0006"の"再実行"リンクをクリックする
     ならば "ジョブネット再実行設定画面"を表示していること
