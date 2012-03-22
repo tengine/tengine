@@ -51,6 +51,7 @@ class Tengine::Test::Script
     entry '03', :spawn, 'spawn' do
       def execute(script)
         script.messages[:pid] = spawn(script.code, (script.options || {}).symbolize_keys)
+          .tap {|p| Process.detach(p) }
       end
     end
 
