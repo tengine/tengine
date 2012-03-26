@@ -92,7 +92,7 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
     もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
-    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    ならば "tengine_job_test /jn0004/j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0004/j1 finish"と"スクリプトログ"に出力されていないこと
 
     かつ "tengine_job_test /jn0004/jn0004_f start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 start"の後であること
@@ -127,7 +127,7 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
     もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
-    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    ならば "tengine_job_test /jn0004/j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0004/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 start"の後であること
     かつ "tengine_job_test /jn0004/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 finish"の後であること
     かつ "tengine_job_test /jn0004/j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j2 start"の後であること
@@ -173,7 +173,7 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
     もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
-    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    ならば "tengine_job_test /jn0004/j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0004/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 start"の後であること
     かつ "tengine_job_test /jn0004/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 finish"の後であること
     かつ "tengine_job_test /jn0004/j3 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 finish"の後であること
@@ -274,14 +274,14 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
     もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
-    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    ならば "tengine_job_test /jn0005/j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
     かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
     かつ "tengine_job_test /jn0005/j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j2 start"の後であること
     かつ "tengine_job_test /jn0005/jn4/j41 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/j41 finish"と"スクリプトログ"に出力されていないこと
     かつ "tengine_job_test /jn0005/jn4/finally/jn4_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/j41 start"後であること
-    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/finally/jn0004_f start"の後であること
+    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/finally/jn4_f start"の後であること
     かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/j2 finish"と"tengine_job_test  /jn0005/jn4/finally/jn4_f finish"後であること
     かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"の後であること
     かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f2 start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish"後であること
@@ -329,7 +329,7 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
     もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
-    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    ならば "tengine_job_test /jn0005/j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
     かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
     かつ "tengine_job_test /jn0005/j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j2 start"の後であること
@@ -337,7 +337,7 @@
     かつ "tengine_job_test /jn0005/jn4/j41 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 start"の後であること
     かつ "tengine_job_test /jn0005/jn4/j42 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/j42 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j42 start"の後であること
-    かつ "tengine_job_test /jn0005/jn4/j43 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j43 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j43 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/j43 finish"と"スクリプトログ"に出力されていないこと
     かつ "tengine_job_test /jn0005/jn4/finally/jn4_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/j42 finish"と"tengine_job_test /jn0005/jn4/j43 start"後であること
     かつ "tengine_job_test /jn0005/jn4/finally/jn4_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/finally/jn0004_f start"の後であること
@@ -396,7 +396,7 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
     もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
-    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    ならば "tengine_job_test /jn0005/j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
     かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
     かつ "tengine_job_test /jn0005/j2 finish"と"スクリプトログ"に出力されていないこと
@@ -404,7 +404,7 @@
     かつ "tengine_job_test /jn0005/jn4/j41 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 start"の後であること
     かつ "tengine_job_test /jn0005/jn4/j42 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/j42 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j42 start"の後であること
-    かつ "tengine_job_test /jn0005/jn4/j43 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j43 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j43 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/j43 finish"と"スクリプトログ"に出力されていないこと
     かつ "tengine_job_test /jn0005/jn4/finally/jn4_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/j42 finish"と"tengine_job_test /jn0005/jn4/j43 start"後であること
     かつ "tengine_job_test /jn0005/jn4/finally/jn4_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/finally/jn0004_f start"の後であること
@@ -456,16 +456,17 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
     もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
-    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    ならば "tengine_job_test /jn0005/j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
     かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
+    かつ "tengine_job_test /jn0005/j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j2 start"の後であること
     かつ "tengine_job_test /jn0005/jn4/j41 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/j41 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 start"の後であること
     かつ "tengine_job_test /jn0005/jn4/j42 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/j42 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j42 start"の後であること
     かつ "tengine_job_test /jn0005/jn4/j43 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/j43 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j43 start"の後であること
-    かつ "tengine_job_test /jn0005/jn4/j44 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j42 finish"と"tengine_job_test /jn0005/jn4/j42 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j44 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j42 finish"と"tengine_job_test /jn0005/jn4/j43 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/j44 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j44 start"の後であること
     かつ "tengine_job_test /jn0005/jn4/finally/jn4_f start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j44 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/finally/jn4_f finish"と"スクリプトログ"に出力されていないこと
@@ -499,8 +500,6 @@
     かつ ジョブ"/jn0005/jn4/j42" のステータスが正常終了であること
     かつ ジョブ"/jn0005/jn4/j43" のステータスが正常終了であること
     かつ ジョブ"/jn0005/jn4/j44" のステータスが正常終了であること
-    かつ ジョブ"/jn0005/jn4/finally" のステータスが正常終了であること
-    かつ ジョブ"/jn0005/jn4/finally/jn4_f" のステータスが正常終了であること
     かつ ジョブネット"/jn0005/jn4/finally" のステータスが正常終了であること
     かつ ジョブ"/jn0005/jn4/finally/jn4_f" のステータスが正常終了であること
     かつ ジョブネット"/jn0005/finally" のステータスがエラー終了であること
@@ -520,21 +519,20 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
     もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
-    ならば "tengine_job_test j1 start"と"スクリプトログ"に出力されていること
+    ならば "tengine_job_test /jn0005/j1 start"と"スクリプトログ"に出力されていること
     かつ "tengine_job_test /jn0005/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 start"の後であること
     かつ "tengine_job_test /jn0005/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
+    かつ "tengine_job_test /jn0005/j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j2 start"の後であること
     かつ "tengine_job_test /jn0005/jn4/j41 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j1 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/j41 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 start"の後であること
     かつ "tengine_job_test /jn0005/jn4/j42 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/j42 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j42 start"の後であること
     かつ "tengine_job_test /jn0005/jn4/j43 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j41 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/j43 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j43 start"の後であること
-    かつ "tengine_job_test /jn0005/jn4/j44 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j42 finish"と"tengine_job_test /jn0005/jn4/j42 finish"の後であること
+    かつ "tengine_job_test /jn0005/jn4/j44 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j42 finish"と"tengine_job_test /jn0005/jn4/j43 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/j44 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j44 start"の後であること
     かつ "tengine_job_test /jn0005/jn4/finally/jn4_f start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j44 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/finally/jn4_f finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/jn4_f start"の後であること
-    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/j42 finish"と"tengine_job_test /jn0005/jn4/j43 start"後であること
-    かつ "tengine_job_test /jn0005/jn4/finally/jn4_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/jn4/finally/jn0004_f start"の後であること
     かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/j2 finish"と"tengine_job_test /jn0005/jn4/finally/jn4_f finish"後であること
     かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish"と"スクリプトログ"に一回出力されていないこと
     かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"後であること
