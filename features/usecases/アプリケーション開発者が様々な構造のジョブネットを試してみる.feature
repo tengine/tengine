@@ -1059,8 +1059,8 @@
   シナリオ: [正常系]循環参照するジョブを読み込ませてみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_26_loop_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力に"circular dependency"と表示されていること
-    かつ "Tengineコアプロセス"の標準出力に"Tengine::Job::DslError"と表示されていること
+    ならば "Tengineコアプロセス"の標準エラー出力に"circular dependency"と表示されていること
+    かつ "Tengineコアプロセス"の標準エラー出力に"Tengine::Job::DslError"と表示されていること
  
 
   # ./usecases/job/dsl/01_01_27_loop_expansion_job.rb
@@ -1086,8 +1086,8 @@
   シナリオ: [正常系]循環参照するexpansionのジョブを読み込ませてみる
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_27_loop_expansion_job.rb -f ./features/config/tengined.yml.erb"というコマンドを実行する
-    ならば "Tengineコアプロセス"の標準出力に"circular dependency"と表示されていること
-    かつ "Tengineコアプロセス"の標準出力に"Tengine::Job::DslError"と表示されていること
+    ならば "Tengineコアプロセス"の標準エラー出力に"circular dependency"と表示されていること
+    かつ "Tengineコアプロセス"の標準エラー出力に"Tengine::Job::DslError"と表示されていること
 
   # ./usecases/job/dsl/01_01_28_loop_expansion_job_to_expansion_job.rb
   #  -------------------
@@ -1597,6 +1597,7 @@
 
     前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
     かつ 認証情報が名称:"test_credential1-1"で登録されている
+    かつ 認証情報の"test_credential1"と"test_credential1-1"が同じユーザで登録されている
     
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_01_34_rootjobnet_includes_parallel_jobnets_having_finally_and_different_credentials.rb  -f ./features/config/tengined.yml.erb"というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
