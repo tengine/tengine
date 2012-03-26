@@ -62,10 +62,10 @@
     もし 70秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
-    |  |j1        |j1       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |タイムアウト強制停止済|j2, j3    |表示 再実行|
-    |  |  hadoop_job1|      |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
+    |  |j1        |j1       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |エラー終了(タイムアウト強制停止済)|j2, j3    |表示 再実行|
+    |  |  hadoop_job1|      |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
     |  |j2        |j2       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |初期化済              |j4        |表示 再実行|
     |  |  hadoop_job2|      |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
     |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
@@ -87,7 +87,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0004_hadoop       |jn0004_hadoop|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0004_hadoop       |jn0004_hadoop|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
     もし "イベント一覧画面"を表示する
     ならば 以下の行のように同じイベントキーのstop.execution.job.tengineが1件だけ表示されていること
@@ -171,14 +171,14 @@
     |  |  hadoop_job1|      |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
-    |  |j2        |j2       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
-    |  |  hadoop_job2|      |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |j3        |j3       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
-    |  |  hadoop_job3|      |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
+    |  |j2        |j2       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
+    |  |  hadoop_job2|      |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |j3        |j3       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
+    |  |  hadoop_job3|      |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
     |  |j4        |j4       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |  hadoop_job4|      |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
     |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
@@ -192,7 +192,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0004_hadoop       |jn0004_hadoop|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0004_hadoop       |jn0004_hadoop|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_02_01_03
   シナリオ: [正常系]実行中のジョブが1つで片方が正常終了している状態でタイムアウト強制停止
@@ -270,10 +270,10 @@
     |  |  hadoop_job1|      |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
-    |  |j2        |j2       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
-    |  |  hadoop_job2|      |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
+    |  |j2        |j2       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
+    |  |  hadoop_job2|      |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
     |  |j3        |j3       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |正常終了              |j4        |表示 再実行|
     |  |  hadoop_job3|      |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
@@ -291,7 +291,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0004_hadoop       |jn0004_hadoop|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0004_hadoop       |jn0004_hadoop|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_02_01_04
   シナリオ: [正常系]実行中のジョブが1つで片方がエラー終了している状態でタイムアウト強制停止
@@ -369,10 +369,10 @@
     |  |  hadoop_job1|      |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
-    |  |j2        |j2       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
-    |  |  hadoop_job2|      |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
+    |  |j2        |j2       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
+    |  |  hadoop_job2|      |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
     |  |j3        |j3       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了            |j4        |表示 再実行|
     |  |  hadoop_job3|      |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
     |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
@@ -390,7 +390,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0004_hadoop       |jn0004_hadoop|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0004_hadoop       |jn0004_hadoop|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_02_01_05
   シナリオ: [正常系]finally実行中にタイムアウト強制停止
@@ -480,16 +480,16 @@
     |  |  hadoop_job4|      |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
-    |  |finally   |finally  |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示 再実行|
-    |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示 再実行|
-    |  |    finally|        |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |      Map   |       |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |      Reduce|       |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
+    |  |finally   |finally  |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示 再実行|
+    |  |    finally|        |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Map   |       |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Reduce|       |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0004_hadoop       |jn0004_hadoop|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0004_hadoop       |jn0004_hadoop|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
 
 #--retry2--
@@ -628,7 +628,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0005_hadoop        |jn0005_hadoop |        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005_hadoop        |jn0005_hadoop |        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_02_01_07
   シナリオ: [正常系]ルートジョブネット内のジョブネット内で実行中のジョブが２つ
@@ -716,19 +716,19 @@
     |  |  hadoop_job2   |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Map         |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Reduce      |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
-    |  |jn4             |jn4        |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
+    |  |jn4             |jn4        |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
     |  |  j41           |j41        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |正常終了              |j42,j43   |表示 再実行|
     |  |    hadoop_job41|           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
-    |  |  j42           |j42        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j44       |表示 再実行|
-    |  |    hadoop_job42|           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |  j43           |j43        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j44       |表示 再実行|
-    |  |    hadoop_job43|           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
+    |  |  j42           |j42        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j44       |表示 再実行|
+    |  |    hadoop_job42|           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |  j43           |j43        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j44       |表示 再実行|
+    |  |    hadoop_job43|           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
     |  |  j44           |j44        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |    hadoop_job44|           |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
     |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
@@ -765,7 +765,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0005_hadoop        |jn0005_hadoop |        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005_hadoop        |jn0005_hadoop |        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_02_01_08
   シナリオ: [正常系]ルートジョブネット内のジョブネット内で実行中のジョブが1つ_片方が正常終了
@@ -853,15 +853,15 @@
     |  |  hadoop_job2   |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Map         |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Reduce      |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
-    |  |jn4             |jn4        |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
+    |  |jn4             |jn4        |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
     |  |  j41           |j41        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |正常終了              |j42,j43   |表示 再実行|
     |  |    hadoop_job41|           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
-    |  |  j42           |j42        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j44       |表示 再実行|
-    |  |    hadoop_job42|           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
+    |  |  j42           |j42        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j44       |表示 再実行|
+    |  |    hadoop_job42|           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
     |  |  j43           |j43        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |正常終了              |j44       |表示 再実行|
     |  |    hadoop_job43|           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
@@ -902,7 +902,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0005_hadoop        |jn0005_hadoop |        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005_hadoop        |jn0005_hadoop |        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_02_01_09
   シナリオ: [正常系]ルートジョブネット内のジョブネット内で実行中のジョブが1つ_片方がエラー終了
@@ -990,15 +990,15 @@
     |  |  hadoop_job2   |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Map         |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Reduce      |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
-    |  |jn4             |jn4        |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
+    |  |jn4             |jn4        |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
     |  |  j41           |j41        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |正常終了              |j42,j43   |表示 再実行|
     |  |    hadoop_job41|           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
-    |  |  j42           |j42        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j44       |表示 再実行|
-    |  |    hadoop_job42|           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
+    |  |  j42           |j42        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j44       |表示 再実行|
+    |  |    hadoop_job42|           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
     |  |  j43           |j43        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了            |j44       |表示 再実行|
     |  |    hadoop_job43|           |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
     |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
@@ -1039,7 +1039,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0005_hadoop        |jn0005_hadoop |        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005_hadoop        |jn0005_hadoop |        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_02_01_10
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のfinallyが実行中にタイムアウト強制停止
@@ -1127,7 +1127,7 @@
     |  |  hadoop_job2   |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Map         |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |    Reduce      |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
-    |  |jn4             |jn4        |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
+    |  |jn4             |jn4        |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
     |  |  j41           |j41        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |正常終了              |j42,j43   |表示 再実行|
     |  |    hadoop_job41|           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
@@ -1144,11 +1144,11 @@
     |  |    hadoop_job44|           |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
     |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
     |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
-    |  |  finally       |finally    |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示 再実行|
-    |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示 再実行|
-    |  |      hadoop_jn4_f|         |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |        Map      |          |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |        Reduce   |          |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
+    |  |  finally       |finally    |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示 再実行|
+    |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示 再実行|
+    |  |      hadoop_jn4_f|         |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |        Map      |          |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |        Reduce   |          |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
     |  |j4              |j4         |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |  hadoop_job4   |           |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
     |  |    Map         |           |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
@@ -1176,7 +1176,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0005_hadoop        |jn0005_hadoop |        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005_hadoop        |jn0005_hadoop |        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_02_01_11
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のfinallyのfinallyが実行中にタイムアウト強制停止
@@ -1290,8 +1290,8 @@
     |  |  hadoop_job4   |           |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
     |  |    Map         |           |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
     |  |    Reduce      |           |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
-    |  |finally         |finally    |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示 再実行|
-    |  |  jn0005_fjn    |jn_0005_fjn|                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|jn0005_f  |表示 再実行|
+    |  |finally         |finally    |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示 再実行|
+    |  |  jn0005_fjn    |jn_0005_fjn|                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|jn0005_f  |表示 再実行|
     |  |    jn0005_f1   |jn_0005_f1 |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |正常終了              |jn0005_f2 |表示 再実行|
     |  |      hadoop_job1|          |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |        Map      |          |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
@@ -1300,11 +1300,11 @@
     |  |      hadoop_job1|          |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
     |  |        Map      |          |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
     |  |        Reduce   |          |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
-    |  |    finally     |finally    |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示 再実行|
-    |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示 再実行|
-    |  |        hadoop_job1|        |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |          Map      |        |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |          Reduce   |        |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
+    |  |    finally     |finally    |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示 再実行|
+    |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示 再実行|
+    |  |        hadoop_job1|        |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |          Map      |        |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |          Reduce   |        |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |    hadoop_job1 |           |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
     |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
@@ -1313,7 +1313,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0005_hadoop        |jn0005_hadoop |        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005_hadoop        |jn0005_hadoop |        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_02_01_12
   シナリオ: [正常系]ジョブネットの中のジョブネット内にあるジョブを実行中にタイムアウト強制停止
@@ -1390,12 +1390,12 @@
     もし 80秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名    |説明   |実行スクリプト                 |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
-    |  |jn1         |jn1    |                                      |test_server1|test_credential1|2011/11/25 14:43:22|        |タイムアウト強制停止済|jn2       |表示 再実行|
-    |  |  jn11      |jn11   |                                      |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j12       |表示 再実行|
-    |  |    J111    |j111   |$HOME/0006_retry_three_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j112      |表示 再実行|
-    |  |      hadoop_job111||                                      |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |        Map        ||                                      |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |        Reduce     ||                                      |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
+    |  |jn1         |jn1    |                                      |test_server1|test_credential1|2011/11/25 14:43:22|        |エラー終了(タイムアウト強制停止済)|jn2       |表示 再実行|
+    |  |  jn11      |jn11   |                                      |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j12       |表示 再実行|
+    |  |    J111    |j111   |$HOME/0006_retry_three_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j112      |表示 再実行|
+    |  |      hadoop_job111||                                      |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |        Map        ||                                      |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |        Reduce     ||                                      |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
     |  |    j112    |j112   |$HOME/0006_retry_three_layer_hadoop.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |      hadoop_job112||                                      |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
     |  |        Map        ||                                      |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
@@ -1448,7 +1448,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0006_hadoop        |jn0006_hadoop |        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0006_hadoop        |jn0006_hadoop |        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
 
 #== startingからdying ==
@@ -1502,10 +1502,10 @@
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
-    |  |j1        |j1       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |タイムアウト強制停止済|j2, j3    |表示 再実行|
-    |  |  hadoop_job1|      |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
+    |  |j1        |j1       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |エラー終了(タイムアウト強制停止済)|j2, j3    |表示 再実行|
+    |  |  hadoop_job1|      |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |    Reduce|         |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
     |  |j2        |j2       |$HOME/0004_retry_one_layer_hadoop.sh|test_server1|test_credential1|                   |        |初期化済              |j4        |表示 再実行|
     |  |  hadoop_job2|      |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
     |  |    Map   |         |                                    |test_server1|test_credential1|                   |        |初期化済              |          |表示   |
@@ -1716,11 +1716,11 @@
     |  |  hadoop_job2   |           |                                    |test_server1|test_credential1|                   |        |正常終了            |          |表示   |
     |  |    Map         |           |                                    |test_server1|test_credential1|                   |        |正常終了            |          |表示   |
     |  |    Reduce      |           |                                    |test_server1|test_credential1|                   |        |正常終了            |          |表示   |
-    |  |jn4             |jn4        |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
-    |  |  j41           |j41        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j42,j43   |表示 再実行|
-    |  |    hadoop_job41|           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
+    |  |jn4             |jn4        |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j42,j43   |表示 再実行|
+    |  |    hadoop_job41|           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
     |  |  j42           |j42        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |初期化済            |j44       |表示 再実行|
     |  |    hadoop_job42|           |                                    |test_server1|test_credential1|                   |        |初期化済            |          |表示   |
     |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |初期化済            |          |表示   |
@@ -1765,7 +1765,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0005_hadoop        |jn0005_hadoop |        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005_hadoop        |jn0005_hadoop |        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
     # Execution
     もし 実行ジョブ"jn0005_hadoop"のExecutionを"execution"と呼ぶことにする
@@ -1983,7 +1983,7 @@
 
 
 
-  # このシナリオは、バグ [タイムアウト強制停止が発生した場合エラー終了しているジョブのステータスが全てタイムアウト強制停止済みになってしまう]
+  # このシナリオは、バグ [タイムアウト強制停止が発生した場合エラー終了しているジョブのステータスが全てエラー終了(タイムアウト強制停止済)みになってしまう]
         # https://www.pivotaltracker.com/story/show/22618833
         # のテストを行うために追加しました。
   @05_02_01_15
@@ -2072,15 +2072,15 @@
     |  |  hadoop_job2   |           |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
     |  |    Map         |           |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
     |  |    Reduce      |           |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
-    |  |jn4             |jn4        |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
+    |  |jn4             |jn4        |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
     |  |  j41           |j41        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |正常終了              |j42,j43   |表示 再実行|
     |  |    hadoop_job41|           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
     |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |正常終了              |          |表示   |
-    |  |  j42           |j42        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j44       |表示 再実行|
-    |  |    hadoop_job42|           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
-    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示   |
+    |  |  j42           |j42        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j44       |表示 再実行|
+    |  |    hadoop_job42|           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
     |  |  j43           |j43        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了            |j44       |表示 再実行|
     |  |    hadoop_job43|           |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
     |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |エラー終了            |          |表示   |
@@ -2121,4 +2121,4 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明|開始日時|終了日時|ステータス|操作|
-    |  |jn0005_hadoop |jn0005_hadoop | | |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005_hadoop |jn0005_hadoop | | |エラー終了(タイムアウト強制停止済)|監視 再実行|
