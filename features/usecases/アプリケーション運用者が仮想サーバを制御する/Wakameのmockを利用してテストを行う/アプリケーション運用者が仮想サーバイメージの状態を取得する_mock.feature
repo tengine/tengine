@@ -24,7 +24,7 @@
   シナリオ: [正常系]アプリケーション運用者は仮想サーバイメージ一覧画面を開き、仮想サーバイメージが表示されていることを確認する
     # 代替コースB: 管理下の仮想サーバイメージが存在しない
     # 仮想サーバイメージが0件のファイル
-    もし Wakameのモックファイル"./features/usecases/resource/test_files/20_describe_images_0_virtual_server_images.json"を"./features/usecases/resource/test_files/describe_images.json"にコピーする
+    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/20_describe_images_0_virtual_server_images.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_images.json"にコピーする
     かつ "Tengineリソースウォッチャ"プロセスを再起動する
     もし "仮想サーバイメージ一覧"画面を表示する
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること
@@ -33,7 +33,7 @@
 
     # Wakameに物理サーバの登録を行う
     # 仮想サーバイメージが5件のファイル
-    もし Wakameのモックファイル"./features/usecases/resource/test_files/21_describe_images_5_virtual_server_images.json"を"./features/usecases/resource/test_files/describe_images.json"にコピーする
+    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/21_describe_images_5_virtual_server_images.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_images.json"にコピーする
     かつ "Tengineリソースウォッチャ"プロセスを再起動する
     # > tengine_resource_watchd
     もし "仮想サーバイメージ一覧"画面を表示する
@@ -94,7 +94,7 @@
 
     # 代替コースD: 絞り込み検索をしている状態でページ切り替えを行う
     # 仮想サーバイメージが60件のファイル
-    もし Wakameのモックファイル"./features/usecases/resource/test_files/22_describe_images_60_virtual_server_images.json"を"./features/usecases/resource/test_files/describe_images.json"にコピーする
+    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/22_describe_images_60_virtual_server_images.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_images.json"にコピーする
     かつ "Tengineリソースウォッチャ"プロセスを再起動する
     # > tengine_resource_watchd
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること
