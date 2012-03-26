@@ -56,6 +56,7 @@
     かつ "virtual_server_uuid_92"の列の"削除"チェックボックスをオンにする
     かつ "virtual_server_uuid_93"の列の"削除"チェックボックスをオンにする
     かつ "選択したサーバを停止"ボタンをクリックする
+    かつ "確認ダイアログ"の"OK"ボタンをクリックする
     かつ tengine_console のログに以下の文言が表示されること
     """
     Tama::Controllers::TamaTestController#terminate_instances(["virtual_server_uuid_91"])
