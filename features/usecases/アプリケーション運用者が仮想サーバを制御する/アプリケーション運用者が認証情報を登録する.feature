@@ -26,16 +26,46 @@
     ならば "認証情報一覧画面"を表示していること
     ならば 以下の認証情報の一覧が表示されること
     |名称|表示名|認証情報種別|認証設定値|
-    |name_001|説明_001|SSHパスワード認証|表示              username: username|
-    |name_002|説明_002|SSH公開鍵認証|表示              username: username|
-    |name_003|説明_003|SSHパスワード認証|表示              username: username|
-    |name_004|説明_004|SSH公開鍵認証|表示              username: username|
-    |name_005|説明_005|SSHパスワード認証|表示              username: username|
-    |name_006|説明_006|SSH公開鍵認証|表示              username: username|
-    |name_007|説明_007|SSHパスワード認証|表示              username: username|
-    |name_008|説明_008|SSH公開鍵認証|表示              username: username|
-    |name_009|説明_009|SSHパスワード認証|表示              username: username|
-    |name_010|説明_010|SSH公開鍵認証|表示              username: username|
+    |name_001|説明_001|SSHパスワード認証|表示|
+    |name_002|説明_002|SSH公開鍵認証|表示|
+    |name_003|説明_003|SSHパスワード認証|表示|
+    |name_004|説明_004|SSH公開鍵認証|表示|
+    |name_005|説明_005|SSHパスワード認証|表示|
+    |name_006|説明_006|SSH公開鍵認証|表示
+    |name_007|説明_007|SSHパスワード認証|表示|
+    |name_008|説明_008|SSH公開鍵認証|表示|
+    |name_009|説明_009|SSHパスワード認証|表示|
+    |name_010|説明_010|SSH公開鍵認証|表示|
+ 
+    もし "name_001"の表示リンクをクリックする
+    ならば ポップアップに"username: username"と表示されていること
+
+    もし "name_002"の表示リンクをクリックする
+    ならば ポップアップに"username: username"と表示されていること
+
+    もし "name_003"の表示リンクをクリックする
+    ならば ポップアップに"username: username"と表示されていること
+
+    もし "name_004"の表示リンクをクリックする
+    ならば ポップアップに"username: username"と表示されていること
+
+    もし "name_005"の表示リンクをクリックする
+    ならば ポップアップに"username: username"と表示されていること
+
+    もし "name_006"の表示リンクをクリックする
+    ならば ポップアップに"username: username"と表示されていること
+
+    もし "name_007"の表示リンクをクリックする
+    ならば ポップアップに"username: username"と表示されていること
+
+    もし "name_008"の表示リンクをクリックする
+    ならば ポップアップに"username: username"と表示されていること
+
+    もし "name_009"の表示リンクをクリックする
+    ならば ポップアップに"username: username"と表示されていること
+
+    もし "name_010"の表示リンクをクリックする
+    ならば ポップアップに"username: username"と表示されていること
 
     # ソート
     もし "認証情報一覧画面"で認証情報の"名称"をクリックする
