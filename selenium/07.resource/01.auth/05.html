@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/" />
+<title>03_00_01_00_00_00</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
+</thead><tbody>
+<!--[正常系]アプリケーション運用者が認証情報を登録する_SSHパスワード認証-->
+<!--下準備-->
+<tr>
+	<td>open</td>
+	<td>/tengine/test/scripts</td>
+	<td></td>
+</tr>
+<tr>
+	<td>setTimeout</td>
+	<td>120000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=スクリプト一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>Tengine::Resource::Credential.delete_all</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--作成-->
+<tr>
+	<td>open</td>
+	<td>/tengine/resource/credentials/new</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=credential_name</td>
+	<td>create_ssh_password_credential</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=credential_description</td>
+	<td>SSHパスワード認証表示名</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=credential_auth_type_cd</td>
+	<td>label=SSH公開鍵認証</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=credential_auth_type_cd</td>
+	<td>label=SSHパスワード認証</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=credential_auth_values_username</td>
+	<td>username</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=credential_auth_values_password</td>
+	<td>password</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--確認-->
+<tr>
+	<td>verifyLocation</td>
+	<td>regexp:/tengine/resource/credentials$</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[1]</td>
+	<td>名称</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[2]</td>
+	<td>表示名</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[3]</td>
+	<td>認証情報種別</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[1]</td>
+	<td>create_ssh_password_credential</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[2]</td>
+	<td>SSHパスワード認証表示名</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]</td>
+	<td>SSHパスワード認証</td>
+</tr>
+</tbody></table>
+</body>
+</html>
