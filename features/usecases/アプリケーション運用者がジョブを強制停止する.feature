@@ -1240,7 +1240,7 @@
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名 |説明     |実行スクリプト  |接続サーバ名  |認証情報名       |開始日時            |終了日時 |ステータス |次のジョブ|操作        |
-    |  |j1      |j1      |              |test_server1|test_credential1|2011/11/25 14:43:22|        |実行中    |j2, j3   |表示 強制停止|
+    |  |j1      |j1      |              |test_server1|test_credential1|2011/11/25 14:43:22|        |準備中    |j2, j3   |表示 強制停止|
     |  |j2      |j2      |              |test_server2|test_credential2|                   |        |初期化済  |j4       |表示 再実行  |
     |  |j3      |j3      |              |test_server3|test_credential3|                   |        |初期化済  |j4       |表示 再実行  |
     |  |j4      |j4      |              |test_server1|test_credential1|                   |        |初期化済  |         |表示 再実行  |
@@ -3444,7 +3444,7 @@
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名 |説明     |実行スクリプト  |接続サーバ名  |認証情報名       |開始日時            |終了日時 |ステータス|次のジョブ|操作        |
-    |  |j1      |j1      |              |test_server1|test_credential1|2011/11/25 14:43:22|        |実行中   |j2, j3   |表示 強制停止|
+    |  |j1      |j1      |              |test_server1|test_credential1|2011/11/25 14:43:22|        |準備中   |j2, j3   |表示 強制停止|
     |  |j2      |j2      |              |test_server2|test_credential2|                   |        |初期化済 |j4       |表示 再実行  |
     |  |j3      |j3      |              |test_server3|test_credential3|                   |        |初期化済 |j4       |表示 再実行  |
     |  |j4      |j4      |              |test_server1|test_credential1|                   |        |初期化済 |         |表示 再実行  |
