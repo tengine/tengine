@@ -25,7 +25,11 @@
     
     ならば ジョブネット"/jobnet1101" のステータスがエラー終了であること
 
-    もし ジョブ"/jobnet1101/job1"の"表示"リンクをクリックする
+    もし ジョブ"/jobnet1101/job1"の"実行時PID"を"job1_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{job1_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{job1_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ ジョブ"/jobnet1101/job1"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -82,7 +86,11 @@
     かつ ジョブネット"/jn0004/finally" のステータスが正常終了であること
     かつ ジョブ"/jn0004/finally/jn0004_f" のステータスが正常終了であること
 
-    もし ジョブ"/jn0004/j1"の"表示"リンクをクリックする
+    もし ジョブ"/jn0004/j1"の"実行時PID"を"j1_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{j1_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{j1_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ ジョブ"/jn0004/j1"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -93,10 +101,9 @@
   
     もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
     ならば "tengine_job_test /jn0004/j1 start"と"スクリプトログ"に出力されていること
-    かつ "tengine_job_test /jn0004/j1 finish"と"スクリプトログ"に出力されていないこと
 
-    かつ "tengine_job_test /jn0004/jn0004_f start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 start"の後であること
-    かつ "tengine_job_test /jn0004/jn0004_f finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/jn0004_f start"の後であること
+    かつ "tengine_job_test /jn0004/finally/jn0004_f start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 start"の後であること
+    かつ "tengine_job_test /jn0004/finally/jn0004_f finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/finally/jn0004_f start"の後であること
 
 
   @01_02_03
@@ -117,6 +124,10 @@
     かつ ジョブネット"/jn0004/finally" のステータスが正常終了であること
     かつ ジョブ"/jn0004/finally/jn0004_f" のステータスが正常終了であること
 
+    もし ジョブ"/jn0004/j3"の"実行時PID"を"j3_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{j3_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{j3_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
     もし ジョブ"/jn0004/j3"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
@@ -132,8 +143,8 @@
     かつ "tengine_job_test /jn0004/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 finish"の後であること
     かつ "tengine_job_test /jn0004/j2 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j2 start"の後であること
     かつ "tengine_job_test /jn0004/j3 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 finish"の後であること
-    かつ "tengine_job_test /jn0004/jn0004_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0004/j3 start"の後であること
-    かつ "tengine_job_test /jn0004/jn0004_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0004/jn0004_f start"の後であること
+    かつ "tengine_job_test /jn0004/finally/jn0004_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0004/j3 start"の後であること
+    かつ "tengine_job_test /jn0004/finally/jn0004_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0004/finally/jn0004_f start"の後であること
 
 
   @01_02_04
@@ -154,21 +165,28 @@
     かつ ジョブネット"/jn0004/finally" のステータスが正常終了であること
     かつ ジョブ"/jn0004/finally/jn0004_f" のステータスが正常終了であること
 
+    もし ジョブ"/jn0004/j2"の"実行時PID"を"j2_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{j2_pid}.log"を"j2の標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{j2_pid}.log"を"j2の標準エラー出力のファイルパス"と呼ぶこととする
     もし ジョブ"/jn0004/j2"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "Job process failed. STDOUT and STDERR were redirected to files."
-    "You can see them at '#{標準出力のファイルパス}' and '#{標準エラー出力のファイルパス}'"
+    "You can see them at '#{j2の標準出力のファイルパス}' and '#{j2の標準エラー出力のファイルパス}'"
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+    もし ジョブ"/jn0004/j3"の"実行時PID"を"j3_pid"と呼ぶ
+    かつ "#{logdir}/stdout-#{j3_pid}.log"を"j3の標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{j3_pid}.log"を"j3の標準エラー出力のファイルパス"と呼ぶこととする
     もし ジョブ"/jn0004/j3"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "Job process failed. STDOUT and STDERR were redirected to files."
-    "You can see them at '#{標準出力のファイルパス}' and '#{標準エラー出力のファイルパス}'"
+    "You can see them at '#{j3の標準出力のファイルパス}' and '#{j3の標準エラー出力のファイルパス}'"
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
@@ -177,8 +195,8 @@
     かつ "tengine_job_test /jn0004/j1 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 start"の後であること
     かつ "tengine_job_test /jn0004/j2 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 finish"の後であること
     かつ "tengine_job_test /jn0004/j3 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0004/j1 finish"の後であること
-    かつ "tengine_job_test /jn0004/jn0004_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0004/j2 start"と"tengine_job_test /jn0004/j3 start"の後であること
-    かつ "tengine_job_test /jn0004/jn0004_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0004/jn0004_f start"の後であること
+    かつ "tengine_job_test /jn0004/finally/jn0004_f start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0004/j2 start"と"tengine_job_test /jn0004/j3 start"の後であること
+    かつ "tengine_job_test /jn0004/finally/jn0004_f finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0004/finally/jn0004_f start"の後であること
 
 
 
@@ -264,6 +282,10 @@
     かつ ジョブ"/jn0005/finally/jn0005_fjn/finally/jn0005_fif" のステータスが正常終了であること
     かつ ジョブ"/jn0005/finally/jn0005_f" のステータスが正常終了であること
 
+    もし ジョブ"/jn0005/jn4/j41"の"実行時PID"を"j41_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{j41_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{j41_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
     もし ジョブ"/jn0005/jn4/j41"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
@@ -319,6 +341,10 @@
     かつ ジョブ"/jn0005/finally/jn0005_fjn/finally/jn0005_fif" のステータスが正常終了であること
     かつ ジョブ"/jn0005/finally/jn0005_f" のステータスが正常終了であること
 
+    もし ジョブ"/jn0005/jn4/j43"の"実行時PID"を"j43_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{j43_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{j43_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
     もし ジョブ"/jn0005/jn4/j43"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
@@ -377,21 +403,28 @@
     かつ ジョブ"/jn0005/finally/jn0005_fjn/finally/jn0005_fif" のステータスが正常終了であること
     かつ ジョブ"/jn0005/finally/jn0005_f" のステータスが正常終了であること
 
+    もし ジョブ"/jn0005/j2"の"実行時PID"を"j2_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{j2_pid}.log"を"j2の標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{j2_pid}.log"を"j2の標準エラー出力のファイルパス"と呼ぶこととする
     もし ジョブ"/jn0005/j2"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "Job process failed. STDOUT and STDERR were redirected to files."
-    "You can see them at '#{標準出力のファイルパス}' and '#{標準エラー出力のファイルパス}'"
+    "You can see them at '#{j2の標準出力のファイルパス}' and '#{j2の標準エラー出力のファイルパス}'"
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+    もし ジョブ"/jn0005/jn4/j43"の"実行時PID"を"j43_pid"と呼ぶ
+    かつ "#{logdir}/stdout-#{j43_pid}.log"を"j43の標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{j43_pid}.log"を"j43の標準エラー出力のファイルパス"と呼ぶこととする
     もし ジョブ"/jn0005/jn4/j43"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "Job process failed. STDOUT and STDERR were redirected to files."
-    "You can see them at '#{標準出力のファイルパス}' and '#{標準エラー出力のファイルパス}'"
+    "You can see them at '#{j43の標準出力のファイルパス}' and '#{j43の標準エラー出力のファイルパス}'"
     "on the server '#{サーバ名}'"
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   
@@ -446,7 +479,12 @@
     かつ ジョブ"/jn0005/finally/jn0005_fjn/finally/jn0005_fif" のステータスが正常終了であること
     かつ ジョブ"/jn0005/finally/jn0005_f" のステータスが正常終了であること
 
-    もし ジョブ"/jn0005/jn4/finally/jn4_f"の"表示"リンクをクリックする
+
+    もし ジョブ"/jn0005/jn4/finally/jn4_f"の"実行時PID"を"jn4_f_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{jn4_f_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{jn4_f_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ ジョブ"/jn0005/jn4/finally/jn4_f"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -502,6 +540,7 @@
     かつ ジョブ"/jn0005/jn4/j44" のステータスが正常終了であること
     かつ ジョブネット"/jn0005/jn4/finally" のステータスが正常終了であること
     かつ ジョブ"/jn0005/jn4/finally/jn4_f" のステータスが正常終了であること
+    かつ ジョブ"/jn0005/j4" のステータスが正常終了であること
     かつ ジョブネット"/jn0005/finally" のステータスがエラー終了であること
     かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f1" のステータスがエラー終了であること
     かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f2" のステータスが初期化済であること
@@ -509,7 +548,11 @@
     かつ ジョブ"/jn0005/finally/jn0005_fjn/finally/jn0005_fif" のステータスが正常終了であること
     かつ ジョブ"/jn0005/finally/jn0005_f"のステータスが初期化済であること
 
-    もし ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f1"の"表示"リンクをクリックする
+    もし ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f1"の"実行時PID"を"jn0005_f1_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{jn0005_f1_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{jn0005_f1_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ ジョブ"/jn0005/finally/jn0005_fjn/jn0005_f1"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -533,7 +576,8 @@
     かつ "tengine_job_test /jn0005/jn4/j44 finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j44 start"の後であること
     かつ "tengine_job_test /jn0005/jn4/finally/jn4_f start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/j44 finish"の後であること
     かつ "tengine_job_test /jn0005/jn4/finally/jn4_f finish"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/jn4/jn4_f start"の後であること
-    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/j2 finish"と"tengine_job_test /jn0005/jn4/finally/jn4_f finish"後であること
+    かつ "tengine_job_test /jn0005/j4 start"と"スクリプトログ"に出力されており、"tengine_job_test /jn0005/j2 finish"と"/jn0005/jn4/finally/jn4_f finish"の後であること
+    かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/j4 finish"の後であること
     かつ "tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 finish"と"スクリプトログ"に一回出力されていないこと
     かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/jn0005_f1 start"後であること
     かつ "tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif finish"と"スクリプトログ"に一回出力されており、"tengine_job_test /jn0005/finally/jn0005_fjn/finally/jn0005_fif start"後であること
@@ -630,7 +674,11 @@
     かつ ジョブネット"/jn0006/finally" のステータスが正常終了であること
     かつ ジョブ"/jn0006/finally/jn_f" のステータスが正常終了であること
 
-    もし ジョブ"/jn0006/jn1/jn11/j111"の"表示"リンクをクリックする
+    もし ジョブ"/jn0006/jn1/jn11/j111"の"実行時PID"を"j111_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{j111_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{j111_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ ジョブ"/jn0006/jn1/jn11/j111"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -688,7 +736,11 @@
     かつ ジョブネット"/jn0006/finally" のステータスが正常終了であること
     かつ ジョブ"/jn0006/finally/jn_f" のステータスが正常終了であること
 
-    もし ジョブ"/jn0006/jn1/jn11/jn11_f"の"表示"リンクをクリックする
+    もし ジョブ"/jn0006/jn1/jn11/finally/jn11_f"の"実行時PID"を"jn11_f_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{jn11_f_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{jn11_f_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ ジョブ"/jn0006/jn1/jn11/finally/jn11_f"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
