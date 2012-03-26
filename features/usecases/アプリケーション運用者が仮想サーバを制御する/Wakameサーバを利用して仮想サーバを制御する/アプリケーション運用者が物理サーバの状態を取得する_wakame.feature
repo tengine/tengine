@@ -10,7 +10,7 @@
     # 前提 日本語でアクセスする
     # かつ Wakameがセットアップされている
     # かつ TengineにWakameの接続先の設定を以下のファイルに対して行なっている
-    #  > vi features/usecases/resource/scripts/create_providor_wakame_real.rb
+    #  > vi features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/create_providor_wakame_real.rb
     #  12行目あたりのconnection_settings変数を実際の環境に合わせて修正する
     #  connection_settings = {
     #    :account => 'a-zzzzzzxx',
@@ -22,9 +22,9 @@
     #    :wakame_protocol => 'http'
     #  }
     # かつ TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
-    #  > rails runner features/usecases/resource/scripts/create_providor_wakame_real.rb -e production
+    #  > rails runner features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/create_providor_wakame_real.rb -e production
     # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
-    #  > rails runner features/usecases/resource/scripts/delete_all_resources.rb -e production
+    #  > rails runner features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/delete_all_resources.rb -e production
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
     #  > tengine_resource_watchd
     # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
