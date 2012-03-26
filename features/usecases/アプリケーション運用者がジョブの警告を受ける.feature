@@ -1191,7 +1191,7 @@
 #retry1
   @05_01_02_13
   シナリオ: [正常系]ジョブの状態が「開始中」で警告
-    前提 "Tengineコアプロセス"がオプション" -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
+    前提 "Tengineコアプロセス"がオプション" -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で2プロセス起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
 
     もし "イベント通知画面"を表示する
@@ -1265,7 +1265,7 @@
 #--retry2
   @05_01_02_14
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のジョブの状態が「開始中」で警告
-    前提 "Tengineコアプロセス"がオプション" -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
+    前提 "Tengineコアプロセス"がオプション" -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で2プロセス起動している
     かつ "アプリケーションログファイル"から"Tengineコアプロセス"の"起動時刻"を確認する
 
     もし "イベント通知画面"を表示する
