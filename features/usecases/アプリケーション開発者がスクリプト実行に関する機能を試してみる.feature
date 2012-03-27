@@ -99,76 +99,96 @@
     # シェルスクリプトに渡された環境変数をログファイルから確認
     ########################################
     もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
-    かつ "スクリプトログ"の"MM_ACTUAL_JOB_ID"の値を確認する
-    かつ "スクリプトログ"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
-    かつ "スクリプトログ"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を確認する
-    かつ "スクリプトログ"の"MM_ACTUAL_JOB_NAME_PATH"の値を確認する
-    かつ "スクリプトログ"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値を確認する
-    かつ "スクリプトログ"の"MM_TEMPLATE_JOB_ID"の値を確認する
-    かつ "スクリプトログ"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値を確認する
-    かつ "スクリプトログ"の"MM_SCHEDULE_ID"の値を確認する
-    かつ "スクリプトログ"の"MM_SCHEDULE_ESTIMATED_TIME"の値を確認する
-    かつ "スクリプトログ"の"MM_SCHEDULE_ESTIMATED_END"の値を確認する
-# TODO 未実装。対応時期の確認が必要。
-    かつ "スクリプトログ"の"MM_FAILED_JOB_ID"の値を確認する
-# TODO 未実装。対応時期の確認が必要。
-    かつ "スクリプトログ"の"MM_FAILED_JOB_ANCESTOR_IDS"を確認する
-    かつ "スクリプトログ"の"MM_SERVER_NAME"を確認する
+    かつ "スクリプトログ"の"job1"の"MM_ACTUAL_JOB_ID"の値を"job1_MM_ACTUAL_JOB_ID"と呼ぶ
+    かつ "スクリプトログ"の"job1"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値を"job1_MM_ACTUAL_JOB_ANCESTOR_IDS"と呼ぶ
+    かつ "スクリプトログ"の"job1"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を"job1_MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"と呼ぶ
+    かつ "スクリプトログ"の"job1"の"MM_ACTUAL_JOB_NAME_PATH"の値を"job1_MM_ACTUAL_JOB_NAME_PATH"と呼ぶ
+    かつ "スクリプトログ"の"job1"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値を"job1_MM_ACTUAL_JOB_SECURITY_TOKEN"と呼ぶ
+    かつ "スクリプトログ"の"job1"の"MM_TEMPLATE_JOB_ID"の値を"job1_MM_TEMPLATE_JOB_ID"と呼ぶ
+    かつ "スクリプトログ"の"job1"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値を"job1_MM_TEMPLATE_JOB_ANCESTOR_IDS"と呼ぶ
+    かつ "スクリプトログ"の"job1"の"MM_SCHEDULE_ID"の値を"MM_SCHEDULE_ID"と呼ぶ
+    かつ "スクリプトログ"の"job1"の"MM_SCHEDULE_ESTIMATED_TIME"の値を"job1_MM_SCHEDULE_ESTIMATED_TIME"と呼ぶ
+    かつ "スクリプトログ"の"job1"の"MM_SCHEDULE_ESTIMATED_END"の値を"job1_MM_SCHEDULE_ESTIMATED_END"と呼ぶ
+    かつ "スクリプトログ"の"job1"の""MM_SERVER_NAME"の値を"job1_"MM_SERVER_NAME"と呼ぶ
+
+    かつ "スクリプトログ"の"jobnet1048_finally"の"MM_ACTUAL_JOB_ID"の値を"finally_job_MM_ACTUAL_JOB_ID"と呼ぶ
+    かつ "スクリプトログ"の"jobnet1048_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値を"finally_job_MM_ACTUAL_JOB_ANCESTOR_IDS"と呼ぶ
+    かつ "スクリプトログ"の"jobnet1048_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を"finally_job_MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"と呼ぶ
+    かつ "スクリプトログ"の"jobnet1048_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値を"finally_job_MM_ACTUAL_JOB_NAME_PATH"と呼ぶ
+    かつ "スクリプトログ"の"jobnet1048_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値を"finally_job_MM_ACTUAL_JOB_SECURITY_TOKEN"と呼ぶ
+    かつ "スクリプトログ"の"jobnet1048_finally"の"MM_TEMPLATE_JOB_ID"の値を"finally_job_MM_TEMPLATE_JOB_ID"と呼ぶ
+    かつ "スクリプトログ"の"jobnet1048_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値を"finally_job_MM_TEMPLATE_JOB_ANCESTOR_IDS"と呼ぶ
+    かつ "スクリプトログ"の"jobnet1048_finally"の"MM_SCHEDULE_ID"の値が"#{MM_SCHEDULE_ID}"と同じであること
+    かつ "スクリプトログ"の"jobnet1048_finally"の"MM_SCHEDULE_ESTIMATED_TIME"の値を"finally_job_MM_SCHEDULE_ESTIMATED_TIME"と呼ぶ
+    かつ "スクリプトログ"の"jobnet1048_finally"の"MM_SCHEDULE_ESTIMATED_END"の値を"finally_job_MM_SCHEDULE_ESTIMATED_END"と呼ぶ
+    かつ "スクリプトログ"の"jobnet1048_finally"の""MM_SERVER_NAME"の値を"finally_job_"MM_SERVER_NAME"と呼ぶ
+
 		
-    ならば "job1"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/jobnet1048_2/job1"であること
-    かつ "job1"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
-    かつ "job1"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
-    かつ "job1"の"MM_SCHEDULE_ESTIMATED_END"の値が""であること
-    かつ "job1"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-    かつ "job1"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-    かつ "job1"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-		かつ "job1"の"MM_SERVER_NAME"の値が"test_server1"であること
+    ならば "job1_MM_ACTUAL_JOB_ANCESTOR_IDS"の値に";"が一つだけあること
+    かつ "job1_MM_ACTUAL_JOB_ANCESTOR_IDS"の値を;で区切ってできた1つ目の文字列を"jobnet1048_ACTUAL_JOB_ID"と呼ぶ
+    かつ "job1_MM_ACTUAL_JOB_ANCESTOR_IDS"の値を;で区切ってできた2つ目の文字列を"jobnet1048_2_ACTUAL_JOB_ID"と呼ぶ
+    かつ "job1_MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値に";"が一つだけあること
+    かつ "job1_MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を;で区切ってできた1つ目の文字列が"jobnet1048_ACTUAL_JOB_ID"と同じであること
+    かつ "job1_MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を;で区切ってできた2つ目の文字列が"jobnet1048_2_ACTUAL_JOB_ID"と同じであること
+    かつ "job1_MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/jobnet1048_2/job1"であること
+    かつ "job1_MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
+    かつ "job1_MM_TEMPLATE_JOB_ANCESTOR_IDS"の値に;が一つだけあること
+    かつ "job1_MM_TEMPLATE_JOB_ANCESTOR_IDS"の値を;で区切ってできた1つ目の文字列を"jobnet1048_TEMPLATE_JOB_ID"と呼ぶ
+    かつ "job1_MM_TEMPLATE_JOB_ANCESTOR_IDS"の値を;で区切ってできた2つ目の文字列を"jobnet1048_2_TEMPLATE_JOB_ID"と呼ぶ
+    かつ "job1_MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
+    かつ "job1_MM_SCHEDULE_ESTIMATED_END"の値が""であること
+    かつ "job1_MM_SERVER_NAME"の値が"test_server1"であること
 
-    かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/finally/jobnet1048_finally"であること
-    かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
-    かつ "jobnet1048_finally"の"MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
-    かつ "jobnet1048_finally"の"MM_SCHEDULE_ESTIMATED_END"の値が""であること
-    かつ "jobnet1048_finally"の"MM_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-    かつ "jobnet1048_finally"の"MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-    かつ "jobnet1048_finally"の"MM_TEMPLATE_JOB_ANCESTOR_IDS"の値が";"で区切られていること
-		かつ "jobnet1048_finally"の"MM_SERVER_NAME"の値が"test_server1"であること
-
+    かつ "finally_job_MM_ACTUAL_JOB_ANCESTOR_IDS"の値に";"が一つだけあること
+    かつ "finally_job_MM_ACTUAL_JOB_ANCESTOR_IDS"の値を;で区切ってできた1つ目の文字列が"jobnet1048_ACTUAL_JOB_ID"と同じであること
+    かつ "finally_job_MM_ACTUAL_JOB_ANCESTOR_IDS"の値を;で区切ってできた2つ目の文字列を"finally_ACTUAL_JOB_ID"と呼ぶ
+    かつ "finally_job_MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値に";"が一つだけあること
+    かつ "finally_job_MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を;で区切ってできた1つ目の文字列が"jobnet1048_ACTUAL_JOB_ID"と同じであること
+    かつ "finally_job_MM_FULL_ACTUAL_JOB_ANCESTOR_IDS"の値を;で区切ってできた2つ目の文字列が"finally_ACTUAL_JOB_ID"と同じであること
+    かつ "finally_job_MM_ACTUAL_JOB_NAME_PATH"の値が"/jobnet1048/finally/jobnet1048_finally"であること
+    かつ "finally_job_MM_ACTUAL_JOB_SECURITY_TOKEN"の値が""であること
+    かつ "finally_job_MM_TEMPLATE_JOB_ANCESTOR_IDS"の値に;が一つだけあること
+    かつ "finally_job_MM_TEMPLATE_JOB_ANCESTOR_IDS"の値を;で区切ってできた1つ目の文字列が"jobnet1048_TEMPLATE_JOB_ID"と同じであること
+    かつ "finally_job_MM_TEMPLATE_JOB_ANCESTOR_IDS"の値を;で区切ってできた2つ目の文字列を"finally_TEMPLATE_JOB_ID"と呼ぶ
+    かつ "finally_job_MM_SCHEDULE_ESTIMATED_TIME"の値が""であること
+    かつ "finally_job_MM_SCHEDULE_ESTIMATED_END"の値が""であること
+    かつ "finally_job_MM_SERVER_NAME"の値が"test_server1"であること
 		
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID                        |ジョブネット名|説明          |操作     |
-    |jobnet1048のテンプレートID|jobnet1048    |説明jobnet1048|表示 実行|
+    |ID                           |ジョブネット名  |説明          |操作     |
+    |#{jobnet1048_TEMPLATE_JOB_ID}|jobnet1048    |jobnet1048    |表示 実行|
 
     もし "jobnet1048"の"表示"リンクをクリックする
     ならば "テンプレートジョブ画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID                                |ジョブネット名|名称        |表示名                              |実行するスクリプト|接続サーバ名    |認証情報名|次のジョブ|
-    |jobnet1048_2のテンプレートID      |jobnet1048_2  |jobnet1048_2|                                    |test_server1      |test_credential1|
-    |job1のテンプレートID              |job1          |job1        |$HOME/tengine_job_env_test.sh 0 job1|test_server1      |test_credential1|
-    |finallyのテンプレートID           |finally       |finally     |                                    |test_server1      |test_credential1|
-    |jobnet1048_finallyのテンプレートID|finally       |finally     |$HOME/tengine_job_env_test.sh 0 job1|test_server1      |test_credential1|
+    |ID                                |名称               |表示名            |実行するスクリプト                     |接続サーバ名        |認証情報名|次のジョブ|
+    |#{jobnet1048_2_TEMPLATE_JOB_ID}   |jobnet1048_2      |jobnet1048_2      |                                    |test_server1      |test_credential1|
+    |#{job1_MM_TEMPLATE_JOB_ID}        |job1              |job1              |$HOME/tengine_job_env_test.sh 0 job1|test_server1      |test_credential1|
+    |#{finally_TEMPLATE_JOB_ID}        |finally           |finally           |                                    |test_server1      |test_credential1|
+    |#{finally_job_MM_TEMPLATE_JOB_ID} |jobnet1048_finally|jobnet1048_finally|$HOME/tengine_job_env_test.sh 0 job1|test_server1      |test_credential1|
    
-   
+  
     もし "実行中のジョブ一覧画面"を表示する
     ならば "実行ジョブ一覧画面"が表示されていること
     かつ "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID                  |ジョブネット名|説明      |ステータス|操作       |
-    |jobnet1048の実行時ID|jobnet1048    |jobnet1048|正常終了      |監視 再実行|
+    |ID                         |ジョブネット名  |説明       |ステータス    |操作      |
+    |#{jobnet1048_ACTUAL_JOB_ID}|jobnet1048    |jobnet1048|正常終了      |監視 再実行|
 
     もし "jobnet1048"の"監視"リンクをクリックする
     ならば "スクリプトログ"と同じ内容の以下の行が表示されること
-    |ID                          |ジョブ名    |説明        |実行スクリプト                      |接続サーバ名|認証情報名      |ステータス|次のジョブ|操作  |
-    |jobnet1048_2の実行時ID      |jobnet1048_2|jobnet1048_2|                                    |test_server1|test_credential1|正常終了      |          |再実行|
-    |job1の実行時ID              |job1        |job1        |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|正常終了      |          |再実行|
-    |finallyの実行時ID           |finally     |finally     |                                    |test_server1|test_credential1|正常終了      |          |再実行|
-    |jobnet1048_finallyの実行時ID|finally     |finally     |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|正常終了      |          |再実行|
+    |ID                             |ジョブ名            |説明                |実行スクリプト                        |接続サーバ名  |認証情報名       |ステータス    |次のジョブ  |操作  |
+    |#{jobnet1048_2_ACTUAL_JOB_ID}  |jobnet1048_2       |jobnet1048_2       |                                    |test_server1|test_credential1|正常終了      |          |再実行|
+    |#{job1_ACTUAL_JOB_ID}          |job1               |job1               |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|正常終了      |          |再実行|
+    |#{finally_ACTUAL_JOB_ID}       |finally            |finally            |                                    |test_server1|test_credential1|正常終了      |          |再実行|
+    |#{finally_job_MM_ACTUAL_JOB_ID}|jobnet1048_finally |jobnet1048_finally |$HOME/tengine_job_env_test.sh 0 job1|test_server1|test_credential1|正常終了      |          |再実行|
 
     もし "ジョブ実行一覧画面"を表示する
     ならば "ジョブ実行一覧画面"が表示されること
 
     もし "jobnet1048"の"表示"リンクをクリックする
-    ならば ならば URLのexecutionのIDと"スクリプトログ"のMM_SCHEDULE_IDが一緒であること
+    ならば ならば URLの最後の"/"から末尾までの文字列との#{MM_SCHEDULE_ID}が同じであること
 
   # ./usecases/job/dsl/01_04_04_jobnet_script_env_failure.rb
   #  -------------------
