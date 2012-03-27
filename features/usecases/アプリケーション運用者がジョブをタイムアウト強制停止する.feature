@@ -1107,7 +1107,7 @@
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済   |          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済   |          |表示 再実行|
 
-    もし 25秒間待機する
+    もし 35秒間待機する
     かつ 以下の行が表示されていること
     |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス          |次のジョブ|操作       |
     |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了            |j2, jn4   |表示 再実行|
