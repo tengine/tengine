@@ -257,6 +257,27 @@
 	<td>name=commit</td>
 	<td></td>
 </tr>
+<!--ファイルを置いたからといってすぐさま反映されるわけではないので、しばらく待つ-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=イベント一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=finder_reflesh_interval</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=input-submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>exact:Tengine::Resource::VirtualServerImage.created.tengine_resource_watchd</td>
+	<td></td>
+</tr>
 <!--確認-->
 <tr>
 	<td>clickAndWait</td>
