@@ -636,11 +636,11 @@
     |  |  hadoop_job2   |           |                                    |test_server1|test_credential1|                   |        |正常終了            |          |表示   |
     |  |    Map         |           |                                    |test_server1|test_credential1|                   |        |正常終了            |          |表示   |
     |  |    Reduce      |           |                                    |test_server1|test_credential1|                   |        |正常終了            |          |表示   |
-    |  |jn4             |jn4        |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止|j4        |表示 再実行|
-    |  |  j41           |j41        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止|j42,j43   |表示 再実行|
-    |  |    hadoop_job41|           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止|          |表示   |
-    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止|          |表示   |
-    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |タイムアウト強制停止|          |表示   |
+    |  |jn4             |jn4        |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j42,j43   |表示 再実行|
+    |  |    hadoop_job41|           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
+    |  |      Reduce    |           |                                    |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示   |
     |  |  j42           |j42        |$HOME/0005_retry_two_layer_hadoop.sh|test_server1|test_credential1|                   |        |初期化済            |j44       |表示 再実行|
     |  |    hadoop_job42|           |                                    |test_server1|test_credential1|                   |        |初期化済            |          |表示   |
     |  |      Map       |           |                                    |test_server1|test_credential1|                   |        |初期化済            |          |表示   |
