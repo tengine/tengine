@@ -589,7 +589,7 @@
     |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |実行中       |j4        |表示 再実行|
     |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |j42,j43   |表示 再実行|
     |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |実行中       |j44   |表示 再実行|
-    |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |実行中|j44   |表示 再実行|
+    |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |実行中       |j44   |表示 再実行|
     |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
     |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
     |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
