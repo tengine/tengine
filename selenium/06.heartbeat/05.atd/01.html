@@ -11,7 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">6001</td></tr>
 </thead><tbody>
-<!--[正常系]アプリケーション運用者がイベント一覧画面でハートビートウォッチャのハートビートを確認する-->
+<!--[正常系]アプリケーション運用者がイベント一覧画面でスケジュールキーパーのハートビートを確認する-->
 <!--下準備-->
 <tr>
 	<td>setTimeout</td>
@@ -37,6 +37,21 @@
 	<td>type</td>
 	<td>id=script_code</td>
 	<td>bundle exec tengine_heartbeat_watchd\<br />&nbsp;&nbsp;-k stop\<br />&nbsp;&nbsp;-f ./features/config/heartbeat_watchd.yml.erb</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>bundle exec tengine_atd\<br />&nbsp;&nbsp;-k stop\<br />&nbsp;&nbsp;-f ./features/config/atd.yml.erb</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -118,22 +133,6 @@
 	<td>name=commit</td>
 	<td></td>
 </tr>
-<!--tengine_heartbeat_watchdを起動-->
-<tr>
-	<td>type</td>
-	<td>id=script_code</td>
-	<td>bundle exec tengine_heartbeat_watchd\<br />&nbsp;&nbsp;-k start\<br />&nbsp;&nbsp;-f ./features/config/heartbeat_watchd.yml.erb</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>id=script_kind</td>
-	<td>label=spawn</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>name=commit</td>
-	<td></td>
-</tr>
 <!--tenginedを起動-->
 <tr>
 	<td>type</td>
@@ -165,6 +164,38 @@
 	<td>running</td>
 	<td></td>
 </tr>
+<!--tengine_heartbeat_watchdを起動-->
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>bundle exec tengine_heartbeat_watchd\<br />&nbsp;&nbsp;-k start\<br />&nbsp;&nbsp;-f ./features/config/heartbeat_watchd.yml.erb</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=spawn</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--"スケジュールキーパープロセス"が起動している-->
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>bundle exec tengine_atd\<br />&nbsp;&nbsp;-k start\<br />&nbsp;&nbsp;-f ./features/config/atd.yml.erb</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=spawn</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
 <!--イベント一覧画面を表示-->
 <tr>
 	<td>clickAndWait</td>
@@ -183,10 +214,10 @@
 </tr>
 <tr>
 	<td>waitForNotXpathCount</td>
-	<td>//td[text() = &quot;hbw.heartbeat.tengine&quot;]</td>
+	<td>//td[text() = &quot;atd.heartbeat.tengine&quot;]</td>
 	<td>0</td>
 </tr>
-<!--"発生時刻"が"+30"秒変更されていること-->
+<!--30秒待機する-->
 <tr>
 	<td>type</td>
 	<td>id=finder_reflesh_interval</td>
@@ -232,7 +263,7 @@
 	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[2]</td>
 	<td>${evkey}</td>
 </tr>
-<!--"ハートビートウォッチャプロセス"を停止する-->
+<!--"リソースウォッチャプロセス"を停止する-->
 <tr>
 	<td>open</td>
 	<td>/tengine/test/scripts</td>
@@ -290,8 +321,18 @@
 </tr>
 <tr>
 	<td>waitForNotXpathCount</td>
-	<td>//td[text() = &quot;finished.process.hbw.tengine&quot;]</td>
+	<td>//td[text() = &quot;finished.process.atd.tengine&quot;]</td>
 	<td>0</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=finder_reflesh_interval</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=input-submit</td>
+	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
