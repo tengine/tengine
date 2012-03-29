@@ -1,0 +1,4506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/" />
+<title>03_00_01_00_00_00</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
+</thead><tbody>
+<!--[正常系]アプリケーション運用者は物理サーバ一覧画面を開き、物理サーバが表示されていることを確認する-->
+<!--下準備-->
+<tr>
+	<td>setTimeout</td>
+	<td>120000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>openAndWait</td>
+	<td>/tengine/test/scripts</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>[<br /> Tengine::Test::Script,<br /> Tengine::Resource::Credential,<br /> Tengine::Resource::Provider,<br /> Tengine::Core::Event<br />].map(&amp;:delete_all)</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>bundle exec tengined\<br />&nbsp;&nbsp;-k stop\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>bundle exec tengined\<br />&nbsp;&nbsp;-k force_stop\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>bundle exec tengine_resource_watchd\<br />&nbsp;&nbsp;-k stop\<br />&nbsp;&nbsp;-f ./features/config/resource_watchd.yml.erb</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>bundle exec tengine_resource_watchd\<br />&nbsp;&nbsp;-k force_stop\<br />&nbsp;&nbsp;-f ./features/config/resource_watchd.yml.erb</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する-->
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>rails runner\<br />&nbsp;&nbsp;features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/create_providor_wakame_test.rb\<br />&nbsp;&nbsp;features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files\<br />&nbsp;&nbsp;-e production</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=backquote</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する-->
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>rails runner\<br />&nbsp;&nbsp;features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/delete_all_resources.rb\<br />&nbsp;&nbsp;-e production</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=backquote</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--"Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)-->
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>rm tmp/tengined_status/*</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T usecases/job/dsl/1001_one_job_in_jobnet.rb \<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=spawn</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>require 'timeout'<br />results = []<br />timeout(30) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;result = `bundle exec tengined -k status`.chomp<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if result.each_line.grep(/running/).count.nonzero?<br />&nbsp;&nbsp;end<br />end<br />results</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]</td>
+	<td>regexp:running</td>
+</tr>
+<!--モックファイルをコピーする-->
+<!--代替コースB: 管理下の物理サーバが存在しない-->
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>cp\<br />&nbsp;&nbsp;./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/00_describe_host_nodes_0_physical_servers.json\<br />&nbsp;&nbsp;./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_host_nodes.json</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>cp\<br />&nbsp;&nbsp;./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/31_describe_instance_specs_4_virtual_server_specs.json\<br />&nbsp;&nbsp;./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_instance_specs.json</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--"Tengineリソースウォッチャ"プロセスを起動する-->
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>bundle exec tengine_resource_watchd\<br />&nbsp;&nbsp;-f ./features/config/resource_watchd.yml.erb</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=spawn</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--ファイルを置いたからといってすぐさま反映されるわけではないので、しばらく待つ-->
+<tr>
+	<td>openAndWait</td>
+	<td>/tengine/core/events</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=finder_reflesh_interval</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=input-submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>exact:Tengine::Resource::VirtualServerType.created.tengine_resource_watchd</td>
+	<td></td>
+</tr>
+<!--確認-->
+<tr>
+	<td>openAndWait</td>
+	<td>/tengine/resource/physical_servers</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[1]</td>
+	<td>物理サーバ名</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[2]</td>
+	<td>プロバイダによるID</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[3]</td>
+	<td>説明</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[4]</td>
+	<td>CPUコア数</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[5]</td>
+	<td>メモリサイズ</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[6]</td>
+	<td>ステータス</td>
+</tr>
+<tr>
+	<td>verifyXpathCount</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr</td>
+	<td>0</td>
+</tr>
+<!--Wakameに物理サーバの登録を行う-->
+<tr>
+	<td>openAndWait</td>
+	<td>/tengine/test/scripts</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>cp\<br />&nbsp;&nbsp;./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/01_describe_host_nodes_10_physical_servers.json\<br />&nbsp;&nbsp;./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_host_nodes.json</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--ファイルを置いたからといってすぐさま反映されるわけではないので、しばらく待つ-->
+<tr>
+	<td>openAndWait</td>
+	<td>/tengine/core/events</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=finder_reflesh_interval</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=input-submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>exact:Tengine::Resource::PhysicalServer.created.tengine_resource_watchd</td>
+	<td></td>
+</tr>
+<!--確認-->
+<tr>
+	<td>openAndWait</td>
+	<td>/tengine/resource/physical_servers</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[1]</td>
+	<td>物理サーバ名</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[2]</td>
+	<td>プロバイダによるID</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[3]</td>
+	<td>説明</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[4]</td>
+	<td>CPUコア数</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[5]</td>
+	<td>メモリサイズ</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[6]</td>
+	<td>ステータス</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[1]</td>
+	<td>physical_server_name_01</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[2]</td>
+	<td>physical_server_uuid_01</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[1]</td>
+	<td>physical_server_name_02</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[2]</td>
+	<td>physical_server_uuid_02</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[4]</td>
+	<td>200</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[5]</td>
+	<td>200000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[1]</td>
+	<td>physical_server_name_03</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[2]</td>
+	<td>physical_server_uuid_03</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[4]</td>
+	<td>300</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[5]</td>
+	<td>300000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[1]</td>
+	<td>physical_server_name_04</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[2]</td>
+	<td>physical_server_uuid_04</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[4]</td>
+	<td>400</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[5]</td>
+	<td>400000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[1]</td>
+	<td>physical_server_name_05</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[2]</td>
+	<td>physical_server_uuid_05</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[4]</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[5]</td>
+	<td>500000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[1]</td>
+	<td>physical_server_name_06</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[2]</td>
+	<td>physical_server_uuid_06</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[4]</td>
+	<td>600</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[5]</td>
+	<td>600000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[1]</td>
+	<td>physical_server_name_07</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[2]</td>
+	<td>physical_server_uuid_07</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[4]</td>
+	<td>700</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[5]</td>
+	<td>700000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[1]</td>
+	<td>physical_server_name_08</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[2]</td>
+	<td>physical_server_uuid_08</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[4]</td>
+	<td>800</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[5]</td>
+	<td>800000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[1]</td>
+	<td>physical_server_name_09</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[2]</td>
+	<td>physical_server_uuid_09</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[4]</td>
+	<td>900</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[5]</td>
+	<td>900000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[1]</td>
+	<td>physical_server_name_10</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[2]</td>
+	<td>physical_server_uuid_10</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[6]</td>
+	<td>offline</td>
+</tr>
+<tr>
+	<td>openAndWait</td>
+	<td>/tengine/core/events</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyXpathCount</td>
+	<td>//td[text() = 'Tengine::Resource::PhysicalServer.created.tengine_resource_watchd']</td>
+	<td>10</td>
+</tr>
+<!--物理サーバの説明を編集する-->
+<tr>
+	<td>openAndWait</td>
+	<td>/tengine/resource/physical_servers</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[8]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>physical_server_name_01</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=physical_server_description</td>
+	<td>物理サーバ説明01</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[1]</td>
+	<td>物理サーバ名</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[2]</td>
+	<td>プロバイダによるID</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[3]</td>
+	<td>説明</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[4]</td>
+	<td>CPUコア数</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[5]</td>
+	<td>メモリサイズ</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[6]</td>
+	<td>ステータス</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[1]</td>
+	<td>physical_server_name_01</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[2]</td>
+	<td>physical_server_uuid_01</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]/div/span</td>
+	<td>物理サーバ説明01</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[1]</td>
+	<td>physical_server_name_02</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[2]</td>
+	<td>physical_server_uuid_02</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[4]</td>
+	<td>200</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[5]</td>
+	<td>200000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[1]</td>
+	<td>physical_server_name_03</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[2]</td>
+	<td>physical_server_uuid_03</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[4]</td>
+	<td>300</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[5]</td>
+	<td>300000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[1]</td>
+	<td>physical_server_name_04</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[2]</td>
+	<td>physical_server_uuid_04</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[4]</td>
+	<td>400</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[5]</td>
+	<td>400000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[1]</td>
+	<td>physical_server_name_05</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[2]</td>
+	<td>physical_server_uuid_05</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[4]</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[5]</td>
+	<td>500000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[1]</td>
+	<td>physical_server_name_06</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[2]</td>
+	<td>physical_server_uuid_06</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[4]</td>
+	<td>600</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[5]</td>
+	<td>600000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[1]</td>
+	<td>physical_server_name_07</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[2]</td>
+	<td>physical_server_uuid_07</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[4]</td>
+	<td>700</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[5]</td>
+	<td>700000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[1]</td>
+	<td>physical_server_name_08</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[2]</td>
+	<td>physical_server_uuid_08</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[4]</td>
+	<td>800</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[5]</td>
+	<td>800000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[1]</td>
+	<td>physical_server_name_09</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[2]</td>
+	<td>physical_server_uuid_09</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[4]</td>
+	<td>900</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[5]</td>
+	<td>900000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[1]</td>
+	<td>physical_server_name_10</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[2]</td>
+	<td>physical_server_uuid_10</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[5]</td>
+	<td>100000</td>
+</tr>
+<!--代替コースA: 物理サーバ一覧表を絞り込み検索して表示する-->
+<tr>
+	<td>type</td>
+	<td>id=finder_name</td>
+	<td>physical_server_name_02</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[1]</td>
+	<td>物理サーバ名</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[2]</td>
+	<td>プロバイダによるID</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[3]</td>
+	<td>説明</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[4]</td>
+	<td>CPUコア数</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[5]</td>
+	<td>メモリサイズ</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[6]</td>
+	<td>ステータス</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[1]</td>
+	<td>physical_server_name_02</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[2]</td>
+	<td>physical_server_uuid_02</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[4]</td>
+	<td>200</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[5]</td>
+	<td>200000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[6]</td>
+	<td>online</td>
+</tr>
+<!--ステータスで検索を行う-->
+<tr>
+	<td>type</td>
+	<td>id=finder_name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=finder_st_offline</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[1]</td>
+	<td>物理サーバ名</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[2]</td>
+	<td>プロバイダによるID</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[3]</td>
+	<td>説明</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[4]</td>
+	<td>CPUコア数</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[5]</td>
+	<td>メモリサイズ</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[6]</td>
+	<td>ステータス</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[1]</td>
+	<td>physical_server_name_10</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[2]</td>
+	<td>physical_server_uuid_10</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[6]</td>
+	<td>offline</td>
+</tr>
+<!--代替コースC: 検索条件にマッチする項目が0台と表示される-->
+<tr>
+	<td>type</td>
+	<td>id=finder_name</td>
+	<td>physical_server_name_none</td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>id=finder_st_offline</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[1]</td>
+	<td>物理サーバ名</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[2]</td>
+	<td>プロバイダによるID</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[3]</td>
+	<td>説明</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[4]</td>
+	<td>CPUコア数</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[5]</td>
+	<td>メモリサイズ</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[6]</td>
+	<td>ステータス</td>
+</tr>
+<tr>
+	<td>verifyXpathCount</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr</td>
+	<td>0</td>
+</tr>
+<!--代替コースD: 絞り込み検索をしている状態でページ切り替えを行う-->
+<tr>
+	<td>openAndWait</td>
+	<td>/tengine/test/scripts</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>cp\<br />&nbsp;&nbsp;./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/02_describe_host_nodes_60_physical_servers.json\<br />&nbsp;&nbsp;./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_host_nodes.json</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--ファイルを置いたからといってすぐさま反映されるわけではないので、しばらく待つ-->
+<tr>
+	<td>openAndWait</td>
+	<td>/tengine/core/events</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=finder_reflesh_interval</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=input-submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.getXpathCount(&quot;//td[text() = 'Tengine::Resource::PhysicalServer.created.tengine_resource_watchd']&quot;) &gt; 10</td>
+	<td>120000</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2048</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>exact:Tengine::Resource::PhysicalServer.created.tengine_resource_watchd</td>
+	<td></td>
+</tr>
+<!--確認-->
+<tr>
+	<td>openAndWait</td>
+	<td>/tengine/resource/physical_servers</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[1]</td>
+	<td>物理サーバ名</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[2]</td>
+	<td>プロバイダによるID</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[3]</td>
+	<td>説明</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[4]</td>
+	<td>CPUコア数</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[5]</td>
+	<td>メモリサイズ</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[6]</td>
+	<td>ステータス</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[1]</td>
+	<td>physical_server_name_01</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[2]</td>
+	<td>physical_server_uuid_01</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]/div/span</td>
+	<td>物理サーバ説明01</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[1]</td>
+	<td>physical_server_name_02</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[2]</td>
+	<td>physical_server_uuid_02</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[4]</td>
+	<td>200</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[5]</td>
+	<td>200000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[1]</td>
+	<td>physical_server_name_03</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[2]</td>
+	<td>physical_server_uuid_03</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[4]</td>
+	<td>300</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[5]</td>
+	<td>300000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[1]</td>
+	<td>physical_server_name_04</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[2]</td>
+	<td>physical_server_uuid_04</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[4]</td>
+	<td>400</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[5]</td>
+	<td>400000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[1]</td>
+	<td>physical_server_name_05</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[2]</td>
+	<td>physical_server_uuid_05</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[4]</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[5]</td>
+	<td>500000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[1]</td>
+	<td>physical_server_name_06</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[2]</td>
+	<td>physical_server_uuid_06</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[4]</td>
+	<td>600</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[5]</td>
+	<td>600000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[1]</td>
+	<td>physical_server_name_07</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[2]</td>
+	<td>physical_server_uuid_07</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[4]</td>
+	<td>700</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[5]</td>
+	<td>700000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[1]</td>
+	<td>physical_server_name_08</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[2]</td>
+	<td>physical_server_uuid_08</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[4]</td>
+	<td>800</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[5]</td>
+	<td>800000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[1]</td>
+	<td>physical_server_name_09</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[2]</td>
+	<td>physical_server_uuid_09</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[4]</td>
+	<td>900</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[5]</td>
+	<td>900000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[1]</td>
+	<td>physical_server_name_10</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[2]</td>
+	<td>physical_server_uuid_10</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[6]</td>
+	<td>offline</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[11]/td[1]</td>
+	<td>physical_server_name_11</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[11]/td[2]</td>
+	<td>physical_server_uuid_11</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[11]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[11]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[11]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[11]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[12]/td[1]</td>
+	<td>physical_server_name_12</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[12]/td[2]</td>
+	<td>physical_server_uuid_12</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[12]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[12]/td[4]</td>
+	<td>200</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[12]/td[5]</td>
+	<td>200000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[12]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[1]</td>
+	<td>physical_server_name_13</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[2]</td>
+	<td>physical_server_uuid_13</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[4]</td>
+	<td>300</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[5]</td>
+	<td>300000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[14]/td[1]</td>
+	<td>physical_server_name_14</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[14]/td[2]</td>
+	<td>physical_server_uuid_14</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[14]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[14]/td[4]</td>
+	<td>400</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[14]/td[5]</td>
+	<td>400000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[14]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[15]/td[1]</td>
+	<td>physical_server_name_15</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[15]/td[2]</td>
+	<td>physical_server_uuid_15</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[15]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[15]/td[4]</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[15]/td[5]</td>
+	<td>500000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[15]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[16]/td[1]</td>
+	<td>physical_server_name_16</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[16]/td[2]</td>
+	<td>physical_server_uuid_16</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[16]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[16]/td[4]</td>
+	<td>600</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[16]/td[5]</td>
+	<td>600000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[16]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[17]/td[1]</td>
+	<td>physical_server_name_17</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[17]/td[2]</td>
+	<td>physical_server_uuid_17</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[17]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[17]/td[4]</td>
+	<td>700</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[17]/td[5]</td>
+	<td>700000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[17]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[18]/td[1]</td>
+	<td>physical_server_name_18</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[18]/td[2]</td>
+	<td>physical_server_uuid_18</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[18]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[18]/td[4]</td>
+	<td>800</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[18]/td[5]</td>
+	<td>800000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[18]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[19]/td[1]</td>
+	<td>physical_server_name_19</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[19]/td[2]</td>
+	<td>physical_server_uuid_19</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[19]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[19]/td[4]</td>
+	<td>900</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[19]/td[5]</td>
+	<td>900000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[19]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[20]/td[1]</td>
+	<td>physical_server_name_20</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[20]/td[2]</td>
+	<td>physical_server_uuid_20</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[20]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[20]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[20]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[20]/td[6]</td>
+	<td>offline</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[21]/td[1]</td>
+	<td>physical_server_name_21</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[21]/td[2]</td>
+	<td>physical_server_uuid_21</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[21]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[21]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[21]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[21]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[22]/td[1]</td>
+	<td>physical_server_name_22</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[22]/td[2]</td>
+	<td>physical_server_uuid_22</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[22]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[22]/td[4]</td>
+	<td>200</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[22]/td[5]</td>
+	<td>200000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[22]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[23]/td[1]</td>
+	<td>physical_server_name_23</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[23]/td[2]</td>
+	<td>physical_server_uuid_23</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[23]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[23]/td[4]</td>
+	<td>300</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[23]/td[5]</td>
+	<td>300000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[23]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[24]/td[1]</td>
+	<td>physical_server_name_24</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[24]/td[2]</td>
+	<td>physical_server_uuid_24</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[24]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[24]/td[4]</td>
+	<td>400</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[24]/td[5]</td>
+	<td>400000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[24]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[25]/td[1]</td>
+	<td>physical_server_name_25</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[25]/td[2]</td>
+	<td>physical_server_uuid_25</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[25]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[25]/td[4]</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[25]/td[5]</td>
+	<td>500000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[25]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[26]/td[1]</td>
+	<td>physical_server_name_26</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[26]/td[2]</td>
+	<td>physical_server_uuid_26</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[26]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[26]/td[4]</td>
+	<td>600</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[26]/td[5]</td>
+	<td>600000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[26]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[27]/td[1]</td>
+	<td>physical_server_name_27</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[27]/td[2]</td>
+	<td>physical_server_uuid_27</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[27]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[27]/td[4]</td>
+	<td>700</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[27]/td[5]</td>
+	<td>700000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[27]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[28]/td[1]</td>
+	<td>physical_server_name_28</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[28]/td[2]</td>
+	<td>physical_server_uuid_28</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[28]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[28]/td[4]</td>
+	<td>800</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[28]/td[5]</td>
+	<td>800000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[28]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[29]/td[1]</td>
+	<td>physical_server_name_29</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[29]/td[2]</td>
+	<td>physical_server_uuid_29</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[29]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[29]/td[4]</td>
+	<td>900</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[29]/td[5]</td>
+	<td>900000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[29]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[30]/td[1]</td>
+	<td>physical_server_name_30</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[30]/td[2]</td>
+	<td>physical_server_uuid_30</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[30]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[30]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[30]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[30]/td[6]</td>
+	<td>offline</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[31]/td[1]</td>
+	<td>physical_server_name_31</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[31]/td[2]</td>
+	<td>physical_server_uuid_31</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[31]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[31]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[31]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[31]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[32]/td[1]</td>
+	<td>physical_server_name_32</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[32]/td[2]</td>
+	<td>physical_server_uuid_32</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[32]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[32]/td[4]</td>
+	<td>200</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[32]/td[5]</td>
+	<td>200000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[32]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[33]/td[1]</td>
+	<td>physical_server_name_33</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[33]/td[2]</td>
+	<td>physical_server_uuid_33</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[33]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[33]/td[4]</td>
+	<td>300</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[33]/td[5]</td>
+	<td>300000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[33]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[34]/td[1]</td>
+	<td>physical_server_name_34</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[34]/td[2]</td>
+	<td>physical_server_uuid_34</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[34]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[34]/td[4]</td>
+	<td>400</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[34]/td[5]</td>
+	<td>400000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[34]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[35]/td[1]</td>
+	<td>physical_server_name_35</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[35]/td[2]</td>
+	<td>physical_server_uuid_35</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[35]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[35]/td[4]</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[35]/td[5]</td>
+	<td>500000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[35]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[36]/td[1]</td>
+	<td>physical_server_name_36</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[36]/td[2]</td>
+	<td>physical_server_uuid_36</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[36]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[36]/td[4]</td>
+	<td>600</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[36]/td[5]</td>
+	<td>600000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[36]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[37]/td[1]</td>
+	<td>physical_server_name_37</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[37]/td[2]</td>
+	<td>physical_server_uuid_37</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[37]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[37]/td[4]</td>
+	<td>700</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[37]/td[5]</td>
+	<td>700000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[37]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[38]/td[1]</td>
+	<td>physical_server_name_38</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[38]/td[2]</td>
+	<td>physical_server_uuid_38</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[38]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[38]/td[4]</td>
+	<td>800</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[38]/td[5]</td>
+	<td>800000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[38]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[39]/td[1]</td>
+	<td>physical_server_name_39</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[39]/td[2]</td>
+	<td>physical_server_uuid_39</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[39]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[39]/td[4]</td>
+	<td>900</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[39]/td[5]</td>
+	<td>900000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[39]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[40]/td[1]</td>
+	<td>physical_server_name_40</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[40]/td[2]</td>
+	<td>physical_server_uuid_40</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[40]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[40]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[40]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[40]/td[6]</td>
+	<td>offline</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[41]/td[1]</td>
+	<td>physical_server_name_41</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[41]/td[2]</td>
+	<td>physical_server_uuid_41</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[41]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[41]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[41]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[41]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[42]/td[1]</td>
+	<td>physical_server_name_42</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[42]/td[2]</td>
+	<td>physical_server_uuid_42</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[42]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[42]/td[4]</td>
+	<td>200</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[42]/td[5]</td>
+	<td>200000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[42]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[43]/td[1]</td>
+	<td>physical_server_name_43</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[43]/td[2]</td>
+	<td>physical_server_uuid_43</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[43]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[43]/td[4]</td>
+	<td>300</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[43]/td[5]</td>
+	<td>300000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[43]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[44]/td[1]</td>
+	<td>physical_server_name_44</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[44]/td[2]</td>
+	<td>physical_server_uuid_44</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[44]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[44]/td[4]</td>
+	<td>400</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[44]/td[5]</td>
+	<td>400000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[44]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[45]/td[1]</td>
+	<td>physical_server_name_45</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[45]/td[2]</td>
+	<td>physical_server_uuid_45</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[45]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[45]/td[4]</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[45]/td[5]</td>
+	<td>500000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[45]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[46]/td[1]</td>
+	<td>physical_server_name_46</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[46]/td[2]</td>
+	<td>physical_server_uuid_46</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[46]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[46]/td[4]</td>
+	<td>600</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[46]/td[5]</td>
+	<td>600000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[46]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[47]/td[1]</td>
+	<td>physical_server_name_47</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[47]/td[2]</td>
+	<td>physical_server_uuid_47</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[47]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[47]/td[4]</td>
+	<td>700</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[47]/td[5]</td>
+	<td>700000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[47]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[48]/td[1]</td>
+	<td>physical_server_name_48</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[48]/td[2]</td>
+	<td>physical_server_uuid_48</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[48]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[48]/td[4]</td>
+	<td>800</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[48]/td[5]</td>
+	<td>800000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[48]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[49]/td[1]</td>
+	<td>physical_server_name_49</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[49]/td[2]</td>
+	<td>physical_server_uuid_49</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[49]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[49]/td[4]</td>
+	<td>900</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[49]/td[5]</td>
+	<td>900000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[49]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[50]/td[1]</td>
+	<td>physical_server_name_50</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[50]/td[2]</td>
+	<td>physical_server_uuid_50</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[50]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[50]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[50]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[50]/td[6]</td>
+	<td>offline</td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=finder_st_online</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[1]</td>
+	<td>物理サーバ名</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[2]</td>
+	<td>プロバイダによるID</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[3]</td>
+	<td>説明</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[4]</td>
+	<td>CPUコア数</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[5]</td>
+	<td>メモリサイズ</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[6]</td>
+	<td>ステータス</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[1]</td>
+	<td>physical_server_name_01</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[2]</td>
+	<td>physical_server_uuid_01</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]/div/span</td>
+	<td>物理サーバ説明01</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[1]</td>
+	<td>physical_server_name_02</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[2]</td>
+	<td>physical_server_uuid_02</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[4]</td>
+	<td>200</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[5]</td>
+	<td>200000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[1]</td>
+	<td>physical_server_name_03</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[2]</td>
+	<td>physical_server_uuid_03</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[4]</td>
+	<td>300</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[5]</td>
+	<td>300000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[1]</td>
+	<td>physical_server_name_04</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[2]</td>
+	<td>physical_server_uuid_04</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[4]</td>
+	<td>400</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[5]</td>
+	<td>400000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[1]</td>
+	<td>physical_server_name_05</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[2]</td>
+	<td>physical_server_uuid_05</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[4]</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[5]</td>
+	<td>500000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[1]</td>
+	<td>physical_server_name_06</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[2]</td>
+	<td>physical_server_uuid_06</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[4]</td>
+	<td>600</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[5]</td>
+	<td>600000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[1]</td>
+	<td>physical_server_name_07</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[2]</td>
+	<td>physical_server_uuid_07</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[4]</td>
+	<td>700</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[5]</td>
+	<td>700000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[1]</td>
+	<td>physical_server_name_08</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[2]</td>
+	<td>physical_server_uuid_08</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[4]</td>
+	<td>800</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[5]</td>
+	<td>800000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[1]</td>
+	<td>physical_server_name_09</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[2]</td>
+	<td>physical_server_uuid_09</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[4]</td>
+	<td>900</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[5]</td>
+	<td>900000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[1]</td>
+	<td>physical_server_name_11</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[2]</td>
+	<td>physical_server_uuid_11</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[11]/td[1]</td>
+	<td>physical_server_name_12</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[11]/td[2]</td>
+	<td>physical_server_uuid_12</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[11]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[11]/td[4]</td>
+	<td>200</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[11]/td[5]</td>
+	<td>200000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[11]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[12]/td[1]</td>
+	<td>physical_server_name_13</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[12]/td[2]</td>
+	<td>physical_server_uuid_13</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[12]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[12]/td[4]</td>
+	<td>300</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[12]/td[5]</td>
+	<td>300000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[12]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[1]</td>
+	<td>physical_server_name_14</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[2]</td>
+	<td>physical_server_uuid_14</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[4]</td>
+	<td>400</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[5]</td>
+	<td>400000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[13]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[14]/td[1]</td>
+	<td>physical_server_name_15</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[14]/td[2]</td>
+	<td>physical_server_uuid_15</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[14]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[14]/td[4]</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[14]/td[5]</td>
+	<td>500000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[14]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[15]/td[1]</td>
+	<td>physical_server_name_16</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[15]/td[2]</td>
+	<td>physical_server_uuid_16</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[15]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[15]/td[4]</td>
+	<td>600</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[15]/td[5]</td>
+	<td>600000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[15]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[16]/td[1]</td>
+	<td>physical_server_name_17</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[16]/td[2]</td>
+	<td>physical_server_uuid_17</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[16]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[16]/td[4]</td>
+	<td>700</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[16]/td[5]</td>
+	<td>700000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[16]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[17]/td[1]</td>
+	<td>physical_server_name_18</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[17]/td[2]</td>
+	<td>physical_server_uuid_18</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[17]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[17]/td[4]</td>
+	<td>800</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[17]/td[5]</td>
+	<td>800000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[17]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[18]/td[1]</td>
+	<td>physical_server_name_19</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[18]/td[2]</td>
+	<td>physical_server_uuid_19</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[18]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[18]/td[4]</td>
+	<td>900</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[18]/td[5]</td>
+	<td>900000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[18]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[19]/td[1]</td>
+	<td>physical_server_name_21</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[19]/td[2]</td>
+	<td>physical_server_uuid_21</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[19]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[19]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[19]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[19]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[20]/td[1]</td>
+	<td>physical_server_name_22</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[20]/td[2]</td>
+	<td>physical_server_uuid_22</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[20]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[20]/td[4]</td>
+	<td>200</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[20]/td[5]</td>
+	<td>200000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[20]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[21]/td[1]</td>
+	<td>physical_server_name_23</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[21]/td[2]</td>
+	<td>physical_server_uuid_23</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[21]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[21]/td[4]</td>
+	<td>300</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[21]/td[5]</td>
+	<td>300000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[21]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[22]/td[1]</td>
+	<td>physical_server_name_24</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[22]/td[2]</td>
+	<td>physical_server_uuid_24</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[22]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[22]/td[4]</td>
+	<td>400</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[22]/td[5]</td>
+	<td>400000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[22]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[23]/td[1]</td>
+	<td>physical_server_name_25</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[23]/td[2]</td>
+	<td>physical_server_uuid_25</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[23]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[23]/td[4]</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[23]/td[5]</td>
+	<td>500000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[23]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[24]/td[1]</td>
+	<td>physical_server_name_26</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[24]/td[2]</td>
+	<td>physical_server_uuid_26</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[24]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[24]/td[4]</td>
+	<td>600</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[24]/td[5]</td>
+	<td>600000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[24]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[25]/td[1]</td>
+	<td>physical_server_name_27</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[25]/td[2]</td>
+	<td>physical_server_uuid_27</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[25]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[25]/td[4]</td>
+	<td>700</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[25]/td[5]</td>
+	<td>700000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[25]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[26]/td[1]</td>
+	<td>physical_server_name_28</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[26]/td[2]</td>
+	<td>physical_server_uuid_28</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[26]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[26]/td[4]</td>
+	<td>800</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[26]/td[5]</td>
+	<td>800000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[26]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[27]/td[1]</td>
+	<td>physical_server_name_29</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[27]/td[2]</td>
+	<td>physical_server_uuid_29</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[27]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[27]/td[4]</td>
+	<td>900</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[27]/td[5]</td>
+	<td>900000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[27]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[28]/td[1]</td>
+	<td>physical_server_name_31</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[28]/td[2]</td>
+	<td>physical_server_uuid_31</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[28]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[28]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[28]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[28]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[29]/td[1]</td>
+	<td>physical_server_name_32</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[29]/td[2]</td>
+	<td>physical_server_uuid_32</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[29]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[29]/td[4]</td>
+	<td>200</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[29]/td[5]</td>
+	<td>200000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[29]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[30]/td[1]</td>
+	<td>physical_server_name_33</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[30]/td[2]</td>
+	<td>physical_server_uuid_33</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[30]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[30]/td[4]</td>
+	<td>300</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[30]/td[5]</td>
+	<td>300000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[30]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[31]/td[1]</td>
+	<td>physical_server_name_34</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[31]/td[2]</td>
+	<td>physical_server_uuid_34</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[31]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[31]/td[4]</td>
+	<td>400</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[31]/td[5]</td>
+	<td>400000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[31]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[32]/td[1]</td>
+	<td>physical_server_name_35</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[32]/td[2]</td>
+	<td>physical_server_uuid_35</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[32]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[32]/td[4]</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[32]/td[5]</td>
+	<td>500000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[32]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[33]/td[1]</td>
+	<td>physical_server_name_36</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[33]/td[2]</td>
+	<td>physical_server_uuid_36</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[33]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[33]/td[4]</td>
+	<td>600</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[33]/td[5]</td>
+	<td>600000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[33]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[34]/td[1]</td>
+	<td>physical_server_name_37</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[34]/td[2]</td>
+	<td>physical_server_uuid_37</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[34]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[34]/td[4]</td>
+	<td>700</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[34]/td[5]</td>
+	<td>700000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[34]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[35]/td[1]</td>
+	<td>physical_server_name_38</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[35]/td[2]</td>
+	<td>physical_server_uuid_38</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[35]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[35]/td[4]</td>
+	<td>800</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[35]/td[5]</td>
+	<td>800000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[35]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[36]/td[1]</td>
+	<td>physical_server_name_39</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[36]/td[2]</td>
+	<td>physical_server_uuid_39</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[36]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[36]/td[4]</td>
+	<td>900</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[36]/td[5]</td>
+	<td>900000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[36]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[37]/td[1]</td>
+	<td>physical_server_name_41</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[37]/td[2]</td>
+	<td>physical_server_uuid_41</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[37]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[37]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[37]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[37]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[38]/td[1]</td>
+	<td>physical_server_name_42</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[38]/td[2]</td>
+	<td>physical_server_uuid_42</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[38]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[38]/td[4]</td>
+	<td>200</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[38]/td[5]</td>
+	<td>200000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[38]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[39]/td[1]</td>
+	<td>physical_server_name_43</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[39]/td[2]</td>
+	<td>physical_server_uuid_43</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[39]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[39]/td[4]</td>
+	<td>300</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[39]/td[5]</td>
+	<td>300000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[39]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[40]/td[1]</td>
+	<td>physical_server_name_44</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[40]/td[2]</td>
+	<td>physical_server_uuid_44</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[40]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[40]/td[4]</td>
+	<td>400</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[40]/td[5]</td>
+	<td>400000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[40]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[41]/td[1]</td>
+	<td>physical_server_name_45</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[41]/td[2]</td>
+	<td>physical_server_uuid_45</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[41]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[41]/td[4]</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[41]/td[5]</td>
+	<td>500000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[41]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[42]/td[1]</td>
+	<td>physical_server_name_46</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[42]/td[2]</td>
+	<td>physical_server_uuid_46</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[42]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[42]/td[4]</td>
+	<td>600</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[42]/td[5]</td>
+	<td>600000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[42]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[43]/td[1]</td>
+	<td>physical_server_name_47</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[43]/td[2]</td>
+	<td>physical_server_uuid_47</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[43]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[43]/td[4]</td>
+	<td>700</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[43]/td[5]</td>
+	<td>700000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[43]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[44]/td[1]</td>
+	<td>physical_server_name_48</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[44]/td[2]</td>
+	<td>physical_server_uuid_48</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[43]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[44]/td[4]</td>
+	<td>800</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[44]/td[5]</td>
+	<td>800000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[44]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[45]/td[1]</td>
+	<td>physical_server_name_49</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[45]/td[2]</td>
+	<td>physical_server_uuid_49</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[45]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[45]/td[4]</td>
+	<td>900</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[45]/td[5]</td>
+	<td>900000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[45]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[46]/td[1]</td>
+	<td>physical_server_name_51</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[46]/td[2]</td>
+	<td>physical_server_uuid_51</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[46]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[46]/td[4]</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[46]/td[5]</td>
+	<td>100000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[46]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[47]/td[1]</td>
+	<td>physical_server_name_52</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[47]/td[2]</td>
+	<td>physical_server_uuid_52</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[47]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[47]/td[4]</td>
+	<td>200</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[47]/td[5]</td>
+	<td>200000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[47]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[48]/td[1]</td>
+	<td>physical_server_name_53</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[48]/td[2]</td>
+	<td>physical_server_uuid_53</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[48]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[48]/td[4]</td>
+	<td>300</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[48]/td[5]</td>
+	<td>300000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[48]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[49]/td[1]</td>
+	<td>physical_server_name_54</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[49]/td[2]</td>
+	<td>physical_server_uuid_54</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[49]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[49]/td[4]</td>
+	<td>400</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[49]/td[5]</td>
+	<td>400000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[49]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[50]/td[1]</td>
+	<td>physical_server_name_55</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[50]/td[2]</td>
+	<td>physical_server_uuid_55</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[50]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[50]/td[4]</td>
+	<td>500</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[50]/td[5]</td>
+	<td>500000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[50]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[1]</td>
+	<td>物理サーバ名</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[2]</td>
+	<td>プロバイダによるID</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[3]</td>
+	<td>説明</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[4]</td>
+	<td>CPUコア数</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[5]</td>
+	<td>メモリサイズ</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/thead/tr[1]/th[6]</td>
+	<td>ステータス</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[1]</td>
+	<td>physical_server_name_56</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[2]</td>
+	<td>physical_server_uuid_56</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[4]</td>
+	<td>600</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[5]</td>
+	<td>600000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[1]</td>
+	<td>physical_server_name_57</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[2]</td>
+	<td>physical_server_uuid_57</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[4]</td>
+	<td>700</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[5]</td>
+	<td>700000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[1]</td>
+	<td>physical_server_name_58</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[2]</td>
+	<td>physical_server_uuid_58</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[4]</td>
+	<td>800</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[5]</td>
+	<td>800000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[6]</td>
+	<td>online</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[1]</td>
+	<td>physical_server_name_59</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[2]</td>
+	<td>physical_server_uuid_59</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[4]</td>
+	<td>900</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[5]</td>
+	<td>900000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[6]</td>
+	<td>online</td>
+</tr>
+</tbody></table>
+</body>
+</html>
