@@ -171,6 +171,7 @@
    かつ heartbeat_watchd1がダウンしているか確認するために"ssh root@#{heartbeat_watchd1_ip} command \"ps aux|grep tengine_heartbeat_watchd|grep -v grep\""コマンドを実行する
    ならば heartbeat_watchd1がダウンしていること
 
+   # 仮想サーバの起動リクエストをWakameに投げて、ステータスがstartingからrunningに変わるまでに十分な時間を確保するために以下の秒数待つ
    もし 120秒間待機する
    かつ "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
