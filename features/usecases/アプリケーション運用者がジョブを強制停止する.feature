@@ -2082,6 +2082,7 @@
 
   @3038
   @03_01_02_09
+  # 2012/03/27​現在テストを行うことができない。理由として、start.jobnet.job.t​engineがstart.job.job.tengineを発​火してから、star​t.job.job.tengineが処理されるまでにstop.jobnet.job.tengineを​処理させる方法がないためである。テストを行うことはできないが、どのようにあるべきかをシナリオに記載する
   シナリオ: [正常系]ジョブネットが「開始中に」ジョブネットを指定して強制停止を行う
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
@@ -2106,7 +2107,7 @@
     |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, jn4   |表示 再実行  |
     |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |開始中    |j4        |表示 強制停止|
     |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |開始中    |j4        |表示 強制停止|
-    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |開始中    |j42,j43   |表示 強制停止|
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |準備中    |j42,j43   |表示 強制停止|
     |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |j44       |表示 再実行  |
     |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |j44       |表示 再実行  |
     |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
@@ -2128,7 +2129,7 @@
     |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, jn4   |表示 再実行|
     |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |開始中    |j4        |表示 強制停止|
     |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |開始中    |j4        |表示 強制停止|
-    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |開始中    |j42,j43   |表示 強制停止|
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |準備中    |j42,j43   |表示 強制停止|
     |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |j44       |表示 再実行|
     |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |j44       |表示 再実行|
     |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
@@ -2150,7 +2151,7 @@
     |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, jn4   |表示 再実行  |
     |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了    |j4        |表示 強制停止|
     |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |エラー終了(強制停止済)|j4        |表示 再実行  |
-    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了(強制停止済)|j42,j43   |表示 再実行|
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |j42,j43   |表示 再実行|
     |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |j44       |表示 再実行|
     |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |j44       |表示 再実行|
     |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行|
@@ -2169,6 +2170,216 @@
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス|操作       |
     |  |jn0005        |jn0005|        |        |エラー終了|監視 再実行|
+
+    # Execution
+    もし 実行ジョブ"jn0005"のExecutionを"execution"と呼ぶことにする
+    # /jobnet1001 => jn0005
+    かつ 実行ジョブ"jn0005"のルートジョブネット"/jn0005"を"root_jobnet"と呼ぶことにする
+    # next!start@/jn0005 => e1
+    かつ 実行ジョブ"jn0005"のエッジ"next!start@/jn0005"を"e1"と呼ぶことにする
+    # /jn0005/j1 => j1
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/j1"を"j1"と呼ぶことにする
+    # next!/jn0005/j1 => e2
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/j1"を"e2"と呼ぶことにする
+
+    # prev!/jn0005/j2 => e3
+    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/j2"を"e3"と呼ぶことにする
+    # /jn0005/j2 => j2
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/j2"を"j2"と呼ぶことにする
+    # next!/jn0005/j2 => e4
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/j2"を"e4"と呼ぶことにする
+
+    # prev!/jn0005/jn4 => e5
+    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/jn4"を"e5"と呼ぶことにする
+    # /jn0005/jn4 => jn4
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/jn4"を"jn4"と呼ぶことにする
+    # next!/jn0005/jn4 => e6
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4"を"e6"と呼ぶことにする
+
+    # next!start@/jn0005/jn4 => e7
+    かつ 実行ジョブ"jn0005"のエッジ"next!start@/jn0005/jn4"を"e7"と呼ぶことにする
+     # /jn0005/jn4/j41 => j41
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/jn41"を"jn41"と呼ぶことにする
+    # next!/jn0005/jn4/j41 => e8
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4/j41"を"e8"と呼ぶことにする
+
+    # prev!/jn0005/jn4/j42 => e9
+    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/jn4/j42"を"e9"と呼ぶことにする
+    # /jn0005/jn4/j42 => j42
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/jn4/j42"を"j42"と呼ぶことにする
+    # next!/jn0005/jn4/j42 => e10
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4/j42"を"e10"と呼ぶことにする
+
+    # prev!/jn0005/jn4/j43 => e11
+    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/jn4/j43"を"e11"と呼ぶことにする
+    # /jn0005/jn4/j43 => j43
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/jn4/j43"を"j43"と呼ぶことにする
+    # next!/jn0005/jn4/j43 => e12
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4/j43"を"e12"と呼ぶことにする
+
+    # prev!/jn0005/jn4/j44 => e13
+    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/jn4/j44"を"e13"と呼ぶことにする
+    # /jn0005/jn4/j44 => j44
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/jn4/j44"を"j44"と呼ぶことにする
+    # next!/jn0005/jn4/j44 => e14
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4/j44"を"e14"と呼ぶことにする
+
+    # /jn0005/jn4/finally => jn4/finally
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/jn4/finally"を"jn4/finally"と呼ぶことにする
+    # "next!start@/jn0005/jn4/finally" => e15
+    かつ 実行ジョブ"jn0005"のエッジ"next!start@/jn0005/jn4/finally"を"e15"と呼ぶことにする
+    # /jn0005/jn4/finally/jn4_f => jn4_f
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/jn4/finally/jn4_f"を"jn4_f"と呼ぶことにする
+    # next!/jn0005/jn4/finally/jn4_f => e16
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/jn4/finally/jn4_f"を"e16"と呼ぶことにする
+
+    # prev!/jn0005/j4 => e17
+    かつ 実行ジョブ"jn0005"のエッジ"prev!/jn0005/j4"を"e17"と呼ぶことにする
+    # /jn0005/j4 => j4
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/j4"を"j4"と呼ぶことにする
+    # next!/jn0005/j4 => e18
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/j4"を"e18"と呼ぶことにする
+
+    # /jn0005/finally => finally
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally"を"finally"と呼ぶことにする
+    # next!start@/jn0005/finally => e19
+    かつ 実行ジョブ"jn0005"のエッジ"next!start@/jn0005/finally"を"e19"と呼ぶことにする
+    # /jn0005/finally/jn0005_fjn => jn0005_fjn
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_fjn"を"jn0005_fjn"と呼ぶことにする
+    # next!/jn0005/finally/jn0005_fjn => e20
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_fjn"を"e20"と呼ぶことにする
+
+    # next!start@/jn0005/finally/jn0005_fjn => e21
+    かつ 実行ジョブ"jn0005"のエッジ"next!start@/jn0005/finally/jn0005_fjn"を"e21"と呼ぶことにする
+    # /jn0005/finally/jn0005_fjn/jn0005_f1 => jn0005_f1
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_fjn/jn0005_f1"を"jn0005_f1"と呼ぶことにする
+    # next!/jn0005/finally/jn0005_fjn/jn0005_f1 => e22
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_fjn/jn0005_f1"を"e22"と呼ぶことにする
+    # /jn0005/finally/jn0005_fjn/jn0005_f2 => jn0005_f2
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_fjn/jn0005_f2"を"jn0005_f2"と呼ぶことにする
+    # next!/jn0005/finally/jn0005_fjn/jn0005_f2 => e23
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_fjn/jn0005_f2"を"e23"と呼ぶことにする
+
+
+    # /jn0005/finally/jn0005_fjn/finally => jn0005_fjn/finally
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_fjn/finally"を"jn0005_fjn/finally"と呼ぶことにする
+    # next!start@/jn0005/finally/jn0005_fjn => e24
+    かつ 実行ジョブ"jn0005"のエッジ"next!start@/jn0005/finally/jn0005_fjn"を"e24"と呼ぶことにする
+    # /jn0005/finally/jn0005_fjn/finally/jn0005_fif => jn0005_fif
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_fjn/finally/jn0005_fif"を"jn0005_fif"と呼ぶことにする
+    # next!/jn0005/finally/jn0005_fjn/finally/jn0005_fif => e25
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_fjn/finally/jn0005_fif"を"e25"と呼ぶことにする
+
+    # /jn0005/finally/jn0005_f => jn0005_f
+    もし 実行ジョブ"jn0005"のジョブ"/jn0005/finally/jn0005_f"を"jn0005_f"と呼ぶことにする
+    # next!/jn0005/finally/jn0005_f => e26
+    かつ 実行ジョブ"jn0005"のエッジ"next!/jn0005/finally/jn0005_f"を"e26"と呼ぶことにする
+
+    # receive event "start.execution.job.tengine"
+    ならば "Tengineコアプロセス"のアプリケーションログに"#{execution} initialized -> ready"とジョブのフェーズが変更した情報が出力されていること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{execution} ready -> starting"とジョブのフェーズが変更した情報が出力されており、"#{execution} initialized -> ready"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} initialized -> ready"とジョブのフェーズが変更した情報が出力されており、"#{execution} ready -> starting"の後であること
+
+    # receive event "start.jobnet.job.tengine"
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} ready -> starting"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} initialized -> ready"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{execution} starting -> running"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} ready -> starting"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e1} active -> transmitting"とジョブのフェーズが変更した情報が出力されており、"#{execution} starting -> running"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{j1} initialized -> ready"とジョブのフェーズが変更した情報が出力されており、"#{e1} active -> transmitting"の後であること
+
+    # receive event "start.job.job.tengine"
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e1} transmitting -> transmitted"とジョブのフェーズが変更した情報が出力されており、"#{j1} initialized -> ready"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{j1} ready -> starting"とジョブのフェーズが変更した情報が出力されており、"#{e1} transmitting -> transmitted"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} starting -> running"とジョブのフェーズが変更した情報が出力されており、"#{j1} ready -> starting"の後であること
+    # SSH接続してジョブを実行しようとする
+
+    # PIDが帰ってくる
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{j1} starting -> running"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} starting -> running"の後であること
+
+    # receive event "finished.process.job.tengine"
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{j1} running -> success"とジョブのフェーズが変更した情報が出力されており、"#{j1} starting -> running"の後であること
+
+    # receive event "success.job.job.tengine"
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e2} active -> transmitting"とジョブのフェーズが変更した情報が出力されており、"#{j1} running -> success"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e5} active -> transmitting"とジョブのフェーズが変更した情報が出力されており、"#{e2} active -> transmitting"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e2} transmitting -> transmitted"とジョブのフェーズが変更した情報が出力されており、"#{e2} active -> transmitting"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{jn4} initialized -> ready"とジョブのフェーズが変更した情報が出力されており、"#{e5} active -> transmitting"の後であること
+
+    # receive event "start.jobnet.job.tengine"
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{jn4} ready -> starting"とジョブのフェーズが変更した情報が出力されており、"#{jn4} initialized -> ready"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e7} active -> transmitting"とジョブのフェーズが変更した情報が出力されており、"#{jn4} starting -> running"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{j41} initialized -> ready"とジョブのフェーズが変更した情報が出力されており、"#{e7} active -> transmitting"の後であること
+
+    # receive event "stop.execution.job.tengine"
+    # receive event "stop.jobnet.job.tengine"
+    # receive event "stop.job.job.tengine"
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} running -> dying"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} starting -> running"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e6} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> dying"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e6} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e2} active -> closing"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e7} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{jn4} starting -> dying"の後であること
+
+#   この確認項目は仕様がどうあるべきか検討した後、修正する。2012/03/29現在は、closedされず、closingのままである 
+#   かつ "Tengineコアプロセス"のアプリケーションログに"#{e7} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e7} active -> closing"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e8} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{jn4} starting -> dying"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e9} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{jn4} starting -> dying"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e10} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{jn4} starting -> dying"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e11} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{jn4} starting -> dying"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e12} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{jn4} starting -> dying"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e13} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{jn4} starting -> dying"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e14} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{jn4} starting -> dying"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e15} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{jn4} starting -> dying"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e16} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{jn4} starting -> dying"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e17} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> dying"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e17} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e17} active -> closing"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e18} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> dying"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e18} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e18} active -> closing"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e19} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> dying"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e19} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e19} active -> closing"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e20} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> dying"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e20} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e20} active -> closing"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e21} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> dying"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e21} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e21} active -> closing"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e22} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> dying"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e22} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e22} active -> closing"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e23} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> dying"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e23} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e23} active -> closing"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e24} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> dying"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e24} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e24} active -> closing"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e25} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> dying"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e25} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e25} active -> closing"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e26} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> dying"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e26} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e26} active -> closing"の後であること
+
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e27} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> dying"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e27} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e27} active -> closing"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e28} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} running -> dying"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e28} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e28} active -> closing"の後であること
+
+    # receive event "start.job.job.tengine"
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e8} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{j41} ready -> initialized"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e9} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e9} active -> closing"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e10} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e10} active -> closing"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e11} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e11} active -> closing"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e12} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e12} active -> closing"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e13} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e13} active -> closing"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e14} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e14} active -> closing"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e15} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e15} active -> closing"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{e16} closing -> closed"とジョブのフェーズが変更した情報が出力されており、"#{e16} active -> closing"の後であること
 
 #--retry3--
 
