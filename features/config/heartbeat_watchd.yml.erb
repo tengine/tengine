@@ -1,0 +1,42 @@
+process:
+  daemon:  false
+  pid_dir: "./tmp/pids"
+
+heartbeat:
+  hbw:
+    interval: 3
+
+db:
+  host: localhost
+  port: 27017
+  database: 'tengine_production'
+  read_secondary: false
+  max_retries_on_connection_failure: 3
+
+event_queue:
+  connection:
+    host: localhost
+    port: 5672
+  exchange:
+    name: 'tengine_event_exchange'
+    type: 'direct'
+    durable: true
+  queue:
+    name: 'tengine_event_queue'
+    durable: true
+
+log_common:
+  output:
+  rotation: daily
+  rotation_size: 7
+  level: 'info'
+
+application_log:
+  output: ./log/heartbeat_watchd_app.log
+
+
+process_stdout_log:
+  output: ./log/heartbeat_watchd_stdout.log
+
+process_stderr_log:
+  output: ./log/heartbeat_watchd_stderr.log
