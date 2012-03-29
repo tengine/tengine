@@ -1001,6 +1001,7 @@
     # SSH接続してジョブを実行しようとする
 
     # receive event "stop.execution.job.tengine"
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{execution} running -> dying"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} starting -> running"の後であること
     かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} running -> dying"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} starting -> running"の後であること
 
     かつ "Tengineコアプロセス"のアプリケーションログに"#{e2} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} starting -> running"の後であること
@@ -1039,6 +1040,7 @@
 
     # receive event "error.jobnet.job.tengine"
     かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} dying -> error"とジョブのフェーズが変更した情報が出力されており、"#{j1} dying -> error"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{execution} dying -> error"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} dying -> error"の後であること
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
