@@ -2084,7 +2084,7 @@
   @03_01_02_09
   # 2012/03/27​現在テストを行うことができない。理由として、start.jobnet.job.t​engineがstart.job.job.tengineを発​火してから、star​t.job.job.tengineが処理されるまでにstop.jobnet.job.tengineを​処理させる方法がないためである。テストを行うことはできないが、どのようにあるべきかをシナリオに記載する
   シナリオ: [正常系]ジョブネットが「開始中に」ジョブネットを指定して強制停止を行う
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine_debug.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"を表示していること

@@ -1857,7 +1857,7 @@
 #retry1
   @05_02_01_13
   シナリオ: [正常系]ジョブの状態が「開始中」で強制停止を行う
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsl/0004_retry_one_layer_hadoop.rb --process-daemon"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine_debug.yml -T usecases/job/dsl/0004_retry_one_layer_hadoop.rb --process-daemon"で起動している
 
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"を表示していること
@@ -2030,7 +2030,7 @@
 #--retry2
   @05_02_01_14
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のジョブ
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T usecases/job/dsl/0005_retry_two_layer_hadoop.rb --process-daemon"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine_debug.yml -T usecases/job/dsl/0005_retry_two_layer_hadoop.rb --process-daemon"で起動している
 
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"を表示していること

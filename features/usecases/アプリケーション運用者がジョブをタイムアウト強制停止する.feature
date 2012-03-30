@@ -1051,7 +1051,7 @@
 #--retry2
   @05_01_01_14
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のジョブ
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine_debug.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"を表示していること
