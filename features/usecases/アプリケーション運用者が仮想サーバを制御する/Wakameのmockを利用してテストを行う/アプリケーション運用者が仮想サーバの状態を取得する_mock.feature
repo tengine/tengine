@@ -229,7 +229,7 @@
     もし "仮想サーバ一覧"を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。
-    |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
+    |物理サーバ名             |仮想サーバ名            |プロバイダによるID      |説明|IPアドレス                                                                                                                                   |ステータス|仮想サーバイメージ名         |仮想サーバタイプ              |
     |physical_server_name_01|virtual_server_uuid_01|virtual_server_uuid_01|    |private_ip_address: 192.168.2.1 <br>nw-data: 192.168.2.1 <br>nw-outside: 172.16.0.1 <br>nw-data_2: 192.168.3.1 <br>nw-outside_2: 172.16.1.1 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
     |                       |virtual_server_uuid_02|virtual_server_uuid_02|    |private_ip_address: 192.168.2.2 <br>nw-data: 192.168.2.2 <br>nw-outside: 172.16.0.2 <br>nw-data_2: 192.168.3.2 <br>nw-outside_2: 172.16.1.2 |running|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
     |                       |virtual_server_uuid_03|virtual_server_uuid_03|    |private_ip_address: 192.168.2.3 <br>nw-data: 192.168.2.3 <br>nw-outside: 172.16.0.3 <br>nw-data_2: 192.168.3.3 <br>nw-outside_2: 172.16.1.3 |starting|virtual_server_image_uuid_01|virtual_server_spec_uuid_01|
@@ -251,12 +251,28 @@
     # 仮想サーバイメージ名を編集する
     もし "仮想サーバイメージ一覧"画面を表示する
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること
-    |仮想サーバイメージ名|プロバイダによるID|プロバイダによる説明|説明|
-    |virtual_server_image_uuid_01|virtual_server_image_uuid_01|virtual_server_image_description_01||
-    |virtual_server_image_uuid_02|virtual_server_image_uuid_02|virtual_server_image_description_02||
-    |virtual_server_image_uuid_03|virtual_server_image_uuid_03|virtual_server_image_description_03||
-    |virtual_server_image_uuid_04|virtual_server_image_uuid_04|virtual_server_image_description_04||
-    |virtual_server_image_uuid_05|virtual_server_image_uuid_05|virtual_server_image_description_05||
+    |仮想サーバイメージ名           |プロバイダによるID            |プロバイダによる説明                  |説明|
+    |virtual_server_image_uuid_01|virtual_server_image_uuid_01|virtual_server_im...||
+    |virtual_server_image_uuid_02|virtual_server_image_uuid_02|virtual_server_im...||
+    |virtual_server_image_uuid_03|virtual_server_image_uuid_03|virtual_server_im...||
+    |virtual_server_image_uuid_04|virtual_server_image_uuid_04|virtual_server_im...||
+    |virtual_server_image_uuid_05|virtual_server_image_uuid_05|virtual_server_im...||
+
+
+    もし "virtual_server_image_uuid_01"の"virtual_server_im..."リンクをクリックする
+    ならば ポップアップに"virtual_server_image_description_01"と表示されていること
+
+    もし "virtual_server_image_uuid_02"の"virtual_server_im..."リンクをクリックする
+    ならば ポップアップに"virtual_server_image_description_02"と表示されていること
+
+    もし "virtual_server_image_uuid_03"の"virtual_server_im..."リンクをクリックする
+    ならば ポップアップに"virtual_server_image_description_03"と表示されていること
+
+    もし "virtual_server_image_uuid_04"の"virtual_server_im..."リンクをクリックする
+    ならば ポップアップに"virtual_server_image_description_04"と表示されていること
+
+    もし "virtual_server_image_uuid_05"の"virtual_server_im..."リンクをクリックする
+    ならば ポップアップに"virtual_server_image_description_05"と表示されていること
 
     もし "仮想サーバイメージ名"が"virtual_server_image_uuid_01"列の"編集"リンクをクリックする
     もし "仮想サーバ名"に"virtual_server_image_name_01"と入力する
@@ -264,11 +280,11 @@
     かつ "更新"ボタンをクリックする
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること
     |仮想サーバイメージ名|プロバイダによるID|プロバイダによる説明|説明|
-    |virtual_server_image_name_01|virtual_server_image_uuid_01|virtual_server_image_description_01|仮想サーバイメージ説明01|
-    |virtual_server_image_uuid_02|virtual_server_image_uuid_02|virtual_server_image_description_02||
-    |virtual_server_image_uuid_03|virtual_server_image_uuid_03|virtual_server_image_description_03||
-    |virtual_server_image_uuid_04|virtual_server_image_uuid_04|virtual_server_image_description_04||
-    |virtual_server_image_uuid_05|virtual_server_image_uuid_05|virtual_server_image_description_05||
+    |virtual_server_image_name_01|virtual_server_image_name_01|virtual_server_im...|仮想サーバイメージ説明01|
+    |virtual_server_image_uuid_02|virtual_server_image_name_02virtual_server_im...||
+    |virtual_server_image_uuid_03|virtual_server_image_name_03|virtual_server_im...||
+    |virtual_server_image_uuid_04|virtual_server_image_name_04|virtual_server_im...||
+    |virtual_server_image_uuid_05|virtual_server_image_name_05|virtual_server_im...||
 
     もし "仮想サーバ一覧"を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること # 仮想サーバイメージ名の"virtual_server_image_uuid_01"が"virtual_server_image_name_01"に変わっていること
