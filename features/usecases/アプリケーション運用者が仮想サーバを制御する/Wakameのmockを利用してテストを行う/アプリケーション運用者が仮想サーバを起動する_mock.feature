@@ -24,7 +24,7 @@
   シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面から仮想サーバの起動を行う
     # 物理サーバが10件のファイル
     もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_host_nodes.json"にコピーする
-    # 仮想サーバが10件のファイル
+    # 仮想サーバが0件のファイル
     かつ Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/10_describe_instances_0_virtual_servers.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_instances.json"にコピーする
     # 仮想サーバイメージが5件のファイル
     かつ Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/21_describe_images_5_virtual_server_images.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_images.json"にコピーする
@@ -98,7 +98,7 @@
     かつ "起動"ボタンをクリックする
     ならば tengine_console のログに以下の文言が表示されること
     """
-    Tama::Controllers::TamaTestController#run_instances("virtual_server_image_uuid_01", 5, 5, [], nil, "", nil, "virtual_server_spec_uuid_01", nil, nil, "physical_server_uuid_01", nil)
+    Tama::Controllers::TamaTestController#run_instances("virtual_server_image_uuid_01", 5, 5, [], nil, "", nil, "virtual_server_spec_uuid_02", nil, nil, "physical_server_uuid_01", nil)
     """
     ならば "仮想サーバ起動結果"ダイアログが表示されること
     かつ  "仮想サーバ起動結果"ダイアログに以下の表示があること
