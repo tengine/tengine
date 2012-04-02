@@ -1,4 +1,4 @@
-features/script#language:ja
+#language:ja
 機能: アプリケーション運用者が仮想サーバを起動する
   分散ジョブを実行するために
   アプリケーション運用者

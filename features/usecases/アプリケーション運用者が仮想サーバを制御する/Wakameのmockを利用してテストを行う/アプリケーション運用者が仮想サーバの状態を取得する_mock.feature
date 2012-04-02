@@ -1,4 +1,4 @@
-./features/test_files#language:ja
+#language:ja
 機能: アプリケーション運用者が仮想サーバの状態を取得する
   分散ジョブを起動するために
   アプリケーション運用者

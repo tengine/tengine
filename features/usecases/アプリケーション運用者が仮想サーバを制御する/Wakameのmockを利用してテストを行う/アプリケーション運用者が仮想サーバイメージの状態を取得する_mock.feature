@@ -1,4 +1,4 @@
-features/script#language:ja
+#language:ja
 機能: アプリケーション運用者が物理サーバの状態を取得する
   仮想サーバを起動するために
   アプリケーション運用者

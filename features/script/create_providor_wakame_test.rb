@@ -8,11 +8,7 @@ require 'pp'
 puts "#{Time.new}\tstart\t#{__FILE__}"
 
 # テスト用のjsonファイルを格納しているディレクトリ
-<<<<<<< HEAD
-test_files_dir = File.expand_path(ARGV[0] || "features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files")
-=======
-test_files_dir = File.expand_path(ARGV[0] || "features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files")
->>>>>>> develop
+test_files_dir = File.expand_path(ARGV[0] || "features/test_files")
 puts "test_files_dir: #{test_files_dir}"
 
 Tengine::Resource::Provider::Wakame.delete_all
