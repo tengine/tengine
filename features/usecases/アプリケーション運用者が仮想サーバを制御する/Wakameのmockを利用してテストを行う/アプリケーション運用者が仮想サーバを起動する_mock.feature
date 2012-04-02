@@ -1,4 +1,4 @@
-#language:ja
+features/script#language:ja
 機能: アプリケーション運用者が仮想サーバを起動する
   分散ジョブを実行するために
   アプリケーション運用者
@@ -13,9 +13,9 @@
     # かつ TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
     # #ファイルを置く予定のディレクトリには実行権限を付与する必要があります。例:chmod +x /home/user
     # #ファイル自身にも読み込み権限を付与する必要があります
-    #  > rails runner features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/create_providor_wakame_test.rb features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/test_files -e production
+    #  > rails runner features/script/create_providor_wakame_test.rb features/test_files -e production
     # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
-    #  > rails runner features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/delete_all_resources.rb -e production
+    #  > rails runner features/script/delete_all_resources.rb -e production
     # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
     #  > tengined -f config/tengined.yml.erb -T usecases/job/dsl/1001_one_job_in_jobnet.rb
 
@@ -23,13 +23,13 @@
   @07_02_03
   シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面から仮想サーバの起動を行う
     # 物理サーバが10件のファイル
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_host_nodes.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/test_files/describe_host_nodes.json"にコピーする
     # 仮想サーバが0件のファイル
-    かつ Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/10_describe_instances_0_virtual_servers.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_instances.json"にコピーする
+    かつ Wakameのモックファイル"./features/test_files/10_describe_instances_0_virtual_servers.json"を"./features/test_files/describe_instances.json"にコピーする
     # 仮想サーバイメージが5件のファイル
-    かつ Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/21_describe_images_5_virtual_server_images.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_images.json"にコピーする
+    かつ Wakameのモックファイル"./features/test_files/21_describe_images_5_virtual_server_images.json"を"./features/test_files/describe_images.json"にコピーする
     # 仮想サーバタイプが4件のファイル
-    かつ Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/31_describe_instance_specs_4_virtual_server_specs.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_instance_specs.json"にコピーする
+    かつ Wakameのモックファイル"./features/test_files/31_describe_instance_specs_4_virtual_server_specs.json"を"./features/test_files/describe_instance_specs.json"にコピーする
     かつ "Tengineリソースウォッチャ"プロセスを起動する
     #  > tengine_resource_watchd
     もし "仮想サーバ一覧"画面を表示する
@@ -65,7 +65,7 @@
 
     # 仮想サーバを1台起動
     もし "Tengineリソースウォッチャ"プロセスを停止する
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/41_run_instances_1_virtual_servers.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/run_instances.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/41_run_instances_1_virtual_servers.json"を"./features/test_files/run_instances.json"にコピーする
     もし"仮想サーバ起動"ボタンをクリックする
     ならば "仮想サーバ起動"画面が表示されていること
     もし "仮想サーバ名"に"run_1_virtual_server"と入力する
@@ -86,7 +86,7 @@
     ならば "仮想サーバ一覧"画面が表示されていること
 
     # 仮想サーバを5台起動
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/42_run_instances_5_virtual_servers.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/run_instances.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/42_run_instances_5_virtual_servers.json"を"./features/test_files/run_instances.json"にコピーする
     もし"仮想サーバ起動"ボタンをクリックする
     ならば "仮想サーバ起動"画面が表示されていること
     もし "仮想サーバ名"に"run_5_virtual_servers"と入力する
@@ -111,7 +111,7 @@
     ならば "仮想サーバ一覧"画面が表示されていること
 
     # 起動後の画面状態を確認
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/12_describe_instances_after_run_instances.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_instances.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/12_describe_instances_after_run_instances.json"を"./features/test_files/describe_instances.json"にコピーする
     もし "Tengineリソースウォッチャ"プロセスを起動する
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
@@ -328,13 +328,13 @@
     #
 
     # 物理サーバが10件のファイル
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_host_nodes.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/test_files/describe_host_nodes.json"にコピーする
     # 仮想サーバが10件のファイル
-    かつ Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/10_describe_instances_0_virtual_servers.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_instances.json"にコピーする
+    かつ Wakameのモックファイル"./features/test_files/10_describe_instances_0_virtual_servers.json"を"./features/test_files/describe_instances.json"にコピーする
     # 仮想サーバイメージが5件のファイル
-    かつ Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/21_describe_images_5_virtual_server_images.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_images.json"にコピーする
+    かつ Wakameのモックファイル"./features/test_files/21_describe_images_5_virtual_server_images.json"を"./features/test_files/describe_images.json"にコピーする
     # 仮想サーバタイプが4件のファイル
-    かつ Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/31_describe_instance_specs_4_virtual_server_specs.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_instance_specs.json"にコピーする
+    かつ Wakameのモックファイル"./features/test_files/31_describe_instance_specs_4_virtual_server_specs.json"を"./features/test_files/describe_instance_specs.json"にコピーする
     かつ "Tengineリソースウォッチャ"プロセスを起動する
     #  > tengine_resource_watchd
     もし "仮想サーバ一覧"画面を表示する
@@ -356,7 +356,7 @@
     もし "Tengineリソースウォッチャ"プロセスを停止する
 
     # 仮想サーバを1台起動
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/41_run_instances_1_virtual_servers.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/run_instances.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/41_run_instances_1_virtual_servers.json"を"./features/test_files/run_instances.json"にコピーする
     もし"仮想サーバ起動"ボタンをクリックする
     ならば "仮想サーバ起動"画面が表示されていること
     もし "仮想サーバ名"に"run_1_virtual_server"と入力する
@@ -380,7 +380,7 @@
 
     # さらに仮想サーバを1台起動
     #  [仮想サーバ起動後、すぐに再度仮想サーバを起動しようとするとエラーとなってしまう]の対応前は、ここで「仮想サーバ起動」画面を表示しようとするとサーバエラーになります
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/43_run_instances_1_virtual_servers_other_aws_id.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/run_instances.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/43_run_instances_1_virtual_servers_other_aws_id.json"を"./features/test_files/run_instances.json"にコピーする
     もし"仮想サーバ起動"ボタンをクリックする
     ならば "仮想サーバ起動"画面が表示されていること
     もし "仮想サーバ名"に"run_1_virtual_server_again"と入力する

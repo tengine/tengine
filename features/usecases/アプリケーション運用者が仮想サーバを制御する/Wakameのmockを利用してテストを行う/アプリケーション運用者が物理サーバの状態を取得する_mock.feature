@@ -11,9 +11,9 @@
     # かつ サーバ仮想基盤がセットアップされている
     # かつ Tengineにサーバ仮想基盤の接続先の設定を行なっている
     # かつ TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
-    #  > rails runner features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/create_providor_wakame_test.rb features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/test_files -e production
+    #  > rails runner features/script/create_providor_wakame_test.rb features/test_files -e production
     # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
-    #  > rails runner features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/delete_all_resources.rb -e production
+    #  > rails runner features/script/delete_all_resources.rb -e production
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
     #  > tengine_resource_watchd
     # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
@@ -24,7 +24,7 @@
   シナリオ: [正常系]アプリケーション運用者は物理サーバ一覧画面を開き、物理サーバが表示されていることを確認する
     # 代替コースB: 管理下の物理サーバが存在しない
     # 物理サーバが0件のファイル
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/00_describe_host_nodes_0_physical_servers.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_host_nodes.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/00_describe_host_nodes_0_physical_servers.json"を"./features/test_files/describe_host_nodes.json"にコピーする
     もし "物理サーバ一覧"画面を表示する
     ならば "物理サーバ一覧"画面に以下の行が表示されていること
     # tableには何も表示されない
@@ -32,7 +32,7 @@
 
     # Wakameに物理サーバの登録を行う
     # 物理サーバが10件のファイル
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_host_nodes.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/test_files/describe_host_nodes.json"にコピーする
     もし "物理サーバ一覧"画面を表示する
     ならば "物理サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|
@@ -98,7 +98,7 @@
 
     # 代替コースD: 絞り込み検索をしている状態でページ切り替えを行う
     # 物理サーバが60件のファイル
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/02_describe_host_nodes_60_physical_servers.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_host_nodes.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/02_describe_host_nodes_60_physical_servers.json"を"./features/test_files/describe_host_nodes.json"にコピーする
     もし "物理サーバ一覧"画面を表示する
     ならば "物理サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名|プロバイダによるID|説明|CPUコア数|メモリサイズ|ステータス|

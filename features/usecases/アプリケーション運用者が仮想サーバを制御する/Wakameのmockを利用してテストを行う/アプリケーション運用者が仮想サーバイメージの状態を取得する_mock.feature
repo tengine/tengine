@@ -1,4 +1,4 @@
-#language:ja
+features/script#language:ja
 機能: アプリケーション運用者が物理サーバの状態を取得する
   仮想サーバを起動するために
   アプリケーション運用者
@@ -11,9 +11,9 @@
     # かつ サーバ仮想基盤がセットアップされている
     # かつ Tengineにサーバ仮想基盤の接続先の設定を行なっている
     # かつ TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
-    #  > rails runner features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/create_providor_wakame_test.rb features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/test_files -e production
+    #  > rails runner features/script/create_providor_wakame_test.rb features/test_files -e production
     # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
-    #  > rails runner features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/delete_all_resources.rb -e production
+    #  > rails runner features/script/delete_all_resources.rb -e production
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
     #  > tengine_resource_watchd
     # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
@@ -24,7 +24,7 @@
   シナリオ: [正常系]アプリケーション運用者は仮想サーバイメージ一覧画面を開き、仮想サーバイメージが表示されていることを確認する
     # 代替コースB: 管理下の仮想サーバイメージが存在しない
     # 仮想サーバイメージが0件のファイル
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/20_describe_images_0_virtual_server_images.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_images.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/20_describe_images_0_virtual_server_images.json"を"./features/test_files/describe_images.json"にコピーする
     かつ "Tengineリソースウォッチャ"プロセスを再起動する
     もし "仮想サーバイメージ一覧"画面を表示する
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること
@@ -33,7 +33,7 @@
 
     # Wakameに物理サーバの登録を行う
     # 仮想サーバイメージが5件のファイル
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/21_describe_images_5_virtual_server_images.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_images.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/21_describe_images_5_virtual_server_images.json"を"./features/test_files/describe_images.json"にコピーする
     かつ "Tengineリソースウォッチャ"プロセスを再起動する
     # > tengine_resource_watchd
     もし "仮想サーバイメージ一覧"画面を表示する
@@ -109,7 +109,7 @@
 
     # 代替コースD: 絞り込み検索をしている状態でページ切り替えを行う
     # 仮想サーバイメージが60件のファイル
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/22_describe_images_60_virtual_server_images.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_images.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/22_describe_images_60_virtual_server_images.json"を"./features/test_files/describe_images.json"にコピーする
     かつ "Tengineリソースウォッチャ"プロセスを再起動する
     # > tengine_resource_watchd
     ならば "仮想サーバイメージ一覧"画面に以下の行が表示されていること

@@ -11,9 +11,9 @@
     # かつ サーバ仮想基盤がセットアップされている
     # かつ Tengineにサーバ仮想基盤の接続先の設定を行なっている
     # かつ TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する
-    #  > rails runner features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/create_providor_wakame_test.rb features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/test_files -e production
+    #  > rails runner features/script/create_providor_wakame_test.rb features/test_files -e production
     # かつ 仮想サーバ、物理サーバ、仮想サーバイメージ、仮想サーバタイプのデータを全削除する
-    #  > rails runner features/usecases/アプリケーション運用者が仮想サーバを制御する/scripts/delete_all_resources.rb -e production
+    #  > rails runner features/script/delete_all_resources.rb -e production
     # かつ "Tengineリソースウォッチャ"プロセスが起動している
     #  > tengine_resource_watchd
     # かつ "Tengineコア"プロセスを起動している(ジョブの実行は行わないので読み込むDSLはエラーにならなければどれでもよい)
@@ -23,13 +23,13 @@
   @07_02_06
   シナリオ: [正常系]アプリケーション運用者は仮想サーバ一覧画面から仮想サーバの停止を行う
     # 物理サーバが10件のファイル
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_host_nodes.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/01_describe_host_nodes_10_physical_servers.json"を"./features/test_files/describe_host_nodes.json"にコピーする
     # 仮想サーバを起動した後のファイル
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/12_describe_instances_after_run_instances.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_instances.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/12_describe_instances_after_run_instances.json"を"./features/test_files/describe_instances.json"にコピーする
     # 仮想サーバイメージが5件のファイル
-    かつ Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/21_describe_images_5_virtual_server_images.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_images.json"にコピーする
+    かつ Wakameのモックファイル"./features/test_files/21_describe_images_5_virtual_server_images.json"を"./features/test_files/describe_images.json"にコピーする
     # 仮想サーバタイプが4件のファイル
-    かつ Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/31_describe_instance_specs_4_virtual_server_specs.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_instance_specs.json"にコピーする
+    かつ Wakameのモックファイル"./features/test_files/31_describe_instance_specs_4_virtual_server_specs.json"を"./features/test_files/describe_instance_specs.json"にコピーする
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     # 仮想サーバ名、説明はつけていないので、空の状態です。
@@ -51,7 +51,7 @@
     |physical_server_name_10|仮想サーバは起動していません。|||||||
 
     # 仮想サーバの停止を行う
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/51_terminate_instances_3_virtual_servers.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/terminate_instances.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/51_terminate_instances_3_virtual_servers.json"を"./features/test_files/terminate_instances.json"にコピーする
     もし "virtual_server_uuid_91"の列の"削除"チェックボックスをオンにする
     かつ "virtual_server_uuid_92"の列の"削除"チェックボックスをオンにする
     かつ "virtual_server_uuid_93"の列の"削除"チェックボックスをオンにする
@@ -70,7 +70,7 @@
     Tama::Controllers::TamaTestController#terminate_instances(["virtual_server_uuid_93"])
     """
 
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/13_describe_instances_after_terminate_instances.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_instances.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/13_describe_instances_after_terminate_instances.json"を"./features/test_files/describe_instances.json"にコピーする
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
@@ -114,7 +114,7 @@
     # 1.0.0.rc4のバグ解消の確認
     # 仮想サーバ停止後に一定時間が経過し、describe_instancesのレスポンスから停止済みの仮想サーバ群が返却されなくなった
     # 上記の状態を再現する
-    もし Wakameのモックファイル"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/14_describe_instances_after_terminate_instances_destroy.json"を"./features/usecases/アプリケーション運用者が仮想サーバを制御する/test_files/describe_instances.json"にコピーする
+    もし Wakameのモックファイル"./features/test_files/14_describe_instances_after_terminate_instances_destroy.json"を"./features/test_files/describe_instances.json"にコピーする
     もし "仮想サーバ一覧"画面を表示する
     ならば "仮想サーバ一覧"画面に以下の行が表示されていること
     |物理サーバ名             |仮想サーバ名|プロバイダによるID  |説明|IPアドレス|ステータス|仮想サーバイメージ名|仮想サーバタイプ|
