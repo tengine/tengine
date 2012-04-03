@@ -48,7 +48,7 @@
     もし 70秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
-    |  |j1        |j1       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |タイムアウト強制停止済|j2, j3    |表示 再実行|
+    |  |j1        |j1       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |エラー終了(タイムアウト強制停止済)|j2, j3    |表示 再実行|
     |  |j2        |j2       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済              |j4        |表示 再実行|
     |  |j3        |j3       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済              |j4        |表示 再実行|
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
@@ -58,7 +58,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0004        |jn0004|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0004        |jn0004|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
     もし "イベント一覧画面"を表示する
     ならば 以下の行のように同じイベントキーのstop.execution.job.tengineが1件だけ表示されていること
@@ -109,8 +109,8 @@
     ならば 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
     |  |j1        |j1       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了              |j2, j3    |表示 再実行|
-    |  |j2        |j2       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
-    |  |j3        |j3       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
+    |  |j2        |j2       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
+    |  |j3        |j3       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
@@ -118,7 +118,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0004        |jn0004|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0004        |jn0004|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_01_01_03
   シナリオ: [正常系]実行中のジョブが1つで片方が正常終了している状態でタイムアウト強制停止
@@ -163,7 +163,7 @@
     ならば 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
     |  |j1        |j1       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了              |j2, j3    |表示 再実行|
-    |  |j2        |j2       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
+    |  |j2        |j2       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
     |  |j3        |j3       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j4        |表示 再実行|
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
@@ -172,7 +172,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0004        |jn0004|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0004        |jn0004|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_01_01_04
   シナリオ: [正常系]実行中のジョブが1つで片方がエラー終了している状態でタイムアウト強制停止
@@ -217,7 +217,7 @@
     ならば 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
     |  |j1        |j1       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了              |j2, j3    |表示 再実行|
-    |  |j2        |j2       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
+    |  |j2        |j2       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
     |  |j3        |j3       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |エラー終了            |j4        |表示 再実行|
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
@@ -226,7 +226,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0004        |jn0004|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0004        |jn0004|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_01_01_05
   シナリオ: [正常系]finally実行中にタイムアウト強制停止
@@ -274,13 +274,13 @@
     |  |j2        |j2       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j4        |表示 再実行|
     |  |j3        |j3       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j4        |表示 再実行|
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |正常終了              |          |表示 再実行|
-    |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示 再実行|
-    |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示 再実行|
+    |  |finally   |finally  |                             |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示 再実行|
+    |  |  jn0004_f|jn_0004_f|$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0004        |jn0004|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0004        |jn0004|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
 
 #--retry2--
@@ -323,13 +323,34 @@
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
 
-    もし 70秒間待機する
+    もし 20秒間待機する
+    かつ 以下の行が表示されていること
+    |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作         |
+    |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了  |j2, jn4   |表示 強制停止|
+    |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了  |j4        |表示 再実行  |
+    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |実行中    |j4        |表示 再実行  |
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |実行中    |j42,j43   |表示 再実行  |
+    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |j44       |表示 再実行  |
+    |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |j44       |表示 再実行  |
+    |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+    |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+    |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+    |  |j4              |j4         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+    |  |finally         |finally    |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+    |  |  jn0005_fjn    |jn_0005_fjn|                             |test_server1|test_credential1|                   |        |初期化済  |jn0005_f  |表示 再実行  |
+    |  |    jn0005_f1   |jn_0005_f1 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |jn0005_f2 |表示 再実行  |
+    |  |    jn0005_f2   |jn_0005_f2 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+    |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+    |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+    |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
+
+    もし 50秒間待機する
     かつ 以下の行が表示されていること
     |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス          |次のジョブ|操作       |
     |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了            |j2, jn4   |表示 再実行|
     |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了            |j4        |表示 再実行|
-    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |タイムアウト強制停止|j4        |表示 再実行|
-    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止|j42,j43   |表示 再実行|
+    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j42,j43   |表示 再実行|
     |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済            |j44       |表示 再実行|
     |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済            |j44       |表示 再実行|
     |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済            |          |表示 再実行|
@@ -347,7 +368,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0005        |jn0005|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005        |jn0005|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_01_01_07
   シナリオ: [正常系]ルートジョブネット内のジョブネット内で実行中のジョブが２つ
@@ -388,15 +409,36 @@
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
 
-    もし 70秒間待機する
+    もし 20秒間待機する
     かつ 以下の行が表示されていること
     |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
     |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了              |j2, jn4   |表示 再実行|
     |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j4        |表示 再実行|
-    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
+    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |実行中                |j4        |表示 再実行|
     |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j42,j43   |表示 再実行|
-    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j44       |表示 再実行|
-    |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j44       |表示 再実行|
+    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |実行中                |j44       |表示 再実行|
+    |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |実行中                |j44       |表示 再実行|
+    |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
+    |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
+    |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
+    |  |j4              |j4         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
+    |  |finally         |finally    |                             |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
+    |  |  jn0005_fjn    |jn_0005_fjn|                             |test_server1|test_credential1|                   |        |初期化済              |jn0005_f  |表示 再実行|
+    |  |    jn0005_f1   |jn_0005_f1 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |jn0005_f2 |表示 再実行|
+    |  |    jn0005_f2   |jn_0005_f2 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
+    |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
+    |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
+    |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
+
+    もし 50秒間待機する
+    かつ 以下の行が表示されていること
+    |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
+    |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了              |j2, jn4   |表示 再実行|
+    |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j4        |表示 再実行|
+    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j42,j43   |表示 再実行|
+    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j44       |表示 再実行|
+    |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j44       |表示 再実行|
     |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
@@ -412,10 +454,10 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0005        |jn0005|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005        |jn0005|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_01_01_08
-  シナリオ: [正常系]ルートジョブネット内のジョブネット内で実行中のジョブが1つ_片方が正常終了
+  シナリオ: [正常系]ルートジョブネット内のジョブネット内で実行中のジョブが1つ_フォークしたジョブのうち片方が正常終了もう片方が実行中
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブ一覧画面"を表示する
@@ -453,14 +495,35 @@
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
 
-    もし 70秒間待機する
+    もし 20秒間待機する
+    かつ 以下の行が表示されていること
+    |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
+    |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了     |j2, jn4   |表示 再実行|
+    |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |j4        |表示 再実行|
+    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |実行中       |j4        |表示 再実行|
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |j42,j43   |表示 再実行|
+    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |実行中       |j44       |表示 再実行|
+    |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |j44       |表示 再実行|
+    |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |j4              |j4         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |finally         |finally    |                             |test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |  jn0005_fjn    |jn_0005_fjn|                             |test_server1|test_credential1|                   |        |初期化済     |jn0005_f  |表示 再実行|
+    |  |    jn0005_f1   |jn_0005_f1 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |jn0005_f2 |表示 再実行|
+    |  |    jn0005_f2   |jn_0005_f2 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+
+    もし 50秒間待機する
     かつ 以下の行が表示されていること
     |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
     |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了              |j2, jn4   |表示 再実行|
     |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j4        |表示 再実行|
-    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
+    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
     |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j42,j43   |表示 再実行|
-    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j44       |表示 再実行|
+    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j44       |表示 再実行|
     |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j44       |表示 再実行|
     |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
@@ -477,10 +540,10 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0005        |jn0005|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005        |jn0005|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_01_01_09
-  シナリオ: [正常系]ルートジョブネット内のジョブネット内で実行中のジョブが1つ_片方がエラー終了
+  シナリオ: [正常系]ルートジョブネット内のジョブネット内で実行中のジョブが1つ_フォークしたジョブのうち片方がエラー終了もう片方が実行中
     前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブ一覧画面"を表示する
@@ -518,14 +581,35 @@
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
 
-    もし 70秒間待機する
+    もし 20秒間待機する
+    かつ 以下の行が表示されていること
+    |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
+    |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了     |j2, jn4   |表示 再実行|
+    |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |j4        |表示 再実行|
+    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |実行中       |j4        |表示 再実行|
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |j42,j43   |表示 再実行|
+    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |実行中       |j44   |表示 再実行|
+    |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |実行中       |j44   |表示 再実行|
+    |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |j4              |j4         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |finally         |finally    |                             |test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |  jn0005_fjn    |jn_0005_fjn|                             |test_server1|test_credential1|                   |        |初期化済     |jn0005_f  |表示 再実行|
+    |  |    jn0005_f1   |jn_0005_f1 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |jn0005_f2 |表示 再実行|
+    |  |    jn0005_f2   |jn_0005_f2 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+
+    もし 50秒間待機する
     かつ 以下の行が表示されていること
     |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
     |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了              |j2, jn4   |表示 再実行|
     |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j4        |表示 再実行|
-    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
+    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
     |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j42,j43   |表示 再実行|
-    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j44       |表示 再実行|
+    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j44       |表示 再実行|
     |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了            |j44       |表示 再実行|
     |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
@@ -542,7 +626,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0005        |jn0005|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005        |jn0005|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_01_01_10
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のfinallyが実行中にタイムアウト強制停止
@@ -583,18 +667,40 @@
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
 
-    もし 70秒間待機する
+
+    もし 20秒間待機する
+    かつ 以下の行が表示されていること
+    |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
+    |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了     |j2, jn4   |表示 再実行|
+    |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |j4        |表示 再実行|
+    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |実行中       |j4        |表示 再実行|
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |j42,j43   |表示 再実行|
+    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |j44       |表示 再実行|
+    |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |j44       |表示 再実行|
+    |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了    |          |表示 再実行|
+    |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |実行中       |          |表示 再実行|
+    |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |実行中       |          |表示 再実行|
+    |  |j4              |j4         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |finally         |finally    |                             |test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |  jn0005_fjn    |jn_0005_fjn|                             |test_server1|test_credential1|                   |        |初期化済     |jn0005_f  |表示 再実行|
+    |  |    jn0005_f1   |jn_0005_f1 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |jn0005_f2 |表示 再実行|
+    |  |    jn0005_f2   |jn_0005_f2 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+
+    もし 50秒間待機する
     かつ 以下の行が表示されていること
     |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
     |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了              |j2, jn4   |表示 再実行|
     |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j4        |表示 再実行|
-    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
+    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
     |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j42,j43   |表示 再実行|
     |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j44       |表示 再実行|
     |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j44       |表示 再実行|
     |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了            |          |表示 再実行|
-    |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示 再実行|
-    |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示 再実行|
+    |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示 再実行|
+    |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示 再実行|
     |  |j4              |j4         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |finally         |finally    |                             |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |  jn0005_fjn    |jn_0005_fjn|                             |test_server1|test_credential1|                   |        |初期化済              |jn0005_f  |表示 再実行|
@@ -607,7 +713,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0005        |jn0005|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005        |jn0005|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_01_01_11
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のfinallyのfinallyが実行中にタイムアウト強制停止
@@ -648,7 +754,28 @@
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
 
-    もし 70秒間待機する
+    もし 20秒間待機する
+    かつ 以下の行が表示されていること
+    |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
+    |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了     |j2, jn4   |表示 再実行|
+    |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |j4        |表示 再実行|
+    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |エラー終了   |j4        |表示 再実行|
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |j42,j43   |表示 再実行|
+    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |j44       |表示 再実行|
+    |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |j44       |表示 再実行|
+    |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了   |          |表示 再実行|
+    |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |正常終了     |          |表示 再実行|
+    |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |          |表示 再実行|
+    |  |j4              |j4         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+    |  |finally         |finally    |                             |test_server1|test_credential1|                   |        |実行中       |          |表示 再実行|
+    |  |  jn0005_fjn    |jn_0005_fjn|                             |test_server1|test_credential1|                   |        |実行中       |jn0005_f  |表示 再実行|
+    |  |    jn0005_f1   |jn_0005_f1 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了     |jn0005_f2 |表示 再実行|
+    |  |    jn0005_f2   |jn_0005_f2 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了    |          |表示 再実行|
+    |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |実行中       |          |表示 再実行|
+    |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |実行中       |          |表示 再実行|
+    |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済     |          |表示 再実行|
+
+    もし 50秒間待機する
     かつ 以下の行が表示されていること
     |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
     |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了              |j2, jn4   |表示 再実行|
@@ -661,18 +788,18 @@
     |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |正常終了              |          |表示 再実行|
     |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |          |表示 再実行|
     |  |j4              |j4         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
-    |  |finally         |finally    |                             |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示 再実行|
-    |  |  jn0005_fjn    |jn_0005_fjn|                             |test_server1|test_credential1|                   |        |タイムアウト強制停止済|jn0005_f  |表示 再実行|
+    |  |finally         |finally    |                             |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示 再実行|
+    |  |  jn0005_fjn    |jn_0005_fjn|                             |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|jn0005_f  |表示 再実行|
     |  |    jn0005_f1   |jn_0005_f1 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |jn0005_f2 |表示 再実行|
     |  |    jn0005_f2   |jn_0005_f2 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了            |          |表示 再実行|
-    |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示 再実行|
-    |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|          |表示 再実行|
+    |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示 再実行|
+    |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|          |表示 再実行|
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0005        |jn0005|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005        |jn0005|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
   @05_01_01_12
   シナリオ: [正常系]ジョブネットの中のジョブネット内にあるジョブを実行中にタイムアウト強制停止
@@ -716,12 +843,36 @@
     |  |finally     |finally|                               |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
 
-    もし 80秒間待機する
+    もし 30秒間待機する
     ならば 以下の行が表示されていること
     |ID|ジョブ名    |説明   |実行スクリプト                 |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
-    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |タイムアウト強制停止済|jn2       |表示 再実行|
-    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j12       |表示 再実行|
-    |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j112      |表示 再実行|
+    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |実行中      |jn2       |表示 再実行|
+    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |実行中      |j12       |表示 再実行|
+    |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |実行中      |j112      |表示 再実行|
+    |  |    j112    |j112   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済    |          |表示 再実行|
+    |  |    finally |finally|                               |test_server1|test_credential1|                   |        |初期化済    |finally   |表示 再実行|
+    |  |      jn11_f|jn11_f |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済    |jn11_f    |表示 再実行|
+    |  |  j12       |j12    |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済    |          |表示 再実行|
+    |  |  finally   |finally|                               |test_server1|test_credential1|                   |        |初期化済    |          |表示 再実行|
+    |  |    jn_1f   |jn_1f  |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済    |          |表示 再実行|
+    |  |jn2         |jn2    |                               |test_server1|test_credential1|                   |        |初期化済    |          |表示 再実行|
+    |  |  j21       |j21    |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済    |jn22      |表示 再実行|
+    |  |  jn22      |jn22   |                               |test_server1|test_credential1|                   |        |初期化済    |          |表示 再実行|
+    |  |    j221    |j221   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済    |j222      |表示 再実行|
+    |  |    j222    |j222   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済    |          |表示 再実行|
+    |  |    finally |finally|                               |test_server1|test_credential1|                   |        |初期化済    |          |表示 再実行|
+    |  |      jn22_f|jn22_f |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済    |          |表示 再実行|
+    |  |  finally   |finally|                               |test_server1|test_credential1|                   |        |初期化済    |          |表示 再実行|
+    |  |    jn_2f   |jn_2f  |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済    |          |表示 再実行|
+    |  |finally     |finally|                               |test_server1|test_credential1|                   |        |初期化済    |          |表示 再実行|
+    |  |  jn_f      |jn_f   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済    |          |表示 再実行|
+
+    もし 50秒間待機する
+    ならば 以下の行が表示されていること
+    |ID|ジョブ名    |説明   |実行スクリプト                 |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
+    |  |jn1         |jn1    |                               |test_server1|test_credential1|2011/11/25 14:43:22|        |エラー終了(タイムアウト強制停止済)|jn2       |表示 再実行|
+    |  |  jn11      |jn11   |                               |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j12       |表示 再実行|
+    |  |    j111    |j111   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j112      |表示 再実行|
     |  |    j112    |j112   |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
     |  |    finally |finally|                               |test_server1|test_credential1|                   |        |初期化済              |finally   |表示 再実行|
     |  |      jn11_f|jn11_f |$HOME/0006_retry_three_layer.sh|test_server1|test_credential1|                   |        |初期化済              |jn11_f    |表示 再実行|
@@ -744,7 +895,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0006        |jn0006|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0006        |jn0006|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
 
 #== startingからdying ==
@@ -753,7 +904,7 @@
 #retry1
   @05_01_01_13
   シナリオ: [正常系]ジョブの状態が「開始中」で強制停止を行う
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine_debug.yml -T ../tengine_job/examples/0004_retry_one_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"を表示していること
@@ -783,7 +934,7 @@
     ならば "ジョブネット監視画面"を表示していること
     かつ 以下の行が表示されていること
     |ID|ジョブ名  |説明     |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
-    |  |j1        |j1       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |タイムアウト強制停止済|j2, j3    |表示 再実行|
+    |  |j1        |j1       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |エラー終了(タイムアウト強制停止済)|j2, j3    |表示 再実行|
     |  |j2        |j2       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済              |j4        |表示 再実行|
     |  |j3        |j3       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済              |j4        |表示 再実行|
     |  |j4        |j4       |$HOME/0004_retry_one_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
@@ -850,6 +1001,7 @@
     # SSH接続してジョブを実行しようとする
 
     # receive event "stop.execution.job.tengine"
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{execution} running -> dying"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} starting -> running"の後であること
     かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} running -> dying"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} starting -> running"の後であること
 
     かつ "Tengineコアプロセス"のアプリケーションログに"#{e2} active -> closing"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} starting -> running"の後であること
@@ -888,6 +1040,7 @@
 
     # receive event "error.jobnet.job.tengine"
     かつ "Tengineコアプロセス"のアプリケーションログに"#{root_jobnet} dying -> error"とジョブのフェーズが変更した情報が出力されており、"#{j1} dying -> error"の後であること
+    かつ "Tengineコアプロセス"のアプリケーションログに"#{execution} dying -> error"とジョブのフェーズが変更した情報が出力されており、"#{root_jobnet} dying -> error"の後であること
 
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
@@ -898,7 +1051,7 @@
 #--retry2
   @05_01_01_14
   シナリオ: [正常系]ルートジョブネット内のジョブネット内のジョブ
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
+    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine_debug.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
 
     もし "テンプレートジョブ一覧画面"を表示する
     ならば "テンプレートジョブ一覧画面"を表示していること
@@ -935,15 +1088,34 @@
     |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
     |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行  |
 
+    もし 35秒間待機する
+    かつ 以下の行が表示されていること
+    |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス          |次のジョブ|操作       |
+    |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了   |j2, jn4   |表示 再実行|
+    |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |開始中     |j4        |表示 再実行|
+    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |実行中     |j4        |表示 再実行|
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |開始中     |j42,j43   |表示 再実行|
+    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済   |j44       |表示 再実行|
+    |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済   |j44       |表示 再実行|
+    |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済   |          |表示 再実行|
+    |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |初期化済   |          |表示 再実行|
+    |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済   |          |表示 再実行|
+    |  |j4              |j4         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済   |          |表示 再実行|
+    |  |finally         |finally    |                             |test_server1|test_credential1|                   |        |初期化済   |          |表示 再実行|
+    |  |  jn0005_fjn    |jn_0005_fjn|                             |test_server1|test_credential1|                   |        |初期化済   |jn0005_f  |表示 再実行|
+    |  |    jn0005_f1   |jn_0005_f1 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済   |jn0005_f2 |表示 再実行|
+    |  |    jn0005_f2   |jn_0005_f2 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済   |          |表示 再実行|
+    |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |初期化済   |          |表示 再実行|
+    |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済   |          |表示 再実行|
+    |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済   |          |表示 再実行|
 
-
-    もし 70秒間待機する
+    もし 35秒間待機する
     かつ 以下の行が表示されていること
     |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス          |次のジョブ|操作       |
     |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了            |j2, jn4   |表示 再実行|
-    |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了            |j4        |表示 再実行|
-    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
-    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j42,j43   |表示 再実行|
+    |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
+    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j4        |表示 再実行|
+    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了(タイムアウト強制停止済)|j42,j43   |表示 再実行|
     |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済            |j44       |表示 再実行|
     |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済            |j44       |表示 再実行|
     |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済            |          |表示 再実行|
@@ -961,7 +1133,7 @@
     もし "実行ジョブ一覧画面"を表示する
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス            |操作       |
-    |  |jn0005        |jn0005|        |        |タイムアウト強制停止済|監視 再実行|
+    |  |jn0005        |jn0005|        |        |エラー終了(タイムアウト強制停止済)|監視 再実行|
 
     # Execution
     もし 実行ジョブ"jn0005"のExecutionを"execution"と呼ぶことにする
@@ -1176,73 +1348,3 @@
     ならば 以下の行が表示されていること
     |ID|ジョブネット名|説明  |開始日時|終了日時|ステータス|操作       |
     |  |jn0005        |jn0005|        |        |強制停止済|監視 再実行|
-
-
-
-  # このシナリオは、バグ [タイムアウト強制停止が発生した場合エラー終了しているジョブのステータスが全てタイムアウト強制停止済みになってしまう]
-        # https://www.pivotaltracker.com/story/show/22618833
-        # のテストを行うために追加しました。
-  @05_01_01_15
-  シナリオ: [正常系]エラー終了しているジョブがある状態でタイムアウト強制停止が発生
-    前提 "Tengineコアプロセス"がオプション" -f ./features/config/tengine.yml -T ../tengine_job/examples/0005_retry_two_layer.rb --process-daemon"で起動している
-
-    もし "テンプレートジョブ一覧画面"を表示する
-    ならば "テンプレートジョブ一覧画面"を表示していること
-    かつ 以下の行が表示されていること
-    |ジョブネット名|説明  |操作     |
-    |jn0005        |jn0005|閲覧 実行|
-
-    もし "テンプレートジョブ一覧画面"を表示する
-    かつ "jn0005"の"実行"リンクをクリックする
-    ならば "ジョブネット実行設定画面"を表示していること
-
-    もし "ジョブネット実行設定画面"を表示する
-                かつ "事前実行コマンド"に"export J2_FAIL='true' && export J42_SLEEP=120 && export J43_FAIL='true'"と入力する
-    かつ "強制停止設定"に"1"と入力する
-    かつ "実行"ボタンをクリックする
-    ならば "ジョブネット監視画面"を表示していること
-    かつ 以下の行が表示されていること
-    |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス|次のジョブ|操作           |
-    |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |準備中    |j2, jn4   |表示 強制停止　|
-    |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行    |
-    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |初期化済  |j4        |表示 再実行    |
-    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |j42,j43   |表示 再実行    |
-    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |j44       |表示 再実行    |
-    |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |j44       |表示 再実行    |
-    |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行    |
-    |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行    |
-    |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行    |
-    |  |j4              |j4         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行    |
-    |  |finally         |finally    |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行    |
-    |  |  jn0005_fjn    |jn_0005_fjn|                             |test_server1|test_credential1|                   |        |初期化済  |jn0005_f  |表示 再実行    |
-    |  |    jn0005_f1   |jn_0005_f1 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |jn0005_f2 |表示 再実行    |
-    |  |    jn0005_f2   |jn_0005_f2 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行    |
-    |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行    |
-    |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行    |
-    |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済  |          |表示 再実行    |
-
-    もし 70秒間待機する
-    かつ 以下の行が表示されていること
-    |ID|ジョブ名        |説明       |実行スクリプト               |接続サーバ名|認証情報名      |開始日時           |終了日時|ステータス            |次のジョブ|操作       |
-    |  |j1              |j1         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|2011/11/25 14:43:22|        |正常終了              |j2, jn4   |表示 再実行|
-    |  |j2              |j2         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了            |j4        |表示 再実行|
-    |  |jn4             |jn4        |                             |test_server1|test_credential1|                   |        |タイムアウト強制停止済|j4        |表示 再実行|
-    |  |  j41           |j41        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |正常終了              |j42,j43   |表示 再実行|
-    |  |  j42           |j42        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |タイムアウト強制停止済|j44       |表示 再実行|
-    |  |  j43           |j43        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |エラー終了            |j44       |表示 再実行|
-    |  |  j44           |j44        |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
-    |  |  finally       |finally    |                             |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
-    |  |    jn4_f       |jn4_f      |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
-    |  |j4              |j4         |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
-    |  |finally         |finally    |                             |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
-    |  |  jn0005_fjn    |jn_0005_fjn|                             |test_server1|test_credential1|                   |        |初期化済              |jn0005_f  |表示 再実行|
-    |  |    jn0005_f1   |jn_0005_f1 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |jn0005_f2 |表示 再実行|
-    |  |    jn0005_f2   |jn_0005_f2 |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
-    |  |    finally     |finally    |                             |test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
-    |  |      jn0005_fif|jn_0005_fif|$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
-    |  |  jn0005_f      |jn_0005_f  |$HOME/0005_retry_two_layer.sh|test_server1|test_credential1|                   |        |初期化済              |          |表示 再実行|
-
-    もし "実行ジョブ一覧画面"を表示する
-    ならば 以下の行が表示されていること
-    |ID|ジョブネット名|説明|開始日時|終了日時|ステータス|操作|
-    |  |jn0005|jn0005| | |タイムアウト強制停止済|監視 再実行|
