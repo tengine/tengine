@@ -35,7 +35,7 @@ log_common:
   output:                      # file path or "STDOUT" / "STDERR"
   rotation: 3                  # rotation file count or daily,weekly,monthly. default: 3
   rotation_size: 1024 * 1024   # number of max log file size. default: 1048576 (10MB)
-  level: 'info'               # debug/info/warn/error/fatal. default: info
+  level: 'debug'               # debug/info/warn/error/fatal. default: info
 
 application_log:
   output:                      # file path or "STDOUT" / "STDERR". default: if daemon process then "./log/application.log" else "STDOUT"
