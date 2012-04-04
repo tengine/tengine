@@ -11,7 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
 </thead><tbody>
-<!--[正常系]2階層のジョブネット内で並列に実行される２つのジョブの片方が正常終了している状態で警告-->
+<!--[正常系]2階層のジョブネット内で並列に実行される２つのジョブの片方がエラー終了している状態で警告-->
 <!--下準備-->
 <tr>
 	<td>setTimeout</td>
@@ -220,7 +220,7 @@
 <tr>
 	<td>type</td>
 	<td>id=execution_preparation_command</td>
-	<td>export J42_SLEEP=120</td>
+	<td>export J42_SLEEP=120 &amp;&amp; export J43_FAIL='true'</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -384,7 +384,7 @@
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[6]/td[3]</td>
-	<td>正常終了</td>
+	<td>エラー終了</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -517,7 +517,7 @@
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[3]/td[3]</td>
-	<td>正常終了</td>
+	<td>エラー終了</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -532,12 +532,12 @@
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[6]/td[3]</td>
-	<td>正常終了</td>
+	<td>エラー終了</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[7]/td[3]</td>
-	<td>正常終了</td>
+	<td>初期化済</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -552,7 +552,7 @@
 <tr>
 	<td>verifyText</td>
 	<td>//table/tbody/tr[10]/td[3]</td>
-	<td>正常終了</td>
+	<td>初期化済</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -597,7 +597,7 @@
 <tr>
 	<td>verifyText</td>
 	<td>//div[@id='main']/div/div/div/div/div[3]/table/tbody/tr/td[3]</td>
-	<td>正常終了</td>
+	<td>エラー終了</td>
 </tr>
 </tbody></table>
 </body>
