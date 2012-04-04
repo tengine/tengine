@@ -98,6 +98,21 @@
 	<td>name=commit</td>
 	<td></td>
 </tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td> require &quot;fileutils&quot;<br /> path = Rails.configuration.paths['log']<br /> FileUtils.rm_f(path)</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=eval</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
 <!--TengineリソースでTamaのテストモードを使用するため、Tengine::Resource::Provider#connection_settingsに設定する-->
 <tr>
 	<td>type</td>
@@ -149,7 +164,7 @@
 <tr>
 	<td>type</td>
 	<td>id=script_code</td>
-	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T usecases/job/dsl/1001_one_job_in_jobnet.rb \<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T usecases/job/dsl/01_01_01_one_job_in_jobnet.rb \<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
 </tr>
 <tr>
 	<td>select</td>
