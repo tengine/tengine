@@ -10,7 +10,7 @@ db:
   port: 27039
   username: 
   password:
-  database: tengine_production
+  database: tengine_selenium
 event_queue:
   conn:
     host: localhost
