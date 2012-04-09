@@ -14,7 +14,7 @@ db:
   port: 27017
   username:
   password:
-  database: 'tengine_production'
+  database: 'tengine_selenium'
 
 event_queue:
   connection:
