@@ -198,18 +198,8 @@
 </tr>
 <!--PIDを取得する-->
 <tr>
-	<td>type</td>
-	<td>id=script_code</td>
-	<td>latest_pid = `(cd tmp/pids/ &amp;&amp; ls -t | head -n 1 | xargs cat)`</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>name=commit</td>
-	<td></td>
-</tr>
-<tr>
 	<td>getEval</td>
-	<td>storedVars['pid'] = selenium.getText(&quot;//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre&quot;).replace(/\u000A/g, '').replace(/---result: '/, '').replace(/'/, '')</td>
+	<td>storedVars['pid'] = selenium.getText(&quot;//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre&quot;).replace(/\u000A/g, '').replace(/---pid:/, '')</td>
 	<td></td>
 </tr>
 <tr>
@@ -254,6 +244,21 @@
 	<td>type</td>
 	<td>id=script_code</td>
 	<td>kill -9 ${pid}</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>(cd tmp/pids/ &amp;&amp; ls -t | head -n 1 | xargs rm)</td>
 </tr>
 <tr>
 	<td>select</td>
