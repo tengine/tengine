@@ -1,0 +1,22 @@
+[
+  {
+    "id": "virtual_server_uuid_91",
+    "state": "scheduling",
+    "image_id": "vertual_server_image_uuid_01",
+    "hostname": "physical_server_uuid_01",
+    "instance_spec_id": "virtual_server_spec_uuid_01",
+    "vif": [],
+    "status": "init",
+    "memory_size": 256,
+    "ha_enabled": 0,
+    "network": [],
+    "arch": "x86_64",
+    "host_node": "physical_server_uuid_01",
+    "created_at": "2011-10-18T06:48:47Z",
+    "netfilter_group_id": ["ng-demofgr"],
+    "ssh_key_pair": null,
+    "volume": [],
+    "netfilter_group": ["default"],
+    "cpu_cores": 1
+  }
+]

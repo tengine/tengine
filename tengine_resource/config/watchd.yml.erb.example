@@ -1,0 +1,52 @@
+process:
+  daemon: false
+  pid_dir: "./tmp/watchd_pids"
+
+db:
+  host: localhost
+  port: 27017
+  username: 
+  password: 
+  database: tengine_production
+
+event_queue:
+  connection:
+    host: localhost
+    port: 5672
+    vhost: '/'
+    user: 'guest'
+    pass: 'guest'
+    logging: false
+    insist: false
+    auto_reconnect_delay: 1
+  exchange:
+    name: 'tengine_event_exchange'
+    type: 'direct'
+    durable: true
+  queue:
+    name: 'tengine_event_queue'
+    durable: true
+
+log_common:
+  output: 
+  rotation: 3
+  rotation_size: 1024 * 1024
+  level: 'debug'
+
+application_log:
+  output: 
+  rotation: 
+  rotation_size: 
+  level: 
+
+process_stdout_log:
+  output: STDOUT
+  rotation: 
+  rotation_size: 
+  level: 
+
+process_stderr_log:
+  output: STDERR
+  rotation: 
+  rotation_size: 
+  level: 

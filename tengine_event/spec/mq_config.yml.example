@@ -1,0 +1,13 @@
+connection:
+  host: 'localhost'
+  port: 5672
+  # vhost:
+  # user:
+  # pass:
+exchange:
+  name: 'tengine_event_test_exchange'
+  type: 'direct'
+  durable: true
+queue:
+  name: 'tengine_event_test_queue'
+  durable: true

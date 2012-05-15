@@ -1,0 +1,66 @@
+[
+  {
+    "owner_total": 2,
+    "start": 0,
+    "results": [
+      {
+        "id": "virtual_server_spec_id_01",
+        "uuid": "virtual_server_spec_name_01",
+        "cpu_cores": 1,
+        "memory_size": 256,
+        "arch": "x86_64",
+        "hypervisor": "kvm",
+        "updated_at": "2011-10-28T02:58:57Z",
+        "account_id": "a-shpoolxx",
+        "vifs": "--- \neth0: \n  :bandwidth: 100000\n  :index: 0\n",
+        "quota_weight": 1.0,
+        "created_at": "2011-10-28T02:58:57Z",
+        "drives": "--- \nephemeral1: \n  :type: :local\n  :size: 100\n  :index: 0\n"
+      },
+      {
+        "id": "virtual_server_spec_id_02",
+        "uuid": "virtual_server_spec_name_02",
+        "cpu_cores": 2,
+        "memory_size": 512,
+        "arch": "x86_64",
+        "hypervisor": "kvm",
+        "updated_at": "2011-10-28T02:58:57Z",
+        "account_id": "a-shpoolxx",
+        "vifs": "--- \neth0: \n  :bandwidth: 100000\n  :index: 0\n",
+        "quota_weight": 1.0,
+        "created_at": "2011-10-28T02:58:57Z",
+        "drives": "--- \nephemeral1: \n  :type: :local\n  :size: 100\n  :index: 0\n"
+      },
+      {
+        "id": "virtual_server_spec_id_03",
+        "uuid": "virtual_server_spec_name_03",
+        "cpu_cores": 5,
+        "memory_size": 1,
+        "arch": "x86_64",
+        "hypervisor": "kvm",
+        "updated_at": "2011-10-28T02:58:57Z",
+        "account_id": "a-shpoolxx",
+        "vifs": "--- \neth0: \n  :bandwidth: 100000\n  :index: 0\n",
+        "quota_weight": 1.0,
+        "created_at": "2011-10-28T02:58:57Z",
+        "drives": "--- \nephemeral1: \n  :type: :local\n  :size: 100\n  :index: 0\n"
+      },
+      {
+        "id": "virtual_server_spec_id_04",
+        "uuid": "virtual_server_spec_name_04",
+        "cpu_cores": 1,
+        "memory_size": 1500,
+        "arch": "x86_64",
+        "hypervisor": "kvm",
+        "updated_at": "2011-10-28T02:58:57Z",
+        "account_id": "a-shpoolxx",
+        "vifs": "--- \neth0: \n  :bandwidth: 100000\n  :index: 0\n",
+        "quota_weight": 1.0,
+        "created_at": "2011-10-28T02:58:57Z",
+        "drives": "--- \nephemeral1: \n  :type: :local\n  :size: 100\n  :index: 0\n"
+      }
+
+    ],
+    "limit": null
+  }
+]

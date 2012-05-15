@@ -1,0 +1,10 @@
+Port 1234
+AddressFamily any
+Protocol 2
+
+PermitRootLogin no
+StrictModes yes
+PubkeyAuthentication yes
+PasswordAuthentication no
+PermitEmptyPasswords no
+AuthorizedKeysFile /Users/shyouhei/data/src/tengine/tengine_job/spec/sshd/id_rsa.pub

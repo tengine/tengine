@@ -1,0 +1,22 @@
+[
+  {
+    "owner_total": 1,
+    "start": 0,
+    "results": [
+      {
+        "status": "online",
+        "updated_at": "2011-10-18T03:53:24Z",
+        "account_id": "a-shpoolzz",
+        "offering_cpu_cores": 120,
+        "offering_memory_size": 350000,
+        "arch": "x86_64",
+        "hypervisor": "kvm",
+        "created_at": "2011-10-18T03:53:24Z",
+        "name": "testhost",
+        "uuid": "hp-testhost",
+        "id": "hp-testhost"
+      }
+    ],
+    "limit": null
+  }
+]

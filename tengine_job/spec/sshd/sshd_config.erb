@@ -1,0 +1,11 @@
+Port <%= @port %>
+AddressFamily any
+Protocol 2
+
+PermitRootLogin no
+StrictModes yes
+PubkeyAuthentication yes
+PasswordAuthentication no
+PermitEmptyPasswords no
+AuthorizedKeysFile <%= File.expand_path("id_rsa.pub", ssh_dir) %>
+PidFile <%= File.expand_path("sshd.pid", ssh_dir) %>

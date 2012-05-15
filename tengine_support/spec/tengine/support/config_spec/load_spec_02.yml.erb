@@ -1,0 +1,52 @@
+process:
+  daemon: true
+  pid_dir: "./tmp/pids"
+
+db:
+  hosts:
+    - - tgndb001
+      - 27017
+    - - tgndb002
+      - 27017
+    - - tgndb003
+      - 27017
+  host: localhost
+  port: 27017
+  username:
+  password:
+  database: 'tengine_production'
+  read_secondary: false
+  max_retries_on_connection_failure: 3
+
+event_queue:
+  connection:
+    host: 'rabbitmq1'
+    port: 5672
+    # vhost:
+    # user:
+    # pass:
+  exchange:
+    name: 'tengine_event_exchange'
+    type: 'direct'
+    durable: true
+  queue:
+    name: 'tengine_event_queue'
+    durable: true
+
+log_common:
+  rotation: 5
+  rotation_size: <%= 1024 * 1024 * 1024 %>
+  level: 'info'
+
+application_log:
+  output: "log/application.log"
+  rotation: 'daily'
+  level: 'debug'
+
+process_stdout_log:
+  output: "log/stdout.log"
+  level: 'warn'
+
+process_stderr_log:
+  output: "log/stderr.log"
+  level: 'info'

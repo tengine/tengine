@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+$LOAD_PATH << File.expand_path("../lib", File.dirname(__FILE__))
+require "tengine_job_agent"
+
+exit_code = TengineJobAgent::Run.process(*ARGV)
+exit(exit_code)

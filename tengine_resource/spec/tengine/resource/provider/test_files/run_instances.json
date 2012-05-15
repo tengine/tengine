@@ -1,0 +1,30 @@
+[{
+  "vif": [
+
+  ],
+  "status": "init",
+  "memory_size": 512,
+  "ha_enabled": 0,
+  "network": [
+
+  ],
+  "state": "scheduling",
+  "image_id": "wmi-lucid4",
+  "arch": "x86_64",
+  "hostname": "9pia8e7g",
+  "host_node": null,
+  "created_at": "2011-10-18T06:48:47Z",
+  "instance_spec_id": "is-testspec",
+  "netfilter_group_id": [
+    "ng-demofgr"
+  ],
+  "ssh_key_pair": null,
+  "volume": [
+
+  ],
+  "netfilter_group": [
+    "default"
+  ],
+  "id": "i-9pia8e7g",
+  "cpu_cores": 2
+}]

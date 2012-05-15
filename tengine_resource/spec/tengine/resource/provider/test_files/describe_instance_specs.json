@@ -1,0 +1,23 @@
+[
+  {
+    "start": 0,
+    "owner_total": 1,
+    "results": [
+      {
+        "cpu_cores": 2,
+        "memory_size": 512,
+        "arch": "x86_64",
+        "hypervisor": "kvm",
+        "updated_at": "2011-10-28T02:58:57Z",
+        "account_id": "a-shpoolzz",
+        "vifs": "--- \neth0: \n  :bandwidth: 100000\n  :index: 0\n",
+        "quota_weight": 1.0,
+        "id": "is-testspec",
+        "created_at": "2011-10-28T02:58:57Z",
+        "drives": "--- \nephemeral1: \n  :type: :local\n  :size: 100\n  :index: 0\n",
+        "uuid": "is-testspec"
+      }
+    ],
+    "limit": null
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "owner_total": 1,
+    "start": 0,
+    "results": [
+      {
+        "updated_at": "2011-10-18T03:53:37Z",
+        "account_id": "a-shpoolzz",
+        "boot_dev_type": 1,
+        "description": "ubuntu-10.04_with-metadata_kvm_i386.raw volume",
+        "source": "--- \n:snapshot_id: snap-lucid4\n",
+        "state": "init",
+        "arch": "x86",
+        "is_public": false,
+        "created_at": "2011-10-18T03:53:37Z",
+        "uuid": "wmi-lucid4",
+        "id": "wmi-lucid4",
+        "md5sum": "8e0d8d37d704751a076fdf704a311350"
+      }
+   ],
+    "limit": null
+  }
+]

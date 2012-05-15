@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require 'rubygems'
+require 'bundler/setup'
+require 'tengine_event'
+require 'optparse'
+
+# MQ のための最低限の設定のみ
+cfg = Hash.new
+qn = nil
+op = OptionParser.new $0 do |this|
+  # tengined compatible option names.
+  this.on '-o host', '--event-queue-connection-host=host', 'where to connect' do |arg| cfg[:host] = arg end
+  this.on '-p port', '--evant-queue-connection-port=port', 'where to connect', Integer do |arg| cfg[:port] = arg end
+  this.on '-u user', '--evant-queue-connection-user=user', 'whom to connect' do |arg| cfg[:user] = arg end
+  this.on '-s pass', '--evant-queue-connection-pass=pass', 'whom to connect' do |arg| cfg[:pass] = arg end
+  this.on '-q queue', '--evant-queue-connection-queue=queue', 'what to connect' do |arg| qn = arg end
+end
+
+op.parse! ARGV
+
+hash = { :connection => cfg }
+hash[:queue] = { :name => qn } if qn
+suite = Tengine::Mq::Suite.new hash
+
+# main loop
+EM.run do
+  i = 0
+  j = false
+  suite.subscribe :confirm => proc{j = true} do |hdr, bdy|
+    hdr.ack
+    STDOUT.puts bdy
+    i += 1
+  end
+  timer = EM.add_periodic_timer 0.1 do
+    if j and i.zero?
+      EM.cancel_timer timer
+      suite.unsubscribe do
+        suite.stop
+      end
+    else
+      i = 0
+    end
+  end
+end
+
+Process.exit true

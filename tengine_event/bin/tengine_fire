@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require 'eventmachine'
+
+__DIR__ = File.dirname(__FILE__)
+$LOAD_PATH << File.expand_path('../lib', __DIR__)
+require 'tengine/event'
+
+if ARGV.empty? || ARGV.include?("-h") || ARGV.include?("--help")
+  puts "#{__FILE__} <event_type_name> [opt1:foo]..."
+  exit
+end
+
+event_type_name = ARGV.shift
+options = ARGV.inject({}) do |d, arg|
+  key, value = *arg.split(/:/, 2)
+  d[key] = value
+  d
+end
+
+# see https://github.com/eventmachine/eventmachine/blob/master/tests/test_error_handler.rb
+EM.error_handler{ |e|
+  puts "[error] tengine.fire Error raised during event loop: #{e.class}, #{e.message}\n"
+  puts "#{e.backtrace}\n"
+  EM.error_handler(nil)
+  EM.stop
+}
+
+EM.run do
+  if interval = options.delete('interval')
+    EM.add_periodic_timer(interval.to_i) do
+      puts "-" * 100
+      options[:keep_connection] = true
+      options[:retry_interval] = 3
+      Tengine::Event.fire(event_type_name, options)
+    end
+  else
+    EM.next_tick do
+      Tengine::Event.fire(event_type_name, options)
+    end
+  end
+end
+
+Signal.trap("TERM") { connection.close { EM.stop } }
+Signal.trap("INT")  { connection.close { EM.stop } }
