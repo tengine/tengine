@@ -78,9 +78,15 @@ class Tengine::Core::Kernel
   alias_method :context, :dsl_context
 
   def evaluate
+    clear_drivers_by_dsl_version
     dsl_context.__evaluate__
   end
 
+  def clear_drivers_by_dsl_version
+    drivers = Tengine::Core::Driver.where(:version => dsl_context.config.dsl_version)
+    Tengine::Core::HandlerPath.where(:driver_id.in => drivers.map(&:id)).delete_all
+    drivers.delete_all
+  end
 
   def bind
     # dsl_context.__evaluate__
@@ -132,6 +138,8 @@ class Tengine::Core::Kernel
     end
     mq.subscribe(:ack => true, :nowait => false, :confirm => confirm) do |headers, msg|
       process_message(headers, msg)
+      # headers.ack
+      # Tengine.logger.debug("headers: #{headers.inspect}\n#{msg}")
     end
   end
 
