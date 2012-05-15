@@ -464,7 +464,10 @@ class Tengine::Core::Kernel
       end
     end
     after_delegate.call if after_delegate.respond_to?(:call)
-    ActiveSupport::Dependencies.clear unless config.tengined.cache_drivers
+    unless config.tengined.cache_drivers
+      ActiveSupport::Dependencies.clear
+      evaluate
+    end
   end
 
   def close_if_shutting_down
