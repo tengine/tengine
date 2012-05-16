@@ -8,4 +8,10 @@ driver :driver08 do
     puts "handler08"
   end
 
+  # イベントAとイベントBが発生したら処理を実行する
+  on :event08_c do
+    puts "clear session"
+    session.clear!
+  end
+
 end

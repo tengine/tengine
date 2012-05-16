@@ -28,6 +28,13 @@ class Tengine::Core::SessionWrapper
     __update__(:system_properties, *args, &block)
   end
 
+  def clear!
+    @source.properties = {}
+    @source.system_properties = {}
+    @source.save!
+  end
+
+
   private
   def __update__(target_name, *args, &block)
     if block_given?
