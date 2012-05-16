@@ -32,7 +32,7 @@ module Tengine::Core::Driveable
           :enabled_on_activation => options[:enabled_on_activation].nil? || options[:enabled_on_activation],  # DSLに記述されているオプション
           :target_class_name => self.name,
         })
-      driver.create_session
+      driver.session_id = Tengine::Core::Driveable.__find_session_id_for_driver_name__(driver.name)
       begin
         driver.save!
       rescue Mongoid::Errors::Validations => e
@@ -209,5 +209,24 @@ module Tengine::Core::Driveable
       end
     end
   end
+
+  class << self
+    def __remember_session_ids_for_drivers__(dsl_version)
+      @driver_name_to_session_id = {}
+      Tengine::Core::Driver.where(:version => dsl_version).each do |d|
+        @driver_name_to_session_id[d.name] = d.session_id
+      end
+    end
+
+    def __forget_session_ids_for_drivers__
+      @driver_name_to_session_id = nil
+    end
+
+    def __find_session_id_for_driver_name__(driver_name)
+      return nil unless @driver_name_to_session_id
+      @driver_name_to_session_id[driver_name]
+    end
+  end
+
 
 end

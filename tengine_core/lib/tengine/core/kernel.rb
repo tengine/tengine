@@ -212,6 +212,18 @@ class Tengine::Core::Kernel
         ack_policy = ack_policy_for(event)
         safety_processing_headers(headers, event, ack_policy) do
           ack if ack_policy == :at_first
+
+          # ドライバを再ロードするならハンドラを検索する前に行います。
+          unless config.tengined.cache_drivers
+            Tengine::Core::Driveable.__remember_session_ids_for_drivers__(config.dsl_version)
+            begin
+              ActiveSupport::Dependencies.clear
+              evaluate
+            ensure
+              Tengine::Core::Driveable.__forget_session_ids_for_drivers__
+            end
+          end
+
           handlers = find_handlers(event)
           safty_handlers(handlers) do
             delegate(event, handlers)
@@ -472,10 +484,6 @@ class Tengine::Core::Kernel
       end
     end
     after_delegate.call if after_delegate.respond_to?(:call)
-    unless config.tengined.cache_drivers
-      ActiveSupport::Dependencies.clear
-      evaluate
-    end
   end
 
   def close_if_shutting_down
