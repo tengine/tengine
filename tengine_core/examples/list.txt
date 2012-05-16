@@ -12,6 +12,11 @@
 23 :level指定で発火する
 24 :level_key指定で発火する
 
+30: ローカル変数を参照する
+31: インスタンス変数を参照する
+32: クラス変数を参照する
+33: 定数を参照する
+
 50 ack_policy(:at_first, ...) の例
 51 ack_policy(:at_first_submit, ...) の例
 52 ack_policy(:after_all_handler_submit, ...) でACKを返す例
