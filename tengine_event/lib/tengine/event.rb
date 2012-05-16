@@ -143,12 +143,27 @@ class Tengine::Event
   # @attribute
   # イベントの通知レベル
   attr_accessor :level
+  def level=(val)
+    if val && !LEVELS.keys.include?(val)
+      raise ArgumentError, "Invalid level #{val.inspect}. It must be one of #{LEVELS.keys.inspect}"
+    end
+    @level = val
+  end
 
   # @attribute
   # イベントの通知レベルキー
   # :gr_heartbeat/:debug/:info/:warn/:error/:fatal
   def level_key; LEVELS[level];end
-  def level_key=(v); self.level = LEVELS_INV[v.to_sym]; end
+  def level_key=(v)
+    if v
+      unless val = LEVELS_INV[v.to_sym]
+        raise ArgumentError, "Invalid level_key #{v.inspect}. It must be one of #{LEVELS_INV.keys.inspect}"
+      end
+      self.level = val
+    else
+      self.level = nil
+    end
+  end
 
   # @attribute
   # イベントの送信者名。
