@@ -1,0 +1,52 @@
+source "http://rubygems.org"
+# Add dependencies required to use your gem here.
+# Example:
+#   gem "activesupport", ">= 2.3.5"
+
+gem "activesupport", "= 3.0.10"
+gem "activemodel", "~> 3.0.10"
+group :test do
+  gem "eventmachine", "~> 0.12.0"
+end
+
+gem "selectable_attr", "~> 0.3.15"
+
+gem "bson",     "~> 1.5.2"
+gem "bson_ext", "~> 1.5.2"
+gem "mongo",    "~> 1.5.2"
+
+gem "mongoid", "~> 2.2.6"
+
+gem "wakame-adapters-tengine", "~> 0.0.0"
+
+# http://rightaws.rubyforge.org/
+# http://github.com/rightscale/right_aws
+gem "right_aws", "~> 2.1.0"
+
+gem "daemons", "~> 1.1.4"
+gem "net-ssh", "~> 2.2.1"
+
+gem "tengine_support", :path => "../tengine_support"
+gem "tengine_event", :path => "../tengine_event"
+#gem "tengine_core", :path => "../tengine_core"
+#gem "tengine_resource", :path => "../tengine_resource"
+
+# Add dependencies to develop your gem here.
+# Include everything needed to run rake, tests, features, etc.
+group :development do
+  gem "rspec", "~> 2.6.0"
+  gem "factory_girl", "~> 2.1.2"
+  gem "yard", "~> 0.7.2"
+  gem "bundler", "~> 1.1.3"
+  gem "jeweler", "~> 1.6.4"
+  # gem "rcov", ">= 0"
+  gem "simplecov", "~> 0.5.3"
+  gem "autotest"
+  gem "ZenTest", "~> 4.6.2"
+
+  # for markdown
+  gem 'rdiscount'
+  gem 'kramdown'
+
+  gem "ci_reporter", "~>1.6.5"
+end
