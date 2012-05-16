@@ -1,0 +1,31 @@
+<h1><%= page_title Tengine::Resource::Provider, :list %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th><%= Tengine::Resource::Provider.human_attribute_name(:name) %></th>
+    <th><%= Tengine::Resource::Provider.human_attribute_name(:description) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @providers.each do |provider| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= provider.name %></td>
+    <td><%= provider.description %></td>
+    <td><%= link_to_show provider %></td>
+    <td><%= link_to_edit edit_tengine_resource_provider_path(provider) %></td>
+    <td><%= link_to_destroy provider, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= paginate @providers %>
+
+<br />
+
+<%= link_to_new Tengine::Resource::Provider, new_tengine_resource_provider_path %>

@@ -1,0 +1,15 @@
+<%= form_for(@setting, as:"setting") do |f| %>
+  <%= model_error_messages(@setting) %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

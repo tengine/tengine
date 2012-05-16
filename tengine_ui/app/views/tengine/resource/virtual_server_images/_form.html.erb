@@ -1,0 +1,38 @@
+<div class="Section">
+  <div class="BoxBorder BoxSearchForm">
+    <%= model_error_messages(@virtual_server_image) %>
+    <%= form_for(@virtual_server_image, as:"virtual_server_image") do |f| %>
+      <%= field_set_tag do -%>
+        <table class= "TableForm4rows" >
+          <tbody>
+            <tr>
+              <th><%= f.label :name %></th>
+              <td><%= f.text_field :name, class: "InputText" %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :provided_id %></th>
+              <td><%= @virtual_server_image.provided_id %></td>
+            </tr>
+            <tr>
+             <th><%= f.label :provided_description %></th>
+             <td><%= @virtual_server_image.provided_description %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :description %></th>
+              <td><%= f.text_area :description, class: "InputText", rows: 10  %></td>
+            </tr>
+          </tbody>
+        </table>
+    
+        <div class="BoxBtns">
+          <span class="BtnWrap">
+            <%= f.submit :class => "BtnNext"  %>
+          </span>
+          <span class="BtnWrap">
+            <%= submit_tag t("views.links.cancel"), :class => "BtnCancel" %>
+          </span>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

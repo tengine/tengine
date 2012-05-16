@@ -1,0 +1,63 @@
+<h1><%= page_title Tengine::Resource::Server, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:provider) %>:</b>
+  <%= @server.provider.name %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:name) %>:</b>
+  <%= @server.name %>
+</p>
+
+<% if @server.respond_to?(:host_server_id) -%>
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:host_server) %>:</b>
+  <%= @server.host_server %>
+</p>
+<% end -%>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:provided_id) %>:</b>
+  <%= @server.provided_id %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:description) %>:</b>
+  <%= @server.description %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:status) %>:</b>
+  <%= @server.status %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:addresses) %>:</b>
+  <pre><%= @server.addresses_yaml %></pre>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:properties) %>:</b>
+  <pre><%= @server.properties_yaml %></pre>
+</p>
+
+<% if @server.respond_to?(:provided_image_id) -%>
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:provided_image_id) %>:</b>
+  <%= @server.provided_image_id %>
+</p>
+<% end -%>
+
+<% if @server.respond_to?(:provided_type_id) -%>
+<p>
+  <b><%= Tengine::Resource::Server.human_attribute_name(:provided_type_id) %>:</b>
+  <%= @server.provided_type_id %>
+</p>
+<% end -%>
+
+
+<%= link_to_edit edit_tengine_resource_server_path(@server) %> |
+<%= link_to_back_list tengine_resource_servers_path %>

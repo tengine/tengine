@@ -1,0 +1,20 @@
+<h1><%%= page_title <%= class_name %>, :show %></h1>
+
+<p id="notice"><%%= notice %></p>
+
+<% attributes.each do |attribute| -%>
+<%   suffix = (attribute.type == :array) ? "_text" : (attribute.type == :hash) ? "_yaml" : "" -%>
+<p>
+  <b><%%= <%= class_name %>.human_attribute_name(:<%= attribute.name %>) %>:</b>
+<%   case attribute.type -%>
+<%   when :hash then -%>
+  <pre><%%= @<%= file_name %>.<%= attribute.name %><%= suffix %> %></pre>
+<%   else -%>
+  <%%= @<%= file_name %>.<%= attribute.name %><%= suffix %> %>
+<%   end -%>
+</p>
+
+<% end -%>
+
+<%%= link_to_edit edit_<%= singular_table_name %>_path(@<%= file_name %>) %> |
+<%%= link_to_back_list <%= index_helper %>_path %>

@@ -1,0 +1,59 @@
+<%= form_for(@root_jobnet_template, as:"root_jobnet_template") do |f| %>
+  <%= model_error_messages(@root_jobnet_template) %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :server_name %><br />
+    <%= f.text_field :server_name %>
+  </div>
+  <div class="field">
+    <%= f.label :credential_name %><br />
+    <%= f.text_field :credential_name %>
+  </div>
+  <div class="field">
+    <%= f.label :killing_signals_text %><br />
+    <%= f.text_field :killing_signals_text %>
+  </div>
+  <div class="field">
+    <%= f.label :killing_signal_interval %><br />
+    <%= f.number_field :killing_signal_interval %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :script %><br />
+    <%= f.text_field :script %>
+  </div>
+  <div class="field">
+    <%= f.label :jobnet_type_cd %><br />
+    <%= f.number_field :jobnet_type_cd %>
+  </div>
+  <div class="field">
+    <%= f.label :category_id %><br />
+    <%= f.text_field :category_id %>
+  </div>
+  <div class="field">
+    <%= f.label :lock_version %><br />
+    <%= f.number_field :lock_version %>
+  </div>
+  <div class="field">
+    <%= f.label :dsl_filepath %><br />
+    <%= f.text_field :dsl_filepath %>
+  </div>
+  <div class="field">
+    <%= f.label :dsl_lineno %><br />
+    <%= f.number_field :dsl_lineno %>
+  </div>
+  <div class="field">
+    <%= f.label :dsl_version %><br />
+    <%= f.text_field :dsl_version %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

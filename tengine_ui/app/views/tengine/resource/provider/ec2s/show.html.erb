@@ -1,0 +1,22 @@
+<h1><%= page_title Tengine::Resource::Provider::Ec2, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Resource::Provider::Ec2.human_attribute_name(:name) %>:</b>
+  <%= @ec2.name %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Provider::Ec2.human_attribute_name(:description) %>:</b>
+  <%= @ec2.description %>
+</p>
+
+<p>
+  <b><%= Tengine::Resource::Provider::Ec2.human_attribute_name(:connection_settings) %>:</b>
+  <%= @ec2.connection_settings %>
+</p>
+
+
+<%= link_to_edit edit_tengine_resource_provider_ec2_path(@ec2) %> |
+<%= link_to_back_list tengine_resource_provider_ec2s_path %>

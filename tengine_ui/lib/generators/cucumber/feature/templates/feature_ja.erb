@@ -1,0 +1,67 @@
+#language:ja
+機能: <%= plural_name_ja %>を管理する
+  [ゴール]を達成するために
+  [利害関係者、アクター]
+  は [振る舞い] をしたい
+
+  背景:
+    前提 日本語でアクセスする
+
+  シナリオ: 新しい<%= singular_name_ja %>を登録する
+    前提 "<%= singular_name_ja %>新規登録画面"を表示している
+<% keyword = 'もし' -%>
+<% named_args.each do |arg| -%>
+<% if arg.type == 'boolean' -%>
+    <%= keyword %> "<%= human_attribute_name_ja(arg.name) %>"のチェックを外す
+<% else -%>
+    <%= keyword %> "<%= human_attribute_name_ja(arg.name) %>"に"<%= arg.value(1) %>"と入力する
+<% end -%>
+<% keyword = 'かつ' -%>
+<% end -%>
+    かつ "<%= I18n.t(:create, :scope => [:helpers, :submit], :locale => :ja).force_encoding("ASCII-8BIT") %>"ボタンをクリックする
+<% keyword = 'ならば' -%>
+<% named_args.each do |arg| -%>
+    <%= keyword %> "<%= arg.value(1) %>"と表示されていること
+<% keyword = 'かつ' -%>
+<% end -%>
+
+<% if IO.read('features/support/env.rb') =~ /capybara/n -%>
+  # Rails generates Delete links that use Javascript to pop up a confirmation
+  # dialog and then do a HTTP POST request (emulated DELETE request).
+  #
+  # Capybara must use Culerity/Celerity or Selenium2 (webdriver) when pages rely
+  # on Javascript events. Only Culerity/Celerity supports clicking on confirmation
+  # dialogs.
+  #
+  # Since Culerity/Celerity and Selenium2 has some overhead, Cucumber-Rails will
+  # detect the presence of Javascript behind Delete links and issue a DELETE request
+  # instead of a GET request.
+  #
+  # You can turn this emulation off by tagging your scenario with @no-js-emulation.
+  # Turning on browser testing with @selenium, @culerity, @celerity or @javascript
+  # will also turn off the emulation. (See the Capybara documentation for
+  # details about those tags). If any of the browser tags are present, Cucumber-Rails
+  # will also turn off transactions and clean the database with DatabaseCleaner
+  # after the scenario has finished. This is to prevent data from leaking into
+  # the next scenario.
+  #
+  # Another way to avoid Cucumber-Rails' javascript emulation without using any
+  # of the tags above is to modify your views to use <button> instead. You can
+  # see how in http://github.com/jnicklas/capybara/issues#issue/12
+  #
+<% if options[:capybara] -%>
+  @<%= options[:capybara] %>
+<% end -%>
+<% end -%>
+  シナリオ: <%= singular_name_ja %>を削除する
+    前提 以下の<%= plural_name_ja %>が登録されている
+      |<%= named_args.map{|arg| human_attribute_name_ja(arg.name)}.join('|') %>|
+<% (1..4).each do |n| -%>
+      |<%= named_args.map{|arg| arg.value(n)}.join('|') %>|
+<% end -%>
+    もし "<%= singular_name_ja %>一覧画面"で3番目の<%= singular_name_ja %>を削除する
+    ならば 以下の<%= plural_name_ja %>の一覧が表示されること
+      |<%= named_args.map{|arg| human_attribute_name_ja(arg.name)}.join('|') %>|
+<% [1,2,4].each do |n| -%>
+      |<%= named_args.map{|arg| arg.value(n)}.join('|') %>|
+<% end -%>

@@ -1,0 +1,51 @@
+<%= form_for(@execution, as:"execution") do |f| %>
+  <%= model_error_messages(@execution) %>
+
+  <div class="field">
+    <%= f.label :root_jobnet_id %><br />
+    <%= f.text_field :root_jobnet_id %>
+  </div>
+  <div class="field">
+    <%= f.label :target_actual_ids_text %><br />
+    <%= f.text_field :target_actual_ids_text %>
+  </div>
+  <div class="field">
+    <%= f.label :phase_cd %><br />
+    <%= f.number_field :phase_cd %>
+  </div>
+  <div class="field">
+    <%= f.label :started_at %><br />
+    <%= f.datetime_select :started_at %>
+  </div>
+  <div class="field">
+    <%= f.label :finished_at %><br />
+    <%= f.datetime_select :finished_at %>
+  </div>
+  <div class="field">
+    <%= f.label :preparation_command %><br />
+    <%= f.text_field :preparation_command %>
+  </div>
+  <div class="field">
+    <%= f.label :actual_base_timeout_alert %><br />
+    <%= f.number_field :actual_base_timeout_alert %>
+  </div>
+  <div class="field">
+    <%= f.label :actual_base_timeout_termination %><br />
+    <%= f.number_field :actual_base_timeout_termination %>
+  </div>
+  <div class="field">
+    <%= f.label :estimated_time %><br />
+    <%= f.number_field :estimated_time %>
+  </div>
+  <div class="field">
+    <%= f.label :keeping_stdout %><br />
+    <%= f.check_box :keeping_stdout %>
+  </div>
+  <div class="field">
+    <%= f.label :keeping_stderr %><br />
+    <%= f.check_box :keeping_stderr %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

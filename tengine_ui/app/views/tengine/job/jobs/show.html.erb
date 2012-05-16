@@ -1,0 +1,37 @@
+<h1><%= page_title Tengine::Job::Job, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Job::Job.human_attribute_name(:name) %>:</b>
+  <%= @job.name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Job.human_attribute_name(:server_name) %>:</b>
+  <%= @job.server_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Job.human_attribute_name(:credential_name) %>:</b>
+  <%= @job.credential_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Job.human_attribute_name(:killing_signals) %>:</b>
+  <%= @job.killing_signals_text %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Job.human_attribute_name(:killing_signal_interval) %>:</b>
+  <%= @job.killing_signal_interval %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Job.human_attribute_name(:description) %>:</b>
+  <%= @job.description %>
+</p>
+
+
+<%= link_to_edit edit_tengine_job_job_path(@job) %> |
+<%= link_to_back_list tengine_job_jobs_path %>

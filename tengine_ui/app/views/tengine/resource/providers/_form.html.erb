@@ -1,0 +1,15 @@
+<%= form_for(@provider, as:"provider") do |f| %>
+  <%= model_error_messages(@provider) %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

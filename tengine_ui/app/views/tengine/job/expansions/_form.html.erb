@@ -1,0 +1,31 @@
+<%= form_for(@expansion, as:"expansion") do |f| %>
+  <%= model_error_messages(@expansion) %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :server_name %><br />
+    <%= f.text_field :server_name %>
+  </div>
+  <div class="field">
+    <%= f.label :credential_name %><br />
+    <%= f.text_field :credential_name %>
+  </div>
+  <div class="field">
+    <%= f.label :killing_signals_text %><br />
+    <%= f.text_field :killing_signals_text %>
+  </div>
+  <div class="field">
+    <%= f.label :killing_signal_interval %><br />
+    <%= f.number_field :killing_signal_interval %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,40 @@
+ja:
+  views:
+    pages:
+      list: "一覧"
+      show: ""
+      edit: "編集"
+      new: "新規作成"
+      operation: "操作"
+      search_caption: "表示対象絞り込み"
+      component_jobs_caption: "構成ジョブ"
+    links:
+      show: "表示"
+      edit: "編集"
+      destroy: "削除"
+      new: "新規作成"
+      back_list: "一覧に戻る"
+      run: "実行"
+      rerun: "再実行"
+      force_exit: "強制停止"
+      watch: "監視"
+      search: "検索"
+      reset: "リセット"
+      cancel: "キャンセル"
+      edit_status: "ステータス変更"
+    notice:
+      successfully_created: "%{model}が登録されました。"
+      successfully_updated: "%{model}が更新されました。"
+      successfully_destroyed: "%{model}が削除されました。"
+    caution:
+      reflesh_interval: "指定した間隔で画面をリフレッシュします。0もしくは、空欄の場合リフレッシュしません。"
+    pagination:
+      caption: "全%{total_number}件中%{first_number}〜%{last_number}件を表示"
+      first: "最初へ"
+      last: "最後へ"
+      previous: "前へ"
+      next: "次へ"
+      truncate: "..."
+    category_tree:
+      all: "全体"
+  cancel: キャンセル

@@ -1,0 +1,23 @@
+<%= form_for(@virtual_server_type, as:"virtual_server_type") do |f| %>
+  <%= model_error_messages(@virtual_server_type) %>
+
+  <div class="field">
+    <%= f.label :provider_id %><br />
+    <%= f.text_field :provider_id %>
+  </div>
+  <div class="field">
+    <%= f.label :provided_id %><br />
+    <%= f.text_field :provided_id %>
+  </div>
+  <div class="field">
+    <%= f.label :properties_yaml %><br />
+    <%= f.text_area :properties_yaml %>
+  </div>
+  <div class="field">
+    <%= f.label :caption %><br />
+    <%= f.text_field :caption %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

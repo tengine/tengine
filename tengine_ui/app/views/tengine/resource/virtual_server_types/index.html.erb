@@ -1,0 +1,35 @@
+<h1><%= page_title Tengine::Resource::VirtualServerType, :list %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th><%= Tengine::Resource::VirtualServerType.human_attribute_name(:provider) %></th>
+    <th><%= Tengine::Resource::VirtualServerType.human_attribute_name(:provided_id) %></th>
+    <th><%= Tengine::Resource::VirtualServerType.human_attribute_name(:properties) %></th>
+    <th><%= Tengine::Resource::VirtualServerType.human_attribute_name(:caption) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @virtual_server_types.each do |virtual_server_type| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= virtual_server_type.provider %></td>
+    <td><%= virtual_server_type.provided_id %></td>
+    <td><pre><%= virtual_server_type.properties_yaml %></pre></td>
+    <td><%= virtual_server_type.caption %></td>
+    <td><%= link_to_show virtual_server_type %></td>
+    <td><%= link_to_edit edit_tengine_resource_virtual_server_type_path(virtual_server_type) %></td>
+    <td><%= link_to_destroy virtual_server_type, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= paginate @virtual_server_types %>
+
+<br />
+
+<%= link_to_new Tengine::Resource::VirtualServerType, new_tengine_resource_virtual_server_type_path %>

@@ -1,0 +1,116 @@
+<h1><%= page_title Tengine::Job::RootJobnetTemplate, :show %></h1>
+
+<div class="Section">
+  <h2><%= "#{Tengine::Job::RootJobnetTemplate.human_attribute_name(:name)}: #{@root_jobnet_template.name}" %></h2>
+  <table class="TableInfoView">
+    <colgroup>
+      <col class="Row1 RowTh">
+      <col class="Row2 RowTd">
+    </colgroup>
+    <tbody>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:name) %>:</th>
+        <td><%= @root_jobnet_template.name %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:id) %>:</th>
+        <td><%= @root_jobnet_template.id %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:description) %>:</th>
+        <td><%= @root_jobnet_template.description %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:server_name) %>:</th>
+        <td><%= @root_jobnet_template.server_name %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:credential_name) %>:</th>
+        <td><%= @root_jobnet_template.credential_name %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_filepath) %>:</th>
+        <td><%= @root_jobnet_template.dsl_filepath %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_lineno) %>:</th>
+        <td><%= @root_jobnet_template.dsl_lineno %></td>
+      </tr>
+      <tr>
+        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_version) %>:</th>
+        <td><%= @root_jobnet_template.dsl_version %></td>
+      </tr>
+    </tbody>
+  </table>
+</div><!-- /.Section -->
+
+<% unless @jobnet_templates.blank? -%>
+  <div class="Section">
+    <h2><%= I18n.t(:component_jobs_caption, :scope => [:views, :pages]) %></h2>
+    <table class="TableBase">
+      <colgroup>
+        <col class="Row1">
+        <col class="Row2">
+        <col class="Row3">
+        <col class="Row4">
+        <col class="Row5">
+        <col class="Row6">
+        <col class="Row7">
+      </colgroup>
+      <thead>
+        <tr>
+          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:id) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:name) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:description) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:script) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:server_name) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:credential_name) %></th>
+          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:destinations) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @jobnet_templates.each do |jobnet_template| -%>
+          <% jobnet_template, lv = jobnet_template -%>
+          <tr>
+            <td><%= jobnet_template.id %></td>
+            <% if jobnet_template.instance_of?(Tengine::Job::Expansion) -%>
+              <td><%== '&nbsp;&nbsp;' * lv %><%= link_to jobnet_template.name, tengine_job_root_jobnet_template_path(jobnet_template.root_jobnet_template.id) %></td>
+              <td>expansion</td>
+              <td></td>
+            <% else -%>
+              <td><%== '&nbsp;&nbsp;' * lv %><%= jobnet_template.name %></td>
+              <td><%= jobnet_template.description %></td>
+              <td><%= jobnet_template.script %></td>
+            <% end -%>
+            <td><%= jobnet_template.actual_server_name %></td>
+            <td><%= jobnet_template.actual_credential_name %></td>
+            <td>
+              <% unless (edges = jobnet_template.next_edges).blank? -%>
+                <% dest = edges.first.destination -%>
+                <% if dest.instance_of?(Tengine::Job::JobnetTemplate) || dest.instance_of?(Tengine::Job::Expansion) -%>
+                  <%= dest.name %>
+                <% else -%>
+                  <% next_jobs = dest.next_edges.collect { |edge|
+                       d = edge.destination; 
+                       d.name unless (d.instance_of?(Tengine::Job::End) || d.kind_of?(Tengine::Job::Junction))
+                     }
+                  -%>
+                  <%= next_jobs.compact.join(", ") %>
+                <% end -%>
+              <% end -%>
+            </td>
+          </tr>
+        <% end -%>
+      </tbody>
+    </table>
+  </div><!-- /.Section -->
+<% end -%>
+
+<div class="BoxBtns">
+  <%= button_link_to t("views.links.run"),
+    new_tengine_job_execution_path(:root_jobnet_id => @root_jobnet_template),
+    :btn_class => "BtnAdd" %>
+  <%= button_link_to t("views.links.back_list"),
+    tengine_job_root_jobnet_templates_path, :btn_class => "BtnBack" %>
+</div><!-- /.Section -->
+

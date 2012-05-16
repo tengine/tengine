@@ -1,0 +1,114 @@
+ja:
+  mongoid:
+    models:
+      # tengine/job/root_jobnet_template: "ルートテンプレートジョブネット"
+      # tengine/job/root_jobnet_template: "ルートジョブネット"
+      tengine/job/root_jobnet_template: "テンプレートジョブ"
+      # tengine/job/root_jobnet_actual: "実行用ルートジョブネット"
+      tengine/job/root_jobnet_actual: "実行中のジョブ"
+      tengine/job/jobnet_actual: "実行中のジョブ"
+      tengine/job/execution: "ジョブ実行"
+      tengine/job/root_jobnet_actual/finder: "検索"
+
+    attributes:
+      tengine/job/root_jobnet_template:
+        id: "ID"
+        name: "ジョブネット名"
+        description: "説明"
+        dsl_filepath: "DSLファイルパス"
+        dsl_lineno: "DSL行番号"
+        dsl_version: "DSLバージョン"
+        template_id: "テンプレートID"
+        server_name: "接続サーバ名"
+        credential_name: "認証情報名"
+      tengine/job/jobnet_template:
+        id: "ID"
+        name: "名称"
+        script: "実行するスクリプト"
+        description: "表示名"
+        destinations: "次のジョブ"
+        server_name: "接続サーバ名"
+        credential_name: "認証情報名"
+      tengine/job/root_jobnet_actual:
+        id: "ID"
+        name: "ジョブネット名"
+        description: "説明"
+        phase_cd: "ステータス"
+        started_at: "開始日時"
+        finished_at: "終了日時"
+        template_id: "テンプレートID"
+      tengine/job/root_jobnet_actual/finder:
+        duration_start: "期間の開始時刻"
+        duration_finish: "期間の終了時刻"
+        duration: "期間"
+        id: "ID"
+        name: "ジョブネット名"
+        phase_cd: "ステータス"
+        reflesh_interval: "リフレッシュ間隔(秒)"
+      tengine/job/jobnet_actual:
+        id: "ID"
+        name: "ジョブ名"
+        phase_cd: "ステータス"
+        phase_key: "ステータス"
+        phase_name: "ステータス"
+        script: "実行スクリプト"
+        started_at: "開始日時"
+        finished_at: "終了日時"
+        stopped_at: "停止日時"
+        stop_reason: "停止理由"
+        executing_pid: "実行時PID"
+        exit_status: "終了ステータス"
+        error_messages: "エラーメッセージ"
+        error_messages_text: "エラーメッセージ"
+        was_expansion: "expansionから展開済"
+        destinations: "次のジョブ"
+        server_name: "接続サーバ名"
+        credential_name: "認証情報名"
+        description: "説明"
+        killing_signals: "強制終了シグナル"
+        killing_signal_interval: "強制終了シグナル送信間隔"
+        jobnet_type_cd: "ジョブネット種別"
+        jobnet_type_key: "ジョブネット種別"
+        jobnet_type_name: "ジョブネット種別"
+      tengine/job/execution:
+        id: "ID"
+        root_jobnet: "ルートジョブネット"
+        root_jobnet_id: "ルートジョブネット"
+        target_actual_ids: "起動ジョブ"
+        phase_cd: "ステータス"
+        phase_key: "ステータス"
+        phase_name: "ステータス"
+        started_at: "開始日時"
+        finished_at: "終了日時"
+        preparation_command: "事前実行コマンド"
+        actual_base_timeout_alert: "タイムアウト(警告)"
+        actual_base_timeout_termination: "タイムアウト(強制終了)"
+        estimated_time: "見積もり時間(秒)"
+        keeping_stdout: "標準出力を保存"
+        keeping_stderr: "標準エラー出力を保存"
+        retry: "再実行"
+        spot: "スポット実行"
+
+  selectable_attrs:
+    tengine/job/root_jobnet_actual/finder:
+      phase_cd: &phase_cds
+        initialized: "初期化済"
+        ready: "準備中"
+        starting: "開始中"
+        running: "実行中"
+        dying: "強制停止中"
+        success: "正常終了"
+        error: "エラー終了"
+        stuck: "状態不明"
+    tengine/job/jobnet_actual:
+      phase_cd:
+        <<: *phase_cds
+      human_phase_name:
+        <<: *phase_cds
+        stopping_by_user: "強制停止中"
+        stopped_by_user: "エラー終了(強制停止済)"
+        stopping_by_timeout: "強制停止中(タイムアウト強制停止中)"
+        stopped_by_timeout: "エラー終了(タイムアウト強制停止済)"
+    tengine/job/execution:
+      phase_cd:
+        <<: *phase_cds

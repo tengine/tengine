@@ -1,0 +1,62 @@
+<div class="BoxBorder BoxSearchForm">
+  <%= model_error_messages(@virtual_server) %>
+  <%= form_for(@virtual_server, as:"virtual_server") do |f| -%>
+    <%= field_set_tag do %>
+      <table class="TableForm4rows">
+        <colgroup>
+          <col class="Row1 RowTh">
+          <col class="Row2 RowTd">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th><%= f.label :name %></th>
+            <td><%= f.text_field :name, :class =>"InputText" %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :host_server_id, Tengine::Resource::PhysicalServer.human_attribute_name(:name) %></th>
+            <td><%= name_link_and_desc(@virtual_server.host_server) %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :provided_id %></th>
+            <td><%= @virtual_server.provided_id %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :addresses %></th>
+            <td>
+              <%= format_map_yml_value(@virtual_server, :addresses) %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= f.label :status %></th>
+            <td><%= @virtual_server.status %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :provided_image_id %></th>
+            <td><%= image_name_link_and_desc(@virtual_server, false) %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :provided_type_id %></th>
+            <td><%= type_caption(@virtual_server) %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :properties %></th>
+            <td>
+              <%= format_map_yml_value(@virtual_server, :properties) %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= f.label :description %></th>
+            <td><%= f.text_area :description, :class =>"InputText", :rows => 10 %></td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <div class="BoxBtns">
+        <span class="BtnWrap"><%= f.submit :class => "BtnNext" %></span>
+        <%= link_to tengine_resource_virtual_servers_url, :class => "BtnWrap" do -%>
+          <span class="BtnCancel"><%= t("views.links.cancel") %></span>
+        <% end -%>
+      </div>
+    <% end -%>
+  <% end -%>
+</div>

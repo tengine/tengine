@@ -1,0 +1,47 @@
+<h1><%= page_title Tengine::Core::Event, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Core::Event.human_attribute_name(:event_type_name) %>:</b>
+  <%= @event.event_type_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Core::Event.human_attribute_name(:key) %>:</b>
+  <%= @event.key %>
+</p>
+
+<p>
+  <b><%= Tengine::Core::Event.human_attribute_name(:source_name) %>:</b>
+  <%= @event.source_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Core::Event.human_attribute_name(:occurred_at) %>:</b>
+  <%= @event.occurred_at %>
+</p>
+
+<p>
+  <b><%= Tengine::Core::Event.human_attribute_name(:level) %>:</b>
+  <%= @event.level_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Core::Event.human_attribute_name(:confirmed) %>:</b>
+  <%= @event.confirmed %>
+</p>
+
+<p>
+  <b><%= Tengine::Core::Event.human_attribute_name(:sender_name) %>:</b>
+  <%= @event.sender_name %>
+</p>
+
+<p>
+  <b><%= Tengine::Core::Event.human_attribute_name(:properties) %>:</b>
+  <pre><%= @event.properties_yaml %></pre>
+</p>
+
+
+<%= link_to_edit edit_tengine_core_event_path(@event) %> |
+<%= link_to_back_list tengine_core_events_path %>

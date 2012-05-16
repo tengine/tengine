@@ -1,0 +1,23 @@
+<% module_namespacing do -%>
+class <%= class_name %><%= " < #{options[:parent].classify}" if options[:parent] %>
+<% unless options[:parent] -%>
+  include Mongoid::Document
+<% end -%>
+  include Mongoid::Timestamps
+<% if options[:versioning] -%>
+  include Mongoid::Versioning
+<% end -%>
+<% attributes.reject{|attr| attr.reference?}.each do |attribute| -%>
+  field :<%= attribute.name %>, :type => <%= attribute.type_class %>
+<% case attribute.type.to_sym -%>
+<% when :array then -%>
+  array_text_accessor :<%= attribute.name %>
+<% when :hash then -%>
+  map_yaml_accessor :<%= attribute.name %>
+<% end -%>
+<% end -%>
+<% attributes.select{|attr| attr.reference? }.each do |attribute| -%>
+  referenced_in :<%= attribute.name%>, :inverse_of => :<%= file_name.pluralize %>, :index => true
+<% end -%>
+end
+<% end -%>

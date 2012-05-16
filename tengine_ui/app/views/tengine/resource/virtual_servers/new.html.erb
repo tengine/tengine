@@ -1,0 +1,74 @@
+<%= javascript_tag do -%>
+  var physical_server_map_provider = <%= @physical_server_map_provider.to_json.html_safe %>;
+  var virtual_server_images_by_provider = <%= @virtual_server_images_by_provider.to_json.html_safe %>;
+  var virtual_server_types_by_provider = <%= @virtual_server_types_by_provider.to_json.html_safe %>;
+  var capacities_by_provider = <%= @capacities_by_provider.to_json.html_safe %>;
+<% end -%>
+
+<h1><%= @page_title = Tengine::Resource::VirtualServer.human_name + t(".pages.run") %></h1>
+
+<div class="Section">
+  <div class="BoxBorder BoxSearchForm">
+    <%= model_error_messages(@virtual_server) %>
+
+    <%= form_for(@virtual_server, as:"virtual_server", html:{novalidate:true}) do |f| -%>
+      <%= field_set_tag do %>
+        <table class="TableForm4rows">
+          <colgroup>
+            <col class="Row1 RowTh">
+            <col class="Row2 RowTd">
+            <col class="Row3 RowTh">
+            <col class="Row4 RowTd">
+          </colgroup>
+          <tbody>
+            <tr>
+              <th class="CelRow1"><%= f.label :name %>:</th>
+              <td><%= f.text_field :name, :class =>"InputText" %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :host_server_id, Tengine::Resource::PhysicalServer.human_attribute_name(:name) %>:</th>
+              <td>
+                <%= f.select :host_server_id, @physical_servers_for_select %>
+              </td>
+            </tr>
+            <tr>
+              <th><%= f.label :provided_image_id %>:</th>
+              <td>
+                <%= f.select :provided_image_id, @virtual_server_images_for_select %>
+              </td>
+            </tr>
+            <tr>
+              <th><%= f.label :provided_type_id %>:</th>
+              <td><%= f.select :provided_type_id, @virtual_server_types_for_select %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :starting_number %>:</th>
+              <td>
+                <%= number_field "virtual_server", "starting_number",
+                  :class => @virtual_server, :class =>"InputText",
+                  :min => 0, :max => @starting_number_max, :value => @starting_number %>
+                &nbsp;&nbsp;(<%= t(".pages.avilable_starting_number") %>
+                &nbsp;<span id="starting_number_max"><%= @starting_number_max %></span>)
+              </td>
+            </tr>
+            <tr>
+              <th><%= f.label :description %>:</th>
+              <td><%= f.text_area :description, :class =>"InputText", :rows => 3 %></td>
+            </tr>
+          </tbody>
+        </table>
+        <%= hidden_field_tag "starting_number_max", @starting_number_max %>
+        <% if @provider -%>
+          <%= f.hidden_field :provider_id, value:@provider.id.to_s %>
+        <% end -%>
+
+        <div class="BoxBtns">
+          <span class="BtnWrap"><%= f.submit t(".pages.run"), :class => "BtnAdd", :disable_with => t(".pages.run") %></span>
+          <%= link_to tengine_resource_virtual_servers_url, :class => "BtnWrap" do -%>
+            <span class="BtnCancel"><%= t("views.links.cancel") %></span>
+          <% end -%>
+      </div>
+      <% end -%>
+    <% end -%>
+  </div>
+</div>

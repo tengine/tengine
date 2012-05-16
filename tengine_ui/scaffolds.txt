@@ -1,0 +1,40 @@
+rails g scaffold Tengine::Core::Setting name:string value:string
+
+
+rails g scaffold Tengine::Job::Category dsl_version:string parent:references name:string caption:string
+
+rails g scaffold Tengine::Job::Edge               status_cd:integer origin_id:string destination_id:string
+rails g scaffold Tengine::Job::Vertex
+rails g scaffold Tengine::Job::Job                name:string server_name:string credential_name:string killing_signals:array killing_signal_interval:integer description:string
+rails g scaffold Tengine::Job::Expansion          name:string server_name:string credential_name:string killing_signals:array killing_signal_interval:integer description:string
+rails g scaffold Tengine::Job::Jobnet             name:string server_name:string credential_name:string killing_signals:array killing_signal_interval:integer description:string script:string jobnet_type_cd:integer
+rails g scaffold Tengine::Job::JobnetTemplate     name:string server_name:string credential_name:string killing_signals:array killing_signal_interval:integer description:string script:string jobnet_type_cd:integer
+rails g scaffold Tengine::Job::JobnetActual       name:string server_name:string credential_name:string killing_signals:array killing_signal_interval:integer description:string script:string jobnet_type_cd:integer executing_pid:string exit_status:string was_expansion:boolean   phase_cd:integer started_at:datetime finished_at:datetime stopped_at:datetime stop_reason:string
+rails g scaffold Tengine::Job::RootJobnetTemplate name:string server_name:string credential_name:string killing_signals:array killing_signal_interval:integer description:string script:string jobnet_type_cd:integer                                                                                                                          category:references lock_version:integer                     dsl_filepath:string dsl_lineno:integer dsl_version:string
+rails g scaffold Tengine::Job::RootJobnetActual   name:string server_name:string credential_name:string killing_signals:array killing_signal_interval:integer description:string script:string jobnet_type_cd:integer executing_pid:string exit_status:string was_expansion:boolean   phase_cd:integer started_at:datetime finished_at:datetime stopped_at:datetime stop_reason:string category:references lock_version:integer template:references
+
+rails g scaffold Tengine::Job::Execution          root_jobnet:references target_actual_ids:array phase_cd:integer started_at:datetime finished_at:datetime preparation_command:string actual_base_timeout_alert:integer  actual_base_timeout_termination:integer estimated_time:integer keeping_stdout:boolean keeping_stderr:boolean
+
+
+# 以下は廃止されたモデル
+rails destroy scaffold Tengine::Job::Script             name:string server_name:string credential_name:string killing_signals:array killing_signal_interval:integer description:string script:string
+rails destroy scaffold Tengine::Job::ScriptTemplate     name:string server_name:string credential_name:string killing_signals:array killing_signal_interval:integer description:string script:string
+rails destroy scaffold Tengine::Job::ScriptActual       name:string server_name:string credential_name:string killing_signals:array killing_signal_interval:integer description:string script:string executing_pid:string exit_status:string        phase_cd:integer started_at:datetime finished_at:datetime stopped_at:datetime stop_reason:string
+
+
+rails destroy scaffold Tengine::Resource::Credential
+rails destroy scaffold Tengine::Resource::Provider
+rails destroy scaffold Tengine::Resource::Provider::Ec2
+rails destroy scaffold Tengine::Resource::Server
+rails destroy scaffold Tengine::Resource::PhysicalServer
+rails destroy scaffold Tengine::Resource::VirtualServer
+rails destroy scaffold Tengine::Resource::VirtualServerImage
+
+rails g scaffold Tengine::Resource::Credential name:string description:string auth_type_cd:string auth_values:hash
+rails g scaffold Tengine::Resource::Provider           name:string description:string
+rails g scaffold Tengine::Resource::Provider::Ec2      name:string description:string credential:references
+rails g scaffold Tengine::Resource::Server             provider:references name:string provided_id:string description:string properties:hash status:string addresses:hash
+rails g scaffold Tengine::Resource::PhysicalServer     provider:references name:string provided_id:string description:string properties:hash status:string addresses:hash
+rails g scaffold Tengine::Resource::VirtualServer      provider:references name:string provided_id:string description:string properties:hash status:string addresses:hash provided_image_id:string provided_type_id:string host_server:refetences
+rails g scaffold Tengine::Resource::VirtualServerImage provider:references name:string provided_id:string description:string
+rails g scaffold Tengine::Resource::VirtualServerType  provider:references             provided_id:string                    properties:hash caption:string

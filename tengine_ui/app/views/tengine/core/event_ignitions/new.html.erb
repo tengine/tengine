@@ -1,0 +1,43 @@
+<h1><%= page_title Tengine::Event, :new %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<%= form_for(@event, as:"event", url: {:action => 'fire'} ) do |f| %>
+  <%= model_error_messages(@core_event) %>
+
+  <div class="field">
+    <%= f.label :event_type_name %><br />
+    <%= f.text_field :event_type_name %>
+  </div>
+  <div class="field">
+    <%= f.label :key %><br />
+    <%= f.text_field :key %>
+  </div>
+  <div class="field">
+    <%= f.label :source_name %><br />
+    <%= f.text_field :source_name %>
+  </div>
+  <div class="field">
+    <%= f.label :occurred_at %><br />
+    <%= f.text_field :occurred_at %>
+  </div>
+  <div class="field">
+    <%= f.label :level %><br />
+    <label> <%= radio_button_tag "event[level]", 1 %> debug</label>
+    <label><%= radio_button_tag "event[level]", 2 %> info</label>
+    <label><%= radio_button_tag "event[level]", 3 %> warn</label>
+    <label><%= radio_button_tag "event[level]", 4 %> error</label>
+    <label><%= radio_button_tag "event[level]", 5 %> fatal</label>
+  </div>
+  <div class="field">
+    <%= f.label :sender_name %><br />
+    <%= f.text_field :sender_name %>
+  </div>
+  <div class="field">
+    <%= f.label :properties_yaml %><br />
+    <%= f.text_area :properties_yaml %>
+  </div>
+  <div class="actions">
+    <%= submit_tag I18n.t :create, :scope => [:helpers, :submit] %>
+  </div>
+<% end %>

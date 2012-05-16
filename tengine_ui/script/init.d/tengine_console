@@ -1,0 +1,20 @@
+#!/bin/sh
+# chkconfig: 2345 99 1
+
+if [ "$1" = "start" ]; then
+    echo "Waiting for dependencies"
+    cd /var/lib/tengine_console/current && sudo -u apache env PATH=/usr/local/bin:$PATH env RAILS_ENV=production bundle exec rake check || exit 1
+fi
+
+/sbin/service httpd "$1"
+exit $?
+
+# 
+# Local Variables:
+# mode: sh
+# coding: utf-8-unix
+# indent-tabs-mode: nil
+# tab-width: 4
+# fill-column: 79
+# default-justification: full
+# End:

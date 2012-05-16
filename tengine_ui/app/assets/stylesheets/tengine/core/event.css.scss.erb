@@ -1,0 +1,108 @@
+@charset "utf-8";
+
+// Place all the styles related to the Tengine::Core::Events controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* @group Events */
+ 
+table.Events {
+    clear: both;
+    width: 100%;
+    margin-bottom: 10px;
+    border-collapse: collapse;
+    border: 0;
+    border-right: 1px solid #fff;
+    border-top: 1px solid #ccc;
+    background-color: #fff;
+}
+
+table.Events th,
+table.Events td {
+  border: 0;
+  border-right: 1px dotted #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+table.Events th {
+    padding: 5px 10px;
+    font-weight: normal;
+    text-align: left;
+}
+
+table.Events td {
+    padding: 10px 10px;
+    text-align: left;
+}
+table.Events th.Last,
+table.Events td.Last {
+  border-right: 0;
+}
+/* 偶数行 */
+table.Events tr:nth-child(4n+3) {
+  background-color: #EDEDED;
+}
+table.Events tr:nth-child(4n+4) {
+  background-color: #EDEDED;
+}
+
+table.Events thead th {
+  color: #fff;
+    text-align: center;
+    padding: 5px;
+  background: #999999 url(<%= asset_path("bg_th.png") %>) repeat-x left bottom;
+  white-space: nowrap;
+}
+table.Events thead th a {
+  display: block;
+  padding:4px 18px 0 15px;
+  min-height: 25px;
+  color: #fff;
+  font-weight: bold;
+    text-align: center;
+  background:url(<%= asset_path("btn_topbtm.png") %>) no-repeat right top;
+}
+table.Events thead th a:hover,
+table.Events thead th a.SortAsc,
+table.Events thead th a.SortDesc:hover {
+  color: #ffa;
+  background-position: right -50px;
+}
+
+table.Events thead th a.SortAsc:hover,
+table.Events thead th a.SortDesc {
+  color: #ffa;
+  background-position: right -100px;
+}
+
+table.Events td {
+    
+}
+
+table.Events td table {
+    padding: 5px 10px;
+    text-align: left;
+}
+
+table.Events td table th {
+    text-align: center;
+}
+table.Events td table td {
+    
+}
+
+col.RowTitle{
+  
+}
+col.RowSort{
+  width: 70px;
+}
+col.RowAction{
+  width: 150px;
+}
+col.RowW80  { width: 80px; }
+col.RowW100  { width: 100px; }
+col.RowW150  { width: 150px; }
+col.RowW200  { width: 200px; }
+
+/* @end */

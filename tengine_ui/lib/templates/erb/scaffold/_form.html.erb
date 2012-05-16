@@ -1,0 +1,29 @@
+<%%= form_for(@<%= file_name %>, as:<%= file_name.dump %>) do |f| %>
+  <%% if @<%= file_name %>.errors.any? %>
+    <div id="error_explanation">
+      <h2><%%= I18n.t('activerecord.errors.template.header', :count => @<%= file_name %>.errors.size, :model => @<%= file_name %>.class.human_name) %></h2>
+
+      <ul>
+      <%% @<%= file_name %>.errors.full_messages.each do |msg| %>
+        <li><%%= msg %></li>
+      <%% end %>
+      </ul>
+    </div>
+  <%% end %>
+
+<% attributes.each do |attribute| -%>
+  <div class="field">
+<%   if attribute.reference? -%>
+    <%%= f.label :<%= attribute.name %>_id %><br />
+    <%%= f.<%= attribute.field_type %> :<%= attribute.name %>_id %>
+<%   else -%>
+<%     suffix = (attribute.type == :array) ? "_text" : (attribute.type == :hash) ? "_yaml" : "" -%>
+    <%%= f.label :<%= attribute.name %><%= suffix %> %><br />
+    <%%= f.<%= attribute.field_type %> :<%= attribute.name %><%= suffix %> %>
+<%   end -%>
+  </div>
+<% end -%>
+  <div class="actions">
+    <%%= f.submit %>
+  </div>
+<%% end %>

@@ -1,0 +1,33 @@
+<h1><%= page_title Tengine::Job::Category, :list %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th><%= Tengine::Job::Category.human_attribute_name(:parent) %></th>
+    <th><%= Tengine::Job::Category.human_attribute_name(:name) %></th>
+    <th><%= Tengine::Job::Category.human_attribute_name(:caption) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @categories.each do |category| %>
+  <tr class="<%= cycle("even", "odd") %>" >
+    <td><%= category.parent %></td>
+    <td><%= category.name %></td>
+    <td><%= category.caption %></td>
+    <td><%= link_to_show category %></td>
+    <td><%= link_to_edit edit_tengine_job_category_path(category) %></td>
+    <td><%= link_to_destroy category, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= paginate @categories %>
+
+<br />
+
+<%= link_to_new Tengine::Job::Category, new_tengine_job_category_path %>

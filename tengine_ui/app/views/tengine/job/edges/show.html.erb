@@ -1,0 +1,22 @@
+<h1><%= page_title Tengine::Job::Edge, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Job::Edge.human_attribute_name(:phase_cd) %>:</b>
+  <%= @edge.phase_cd %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Edge.human_attribute_name(:origin_id) %>:</b>
+  <%= @edge.origin_id %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Edge.human_attribute_name(:destination_id) %>:</b>
+  <%= @edge.destination_id %>
+</p>
+
+
+<%= link_to_edit edit_tengine_job_edge_path(@edge) %> |
+<%= link_to_back_list tengine_job_edges_path %>

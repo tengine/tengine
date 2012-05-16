@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-language" content="ja">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title><%= @page_title %> - Tengine framework</title>
+  <meta name="modified" content="">
+  <meta http-equiv="content-style-type" content="text/css">
+  <meta http-equiv="content-script-type" content="text/javascript">
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= yield :end_of_head %>
+</head>
+<body>
+<div id="header">
+  <span class="Guidance"><a name="pageTop" id="pageTop"><%= image_tag "spacer.gif", :alt => "このページのいちばん上です" %></a></span>
+  <div id="siteId">
+    <p id="systemTitle"><a href="#">Tengine Project</a></p>
+  </div>
+  <div id="headerNav">
+    <a href="#" target="_blank"><%= image_tag "logo_tengine.png", :alt => "Tengine framework"%></a>
+  </div>
+</div>
+<hr>
+<div id="contents">
+  <div id="main">
+    <div class="Wrap">
+
+<%
+  self.field_error_proc = Proc.new{ |html_tag, instance|
+    if html_tag =~ /^<input|^<textarea/
+      "<span class='WrapInputError'>#{html_tag}</span>".html_safe
+    else
+      html_tag
+    end
+  }
+-%>
+
+<%= yield %>
+
+    </div>
+  </div>
+  <hr>
+  <div id="nav">
+    <ul>
+      <li><a href="#"><span>ジョブ</span></a>
+        <ul>
+          <%= navi_link_to(Tengine::Job::RootJobnetTemplate) %>
+          <%= navi_link_to(Tengine::Job::Execution) %>
+          <%= navi_link_to(Tengine::Job::RootJobnetActual) %>
+        </ul>
+      </li>
+      <li><a href="#"><span>リソース</span></a>
+        <ul>
+          <%= navi_link_to(Tengine::Resource::VirtualServer) %>
+          <%= navi_link_to(Tengine::Resource::VirtualServerImage) %>
+          <%= navi_link_to(Tengine::Resource::PhysicalServer) %>
+          <%= navi_link_to(Tengine::Resource::Credential) %>
+        </ul>
+      </li>
+      <li><a href="#"><span>コア</span></a>
+        <ul>
+          <%= navi_link_to(Tengine::Core::Event) %>
+          <%= navi_link_to("イベント発火", tengine_core_event_ignitions_new_path) %>
+          <%= navi_link_to(Tengine::Core::Driver) %>
+          <%= navi_link_to(Tengine::Core::Session) %>
+          <%= navi_link_to(Tengine::Core::HandlerPath) %>
+        </ul>
+      </li>
+    </ul>
+  </div>
+<hr>
+<div id="footer">
+  <ul class="FooterNavi">
+    <li><a href="#">要望・問題の報告</a></li>
+    <li><a href="#">お問い合わせ</a></li>
+    <li class="Last"><a href="#">利用規約</a></li>
+  </ul>
+  <div id="footerLogo">
+    <a href="http://www.nautilus-technologies.com/" target="_blank" title="海底からクラウドの大空まで、不可能を超えて大きく羽ばたく株式会社ノーチラス・テクノロジーズ"><%= image_tag "logo_nautilus.png", :alt => "Nautilus Technologies, Inc." %></a>
+  </div>
+  <div id="copyright">
+    <address>
+    Copyright &copy; <a href="http://www.nautilus-technologies.com/" target="_blank">Nautilus Technologies, Inc.</a> All Rights Reserved.
+    </address>
+  </div>
+</div>
+
+</body>
+</html>

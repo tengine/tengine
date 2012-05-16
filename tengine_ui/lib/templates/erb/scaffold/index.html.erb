@@ -1,0 +1,39 @@
+<h1><%%= page_title <%= class_name %>, :list %></h1>
+
+<p id="notice"><%%= notice %></p>
+
+<table>
+  <tr>
+<% attributes.each do |attribute| -%>
+    <th><%%= <%= class_name %>.human_attribute_name(:<%= attribute.name %>) %></th>
+<% end -%>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<%% @<%= file_name.pluralize %>.each do |<%= file_name %>| %>
+  <tr class="<%%= cycle("even", "odd") %>" >
+<% for attribute in attributes -%>
+<%   suffix = (attribute.type == :array) ? "_text" : (attribute.type == :hash) ? "_yaml" : "" -%>
+<%    case attribute.type -%>
+<%    when :hash then -%>
+    <td><pre><%%= <%= file_name %>.<%= attribute.name %><%= suffix %> %></pre></td>
+<%    else -%>
+    <td><%%= <%= file_name %>.<%= attribute.name %><%= suffix %> %></td>
+<%    end -%>
+<% end -%>
+    <td><%%= link_to_show <%= file_name %> %></td>
+    <td><%%= link_to_edit edit_<%= singular_table_name %>_path(<%= file_name %>) %></td>
+    <td><%%= link_to_destroy <%= file_name %>, <%= key_value :confirm, "'Are you sure?'" %>, <%= key_value :method, ":delete" %> %></td>
+  </tr>
+<%% end %>
+</table>
+
+<br />
+
+<%%= paginate @<%= file_name.pluralize %> %>
+
+<br />
+
+<%%= link_to_new <%= class_name %>, new_<%= singular_table_name %>_path %>

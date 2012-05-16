@@ -1,0 +1,25 @@
+<%= form_for(@handler, as:"handler", url: @handler.new_record? ?
+    tengine_core_driver_handlers_path(@driver) :
+    tengine_core_driver_handler_path(@driver, @handler) ) do |f| %>
+  <%= model_error_messages(@handler) %>
+
+  <div class="field">
+    <%= f.label :filepath %><br />
+    <%= f.text_field :filepath %>
+  </div>
+  <div class="field">
+    <%= f.label :lineno %><br />
+    <%= f.number_field :lineno %>
+  </div>
+  <div class="field">
+    <%= f.label :event_type_names_text %><br />
+    <%= f.text_area :event_type_names_text %>
+  </div>
+  <div class="field">
+    <%= f.label :filter_yaml %><br />
+    <%= f.text_area :filter_yaml %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

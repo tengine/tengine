@@ -1,0 +1,23 @@
+<%= form_for(@driver, as:"driver") do |f| %>
+  <%= model_error_messages(@driver) %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :version %><br />
+    <%= f.text_field :version %>
+  </div>
+  <div class="field">
+    <%= f.label :enabled %><br />
+    <%= f.check_box :enabled %>
+  </div>
+  <div class="field">
+    <%= f.label :enabled_on_activation %><br />
+    <%= f.check_box :enabled_on_activation %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

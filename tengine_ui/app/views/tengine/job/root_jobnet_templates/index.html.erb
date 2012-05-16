@@ -1,0 +1,95 @@
+<h1><%= page_title Tengine::Job::RootJobnetTemplate, :list %></h1>
+
+<%= message :complete, notice %>
+<div class="TreeViewContents">
+  <div class="DataView">
+    <div class="Wrap">
+      <div class="Section">
+        <div class="BoxBorder BoxSearchForm">
+          <%= form_for(:finder, :html => {:method => :get}) do |f| %>
+            <%= field_set_tag do -%>
+              <legend><%= I18n.t(:search_caption,:scope => [:views, :pages]) %></legend>
+              <table class="TableForm4rows">
+                <colgroup>
+                  <col class="Row1 RowTh">
+                  <col class="Row2 RowTd">
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <th><%= f.label :id, Tengine::Job::RootJobnetTemplate.human_attribute_name(:id) %></th>
+                    <td><%= f.text_field :id, :class => "InputText" %></td>
+                  </tr>
+                  <tr>
+                   <th><%= f.label :name, Tengine::Job::RootJobnetTemplate.human_attribute_name(:name) %></th>
+                   <td><%= f.text_field :name, :class => "InputText" %></td>
+                  </tr>
+                  <tr>
+                   <th><%= f.label :description, Tengine::Job::RootJobnetTemplate.human_attribute_name(:description) %></th>
+                   <td><%= f.text_field :description, :class => "InputText" %></td>
+                  </tr>
+                </tbody>
+              </table>
+              <% if @category -%>
+                <%= hidden_field_tag :category, @category.id %>
+              <% end -%>
+
+              <div class="BoxBtns">
+                <span class="BtnWrap">
+                  <%= f.submit(I18n.t(:search, :scope => [:views, :links]), :class => "BtnSearch") %>
+                </span>
+                <span class="BtnWrap">
+                  <%= tag :input, { "type" => "reset", "name" => "reset", "value" => I18n.t(:reset, :scope => [:views, :links]), :class => "BtnCancel" } %>
+                </span>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="Section">
+        <%= paginate @root_jobnet_templates, :items => @root_jobnet_templates %>
+
+        <table class="TableBase">
+          <colgroup>
+            <col class="Row1">
+            <col class="Row2">
+            <col class="Row3">
+            <col class="Row4 RowW100">
+          </colgroup>
+          <thead>
+            <tr>
+              <% query_without_page = request.query_parameters.select{|k,v| %w(category finder).include?(k.to_s) } -%>
+              <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:id), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:id))), :class => sort_class(:id) %></th>
+              <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:name), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name) %></th>
+              <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:description), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:desc))), :class => sort_class(:desc) %></th>
+              <th><%= I18n.t(:operation, :scope => [:views, :pages]) %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @root_jobnet_templates.each do |root_jobnet_template| %>
+              <tr class="<%= cycle("even", "odd") %>" >
+                <td><%= root_jobnet_template.id %></td>
+                <td><%= root_jobnet_template.name %></td>
+                <td><%= root_jobnet_template.description %></td>
+                <td>
+                  <%= link_to_show root_jobnet_template, :class => "ActionDetail" %>
+                  <%= link_to I18n.t(:run, :scope => [:views, :links]), new_tengine_job_execution_path(:root_jobnet_id => root_jobnet_template), :class => "ActionRun" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <%= paginate @root_jobnet_templates, :items => @root_jobnet_templates %>
+
+      </div>
+    </div>
+  </div><!-- DataView -->
+
+  <div class="TreeView">
+    <% params_without_page_and_sort = request.params.select{|k,v| %w(finder).include?(k.to_s) } -%>
+    <%== category_tree(@root_categories, "category", params_without_page_and_sort) %>
+  </div>
+
+</div>
+

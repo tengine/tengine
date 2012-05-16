@@ -1,0 +1,81 @@
+ja:
+  mongoid:
+    models:
+      tengine/resource/credential: "認証情報"
+      tengine/resource/server: "サーバ"
+      tengine/resource/physical_server: "物理サーバ"
+      tengine/resource/virtual_server: "仮想サーバ"
+      tengine/resource/virtual_server_image: "仮想サーバイメージ"
+      tengine/resource/provider: "プロバイダ"
+
+    attributes:
+      tengine/resource/credential:
+        id: "ID"
+        name: "名称"
+        description: "表示名"
+        auth_type_cd: "認証情報種別"
+        auth_values: "認証設定値"
+        created_at: "登録日時"
+        updated_at: "更新日時"
+      tengine/resource/physical_server:
+        name: "物理サーバ名"
+        description: "説明"
+        provided_id: "プロバイダによるID"
+        cpu_cores: "CPUコア数"
+        memory_size: "メモリサイズ"
+        status: "ステータス"
+        properties: "プロパティ"
+      tengine/resource/virtual_server_image:
+        name: "仮想サーバイメージ名"
+        description: "説明"
+        provided_id: "プロバイダによるID"
+        provided_description: "プロバイダによる説明"
+        cpu_cores: "CPUコア数"
+        memory_size: "メモリサイズ"
+        # provided_image_id: "プロバイダによる仮想サーバイメージID"
+        # status: "ステータス"
+        # addresses "IPアドレス"
+        # provided_type_id: "プロバイダによる仮想サーバタイプID"
+      tengine/resource/virtual_server:
+        name: "仮想サーバ名"
+        provided_id: "プロバイダによるID"
+        description: "説明"
+        addresses: "IPアドレス"
+        status: "ステータス"
+        provided_image_id: "仮想サーバイメージ名"
+        provided_type_id: "仮想サーバタイプ"
+        properties: "プロパティ"
+        starting_number: "起動サーバ数"
+      tengine/resource/virtual_server/finder:
+        physical_server_name: "物理サーバ名"
+        virtual_server_name: "仮想サーバ名"
+        provided_id: "プロバイダによるID"
+        description: "説明"
+        virtual_server_image_name: "仮想サーバイメージ名"
+        status_cd: "ステータス"
+      tengine/resource/virtual_server_type:
+        cpu_cores: "CPUコア数"
+        memory_size: "メモリサイズ"
+
+  selectable_attrs:
+    tengine/resource/credential:
+      auth_type_cd:
+        ssh_password: "SSHパスワード認証"
+        ssh_public_key: "SSH公開鍵認証"
+        ec2_access_key: "EC2 アクセスキー認証"
+
+  views:
+    links:
+      update: "更新する"
+
+  new: "新規作成" 
+  cancel: "キャンセル"
+  edit: "編集"
+  back_list: "一覧に戻る"
+  show: "表示"
+
+
+  username: "ユーザー名"
+  password: "パスワード"
+  passphrase: "パスフレーズ"
+  private_keys: "秘密鍵"
