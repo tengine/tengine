@@ -8,7 +8,7 @@ class Tengine::Core::EventWrapper
   end
 
   [:event_type_name, :key, :source_name, :occurred_at,
-    :level, :confirmed, :sender_name, :properties,].each do |attr_name|
+    :level, :level_key, :confirmed, :sender_name, :properties,].each do |attr_name|
     class_eval(<<-EOS)
       def #{attr_name}; @source.#{attr_name}; end
     EOS

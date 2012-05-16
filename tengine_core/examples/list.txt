@@ -7,10 +7,10 @@
 10 特定のサーバからのイベントが発生した場合のみ処理を実行する
 
 20 :properties指定で発火する
-20 :key指定で発火する
-20 :source_name指定で発火する
-20 :level指定で発火する
-20 :level_key指定で発火する
+21 :key指定で発火する
+22 :source_name指定で発火する
+23 :level指定で発火する
+24 :level_key指定で発火する
 
 50 ack_policy(:at_first, ...) の例
 51 ack_policy(:at_first_submit, ...) の例
