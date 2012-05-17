@@ -3,7 +3,7 @@
 Description goes here.
 
 == Contributing to tengine_resource
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
@@ -13,7 +13,7 @@ Description goes here.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
 == License
-tengine_event is distributed under the MPL2.0 or LGPLv3 or the dual license of MPL2.0/LGPLv3
+tengine_resource is distributed under the MPL2.0 or LGPLv3 or the dual license of MPL2.0/LGPLv3
 
 == Copyright
 
