@@ -611,25 +611,34 @@ describe Tengine::Core::Kernel do
       end
     end
   end
-
+require "timeout"
   describe :setup_mq_connection do
     if RUBY_VERSION >= "1.9.2"
       before do
+Timeout.timeout(120) do
+p "enter before"
         EM.instance_eval do
+p "enter EM.instance_eval block"
           @timers.each {|i| EM.cancel_timer i } if @timers
+p "after @timers.each"
           @next_tick_queue = nil
         end
+p "before trigger"
         trigger
+p "before Tengine::Core::Config::Core.new"
         config = Tengine::Core::Config::Core.new({
           :tengined => {
             :load_path => File.expand_path('../../../examples/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
           },
           :event_queue => { :connection => { :port => @port } }
         })
+p "before Tengine::Core::Kernel.new"
         @kernel = Tengine::Core::Kernel.new(config)
+end
       end
 
       let(:rabbitmq) do
+p "enter let(:rabbitmq)"
         ret = nil
         ENV["PATH"].split(/:/).find do |dir|
           Dir.glob("#{dir}/rabbitmq-server") do |path|
@@ -641,6 +650,7 @@ describe Tengine::Core::Kernel do
         end
 
         pending "rabbitmq が見つかりません" unless ret
+puts "let(:rabbitmq) => #{ret}"
         ret
       end
 
@@ -698,15 +708,23 @@ describe Tengine::Core::Kernel do
       end
 
       it "MQ接続時にエラーなどのイベントハンドリングを行います" do
+Timeout.timeout(120) do
+p "before EM.run"
         EM.run do
+p "before @kernel.mq"
           mq = @kernel.mq
 
+p "before @kernel.setup_mq_connection"
           @kernel.setup_mq_connection
 
           # ここではイベント発生時の振る舞いもチェックします
+p "before @kernel.subscribe_queue"
           @kernel.subscribe_queue do
+p "enter @kernel.subscribe_queue block"
             Tengine::Core.stderr_logger.should_receive(:warn).with('mq.connection.on_tcp_connection_loss.').at_least(1).times
+p "before finish"
             finish
+p "before EM.add_timer"
             EM.add_timer(1) do
               Tengine::Core.stderr_logger.should_receive(:info).with('mq.connection.after_recovery: recovered successfully.')
               EM.defer(
@@ -726,6 +744,7 @@ describe Tengine::Core::Kernel do
             end
           end
         end
+end
       end
     end
   end

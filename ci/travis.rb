@@ -48,7 +48,14 @@ class Build
   end
 
   def spec
-    cmd = "bundle exec rspec -fd -c spec"
+    if gem == "tengine_core"
+      target = "spec/tengine/core/kernel_spec.rb"
+    elsif gem == "tengine_event"
+      target = "spec/tengine/mq/suite_spec.rb"
+    else
+      target = "spec"
+    end
+    cmd = "bundle exec rspec -fd -c #{target}"
     puts "Running command: #{cmd}"
     return false unless system(cmd)
     true

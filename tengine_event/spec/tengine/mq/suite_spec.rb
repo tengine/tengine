@@ -420,16 +420,32 @@ describe Tengine::Mq::Suite do
         end
 
         it "JSON形式にserializeしてexchangeにpublishする" do
+puts"JSON形式にserializeしてexchangeにpublishする- start"
+require "timeout"
+begin
+Timeout.timeout(60) do
           Thread.current[:expected_event] = expected_event
           EM.run do
+p "enter EM.run block"
             subject.send :ensures, :exchange do |xchg|
+p "enter subject.send block"
               def xchg.publish json, hash
+p "enter xchg.publish method"
                 json.should == Thread.current[:expected_event].to_json
+p "before super"
                 super
               end
-              subject.fire sender, Thread.current[:expected_event], {:keep_connection => false}, nil
+p "before subject.fire"
+              ret = subject.fire sender, Thread.current[:expected_event], {:keep_connection => false}, nil
+p "after subject.fire"
+              ret
             end
+p "subject.send return"
           end
+end
+rescue Timeout::Error
+  "test timeout.".should be_nil
+end
         end
 
         it "Tengine::Eventオブジェクトを直接指定する" do
