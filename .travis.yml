@@ -2,11 +2,12 @@ language: ruby
 script: 'ci/travis.rb'
 before_install:
   - gem install bundler
+bundler_args: "--path vendor/bundle"
 rvm:
   - 1.9.2
-  - 1.9.3
-  - ruby-head
-  - jruby-19mode
+#  - 1.9.3
+#  - ruby-head
+#  - jruby-19mode
 env:
   - "GEM=tengine_core"
   - "GEM=tengine_resource"
@@ -133,3 +134,5 @@ branches:
   only:
     - 20120516_travis_ci
     - 20120516_travis_ci_rebase1
+notifications:
+  email: false
