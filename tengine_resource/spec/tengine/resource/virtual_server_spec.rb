@@ -79,7 +79,10 @@ describe Tengine::Resource::VirtualServer do
 
   describe :launch_mode do
     before do
-      I18n.locale = :ja
+      @original_locale, I18n.locale = I18n.locale, :ja
+    end
+    after do
+      I18n.locale = @original_locale
     end
 
     before "既に重複する名前のモデルが登録されている場合" do
