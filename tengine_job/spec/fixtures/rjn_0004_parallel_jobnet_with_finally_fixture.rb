@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+
+require File.expand_path('test_credential_fixture', File.dirname(__FILE__))
+require File.expand_path('test_server_fixture', File.dirname(__FILE__))
+
 # 以下のジョブネットについてテンプレートジョブネットや
 # 実行用ジョブネットを扱うフィクスチャ生成のためのクラスです。
 #
