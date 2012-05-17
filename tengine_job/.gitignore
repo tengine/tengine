@@ -43,7 +43,6 @@
 .bundle
 .yardoc
 /.rvmrc
-/tmp
 coverage
 doc
 pkg
