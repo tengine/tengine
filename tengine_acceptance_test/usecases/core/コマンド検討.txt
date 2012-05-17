@@ -1,0 +1,171 @@
+# 起動方法の検討
+
+## 起動時のオプション
+{{{
+SYNOPSIS
+tengined [-k action] [-f path_to_config] [-T path/to/file_or_dir]
+         [-H db_host] [-P db_port] [-U db_user] [-S db_pass] [-B db_database]
+         [-h mq_conn_host] [-p mq_conn_port] [-u mq_conn_user] [-s mq_conn_pass]
+         [-v mq_conn_vhost] [-e mq_exchange_name] [-q mq_queue_name]
+
+  -k --action                             test|load|start|enable|stop|force-stop|status|activate default: start [only for command]
+  -f --config                             /etc/tengine.yml [only for command]
+  -D --tengined-daemon                    default false. ignored with "-k test, -k load, -k enable"
+     --tengined-skip-load                 doesn't load event handler when start. usually use with --daemon option [only for command]
+     --tengined-skip-enablement           doesn't enable event handler when start. usually use with --daemon option [only for command]
+     --tengined-wait-activation           wait activation when start. usually use with --daemon option [only for command]
+     --tengined-activation-timeout        period to wait for making activation file. default: 300(sec)
+  -T --tengined-load-path                 path/to/file_or_dir. ignored with "-k test"
+     --tengined-pid-dir                   path/to/dir. default: ./tmp/tengined_pids
+     --tengined-status-dir                path/to/dir. default: ./tmp/tengined_status
+     --tengined-activation-dir            path/to/dir. default: ./tmp/tengined_activations
+  -G --tengined-heartbeat-period          the second of period which heartbeat event be fired. disable heartbeat if 0. default: 0
+  -C --tengined-confirmation-threshold    the event which is this level or less will be made confirmed automatically. debug/info/warn/error/fatal. default: info
+  -H --db-host                            default: localhost
+  -P --db-port                            default: 27017
+  -U --db-username
+  -S --db-password
+  -B --db-database                        default: tengine_production
+  -h --event-queue-conn-host              default: localhost
+  -p --event-queue-conn-port              default: 5672
+  -v --event-queue-conn-vhost
+  -u --event-queue-conn-user
+  -s --event-queue-conn-pass
+  -e --event-queue-exchange-name          default: tengine_event_exchange
+     --event-queue-exchange-type          default: direct
+     --event-queue-exchange-durable       default: true
+  -q --event-queue-queue-name             default: tengine_event_queue
+     --event-queue-queue-durable          default: true
+
+     --log-common-output                  file path or "STDOUT" / "STDERR"
+     --log-common-rotation                rotation file count or daily,weekly,monthly. default: 3
+     --log-common-rotation-size           number of max log file size. default: 1048576 (10MB)
+     --log-common-level                   debug/info/warn/error/fatal. default: info
+
+     --application-log-output             file path or "STDOUT" / "STDERR". default: if daemon process then “./log/application.log” else "STDOUT"
+     --application-log-rotation           rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+     --application-log-rotation-size      number of max log file size. default: value of --log-common-rotation-size
+     --application-log-level              debug/info/warn/error/fatal. default: value of --log-common-level
+
+     --process-stdout-log-output          file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stdout.log” else "STDOUT"
+     --process-stdout-log-rotation        rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+     --process-stdout-log-rotation-size   number of max log file size. default: value of --log-common-rotation-size
+     --process-stdout-log-level           debug/info/warn/error/fatal. default: value of --log-common-level
+
+     --process-stderr-log-output          file path or "STDOUT" / "STDERR". default: if daemon process then “./log/#{$PROGRAM_NAME}_#{Process.pid}_stderr.log” else "STDERR"
+     --process-stderr-log-rotation        rotation file count or daily,weekly,monthly. default: value of --log-common-rotation
+     --process-stderr-log-rotation-size   number of max log file size. default: value of --log-common-rotation-size
+     --process-stderr-log-level           debug/info/warn/error/fatal. default: value of --log-common-level
+}}}
+
+
+## 起動時のオプションと設定ファイルの対応
+オプションを設定ファイルのキーと対応させるために、ここでは便宜的に先頭の'--'を除いて'-'を'_'に変換したものをオプション名と呼ぶ。
+オプション名は、予め決められたルールに則ってHashに振り分けられる。
+(予め決められた単語毎に振り分けるもので、必ずしもアンダースコア毎に分類される訳ではない。)
+
+例えば以下のようなキーを持つHashで構成されるツリーである。
+{{{
+tengined:
+  daemon: true
+  activation_timeout: 300
+  load_path: ./
+  log_dir: ./log
+  pid_dir: ./tmp/tengined_pids
+  activation_dir: ./tmp/tengined_activations
+db:
+  host: localhost
+  port: 27017
+  username:
+  password:
+  database: tengine_production
+event_queue:
+  conn:
+    host: localhost
+    port: 5672
+    vhost:
+    user:
+    pass:
+  exchange:
+    name: tengine_event_exchange
+    type: direct
+    durable: true
+  queue:
+    name: tengine_event_queue
+    durable: true
+}}}
+
+ただし、上記のオプションのうち [only for command] が指定されているオプションは、設定ファイルに記述してあっても無視される。
+
+起動時のオプションとして指定される値は全て文字列だが、YAMLの設定ファイルでは数値など文字列でない値を設定できることに注意。
+
+設定ファイルを指定しつつも、起動時のオプションを指定する事もある。一時的に設定ファイルの設定を変更したい場合など。
+
+
+## 最も簡単にDSLを動かす方法
+* 最初にちょっと試すときを想定
+* 設定ファイルなし
+* DSLファイル一つだけ
+
+## 使い方
+
+* gemをインストールしたらまずテスト
+{{{
+$ tengined -k test
+can't connect to database
+}}}
+* DBとMQに接続する必要があることを通知
+* mongodとrabbitmq-serverを起動したら
+{{{
+$ tengined -k test
+Success!
+}}}
+
+* DSLのひな形(hello world的なもの)が生成して(後回し。最初はコピペ)
+{{{
+$ tengine example > hello_world.rb
+}}}
+* もう起動できちゃう
+{{{
+$ tengined -T hello_world.rb
+}}}
+
+* デーモンとして起動
+{{{
+$ tengined -D -T hello_world.rb
+}}}
+
+一つのサーバで複数のプロセスを起動する機能は後回し
+
+
+## 本番環境での使い方
+* 設定ファイルを生成できる（後回し。最初はコピペ）
+{{{
+$ tengine production_config
+}}}
+* 実際の本番環境を想定
+* DSLはcapistranoでデプロイされることを想定
+* 設定ファイルは /etc/tengine.yml
+{{{
+dsl: /home/tengine/capistrano/app/current/dsl
+db:
+  host: localhost
+  port: 27018
+  user: user
+  pass: pass
+  database: tengine_production
+mq:
+  conn:
+    host: localhost
+    port: 5672
+    user: user
+    pass: pass
+}}}
+
+ * /etc/init.d/tengined は init.d系の仕組みに則ったもので、前述のtenginedとは別物。
+{{{
+$ /etc/init.d/tengined start
+$ /etc/init.d/tengined stop
+$ /etc/init.d/tengined force-stop
+}}}
+で操作できる

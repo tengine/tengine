@@ -1,0 +1,28 @@
+tengined:
+  daemon: true
+  activation_timeout: 300
+  load_path: ./
+  log_dir: ./log
+  pid_dir: ./tmp/tengined_pids
+  activation_dir: ./tmp/tengined_activations
+db:
+  host: localhost
+  port: 27039
+  username: 
+  password:
+  database: tengine_selenium
+event_queue:
+  conn:
+    host: localhost
+    port: 5672
+    vhost: /
+    user: guest
+    pass: guest
+  exchange:
+    name: timeout_end_to_end_test_tengine_event_exchange
+    type: direct
+    durable: true
+  queue:
+    name: tengine_event_queue
+    durable: true
+
