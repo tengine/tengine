@@ -663,7 +663,7 @@ describe Tengine::Core::Kernel do
             "RABBITMQ_MNESIA_BASE"     => @dir.to_s,
             "RABBITMQ_LOG_BASE"        => @dir.to_s,
           }
-          @pid = Process.spawn(envp, rabbitmq, :chdir => @dir, :in => :close, :out => '/dev/null', :err => '/dev/null')
+          @pid = Process.spawn(envp, rabbitmq, :pgroup => true, :chdir => @dir, :in => :close, :out => '/dev/null', :err => '/dev/null')
           x = Time.now
           while Time.now < x + 64 do # まあこんくらい待てばいいでしょ
             sleep 0.1
@@ -672,7 +672,7 @@ describe Tengine::Core::Kernel do
             # netstat -an は Linux / BSD ともに有効
             # どちらかに限ればもう少し効率的な探し方はある。たとえば Linux 限定でよければ netstat -lnt ...
             y = `netstat -an | fgrep LISTEN | fgrep #{port}`
-            if y.lines.to_a.size > 1
+            if y.lines.to_a.size >= 1
               @port = port
               return
             end
@@ -688,7 +688,7 @@ describe Tengine::Core::Kernel do
       def finish
         if @pid
           begin
-            Process.kill "INT", @pid
+            Process.kill "INT", -@pid
             Process.waitpid @pid
           rescue Errno::ECHILD, Errno::ESRCH
           ensure

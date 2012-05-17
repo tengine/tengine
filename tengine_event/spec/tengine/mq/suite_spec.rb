@@ -792,7 +792,7 @@ describe Tengine::Mq::Suite do
           "RABBITMQ_MNESIA_BASE"     => $_dir.to_s,
           "RABBITMQ_LOG_BASE"        => $_dir.to_s,
         }
-        $_pid = Process.spawn(envp, rabbitmq, :chdir => $_dir, :in => :close)
+        $_pid = Process.spawn(envp, rabbitmq, :pgroup => true, :chdir => $_dir, :in => :close)
         x = Time.now
         while Time.now < x + 16.0 do # まあこんくらい待てばいいでしょ
           sleep 0.1
@@ -820,7 +820,7 @@ describe Tengine::Mq::Suite do
     def finish
       if $_pid
         begin
-          Process.kill "INT", $_pid
+          Process.kill "INT", -$_pid
           Process.waitpid $_pid
         rescue Errno::ECHILD, Errno::ESRCH
         ensure
