@@ -2,6 +2,12 @@
 require 'spec_helper'
 
 describe Tengine::Resource::Provider do
+  before do
+    @original_locale, I18n.locale = I18n.locale, :en
+  end
+  after do
+    I18n.locale = @original_locale
+  end
 
   valid_attributes1 = {
     :name => "provider1"
