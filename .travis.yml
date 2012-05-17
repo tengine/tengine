@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+  - 1.9.2
+branches:
+  only:
+    - 20120516_travis_ci
+notifications:
+  email: false
+
