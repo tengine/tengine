@@ -3,13 +3,10 @@ script: 'ci/travis.rb'
 before_install:
   - gem install bundler
 rvm:
-  - 1.8.7
   - 1.9.2
   - 1.9.3
   - ruby-head
-  - jruby-18mode
   - jruby-19mode
-  - ree
 env:
   - "GEM=tengine_core"
   - "GEM=tengine_resource"
@@ -24,24 +21,6 @@ gemfile:
   - gemfiles/Gemfile.activesupport-3.2.3
 matrix:
   exclude:
-    - rvm: 1.8.7
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_core"
-    - rvm: 1.8.7
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_resource"
-    - rvm: 1.8.7
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_event"
-    - rvm: 1.8.7
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_job"
-    - rvm: 1.8.7
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_job_agent"
-    - rvm: 1.8.7
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_ui"
     - rvm: 1.9.2
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_core"
@@ -96,24 +75,6 @@ matrix:
     - rvm: ruby-head
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_ui"
-    - rvm: jruby-18mode
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_core"
-    - rvm: jruby-18mode
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_resource"
-    - rvm: jruby-18mode
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_event"
-    - rvm: jruby-18mode
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_job"
-    - rvm: jruby-18mode
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_job_agent"
-    - rvm: jruby-18mode
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_ui"
     - rvm: jruby-19mode
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_core"
@@ -131,42 +92,6 @@ matrix:
       env: "GEM=tengine_job_agent"
     - rvm: jruby-19mode
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_ui"
-    - rvm: ree
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_core"
-    - rvm: ree
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_resource"
-    - rvm: ree
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_event"
-    - rvm: ree
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_job"
-    - rvm: ree
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_job_agent"
-    - rvm: ree
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_ui"
-    - rvm: 1.8.7
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_core"
-    - rvm: 1.8.7
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_resource"
-    - rvm: 1.8.7
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_event"
-    - rvm: 1.8.7
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_job"
-    - rvm: 1.8.7
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_job_agent"
-    - rvm: 1.8.7
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
       env: "GEM=tengine_ui"
     - rvm: 1.9.2
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
@@ -222,24 +147,6 @@ matrix:
     - rvm: ruby-head
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
       env: "GEM=tengine_ui"
-    - rvm: jruby-18mode
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_core"
-    - rvm: jruby-18mode
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_resource"
-    - rvm: jruby-18mode
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_event"
-    - rvm: jruby-18mode
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_job"
-    - rvm: jruby-18mode
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_job_agent"
-    - rvm: jruby-18mode
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_ui"
     - rvm: jruby-19mode
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
       env: "GEM=tengine_core"
@@ -256,23 +163,5 @@ matrix:
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
       env: "GEM=tengine_job_agent"
     - rvm: jruby-19mode
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_ui"
-    - rvm: ree
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_core"
-    - rvm: ree
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_resource"
-    - rvm: ree
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_event"
-    - rvm: ree
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_job"
-    - rvm: ree
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_job_agent"
-    - rvm: ree
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
       env: "GEM=tengine_ui"
