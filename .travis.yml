@@ -129,3 +129,7 @@ matrix:
     - rvm: jruby-19mode
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
       env: "GEM=tengine_ui"
+branches:
+  only:
+    - 20120516_travis_ci
+    - 20120516_travis_ci_rebase1
