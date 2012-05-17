@@ -35,9 +35,6 @@ matrix:
       env: "GEM=tengine_job"
     - rvm: 1.9.2
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_job_agent"
-    - rvm: 1.9.2
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_ui"
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
@@ -51,9 +48,6 @@ matrix:
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_job"
-    - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_job_agent"
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_ui"
@@ -71,9 +65,6 @@ matrix:
       env: "GEM=tengine_job"
     - rvm: ruby-head
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_job_agent"
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_ui"
     - rvm: jruby-19mode
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
@@ -89,9 +80,6 @@ matrix:
       env: "GEM=tengine_job"
     - rvm: jruby-19mode
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_job_agent"
-    - rvm: jruby-19mode
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_ui"
     - rvm: 1.9.2
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
@@ -101,13 +89,7 @@ matrix:
       env: "GEM=tengine_resource"
     - rvm: 1.9.2
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_event"
-    - rvm: 1.9.2
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
       env: "GEM=tengine_job"
-    - rvm: 1.9.2
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_job_agent"
     - rvm: 1.9.2
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
       env: "GEM=tengine_ui"
@@ -119,13 +101,7 @@ matrix:
       env: "GEM=tengine_resource"
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_event"
-    - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
       env: "GEM=tengine_job"
-    - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_job_agent"
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
       env: "GEM=tengine_ui"
@@ -137,13 +113,7 @@ matrix:
       env: "GEM=tengine_resource"
     - rvm: ruby-head
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_event"
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
       env: "GEM=tengine_job"
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_job_agent"
     - rvm: ruby-head
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
       env: "GEM=tengine_ui"
@@ -155,13 +125,7 @@ matrix:
       env: "GEM=tengine_resource"
     - rvm: jruby-19mode
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_event"
-    - rvm: jruby-19mode
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
       env: "GEM=tengine_job"
-    - rvm: jruby-19mode
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_job_agent"
     - rvm: jruby-19mode
       gemfile: gemfiles/Gemfile.activesupport-3.2.3
       env: "GEM=tengine_ui"
