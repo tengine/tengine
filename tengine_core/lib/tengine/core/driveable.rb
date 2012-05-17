@@ -131,18 +131,15 @@ module Tengine::Core::Driveable
           driver = context.driver
 
           driver.reload
+          method_name = filter_def.to_method_name
           attrs = {
+            :target_method_name => method_name,
             :event_type_names => event_type_names,
             # :target_instantiation_key => :instance_method, # attrsを検索にも使うので_cdの方を指定しています
             :target_instantiation_cd => Tengine::Core::Handler.target_instantiation_id_by_key(:instance_method),
           } # .update(options)
           handler = driver.handlers.find_or_initialize_by(attrs)
           options.each{|k,v| handler.send("#{k}=", v)}
-
-          # フィルタ付きの場合は単純なイベントハンドラ名だけではメソッド名として表現できないので
-          # handler自身のIDをメソッド名に含めます。
-          method_name = "#{base_method_name}_#{handler.id.to_s}"
-          handler.target_method_name = method_name.to_s
           handler.save!
 
           event_type_names.each do |event_type_name|

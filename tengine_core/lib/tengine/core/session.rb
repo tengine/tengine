@@ -18,4 +18,18 @@ class Tengine::Core::Session
   # 元々の[]と[]=メソッドをオーバーライドしているので要注意
   def [](key); properties[key]; end
   def []=(key, value); properties[key] = value; end
+
+  def clear_properties
+    self.properties = {}
+  end
+
+  def clear_system_properties
+    self.system_properties = {}
+  end
+
+  def clear
+    clear_properties
+    clear_system_properties
+  end
+
 end

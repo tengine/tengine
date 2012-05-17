@@ -150,8 +150,9 @@ describe Tengine::Core::DslLoader do
         driver.version.should == "20110902213500"
         driver.handlers.count.should == 2
         handler1 = driver.handlers.first
-        handler1.event_type_names.should == %w[event08_a event08_b]
+        handler1.event_type_names.should == [:event08_a, :event08_b]
         handler1.filter.should == {
+          'type' => :and,
           'method' => :and,
           'children' => [
             { 'pattern' => :event08_a, 'method' => :find_or_mark_in_session },
