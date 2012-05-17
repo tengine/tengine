@@ -16,7 +16,7 @@ class Build
     Dir.chdir(dir) do
       announce(heading)
       setup_tengine_ui if dir == "tengine_ui"
-      rake(*tasks)
+      spec
     end
   end
 
@@ -33,10 +33,6 @@ class Build
     heading.join(' ')
   end
 
-  def tasks
-    ["spec"]
-  end
-
   def key
     key = [gem]
     key.join(':')
@@ -51,9 +47,9 @@ class Build
     component.split(':').last
   end
 
-  def rake(*tasks)
+  def spec
     tasks.each do |task|
-      cmd = "bundle exec rake #{task}"
+      cmd = "bundle exec rspec -fd -c spec"
       puts "Running command: #{cmd}"
       return false unless system(cmd)
     end
