@@ -67,25 +67,12 @@ module Tengine::Core::DslEvaluator
   def __setup_core_ext__
     Symbol.class_eval do
       def and(other)
-        Tengine::Core::DslFilterDef.new(
-          [self.to_s, other.to_s],
-          {
-            'method' => :and,
-            'children' => [
-              { 'pattern' => self, 'method' => :find_or_mark_in_session },
-              { 'pattern' => other, 'method' => :find_or_mark_in_session },
-            ]
-          })
+        Tengine::Core::DslFilterDef.new_and(self, other)
       end
       alias_method :&, :and
 
       def at(soruce_pattern)
-        Tengine::Core::DslFilterDef.new(
-          [self.to_s],
-          {
-            'method' => :match_source_name?,
-            'pattern' => soruce_pattern.to_s,
-          })
+        Tengine::Core::DslFilterDef.new_at(self, soruce_pattern)
       end
     end
   end

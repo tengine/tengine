@@ -103,8 +103,18 @@ class Tengine::Core::Handler
       @filter = filter
       @event = event
       @session = Tengine::Core::SessionWrapper.new(session)
+      @session_reloaded = false
       @current = @filter
     end
+
+    def session
+      unless @session_reloaded
+        @session.reload
+        @session_reloaded = true
+      end
+      @session
+    end
+
 
     def visit
       Tengine.logger.debug("visiting #{@current.inspect}")
@@ -131,13 +141,13 @@ class Tengine::Core::Handler
       name = @current['pattern'].to_s
       key = "mark_#{name}"
       if name == @event.event_type_name
-        unless @session.system_properties[key]
-          @session.system_update(key => true)
-          Tengine.logger.debug("session.system_updated #{@session.system_properties.inspect}")
+        if session.system_properties[key].nil?
+          session.system_update(key => true)
+          Tengine.logger.debug("session.system_updated #{session.system_properties.inspect}")
         end
         return true
       else
-        return @session.system_properties[key]
+        return session.system_properties[key]
       end
     end
 

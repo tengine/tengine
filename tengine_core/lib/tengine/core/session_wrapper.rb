@@ -28,9 +28,17 @@ class Tengine::Core::SessionWrapper
     __update__(:system_properties, *args, &block)
   end
 
+  def reload
+    @source.reload
+  end
+
+
+  def clear
+    @source.reload
+    @source.clear
+  end
   def clear!
-    @source.properties = {}
-    @source.system_properties = {}
+    clear
     @source.save!
   end
 

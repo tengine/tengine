@@ -61,7 +61,7 @@ module Tengine::Core::Driveable
           :target_method_name => method_name.to_s
         }.update(options))
       args.each do |event_type_name|
-        driver.handler_paths.create!(:event_type_name => event_type_name, :handler_id => handler.id)
+        driver.handler_paths.find_or_create_by(:event_type_name => event_type_name, :handler_id => handler.id)
       end
     end
 
@@ -129,18 +129,21 @@ module Tengine::Core::Driveable
           event_type_names = filter_def.event_type_names
           base_method_name = event_type_names.map(&:to_s).join("_")
           driver = context.driver
+
           driver.reload
-          handler = driver.handlers.new({
-              :event_type_names => event_type_names,
-              :target_instantiation_key => :instance_method,
-            }.update(options))
-          # フィルタ付きの場合は単純なイベントハンドラ名だけではメソッド名として表現できないので
-          # handler自身のIDをメソッド名に含めます。
-          method_name = "#{base_method_name}_#{handler.id.to_s}"
-          handler.target_method_name = method_name.to_s
+          method_name = filter_def.to_method_name
+          attrs = {
+            :target_method_name => method_name,
+            :event_type_names => event_type_names,
+            # :target_instantiation_key => :instance_method, # attrsを検索にも使うので_cdの方を指定しています
+            :target_instantiation_cd => Tengine::Core::Handler.target_instantiation_id_by_key(:instance_method),
+          } # .update(options)
+          handler = driver.handlers.find_or_initialize_by(attrs)
+          options.each{|k,v| handler.send("#{k}=", v)}
           handler.save!
+
           event_type_names.each do |event_type_name|
-            driver.handler_paths.create!(:event_type_name => event_type_name, :handler_id => handler.id)
+            driver.handler_paths.find_or_create_by(:event_type_name => event_type_name, :handler_id => handler.id)
           end
         else
           method_name = event_type_names.map(&:to_s).join("_")
