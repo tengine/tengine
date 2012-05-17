@@ -48,11 +48,9 @@ class Build
   end
 
   def spec
-    tasks.each do |task|
-      cmd = "bundle exec rspec -fd -c spec"
-      puts "Running command: #{cmd}"
-      return false unless system(cmd)
-    end
+    cmd = "bundle exec rspec -fd -c spec"
+    puts "Running command: #{cmd}"
+    return false unless system(cmd)
     true
   end
 end
