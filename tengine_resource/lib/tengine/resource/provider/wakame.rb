@@ -377,16 +377,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   def create_physical_server_hash(hash)
-    properties = hash.dup
-    properties.deep_symbolize_keys!
-    self.physical_servers.create!(
-      # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
-      :name => properties.delete(:name) || properties[:id],
-      :provided_id => properties.delete(:id),
-      :status => properties.delete(:status),
-      :cpu_cores => properties.delete(:offering_cpu_cores),
-      :memory_size => properties.delete(:offering_memory_size),
-      :properties => properties)
+    create_by_hash(:physical_servers, hash)
   end
 
   def create_physical_server_hashs(hashs)
