@@ -93,22 +93,61 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   private
 
+  PRIVATE_IP_ADDRESS = "private_ip_address".freeze
+
   WATCH_SETTINGS = {
     :physical_servers => {
       :api => :describe_host_nodes_for_api,
-      :create_method => :create_physical_server_hashs
+      :create_method => :create_physical_server_hashs,
+      :property_map => {
+        :provided_id => :id,
+        # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
+        :name        => Proc.new{|hash| hash.delete(:name) || hash[:id]},
+        :status      => :status,
+        :cpu_cores   => :offering_cpu_cores,
+        :memory_size => :offering_memory_size
+      }
     }.freeze,
+
     :virtual_server_types => {
       :api => :describe_instance_specs_for_api,
-      :create_method => :create_virtual_server_type_hashs
+      :create_method => :create_virtual_server_type_hashs,
+      :property_map => {
+        :provided_id => :id,
+        :caption     => :uuid,
+        :cpu_cores   => :cpu_cores,
+        :memory_size => :memory_size
+      }
     }.freeze,
+
     :virtual_server_images => {
       :api => :describe_images_for_api,
-      :create_method => :create_virtual_server_image_hashs
+      :create_method => :create_virtual_server_image_hashs,
+      :property_map => {
+        :provided_id => :aws_id,
+        :provided_description => :description
+      }
     }.freeze,
+
     :virtual_servers => {
       :api => :describe_instances_for_api,
-      :create_method => :create_virtual_server_hashs
+      :create_method => :create_virtual_server_hashs,
+      :property_map => {
+        :provided_id       => :aws_instance_id,
+        :provided_image_id => :aws_image_id,
+        :provided_type_id  => :aws_instance_type,
+        :status            => :aws_state,
+        :host_server => Proc.new{|props, provider|
+          provider.physical_servers.where(:provided_id => props[:aws_availability_zone]).first },
+        :addresses => Proc.new do|props|
+          result = { PRIVATE_IP_ADDRESS => props.delete(:private_ip_address) }
+          props.delete(:ip_address).split(",").map do |i|
+            k, v = *i.split("=", 2)
+            result[k] = v
+          end
+          result
+        end
+      }
     }.freeze,
   }.freeze
 
@@ -132,7 +171,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     Tengine.logger.debug "#{log_prefix} #{target_name} on provider (#{self.name})"
     Tengine.logger.debug "#{log_prefix} #{known_targets.inspect}"
 
-    id_key = VIRTUAL_SERVER_TYPE_PROPERTY_MAPS[target_name][:provided_id].to_s
+    id_key = WATCH_SETTINGS[target_name][:property_map][:provided_id].to_s
 
     known_targets.each do |known_target|
       actual_target = actual_targets.detect do |t|
@@ -166,54 +205,10 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     hashs.map{|hash| differential_update_by_hash(target_name, hash)}
   end
 
-  PRIVATE_IP_ADDRESS = "private_ip_address".freeze
-
-  VIRTUAL_SERVER_TYPE_PROPERTY_MAPS = {
-    :physical_servers => {
-      :provided_id => :id,
-      # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
-      :name        => Proc.new{|hash| hash.delete(:name) || hash[:id]},
-      :status      => :status,
-      :cpu_cores   => :offering_cpu_cores,
-      :memory_size => :offering_memory_size
-    }.freeze,
-
-    :virtual_server_images => {
-      :provided_id => :aws_id,
-      :provided_description => :description
-    }.freeze,
-
-    :virtual_server_types => {
-      :provided_id => :id,
-      :caption     => :uuid,
-      :cpu_cores   => :cpu_cores,
-      :memory_size => :memory_size
-    }.freeze,
-
-    :virtual_servers => {
-      :provided_id       => :aws_instance_id,
-      :provided_image_id => :aws_image_id,
-      :provided_type_id  => :aws_instance_type,
-      :status            => :aws_state,
-      :host_server => Proc.new{|props, provider|
-        provider.physical_servers.where(:provided_id => props[:aws_availability_zone]).first },
-
-      :addresses => Proc.new do|props|
-        result = { PRIVATE_IP_ADDRESS => props.delete(:private_ip_address) }
-        props.delete(:ip_address).split(",").map do |i|
-          k, v = *i.split("=", 2)
-          result[k] = v
-        end
-        result
-      end
-    }.freeze,
-
-  }.freeze
-
   def differential_update_by_hash(target_name, hash)
     properties = hash.dup
     properties.deep_symbolize_keys!
-    map = VIRTUAL_SERVER_TYPE_PROPERTY_MAPS[target_name]
+    map = WATCH_SETTINGS[target_name][:property_map]
     provided_id = properties[ map[:provided_id] ]
     target = self.send(target_name).where(:provided_id => provided_id).first
     unless target
@@ -252,7 +247,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   def create_by_hash(target_name, hash)
     properties = hash.dup
     properties.deep_symbolize_keys!
-    map = VIRTUAL_SERVER_TYPE_PROPERTY_MAPS[target_name]
+    map = WATCH_SETTINGS[target_name][:property_map]
     attrs = {}
     map.each do |attr, prop|
       value = prop.is_a?(Proc) ?
