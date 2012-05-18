@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require 'tengine/support/core_ext/enumerable/map_to_hash'
+
 class Tengine::Resource::Credential::Ec2::LaunchOptions
 
   def initialize(credential)
@@ -10,7 +12,7 @@ class Tengine::Resource::Credential::Ec2::LaunchOptions
 
   def launch_options(connection, current_region)
     @connection, @current_region = connection, current_region
-    LAUNCH_OPTIONS_KEYS.inject({}){|dest, m| dest[m] = send(m); dest}
+    LAUNCH_OPTIONS_KEYS.map_to_hash{|m| send(m)}
   ensure
     @connection, @current_region = nil, nil
   end
