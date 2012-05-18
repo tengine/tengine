@@ -100,6 +100,10 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     :virtual_server_images => {
       :api => :describe_images_for_api,
       :create_method => :create_virtual_server_image_hashs
+    },
+    :virtual_servers => {
+      :api => :describe_instances_for_api,
+      :create_method => :create_virtual_server_hashs
     }
   }.freeze
 
@@ -171,46 +175,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   # 仮想サーバの監視
   def virtual_server_watch
-    log_prefix = "#{self.class.name}#virtual_server_watch (provider:#{self.name}):"
-
-    # APIからの仮想サーバ情報を取得
-    instances = describe_instances_for_api
-    Tengine.logger.debug "#{log_prefix} describe_instances for api (wakame)"
-    Tengine.logger.debug "#{log_prefix} #{instances.inspect}"
-
-    Tengine.logger.debug "#{log_prefix} virtual_servers on provider (#{self.name})"
-    create_instances, update_instances, destroy_servers = partion_instances(instances)
-    create_instances.each do |instance|
-      Tengine.logger.debug "#{log_prefix} new virtual_server % <create> (#{instance[:aws_instance_id]})"
-    end
-
-    differential_update(:virtual_servers, update_instances) unless update_instances.empty?
-    create_virtual_server_hashs(create_instances) unless create_instances.empty?
-    destroy_servers.each { |target| target.destroy }
-  end
-
-  private
-
-  def partion_instances(instances)
-    log_prefix = "#{self.class.name}#virtual_server_watch (provider:#{self.name}):"
-    create_instances, update_instances, destroy_servers = [], [], []
-    self.reload
-    old_servers = self.virtual_servers
-    Tengine.logger.debug "#{log_prefix} #{old_servers.inspect}"
-    old_servers.each do |old_server|
-      instance = instances.detect do |instance|
-        (instance[:aws_instance_id] || instance["aws_instance_id"]) == old_server.provided_id
-      end
-      if instance
-        Tengine.logger.debug "#{log_prefix} registed virtual_server % <update> (#{old_server.provided_id})"
-        update_instances << instance
-      else
-        Tengine.logger.debug "#{log_prefix} removed virtual_server % <destroy> (#{old_server.provided_id})"
-        destroy_servers << old_server
-      end
-    end
-    create_instances = instances - update_instances
-    return create_instances, update_instances, destroy_servers
+    watch_by(:virtual_servers)
   end
 
   private
