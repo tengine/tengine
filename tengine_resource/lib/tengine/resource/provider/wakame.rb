@@ -488,16 +488,16 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   # wakame api for tama
 
-  def describe_instance_specs_for_api(uuids = [], option = {})
-    call_api_with_conversion(:describe_instance_specs, uuids, option)
+  def describe_instance_specs_for_api(uuids = [], options = {})
+    call_api_with_conversion(:describe_instance_specs, uuids, options)
   end
 
-  def describe_host_nodes_for_api(uuids = [], option = {})
-    call_api_with_conversion(:describe_host_nodes, uuids, option)
+  def describe_host_nodes_for_api(uuids = [], options = {})
+    call_api_with_conversion(:describe_host_nodes, uuids, options)
   end
 
-  def describe_instances_for_api(uuids = [], option = {})
-    result = call_api_with_conversion(:describe_instances, uuids, option)
+  def describe_instances_for_api(uuids = [], options = {})
+    result = call_api_with_conversion(:describe_instances, uuids, options)
     result.each do |r|
       replace_value_of_hash(r, :private_ip_address) do |v|
         v.first if v.is_a?(Array)
@@ -509,23 +509,23 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     result
   end
 
-  def describe_images_for_api(uuids = [], option = {})
-    call_api_with_conversion(:describe_images, uuids, option)
+  def describe_images_for_api(uuids = [], options = {})
+    call_api_with_conversion(:describe_images, uuids, options)
   end
 
-  def run_instances_for_api(uuids = [], option = {})
-    call_api_with_conversion(:run_instances, uuids, option)
+  def run_instances_for_api(uuids = [], options = {})
+    call_api_with_conversion(:run_instances, uuids, options)
   end
 
-  def terminate_instances_for_api(uuids = [], option = {})
-    call_api_with_conversion(:terminate_instances, uuids, option)
+  def terminate_instances_for_api(uuids = [], options = {})
+    call_api_with_conversion(:terminate_instances, uuids, options)
   end
 
   private
 
-  def call_api_with_conversion(api_name, uuids, option)
+  def call_api_with_conversion(api_name, uuids, options)
     result = connect{|conn| conn.send(api_name, uuids) }
-    hash_key_convert(result, option[:convert])
+    hash_key_convert(result, options[:convert])
   end
 
   def replace_value_of_hash(hash, key)
