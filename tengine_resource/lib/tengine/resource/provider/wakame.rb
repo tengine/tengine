@@ -417,19 +417,20 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
   end
 
-  def create_virtual_server_hash(hash)
-    create_by_hash(:virtual_servers, hash) do |properties|
-      # 初期登録時、default 値として name には一意な provided_id を name へ登録します
-      properties[:name] = properties[:provided_id]
-    end
-  rescue Mongo::OperationFailure => e
-    raise e unless e.message =~ /E11000 duplicate key error/
-  rescue Mongoid::Errors::Validations => e
-    raise e unless e.document.errors[:provided_id].any?{|s| s =~ /taken/}
-  end
-
   def create_virtual_server_hashs(hashs)
-    hashs.map{|hash| s = create_virtual_server_hash(hash); s ? s.id : nil}.compact
+    hashs.map{|hash|
+      begin
+        s = create_by_hash(:virtual_servers, hash) do |properties|
+          # 初期登録時、default 値として name には一意な provided_id を name へ登録します
+          properties[:name] = properties[:provided_id]
+        end
+        s.id
+      rescue Mongo::OperationFailure => e
+        raise e unless e.message =~ /E11000 duplicate key error/
+      rescue Mongoid::Errors::Validations => e
+        raise e unless e.document.errors[:provided_id].any?{|s| s =~ /taken/}
+      end
+    }.compact
   end
 
   # wakame api for tama
