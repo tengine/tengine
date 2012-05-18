@@ -52,7 +52,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     )
   end
 
-  def terminate_virtual_servers servers
+  def terminate_virtual_servers(servers)
     connect do |conn|
       conn.terminate_instances(servers.map {|i| i.provided_id }).map do |hash|
         serv = self.virtual_servers.where(:provided_id => hash[:aws_instance_id]).first
