@@ -488,17 +488,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   # wakame api for tama
 
-  # wakame api からの戻り値がのキーが文字列だったりシンボルだったりで統一されてないので暫定対応で
-  # 戻り値のkeyをstringかsymbolかのどちらかに指定できるようにしています
-
-  def hash_key_convert(hash_list, convert)
-    case convert
-    when :string then hash_list = hash_list.map(&:deep_stringify_keys!)
-    when :symbol then hash_list = hash_list.map(&:deep_symbolize_keys!)
-    end
-    hash_list
-  end
-
   def describe_instance_specs_for_api(uuids = [], option = {})
     result = connect do |conn|
       conn.describe_instance_specs(uuids)
@@ -529,20 +518,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     result
   end
 
-  private
-  def replace_value_of_hash(hash, key)
-    [key, key.to_s].each do |k|
-      if value = hash[k]
-        if result = yield(value)
-          hash[k] = result
-          return
-        end
-      end
-    end
-  end
-
-  public
-
   def describe_images_for_api(uuids = [], option = {})
     result = connect do |conn|
       conn.describe_images(uuids)
@@ -563,6 +538,31 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
     hash_key_convert(result, option[:convert])
   end
+
+  private
+  def replace_value_of_hash(hash, key)
+    [key, key.to_s].each do |k|
+      if value = hash[k]
+        if result = yield(value)
+          hash[k] = result
+          return
+        end
+      end
+    end
+  end
+
+  # wakame api からの戻り値がのキーが文字列だったりシンボルだったりで統一されてないので暫定対応で
+  # 戻り値のkeyをstringかsymbolかのどちらかに指定できるようにしています
+
+  def hash_key_convert(hash_list, convert)
+    case convert
+    when :string then hash_list = hash_list.map(&:deep_stringify_keys!)
+    when :symbol then hash_list = hash_list.map(&:deep_symbolize_keys!)
+    end
+    hash_list
+  end
+
+  public
 
   def connect(&block)
     send(retry_on_error ? :connect_with_retry : :connect_without_retry, &block)
