@@ -86,53 +86,67 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
   end
 
+  private
 
-  # 仮想サーバタイプの監視
-  def virtual_server_type_watch
-    log_prefix = "#{self.class.name}#virtual_server_type_watch (provider:#{self.name}):"
+  WATCH_SETTINGS = {
+    :virtual_server_types => {
+      :api => :describe_instance_specs_for_api,
+      :create_method => :create_virtual_server_type_hashs
+    }
+  }.freeze
+
+  def watch_by(target_name)
+    log_prefix = "#{self.class.name}#watch_by(#{target_name.inspect}) (provider:#{self.name}):"
+    setting = WATCH_SETTINGS[target_name]
 
     # APIからの仮想サーバタイプ情報を取得
-    instance_specs = describe_instance_specs_for_api
-    Tengine.logger.debug "#{log_prefix} describe_instance_specs for api (wakame)"
-    Tengine.logger.debug "#{log_prefix} #{instance_specs.inspect}"
+    desc_api = setting[:api]
+    actual_targets = send(desc_api)
+    Tengine.logger.debug "#{log_prefix} #{desc_api} for api (wakame)"
+    Tengine.logger.debug "#{log_prefix} #{actual_targets.inspect}"
 
-    create_instance_specs = []
-    update_instance_specs = []
-    destroy_server_types = []
+    # created_targets = []
+    updated_targets = []
+    destroyed_targets = []
 
     # 仮想イメージタイプの取得
     self.reload
-    old_server_types = self.virtual_server_types
-    Tengine.logger.debug "#{log_prefix} virtual_server_types on provider (#{self.name})"
-    Tengine.logger.debug "#{log_prefix} #{old_server_types.inspect}"
+    known_targets = self.send(target_name)
+    Tengine.logger.debug "#{log_prefix} #{target_name} on provider (#{self.name})"
+    Tengine.logger.debug "#{log_prefix} #{known_targets.inspect}"
 
-    old_server_types.each do |old_server_type|
-      instance_spec = instance_specs.detect do |instance_spec|
-        (instance_spec[:id] || instance_spec["id"]) == old_server_type.provided_id
+    known_targets.each do |known_target|
+      actual_target = actual_targets.detect do |t|
+        (t[:id] || t["id"]) == known_target.provided_id
       end
 
-      if instance_spec
+      if actual_target
         # APIで取得したサーバタイプと一致するものがあれば更新対象
-        Tengine.logger.debug "#{log_prefix} registed virtual_server_type % <update> (#{old_server_type.provided_id})"
-        update_instance_specs << instance_spec
+        Tengine.logger.debug "#{log_prefix} registed #{target_name.to_s.singularize} % <update> (#{known_target.provided_id})"
+        updated_targets << actual_target
       else
         # APIで取得したサーバタイプと一致するものがなければ削除対象
-        Tengine.logger.debug "#{log_prefix} removed virtual_server_type % <destroy> (#{old_server_type.provided_id})"
-        destroy_server_types << old_server_type
+        Tengine.logger.debug "#{log_prefix} removed #{target_name.to_s.singularize} % <destroy> (#{known_target.provided_id})"
+        destroyed_targets << known_target
       end
     end
     # APIで取得したサーバタイプがTengine上に存在しないものであれば登録対象
-    create_instance_specs = instance_specs - update_instance_specs
-    create_instance_specs.each do |spec|
-      Tengine.logger.debug "#{log_prefix} new virtual_server_type % <create> (#{spec['id']})"
+    created_targets = actual_targets - updated_targets
+    created_targets.each do |spec|
+      Tengine.logger.debug "#{log_prefix} new #{target_name.to_s.singularize} % <create> (#{spec['id']})"
     end
 
-    # 更新
-    differential_update(:virtual_server_types, update_instance_specs) unless update_instance_specs.empty?
-    # 登録
-    create_virtual_server_type_hashs(create_instance_specs) unless create_instance_specs.empty?
-    # 削除
-    destroy_server_types.each { |target| target.destroy }
+    differential_update(target_name, updated_targets) unless updated_targets.empty?
+    send(setting[:create_method], created_targets) unless created_targets.empty?
+    destroyed_targets.each{ |target| target.destroy }
+  end
+
+
+  public
+
+  # 仮想サーバタイプの監視
+  def virtual_server_type_watch
+    watch_by(:virtual_server_types)
   end
 
   # 物理サーバの監視
