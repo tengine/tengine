@@ -267,25 +267,55 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   # virtual_server_type
-  def differential_update_virtual_server_type_hash(hash)
+
+  private
+
+  VIRTUAL_SERVER_TYPE_PROPERTY_MAPS = {
+    :virtual_server_types => {
+      :provided_id => :id,
+      :caption     => :uuid,
+      :cpu_cores   => :cpu_cores,
+      :memory_size => :memory_size
+    }.freeze,
+
+    :physical_servers => {
+      # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
+      :name        => lambda{|hash| hash.delete(:name) || hash[:id]},
+      :provided_id => :id,
+      :status      => :status,
+      :cpu_cores   => :offering_cpu_cores,
+      :memory_size => :offering_memory_size
+    }.freeze
+  }.freeze
+
+  def differential_update(hash, target_name)
     properties = hash.dup
     properties.deep_symbolize_keys!
-    virtual_server_type = self.virtual_server_types.where(:provided_id => properties[:id]).first
-    virtual_server_type.provided_id = properties.delete(:id)
-    virtual_server_type.caption = properties.delete(:uuid)
-    virtual_server_type.cpu_cores = properties.delete(:cpu_cores)
-    virtual_server_type.memory_size = properties.delete(:memory_size)
+    target = self.send(target_name).where(:provided_id => properties[:id]).first
+    map = VIRTUAL_SERVER_TYPE_PROPERTY_MAPS[target_name]
+    map.each do |attr_name, prop_name|
+      value = prop_name.is_a?(Proc) ?
+        prop_name.call(properties) :
+        properties.delete(prop_name)
+      target.send("#{attr_name}=", value)
+    end
     properties.each do |key, val|
       value =  properties.delete(key)
       unless val.to_s == value.to_s
-        if virtual_server_type.properties[key.to_sym]
-          virtual_server_type.properties[key.to_sym] = value
+        if target.properties[key.to_sym]
+          target.properties[key.to_sym] = value
         else
-          virtual_server_type.properties[key.to_s] = value
+          target.properties[key.to_s] = value
         end
       end
     end
-    virtual_server_type.save! if virtual_server_type.changed?
+    target.save! if target.changed?
+  end
+
+  public
+
+  def differential_update_virtual_server_type_hash(hash)
+    differential_update(hash, :virtual_server_types)
   end
 
   def differential_update_virtual_server_type_hashs(hashs)
@@ -319,26 +349,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   # physical_server
   def differential_update_physical_server_hash(hash)
-    properties = hash.dup
-    properties.deep_symbolize_keys!
-    physical_server = self.physical_servers.where(:provided_id => properties[:id]).first
-    # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
-    physical_server.name = properties.delete(:name) || properties[:id]
-    physical_server.provided_id = properties.delete(:id)
-    physical_server.status = properties.delete(:status)
-    physical_server.cpu_cores = properties.delete(:offering_cpu_cores)
-    physical_server.memory_size = properties.delete(:offering_memory_size)
-    properties.each do |key, val|
-      value =  properties.delete(key)
-      unless val.to_s == value.to_s
-        if physical_server.properties[key.to_sym]
-          physical_server.properties[key.to_sym] = value
-        else
-          physical_server.properties[key.to_s] = value
-        end
-      end
-    end
-    physical_server.save! if physical_server.changed?
+    differential_update(hash, :physical_servers)
   end
 
   def differential_update_physical_server_hashs(hashs)
