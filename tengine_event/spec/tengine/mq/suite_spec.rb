@@ -405,6 +405,7 @@ describe Tengine::Mq::Suite do
                 i += 1
               end
               @timer = EM.add_periodic_timer(0.1) do
+p i
                 if i.zero?
                   EM.cancel_timer @timer
                   subject.unsubscribe do
