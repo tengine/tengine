@@ -300,7 +300,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     }.freeze
   }.freeze
 
-  def differential_update(hash, target_name)
+  def differential_update(target_name, hash)
     properties = hash.dup
     properties.deep_symbolize_keys!
     map = VIRTUAL_SERVER_TYPE_PROPERTY_MAPS[target_name]
@@ -338,7 +338,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   public
 
   def differential_update_virtual_server_type_hash(hash)
-    differential_update(hash, :virtual_server_types)
+    differential_update(:virtual_server_types, hash)
   end
 
   def differential_update_virtual_server_type_hashs(hashs)
@@ -372,7 +372,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   # physical_server
   def differential_update_physical_server_hash(hash)
-    differential_update(hash, :physical_servers)
+    differential_update(:physical_servers, hash)
   end
 
   def differential_update_physical_server_hashs(hashs)
@@ -408,7 +408,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   # virtual_server_image
   def differential_update_virtual_server_image_hash(hash)
-    differential_update(hash, :virtual_server_images)
+    differential_update(:virtual_server_images, hash)
   end
 
   def differential_update_virtual_server_image_hashs(hashs)
@@ -443,7 +443,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   PRIVATE_IP_ADDRESS = "private_ip_address".freeze
 
   def differential_update_virtual_server_hash(hash)
-    differential_update(hash, :virtual_servers) do |virtual_server, properties|
+    differential_update(:virtual_servers, hash) do |virtual_server, properties|
       host_server = self.physical_servers.where(:provided_id => properties[:aws_availability_zone]).first
       virtual_server.host_server = host_server
       virtual_server.addresses[PRIVATE_IP_ADDRESS] = properties.delete(:private_ip_address)
