@@ -128,9 +128,9 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
 
     # 更新
-    self.differential_update_virtual_server_type_hashs(update_instance_specs) unless update_instance_specs.empty?
+    differential_update(:virtual_server_types, update_instance_specs) unless update_instance_specs.empty?
     # 登録
-    self.create_virtual_server_type_hashs(create_instance_specs) unless create_instance_specs.empty?
+    create_virtual_server_type_hashs(create_instance_specs) unless create_instance_specs.empty?
     # 削除
     destroy_server_types.each { |target| target.destroy }
   end
@@ -172,8 +172,8 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       Tengine.logger.debug "#{log_prefix} new physical_server% <create> (#{host_node['id']})"
     end
 
-    self.differential_update_physical_server_hashs(update_host_nodes) unless update_host_nodes.empty?
-    self.create_physical_server_hashs(create_host_nodes) unless create_host_nodes.empty?
+    differential_update(:physical_servers, update_host_nodes) unless update_host_nodes.empty?
+    create_physical_server_hashs(create_host_nodes) unless create_host_nodes.empty?
     destroy_servers.each { |target| target.destroy }
   end
 
@@ -192,8 +192,8 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       Tengine.logger.debug "#{log_prefix} new virtual_server % <create> (#{instance[:aws_instance_id]})"
     end
 
-    self.differential_update_virtual_server_hashs(update_instances) unless update_instances.empty?
-    self.create_virtual_server_hashs(create_instances) unless create_instances.empty?
+    differential_update(:virtual_servers, update_instances) unless update_instances.empty?
+    create_virtual_server_hashs(create_instances) unless create_instances.empty?
     destroy_servers.each { |target| target.destroy }
   end
 
@@ -261,14 +261,18 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       Tengine.logger.debug "#{log_prefix} new server_image % <create> (#{image[:aws_id]})"
     end
 
-    self.differential_update_virtual_server_image_hashs(update_images) unless update_images.empty?
-    self.create_virtual_server_image_hashs(create_images) unless create_images.empty?
+    differential_update(:virtual_server_images, update_images) unless update_images.empty?
+    create_virtual_server_image_hashs(create_images) unless create_images.empty?
     destroy_server_images.each { |target| target.destroy }
   end
 
   # virtual_server_type
 
   private
+
+  def differential_update(target_name, hashs)
+    hashs.map{|hash| differential_update_by_hash(target_name, hash)}
+  end
 
   VIRTUAL_SERVER_TYPE_PROPERTY_MAPS = {
     :virtual_server_images => {
@@ -341,10 +345,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     differential_update_by_hash(:virtual_server_types, hash)
   end
 
-  def differential_update_virtual_server_type_hashs(hashs)
-    hashs.map{|hash| differential_update_virtual_server_type_hash(hash)}
-  end
-
   def create_virtual_server_type_hash(hash)
     properties = hash.dup
     properties.deep_symbolize_keys!
@@ -368,10 +368,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   # physical_server
   def differential_update_physical_server_hash(hash)
     differential_update_by_hash(:physical_servers, hash)
-  end
-
-  def differential_update_physical_server_hashs(hashs)
-    hashs.map{|hash| differential_update_physical_server_hash(hash) }
   end
 
   def create_physical_server_hash(hash)
@@ -399,10 +395,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   # virtual_server_image
   def differential_update_virtual_server_image_hash(hash)
     differential_update_by_hash(:virtual_server_images, hash)
-  end
-
-  def differential_update_virtual_server_image_hashs(hashs)
-    hashs.map{|hash| differential_update_virtual_server_image_hash(hash) }
   end
 
   def create_virtual_server_image_hash(hash)
@@ -438,10 +430,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       end
       virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
     end
-  end
-
-  def differential_update_virtual_server_hashs(hashs)
-    hashs.map{|hash| differential_update_virtual_server_hash(hash) }
   end
 
   def create_virtual_server_hash(hash)
