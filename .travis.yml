@@ -5,32 +5,12 @@ before_install:
 bundler_args: "--path vendor/bundle"
 rvm:
   - 1.9.2
-#  - 1.9.3
-#  - ruby-head
-#  - jruby-19mode
 env:
-  - "GEM=tengine_core"
-  - "GEM=tengine_resource"
-  - "GEM=tengine_support"
   - "GEM=tengine_event"
-  - "GEM=tengine_job"
-  - "GEM=tengine_job_agent"
-  - "GEM=tengine_ui"
 gemfile:
   - gemfiles/Gemfile.activesupport-3.0.10
   - gemfiles/Gemfile.activesupport-3.1.1
   - gemfiles/Gemfile.activesupport-3.2.3
-matrix:
-  only:
-    - rvm: 1.9.2
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_event"
-    - rvm: 1.9.2
-      gemfile: gemfiles/Gemfile.activesupport-3.1.1
-      env: "GEM=tengine_event"
-    - rvm: 1.9.2
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_event"
 branches:
   only:
     - 20120516_travis_ci
