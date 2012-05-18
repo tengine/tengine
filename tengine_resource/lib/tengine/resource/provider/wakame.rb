@@ -274,6 +274,8 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     hashs.map{|hash| differential_update_by_hash(target_name, hash)}
   end
 
+  PRIVATE_IP_ADDRESS = "private_ip_address".freeze
+
   VIRTUAL_SERVER_TYPE_PROPERTY_MAPS = {
     :physical_servers => {
       :provided_id => :id,
@@ -303,6 +305,15 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       :status            => :aws_state,
       :host_server => Proc.new{|props, provider|
         provider.physical_servers.where(:provided_id => props[:aws_availability_zone]).first },
+
+      :addresses => Proc.new do|props|
+        result = { PRIVATE_IP_ADDRESS => props.delete(:private_ip_address) }
+        props.delete(:ip_address).split(",").map do |i|
+          k, v = *i.split("=", 2)
+          result[k] = v
+        end
+        result
+      end
     }.freeze,
 
   }.freeze
@@ -417,15 +428,9 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   # virtual_server
-  PRIVATE_IP_ADDRESS = "private_ip_address".freeze
 
   def differential_update_virtual_server_hash(hash)
     differential_update_by_hash(:virtual_servers, hash) do |virtual_server, properties|
-      virtual_server.addresses[PRIVATE_IP_ADDRESS] = properties.delete(:private_ip_address)
-      properties.delete(:ip_address).split(",").map do |i|
-        k, v = *i.split("=", 2)
-        virtual_server.addresses[k] = v
-      end
       virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
     end
   end
