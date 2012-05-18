@@ -96,6 +96,10 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     :virtual_server_types => {
       :api => :describe_instance_specs_for_api,
       :create_method => :create_virtual_server_type_hashs
+    },
+    :virtual_server_images => {
+      :api => :describe_images_for_api,
+      :create_method => :create_virtual_server_image_hashs
     }
   }.freeze
 
@@ -119,9 +123,11 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     Tengine.logger.debug "#{log_prefix} #{target_name} on provider (#{self.name})"
     Tengine.logger.debug "#{log_prefix} #{known_targets.inspect}"
 
+    id_key = VIRTUAL_SERVER_TYPE_PROPERTY_MAPS[target_name][:provided_id].to_s
+
     known_targets.each do |known_target|
       actual_target = actual_targets.detect do |t|
-        (t[:id] || t["id"]) == known_target.provided_id
+        (t[id_key] || t[id_key.to_sym]) == known_target.provided_id
       end
 
       if actual_target
@@ -207,44 +213,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   # 仮想サーバイメージの監視
   def virtual_server_image_watch
-    log_prefix = "#{self.class.name}#virtual_server_image_watch (provider:#{self.name}):"
-
-    # APIからの仮想サーバイメージ情報を取得
-    images = describe_images_for_api
-    Tengine.logger.debug "#{log_prefix} describe_images for api (wakame)"
-    Tengine.logger.debug "#{log_prefix} #{images.inspect}"
-
-    create_images = []
-    update_images = []
-    destroy_server_images = []
-
-    # 仮想サーバイメージの取得
-    self.reload
-    old_images = self.virtual_server_images
-    Tengine.logger.debug "#{log_prefix} virtual_server_images on provider (#{self.name})"
-    Tengine.logger.debug "#{log_prefix} #{old_images.inspect}"
-
-    old_images.each do |old_image|
-      image = images.detect do |image|
-        (image[:aws_id] || image["aws_id"]) == old_image.provided_id
-      end
-
-      if image
-        Tengine.logger.debug "#{log_prefix} registed virtualserver_image % <update> (#{old_image.provided_id})"
-        update_images << image
-      else
-        Tengine.logger.debug "#{log_prefix} removed virtual_server_image % <destroy> (#{old_image.provided_id})"
-        destroy_server_images << old_image
-      end
-    end
-    create_images = images - update_images
-    create_images.each do |image|
-      Tengine.logger.debug "#{log_prefix} new server_image % <create> (#{image[:aws_id]})"
-    end
-
-    differential_update(:virtual_server_images, update_images) unless update_images.empty?
-    create_virtual_server_image_hashs(create_images) unless create_images.empty?
-    destroy_server_images.each { |target| target.destroy }
+    watch_by(:virtual_server_images)
   end
 
   private
