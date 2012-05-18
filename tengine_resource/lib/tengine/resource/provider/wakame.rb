@@ -353,6 +353,10 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
   end
 
+  def create_by_hashs(target_name, hashs)
+    hashs.map{|hash| create_by_hash(target_name, hash).id}
+  end
+
   def create_by_hash(target_name, hash)
     properties = hash.dup
     properties.deep_symbolize_keys!
@@ -383,12 +387,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   def create_virtual_server_type_hashs(hashs)
-    created_ids = []
-    hashs.each do |hash|
-      server_type = create_virtual_server_type_hash(hash)
-      created_ids << server_type.id
-    end
-    created_ids
+    create_by_hashs(:virtual_server_types, hashs)
   end
 
   # physical_server
@@ -401,12 +400,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   def create_physical_server_hashs(hashs)
-    created_ids = []
-    hashs.each do |hash|
-      server = create_physical_server_hash(hash)
-      created_ids << server.id
-    end
-    created_ids
+    create_by_hashs(:physical_servers, hashs)
   end
 
   # virtual_server_image
@@ -422,12 +416,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   def create_virtual_server_image_hashs(hashs)
-    created_ids = []
-    hashs.each do |hash|
-      image = create_virtual_server_image_hash(hash)
-      created_ids << image.id
-    end
-    created_ids
+    hashs.map{|hash| create_virtual_server_image_hash(hash).id}
   end
 
   # virtual_server
@@ -450,13 +439,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   def create_virtual_server_hashs(hashs)
-    created_ids = []
-    hashs.each do |hash|
-      if server = create_virtual_server_hash(hash)
-        created_ids << server.id
-      end
-    end
-    created_ids
+    hashs.map{|hash| s = create_virtual_server_hash(hash); s ? s.id : nil}.compact
   end
 
   # wakame api for tama
