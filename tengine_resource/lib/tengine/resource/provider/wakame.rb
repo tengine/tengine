@@ -313,11 +313,9 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     unless target
       raise "target #{target_name.to_s.singularize} not found by using #{map[:provided_id]}: #{provided_id.inspect}. properties: #{properties.inspect}"
     end
-    map.each do |attr_name, prop_name|
-      value = prop_name.is_a?(Proc) ?
-        prop_name.call(properties) :
-        properties.delete(prop_name)
-      target.send("#{attr_name}=", value)
+    map.each do |attr, prop|
+      value = prop.is_a?(Proc) ? prop.call(properties) : properties.delete(prop)
+      target.send("#{attr}=", value)
     end
     prop_backup = properties.dup
     if target.respond_to?(:properties)
@@ -339,6 +337,21 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
   end
 
+  def create_by_hash(target_name, hash)
+    properties = hash.dup
+    properties.deep_symbolize_keys!
+    map = VIRTUAL_SERVER_TYPE_PROPERTY_MAPS[target_name]
+    attrs = {}
+    map.each do |attr, prop|
+      attrs[attr] = prop.is_a?(Proc) ? prop.call(properties) : properties.delete(prop)
+    end
+    target = self.send(target_name).new
+    attrs[:properties] = properties if target.respond_to?(:properties)
+    target.attributes = attrs
+    target.save!
+    target
+  end
+
   public
 
   def differential_update_virtual_server_type_hash(hash)
@@ -346,14 +359,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   def create_virtual_server_type_hash(hash)
-    properties = hash.dup
-    properties.deep_symbolize_keys!
-    self.virtual_server_types.create!(
-      :provided_id => properties.delete(:id),
-      :caption => properties.delete(:uuid),
-      :cpu_cores => properties.delete(:cpu_cores),
-      :memory_size => properties.delete(:memory_size),
-      :properties => properties)
+    create_by_hash(:virtual_server_types, hash)
   end
 
   def create_virtual_server_type_hashs(hashs)
