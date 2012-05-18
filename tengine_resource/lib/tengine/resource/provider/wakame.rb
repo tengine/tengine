@@ -63,12 +63,10 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   def capacities
     server_type_ids = virtual_server_types.map(&:provided_id)
     server_type_to_cpu = virtual_server_types.inject({}) do |d, server_type|
-      d[server_type.provided_id] = server_type.cpu_cores
-      d
+      d.update(server_type.provided_id => server_type.cpu_cores)
     end
     server_type_to_mem = virtual_server_types.inject({}) do |d, server_type|
-      d[server_type.provided_id] = server_type.memory_size
-      d
+      d.update(server_type.provided_id => server_type.memory_size)
     end
     physical_servers.inject({}) do |result, physical_server|
       if physical_server.status == 'online'
