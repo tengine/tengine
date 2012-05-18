@@ -53,7 +53,7 @@ class Build
 
   def rake(*tasks)
     tasks.each do |task|
-      cmd = %w'bundle exec rake' << task
+      cmd = %w'bundle exec rake --trace --verbose' << task
       puts "Running command: #{cmd.inspect}"
       return false unless system({'RUBYOPT' => '-d'}, *cmd)
     end
