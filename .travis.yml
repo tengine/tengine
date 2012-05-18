@@ -134,5 +134,6 @@ branches:
   only:
     - 20120516_travis_ci
     - 20120516_travis_ci_rebase1
+    - 20120518_travis_ci
 notifications:
   email: false
