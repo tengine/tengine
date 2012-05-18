@@ -579,21 +579,21 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   def connect_without_retry
     connection = nil
-      if self.connection_settings[:test] || self.connection_settings["test"]
-        # テスト用
-        connection = ::Tama::Controllers::ControllerFactory.create_controller(:test)
-        options = self.connection_settings[:options] || self.connection_settings["options"]
-        if options
-          options.symbolize_keys!
-          CONNECTION_TEST_ATTRIBUTES.each do |key|
-            connection.send("#{key}=", File.expand_path(options[key])) if options[key]
-          end
+    if self.connection_settings[:test] || self.connection_settings["test"]
+      # テスト用
+      connection = ::Tama::Controllers::ControllerFactory.create_controller(:test)
+      options = self.connection_settings[:options] || self.connection_settings["options"]
+      if options
+        options.symbolize_keys!
+        CONNECTION_TEST_ATTRIBUTES.each do |key|
+          connection.send("#{key}=", File.expand_path(options[key])) if options[key]
         end
-      else
-        options = self.connection_settings.symbolize_keys
-        args = [:account, :ec2_host, :ec2_port, :ec2_protocol, :wakame_host, :wakame_port, :wakame_protocol].map{|key| options[key]}
-        connection = ::Tama::Controllers::ControllerFactory.create_controller(*args)
       end
+    else
+      options = self.connection_settings.symbolize_keys
+      args = [:account, :ec2_host, :ec2_port, :ec2_protocol, :wakame_host, :wakame_port, :wakame_protocol].map{|key| options[key]}
+      connection = ::Tama::Controllers::ControllerFactory.create_controller(*args)
+    end
     yield connection
   end
 
