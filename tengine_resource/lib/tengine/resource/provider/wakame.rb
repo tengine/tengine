@@ -400,15 +400,13 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     differential_update_by_hash(:virtual_server_images, hash)
   end
 
-  def create_virtual_server_image_hash(hash)
-    create_by_hash(:virtual_server_images, hash) do |properties|
-      # 初期登録時、default 値として name には一意な provided_id を name へ登録します
-      properties[:name] = properties[:provided_id]
-    end
-  end
-
   def create_virtual_server_image_hashs(hashs)
-    hashs.map{|hash| create_virtual_server_image_hash(hash).id}
+    hashs.map do |hash|
+      create_by_hash(:virtual_server_images, hash){|props|
+        # 初期登録時、default 値として name には一意な provided_id を name へ登録します
+        props[:name] = props[:provided_id]
+      }.id
+    end
   end
 
   # virtual_server
