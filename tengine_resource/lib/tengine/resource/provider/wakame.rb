@@ -266,8 +266,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     destroy_server_images.each { |target| target.destroy }
   end
 
-  # virtual_server_type
-
   private
 
   def differential_update(target_name, hashs)
@@ -378,6 +376,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   public
 
+  # virtual_server_type
   def differential_update_virtual_server_type_hash(hash)
     differential_update_by_hash(:virtual_server_types, hash)
   end
@@ -410,7 +409,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   # virtual_server
-
   def differential_update_virtual_server_hash(hash)
     differential_update_by_hash(:virtual_servers, hash) do |virtual_server, properties|
       virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
@@ -434,7 +432,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   # wakame api for tama
-
   def describe_instance_specs_for_api(uuids = [], options = {})
     call_api_with_conversion(:describe_instance_specs, uuids, options)
   end
