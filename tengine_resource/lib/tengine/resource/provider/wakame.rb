@@ -97,19 +97,19 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     :physical_servers => {
       :api => :describe_host_nodes_for_api,
       :create_method => :create_physical_server_hashs
-    },
+    }.freeze,
     :virtual_server_types => {
       :api => :describe_instance_specs_for_api,
       :create_method => :create_virtual_server_type_hashs
-    },
+    }.freeze,
     :virtual_server_images => {
       :api => :describe_images_for_api,
       :create_method => :create_virtual_server_image_hashs
-    },
+    }.freeze,
     :virtual_servers => {
       :api => :describe_instances_for_api,
       :create_method => :create_virtual_server_hashs
-    }
+    }.freeze,
   }.freeze
 
   def watch_by(target_name)
