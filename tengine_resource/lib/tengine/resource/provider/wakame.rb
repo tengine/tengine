@@ -574,6 +574,9 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     send(retry_on_error ? :connect_with_retry : :connect_without_retry, &block)
   end
 
+  CONNECTION_TEST_ATTRIBUTES = [:describe_instances_file, :describe_images_file, :run_instances_file,
+    :terminate_instances_file, :describe_host_nodes_file, :describe_instance_specs_file].freeze
+
   def connect_without_retry
     connection = nil
       if self.connection_settings[:test] || self.connection_settings["test"]
@@ -582,18 +585,9 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
         options = self.connection_settings[:options] || self.connection_settings["options"]
         if options
           options.symbolize_keys!
-          connection.describe_instances_file =
-            File.expand_path(options[:describe_instances_file]) if options[:describe_instances_file]
-          connection.describe_images_file =
-            File.expand_path(options[:describe_images_file]) if options[:describe_images_file]
-          connection.run_instances_file =
-            File.expand_path(options[:run_instances_file]) if options[:run_instances_file]
-          connection.terminate_instances_file =
-            File.expand_path(options[:terminate_instances_file]) if options[:terminate_instances_file]
-          connection.describe_host_nodes_file  =
-            File.expand_path(options[:describe_host_nodes_file]) if options[:describe_host_nodes_file]
-          connection.describe_instance_specs_file =
-            File.expand_path(options[:describe_instance_specs_file]) if options[:describe_instance_specs_file]
+          CONNECTION_TEST_ATTRIBUTES.each do |key|
+            connection.send("#{key}=", File.expand_path(options[key])) if options[key]
+          end
         end
       else
         options = self.connection_settings.symbolize_keys
