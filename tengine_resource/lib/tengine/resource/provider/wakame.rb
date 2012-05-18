@@ -348,6 +348,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     target = self.send(target_name).new
     attrs[:properties] = properties if target.respond_to?(:properties)
     target.attributes = attrs
+    yield(target, properties) if block_given?
     target.save!
     target
   end
@@ -395,13 +396,10 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   def create_virtual_server_image_hash(hash)
-    properties = hash.dup
-    properties.deep_symbolize_keys!
-    self.virtual_server_images.create!(
+    create_by_hash(:virtual_server_images, hash) do |virtual_server_image, properties|
       # 初期登録時、default 値として name には一意な provided_id を name へ登録します
-      :name => properties[:aws_id],
-      :provided_id => properties.delete(:aws_id),
-      :provided_description => properties.delete(:description))
+      virtual_server_image.name = (hash[:aws_id] || hash['aws_id'])
+    end
   end
 
   def create_virtual_server_image_hashs(hashs)
