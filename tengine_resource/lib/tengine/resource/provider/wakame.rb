@@ -342,12 +342,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   def differential_update_virtual_server_type_hashs(hashs)
-    updated_server_types = []
-    hashs.each do |hash|
-      server_type = differential_update_virtual_server_type_hash(hash)
-      updated_server_types << server_type
-    end
-    updated_server_types
+    hashs.map{|hash| differential_update_virtual_server_type_hash(hash)}
   end
 
   def create_virtual_server_type_hash(hash)
@@ -376,12 +371,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   def differential_update_physical_server_hashs(hashs)
-    updated_servers = []
-    hashs.each do |hash|
-      server = differential_update_physical_server_hash(hash)
-      updated_servers << server
-    end
-    updated_servers
+    hashs.map{|hash| differential_update_physical_server_hash(hash) }
   end
 
   def create_physical_server_hash(hash)
@@ -412,12 +402,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   def differential_update_virtual_server_image_hashs(hashs)
-    updated_images = []
-    hashs.each do |hash|
-      image = differential_update_virtual_server_image_hash(hash)
-      updated_images << image
-    end
-    updated_images
+    hashs.map{|hash| differential_update_virtual_server_image_hash(hash) }
   end
 
   def create_virtual_server_image_hash(hash)
@@ -456,12 +441,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   def differential_update_virtual_server_hashs(hashs)
-    updated_servers = []
-    hashs.each do |hash|
-      server = differential_update_virtual_server_hash(hash)
-      updated_servers << server
-    end
-    updated_servers
+    hashs.map{|hash| differential_update_virtual_server_hash(hash) }
   end
 
   def create_virtual_server_hash(hash)
