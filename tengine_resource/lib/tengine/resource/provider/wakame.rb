@@ -359,7 +359,10 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     map = VIRTUAL_SERVER_TYPE_PROPERTY_MAPS[target_name]
     attrs = {}
     map.each do |attr, prop|
-      attrs[attr] = prop.is_a?(Proc) ? prop.call(properties) : properties.delete(prop)
+      value = prop.is_a?(Proc) ?
+        prop.call(properties, self) : # 引数を一つだけ使うこともあるのlambdaではなくProc.newを使う事を期待しています。
+        properties.delete(prop)
+      attrs[attr] = value
     end
     target = self.send(target_name).new
     attrs[:properties] = properties if target.respond_to?(:properties)
@@ -436,25 +439,10 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   def create_virtual_server_hash(hash)
-    properties = hash.dup
-    properties.deep_symbolize_keys!
-    host_server = self.physical_servers.where(:provided_id => properties[:aws_availability_zone]).first
-    addresses = {PRIVATE_IP_ADDRESS => properties.delete(:private_ip_address)}
-    properties.delete(:ip_address).split(",").map do |i|
-      k, v = i.split("=")
-      addresses[k] = v
-    end
-    self.virtual_servers.create!(
+    create_by_hash(:virtual_servers, hash) do |properties|
       # 初期登録時、default 値として name には一意な provided_id を name へ登録します
-      :name => properties[:aws_instance_id],
-      :provided_id => properties.delete(:aws_instance_id),
-      :provided_image_id => properties.delete(:aws_image_id),
-      :provided_type_id => properties.delete(:aws_instance_type),
-      :status => properties.delete(:aws_state),
-      :host_server => host_server,
-      :addresses => addresses,
-      :address_order => [PRIVATE_IP_ADDRESS],
-      :properties => properties)
+      properties[:name] = properties[:provided_id]
+    end
   rescue Mongo::OperationFailure => e
     raise e unless e.message =~ /E11000 duplicate key error/
   rescue Mongoid::Errors::Validations => e
