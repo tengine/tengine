@@ -283,6 +283,13 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       :memory_size => :memory_size
     }.freeze,
 
+    :virtual_servers => {
+      :provided_id       => :aws_instance_id,
+      :provided_image_id => :aws_image_id,
+      :provided_type_id  => :aws_instance_type,
+      :status            => :aws_state
+    }.freeze,
+
     :physical_servers => {
       :provided_id => :id,
       # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
@@ -308,6 +315,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
         properties.delete(prop_name)
       target.send("#{attr_name}=", value)
     end
+    prop_backup = properties.dup
     if target.respond_to?(:properties)
       properties.each do |key, val|
         value =  properties.delete(key)
@@ -320,7 +328,11 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
         end
       end
     end
-    target.save! if target.changed?
+    if block_given?
+      yield(target, prop_backup)
+    else
+      target.save! if target.changed?
+    end
   end
 
   public
@@ -431,31 +443,16 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   PRIVATE_IP_ADDRESS = "private_ip_address".freeze
 
   def differential_update_virtual_server_hash(hash)
-    properties = hash.dup
-    properties.deep_symbolize_keys!
+    differential_update(hash, :virtual_servers) do |virtual_server, properties|
     host_server = self.physical_servers.where(:provided_id => properties[:aws_availability_zone]).first
-    virtual_server = self.virtual_servers.where(:provided_id => properties[:aws_instance_id]).first
-    virtual_server.provided_id = properties.delete(:aws_instance_id)
-    virtual_server.provided_image_id = properties.delete(:aws_image_id)
-    virtual_server.provided_type_id = properties.delete(:aws_instance_type)
-    virtual_server.status = properties.delete(:aws_state)
     virtual_server.host_server = host_server
     virtual_server.addresses[PRIVATE_IP_ADDRESS] = properties.delete(:private_ip_address)
     properties.delete(:ip_address).split(",").map do |i|
       k, v = i.split("=")
       virtual_server.addresses[k] = v
     end
-    properties.each do |key, val|
-      value =  properties.delete(key)
-      unless val.to_s == value.to_s
-        if virtual_server.properties[key.to_sym]
-          virtual_server.properties[key.to_sym] = value
-        else
-          virtual_server.properties[key.to_s] = value
-        end
-      end
-    end
     virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
+    end
   end
 
   def differential_update_virtual_server_hashs(hashs)
