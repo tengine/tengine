@@ -271,28 +271,16 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   public
 
   # virtual_server_type
-  def differential_update_virtual_server_type_hash(hash)
-    differential_update_by_hash(:virtual_server_types, hash)
-  end
-
   def create_virtual_server_type_hashs(hashs)
     create_by_hashs(:virtual_server_types, hashs)
   end
 
   # physical_server
-  def differential_update_physical_server_hash(hash)
-    differential_update_by_hash(:physical_servers, hash)
-  end
-
   def create_physical_server_hashs(hashs)
     create_by_hashs(:physical_servers, hashs)
   end
 
   # virtual_server_image
-  def differential_update_virtual_server_image_hash(hash)
-    differential_update_by_hash(:virtual_server_images, hash)
-  end
-
   def create_virtual_server_image_hashs(hashs)
     hashs.map do |hash|
       create_by_hash(:virtual_server_images, hash){|props|
