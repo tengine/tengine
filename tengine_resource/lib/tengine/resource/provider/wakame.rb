@@ -363,8 +363,8 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
     target = self.send(target_name).new
     attrs[:properties] = properties if target.respond_to?(:properties)
+    yield(attrs) if block_given?
     target.attributes = attrs
-    yield(target, properties) if block_given?
     target.save!
     target
   end
@@ -412,9 +412,9 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   def create_virtual_server_image_hash(hash)
-    create_by_hash(:virtual_server_images, hash) do |virtual_server_image, properties|
+    create_by_hash(:virtual_server_images, hash) do |properties|
       # 初期登録時、default 値として name には一意な provided_id を name へ登録します
-      virtual_server_image.name = (hash[:aws_id] || hash['aws_id'])
+      properties[:name] = properties[:provided_id]
     end
   end
 
