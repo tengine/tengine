@@ -588,13 +588,13 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       args = [:account, :ec2_host, :ec2_port, :ec2_protocol, :wakame_host, :wakame_port, :wakame_protocol].map{|key| options[key]}
       connection = ::Tama::Controllers::ControllerFactory.create_controller(*args)
     end
-    yield connection
+    return yield(connection)
   end
 
   def connect_with_retry(&block)
     retry_count = 1
     begin
-      connect_without_retry(&block)
+      return connect_without_retry(&block)
     rescue Exception => e
       if retry_count > self.retry_count
         Tengine.logger.error "#{e.class.name} #{e.message}"
