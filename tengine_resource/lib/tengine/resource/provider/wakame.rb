@@ -444,14 +444,14 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   def differential_update_virtual_server_hash(hash)
     differential_update(hash, :virtual_servers) do |virtual_server, properties|
-    host_server = self.physical_servers.where(:provided_id => properties[:aws_availability_zone]).first
-    virtual_server.host_server = host_server
-    virtual_server.addresses[PRIVATE_IP_ADDRESS] = properties.delete(:private_ip_address)
-    properties.delete(:ip_address).split(",").map do |i|
-      k, v = i.split("=")
-      virtual_server.addresses[k] = v
-    end
-    virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
+      host_server = self.physical_servers.where(:provided_id => properties[:aws_availability_zone]).first
+      virtual_server.host_server = host_server
+      virtual_server.addresses[PRIVATE_IP_ADDRESS] = properties.delete(:private_ip_address)
+      properties.delete(:ip_address).split(",").map do |i|
+        k, v = i.split("=")
+        virtual_server.addresses[k] = v
+      end
+      virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
     end
   end
 
