@@ -493,14 +493,8 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   def hash_key_convert(hash_list, convert)
     case convert
-    when :string
-      hash_list = hash_list.map do |hash|
-        hash.deep_stringify_keys!
-      end
-    when :symbol
-      hash_list = hash_list.map do |hash|
-        hash.deep_symbolize_keys!
-      end
+    when :string then hash_list = hash_list.map(&:deep_stringify_keys!)
+    when :symbol then hash_list = hash_list.map(&:deep_symbolize_keys!)
     end
     hash_list
   end
