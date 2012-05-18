@@ -147,7 +147,10 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
           end
           result
         end
-      }
+      },
+      :update_block => Proc.new do |virtual_server, properties|
+        virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
+      end
     }.freeze,
   }.freeze
 
@@ -205,10 +208,11 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     hashs.map{|hash| differential_update_by_hash(target_name, hash)}
   end
 
-  def differential_update_by_hash(target_name, hash)
+  def differential_update_by_hash(target_name, hash, &block)
     properties = hash.dup
     properties.deep_symbolize_keys!
-    map = WATCH_SETTINGS[target_name][:property_map]
+    setting = WATCH_SETTINGS[target_name]
+    map = setting[:property_map]
     provided_id = properties[ map[:provided_id] ]
     target = self.send(target_name).where(:provided_id => provided_id).first
     unless target
@@ -233,8 +237,9 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
         end
       end
     end
-    if block_given?
-      yield(target, prop_backup)
+    block ||= setting[:update_block]
+    if block
+      block.call(target, prop_backup)
     else
       target.save! if target.changed?
     end
@@ -287,9 +292,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   # virtual_server
   def differential_update_virtual_server_hash(hash)
-    differential_update_by_hash(:virtual_servers, hash) do |virtual_server, properties|
-      virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
-    end
+    differential_update_by_hash(:virtual_servers, hash)
   end
 
   def create_virtual_server_hashs(hashs)
