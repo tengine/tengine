@@ -278,7 +278,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     :physical_servers => {
       :provided_id => :id,
       # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
-      :name        => lambda{|hash| hash.delete(:name) || hash[:id]},
+      :name        => Proc.new{|hash| hash.delete(:name) || hash[:id]},
       :status      => :status,
       :cpu_cores   => :offering_cpu_cores,
       :memory_size => :offering_memory_size
@@ -300,7 +300,9 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       :provided_id       => :aws_instance_id,
       :provided_image_id => :aws_image_id,
       :provided_type_id  => :aws_instance_type,
-      :status            => :aws_state
+      :status            => :aws_state,
+      :host_server => Proc.new{|props, provider|
+        provider.physical_servers.where(:provided_id => props[:aws_availability_zone]).first },
     }.freeze,
 
   }.freeze
@@ -315,7 +317,9 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       raise "target #{target_name.to_s.singularize} not found by using #{map[:provided_id]}: #{provided_id.inspect}. properties: #{properties.inspect}"
     end
     map.each do |attr, prop|
-      value = prop.is_a?(Proc) ? prop.call(properties) : properties.delete(prop)
+      value = prop.is_a?(Proc) ?
+        prop.call(properties, self) : # 引数を一つだけ使うこともあるのlambdaではなくProc.newを使う事を期待しています。
+        properties.delete(prop)
       target.send("#{attr}=", value)
     end
     prop_backup = properties.dup
@@ -417,8 +421,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   def differential_update_virtual_server_hash(hash)
     differential_update_by_hash(:virtual_servers, hash) do |virtual_server, properties|
-      host_server = self.physical_servers.where(:provided_id => properties[:aws_availability_zone]).first
-      virtual_server.host_server = host_server
       virtual_server.addresses[PRIVATE_IP_ADDRESS] = properties.delete(:private_ip_address)
       properties.delete(:ip_address).split(",").map do |i|
         k, v = *i.split("=", 2)
