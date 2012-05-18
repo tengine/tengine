@@ -291,10 +291,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   # virtual_server
-  def differential_update_virtual_server_hash(hash)
-    differential_update_by_hash(:virtual_servers, hash)
-  end
-
   def create_virtual_server_hashs(hashs)
     hashs.map{|hash|
       begin
