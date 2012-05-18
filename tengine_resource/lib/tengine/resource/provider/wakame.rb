@@ -275,6 +275,15 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   VIRTUAL_SERVER_TYPE_PROPERTY_MAPS = {
+    :physical_servers => {
+      :provided_id => :id,
+      # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
+      :name        => lambda{|hash| hash.delete(:name) || hash[:id]},
+      :status      => :status,
+      :cpu_cores   => :offering_cpu_cores,
+      :memory_size => :offering_memory_size
+    }.freeze,
+
     :virtual_server_images => {
       :provided_id => :aws_id,
       :provided_description => :description
@@ -294,14 +303,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       :status            => :aws_state
     }.freeze,
 
-    :physical_servers => {
-      :provided_id => :id,
-      # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
-      :name        => lambda{|hash| hash.delete(:name) || hash[:id]},
-      :status      => :status,
-      :cpu_cores   => :offering_cpu_cores,
-      :memory_size => :offering_memory_size
-    }.freeze
   }.freeze
 
   def differential_update_by_hash(target_name, hash)
