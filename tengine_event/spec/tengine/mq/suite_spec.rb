@@ -801,7 +801,7 @@ describe Tengine::Mq::Suite do
           # netstat -an は Linux / BSD ともに有効
           # どちらかに限ればもう少し効率的な探し方はある。たとえば Linux 限定でよければ netstat -lnt ...
           y = `netstat -an | fgrep LISTEN | fgrep #{port}`
-p [$_pid, y]
+p [$_pid, `netstat -an | fgrep LISTEN`]
           if y.lines.to_a.size >= 1
             @port = port
             return
