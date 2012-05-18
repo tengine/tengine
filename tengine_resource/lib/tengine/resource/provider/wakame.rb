@@ -448,7 +448,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       virtual_server.host_server = host_server
       virtual_server.addresses[PRIVATE_IP_ADDRESS] = properties.delete(:private_ip_address)
       properties.delete(:ip_address).split(",").map do |i|
-        k, v = i.split("=")
+        k, v = *i.split("=", 2)
         virtual_server.addresses[k] = v
       end
       virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
