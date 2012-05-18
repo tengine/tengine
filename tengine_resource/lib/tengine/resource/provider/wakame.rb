@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'tama'
 require 'tengine/support/core_ext/hash/keys'
+require 'tengine/support/core_ext/enumerable/map_to_hash'
 
 class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
@@ -62,12 +63,8 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   def capacities
     server_type_ids = virtual_server_types.map(&:provided_id)
-    server_type_to_cpu = virtual_server_types.inject({}) do |d, server_type|
-      d.update(server_type.provided_id => server_type.cpu_cores)
-    end
-    server_type_to_mem = virtual_server_types.inject({}) do |d, server_type|
-      d.update(server_type.provided_id => server_type.memory_size)
-    end
+    server_type_to_cpu = virtual_server_types.map_to_hash(:provided_id, &:cpu_cores)
+    server_type_to_mem = virtual_server_types.map_to_hash(:provided_id, &:memory_size)
     physical_servers.inject({}) do |result, physical_server|
       if physical_server.status == 'online'
         active_guests = physical_server.guest_servers.reject do |i|
@@ -77,17 +74,13 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
         end
         cpu_free = physical_server.cpu_cores - active_guests.map{|s| server_type_to_cpu[s.provided_type_id]}.sum
         mem_free = physical_server.memory_size - active_guests.map{|s| server_type_to_mem[s.provided_type_id]}.sum
-        result[physical_server.provided_id] = server_type_ids.inject({}) do |dest, server_type_id|
-          dest[server_type_id] = [
-            cpu_free / server_type_to_cpu[server_type_id],
+        result[physical_server.provided_id] = server_type_ids.map_to_hash do |server_type_id|
+          [ cpu_free / server_type_to_cpu[server_type_id],
             mem_free / server_type_to_mem[server_type_id]
           ].min
-          dest
         end
       else
-        result[physical_server.provided_id] = server_type_ids.inject({}) do |dest, server_type_id|
-          dest[server_type_id] = 0; dest
-        end
+        result[physical_server.provided_id] = server_type_ids.map_to_hash{|server_type_id| 0}
       end
       result
     end
