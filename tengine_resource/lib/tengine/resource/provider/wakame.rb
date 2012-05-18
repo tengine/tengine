@@ -271,6 +271,11 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   private
 
   VIRTUAL_SERVER_TYPE_PROPERTY_MAPS = {
+    :virtual_server_images => {
+      :provided_id => :aws_id,
+      :provided_description => :description
+    }.freeze,
+
     :virtual_server_types => {
       :provided_id => :id,
       :caption     => :uuid,
@@ -279,9 +284,9 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     }.freeze,
 
     :physical_servers => {
+      :provided_id => :id,
       # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
       :name        => lambda{|hash| hash.delete(:name) || hash[:id]},
-      :provided_id => :id,
       :status      => :status,
       :cpu_cores   => :offering_cpu_cores,
       :memory_size => :offering_memory_size
@@ -291,21 +296,27 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   def differential_update(hash, target_name)
     properties = hash.dup
     properties.deep_symbolize_keys!
-    target = self.send(target_name).where(:provided_id => properties[:id]).first
     map = VIRTUAL_SERVER_TYPE_PROPERTY_MAPS[target_name]
+    provided_id = properties[ map[:provided_id] ]
+    target = self.send(target_name).where(:provided_id => provided_id).first
+    unless target
+      raise "target #{target_name.to_s.singularize} not found by using #{map[:provided_id]}: #{provided_id.inspect}. properties: #{properties.inspect}"
+    end
     map.each do |attr_name, prop_name|
       value = prop_name.is_a?(Proc) ?
         prop_name.call(properties) :
         properties.delete(prop_name)
       target.send("#{attr_name}=", value)
     end
-    properties.each do |key, val|
-      value =  properties.delete(key)
-      unless val.to_s == value.to_s
-        if target.properties[key.to_sym]
-          target.properties[key.to_sym] = value
-        else
-          target.properties[key.to_s] = value
+    if target.respond_to?(:properties)
+      properties.each do |key, val|
+        value =  properties.delete(key)
+        unless val.to_s == value.to_s
+          if target.properties[key.to_sym]
+            target.properties[key.to_sym] = value
+          else
+            target.properties[key.to_s] = value
+          end
         end
       end
     end
@@ -385,12 +396,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   # virtual_server_image
   def differential_update_virtual_server_image_hash(hash)
-    properties = hash.dup
-    properties.deep_symbolize_keys!
-    server_image = self.virtual_server_images.where(:provided_id => properties[:aws_id]).first
-    server_image.provided_id = properties.delete(:aws_id)
-    server_image.provided_description = properties.delete(:description)
-    server_image.save! if server_image.changed?
+    differential_update(hash, :virtual_server_images)
   end
 
   def differential_update_virtual_server_image_hashs(hashs)
