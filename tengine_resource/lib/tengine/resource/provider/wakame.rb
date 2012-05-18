@@ -164,6 +164,11 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     watch_by(:physical_servers)
   end
 
+  # 仮想サーバイメージの監視
+  def virtual_server_image_watch
+    watch_by(:virtual_server_images)
+  end
+
   # 仮想サーバの監視
   def virtual_server_watch
     log_prefix = "#{self.class.name}#virtual_server_watch (provider:#{self.name}):"
@@ -206,14 +211,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
     create_instances = instances - update_instances
     return create_instances, update_instances, destroy_servers
-  end
-
-
-  public
-
-  # 仮想サーバイメージの監視
-  def virtual_server_image_watch
-    watch_by(:virtual_server_images)
   end
 
   private
