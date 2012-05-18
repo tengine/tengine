@@ -523,9 +523,15 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   private
 
+  # wakame api からの戻り値がのキーが文字列だったりシンボルだったりで統一されてないので暫定対応で
+  # 戻り値の配列の要素となるHashのkeyをstringかsymbolかのどちらかに指定できるようにしています
   def call_api_with_conversion(api_name, uuids, options)
     result = connect{|conn| conn.send(api_name, uuids) }
-    hash_key_convert(result, options[:convert])
+    case options[:convert]
+    when :string then result.map(&:deep_stringify_keys!)
+    when :symbol then result.map(&:deep_symbolize_keys!)
+    else result
+    end
   end
 
   def replace_value_of_hash(hash, key)
@@ -539,16 +545,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
   end
 
-  # wakame api からの戻り値がのキーが文字列だったりシンボルだったりで統一されてないので暫定対応で
-  # 戻り値のkeyをstringかsymbolかのどちらかに指定できるようにしています
-
-  def hash_key_convert(hash_list, convert)
-    case convert
-    when :string then hash_list = hash_list.map(&:deep_stringify_keys!)
-    when :symbol then hash_list = hash_list.map(&:deep_symbolize_keys!)
-    end
-    hash_list
-  end
 
   public
 
