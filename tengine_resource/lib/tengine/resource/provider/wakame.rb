@@ -89,6 +89,10 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   private
 
   WATCH_SETTINGS = {
+    :physical_servers => {
+      :api => :describe_host_nodes_for_api,
+      :create_method => :create_physical_server_hashs
+    },
     :virtual_server_types => {
       :api => :describe_instance_specs_for_api,
       :create_method => :create_virtual_server_type_hashs
@@ -151,44 +155,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   # 物理サーバの監視
   def physical_server_watch
-    log_prefix = "#{self.class.name}#physical_server_watch (provider:#{self.name}):"
-
-    # APIからの物理サーバ情報を取得
-    host_nodes = describe_host_nodes_for_api
-    Tengine.logger.debug "#{log_prefix} describe_host_nodes for api (wakame)"
-    Tengine.logger.debug "#{log_prefix} #{host_nodes.inspect}"
-
-    create_host_nodes = []
-    update_host_nodes = []
-    destroy_servers = []
-
-    # 物理サーバの取得
-    self.reload
-    old_servers = self.physical_servers
-    Tengine.logger.debug "#{log_prefix} physical_server on provider (#{self.name})"
-    Tengine.logger.debug "#{log_prefix} #{old_servers.inspect}"
-
-    old_servers.each do |old_server|
-      host_node = host_nodes.detect do |host_node|
-        (host_node[:id] || host_node["id"]) == old_server.provided_id
-      end
-
-      if host_node
-        Tengine.logger.debug "#{log_prefix} registed physical_server % <update> (#{old_server.provided_id})"
-        update_host_nodes << host_node
-      else
-        Tengine.logger.debug "#{log_prefix} removed physical_server % <destroy> (#{old_server.provided_id})"
-        destroy_servers << old_server
-      end
-    end
-    create_host_nodes = host_nodes - update_host_nodes
-    create_host_nodes.each do |host_node|
-      Tengine.logger.debug "#{log_prefix} new physical_server% <create> (#{host_node['id']})"
-    end
-
-    differential_update(:physical_servers, update_host_nodes) unless update_host_nodes.empty?
-    create_physical_server_hashs(create_host_nodes) unless create_host_nodes.empty?
-    destroy_servers.each { |target| target.destroy }
+    watch_by(:physical_servers)
   end
 
   # 仮想サーバの監視
