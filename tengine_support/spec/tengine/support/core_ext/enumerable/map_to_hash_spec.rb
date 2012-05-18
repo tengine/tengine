@@ -10,14 +10,19 @@ describe "Enumerable#map_to_hash" do
     @charlie = person.new("Charlie", 50)
   end
 
-  context "map 2 attributes to key and value of Hash" do
+  context "map 2 attributes as key and value of Hash" do
     subject{ [@alan, @becky, @charlie].map_to_hash(:name, &:age) }
     it{ should == {"Alan" => 10, "Becky" => 19, "Charlie" => 50} }
   end
 
-  context "map an attribute and element to key and value of Hash" do
+  context "map an attribute and element as key and value of Hash" do
     subject{ [@alan, @becky, @charlie].map_to_hash(:name) }
     it{ should == {"Alan" => @alan, "Becky" => @becky, "Charlie" => @charlie} }
+  end
+
+  context "map element and attibute as key and value of Hash" do
+    subject{ [@alan, @becky, @charlie].map_to_hash(&:name) }
+    it{ should == {@alan => "Alan", @becky => "Becky", @charlie => "Charlie"} }
   end
 
   context "raise an UniqueKeyError when duplicated key found" do
