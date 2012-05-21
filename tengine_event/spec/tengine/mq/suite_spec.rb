@@ -802,18 +802,7 @@ describe Tengine::Mq::Suite do
           # どちらかに限ればもう少し効率的な探し方はある。たとえば Linux 限定でよければ netstat -lnt ...
           y = `netstat -an | fgrep LISTEN | fgrep #{port}`
           if y.lines.to_a.size >= 1
-            AMQP.start(
-              :host => 'localhost',
-              :port => port,
-              :vhost => '/',
-              :user => "guest",
-              :password => "guest",
-              :timeout => 0.3
-            ) do |connection, open_ok|
-              @port = port
-              connection.disconnect
-              EM.stop
-            end
+            @port = port
             return
           end
         end
@@ -844,6 +833,7 @@ describe Tengine::Mq::Suite do
 
     before :all do
       pending "these specs needs a ruby 1.9.2" if RUBY_VERSION < "1.9.2"
+      pending "local test only" if ENV['TRAVIS'] == 'true'
       trigger
     end
 
