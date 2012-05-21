@@ -802,14 +802,23 @@ describe Tengine::Mq::Suite do
           # どちらかに限ればもう少し効率的な探し方はある。たとえば Linux 限定でよければ netstat -lnt ...
           y = `netstat -an | fgrep LISTEN | fgrep #{port}`
           if y.lines.to_a.size >= 1
-            TCPSocket.open('localhost', port) do |fp|
+            AMQP.start(
+              :host => 'localhost',
+              :port => port,
+              :vhost => '/',
+              :user => "guest",
+              :password => "guest",
+              :timeout => 0.3
+            ) do |connection, open_ok|
               @port = port
-              return
+              connection.disconnect
+              EM.stop
             end
+            return
           end
         end
         pending "failed to invoke rabbitmq in 16 secs."
-      rescue Errno::ECHILD, Errno::ESRCH
+      rescue Errno::ECHILD, Errno::ESRCH, AMQP::TCPConnectionFailed
         if (n += 1) > 10
           pending "10 attempts to invoke rabbitmq failed."
         else
