@@ -781,8 +781,6 @@ describe Tengine::Mq::Suite do
       raise "WRONG" if $_pid
       require 'tmpdir'
       $_dir = Dir.mktmpdir
-puts `sudo apt-get install ufw`
-puts `sudo ufw status`
       # 指定したポートはもう使われているかもしれないので、その際は
       # rabbitmqが起動に失敗するので、何回かポートを変えて試す。
       n = 0
@@ -804,8 +802,10 @@ puts `sudo ufw status`
           # どちらかに限ればもう少し効率的な探し方はある。たとえば Linux 限定でよければ netstat -lnt ...
           y = `netstat -an | fgrep LISTEN | fgrep #{port}`
           if y.lines.to_a.size >= 1
-            @port = port
-            return
+            TCPSocket.open('localhost', port) do |fp|
+              @port = port
+              return
+            end
           end
         end
         pending "failed to invoke rabbitmq in 16 secs."
