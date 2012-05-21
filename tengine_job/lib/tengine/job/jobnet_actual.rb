@@ -52,4 +52,33 @@ class Tengine::Job::JobnetActual < Tengine::Job::Jobnet
     end
   end
 
+  def stop(root_jobnet, options = Hash.new)
+    root_jobnet_id = root_jobnet.id.to_s
+    result = Tengine::Job::Execution.create!(
+      options.merge(:root_jobnet_id => root_jobnet_id))
+    properties = {
+      :execution_id => result.id.to_s,
+      :root_jobnet_id => root_jobnet_id,
+      :stop_reason => "user_stop"
+    }
+
+    target_id = self.id.to_s
+    # if target.children.blank?
+    if script_executable?
+      event = :"stop.job.job.tengine"
+      properties[:target_job_id] = target_id
+      properties[:target_jobnet_id] = parent.id.to_s
+    else
+      event = :"stop.jobnet.job.tengine"
+      properties[:target_jobnet_id] = target_id
+    end
+
+    EM.run do
+      Tengine::Event.fire(event,
+        :source_name => name_as_resource,
+        :properties => properties)
+    end
+
+    return result
+  end
 end
