@@ -405,7 +405,6 @@ describe Tengine::Mq::Suite do
                 i += 1
               end
               @timer = EM.add_periodic_timer(0.1) do
-p i
                 if i.zero?
                   EM.cancel_timer @timer
                   subject.unsubscribe do
@@ -802,7 +801,6 @@ p i
           # netstat -an は Linux / BSD ともに有効
           # どちらかに限ればもう少し効率的な探し方はある。たとえば Linux 限定でよければ netstat -lnt ...
           y = `netstat -an | fgrep LISTEN | fgrep #{port}`
-p [$_pid, port, `netstat -lnt | fgrep #{port}`]
           if y.lines.to_a.size >= 1
             @port = port
             return
