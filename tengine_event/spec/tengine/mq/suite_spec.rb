@@ -781,6 +781,8 @@ describe Tengine::Mq::Suite do
       raise "WRONG" if $_pid
       require 'tmpdir'
       $_dir = Dir.mktmpdir
+puts `sudo apt-get install ufw`
+puts `sudo ufw status`
       # 指定したポートはもう使われているかもしれないので、その際は
       # rabbitmqが起動に失敗するので、何回かポートを変えて試す。
       n = 0
