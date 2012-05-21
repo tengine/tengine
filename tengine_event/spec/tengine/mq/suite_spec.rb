@@ -762,6 +762,9 @@ describe Tengine::Mq::Suite do
   end
 
   context "実際にMQに接続する試験" do
+    next if RUBY_VERSION < "1.9.2"
+    next if ENV['TRAVIS'] == 'true'
+
     let(:rabbitmq) do
       ret = nil
       ENV["PATH"].split(/:/).find do |dir|
@@ -832,7 +835,6 @@ describe Tengine::Mq::Suite do
     end
 
     before :all do
-      pending "these specs needs a ruby 1.9.2" if RUBY_VERSION < "1.9.2"
       trigger
     end
 
