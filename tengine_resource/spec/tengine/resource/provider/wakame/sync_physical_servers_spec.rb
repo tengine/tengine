@@ -10,7 +10,7 @@ describe Tengine::Resource::Provider::Wakame do
       )
   end
 
-  context :physical_server_watch do
+  context :synchronize_physical_servers do
     def setup_describe_host_node_file(filename)
       subject.connection_settings[:options] = {
         :describe_host_nodes_file => File.expand_path(filename, File.dirname(__FILE__))
@@ -25,7 +25,7 @@ describe Tengine::Resource::Provider::Wakame do
         before{ setup_describe_host_node_file("00_describe_host_nodes_0_physical_servers.json")}
         it "件数は増えない" do
           expect{
-            subject.physical_server_watch
+            subject.synchronize_physical_servers
           }.to_not change(Tengine::Resource::PhysicalServer, :count)
         end
       end
@@ -34,7 +34,7 @@ describe Tengine::Resource::Provider::Wakame do
         before{ setup_describe_host_node_file("01_describe_host_nodes_10_physical_servers.json")}
         it "10件増える" do
           expect{
-            subject.physical_server_watch
+            subject.synchronize_physical_servers
           }.to change(Tengine::Resource::PhysicalServer, :count).by(10)
           Tengine::Resource::PhysicalServer.all.each do |server|
             server.provided_id.should_not == nil
@@ -60,7 +60,7 @@ describe Tengine::Resource::Provider::Wakame do
           before{ setup_describe_host_node_file("00_describe_host_nodes_0_physical_servers.json")}
           it "10件削除される" do
             expect{
-              subject.physical_server_watch
+              subject.synchronize_physical_servers
             }.to change(Tengine::Resource::PhysicalServer, :count).by(-10)
           end
         end
@@ -70,7 +70,7 @@ describe Tengine::Resource::Provider::Wakame do
           it "件数もデータも変わらず" do
             ids = Tengine::Resource::PhysicalServer.all.map(&:id).map(&:to_s).sort
             expect{
-              subject.physical_server_watch
+              subject.synchronize_physical_servers
             }.to_not change(Tengine::Resource::PhysicalServer, :count)
             Tengine::Resource::PhysicalServer.all.map(&:id).map(&:to_s).sort.should == ids
           end
@@ -91,7 +91,7 @@ describe Tengine::Resource::Provider::Wakame do
           before{ setup_describe_host_node_file("00_describe_host_nodes_0_physical_servers.json")}
           it "10件削除される" do
             expect{
-              subject.physical_server_watch
+              subject.synchronize_physical_servers
             }.to change(Tengine::Resource::PhysicalServer, :count).by(-10)
           end
         end
@@ -101,7 +101,7 @@ describe Tengine::Resource::Provider::Wakame do
           it "件数は変わらないが、データは変わっている" do
             ids = Tengine::Resource::PhysicalServer.all.map(&:id).map(&:to_s).sort
             expect{
-              subject.physical_server_watch
+              subject.synchronize_physical_servers
             }.to_not change(Tengine::Resource::PhysicalServer, :count)
             Tengine::Resource::PhysicalServer.all.map(&:id).map(&:to_s).sort.should_not == ids
           end

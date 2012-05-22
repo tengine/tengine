@@ -143,7 +143,7 @@ describe Tengine::Resource::Provider do
             @physical_server01,
             "", 1) do
             # このブロックはテスト用に使われるもので、リクエストを送った直後、データを登録する前に呼び出されます。
-            @provider.virtual_server_watch # 先にtengine_resource_watchdが更新してしまう
+            @provider.synchronize_virtual_servers # 先にtengine_resource_watchdが更新してしまう
           end
           results.each{|result| result.should_not == nil}
         }.to_not raise_error
@@ -159,7 +159,7 @@ describe Tengine::Resource::Provider do
           expect{
             expect{
               @provider.virtual_servers.should_receive(:find).with(any_args).and_return do
-                @provider.virtual_server_watch # 先にtengine_resource_watchdが更新してしまう
+                @provider.synchronize_virtual_servers # 先にtengine_resource_watchdが更新してしまう
                 0 # 「重複するものは見つからなかった」
               end
               results = @provider.create_virtual_servers(
@@ -242,7 +242,7 @@ describe Tengine::Resource::Provider do
             server1.host_server.should_not == nil
             server1.host_server_id.should == @physical_server01.id
 
-              @provider.virtual_server_watch # 後からtengine_resource_watchdが更新しようとする
+              @provider.synchronize_virtual_servers # 後からtengine_resource_watchdが更新しようとする
              # }.to_not raise_error
           }.to change(Tengine::Resource::VirtualServer, :count).by(1) # 1台だけ起動される
           server1 = Tengine::Resource::VirtualServer.first(:conditions => {:provided_id => "virtual_server_uuid_91"})

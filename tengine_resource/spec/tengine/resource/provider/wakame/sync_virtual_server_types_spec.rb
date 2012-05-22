@@ -10,7 +10,7 @@ describe Tengine::Resource::Provider::Wakame do
       )
   end
 
-  context :virtual_server_type_watch do
+  context :synchronize_virtual_server_types do
     def setup_describe_instance_specs_file(filename)
       subject.connection_settings[:options] = {
         :describe_instance_specs_file => File.expand_path(filename, File.dirname(__FILE__))
@@ -25,7 +25,7 @@ describe Tengine::Resource::Provider::Wakame do
         before{ setup_describe_instance_specs_file("30_describe_instance_specs_0_virtual_server_specs.json")}
         it "件数は増えない" do
           expect{
-            subject.virtual_server_type_watch
+            subject.synchronize_virtual_server_types
           }.to_not change(Tengine::Resource::VirtualServerType, :count)
         end
       end
@@ -34,7 +34,7 @@ describe Tengine::Resource::Provider::Wakame do
         before{ setup_describe_instance_specs_file("31_describe_instance_specs_4_virtual_server_specs.json")}
         it "4件増える" do
           expect{
-            subject.virtual_server_type_watch
+            subject.synchronize_virtual_server_types
           }.to change(Tengine::Resource::VirtualServerType, :count).by(4)
           Tengine::Resource::VirtualServerType.all.each do |server|
             server.provided_id.should_not == nil
@@ -62,7 +62,7 @@ describe Tengine::Resource::Provider::Wakame do
           before{ setup_describe_instance_specs_file("30_describe_instance_specs_0_virtual_server_specs.json")}
           it "4件削除される" do
             expect{
-              subject.virtual_server_type_watch
+              subject.synchronize_virtual_server_types
             }.to change(Tengine::Resource::VirtualServerType, :count).by(-4)
           end
         end
@@ -72,7 +72,7 @@ describe Tengine::Resource::Provider::Wakame do
           it "件数もデータも変わらず" do
             ids = Tengine::Resource::VirtualServerType.all.map(&:id).map(&:to_s).sort
             expect{
-              subject.virtual_server_type_watch
+              subject.synchronize_virtual_server_types
             }.to_not change(Tengine::Resource::VirtualServerType, :count)
             Tengine::Resource::VirtualServerType.all.map(&:id).map(&:to_s).sort.should == ids
           end
@@ -93,7 +93,7 @@ describe Tengine::Resource::Provider::Wakame do
           before{ setup_describe_instance_specs_file("30_describe_instance_specs_0_virtual_server_specs.json")}
           it "4件削除される" do
             expect{
-              subject.virtual_server_type_watch
+              subject.synchronize_virtual_server_types
             }.to change(Tengine::Resource::VirtualServerType, :count).by(-4)
           end
         end
@@ -103,7 +103,7 @@ describe Tengine::Resource::Provider::Wakame do
           it "件数は変わらないが、データは変わっている" do
             ids = Tengine::Resource::VirtualServerType.all.map(&:id).map(&:to_s).sort
             expect{
-              subject.virtual_server_type_watch
+              subject.synchronize_virtual_server_types
             }.to_not change(Tengine::Resource::VirtualServerType, :count)
             Tengine::Resource::VirtualServerType.all.map(&:id).map(&:to_s).sort.should_not == ids
           end

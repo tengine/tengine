@@ -86,10 +86,10 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
   end
 
-  def physical_server_watch     ; watch_by(:physical_servers     ); end # 物理サーバの監視
-  def virtual_server_type_watch ; watch_by(:virtual_server_types ); end # 仮想サーバタイプの監視
-  def virtual_server_image_watch; watch_by(:virtual_server_images); end # 仮想サーバイメージの監視
-  def virtual_server_watch      ; watch_by(:virtual_servers      ); end # 仮想サーバの監視
+  def synchronize_physical_servers     ; watch_by(:physical_servers     ); end # 物理サーバの監視
+  def synchronize_virtual_server_types ; watch_by(:virtual_server_types ); end # 仮想サーバタイプの監視
+  def synchronize_virtual_server_images; watch_by(:virtual_server_images); end # 仮想サーバイメージの監視
+  def synchronize_virtual_servers      ; watch_by(:virtual_servers      ); end # 仮想サーバの監視
 
   private
 

@@ -88,18 +88,18 @@ class Tengine::Resource::Watcher
           # polling_intervalが 0 以下の場合は、問い合わせを行わない
           if (polling_interval = provider.polling_interval) > 0
             # 仮想サーバタイプの監視
-            provider.virtual_server_type_watch
+            provider.synchronize_virtual_server_types
             mutex = Tengine::Core::Mutex.new "#{provider.name}@#{self.class}", provider.polling_interval
             @periodic = EM.add_periodic_timer(provider.polling_interval) do
               mutex.synchronize do
                 # 物理サーバの監視
-                provider.physical_server_watch
+                provider.synchronize_physical_servers
                 mutex.heartbeat
                 # 仮想サーバの監視
-                provider.virtual_server_watch
+                provider.synchronize_virtual_servers
                 mutex.heartbeat
                 # 仮想サーバイメージの監視
-                provider.virtual_server_image_watch
+                provider.synchronize_virtual_server_images
               end
             end
           end

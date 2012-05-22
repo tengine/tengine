@@ -28,13 +28,13 @@ class Tengine::Resource::Provider
   end
 
   # 仮想サーバタイプの監視
-  def virtual_server_type_watch    ; raise NotImplementedError end
+  def synchronize_virtual_server_types    ; raise NotImplementedError end
   # 物理サーバの監視
-  def physical_server_watch        ; raise NotImplementedError end
+  def synchronize_physical_servers        ; raise NotImplementedError end
   # 仮想サーバの監視
-  def virtual_server_watch         ; raise NotImplementedError end
+  def synchronize_virtual_servers         ; raise NotImplementedError end
   # 仮想サーバイメージの監視
-  def virtual_server_image_watch   ; raise NotImplementedError end
+  def synchronize_virtual_server_images   ; raise NotImplementedError end
 
   def update_physical_servers      ; raise NotImplementedError end
   def update_virtual_servers       ; raise NotImplementedError end
