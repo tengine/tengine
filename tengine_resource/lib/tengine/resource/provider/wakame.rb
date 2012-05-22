@@ -154,6 +154,8 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
         end
       },
 
+      :ignore_duplication_error => true, # 重複エラーは無視する
+
       :before_create => Proc.new do |attrs|
         # 初期登録時、default 値として name には一意な provided_id を name へ登録します
         attrs[:name] = attrs[:provided_id]
@@ -262,6 +264,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     properties = hash.dup
     properties.deep_symbolize_keys!
     setting = WATCH_SETTINGS[target_name]
+    begin
     map = setting[:property_map]
     attrs = mapped_attributes(target_name, properties)
     if before_create = setting[:before_create]
@@ -273,6 +276,13 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     target.attributes = attrs
     target.save!
     target
+    rescue Mongo::OperationFailure => e
+      raise e if setting[:ignore_duplication_error] && e.message !~ /E11000 duplicate key error/
+      nil
+    rescue Mongoid::Errors::Validations => e
+      raise e if setting[:ignore_duplication_error] && e.document.errors[:provided_id].any?{|s| s =~ /taken/}
+      nil
+    end
   end
 
   def mapped_attributes(target_name, properties)
@@ -307,15 +317,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   # virtual_server
   def create_virtual_server_hashs(hashs)
-    hashs.map{|hash|
-      begin
-        create_by_hash(:virtual_servers, hash).id
-      rescue Mongo::OperationFailure => e
-        raise e unless e.message =~ /E11000 duplicate key error/
-      rescue Mongoid::Errors::Validations => e
-        raise e unless e.document.errors[:provided_id].any?{|s| s =~ /taken/}
-      end
-    }.compact
+    hashs.map{|hash| create_by_hash(:virtual_servers, hash).id}.compact
   end
 
   # wakame api for tama
