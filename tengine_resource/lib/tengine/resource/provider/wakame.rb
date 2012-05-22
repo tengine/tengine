@@ -126,7 +126,12 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       :property_map => {
         :provided_id => :aws_id,
         :provided_description => :description
-      }
+      },
+      :before_create => Proc.new do |attrs|
+        # 初期登録時、default 値として name には一意な provided_id を name へ登録します
+        attrs[:name] = attrs[:provided_id]
+      end
+
     }.freeze,
 
     :virtual_servers => {
@@ -148,6 +153,12 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
           result
         end
       },
+
+      :before_create => Proc.new do |attrs|
+        # 初期登録時、default 値として name には一意な provided_id を name へ登録します
+        attrs[:name] = attrs[:provided_id]
+      end,
+
       :update_block => Proc.new do |virtual_server, properties|
         virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
       end
@@ -250,7 +261,12 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   def create_by_hash(target_name, hash)
     properties = hash.dup
     properties.deep_symbolize_keys!
+    setting = WATCH_SETTINGS[target_name]
+    map = setting[:property_map]
     attrs = mapped_attributes(target_name, properties)
+    if before_create = setting[:before_create]
+      before_create.call(attrs)
+    end
     target = self.send(target_name).new
     attrs[:properties] = properties if target.respond_to?(:properties)
     yield(attrs) if block_given?
@@ -286,23 +302,14 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   # virtual_server_image
   def create_virtual_server_image_hashs(hashs)
-    hashs.map do |hash|
-      create_by_hash(:virtual_server_images, hash){|props|
-        # 初期登録時、default 値として name には一意な provided_id を name へ登録します
-        props[:name] = props[:provided_id]
-      }.id
-    end
+    hashs.map{|hash| create_by_hash(:virtual_server_images, hash).id }
   end
 
   # virtual_server
   def create_virtual_server_hashs(hashs)
     hashs.map{|hash|
       begin
-        s = create_by_hash(:virtual_servers, hash) do |properties|
-          # 初期登録時、default 値として name には一意な provided_id を name へ登録します
-          properties[:name] = properties[:provided_id]
-        end
-        s.id
+        create_by_hash(:virtual_servers, hash).id
       rescue Mongo::OperationFailure => e
         raise e unless e.message =~ /E11000 duplicate key error/
       rescue Mongoid::Errors::Validations => e
