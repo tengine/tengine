@@ -108,10 +108,10 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     @synchronizers[target_name]
   end
 
-  class WakameSynchronizer < Tengine::Resource::Provider::Synchronizer
+  class Synchronizer < Tengine::Resource::Provider::Synchronizer
   end
 
-  class PhysicalServerSynchronizer < WakameSynchronizer
+  class PhysicalServerSynchronizer < Synchronizer
     fetch_known_target_method :describe_host_nodes_for_api
 
     map(:provided_id, :id)
@@ -122,7 +122,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     map(:memory_size, :offering_memory_size)
   end
 
-  class VirtualServerTypeSynchronizer < WakameSynchronizer
+  class VirtualServerTypeSynchronizer < Synchronizer
     fetch_known_target_method :describe_instance_specs_for_api
 
     map :provided_id, :id
@@ -131,7 +131,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     map :memory_size, :memory_size
   end
 
-  class VirtualServerImageSynchronizer < WakameSynchronizer
+  class VirtualServerImageSynchronizer < Synchronizer
     fetch_known_target_method :describe_images_for_api
 
     map :provided_id         , :aws_id
@@ -145,7 +145,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
   end
 
-  class VirtualServerSynchronizer < WakameSynchronizer
+  class VirtualServerSynchronizer < Synchronizer
     fetch_known_target_method :describe_instances_for_api
 
     PRIVATE_IP_ADDRESS = "private_ip_address".freeze
