@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "tengine_job"
-  s.version = "0.6.13"
+  s.version = "0.6.14"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["taigou", "totty", "g-morita", "shyouhei", "akm", "guemon"]
-  s.date = "2012-05-02"
+  s.date = "2012-05-21"
   s.description = "tengine_job provides jobnet management"
   s.email = "tengine-info@groovenauts.jp"
   s.extra_rdoc_files = [
@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
+    ".gitignore",
     ".rspec",
     "Gemfile",
     "Gemfile.lock",
@@ -153,46 +154,16 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/tengine/tengine_job"
   s.licenses = ["MPL2.0/LGPLv3"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.12"
+  s.rubygems_version = "1.8.23"
   s.summary = "tengine_job provides jobnet management"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<tengine_support>, ["~> 0.3.27"])
-      s.add_runtime_dependency(%q<tengine_core>, ["~> 0.5.39"])
-      s.add_runtime_dependency(%q<tengine_resource>, ["~> 0.5.15"])
-      s.add_development_dependency(%q<rspec>, ["~> 2.6.0"])
-      s.add_development_dependency(%q<factory_girl>, ["~> 2.1.2"])
-      s.add_development_dependency(%q<yard>, ["~> 0.7.2"])
-      s.add_development_dependency(%q<bundler>, ["~> 1.1.3"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
-      s.add_development_dependency(%q<simplecov>, ["~> 0.5.3"])
-      s.add_development_dependency(%q<ZenTest>, ["~> 4.6.2"])
     else
-      s.add_dependency(%q<tengine_support>, ["~> 0.3.27"])
-      s.add_dependency(%q<tengine_core>, ["~> 0.5.39"])
-      s.add_dependency(%q<tengine_resource>, ["~> 0.5.15"])
-      s.add_dependency(%q<rspec>, ["~> 2.6.0"])
-      s.add_dependency(%q<factory_girl>, ["~> 2.1.2"])
-      s.add_dependency(%q<yard>, ["~> 0.7.2"])
-      s.add_dependency(%q<bundler>, ["~> 1.1.3"])
-      s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
-      s.add_dependency(%q<simplecov>, ["~> 0.5.3"])
-      s.add_dependency(%q<ZenTest>, ["~> 4.6.2"])
     end
   else
-    s.add_dependency(%q<tengine_support>, ["~> 0.3.27"])
-    s.add_dependency(%q<tengine_core>, ["~> 0.5.39"])
-    s.add_dependency(%q<tengine_resource>, ["~> 0.5.15"])
-    s.add_dependency(%q<rspec>, ["~> 2.6.0"])
-    s.add_dependency(%q<factory_girl>, ["~> 2.1.2"])
-    s.add_dependency(%q<yard>, ["~> 0.7.2"])
-    s.add_dependency(%q<bundler>, ["~> 1.1.3"])
-    s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
-    s.add_dependency(%q<simplecov>, ["~> 0.5.3"])
-    s.add_dependency(%q<ZenTest>, ["~> 4.6.2"])
   end
 end
 

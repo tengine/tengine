@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# private gemserver
-source "http://bts.tenginefw.com/gemserver"
 source 'http://rubygems.org'
 
 # すぐにパッチが出る事を予想しています。リリース近くなったらバージョンを固定します。
@@ -22,7 +20,7 @@ gem "kaminari", "~> 0.12.4"
 gem "tengine_event"   , "~> 0.4.1"
 gem "tengine_core"    , "~> 0.5.20"
 gem "tengine_resource", "~> 0.5.11"
-gem "tengine_job"     , "~> 0.6.2"
+gem "tengine_job"     , "~> 0.6.14"
 
 gem "wakame-adapters-tengine", "~> 0.0.0"
 
