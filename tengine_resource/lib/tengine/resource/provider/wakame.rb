@@ -124,14 +124,13 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       @property_map ||= self.class.property_map
     end
 
-    attr_reader :provider, :target_name
+    attr_reader :provider, :target_name, :log_prefix
     def initialize(provider, target_name)
       @provider, @target_name = provider, target_name
+      @log_prefix = "#{self.class.name} for #{provider.name}"
     end
 
     def execute
-      log_prefix = "#{self.class.name}#synchronize_by(#{target_name.inspect}) (provider:#{provider.name}):"
-
       # APIからの仮想サーバタイプ情報を取得
       actual_targets = provider.send(fetch_known_target_method)
       Tengine.logger.debug "#{log_prefix} #{fetch_known_target_method} for api (wakame)"
