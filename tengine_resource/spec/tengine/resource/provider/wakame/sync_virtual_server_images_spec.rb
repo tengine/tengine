@@ -10,7 +10,7 @@ describe Tengine::Resource::Provider::Wakame do
       )
   end
 
-  context :virtual_server_image_watch do
+  context :synchronize_virtual_server_images do
     def setup_describe_images_file(filename)
       subject.connection_settings[:options] = {
         :describe_images_file => File.expand_path(filename, File.dirname(__FILE__))
@@ -25,7 +25,7 @@ describe Tengine::Resource::Provider::Wakame do
         before{ setup_describe_images_file("20_describe_images_0_virtual_server_images.json")}
         it "件数は増えない" do
           expect{
-            subject.virtual_server_image_watch
+            subject.synchronize_virtual_server_images
           }.to_not change(Tengine::Resource::VirtualServerImage, :count)
         end
       end
@@ -34,7 +34,7 @@ describe Tengine::Resource::Provider::Wakame do
         before{ setup_describe_images_file("21_describe_images_5_virtual_server_images.json")}
         it "5件増える" do
           expect{
-            subject.virtual_server_image_watch
+            subject.synchronize_virtual_server_images
           }.to change(Tengine::Resource::VirtualServerImage, :count).by(5)
           Tengine::Resource::VirtualServerImage.all.each do |server|
             server.provided_id.should_not == nil
@@ -61,7 +61,7 @@ describe Tengine::Resource::Provider::Wakame do
           before{ setup_describe_images_file("20_describe_images_0_virtual_server_images.json")}
           it "5件削除される" do
             expect{
-              subject.virtual_server_image_watch
+              subject.synchronize_virtual_server_images
             }.to change(Tengine::Resource::VirtualServerImage, :count).by(-5)
           end
         end
@@ -71,7 +71,7 @@ describe Tengine::Resource::Provider::Wakame do
           it "件数もデータも変わらず" do
             ids = Tengine::Resource::VirtualServerImage.all.map(&:id).map(&:to_s).sort
             expect{
-              subject.virtual_server_image_watch
+              subject.synchronize_virtual_server_images
             }.to_not change(Tengine::Resource::VirtualServerImage, :count)
             Tengine::Resource::VirtualServerImage.all.map(&:id).map(&:to_s).sort.should == ids
           end
@@ -93,7 +93,7 @@ describe Tengine::Resource::Provider::Wakame do
           before{ setup_describe_images_file("20_describe_images_0_virtual_server_images.json")}
           it "5件削除される" do
             expect{
-              subject.virtual_server_image_watch
+              subject.synchronize_virtual_server_images
             }.to change(Tengine::Resource::VirtualServerImage, :count).by(-5)
           end
         end
@@ -103,7 +103,7 @@ describe Tengine::Resource::Provider::Wakame do
           it "件数は変わらないが、データは変わっている" do
             ids = Tengine::Resource::VirtualServerImage.all.map(&:id).map(&:to_s).sort
             expect{
-              subject.virtual_server_image_watch
+              subject.synchronize_virtual_server_images
             }.to_not change(Tengine::Resource::VirtualServerImage, :count)
             Tengine::Resource::VirtualServerImage.all.map(&:id).map(&:to_s).sort.should_not == ids
           end
