@@ -97,7 +97,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   WATCH_SETTINGS = {
     :physical_servers => {
-      :api => :describe_host_nodes_for_api,
       :property_map => {
         :provided_id => :id,
         # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
@@ -109,7 +108,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     }.freeze,
 
     :virtual_server_types => {
-      :api => :describe_instance_specs_for_api,
       :property_map => {
         :provided_id => :id,
         :caption     => :uuid,
@@ -119,7 +117,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     }.freeze,
 
     :virtual_server_images => {
-      :api => :describe_images_for_api,
       :property_map => {
         :provided_id => :aws_id,
         :provided_description => :description
@@ -128,7 +125,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     }.freeze,
 
     :virtual_servers => {
-      :api => :describe_instances_for_api,
       :property_map => {
         :provided_id       => :aws_instance_id,
         :provided_image_id => :aws_image_id,
@@ -154,6 +150,18 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   class Synchronizer
+    class << self
+      def fetch_known_target_method(method_name = nil)
+        @fetch_known_target_methods ||= {}
+        @fetch_known_target_methods[self] = method_name if method_name
+        @fetch_known_target_methods[self]
+      end
+    end
+
+    def fetch_known_target_method
+      self.class.fetch_known_target_method
+    end
+
     attr_reader :provider, :target_name
     def initialize(provider, target_name)
       @provider, @target_name = provider, target_name
@@ -164,9 +172,8 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       setting = WATCH_SETTINGS[target_name]
 
       # APIからの仮想サーバタイプ情報を取得
-      desc_api = setting[:api]
-      actual_targets = provider.send(desc_api)
-      Tengine.logger.debug "#{log_prefix} #{desc_api} for api (wakame)"
+      actual_targets = provider.send(fetch_known_target_method)
+      Tengine.logger.debug "#{log_prefix} #{fetch_known_target_method} for api (wakame)"
       Tengine.logger.debug "#{log_prefix} #{actual_targets.inspect}"
 
       # created_targets = []
@@ -289,12 +296,16 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   class PhysicalServerSynchronizer < WakameSynchronizer
+    fetch_known_target_method :describe_host_nodes_for_api
   end
 
   class VirtualServerTypeSynchronizer < WakameSynchronizer
+    fetch_known_target_method :describe_instance_specs_for_api
   end
 
   class VirtualServerImageSynchronizer < WakameSynchronizer
+    fetch_known_target_method :describe_images_for_api
+
     def attrs_to_create(properties)
       result = super(properties)
       # 初期登録時、default 値として name には一意な provided_id を name へ登録します
@@ -304,6 +315,8 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   class VirtualServerSynchronizer < WakameSynchronizer
+    fetch_known_target_method :describe_instances_for_api
+
     def create_by_hash(hash)
       super(hash)
     rescue Mongo::OperationFailure => e
