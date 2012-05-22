@@ -808,13 +808,13 @@ describe Tengine::Job::RootJobnetActualsController do
   describe "DELETE destroy" do
     it "destroys the requested root_jobnet_actual" do
       root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
-      Tengine::Job::RootJobnetActual.any_instance.should_receive(:stop)
+      Tengine::Job::RootJobnetActual.any_instance.should_receive(:fire_stop_event)
       delete :destroy, :id => root_jobnet_actual.id.to_s
     end
 
     it "redirects to the tengine_job_root_jobnet_actuals list" do
       root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
-      Tengine::Job::RootJobnetActual.any_instance.should_receive(:stop)
+      Tengine::Job::RootJobnetActual.any_instance.should_receive(:fire_stop_event)
       delete :destroy, :id => root_jobnet_actual.id.to_s
       response.should redirect_to(tengine_job_root_jobnet_actual_path(root_jobnet_actual))
     end

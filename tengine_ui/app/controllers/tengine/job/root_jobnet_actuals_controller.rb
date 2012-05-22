@@ -163,6 +163,6 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
   end
 
   def stop(root_jobnet, options={})
-    root_jobnet.stop options
+    root_jobnet.fire_stop_event options
   end
 end
