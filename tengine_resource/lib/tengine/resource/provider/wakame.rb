@@ -265,17 +265,17 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     properties.deep_symbolize_keys!
     setting = WATCH_SETTINGS[target_name]
     begin
-    map = setting[:property_map]
-    attrs = mapped_attributes(target_name, properties)
-    if before_create = setting[:before_create]
-      before_create.call(attrs)
-    end
-    target = self.send(target_name).new
-    attrs[:properties] = properties if target.respond_to?(:properties)
-    yield(attrs) if block_given?
-    target.attributes = attrs
-    target.save!
-    target
+      map = setting[:property_map]
+      attrs = mapped_attributes(target_name, properties)
+      if before_create = setting[:before_create]
+        before_create.call(attrs)
+      end
+      target = self.send(target_name).new
+      attrs[:properties] = properties if target.respond_to?(:properties)
+      yield(attrs) if block_given?
+      target.attributes = attrs
+      target.save!
+      target
     rescue Mongo::OperationFailure => e
       raise e if setting[:ignore_duplication_error] && e.message !~ /E11000 duplicate key error/
       nil
