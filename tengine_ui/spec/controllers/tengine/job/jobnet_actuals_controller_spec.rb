@@ -252,7 +252,7 @@ __end_of_dsl__
       jobnet_actual.stub(:children).and_return([job_actual])
       Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
         and_return(jobnet_actual)
-      Tengine::Job::JobnetActual.any_instance.should_receive(:stop)
+      Tengine::Job::JobnetActual.any_instance.should_receive(:fire_stop_event)
       delete :destroy, :id => jobnet_actual.id.to_s,
         :root_jobnet_actual_id => root_jobnet_actual.id.to_s
     end
@@ -267,7 +267,7 @@ __end_of_dsl__
       job_actual.stub(:parent).and_return(jobnet_actual)
       Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
         and_return(job_actual)
-      Tengine::Job::JobnetActual.any_instance.should_receive(:stop)
+      Tengine::Job::JobnetActual.any_instance.should_receive(:fire_stop_event)
       delete :destroy, :id => job_actual.id.to_s,
         :root_jobnet_actual_id => root_jobnet_actual.id.to_s
     end
@@ -281,7 +281,7 @@ __end_of_dsl__
       jobnet_actual.stub(:script_executable?).and_return(false)
       Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
         and_return(jobnet_actual)
-      Tengine::Job::JobnetActual.any_instance.should_receive(:stop)
+      Tengine::Job::JobnetActual.any_instance.should_receive(:fire_stop_event)
       delete :destroy, :id => jobnet_actual.id.to_s,
         :root_jobnet_actual_id => root_jobnet_actual.id.to_s
       response.should redirect_to(tengine_job_root_jobnet_actual_path(root_jobnet_actual))

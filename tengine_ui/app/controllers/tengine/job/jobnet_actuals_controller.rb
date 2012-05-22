@@ -101,6 +101,6 @@ class Tengine::Job::JobnetActualsController < ApplicationController
   private
 
   def stop(root_jobnet, target, options={})
-    target.stop root_jobnet, options
+    target.fire_stop_event root_jobnet, options
   end
 end

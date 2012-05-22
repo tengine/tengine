@@ -52,7 +52,7 @@ class Tengine::Job::JobnetActual < Tengine::Job::Jobnet
     end
   end
 
-  def stop(root_jobnet, options = Hash.new)
+  def fire_stop_event(root_jobnet, options = Hash.new)
     root_jobnet_id = root_jobnet.id.to_s
     result = Tengine::Job::Execution.create!(
       options.merge(:root_jobnet_id => root_jobnet_id))
