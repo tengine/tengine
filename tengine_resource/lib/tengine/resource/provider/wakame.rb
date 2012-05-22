@@ -133,14 +133,11 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     def execute
       actual_targets = fetch_actual_targets
 
-      updated_targets = []
-      destroyed_targets = []
-
       provider.reload
-
       known_targets = fetch_known_targets
 
       id_key = property_map[:provided_id].to_s
+      updated_targets, destroyed_targets = [], []
 
       known_targets.each do |known_target|
         actual_target = actual_targets.detect do |t|
