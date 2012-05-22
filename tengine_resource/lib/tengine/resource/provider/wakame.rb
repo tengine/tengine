@@ -108,96 +108,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     @synchronizers[target_name]
   end
 
-  class Synchronizer < Tengine::Resource::Provider::Synchronizer
-  end
-
-  class PhysicalServerSynchronizer < Synchronizer
-    fetch_known_target_method :describe_host_nodes_for_api
-
-    map(:provided_id, :id)
-    # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
-    map(:name){|hash, _| hash.delete(:name) || hash[:id]}
-    map(:status     , :status)
-    map(:cpu_cores  , :offering_cpu_cores)
-    map(:memory_size, :offering_memory_size)
-  end
-
-  class VirtualServerTypeSynchronizer < Synchronizer
-    fetch_known_target_method :describe_instance_specs_for_api
-
-    map :provided_id, :id
-    map :caption    , :uuid
-    map :cpu_cores  , :cpu_cores
-    map :memory_size, :memory_size
-  end
-
-  class VirtualServerImageSynchronizer < Synchronizer
-    fetch_known_target_method :describe_images_for_api
-
-    map :provided_id         , :aws_id
-    map :provided_description, :description
-
-    def attrs_to_create(properties)
-      result = super(properties)
-      # 初期登録時、default 値として name には一意な provided_id を name へ登録します
-      result[:name] = result[:provided_id]
-      result
-    end
-  end
-
-  class VirtualServerSynchronizer < Synchronizer
-    fetch_known_target_method :describe_instances_for_api
-
-    PRIVATE_IP_ADDRESS = "private_ip_address".freeze
-
-    map(:provided_id      , :aws_instance_id)
-    map(:provided_image_id, :aws_image_id)
-    map(:provided_type_id , :aws_instance_type)
-    map(:status           , :aws_state)
-    map(:host_server) do |props, provider|
-      provider.physical_servers.where(:provided_id => props[:aws_availability_zone]).first
-    end
-    map(:addresses) do|props, _|
-      result = { PRIVATE_IP_ADDRESS => props.delete(:private_ip_address) }
-      props.delete(:ip_address).split(",").map do |i|
-        k, v = *i.split("=", 2)
-        result[k] = v
-      end
-      result
-    end
-
-    def create_by_hash(hash)
-      super(hash)
-    rescue Mongo::OperationFailure => e
-      raise e unless e.message =~ /E11000 duplicate key error/
-      nil
-    rescue Mongoid::Errors::Validations => e
-      raise e unless e.document.errors[:provided_id].any?{|s| s =~ /taken/}
-      nil
-    end
-
-    def attrs_to_create(properties)
-      result = super(properties)
-      # 初期登録時、default 値として name には一意な provided_id を name へ登録します
-      result[:name] = result[:provided_id]
-      result
-    end
-
-    def differential_update_by_hash(hash)
-      super(hash) do |virtual_server, properties|
-        virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
-      end
-    end
-  end
-
-  SYNCHRONIZER_CLASSES = {
-    :physical_servers      => PhysicalServerSynchronizer,
-    :virtual_server_types  => VirtualServerTypeSynchronizer,
-    :virtual_server_images => VirtualServerImageSynchronizer,
-    :virtual_servers       => VirtualServerSynchronizer,
-  }.freeze
-
-
   public
 
   # wakame api for tama
@@ -309,5 +219,96 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   def address_order
     @@address_order ||= ['private_ip_address'.freeze].freeze
   end
+
+  public
+
+  class Synchronizer < Tengine::Resource::Provider::Synchronizer
+  end
+
+  class PhysicalServerSynchronizer < Synchronizer
+    fetch_known_target_method :describe_host_nodes_for_api
+
+    map(:provided_id, :id)
+    # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
+    map(:name){|hash, _| hash.delete(:name) || hash[:id]}
+    map(:status     , :status)
+    map(:cpu_cores  , :offering_cpu_cores)
+    map(:memory_size, :offering_memory_size)
+  end
+
+  class VirtualServerTypeSynchronizer < Synchronizer
+    fetch_known_target_method :describe_instance_specs_for_api
+
+    map :provided_id, :id
+    map :caption    , :uuid
+    map :cpu_cores  , :cpu_cores
+    map :memory_size, :memory_size
+  end
+
+  class VirtualServerImageSynchronizer < Synchronizer
+    fetch_known_target_method :describe_images_for_api
+
+    map :provided_id         , :aws_id
+    map :provided_description, :description
+
+    def attrs_to_create(properties)
+      result = super(properties)
+      # 初期登録時、default 値として name には一意な provided_id を name へ登録します
+      result[:name] = result[:provided_id]
+      result
+    end
+  end
+
+  class VirtualServerSynchronizer < Synchronizer
+    fetch_known_target_method :describe_instances_for_api
+
+    PRIVATE_IP_ADDRESS = "private_ip_address".freeze
+
+    map(:provided_id      , :aws_instance_id)
+    map(:provided_image_id, :aws_image_id)
+    map(:provided_type_id , :aws_instance_type)
+    map(:status           , :aws_state)
+    map(:host_server) do |props, provider|
+      provider.physical_servers.where(:provided_id => props[:aws_availability_zone]).first
+    end
+    map(:addresses) do|props, _|
+      result = { PRIVATE_IP_ADDRESS => props.delete(:private_ip_address) }
+      props.delete(:ip_address).split(",").map do |i|
+        k, v = *i.split("=", 2)
+        result[k] = v
+      end
+      result
+    end
+
+    def create_by_hash(hash)
+      super(hash)
+    rescue Mongo::OperationFailure => e
+      raise e unless e.message =~ /E11000 duplicate key error/
+      nil
+    rescue Mongoid::Errors::Validations => e
+      raise e unless e.document.errors[:provided_id].any?{|s| s =~ /taken/}
+      nil
+    end
+
+    def attrs_to_create(properties)
+      result = super(properties)
+      # 初期登録時、default 値として name には一意な provided_id を name へ登録します
+      result[:name] = result[:provided_id]
+      result
+    end
+
+    def differential_update_by_hash(hash)
+      super(hash) do |virtual_server, properties|
+        virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
+      end
+    end
+  end
+
+  SYNCHRONIZER_CLASSES = {
+    :physical_servers      => PhysicalServerSynchronizer,
+    :virtual_server_types  => VirtualServerTypeSynchronizer,
+    :virtual_server_images => VirtualServerImageSynchronizer,
+    :virtual_servers       => VirtualServerSynchronizer,
+  }.freeze
 
 end
