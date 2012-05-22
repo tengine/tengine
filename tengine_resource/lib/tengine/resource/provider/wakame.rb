@@ -98,7 +98,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   WATCH_SETTINGS = {
     :physical_servers => {
       :api => :describe_host_nodes_for_api,
-      :create_method => :create_physical_server_hashs,
       :property_map => {
         :provided_id => :id,
         # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
@@ -111,7 +110,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
     :virtual_server_types => {
       :api => :describe_instance_specs_for_api,
-      :create_method => :create_virtual_server_type_hashs,
       :property_map => {
         :provided_id => :id,
         :caption     => :uuid,
@@ -122,7 +120,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
     :virtual_server_images => {
       :api => :describe_images_for_api,
-      :create_method => :create_virtual_server_image_hashs,
       :property_map => {
         :provided_id => :aws_id,
         :provided_description => :description
@@ -136,7 +133,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
     :virtual_servers => {
       :api => :describe_instances_for_api,
-      :create_method => :create_virtual_server_hashs,
       :property_map => {
         :provided_id       => :aws_instance_id,
         :provided_image_id => :aws_image_id,
@@ -211,7 +207,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
 
     differential_update(target_name, updated_targets) unless updated_targets.empty?
-    send(setting[:create_method], created_targets) unless created_targets.empty?
+    create_by_hashs(target_name, created_targets) unless created_targets.empty?
     destroyed_targets.each{ |target| target.destroy }
   end
 
@@ -257,7 +253,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   def create_by_hashs(target_name, hashs)
-    hashs.map{|hash| create_by_hash(target_name, hash).id}
+    hashs.map{|hash| t = create_by_hash(target_name, hash); t ? t.id : nil}.compact
   end
 
   def create_by_hash(target_name, hash)
@@ -299,26 +295,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   public
-
-  # virtual_server_type
-  def create_virtual_server_type_hashs(hashs)
-    create_by_hashs(:virtual_server_types, hashs)
-  end
-
-  # physical_server
-  def create_physical_server_hashs(hashs)
-    create_by_hashs(:physical_servers, hashs)
-  end
-
-  # virtual_server_image
-  def create_virtual_server_image_hashs(hashs)
-    hashs.map{|hash| create_by_hash(:virtual_server_images, hash).id }
-  end
-
-  # virtual_server
-  def create_virtual_server_hashs(hashs)
-    hashs.map{|hash| create_by_hash(:virtual_servers, hash).id}.compact
-  end
 
   # wakame api for tama
   def describe_instance_specs_for_api(uuids = [], options = {})
