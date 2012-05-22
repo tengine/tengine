@@ -173,136 +173,136 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       @provider, @target_name = provider, target_name
     end
 
-  def execute
-    log_prefix = "#{self.class.name}#synchronize_by(#{target_name.inspect}) (provider:#{provider.name}):"
-    setting = WATCH_SETTINGS[target_name]
+    def execute
+      log_prefix = "#{self.class.name}#synchronize_by(#{target_name.inspect}) (provider:#{provider.name}):"
+      setting = WATCH_SETTINGS[target_name]
 
-    # APIからの仮想サーバタイプ情報を取得
-    desc_api = setting[:api]
-    actual_targets = provider.send(desc_api)
-    Tengine.logger.debug "#{log_prefix} #{desc_api} for api (wakame)"
-    Tengine.logger.debug "#{log_prefix} #{actual_targets.inspect}"
+      # APIからの仮想サーバタイプ情報を取得
+      desc_api = setting[:api]
+      actual_targets = provider.send(desc_api)
+      Tengine.logger.debug "#{log_prefix} #{desc_api} for api (wakame)"
+      Tengine.logger.debug "#{log_prefix} #{actual_targets.inspect}"
 
-    # created_targets = []
-    updated_targets = []
-    destroyed_targets = []
+      # created_targets = []
+      updated_targets = []
+      destroyed_targets = []
 
-    # 仮想イメージタイプの取得
-    provider.reload
-    known_targets = provider.send(target_name)
-    Tengine.logger.debug "#{log_prefix} #{target_name} on provider (#{provider.name})"
-    Tengine.logger.debug "#{log_prefix} #{known_targets.inspect}"
+      # 仮想イメージタイプの取得
+      provider.reload
+      known_targets = provider.send(target_name)
+      Tengine.logger.debug "#{log_prefix} #{target_name} on provider (#{provider.name})"
+      Tengine.logger.debug "#{log_prefix} #{known_targets.inspect}"
 
-    id_key = WATCH_SETTINGS[target_name][:property_map][:provided_id].to_s
+      id_key = WATCH_SETTINGS[target_name][:property_map][:provided_id].to_s
 
-    known_targets.each do |known_target|
-      actual_target = actual_targets.detect do |t|
-        (t[id_key] || t[id_key.to_sym]) == known_target.provided_id
+      known_targets.each do |known_target|
+        actual_target = actual_targets.detect do |t|
+          (t[id_key] || t[id_key.to_sym]) == known_target.provided_id
+        end
+
+        if actual_target
+          # APIで取得したサーバタイプと一致するものがあれば更新対象
+          Tengine.logger.debug "#{log_prefix} registed #{target_name.to_s.singularize} % <update> (#{known_target.provided_id})"
+          updated_targets << actual_target
+        else
+          # APIで取得したサーバタイプと一致するものがなければ削除対象
+          Tengine.logger.debug "#{log_prefix} removed #{target_name.to_s.singularize} % <destroy> (#{known_target.provided_id})"
+          destroyed_targets << known_target
+        end
+      end
+      # APIで取得したサーバタイプがTengine上に存在しないものであれば登録対象
+      created_targets = actual_targets - updated_targets
+      created_targets.each do |spec|
+        Tengine.logger.debug "#{log_prefix} new #{target_name.to_s.singularize} % <create> (#{spec['id']})"
       end
 
-      if actual_target
-        # APIで取得したサーバタイプと一致するものがあれば更新対象
-        Tengine.logger.debug "#{log_prefix} registed #{target_name.to_s.singularize} % <update> (#{known_target.provided_id})"
-        updated_targets << actual_target
-      else
-        # APIで取得したサーバタイプと一致するものがなければ削除対象
-        Tengine.logger.debug "#{log_prefix} removed #{target_name.to_s.singularize} % <destroy> (#{known_target.provided_id})"
-        destroyed_targets << known_target
+      differential_update(updated_targets) unless updated_targets.empty?
+      create_by_hashs(created_targets) unless created_targets.empty?
+      destroyed_targets.each{ |target| target.destroy }
+    end
+
+    private
+
+    def differential_update(hashs)
+      hashs.map{|hash| differential_update_by_hash(hash)}
+    end
+
+    def differential_update_by_hash(hash, &block)
+      properties = hash.dup
+      properties.deep_symbolize_keys!
+      setting = WATCH_SETTINGS[target_name]
+      map = setting[:property_map]
+      provided_id = properties[ map[:provided_id] ]
+      target = provider.send(target_name).where(:provided_id => provided_id).first
+      unless target
+        raise "target #{target_name.to_s.singularize} not found by using #{map[:provided_id]}: #{provided_id.inspect}. properties: #{properties.inspect}"
       end
-    end
-    # APIで取得したサーバタイプがTengine上に存在しないものであれば登録対象
-    created_targets = actual_targets - updated_targets
-    created_targets.each do |spec|
-      Tengine.logger.debug "#{log_prefix} new #{target_name.to_s.singularize} % <create> (#{spec['id']})"
-    end
-
-    differential_update(updated_targets) unless updated_targets.empty?
-    create_by_hashs(created_targets) unless created_targets.empty?
-    destroyed_targets.each{ |target| target.destroy }
-  end
-
-  private
-
-  def differential_update(hashs)
-    hashs.map{|hash| differential_update_by_hash(hash)}
-  end
-
-  def differential_update_by_hash(hash, &block)
-    properties = hash.dup
-    properties.deep_symbolize_keys!
-    setting = WATCH_SETTINGS[target_name]
-    map = setting[:property_map]
-    provided_id = properties[ map[:provided_id] ]
-    target = provider.send(target_name).where(:provided_id => provided_id).first
-    unless target
-      raise "target #{target_name.to_s.singularize} not found by using #{map[:provided_id]}: #{provided_id.inspect}. properties: #{properties.inspect}"
-    end
-    attrs = mapped_attributes(properties)
-    attrs.each do |attr, value|
-      target.send("#{attr}=", value)
-    end
-    prop_backup = properties.dup
-    if target.respond_to?(:properties)
-      properties.each do |key, val|
-        value =  properties.delete(key)
-        unless val.to_s == value.to_s
-          if target.properties[key.to_sym]
-            target.properties[key.to_sym] = value
-          else
-            target.properties[key.to_s] = value
+      attrs = mapped_attributes(properties)
+      attrs.each do |attr, value|
+        target.send("#{attr}=", value)
+      end
+      prop_backup = properties.dup
+      if target.respond_to?(:properties)
+        properties.each do |key, val|
+          value =  properties.delete(key)
+          unless val.to_s == value.to_s
+            if target.properties[key.to_sym]
+              target.properties[key.to_sym] = value
+            else
+              target.properties[key.to_s] = value
+            end
           end
         end
       end
-    end
-    block ||= setting[:update_block]
-    if block
-      block.call(target, prop_backup)
-    else
-      target.save! if target.changed?
-    end
-  end
-
-  def create_by_hashs(hashs)
-    hashs.map{|hash| t = create_by_hash(hash); t ? t.id : nil}.compact
-  end
-
-  def create_by_hash(hash)
-    properties = hash.dup
-    properties.deep_symbolize_keys!
-    setting = WATCH_SETTINGS[target_name]
-    begin
-      map = setting[:property_map]
-      attrs = mapped_attributes(properties)
-      if before_create = setting[:before_create]
-        before_create.call(attrs)
+      block ||= setting[:update_block]
+      if block
+        block.call(target, prop_backup)
+      else
+        target.save! if target.changed?
       end
-      target = provider.send(target_name).new
-      attrs[:properties] = properties if target.respond_to?(:properties)
-      yield(attrs) if block_given?
-      target.attributes = attrs
-      target.save!
-      target
-    rescue Mongo::OperationFailure => e
-      raise e if setting[:ignore_duplication_error] && e.message !~ /E11000 duplicate key error/
-      nil
-    rescue Mongoid::Errors::Validations => e
-      raise e if setting[:ignore_duplication_error] && e.document.errors[:provided_id].any?{|s| s =~ /taken/}
-      nil
     end
-  end
 
-  def mapped_attributes(properties)
-    result = {}
-    setting = WATCH_SETTINGS[target_name]
-    map = setting[:property_map]
-    map.each do |attr, prop|
-      value = prop.is_a?(Proc) ?
-        prop.call(properties, provider) : # 引数を一つだけ使うこともあるのlambdaではなくProc.newを使う事を期待しています。
-        properties.delete(prop)
-      result[attr] = value
+    def create_by_hashs(hashs)
+      hashs.map{|hash| t = create_by_hash(hash); t ? t.id : nil}.compact
     end
-    result
-  end
+
+    def create_by_hash(hash)
+      properties = hash.dup
+      properties.deep_symbolize_keys!
+      setting = WATCH_SETTINGS[target_name]
+      begin
+        map = setting[:property_map]
+        attrs = mapped_attributes(properties)
+        if before_create = setting[:before_create]
+          before_create.call(attrs)
+        end
+        target = provider.send(target_name).new
+        attrs[:properties] = properties if target.respond_to?(:properties)
+        yield(attrs) if block_given?
+        target.attributes = attrs
+        target.save!
+        target
+      rescue Mongo::OperationFailure => e
+        raise e if setting[:ignore_duplication_error] && e.message !~ /E11000 duplicate key error/
+        nil
+      rescue Mongoid::Errors::Validations => e
+        raise e if setting[:ignore_duplication_error] && e.document.errors[:provided_id].any?{|s| s =~ /taken/}
+        nil
+      end
+    end
+
+    def mapped_attributes(properties)
+      result = {}
+      setting = WATCH_SETTINGS[target_name]
+      map = setting[:property_map]
+      map.each do |attr, prop|
+        value = prop.is_a?(Proc) ?
+        prop.call(properties, provider) : # 引数を一つだけ使うこともあるのlambdaではなくProc.newを使う事を期待しています。
+          properties.delete(prop)
+        result[attr] = value
+      end
+      result
+    end
 
   end
 
