@@ -145,10 +145,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
           result
         end
       },
-
-      :update_block => Proc.new do |virtual_server, properties|
-        virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
-      end
     }.freeze,
   }.freeze
 
@@ -217,7 +213,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       hashs.map{|hash| differential_update_by_hash(hash)}
     end
 
-    def differential_update_by_hash(hash)
+    def differential_update_by_hash(hash, &block)
       properties = hash.dup
       properties.deep_symbolize_keys!
       setting = WATCH_SETTINGS[target_name]
@@ -244,7 +240,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
           end
         end
       end
-      block ||= setting[:update_block]
       if block
         block.call(target, prop_backup)
       else
@@ -324,6 +319,12 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       # 初期登録時、default 値として name には一意な provided_id を name へ登録します
       result[:name] = result[:provided_id]
       result
+    end
+
+    def differential_update_by_hash(hash)
+      super(hash) do |virtual_server, properties|
+        virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
+      end
     end
   end
 
