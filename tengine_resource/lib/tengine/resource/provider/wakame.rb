@@ -124,10 +124,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
         :provided_id => :aws_id,
         :provided_description => :description
       },
-      :before_create => Proc.new do |attrs|
-        # 初期登録時、default 値として name には一意な provided_id を name へ登録します
-        attrs[:name] = attrs[:provided_id]
-      end
 
     }.freeze,
 
@@ -149,11 +145,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
           result
         end
       },
-
-      :before_create => Proc.new do |attrs|
-        # 初期登録時、default 値として name には一意な provided_id を name へ登録します
-        attrs[:name] = attrs[:provided_id]
-      end,
 
       :update_block => Proc.new do |virtual_server, properties|
         virtual_server.save! if virtual_server.changed? && !virtual_server.changes.values.all?{|v| v.nil?}
@@ -280,11 +271,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     def attrs_to_create(properties)
       setting = WATCH_SETTINGS[target_name]
       map = setting[:property_map]
-      attrs = mapped_attributes(properties)
-      if before_create = setting[:before_create]
-        before_create.call(attrs)
-      end
-      attrs
+      mapped_attributes(properties)
     end
 
     def mapped_attributes(properties)
@@ -313,6 +300,12 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
   class VirtualServerImageSynchronizer < WakameSynchronizer
+    def attrs_to_create(properties)
+      result = super(properties)
+      # 初期登録時、default 値として name には一意な provided_id を name へ登録します
+      result[:name] = result[:provided_id]
+      result
+    end
   end
 
   class VirtualServerSynchronizer < WakameSynchronizer
@@ -324,6 +317,13 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     rescue Mongoid::Errors::Validations => e
       raise e unless e.document.errors[:provided_id].any?{|s| s =~ /taken/}
       nil
+    end
+
+    def attrs_to_create(properties)
+      result = super(properties)
+      # 初期登録時、default 値として name には一意な provided_id を name へ登録します
+      result[:name] = result[:provided_id]
+      result
     end
   end
 
