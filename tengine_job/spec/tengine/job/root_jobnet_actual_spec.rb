@@ -86,7 +86,7 @@ describe Tengine::Job::RootJobnetActual do
 
   end
 
-  describe "#stop" do
+  describe "#fire_stop_event" do
     let :valid_attributes do
       {
         :name => "test1",
@@ -106,7 +106,7 @@ describe Tengine::Job::RootJobnetActual do
         fire_options[:properties].should be_a(Hash)
         fire_options[:properties][:stop_reason].should == "user_stop"
       end
-      root_jobnet_actual.stop
+      root_jobnet_actual.fire_stop_event
     end
 
     it "redirects to the tengine_job_root_jobnet_actuals list" do
@@ -115,7 +115,7 @@ describe Tengine::Job::RootJobnetActual do
         fire_options[:properties].should be_a(Hash)
         fire_options[:properties][:stop_reason].should == "user_stop"
       end
-      root_jobnet_actual.stop
+      root_jobnet_actual.fire_stop_event
     end
   end
 

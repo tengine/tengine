@@ -171,7 +171,7 @@ describe Tengine::Job::JobnetActual do
     end
   end
 
-  describe "#stop" do
+  describe "#fire_stop_event" do
     before do
       EM.should_receive(:run).and_yield
       @mock_sender = mock(:sender)
@@ -198,7 +198,7 @@ describe Tengine::Job::JobnetActual do
         fire_options[:properties].should be_a(Hash)
         fire_options[:properties][:stop_reason].should == "user_stop"
       end
-      jobnet_actual.stop root_jobnet_actual
+      jobnet_actual.fire_stop_event root_jobnet_actual
     end
 
     it "destroys the requested actual job. example: job, hadoop_job_run (script_executable? => true)" do
@@ -215,7 +215,7 @@ describe Tengine::Job::JobnetActual do
         fire_options[:properties].should be_a(Hash)
         fire_options[:properties][:stop_reason].should == "user_stop"
       end
-      job_actual.stop root_jobnet_actual
+      job_actual.fire_stop_event root_jobnet_actual
     end
 
     it "destroys to the tengine_job_jobnet_actuals list. example: jobnet (script_executable? => false)" do
@@ -231,7 +231,7 @@ describe Tengine::Job::JobnetActual do
         fire_options[:properties].should be_a(Hash)
         fire_options[:properties][:stop_reason].should == "user_stop"
       end
-      jobnet_actual.stop root_jobnet_actual
+      jobnet_actual.fire_stop_event root_jobnet_actual
     end
   end
 end
