@@ -131,32 +131,29 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
 
     def execute
-      actual_targets = fetch_actual_targets
+      actual_target_hashs = fetch_actual_target_hashs
 
       provider.reload
       known_targets = fetch_known_targets
 
       id_key = property_map[:provided_id].to_s
-      updated_targets, destroyed_targets = [], []
+      updated_target_hashs = []
+      destroyed_targets = []
 
       known_targets.each do |known_target|
-        actual_target = actual_targets.detect do |t|
+        actual_target_hash = actual_target_hashs.detect do |t|
           (t[id_key] || t[id_key.to_sym]) == known_target.provided_id
         end
-
-        if actual_target
-          # APIで取得したサーバタイプと一致するものがあれば更新対象
-          updated_targets << actual_target
+        if actual_target_hash
+          updated_target_hashs << actual_target_hash
         else
-          # APIで取得したサーバタイプと一致するものがなければ削除対象
           destroyed_targets << known_target
         end
       end
-      # APIで取得したサーバタイプがTengine上に存在しないものであれば登録対象
-      created_targets = actual_targets - updated_targets
+      created_target_hashs = actual_target_hashs - updated_target_hashs
 
-      differential_update(updated_targets) unless updated_targets.empty?
-      create_by_hashs(created_targets) unless created_targets.empty?
+      differential_update(updated_target_hashs) unless updated_target_hashs.empty?
+      create_by_hashs(created_target_hashs) unless created_target_hashs.empty?
       destroyed_targets.each do |target|
         Tengine.logger.debug "#{log_prefix} destroy #{target.provided_id}"
         target.destroy
@@ -166,7 +163,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     private
 
     # APIからの実際のターゲット情報を取得する
-    def fetch_actual_targets
+    def fetch_actual_target_hashs
       Tengine.logger.debug "#{log_prefix} #{fetch_known_target_method} for api (wakame)"
       result = provider.send(fetch_known_target_method)
       Tengine.logger.debug "#{log_prefix} #{result.inspect}"
