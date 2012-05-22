@@ -218,10 +218,8 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     unless target
       raise "target #{target_name.to_s.singularize} not found by using #{map[:provided_id]}: #{provided_id.inspect}. properties: #{properties.inspect}"
     end
-    map.each do |attr, prop|
-      value = prop.is_a?(Proc) ?
-        prop.call(properties, self) : # 引数を一つだけ使うこともあるのlambdaではなくProc.newを使う事を期待しています。
-        properties.delete(prop)
+    attrs = mapped_attributes(target_name, properties)
+    attrs.each do |attr, value|
       target.send("#{attr}=", value)
     end
     prop_backup = properties.dup
@@ -252,20 +250,26 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   def create_by_hash(target_name, hash)
     properties = hash.dup
     properties.deep_symbolize_keys!
-    map = WATCH_SETTINGS[target_name][:property_map]
-    attrs = {}
-    map.each do |attr, prop|
-      value = prop.is_a?(Proc) ?
-        prop.call(properties, self) : # 引数を一つだけ使うこともあるのlambdaではなくProc.newを使う事を期待しています。
-        properties.delete(prop)
-      attrs[attr] = value
-    end
+    attrs = mapped_attributes(target_name, properties)
     target = self.send(target_name).new
     attrs[:properties] = properties if target.respond_to?(:properties)
     yield(attrs) if block_given?
     target.attributes = attrs
     target.save!
     target
+  end
+
+  def mapped_attributes(target_name, properties)
+    result = {}
+    setting = WATCH_SETTINGS[target_name]
+    map = setting[:property_map]
+    map.each do |attr, prop|
+      value = prop.is_a?(Proc) ?
+        prop.call(properties, self) : # 引数を一つだけ使うこともあるのlambdaではなくProc.newを使う事を期待しています。
+        properties.delete(prop)
+      result[attr] = value
+    end
+    result
   end
 
   public
