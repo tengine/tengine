@@ -94,8 +94,18 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   private
 
   def synchronize_by(target_name)
-    klass = SYNCHRONIZER_CLASSES[target_name]
-    klass.new(self, target_name).execute
+    synchronizer = synchronizers_by(target_name)
+    synchronizer.execute
+  end
+
+  def synchronizers_by(target_name)
+    unless @synchronizers
+      @synchronizers = {}
+      SYNCHRONIZER_CLASSES.each do |target_name, klass|
+        @synchronizers[target_name] = klass.new(self, target_name)
+      end
+    end
+    @synchronizers[target_name]
   end
 
   class WakameSynchronizer < Tengine::Resource::Provider::Synchronizer
