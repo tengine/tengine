@@ -93,57 +93,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   private
 
-  PRIVATE_IP_ADDRESS = "private_ip_address".freeze
-
-  WATCH_SETTINGS = {
-    :physical_servers => {
-      :property_map => {
-        :provided_id => :id,
-        # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
-        :name        => Proc.new{|hash| hash.delete(:name) || hash[:id]},
-        :status      => :status,
-        :cpu_cores   => :offering_cpu_cores,
-        :memory_size => :offering_memory_size
-      }
-    }.freeze,
-
-    :virtual_server_types => {
-      :property_map => {
-        :provided_id => :id,
-        :caption     => :uuid,
-        :cpu_cores   => :cpu_cores,
-        :memory_size => :memory_size
-      }
-    }.freeze,
-
-    :virtual_server_images => {
-      :property_map => {
-        :provided_id => :aws_id,
-        :provided_description => :description
-      },
-
-    }.freeze,
-
-    :virtual_servers => {
-      :property_map => {
-        :provided_id       => :aws_instance_id,
-        :provided_image_id => :aws_image_id,
-        :provided_type_id  => :aws_instance_type,
-        :status            => :aws_state,
-        :host_server => Proc.new{|props, provider|
-          provider.physical_servers.where(:provided_id => props[:aws_availability_zone]).first },
-        :addresses => Proc.new do|props|
-          result = { PRIVATE_IP_ADDRESS => props.delete(:private_ip_address) }
-          props.delete(:ip_address).split(",").map do |i|
-            k, v = *i.split("=", 2)
-            result[k] = v
-          end
-          result
-        end
-      },
-    }.freeze,
-  }.freeze
-
   def synchronize_by(target_name)
     klass = SYNCHRONIZER_CLASSES[target_name]
     klass.new(self, target_name).execute
@@ -156,10 +105,23 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
         @fetch_known_target_methods[self] = method_name if method_name
         @fetch_known_target_methods[self]
       end
+
+      def map(attr_name, prop_name = nil, &block)
+        property_map[attr_name] = prop_name || block
+      end
+
+      def property_map
+        @property_map ||= {}
+        @property_map[self] ||= {}
+      end
     end
 
     def fetch_known_target_method
       self.class.fetch_known_target_method
+    end
+
+    def property_map
+      @property_map ||= self.class.property_map
     end
 
     attr_reader :provider, :target_name
@@ -169,7 +131,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
     def execute
       log_prefix = "#{self.class.name}#synchronize_by(#{target_name.inspect}) (provider:#{provider.name}):"
-      setting = WATCH_SETTINGS[target_name]
 
       # APIからの仮想サーバタイプ情報を取得
       actual_targets = provider.send(fetch_known_target_method)
@@ -186,7 +147,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       Tengine.logger.debug "#{log_prefix} #{target_name} on provider (#{provider.name})"
       Tengine.logger.debug "#{log_prefix} #{known_targets.inspect}"
 
-      id_key = WATCH_SETTINGS[target_name][:property_map][:provided_id].to_s
+      id_key = property_map[:provided_id].to_s
 
       known_targets.each do |known_target|
         actual_target = actual_targets.detect do |t|
@@ -223,9 +184,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     def differential_update_by_hash(hash, &block)
       properties = hash.dup
       properties.deep_symbolize_keys!
-      setting = WATCH_SETTINGS[target_name]
-      map = setting[:property_map]
-      provided_id = properties[ map[:provided_id] ]
+      provided_id = properties[ property_map[:provided_id] ]
       target = provider.send(target_name).where(:provided_id => provided_id).first
       unless target
         raise "target #{target_name.to_s.singularize} not found by using #{map[:provided_id]}: #{provided_id.inspect}. properties: #{properties.inspect}"
@@ -271,16 +230,12 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
 
     def attrs_to_create(properties)
-      setting = WATCH_SETTINGS[target_name]
-      map = setting[:property_map]
       mapped_attributes(properties)
     end
 
     def mapped_attributes(properties)
       result = {}
-      setting = WATCH_SETTINGS[target_name]
-      map = setting[:property_map]
-      map.each do |attr, prop|
+      property_map.each do |attr, prop|
         value = prop.is_a?(Proc) ?
         prop.call(properties, provider) : # 引数を一つだけ使うこともあるのlambdaではなくProc.newを使う事を期待しています。
           properties.delete(prop)
@@ -297,14 +252,29 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   class PhysicalServerSynchronizer < WakameSynchronizer
     fetch_known_target_method :describe_host_nodes_for_api
+
+    map(:provided_id, :id)
+    # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
+    map(:name){|hash, _| hash.delete(:name) || hash[:id]}
+    map(:status     , :status)
+    map(:cpu_cores  , :offering_cpu_cores)
+    map(:memory_size, :offering_memory_size)
   end
 
   class VirtualServerTypeSynchronizer < WakameSynchronizer
     fetch_known_target_method :describe_instance_specs_for_api
+
+    map :provided_id, :id
+    map :caption    , :uuid
+    map :cpu_cores  , :cpu_cores
+    map :memory_size, :memory_size
   end
 
   class VirtualServerImageSynchronizer < WakameSynchronizer
     fetch_known_target_method :describe_images_for_api
+
+    map :provided_id         , :aws_id
+    map :provided_description, :description
 
     def attrs_to_create(properties)
       result = super(properties)
@@ -316,6 +286,24 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
   class VirtualServerSynchronizer < WakameSynchronizer
     fetch_known_target_method :describe_instances_for_api
+
+    PRIVATE_IP_ADDRESS = "private_ip_address".freeze
+
+    map(:provided_id      , :aws_instance_id)
+    map(:provided_image_id, :aws_image_id)
+    map(:provided_type_id , :aws_instance_type)
+    map(:status           , :aws_state)
+    map(:host_server) do |props, provider|
+      provider.physical_servers.where(:provided_id => props[:aws_availability_zone]).first
+    end
+    map(:addresses) do|props, _|
+      result = { PRIVATE_IP_ADDRESS => props.delete(:private_ip_address) }
+      props.delete(:ip_address).split(",").map do |i|
+        k, v = *i.split("=", 2)
+        result[k] = v
+      end
+      result
+    end
 
     def create_by_hash(hash)
       super(hash)
