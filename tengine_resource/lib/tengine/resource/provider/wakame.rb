@@ -146,23 +146,21 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
         if actual_target
           # APIで取得したサーバタイプと一致するものがあれば更新対象
-          Tengine.logger.debug "#{log_prefix} registed #{target_name.to_s.singularize} % <update> (#{known_target.provided_id})"
           updated_targets << actual_target
         else
           # APIで取得したサーバタイプと一致するものがなければ削除対象
-          Tengine.logger.debug "#{log_prefix} removed #{target_name.to_s.singularize} % <destroy> (#{known_target.provided_id})"
           destroyed_targets << known_target
         end
       end
       # APIで取得したサーバタイプがTengine上に存在しないものであれば登録対象
       created_targets = actual_targets - updated_targets
-      created_targets.each do |spec|
-        Tengine.logger.debug "#{log_prefix} new #{target_name.to_s.singularize} % <create> (#{spec['id']})"
-      end
 
       differential_update(updated_targets) unless updated_targets.empty?
       create_by_hashs(created_targets) unless created_targets.empty?
-      destroyed_targets.each{ |target| target.destroy }
+      destroyed_targets.each do |target|
+        Tengine.logger.debug "#{log_prefix} destroy #{target.provided_id}"
+        target.destroy
+      end
     end
 
     private
@@ -192,6 +190,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       properties = hash.dup
       properties.deep_symbolize_keys!
       provided_id = properties[ property_map[:provided_id] ]
+      Tengine.logger.debug "#{log_prefix} update (#{provided_id})"
       target = provider.send(target_name).where(:provided_id => provided_id).first
       unless target
         raise "target #{target_name.to_s.singularize} not found by using #{map[:provided_id]}: #{provided_id.inspect}. properties: #{properties.inspect}"
@@ -227,6 +226,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     def create_by_hash(hash)
       properties = hash.dup
       properties.deep_symbolize_keys!
+      Tengine.logger.debug "#{log_prefix} create #{properties[:provided_id]}"
       attrs = attrs_to_create(properties)
       target = provider.send(target_name).new
       attrs[:properties] = properties if target.respond_to?(:properties)
