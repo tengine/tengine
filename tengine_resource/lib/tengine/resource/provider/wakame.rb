@@ -131,20 +131,14 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
 
     def execute
-      # APIからの仮想サーバタイプ情報を取得
-      actual_targets = provider.send(fetch_known_target_method)
-      Tengine.logger.debug "#{log_prefix} #{fetch_known_target_method} for api (wakame)"
-      Tengine.logger.debug "#{log_prefix} #{actual_targets.inspect}"
+      actual_targets = fetch_actual_targets
 
-      # created_targets = []
       updated_targets = []
       destroyed_targets = []
 
-      # 仮想イメージタイプの取得
       provider.reload
-      known_targets = provider.send(target_name)
-      Tengine.logger.debug "#{log_prefix} #{target_name} on provider (#{provider.name})"
-      Tengine.logger.debug "#{log_prefix} #{known_targets.inspect}"
+
+      known_targets = fetch_known_targets
 
       id_key = property_map[:provided_id].to_s
 
@@ -175,6 +169,23 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
 
     private
+
+    # APIからの実際のターゲット情報を取得する
+    def fetch_actual_targets
+      Tengine.logger.debug "#{log_prefix} #{fetch_known_target_method} for api (wakame)"
+      result = provider.send(fetch_known_target_method)
+      Tengine.logger.debug "#{log_prefix} #{result.inspect}"
+      result
+    end
+
+    # DBに記録されているターゲット情報を取得する
+    def fetch_known_targets
+      Tengine.logger.debug "#{log_prefix} #{target_name} on provider (#{provider.name})"
+      result = provider.send(target_name)
+      Tengine.logger.debug "#{log_prefix} #{result.inspect}"
+      result
+    end
+
 
     def differential_update(hashs)
       hashs.map{|hash| differential_update_by_hash(hash)}
