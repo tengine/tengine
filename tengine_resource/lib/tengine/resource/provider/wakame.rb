@@ -217,7 +217,7 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       hashs.map{|hash| differential_update_by_hash(hash)}
     end
 
-    def differential_update_by_hash(hash, &block)
+    def differential_update_by_hash(hash)
       properties = hash.dup
       properties.deep_symbolize_keys!
       setting = WATCH_SETTINGS[target_name]
