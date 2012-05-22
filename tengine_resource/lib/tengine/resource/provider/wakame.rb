@@ -164,12 +164,22 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   }.freeze
 
   def synchronize_by(target_name)
-    log_prefix = "#{self.class.name}#synchronize_by(#{target_name.inspect}) (provider:#{self.name}):"
+    Synchronizer.new(self, target_name).execute
+  end
+
+  class Synchronizer
+    attr_reader :provider, :target_name
+    def initialize(provider, target_name)
+      @provider, @target_name = provider, target_name
+    end
+
+  def execute
+    log_prefix = "#{self.class.name}#synchronize_by(#{target_name.inspect}) (provider:#{provider.name}):"
     setting = WATCH_SETTINGS[target_name]
 
     # APIからの仮想サーバタイプ情報を取得
     desc_api = setting[:api]
-    actual_targets = send(desc_api)
+    actual_targets = provider.send(desc_api)
     Tengine.logger.debug "#{log_prefix} #{desc_api} for api (wakame)"
     Tengine.logger.debug "#{log_prefix} #{actual_targets.inspect}"
 
@@ -178,9 +188,9 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     destroyed_targets = []
 
     # 仮想イメージタイプの取得
-    self.reload
-    known_targets = self.send(target_name)
-    Tengine.logger.debug "#{log_prefix} #{target_name} on provider (#{self.name})"
+    provider.reload
+    known_targets = provider.send(target_name)
+    Tengine.logger.debug "#{log_prefix} #{target_name} on provider (#{provider.name})"
     Tengine.logger.debug "#{log_prefix} #{known_targets.inspect}"
 
     id_key = WATCH_SETTINGS[target_name][:property_map][:provided_id].to_s
@@ -206,28 +216,28 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       Tengine.logger.debug "#{log_prefix} new #{target_name.to_s.singularize} % <create> (#{spec['id']})"
     end
 
-    differential_update(target_name, updated_targets) unless updated_targets.empty?
-    create_by_hashs(target_name, created_targets) unless created_targets.empty?
+    differential_update(updated_targets) unless updated_targets.empty?
+    create_by_hashs(created_targets) unless created_targets.empty?
     destroyed_targets.each{ |target| target.destroy }
   end
 
   private
 
-  def differential_update(target_name, hashs)
-    hashs.map{|hash| differential_update_by_hash(target_name, hash)}
+  def differential_update(hashs)
+    hashs.map{|hash| differential_update_by_hash(hash)}
   end
 
-  def differential_update_by_hash(target_name, hash, &block)
+  def differential_update_by_hash(hash, &block)
     properties = hash.dup
     properties.deep_symbolize_keys!
     setting = WATCH_SETTINGS[target_name]
     map = setting[:property_map]
     provided_id = properties[ map[:provided_id] ]
-    target = self.send(target_name).where(:provided_id => provided_id).first
+    target = provider.send(target_name).where(:provided_id => provided_id).first
     unless target
       raise "target #{target_name.to_s.singularize} not found by using #{map[:provided_id]}: #{provided_id.inspect}. properties: #{properties.inspect}"
     end
-    attrs = mapped_attributes(target_name, properties)
+    attrs = mapped_attributes(properties)
     attrs.each do |attr, value|
       target.send("#{attr}=", value)
     end
@@ -252,21 +262,21 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
   end
 
-  def create_by_hashs(target_name, hashs)
-    hashs.map{|hash| t = create_by_hash(target_name, hash); t ? t.id : nil}.compact
+  def create_by_hashs(hashs)
+    hashs.map{|hash| t = create_by_hash(hash); t ? t.id : nil}.compact
   end
 
-  def create_by_hash(target_name, hash)
+  def create_by_hash(hash)
     properties = hash.dup
     properties.deep_symbolize_keys!
     setting = WATCH_SETTINGS[target_name]
     begin
       map = setting[:property_map]
-      attrs = mapped_attributes(target_name, properties)
+      attrs = mapped_attributes(properties)
       if before_create = setting[:before_create]
         before_create.call(attrs)
       end
-      target = self.send(target_name).new
+      target = provider.send(target_name).new
       attrs[:properties] = properties if target.respond_to?(:properties)
       yield(attrs) if block_given?
       target.attributes = attrs
@@ -281,18 +291,21 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
   end
 
-  def mapped_attributes(target_name, properties)
+  def mapped_attributes(properties)
     result = {}
     setting = WATCH_SETTINGS[target_name]
     map = setting[:property_map]
     map.each do |attr, prop|
       value = prop.is_a?(Proc) ?
-        prop.call(properties, self) : # 引数を一つだけ使うこともあるのlambdaではなくProc.newを使う事を期待しています。
+        prop.call(properties, provider) : # 引数を一つだけ使うこともあるのlambdaではなくProc.newを使う事を期待しています。
         properties.delete(prop)
       result[attr] = value
     end
     result
   end
+
+  end
+
 
   public
 
