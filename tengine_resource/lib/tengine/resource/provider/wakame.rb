@@ -164,7 +164,8 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   }.freeze
 
   def synchronize_by(target_name)
-    Synchronizer.new(self, target_name).execute
+    klass = SYNCHRONIZER_CLASSES[target_name]
+    klass.new(self, target_name).execute
   end
 
   class Synchronizer
@@ -307,6 +308,29 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
   end
 
 
+  class WakameSynchronizer < Synchronizer
+  end
+
+  class PhysicalServerSynchronizer < WakameSynchronizer
+  end
+
+  class VirtualServerTypeSynchronizer < WakameSynchronizer
+  end
+
+  class VirtualServerImageSynchronizer < WakameSynchronizer
+  end
+
+  class VirtualServerSynchronizer < WakameSynchronizer
+  end
+
+  SYNCHRONIZER_CLASSES = {
+    :physical_servers      => PhysicalServerSynchronizer,
+    :virtual_server_types  => VirtualServerTypeSynchronizer,
+    :virtual_server_images => VirtualServerImageSynchronizer,
+    :virtual_servers       => VirtualServerSynchronizer,
+  }.freeze
+
+
   public
 
   # wakame api for tama
@@ -366,7 +390,6 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
       end
     end
   end
-
 
   public
 
