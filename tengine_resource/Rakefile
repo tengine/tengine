@@ -7,15 +7,9 @@ require 'rake'
 
 spec = eval(File.read('tengine_resource.gemspec'))
 
-retried = false
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
-  version = File.read(File.expand_path("../../TENGINE_VERSION", __FILE__)).strip
-  %w[tengine_support tengine_event tengine_core].each do |package_name|
-    system("gem install ../#{package_name}/pkg/#{package_name}-#{version}.gem")
-  end
-  retry unless retried
   $stderr.puts e.message
   $stderr.puts "Run `bundle install` to install missing gems"
   exit e.status_code
