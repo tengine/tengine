@@ -1,3 +1,11 @@
+PATH
+  remote: .
+  specs:
+    tengine_job (1.1.0.alpha1)
+      tengine_core (~> 1.1.0.alpha1)
+      tengine_resource (~> 1.1.0.alpha1)
+      tengine_support (~> 1.1.0.alpha1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -61,7 +69,7 @@ GEM
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
     systemu (2.5.0)
-    tengine_core (0.5.39)
+    tengine_core (1.1.0.alpha1)
       activemodel (~> 3.1.0)
       activesupport (~> 3.1.0)
       bson (~> 1.5.2)
@@ -70,20 +78,20 @@ GEM
       mongo (~> 1.5.2)
       mongoid (~> 2.3.3)
       selectable_attr (~> 0.3.15)
-      tengine_event (~> 0.4.9)
-      tengine_support (~> 0.3.27)
-    tengine_event (0.4.9)
+      tengine_event (~> 1.1.0.alpha1)
+      tengine_support (~> 1.1.0.alpha1)
+    tengine_event (1.1.0.alpha1)
       activesupport (>= 3.0.0)
       amqp (~> 0.8.0)
-      tengine_support (>= 0.3.27)
+      tengine_support (~> 1.1.0.alpha1)
       uuid (~> 2.3.4)
-    tengine_resource (0.5.15)
+    tengine_resource (1.1.0.alpha1)
       net-ssh (~> 2.2.1)
       right_aws (~> 2.1.0)
-      tengine_core (~> 0.5.39)
-      tengine_support (~> 0.3.27)
+      tengine_core (~> 1.1.0.alpha1)
+      tengine_support (~> 1.1.0.alpha1)
       wakame-adapters-tengine (~> 0.0.0)
-    tengine_support (0.3.27)
+    tengine_support (1.1.0.alpha1)
       activesupport (>= 3.0.0)
     tzinfo (0.3.33)
     uuid (2.3.5)
@@ -103,7 +111,5 @@ DEPENDENCIES
   jeweler (~> 1.6.4)
   rspec (~> 2.6.0)
   simplecov (~> 0.5.3)
-  tengine_core (~> 0.5.39)
-  tengine_resource (~> 0.5.15)
-  tengine_support (~> 0.3.27)
+  tengine_job!
   yard (~> 0.7.2)
