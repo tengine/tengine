@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["shyouhei", "akm", "taigou"]
-  s.date = "2012-05-02"
+  # s.date = "2012-05-23"
   s.description = "tengine_support provides utility classes/modules which is not included in active_support. It doesn't depend on other tengine gems."
   s.email = "tengine-info@groovenauts.jp"
   s.extra_rdoc_files = [
@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   ]
   s.files = Dir["Gemfile", "README.md", "lib/**/*"]
 
-  s.homepage = "http://github.com/tengine/tengine_support"
+  s.homepage = "https://github.com/tengine/tengine/tree/develop/tengine_support"
   s.licenses = ["MPL/LGPL"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.12"
