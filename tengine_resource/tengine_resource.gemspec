@@ -16,7 +16,9 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = Dir[ "Gemfile", "Gemfile.lock", "README.rdoc",
-    "bin/**/*", "config/**/*", "lib/**/*"]
+    "bin/**/*", "config/**/*", "lib/**/*", "spec/fixtures/**/*",
+    "tmp/.gitkeep", # tengine_jobのspecが必要としています
+  ]
   s.homepage = "http://github.com/tengine/tengine_resource"
   s.licenses = ["MPL2.0/LGPLv3"]
   s.require_paths = ["lib"]
