@@ -17,7 +17,7 @@ packages = [
 ]
 
 desc "install other tengine gems and bundle install"
-task :install do
+task :install_and_gem do
   errors = []
   packages.each do |package|
     puts "installing #{package.name}"
@@ -27,6 +27,7 @@ task :install do
       cmd << "gem install ../#{dep}/pkg/#{dep}-#{version}.gem"
     end
     cmd << "bundle install"
+    cmd << "bundle exec rake gem"
     system(cmd.join(' && ')) || errors << package.name
   end
   fail("Errors in #{errors.join(', ')}") unless errors.empty?
