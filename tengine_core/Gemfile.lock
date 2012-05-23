@@ -1,3 +1,18 @@
+PATH
+  remote: .
+  specs:
+    tengine_core (1.1.0.alpha1)
+      activemodel (~> 3.1.0)
+      activesupport (~> 3.1.0)
+      bson (~> 1.5.2)
+      bson_ext (~> 1.5.2)
+      daemons (~> 1.1.4)
+      mongo (~> 1.5.2)
+      mongoid (~> 2.3.3)
+      selectable_attr (~> 0.3.15)
+      tengine_event (~> 1.1.0.alpha1)
+      tengine_support (~> 1.1.0.alpha1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -58,12 +73,12 @@ GEM
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
     systemu (2.5.0)
-    tengine_event (0.4.9)
+    tengine_event (1.1.0.alpha1)
       activesupport (>= 3.0.0)
       amqp (~> 0.8.0)
-      tengine_support (>= 0.3.27)
+      tengine_support (~> 1.1.0.alpha1)
       uuid (~> 2.3.4)
-    tengine_support (0.3.27)
+    tengine_support (1.1.0.alpha1)
       activesupport (>= 3.0.0)
     tzinfo (0.3.32)
     uuid (2.3.5)
@@ -75,21 +90,12 @@ PLATFORMS
 
 DEPENDENCIES
   ZenTest (~> 4.6.2)
-  activemodel (~> 3.1.0)
-  activesupport (~> 3.1.0)
-  bson (~> 1.5.2)
-  bson_ext (~> 1.5.2)
   bundler (~> 1.1.3)
-  daemons (~> 1.1.4)
   factory_girl (~> 2.1.2)
   jeweler (~> 1.6.4)
   kramdown
-  mongo (~> 1.5.2)
-  mongoid (~> 2.3.3)
   rdiscount
   rspec (~> 2.6.0)
-  selectable_attr (~> 0.3.15)
   simplecov (~> 0.5.3)
-  tengine_event (~> 0.4.9)
-  tengine_support (~> 0.3.27)
+  tengine_core!
   yard (~> 0.7.2)
