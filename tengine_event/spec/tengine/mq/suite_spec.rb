@@ -9,7 +9,7 @@ if $DEBUG
   require 'logger'
   AMQP::Session.logger = Tengine.logger = Logger.new(STDERR)
 else
-  AMQP::Session.logger = Tengine.logger = Tengine::NullLogger.new
+  AMQP::Session.logger = Tengine.logger = Tengine::Support::NullLogger.new
 end
 
 require 'amq/client/callbacks'
