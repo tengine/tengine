@@ -61,3 +61,21 @@ namespace :version do
     File.open(version_path, "w"){|f| f.puts(result)}
   end
 end
+
+namespace :gemsets do
+  desc "create gemsets each packages"
+  task :create do
+    packages.each do |package|
+      system("rvm gemset create #{package.name}")
+      rvmrc = "rvm %s@%s" % [ENV['RUBY_VERSION'] || 'ruby-1.9.3-head', package.name]
+      File.open("#{package.name}/.rvmrc", 'w'){|f| f.puts(rvmrc)}
+    end
+  end
+
+  desc "delete gemsets each packages"
+  task :delete do
+    packages.each do |package|
+      system("rvm --force gemset delete #{package.name}")
+    end
+  end
+end
