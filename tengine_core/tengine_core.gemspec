@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('yard', "~> 0.7.2")
   s.add_development_dependency('bundler', "~> 1.1.3")
   s.add_development_dependency('simplecov', "~> 0.5.3")
-  s.add_development_dependency('ZenTest', "~> 4.6.2")
+  s.add_development_dependency('autotest', ">= 0")
   s.add_development_dependency('rdiscount', ">= 0")
   s.add_development_dependency('kramdown',  ">= 0")
 end
