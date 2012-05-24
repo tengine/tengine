@@ -19,15 +19,19 @@
     $ rake rebuild
     $ rake spec
 
+### パッケージをビルド(tengine_coreでの例)
+
+    $ cd path/to/tengine/tengine_core
+    $ ../install_tengine_gems.rb
+    $ rake gem
+
+../install_tengine_gems.rb コマンドはカレントディレクトリのディレクトリ名からそのパッケージが必要とする他のパッケージを求めてインストールします。
+
 ### パッケージをテスト(tengine_coreでの例)
 
     $ cd path/to/tengine/tengine_core
     $ rake spec
 
-### パッケージをビルド(tengine_coreでの例)
-
-    $ cd path/to/tengine/tengine_core
-    $ rake gem
 
 ### 変更が他のパッケージに影響しているかをテスト
 
