@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 version = File.read(File.expand_path("../../TENGINE_VERSION", __FILE__)).strip
+require File.expand_path("../../dependencies", __FILE__)
 
 Gem::Specification.new do |s|
   s.name = "tengine_event"
@@ -27,12 +28,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('tengine_support', "~> #{version}")
   s.add_runtime_dependency('uuid', "~> 2.3.4")
   s.add_runtime_dependency('amqp', "~> 0.8.0")
-  s.add_development_dependency('rake', "~> 0.9.2.2")
-  s.add_development_dependency('rspec', "~> 2.6.0")
-  s.add_development_dependency('yard', "~> 0.7.2")
-  s.add_development_dependency('bundler', "~> 1.1.3")
-  s.add_development_dependency('simplecov', "~> 0.5.3")
-  s.add_development_dependency('ZenTest', "~> 4.6.2")
+
+  common_develooment_dependencies(s)
   s.add_development_dependency('ci_reporter', "~> 1.6.5")
 end
 

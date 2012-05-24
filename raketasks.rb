@@ -3,9 +3,9 @@ require 'rubygems/package_task'
 require 'bundler'
 require 'rake'
 
-def tengine_common_tasks(gemspec_name)
+def tengine_common_tasks(package_name)
 
-  spec = eval(File.read(gemspec_name))
+  spec = eval(File.read("#{package_name}.gemspec"))
 
   begin
     Bundler.setup(:default, :development)
@@ -43,4 +43,32 @@ def tengine_common_tasks(gemspec_name)
   require 'yard'
   YARD::Rake::YardocTask.new
 
+  namespace :tengine_gems do
+    desc "install tengine gems"
+    task :install do
+      version_path = File.expand_path("../TENGINE_VERSION", __FILE__)
+      version = File.read(version_path).strip
+      package = PACKAGES.detect{|package| package.name == package_name}
+      puts "no dependencies" if package.dependencies.empty?
+      package.dependencies.each do |dep|
+        cmd = "gem install ../#{dep}/pkg/#{dep}-#{version}.gem"
+        puts cmd
+        system(cmd)
+      end
+    end
+
+    desc "uninstall tengine gems"
+    task :uninstall do
+      package = PACKAGES.detect{|package| package.name == package_name}
+      puts "no dependencies" if package.dependencies.empty?
+      package.dependencies.each do |dep|
+        cmd = "gem uninstall #{dep}"
+        puts cmd
+        system(cmd)
+      end
+    end
+
+    desc "reinstall tengine gems"
+    task :reinstall => [:uninstall, :install]
+  end
 end

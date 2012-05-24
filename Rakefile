@@ -2,6 +2,8 @@
 require 'rubygems'
 require 'rake'
 
+require File.expand_path("../dependencies", __FILE__)
+
 version_path = File.expand_path("../TENGINE_VERSION", __FILE__)
 version = File.read(version_path).strip
 
@@ -12,23 +14,10 @@ OUTDATED_THRESHOLDS = {
   :ignored => %w[amq-protocol amq-client amqp eventmachine mongo mongoid bson bson_ext]
 }
 
-PackageDef = Struct.new(:package_type, :name, :dependencies)
-
-packages = [
-  PackageDef.new(:gem, 'tengine_support'  , %w[]),
-  PackageDef.new(:gem, 'tengine_event'    , %w[tengine_support]),
-  PackageDef.new(:gem, 'tengine_core'     , %w[tengine_support tengine_event]),
-  PackageDef.new(:gem, 'tengine_resource' , %w[tengine_support tengine_event tengine_core]),
-  PackageDef.new(:gem, 'tengine_job'      , %w[tengine_support tengine_event tengine_core tengine_resource]),
-  PackageDef.new(:gem, 'tengine_job_agent', %w[tengine_support tengine_event]),
-  PackageDef.new(:rails, 'tengine_ui'     , %w[tengine_support tengine_event tengine_core tengine_resource tengine_job]),
-]
-
-
 desc "install other tengine gems and bundle install"
 task :rebuild do
   errors = []
-  packages.each do |package|
+  PACKAGES.each do |package|
     puts "=" * 80
     puts "rebuilding #{package.name}"
     cmd = []
@@ -54,7 +43,7 @@ end
 
 desc "Run spec task for all projects"
 task :spec do
-  ENV['GEM'] = packages.map(&:name).join(',')
+  ENV['GEM'] = PACKAGES.map(&:name).join(',')
   require File.expand_path("../ci/travis.rb", __FILE__)
 end
 
@@ -62,7 +51,7 @@ end
   desc "Run #{task_name} task for all projects"
   task(task_name) do
     errors = []
-    packages.each do |package|
+    PACKAGES.each do |package|
       system(%(cd #{package.name} && bundle exec rake #{task_name})) || errors << package.name
     end
     fail("Errors in #{errors.join(', ')}") unless errors.empty?
@@ -74,7 +63,7 @@ task :outdated do
   ignored = OUTDATED_THRESHOLDS[:ignored]
 
   output = {}
-  packages.each do |package|
+  PACKAGES.each do |package|
     raw_output = `cd #{package.name} && bundle outdated`
     entries = raw_output.scan(%r{\s*\*\s*(.+) \((.+) \> (.+)\)})
     entries.reject!{|entry| ignored.include?(entry.first) }
@@ -121,7 +110,7 @@ end
 namespace :gemsets do
   desc "create gemsets each packages"
   task :create do
-    packages.each do |package|
+    PACKAGES.each do |package|
       system("rvm gemset create #{package.name}")
       rvmrc = "rvm %s@%s" % [ENV['RUBY_VERSION'] || 'ruby-1.9.3-head', package.name]
       File.open("#{package.name}/.rvmrc", 'w'){|f| f.puts(rvmrc)}
@@ -130,7 +119,7 @@ namespace :gemsets do
 
   desc "delete gemsets each packages"
   task :delete do
-    packages.each do |package|
+    PACKAGES.each do |package|
       system("rvm --force gemset delete #{package.name}")
     end
   end
