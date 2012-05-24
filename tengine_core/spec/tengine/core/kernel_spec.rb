@@ -451,7 +451,7 @@ describe Tengine::Core::Kernel do
 
               Tengine::Core::Event.where(key: u).count.should == 1
               Tengine::Core::Event.where(key: u).first.event_type_name.should =~ /expired/
-              Tengine::Core::Event.where(key: u).first.created_at.should > t
+              Tengine::Core::Event.where(key: u).first.occurred_at.should > t
             end
 
             it "finished -> beat (finishedが勝つ)" do
