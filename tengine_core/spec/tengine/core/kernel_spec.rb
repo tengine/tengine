@@ -10,7 +10,7 @@ if $DEBUG
   require 'logger'
   AMQP::Session.logger = Tengine.logger = Mongoid.logger = Logger.new(STDERR)
 else
-  AMQP::Session.logger = Tengine.logger = Mongoid.logger = Tengine::NullLogger.new
+  AMQP::Session.logger = Tengine.logger = Mongoid.logger = Tengine::Support::NullLogger.new
 end
 
 describe Tengine::Core::Kernel do
