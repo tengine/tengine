@@ -31,6 +31,7 @@ task :rebuild do
       cmd << "gem install ../#{dep}/pkg/#{dep}-#{version}.gem"
     end
     cmd << "bundle install"
+    cmd << "rm -rf pkg/*"
     cmd << "bundle exec rake gem"
     system(cmd.join(' && ')) || errors << package.name
   end
