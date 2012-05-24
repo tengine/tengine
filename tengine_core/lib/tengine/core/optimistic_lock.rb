@@ -5,6 +5,7 @@ require 'active_support/core_ext/array/extract_options'
 
 module Tengine::Core::OptimisticLock
   extend ActiveSupport::Concern
+  include ActiveModel::AttributeMethods
   include Tengine::Core::SafeUpdatable
 
   included do
