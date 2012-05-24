@@ -5,6 +5,14 @@ require 'rake'
 version_path = File.expand_path("../TENGINE_VERSION", __FILE__)
 version = File.read(version_path).strip
 
+OUTDATED_THRESHOLDS = {
+  :total => 100,
+  :unique => 20,
+  :average => 10,
+  :ignored => %w[amq-protocol amq-client amqp mongo mongoid]
+}
+
+
 PackageDef = Struct.new(:package_type, :name, :dependencies)
 
 packages = [
@@ -60,6 +68,42 @@ end
     fail("Errors in #{errors.join(', ')}") unless errors.empty?
   end
 end
+
+desc "Run bundle outdated for all projects"
+task :outdated do
+  ignored = OUTDATED_THRESHOLDS[:ignored]
+
+  output = {}
+  packages.each do |package|
+    raw_output = `cd #{package.name} && bundle outdated`
+    entries = raw_output.scan(%r{\s*\*\s*(.+) \((.+) \> (.+)\)})
+    entries.reject!{|entry| ignored.include?(entry.first) }
+    output[package.name] = entries
+  end
+
+  total_count = output.values.inject(0){|sum, entries| sum += entries.length}
+  package_counts = output.values.map{|entries| entries.map{|items| items[0, 2]} }.sort.
+    inject({}) do |d, entries|
+      entries.each{|entry| d[entry] ||= 0; d[entry] += 1}
+      d
+    end
+  counts_each_package = output.inject({}){|d, (name,entries)| d[name] = entries.length; d}
+  most_entries_package = counts_each_package.keys.max_by{|key| counts_each_package[key]}
+
+  result = {
+    :total => total_count,
+    :unique => package_counts.length,
+    :average => 1.0 * total_count / counts_each_package.length,
+  }
+
+  puts "total outdated dependencies: #{result[:total]}"
+  puts "unique outdated libraries: #{result[:unique]}"
+  puts "outdated dependencies average: #{result[:average]}"
+  puts "package which has most outdated dependencies: #{most_entries_package} #{counts_each_package[most_entries_package]}"
+
+  fail("too many outdated dependecies:#{result.inspect} thresholds:#{OUTDATED_THRESHOLDS}") if result.any?{|k,v| v >= OUTDATED_THRESHOLDS[k]}
+end
+
 
 namespace :version do
   desc "increment the last number of version"
