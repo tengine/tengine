@@ -30,14 +30,14 @@ gem "daemons", "~> 1.1.4"
 
 group :test, :development do
   gem "rails3-generators", "~> 0.17.4"
-  gem "rspec-rails", "~> 2.6.1"
+  gem "rspec-rails", "~> 2.10.1"
   gem "capybara", "~> 1.1.1"
 
   gem "ZenTest", "~> 4.5.0"
   gem "autotest-rails", "~> 4.1.1"
 
   # gem "rcov", ">= 0"
-  gem "simplecov", "~> 0.5.3"
+  gem "simplecov", "~> 0.6.4"
 
   gem 'capistrano'       , "~> 2.9.0"
   gem 'capistrano-ext'   , "~> 1.2.1"
