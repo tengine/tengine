@@ -6,12 +6,11 @@ version_path = File.expand_path("../TENGINE_VERSION", __FILE__)
 version = File.read(version_path).strip
 
 OUTDATED_THRESHOLDS = {
-  :total => 100,
-  :unique => 20,
-  :average => 10,
-  :ignored => %w[amq-protocol amq-client amqp mongo mongoid]
+  :unique => 10,
+  :average => 7,
+  :total => 50,
+  :ignored => %w[amq-protocol amq-client amqp eventmachine mongo mongoid bson bson_ext]
 }
-
 
 PackageDef = Struct.new(:package_type, :name, :dependencies)
 
@@ -24,6 +23,7 @@ packages = [
   PackageDef.new(:gem, 'tengine_job_agent', %w[tengine_support tengine_event]),
   PackageDef.new(:rails, 'tengine_ui'     , %w[tengine_support tengine_event tengine_core tengine_resource tengine_job]),
 ]
+
 
 desc "install other tengine gems and bundle install"
 task :rebuild do
