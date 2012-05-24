@@ -5,15 +5,16 @@ require 'rake'
 version_path = File.expand_path("../TENGINE_VERSION", __FILE__)
 version = File.read(version_path).strip
 
-PackageDef = Struct.new(:name, :dependencies)
+PackageDef = Struct.new(:package_type, :name, :dependencies)
 
 packages = [
-  PackageDef.new('tengine_support'  , %w[]),
-  PackageDef.new('tengine_event'    , %w[tengine_support]),
-  PackageDef.new('tengine_core'     , %w[tengine_support tengine_event]),
-  PackageDef.new('tengine_resource' , %w[tengine_support tengine_event tengine_core]),
-  PackageDef.new('tengine_job'      , %w[tengine_support tengine_event tengine_core tengine_resource]),
-  PackageDef.new('tengine_job_agent', %w[tengine_support tengine_event]),
+  PackageDef.new(:gem, 'tengine_support'  , %w[]),
+  PackageDef.new(:gem, 'tengine_event'    , %w[tengine_support]),
+  PackageDef.new(:gem, 'tengine_core'     , %w[tengine_support tengine_event]),
+  PackageDef.new(:gem, 'tengine_resource' , %w[tengine_support tengine_event tengine_core]),
+  PackageDef.new(:gem, 'tengine_job'      , %w[tengine_support tengine_event tengine_core tengine_resource]),
+  PackageDef.new(:gem, 'tengine_job_agent', %w[tengine_support tengine_event]),
+  PackageDef.new(:rails, 'tengine_ui'     , %w[tengine_support tengine_event tengine_core tengine_resource tengine_job]),
 ]
 
 desc "install other tengine gems and bundle install"
@@ -31,15 +32,25 @@ task :rebuild do
       cmd << "gem install ../#{dep}/pkg/#{dep}-#{version}.gem"
     end
     cmd << "bundle install"
-    cmd << "rm -rf pkg/*"
-    cmd << "bundle exec rake gem"
+
+    case package.package_type
+    when :gem then
+      cmd << "rm -rf pkg/*"
+      cmd << "bundle exec rake gem"
+    end
+
     system(cmd.join(' && ')) || errors << package.name
   end
   fail("Errors in #{errors.join(', ')}") unless errors.empty?
 end
 
+desc "Run spec task for all projects"
+task :spec do
+  ENV['GEM'] = packages.map(&:name).join(',')
+  require File.expand_path("../ci/travis.rb", __FILE__)
+end
 
-%w(spec package gem).each do |task_name|
+%w(package gem).each do |task_name|
   desc "Run #{task_name} task for all projects"
   task(task_name) do
     errors = []
