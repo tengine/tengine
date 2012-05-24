@@ -12,12 +12,12 @@
 
 ### 6 steps for first build and test
 
-   $ rvm install ruby-1.9.3-head
-   $ git clone git@github.com:tengine/tengine.git
-   $ cd tengine
-   $ rake gemsets:create
-   $ rake rebuild
-   $ rake spec
+    $ rvm install ruby-1.9.3-head
+    $ git clone git@github.com:tengine/tengine.git
+    $ cd tengine
+    $ rake gemsets:create
+    $ rake rebuild
+    $ rake spec
 
 ### パッケージをテスト(tengine_coreでの例)
 
