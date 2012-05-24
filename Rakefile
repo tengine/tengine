@@ -17,12 +17,16 @@ packages = [
 ]
 
 desc "install other tengine gems and bundle install"
-task :install_and_gem do
+task :rebuild do
   errors = []
   packages.each do |package|
-    puts "installing #{package.name}"
+    puts "=" * 80
+    puts "rebuilding #{package.name}"
     cmd = []
     cmd << "cd #{package.name}"
+    package.dependencies.each do |dep|
+      cmd << "gem uninstall #{dep} -a -I -x"
+    end
     package.dependencies.each do |dep|
       cmd << "gem install ../#{dep}/pkg/#{dep}-#{version}.gem"
     end
