@@ -448,7 +448,12 @@ describe Tengine::Core::Config::Core do
         Tengine::Core::Config::Core.parse(["-f", path])
         fail
       rescue Tengine::Core::ConfigError => e
-        e.message.should =~ /couldn't parse YAML at line \d+ column \d+/
+        case RUBY_VERSION
+        when /1\.9\.2/ then
+          e.message.should =~ /couldn't parse YAML at line \d+ column \d+/
+        when /1\.9\.3/ then
+          e.message.should =~ /did not find expected key while parsing a block mapping at line \d+ column \d+ in .*\/wrong_yaml.yml.erb/
+        end
         e.message.should include(path)
       end
     end

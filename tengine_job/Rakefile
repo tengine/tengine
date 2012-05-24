@@ -1,7 +1,12 @@
 # encoding: utf-8
 
 require 'rubygems'
+require 'rubygems/package_task'
 require 'bundler'
+require 'rake'
+
+spec = eval(File.read('tengine_job.gemspec'))
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -9,21 +14,17 @@ rescue Bundler::BundlerError => e
   $stderr.puts "Run `bundle install` to install missing gems"
   exit e.status_code
 end
-require 'rake'
 
-require 'jeweler'
-Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "tengine_job"
-  gem.homepage = "http://github.com/tengine/tengine_job"
-  gem.license = "MPL2.0/LGPLv3"
-  gem.summary = %Q{tengine_job provides jobnet management}
-  gem.description = %Q{tengine_job provides jobnet management}
-  gem.email = "tengine-info@groovenauts.jp"
-  gem.authors = %w[taigou totty g-morita shyouhei akm guemon]
-  # dependencies defined in Gemfile
+Gem::PackageTask.new(spec) do |p|
+  p.gem_spec = spec
 end
-Jeweler::RubygemsDotOrgTasks.new
+
+desc "Release to gemcutter"
+task :release => :package do
+  require 'rake/gemcutter'
+  Rake::Gemcutter::Tasks.new(spec).define
+  Rake::Task['gem:push'].invoke
+end
 
 require 'rspec/core'
 require 'rspec/core/rake_task'
@@ -37,6 +38,7 @@ RSpec::Core::RakeTask.new(:rcov) do |spec|
 end
 
 task :default => :spec
+task :test => :spec # for rubygems-test
 
 require 'yard'
 YARD::Rake::YardocTask.new
