@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     tengine_core (1.1.0.alpha1)
-      activemodel (~> 3.1.0)
-      activesupport (~> 3.1.0)
+      activemodel (>= 3.1.0)
+      activesupport (>= 3.1.0)
       bson (~> 1.5.2)
       bson_ext (~> 1.5.2)
       daemons (~> 1.1.4)

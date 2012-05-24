@@ -24,8 +24,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.8.12"
   s.summary = "tengine_core is a framework/engine to support distributed processing"
 
-  s.add_runtime_dependency('activesupport', "~> 3.1.0")
-  s.add_runtime_dependency('activemodel', "~> 3.1.0")
+  s.add_runtime_dependency('activesupport', ">= 3.1.0")
+  s.add_runtime_dependency('activemodel', ">= 3.1.0")
   s.add_runtime_dependency('selectable_attr', "~> 0.3.15")
   s.add_runtime_dependency('bson', "~> 1.5.2")
   s.add_runtime_dependency('bson_ext', "~> 1.5.2")
@@ -44,4 +44,3 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rdiscount', ">= 0")
   s.add_development_dependency('kramdown',  ">= 0")
 end
-
