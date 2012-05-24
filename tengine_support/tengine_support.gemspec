@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 version = File.read(File.expand_path("../../TENGINE_VERSION", __FILE__)).strip
-require File.expand_path("../../common_dependencies", __FILE__)
+require File.expand_path("../../dependencies", __FILE__)
 
 Gem::Specification.new do |s|
   s.name = "tengine_support"
