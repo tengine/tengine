@@ -54,13 +54,22 @@ class Tengine::Core::Mutex::Mutex
   field :ttl, :type => Float
   field :waiters, :type => Array
 
+  STATIC_BSON_OBJECTIDS = {
+    # 以下、 spec/tengine/core/mutex_spec.rb で使用しているnameとそのBSON::ObjectId
+    'test mutex 01' => BSON::ObjectId.from_string('4fbed7200e8ed82e83000001'),
+    'test mutex 02' => BSON::ObjectId.from_string('4fbed7200e8ed82e83000002'),
+    'test mutex 03' => BSON::ObjectId.from_string('4fbed7200e8ed82e83000003'),
+  }.freeze
+
   def self.find_or_create name, ttl
+    id = BSON::ObjectId.legal?(name) ? name : STATIC_BSON_OBJECTIDS[name] or
+      raise ArgumentError, "Unknown name for BSON::ObjectId: #{name.inspect}"
     collection.driver.update(
-      { :_id => name },
+      { :_id => id },
       { "$set" => { :ttl => ttl, }, },
       { :upsert => true, :safe => true, :multiple => false, }
     )
-    return find(name)
+    return find(id)
   end
 
   private
