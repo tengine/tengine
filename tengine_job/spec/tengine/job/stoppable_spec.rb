@@ -43,7 +43,7 @@ describe Tengine::Job::Stoppable do
         # (エッジを実行しようとした際、エッジがclosedならばそのジョブネットのEndに遷移する。)
 
         it "(ジョブネットに対するstopによって)後続のエッジをcloseしてある場合" do
-          t = Time.now.utc
+          t = Time.now
           @mock_event.should_receive(:occurred_at).and_return(t)
           @mock_event.should_receive(:[]).with(:stop_reason).and_return("test stopping")
           [:e6, :e7, :e8, :e9].each{|name| @ctx[name].phase_key = :closing}
@@ -54,13 +54,13 @@ describe Tengine::Job::Stoppable do
             j.stop(@signal)
             j.phase_key.should == :initialized
             j.stop_reason.should == "test stopping"
-            j.stopped_at.to_time.iso8601.should == t.utc.iso8601
+            j.stopped_at.to_time.iso8601.should == t.iso8601
           end
           [:e6, :e7, :e8, :e9].each{|name| @ctx[name].phase_key.should == :closed}
         end
 
         it "(ジョブを単体で停止する)エッジはcloseしていない場合" do
-          t = Time.now.utc
+          t = Time.now
           @mock_event.should_receive(:occurred_at).and_return(t)
           @mock_event.should_receive(:[]).with(:stop_reason).and_return("test stopping")
           @ctx[:j1110].tap do |j|
@@ -70,7 +70,7 @@ describe Tengine::Job::Stoppable do
             j.stop(@signal)
             j.phase_key.should == :initialized
             j.stop_reason.should == "test stopping"
-            j.stopped_at.to_time.iso8601.should == t.utc.iso8601
+            j.stopped_at.to_time.iso8601.should == t.iso8601
           end
         end
       end
@@ -78,7 +78,7 @@ describe Tengine::Job::Stoppable do
       context ":startingならば:runningになるのを待って、stopする" do
 
         it "(ジョブを単体で停止する)エッジはcloseしていない場合" do
-          t = Time.now.utc
+          t = Time.now
           @mock_event.should_receive(:occurred_at).and_return(t)
           @mock_event.should_receive(:[]).with(:stop_reason).and_return("test stopping")
           @ctx[:j1110].tap do |j|
@@ -118,7 +118,7 @@ describe Tengine::Job::Stoppable do
             job = @root.vertex(j.id)
             job.phase_key.should == :dying
             job.stop_reason.should == "test stopping"
-            job.stopped_at.to_time.iso8601.should == t.utc.iso8601
+            job.stopped_at.to_time.iso8601.should == t.iso8601
             @signal.callback.should_not be_nil
             @signal.callback.call
           end
@@ -143,7 +143,7 @@ describe Tengine::Job::Stoppable do
               cmd.should =~ /tengine_job_agent_kill #{@pid} #{interval} #{signals}/
             end
           end
-          t = Time.now.utc
+          t = Time.now
           @mock_event.should_receive(:occurred_at).and_return(t)
           @mock_event.should_receive(:[]).with(:stop_reason).and_return("test stopping")
           @ctx[name].tap do |j|
@@ -152,7 +152,7 @@ describe Tengine::Job::Stoppable do
             j.stop(@signal)
             j.phase_key.should == :dying
             j.stop_reason.should == "test stopping"
-            j.stopped_at.to_time.iso8601.should == t.utc.iso8601
+            j.stopped_at.to_time.iso8601.should == t.iso8601
           end
           @signal.callback.should_not be_nil
           @signal.callback.call
