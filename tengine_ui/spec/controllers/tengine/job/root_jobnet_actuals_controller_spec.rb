@@ -528,23 +528,23 @@ describe Tengine::Job::RootJobnetActualsController do
       it "デフォルトではrefleshのレイアウトが使用されていること" do
         get :index
 
-        assert_template :layout => "reflesh"
+        assert_template :layout => "layouts/application"
       end
 
       it "リフレッシュ間隔が1以上のときrefleshのレイアウトが使用されていること" do
         get :index, :finder => {:reflesh_interval => 30}
 
-        assert_template :layout => "reflesh"
+        assert_template :layout => "layouts/application"
       end
 
       it "リフレッシュ間隔が0か指定されていないときapplicationのレイアウトが使用されていること" do
         get :index, :finder => {:reflesh_interval => 0}
 
-        assert_template :layout => "application"
+        assert_template :layout => "layouts/application"
 
         get :index, :finder => {:reflesh_interval => ""}
 
-        assert_template :layout => "application"
+        assert_template :layout => "layouts/application"
       end
 
     end
