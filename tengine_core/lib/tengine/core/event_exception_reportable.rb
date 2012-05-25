@@ -71,7 +71,6 @@ module Tengine::Core::EventExceptionReportable
 
   end
 
-  module InstanceMethods
     def report_on_exception(dsl_context, event)
       begin
         yield
@@ -82,7 +81,5 @@ module Tengine::Core::EventExceptionReportable
         end
       end
     end
-
-  end
 
 end

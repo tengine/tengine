@@ -3,7 +3,6 @@ require 'tengine/core'
 module Tengine::Core::SafeUpdatable
   extend ActiveSupport::Concern
 
-  module InstanceMethods
     def update_in_safe_mode(collection, selector, document, opts=nil)
       options = { :upsert => false, :multiple => false }
       options.update(opts) if opts
@@ -35,5 +34,4 @@ module Tengine::Core::SafeUpdatable
       end
       res
     end
-  end
 end
