@@ -3,7 +3,6 @@ require 'tengine/core/config'
 
 require 'yaml'
 require 'optparse'
-require 'active_support/memoizable'
 
 require 'tengine/support/yaml_with_erb'
 
@@ -14,8 +13,6 @@ Tengine::Support::Config::Definition::Group.module_eval do
 end
 
 class Tengine::Core::Config::HeartbeatWatcher < Tengine::Support::Config::Definition::Suite
-  # memoize については http://wota.jp/ac/?date=20081025#p11 などを参照してください
-  extend ActiveSupport::Memoizable
 
   class << self
     # この辺は以前のTengine::Core::Configとの互換のために用意してあります
