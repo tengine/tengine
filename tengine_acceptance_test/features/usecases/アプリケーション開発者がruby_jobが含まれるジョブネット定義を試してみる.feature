@@ -268,10 +268,10 @@
     ならば ジョブネット"/rjn0708" のステータスがエラー終了であること
     かつ ジョブ"/rjn0708/rj1" のステータスがエラー終了であること
 
-    もし ジョブ"/rjn0708/rj1"の"実行時PID"を"rj1_pid"と呼ぶ
+    もし ジョブ"/rjn0708/rj1"の"実行時PID"を"job_pid"と呼ぶ
     かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
-    かつ "#{logdir}/stdout-#{j1_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
-    かつ "#{logdir}/stderr-#{j1_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{job_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{job_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
     かつ ジョブ"/rjn0708/rj1"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
@@ -309,10 +309,10 @@
     かつ ジョブ"/rjn0709/rj3" のステータスが初期化済であること
     かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
 
-    もし ジョブ"/rjn0709/rj2"の"実行時PID"を"rj1_pid"と呼ぶ
+    もし ジョブ"/rjn0709/rj2"の"実行時PID"を"job_pid"と呼ぶ
     かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
-    かつ "#{logdir}/stdout-#{j1_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
-    かつ "#{logdir}/stderr-#{j1_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{job_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{job_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
     かつ ジョブ"/rjn0709/rj2"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
@@ -353,10 +353,10 @@
     かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
     かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
 
-    もし ジョブ"/rjn0710/rj3"の"実行時PID"を"rj1_pid"と呼ぶ
+    もし ジョブ"/rjn0710/rj3"の"実行時PID"を"job_pid"と呼ぶ
     かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
-    かつ "#{logdir}/stdout-#{j1_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
-    かつ "#{logdir}/stderr-#{j1_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{job_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{job_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
     かつ ジョブ"/rjn0710/rj3"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
@@ -396,10 +396,10 @@
     かつ ジョブ"/rjn0711/rj3" のステータスが初期化済であること
     かつ ジョブ"/rjn0711/rj4" のステータスが初期化済であること
 
-    もし ジョブ"/rjn0711/rj1"の"実行時PID"を"rj1_pid"と呼ぶ
+    もし ジョブ"/rjn0711/rj1"の"実行時PID"を"job_pid"と呼ぶ
     かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
-    かつ "#{logdir}/stdout-#{j1_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
-    かつ "#{logdir}/stderr-#{j1_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{job_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{job_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
     かつ ジョブ"/rjn0711/rj1"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
@@ -681,10 +681,10 @@
     かつ "Tengineコアプロセス"の標準出力に'frj2 executing...'と出力されており、'frj1 executing...'の後であること
     かつ "Tengineコアプロセス"の標準出力に'frj3 executing...'と出力されており、'frj2 executing...'の後であること
 
-    もし ジョブ"/rjn0717/rj4"の"実行時PID"を"rj1_pid"と呼ぶ
+    もし ジョブ"/rjn0717/rj4"の"実行時PID"を"job_pid"と呼ぶ
     かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
-    かつ "#{logdir}/stdout-#{j1_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
-    かつ "#{logdir}/stderr-#{j1_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{job_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{job_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
     かつ ジョブ"/rjn0717/rj4"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
@@ -738,10 +738,10 @@
     かつ "Tengineコアプロセス"の標準出力に'rj4 executing...' と出力されており、'rj2 executing...'と'rj3 executing...'の後であること
     かつ "Tengineコアプロセス"の標準出力に'frj1 executing...'と出力されており、'rj2 executing...' の後であること
 
-    もし ジョブ"/rjn0718/finally/frj2"の"実行時PID"を"rj1_pid"と呼ぶ
+    もし ジョブ"/rjn0718/finally/frj2"の"実行時PID"を"job_pid"と呼ぶ
     かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
-    かつ "#{logdir}/stdout-#{j1_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
-    かつ "#{logdir}/stderr-#{j1_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{job_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{job_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
     かつ ジョブ"/rjn0718/finally/frj2"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
@@ -797,10 +797,10 @@
     かつ "Tengineコアプロセス"の標準出力に'rj4 executing...' と出力されており、'rj2 executing...'と'rj3 executing...'の後であること
     かつ "Tengineコアプロセス"の標準出力に'frj1 executing...'と出力されており、'rj2 executing...' の後であること
 
-    もし ジョブ"/rjn0719/finally/frj2"の"実行時PID"を"rj1_pid"と呼ぶ
+    もし ジョブ"/rjn0719/finally/frj2"の"実行時PID"を"job_pid"と呼ぶ
     かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
-    かつ "#{logdir}/stdout-#{j1_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
-    かつ "#{logdir}/stderr-#{j1_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{job_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{job_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
     かつ ジョブ"/rjn0719/finally/frj2"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
@@ -860,7 +860,7 @@
   # ---------------------------
   #
   @01_07_21
-  シナリオ: ruby_jobとjobnetが並列実行されるルートジョブネット
+  シナリオ: ruby_jobとjobnetが並列実行するルートジョブネット
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_21_jobnet_2_layers_parallel.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -995,11 +995,11 @@
     かつ ジョブ"/rjn0724/rjn1/rj2"     のステータスが正常終了であること
     かつ ジョブ"/rjn0724/rjn1/rj3"     のステータスがエラー終了であること
     かつ ジョブ"/rjn0724/rjn1/rj4"     のステータスが初期化済であること
-    かつ ジョブ"/rjn0721/rj5"          のステータスが初期化済であること
+    かつ ジョブ"/rjn0724/rj5"          のステータスが初期化済であること
     かつ ジョブネット"/rjn0724/finally" のステータスが正常終了であること
-    かつ ジョブ"/rjn0721/finally/frj1" のステータスが正常終了であること
-    かつ ジョブ"/rjn0721/finally/frj2" のステータスが正常終了であること
-    かつ ジョブ"/rjn0721/finally/frj3" のステータスが正常終了であること
+    かつ ジョブ"/rjn0724/finally/frj1" のステータスが正常終了であること
+    かつ ジョブ"/rjn0724/finally/frj2" のステータスが正常終了であること
+    かつ ジョブ"/rjn0724/finally/frj3" のステータスが正常終了であること
 
     かつ "Tengineコアプロセス"の標準出力に'rj1 executing...' と出力されていることを確認する
     かつ "Tengineコアプロセス"の標準出力に'rj2 executing...' と出力されており、'rj1 executing...' の後であること
@@ -1007,10 +1007,10 @@
     かつ "Tengineコアプロセス"の標準出力に'frj2 executing...'と出力されており、'frj1 executing...'の後であること
     かつ "Tengineコアプロセス"の標準出力に'frj3 executing...'と出力されており、'frj2 executing...'の後であること
 
-    もし ジョブ"/rjn0724/rj3"の"実行時PID"を"rj1_pid"と呼ぶ
+    もし ジョブ"/rjn0724/rj3"の"実行時PID"を"job_pid"と呼ぶ
     かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
-    かつ "#{logdir}/stdout-#{j1_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
-    かつ "#{logdir}/stderr-#{j1_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{job_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{job_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
     かつ ジョブ"/rjn0724/rj3"の"表示"リンクをクリックする
     ならば "実行中のジョブ画面"が表示していること
     かつ "エラーメッセージ"に以下のメッセージが表示されていること
@@ -1081,7 +1081,7 @@
   # ---------------------------
   #
   @01_07_26
-  シナリオ: 孫のジョブネットとruby_jobが並列実行されるルートジョブネット
+  シナリオ: 孫のジョブネットとruby_jobが並列実行するルートジョブネット
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_26_jobnet_3_layers_parallel.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
     もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
@@ -1107,27 +1107,1198 @@
     かつ "Tengineコアプロセス"の標準出力に'rj6 executing...'と出力されており、'rj5 executing...'の後であること
 
 
+  # ./usecases/job/dsl/01_07_27_jobnet_3_layers_with_normal_job.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0727", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   job('j1', "$HOME/tengine_job_test.sh 0 job1")
+  #   jobnet("rjn1") do
+  #     ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #     jobnet("rjn11") do
+  #       ruby_job('rj3'){ STDOUT.puts('rj3 executiong...') }
+  #       job('j1', "$HOME/tengine_job_test.sh 0 job1")
+  #     end
+  #   end
+  #   ruby_job('rj4'){ STDOUT.puts('rj4 executing...') }
+  # end
+  # ---------------------------
+  #
+  @01_07_27
+  シナリオ: 孫のジョブネットにruby_jobとjobが混在するルートジョブネット
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_27_jobnet_3_layers_with_normal_job.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-  @01_07_XX
-  シナリオ: finally内にジョブネットを含むルートジョブネット # これの直列、並列、ruby_jobとjobの混在、失敗のパターンも必要
-  # ルートジョブネット->finallyジョブネット->ジョブネット
+    もし ジョブネット"rjn0727"を実行する
+    かつ ジョブネット"rjn0727"が完了することを確認する
 
-  @01_07_XX
-  シナリオ: finally内に二階層のジョブネットを含むルートジョブネット # これの直列、並列、ruby_jobとjobの混在、失敗のパターンも必要
-  # ルートジョブネット->finallyジョブネット->ジョブネット->ジョブネット
+    ならば ジョブネット"/rjn0727"          のステータスが正常終了であること
+    かつ ジョブ"/rjn0727/rj1"             のステータスが正常終了であること
+    かつ ジョブネット"/rjn0727/rjn1"       のステータスが正常終了であること
+    かつ ジョブ"/rjn0727/rjn1/rj2"        のステータスが正常終了であること
+    かつ ジョブネット"/rjn0727/rjn1/rjn11" のステータスが正常終了であること
+    かつ ジョブ"/rjn0727/rjn1/rjn11/rj3"  のステータスが正常終了であること
+    かつ ジョブ"/rjn0727/rjn1/rjn11/j1"   のステータスが正常終了であること
+    かつ ジョブ"/rjn0727/rj4"             のステータスが正常終了であること
 
-  @01_07_XX
-  シナリオ: finallyが入れ子になったルートジョブネット # 失敗のパターンも必要
-  # ルートジョブネット->finallyジョブネット->finallyジョブネット
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
+    かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されていること
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj2 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj4 executing...'と出力されており、'rj3 executing...'の後であること
 
-  @01_07_XX
-  シナリオ: custom_conductorを定義したルートジョブネット
 
-  @01_07_XX
-  シナリオ: ruby_job内で明示的にjob_succeedを指定したルートジョブネット # メッセージの指定
+  # ./usecases/job/dsl/01_07_28_jobnet_3_layers_in_vain.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0728") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   jobnet("rjn1") do
+  #     ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #     jobnet("rjn11") do
+  #       ruby_job('rj3'){ raise RuntimeError }
+  #     end
+  #     ruby_job('rj4'){ STDOUT.puts('rj4 executing...') }
+  #   end
+  #   ruby_job('rj5'){ STDOUT.puts('rj5 executing...') }
+  #   finally do
+  #     ruby_job('frj1'){ STDOUT.puts('frj1 executing...') }
+  #     ruby_job('frj2'){ STDOUT.puts('frj2 executing...') }
+  #     ruby_job('frj3'){ STDOUT.puts('frj3 executing...') }
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_28
+  シナリオ: 孫のジョブネットで失敗
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_28_jobnet_3_layers_in_vain.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
 
-  @01_07_XX
-  シナリオ: ruby_job内で明示的にjob_failを指定したルートジョブネット # メッセージの指定、例外クラスの指定
+    もし ジョブネット"rjn0728"を実行する
+    かつ ジョブネット"rjn0728"が完了することを確認する
+
+    ならば ジョブネット"/rjn0728"          のステータスがエラー終了であること
+    かつ ジョブ"/rjn0728/rj1"             のステータスが正常終了であること
+    かつ ジョブネット"/rjn0728/rjn1"       のステータスがエラー終了であること
+    かつ ジョブ"/rjn0728/rjn1/rj2"        のステータスが正常終了であること
+    かつ ジョブネット"/rjn0728/rjn1/rjn11" のステータスがエラー終了であること
+    かつ ジョブ"/rjn0728/rjn1/rjn11/rj3"  のステータスがエラー終了であること
+    かつ ジョブ"/rjn0728/rjn1/rj4"        のステータスが初期化済であること
+    かつ ジョブ"/rjn0728/rj5"             のステータスが初期化済であること
+    かつ ジョブネット"/rjn0728/finally"    のステータスが正常終了であること
+    かつ ジョブ"/rjn0728/finally/frj1"    のステータスが正常終了であること
+    かつ ジョブ"/rjn0728/finally/frj2"    のステータスが正常終了であること
+    かつ ジョブ"/rjn0728/finally/frj3"    のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...' と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...' と出力されており、'rj1 executing...' の後であること
+    かつ "Tengineコアプロセス"の標準出力に'frj1 executing...'と出力されており、'rj2 executing...' の後であること
+    かつ "Tengineコアプロセス"の標準出力に'frj2 executing...'と出力されており、'frj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'frj3 executing...'と出力されており、'frj2 executing...'の後であること
+
+    もし ジョブ"/rjn0724/rjn11/rj3"の"実行時PID"を"job_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{job_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{job_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ ジョブ"/rjn0724/rjn11/rj3"の"表示"リンクをクリックする
+    ならば "実行中のジョブ画面"が表示していること
+    かつ "エラーメッセージ"に以下のメッセージが表示されていること
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    "Job process failed. STDOUT and STDERR were redirected to files."
+    "You can see them at '#{標準出力のファイルパス}' and '#{標準エラー出力のファイルパス}'"
+    "on the server '#{サーバ名}'"
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+  # ./usecases/job/dsl/01_07_29_jobnet_in_finally.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0729") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   finally do
+  #     jobnet("rfjn1") do
+  #       ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #     end
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_29
+  シナリオ: finally内にジョブネットを含むルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_29_jobnet_in_finally.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0729"を実行する
+    かつ ジョブネット"rjn0729"が完了することを確認する
+
+    ならば ジョブネット"/rjn0729"            のステータスが正常終了であること
+    かつ ジョブ"/rjn0729/rj1"               のステータスが正常終了であること
+    かつ ジョブネット"/rjn0729/finally"      のステータスが正常終了であること
+    かつ ジョブネット"/rjn0729/finally/rfjn1"のステータスが正常終了であること
+    かつ ジョブ"/rjn0729/finally/rfjn1/rj2" のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+
+
+  # ./usecases/job/dsl/01_07_30_jobnet_in_finally_with_normal_job.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0730") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   finally do
+  #     jobnet("rfjn1", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #       ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #       job('j1', "$HOME/tengine_job_test.sh 0 job1")
+  #     end
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_30
+  シナリオ: finally内のジョブネットにruby_jobとjobが混在しているルートジョブネット
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_30_jobnet_in_finally_with_normal_job.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0730"を実行する
+    かつ ジョブネット"rjn0730"が完了することを確認する
+
+    ならば ジョブネット"/rjn0730"            のステータスが正常終了であること
+    かつ ジョブ"/rjn0730/rj1"               のステータスが正常終了であること
+    かつ ジョブネット"/rjn0730/finally"      のステータスが正常終了であること
+    かつ ジョブネット"/rjn0730/finally/rfjn1"のステータスが正常終了であること
+    かつ ジョブ"/rjn0730/finally/rfjn1/rj2" のステータスが正常終了であること
+
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
+    かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されていること
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+
+
+  # ./usecases/job/dsl/01_07_31_jobnet_in_finally_in_vain.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0731") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   finally do
+  #     jobnet("rfjn1") do
+  #       ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #       ruby_job('rj3'){ raise RuntimeError }
+  #       ruby_job('rj4'){ STDOUT.puts('rj4 executing...') }
+  #     end
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_31
+  シナリオ: finally内のジョブネットで失敗
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_31_jobnet_in_finally_in_vain.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0731"を実行する
+    かつ ジョブネット"rjn0731"が完了することを確認する
+
+    ならば ジョブネット"/rjn0731"            のステータスが正常終了であること
+    かつ ジョブ"/rjn0731/rj1"               のステータスが正常終了であること
+    かつ ジョブネット"/rjn0731/finally"      のステータスが正常終了であること
+    かつ ジョブネット"/rjn0731/finally/rfjn1"のステータスが正常終了であること
+    かつ ジョブ"/rjn0731/finally/rfjn1/rj2" のステータスが正常終了であること
+    かつ ジョブ"/rjn0731/finally/rfjn1/rj3" のステータスがエラー終了であること
+    かつ ジョブ"/rjn0731/finally/rfjn1/rj4" のステータスが初期化済であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+
+    もし ジョブ"/rjn0731/finally/rfjn1/rj3"の"実行時PID"を"job_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{job_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{job_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ ジョブ"/rjn0724/finally/rfjn1/rj3"の"表示"リンクをクリックする
+    ならば "実行中のジョブ画面"が表示していること
+    かつ "エラーメッセージ"に以下のメッセージが表示されていること
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    "Job process failed. STDOUT and STDERR were redirected to files."
+    "You can see them at '#{標準出力のファイルパス}' and '#{標準エラー出力のファイルパス}'"
+    "on the server '#{サーバ名}'"
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+  # ./usecases/job/dsl/01_07_32_jobnet_2_layers_in_finally.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0732") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   finally do
+  #     jobnet("rfjn1") do
+  #       ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #       jobnet("rfjn11") do
+  #         ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  #       end
+  #       ruby_job('rj4'){ STDOUT.puts('rj4 executing...') }
+  #     end
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_32
+  シナリオ: finally内に二階層のジョブネットを含むルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_32_jobnet_2_layers_in_finally.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0732"を実行する
+    かつ ジョブネット"rjn0732"が完了することを確認する
+
+    ならば ジョブネット"/rjn0732"                   のステータスが正常終了であること
+    かつ ジョブ"/rjn0732/rj1"                      のステータスが正常終了であること
+    かつ ジョブネット"/rjn0732/finally"             のステータスが正常終了であること
+    かつ ジョブネット"/rjn0732/finally/rfjn1"       のステータスが正常終了であること
+    かつ ジョブ"/rjn0732/finally/rfjn1/rj2"        のステータスが正常終了であること
+    かつ ジョブネット"/rjn0732/finally/rfjn1/rfjn11"のステータスが正常終了であること
+    かつ ジョブ"/rjn0732/finally/rfjn1/rfjn11/rj3" のステータスが正常終了であること
+    かつ ジョブ"/rjn0732/finally/rfjn1/rj4"        のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj2 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj4 executing...'と出力されており、'rj3 executing...'の後であること
+
+
+  # ./usecases/job/dsl/01_07_33_jobnet_2_layers_in_finally_parallel.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0733") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   finally do
+  #     jobnet("rfjn1") do
+  #       ruby_job('rj2', :to => ['rfjn11', 'rj4']){ STDOUT.puts('rj2 executing...') }
+  #       jobnet("rfjn11", :to => 'rj5') do
+  #         ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  #       end
+  #       ruby_job('rj4', :to => 'rj5'){ STDOUT.puts('rj4 executing...') }
+  #       ruby_job('rj5'              ){ STDOUT.puts('rj5 executing...') }
+  #     end
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_33
+  シナリオ: finally内の孫のジョブネットとruby_jobが並列実行するルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_33_jobnet_2_layers_in_finally_parallel.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0733"を実行する
+    かつ ジョブネット"rjn0733"が完了することを確認する
+
+    ならば ジョブネット"/rjn0733"                   のステータスが正常終了であること
+    かつ ジョブ"/rjn0733/rj1"                      のステータスが正常終了であること
+    かつ ジョブネット"/rjn0733/finally"             のステータスが正常終了であること
+    かつ ジョブネット"/rjn0733/finally/rfjn1"       のステータスが正常終了であること
+    かつ ジョブ"/rjn0733/finally/rfjn1/rj2"        のステータスが正常終了であること
+    かつ ジョブネット"/rjn0733/finally/rfjn1/rfjn11"のステータスが正常終了であること
+    かつ ジョブ"/rjn0733/finally/rfjn1/rfjn11/rj3" のステータスが正常終了であること
+    かつ ジョブ"/rjn0733/finally/rfjn1/rj4"        のステータスが正常終了であること
+    かつ ジョブ"/rjn0733/finally/rfjn1/rj5"        のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj2 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj4 executing...'と出力されており、'rj2 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj5 executing...'と出力されており、'rj3 executing...'と'rj4 executing...'の後であること
+
+
+  # ./usecases/job/dsl/01_07_34_jobnet_2_layers_in_finally_with_normal_job.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0734") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   finally do
+  #     jobnet("rfjn1") do
+  #       ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #       jobnet("rfjn11", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #         ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  #         job('j1', "$HOME/tengine_job_test.sh 0 job1")
+  #         ruby_job('rj4'){ STDOUT.puts('rj4 executing...') }
+  #       end
+  #       ruby_job('rj5'){ STDOUT.puts('rj5 executing...') }
+  #     end
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_34
+  シナリオ: finally内の孫のジョブネット内にruby_jobとjobが混在するルートジョブネット
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_34_jobnet_2_layers_in_finally_with_normal_job.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0734"を実行する
+    かつ ジョブネット"rjn0734"が完了することを確認する
+
+    ならば ジョブネット"/rjn0734"                   のステータスが正常終了であること
+    かつ ジョブ"/rjn0734/rj1"                      のステータスが正常終了であること
+    かつ ジョブネット"/rjn0734/finally"             のステータスが正常終了であること
+    かつ ジョブネット"/rjn0734/finally/rfjn1"       のステータスが正常終了であること
+    かつ ジョブ"/rjn0734/finally/rfjn1/rj2"        のステータスが正常終了であること
+    かつ ジョブネット"/rjn0734/finally/rfjn1/rfjn11"のステータスが正常終了であること
+    かつ ジョブ"/rjn0734/finally/rfjn1/rfjn11/rj3" のステータスが正常終了であること
+    かつ ジョブ"/rjn0734/finally/rfjn1/rfjn11/j1"  のステータスが正常終了であること
+    かつ ジョブ"/rjn0734/finally/rfjn1/rfjn11/rj4" のステータスが正常終了であること
+    かつ ジョブ"/rjn0734/finally/rfjn1/rj5"        のステータスが正常終了であること
+
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
+    かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されていること
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj2 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj4 executing...'と出力されており、'rj3 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj5 executing...'と出力されており、'rj4 executing...'の後であること
+
+
+  # ./usecases/job/dsl/01_07_35_jobnet_2_layers_in_finally_in_vain.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0735") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   finally do
+  #     jobnet("rfjn1") do
+  #       ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #       jobnet("rfjn11") do
+  #         ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  #         ruby_job('rj4'){ raise RuntimeError }
+  #         ruby_job('rj5'){ STDOUT.puts('rj5 executing...') }
+  #       end
+  #       ruby_job('rj6'){ STDOUT.puts('rj6 executing...') }
+  #     end
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_35
+  シナリオ: finally内の孫のジョブネット内にruby_jobとjobが混在するルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_35_jobnet_2_layers_in_finally_in_vain.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0735"を実行する
+    かつ ジョブネット"rjn0735"が完了することを確認する
+
+    ならば ジョブネット"/rjn0735"                   のステータスが正常終了であること
+    かつ ジョブ"/rjn0735/rj1"                      のステータスが正常終了であること
+    かつ ジョブネット"/rjn0735/finally"             のステータスが正常終了であること
+    かつ ジョブネット"/rjn0735/finally/rfjn1"       のステータスが正常終了であること
+    かつ ジョブ"/rjn0735/finally/rfjn1/rj2"        のステータスが正常終了であること
+    かつ ジョブネット"/rjn0735/finally/rfjn1/rfjn11"のステータスが正常終了であること
+    かつ ジョブ"/rjn0735/finally/rfjn1/rfjn11/rj3" のステータスが正常終了であること
+    かつ ジョブ"/rjn0735/finally/rfjn1/rfjn11/rj4" のステータスがエラー終了であること
+    かつ ジョブ"/rjn0735/finally/rfjn1/rfjn11/rj5" のステータスが初期化済であること
+    かつ ジョブ"/rjn0735/finally/rfjn1/rj6"        のステータスが初期化済であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj2 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj4 executing...'と出力されており、'rj3 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj5 executing...'と出力されており、'rj4 executing...'の後であること
+
+    もし ジョブ"/rjn0735/finally/rfjn1/rfjn11/rj4"の"実行時PID"を"job_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{job_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{job_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ ジョブ"/rjn0724/finally/rfjn1/rfjn11/rj4"の"表示"リンクをクリックする
+    ならば "実行中のジョブ画面"が表示していること
+    かつ "エラーメッセージ"に以下のメッセージが表示されていること
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    "Job process failed. STDOUT and STDERR were redirected to files."
+    "You can see them at '#{標準出力のファイルパス}' and '#{標準エラー出力のファイルパス}'"
+    "on the server '#{サーバ名}'"
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+  # ./usecases/job/dsl/01_07_36_finally_in_finally.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0736") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   finally do
+  #     jobnet('rfjn1') do
+  #       ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #       finally do
+  #         ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  #       end
+  #     end
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_36
+  シナリオ: finallyが入れ子になったルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_36_finally_in_finally.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0736"を実行する
+    かつ ジョブネット"rjn0736"が完了することを確認する
+
+    ならば ジョブネット"/rjn0736"                    のステータスが正常終了であること
+    かつ ジョブ"/rjn0736/rj1"                       のステータスが正常終了であること
+    かつ ジョブネット"/rjn0736/finally"              のステータスが正常終了であること
+    かつ ジョブネット"/rjn0736/finally/rfjn1"        のステータスが正常終了であること
+    かつ ジョブ"/rjn0736/finally/rfjn1/rj2"         のステータスが正常終了であること
+    かつ ジョブネット"/rjn0736/finally/rfjn1/finally"のステータスが正常終了であること
+    かつ ジョブ"/rjn0736/finally/rfjn1/finally/rj3" のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj2 executing...'の後であること
+
+
+  # ./usecases/job/dsl/01_07_37_finally_in_finally_with_normal_job.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0737") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   finally do
+  #     jobnet("rfjn1", :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #       ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #       finally do
+  #         ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  #         job('j1', "$HOME/tengine_job_test.sh 0 job1")
+  #       end
+  #     end
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_37
+  シナリオ: finally内のfinallyにruby_jobとjobが混在するルートジョブネット
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_37_finally_in_finally_with_normal_job.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0737"を実行する
+    かつ ジョブネット"rjn0737"が完了することを確認する
+
+    ならば ジョブネット"/rjn0737"                    のステータスが正常終了であること
+    かつ ジョブ"/rjn0737/rj1"                       のステータスが正常終了であること
+    かつ ジョブネット"/rjn0737/finally"              のステータスが正常終了であること
+    かつ ジョブネット"/rjn0737/finally/rfjn1"        のステータスが正常終了であること
+    かつ ジョブ"/rjn0737/finally/rfjn1/rj2"         のステータスが正常終了であること
+    かつ ジョブネット"/rjn0737/finally/rfjn1/finally"のステータスが正常終了であること
+    かつ ジョブ"/rjn0737/finally/rfjn1/finally/rj3" のステータスが正常終了であること
+    かつ ジョブ"/rjn0737/finally/rfjn1/finally/j1"  のステータスが正常終了であること
+
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
+    かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されていること
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj2 executing...'の後であること
+
+
+  # ./usecases/job/dsl/01_07_38_finally_in_finally_in_vain.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0738") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   finally do
+  #     jobnet("rfjn1") do
+  #       ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #       finally do
+  #         ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  #         ruby_job('rj4'){ raise RuntimeError }
+  #         ruby_job('rj5'){ STDOUT.puts('rj5 executing...') }
+  #       end
+  #     end
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_38
+  シナリオ: finally内のfinallyで失敗
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_38_finally_in_finally_in_vain.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0738"を実行する
+    かつ ジョブネット"rjn0738"が完了することを確認する
+
+    ならば ジョブネット"/rjn0738"                    のステータスがエラー終了であること
+    かつ ジョブ"/rjn0738/rj1"                       のステータスが正常終了であること
+    かつ ジョブネット"/rjn0738/finally"              のステータスがエラー終了であること
+    かつ ジョブネット"/rjn0738/finally/rfjn1"        のステータスが正常終了であること
+    かつ ジョブ"/rjn0738/finally/rfjn1/rj2"         のステータスが正常終了であること
+    かつ ジョブネット"/rjn0738/finally/rfjn1/finally"のステータスがエラー終了であること
+    かつ ジョブ"/rjn0738/finally/rfjn1/finally/rj3" のステータスが正常終了であること
+    かつ ジョブ"/rjn0738/finally/rfjn1/finally/rj4" のステータスがエラー終了であること
+    かつ ジョブ"/rjn0738/finally/rfjn1/finally/rj5" のステータスが初期化済であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj2 executing...'の後であること
+
+    もし ジョブ"/rjn0738/finally/rfjn1/finally/rj4"の"実行時PID"を"job_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{job_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{job_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ ジョブ"/rjn0724/finally/rfjn1/finally/rj4"の"表示"リンクをクリックする
+    ならば "実行中のジョブ画面"が表示していること
+    かつ "エラーメッセージ"に以下のメッセージが表示されていること
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    "Job process failed. STDOUT and STDERR were redirected to files."
+    "You can see them at '#{標準出力のファイルパス}' and '#{標準エラー出力のファイルパス}'"
+    "on the server '#{サーバ名}'"
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+  # ./usecases/job/dsl/01_07_39_custom_conductors.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # custom_conductor = lambda do |job|
+  #   begin
+  #     job.run
+  #   rescue => e
+  #     job.succeed
+  #   end
+  # end
+  #
+  # jobnet('rjn0739', :conductors => {:ruby_job => custom_conductor}) do
+  #   ruby_job('rj1'){ raise RuntimeError }
+  #   ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  # end
+  # ---------------------------
+  #
+  @01_07_39
+  シナリオ: jobnetにcustom_conductorsを定義したルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_39_custom_conductors.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0739"を実行する
+    かつ ジョブネット"rjn0739"が完了することを確認する
+
+    ならば ジョブネット"/rjn0739"のステータスが正常終了であること
+    かつ ジョブ"/rjn0739/rj1"   のステータスが正常終了であること
+    かつ ジョブ"/rjn0739/rj2"   のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+
+
+  # ./usecases/job/dsl/01_07_40_custom_conductors_with_normal_job.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # custom_conductor = lambda do |job|
+  #   begin
+  #     job.run
+  #   rescue => e
+  #     job.succeed
+  #   end
+  # end
+  #
+  # jobnet('rjn0740', :instance_name => "test_server1", :credential_name => "test_credential1", :conductors => {:ruby_job => custom_conductor}) do
+  #   job('j1', "$HOME/tengine_job_test.sh 0 job1")
+  #   ruby_job('rj1'){ raise RuntimeError }
+  #   ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  # end
+  # ---------------------------
+  #
+  @01_07_40
+  シナリオ: jobnetにcustom_conductorsを定義したルートジョブネット内にruby_jobとjobが混在
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_40_custom_conductors_with_normal_job.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0740"を実行する
+    かつ ジョブネット"rjn0740"が完了することを確認する
+
+    ならば ジョブネット"/rjn0740"のステータスが正常終了であること
+    かつ ジョブ"/rjn0740/j1"    のステータスが正常終了であること
+    かつ ジョブ"/rjn0740/rj1"   のステータスが正常終了であること
+    かつ ジョブ"/rjn0740/rj2"   のステータスが正常終了であること
+
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
+    かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されていること
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+
+
+  # ./usecases/job/dsl/01_07_41_custom_conductors_in_child_jobnet.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # custom_conductor = lambda do |job|
+  #   begin
+  #     job.run
+  #   rescue => e
+  #     job.succeed
+  #   end
+  # end
+  #
+  # jobnet('rjn0741', :conductors => {:ruby_job => custom_conductor}) do
+  #   ruby_job('rj1'){ raise RuntimeError }
+  #   jobnet('rjn1', :conductors => {:ruby_job => Tengine::Job::RubyJob::DEFAULT_CONDUCTOR}) do
+  #     ruby_job('rj2'){ raise RuntimeError }
+  #   end
+  #   ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  # end
+  # ---------------------------
+  #
+  @01_07_41
+  シナリオ: jobnetにcustom_conductorsを定義したルートジョブネット内にruby_jobとjobが混在
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_41_custom_conductors_in_child_jobnet.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0741"を実行する
+    かつ ジョブネット"rjn0741"が完了することを確認する
+
+    ならば ジョブネット"/rjn0741"   のステータスが正常終了であること
+    かつ ジョブ"/rjn0741/jr1"      のステータスが正常終了であること
+    かつ ジョブネット"/rjn0741/rjn1"のステータスが正常終了であること
+    かつ ジョブ"/rjn0741/rjn1/rj2" のステータスが正常終了であること
+    かつ ジョブ"/rjn0741/rj3"      のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj2 executing...'の後であること
+
+
+  # ./usecases/job/dsl/01_07_42_custom_conductor.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # custom_conductor = lambda do |job|
+  #   begin
+  #     job.run
+  #   rescue => e
+  #     job.succeed
+  #   end
+  # end
+  #
+  # jobnet('rjn0742') do
+  #   ruby_job('rj1', :conductor => {:ruby_job => custom_conductor}){ raise RuntimeError }
+  #   ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #   ruby_job('rj3'){ raise RuntimeError }
+  #   ruby_job('rj4'){ STDOUT.puts('rj4 executing...') }
+  # end
+  # ---------------------------
+  #
+  @01_07_42
+  シナリオ: ruby_jobにcustom_conductorを定義したルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_42_custom_conductor.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0742"を実行する
+    かつ ジョブネット"rjn0742"が完了することを確認する
+
+    ならば ジョブネット"/rjn0742"のステータスがエラー終了であること
+    かつ ジョブ"/rjn0742/jr1"   のステータスが正常終了であること
+    かつ ジョブ"/rjn0742/rj2"   のステータスが正常終了であること
+    かつ ジョブ"/rjn0742/rj3"   のステータスがエラー終了であること
+    かつ ジョブ"/rjn0742/rj4"   のステータスが初期化済であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されていることを確認する
+
+    もし ジョブ"/rjn0742/rj3"の"実行時PID"を"job_pid"と呼ぶ
+    かつ ジョブ実行環境の"tengine_job_agent.yml.erb"に設定されたlog_dirの値を"log_dir"と呼ぶこととする
+    かつ "#{logdir}/stdout-#{job_pid}.log"を"標準出力のファイルパス"と呼ぶこととする
+    かつ "#{logdir}/stderr-#{job_pid}.log"を"標準エラー出力のファイルパス"と呼ぶこととする
+    かつ ジョブ"/rjn0724/rj3"の"表示"リンクをクリックする
+    ならば "実行中のジョブ画面"が表示していること
+    かつ "エラーメッセージ"に以下のメッセージが表示されていること
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    "Job process failed. STDOUT and STDERR were redirected to files."
+    "You can see them at '#{標準出力のファイルパス}' and '#{標準エラー出力のファイルパス}'"
+    "on the server '#{サーバ名}'"
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+  # ./usecases/job/dsl/01_07_43_custom_conductor_with_normal_job.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # custom_conductor = lambda do |job|
+  #   begin
+  #     job.run
+  #   rescue => e
+  #     job.succeed
+  #   end
+  # end
+  #
+  # jobnet('rjn0743', :instance_name => "test_server1", :credential_name => "test_credential1") do
+  #   job('j1', "$HOME/tengine_job_test.sh 0 job1")
+  #   ruby_job('rj1', :conductor => {:ruby_job => custom_conductor}){ raise RuntimeError })
+  #   ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  # end
+  # ---------------------------
+  #
+  @01_07_43
+  シナリオ: ruby_jobにcustom_conductorを定義したルートジョブネット内にruby_jobとjobが混在
+    前提 仮想サーバ"test_server1"のファイル:"/home/goku/tengine_job_test.log"が存在しないこと
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_43_custom_conductor_with_normal_job.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0743"を実行する
+    かつ ジョブネット"rjn0743"が完了することを確認する
+
+    ならば ジョブネット"/rjn0743"のステータスが正常終了であること
+    かつ ジョブ"/rjn0743/j1"    のステータスが正常終了であること
+    かつ ジョブ"/rjn0743/rj1"   のステータスが正常終了であること
+    かつ ジョブ"/rjn0743/rj2"   のステータスが正常終了であること
+
+    もし 仮想サーバ"test_server1"のファイル"/home/goku/tengine_job_test.log"を開く。このファイルを"スクリプトログ"と呼ぶこととする。
+    ならば "tengine_job_test job1 start"と"スクリプトログ"の先頭に出力されていること
+    かつ "tengine_job_test job1 finish"と"スクリプトログ"に出力されていること
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+
+
+  # ./usecases/job/dsl/01_07_44_custom_conductor_in_child_jobnet.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # custom_conductor = lambda do |job|
+  #   begin
+  #     job.run
+  #   rescue => e
+  #     job.succeed
+  #   end
+  # end
+  #
+  # jobnet('rjn0744') do
+  #   ruby_job('rj1', :conductor => {:ruby_job => custom_conductor}){ raise RuntimeError }
+  #   jobnet('rjn1') do
+  #     ruby_job('rj2', :conductor => {:ruby_job => Tengine::Job::RubyJob::DEFAULT_CONDUCTOR}){ raise RuntimeError }
+  #   end
+  #   ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  # end
+  # ---------------------------
+  #
+  @01_07_44
+  シナリオ: ruby_jobにcustom_conductorを定義したルートジョブネット内にruby_jobとjobが混在
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_44_custom_conductor_in_child_jobnet.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0744"を実行する
+    かつ ジョブネット"rjn0744"が完了することを確認する
+
+    ならば ジョブネット"/rjn0744"   のステータスがエラー終了であること
+    かつ ジョブ"/rjn0744/rj1"      のステータスが正常終了であること
+    かつ ジョブネット"/rjn0744/rjn1"のステータスがエラー終了であること
+    かつ ジョブ"/rjn0744/rjn1/rj2" のステータスがエラー終了であること
+    かつ ジョブ"/rjn0744/rj3"      のステータスが初期化済であること
+
+
+  # ./usecases/job/dsl/01_07_45_explicit_job_succeed.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0745") do
+  #   ruby_job('rj1'){ job.succeed(:message => "succeeded rj1 by explicitly coding"); STDOUT.puts('rj1 executing...') }
+  #   ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  # end
+  # ---------------------------
+  #
+  @01_07_45
+  シナリオ: ruby_job内で明示的にjob_succeedを指定したルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_45_explicit_job_succeed.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0745"を実行する
+    かつ ジョブネット"rjn0745"が完了することを確認する
+
+    ならば ジョブネット"/rjn0745"のステータスが正常終了であること
+    かつ ジョブ"/rjn0745/jr1"   のステータスが正常終了であること
+    かつ ジョブ"/rjn0745/rj2"   のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+
+    かつ ジョブ"/rjn0745/rj3"の"表示"リンクをクリックする
+    ならば "実行中のジョブ画面"が表示していること
+    かつ "メッセージ"に"succeeded rj1 by explicitly coding"が表示されていること
+
+
+
+  # ./usecases/job/dsl/01_07_46_explicit_job_succeed_in_child_jobnet.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0746") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   jobnet("rjn1") do
+  #     ruby_job('rj2'){ job.succeed(:message => "succeeded rj2 by explicitly coding"); STDOUT.puts('rj2 executing...') }
+  #   end
+  #   ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  # end
+  # ---------------------------
+  #
+  @01_07_46
+  シナリオ: 子のジョブネット内のruby_job内で明示的にjob_succeedを指定したルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_46_explicit_job_succeed_in_child_jobnet.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0746"を実行する
+    かつ ジョブネット"rjn0746"が完了することを確認する
+
+    ならば ジョブネット"/rjn0746"   のステータスが正常終了であること
+    かつ ジョブ"/rjn0746/jr1"      のステータスが正常終了であること
+    かつ ジョブネット"/rjn0746/rjn1"のステータスが正常終了であること
+    かつ ジョブ"/rjn0746/rjn1/rj2" のステータスが正常終了であること
+    かつ ジョブ"/rjn0746/rj3"      のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj2 executing...'の後であること
+
+    かつ ジョブ"/rjn0746/rj2"の"表示"リンクをクリックする
+    ならば "実行中のジョブ画面"が表示していること
+    かつ "メッセージ"に"succeeded rj2 by explicitly coding"が表示されていること
+
+
+  # ./usecases/job/dsl/01_07_47_explicit_job_succeed_in_finally.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0747") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   jobnet("rjn1") do
+  #     ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #   end
+  #   ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  #   finally do
+  #     ruby_job('rj4'){ job.succeed(:message => "succeeded rj4 by explicitly coding"); STDOUT.puts('rj4 executing...') }
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_47
+  シナリオ: finally内のruby_job内で明示的にjob_succeedを指定したルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_47_explicit_job_succeed_in_finally.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0747"を実行する
+    かつ ジョブネット"rjn0747"が完了することを確認する
+
+    ならば ジョブネット"/rjn0747"      のステータスが正常終了であること
+    かつ ジョブ"/rjn0747/jr1"         のステータスが正常終了であること
+    かつ ジョブネット"/rjn0747/rjn1"   のステータスが正常終了であること
+    かつ ジョブ"/rjn0747/rjn1/rj2"    のステータスが正常終了であること
+    かつ ジョブ"/rjn0747/rj3"         のステータスが正常終了であること
+    かつ ジョブネット"/rjn0747/finally"のステータスが正常終了であること
+    かつ ジョブ"/rjn0747/finally/rj4" のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj2 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj4 executing...'と出力されており、'rj3 executing...'の後であること
+
+    かつ ジョブ"/rjn0747/rj4"の"表示"リンクをクリックする
+    ならば "実行中のジョブ画面"が表示していること
+    かつ "メッセージ"に"succeeded rj4 by explicitly coding"が表示されていること
+
+
+  # ./usecases/job/dsl/01_07_48_explicit_job_fail.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0748") do
+  #   ruby_job('rj1'){ job.fail(:message => "failed rj1 by explicitly coding"); STDOUT.puts('rj1 executing...') }
+  #   ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #   finally do
+  #     ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_48
+  シナリオ: 明示的にjob_failを指定したルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_48_explicit_job_fail.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0748"を実行する
+    かつ ジョブネット"rjn0748"が完了することを確認する
+
+    ならば ジョブネット"/rjn0748"      のステータスがエラー終了であること
+    かつ ジョブ"/rjn0748/jr1"         のステータスがエラー終了であること
+    かつ ジョブ"/rjn0748/rj2"         のステータスが初期化済であること
+    かつ ジョブネット"/rjn0748/finally"のステータスが正常終了であること
+    かつ ジョブ"/rjn0748/finally/rj3" のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj1 executing...'の後であること
+
+    かつ ジョブ"/rjn0748/rj1"の"表示"リンクをクリックする
+    ならば "実行中のジョブ画面"が表示していること
+    かつ "メッセージ"に"failed rj1 by explicitly coding"が表示されていること
+
+
+  # ./usecases/job/dsl/01_07_49_explicit_job_fail_in_child_jobnet.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0749") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   jobnet('rjn1') do
+  #     ruby_job('rj2'){ job.fail(:message => "failed rj2 by explicitly coding"); STDOUT.puts('rj2 executing...') }
+  #   end
+  #   ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  #   finally do
+  #     ruby_job('rj4'){ STDOUT.puts('rj4 executing...') }
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_49
+  シナリオ: 子のジョブネット内のruby_jobで明示的にjob_failを指定したルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_49_explicit_job_fail_in_child_jobnet.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0749"を実行する
+    かつ ジョブネット"rjn0749"が完了することを確認する
+
+    ならば ジョブネット"/rjn0749"      のステータスがエラー終了であること
+    かつ ジョブ"/rjn0749/jr1"         のステータスが正常終了であること
+    かつ ジョブネット"/rjn0749/rjn1/   のステータスがエラー終了であること
+    かつ ジョブ"/rjn0749/rjn1/rj2"    のステータスがエラー終了であること
+    かつ ジョブ"/rjn0749/jr3"         のステータスが初期化済であること
+    かつ ジョブネット"/rjn0749/finally"のステータスが正常終了であること
+    かつ ジョブ"/rjn0749/finally/rj4" のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj4 executing...'と出力されており、'rj2 executing...'の後であること
+
+    かつ ジョブ"/rjn0749/rj2"の"表示"リンクをクリックする
+    ならば "実行中のジョブ画面"が表示していること
+    かつ "メッセージ"に"failed rj2 by explicitly coding"が表示されていること
+
+
+  # ./usecases/job/dsl/01_07_50_explicit_job_fail_in_finally.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0750") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #   finally do
+  #     ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  #     ruby_job('rj4'){ job.fail(:message => "succeeded rj4 by explicitly coding"); STDOUT.puts('rj4 executing...') }
+  #     ruby_job('rj5'){ STDOUT.puts('rj5 executing...') }
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_50
+  シナリオ: finally内のruby_jobで明示的にjob_failを指定したルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_50_explicit_job_fail_in_finally.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0750"を実行する
+    かつ ジョブネット"rjn0750"が完了することを確認する
+
+    ならば ジョブネット"/rjn0750"      のステータスがエラー終了であること
+    かつ ジョブ"/rjn0750/jr1"         のステータスが正常終了であること
+    かつ ジョブ"/rjn0750/jr2"         のステータスが正常終了であること
+    かつ ジョブネット"/rjn0750/finally"のステータスが正常終了であること
+    かつ ジョブ"/rjn0750/finally/rj3" のステータスが正常終了であること
+    かつ ジョブ"/rjn0750/finally/rj4" のステータスがエラー終了であること
+    かつ ジョブ"/rjn0750/finally/rj5" のステータスが初期化済であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj2 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj4 executing...'と出力されており、'rj3 executing...'の後であること
+
+    かつ ジョブ"/rjn0750/rj4"の"表示"リンクをクリックする
+    ならば "実行中のジョブ画面"が表示していること
+    かつ "メッセージ"に"failed rj4 by explicitly coding"が表示されていること
+
+
+  # ./usecases/job/dsl/01_07_51_explicit_job_fail_with_exception.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0751") do
+  #   ruby_job('rj1'){ job.fail(:exception => RuntimeError.new("failed rj1 by explicitly coding")); STDOUT.puts('rj1 executing...') }
+  #   ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #   finally do
+  #     ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_51
+  シナリオ: job_failに例外クラスを指定したルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_51_explicit_job_fail_with_exception.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0751"を実行する
+    かつ ジョブネット"rjn0751"が完了することを確認する
+
+    ならば ジョブネット"/rjn0751"      のステータスがエラー終了であること
+    かつ ジョブ"/rjn0751/jr1"         のステータスがエラー終了であること
+    かつ ジョブ"/rjn0751/jr2"         のステータスが初期化済であること
+    かつ ジョブネット"/rjn0751/finally"のステータスが正常終了であること
+    かつ ジョブ"/rjn0751/finally/rj3" のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj1 executing...'の後であること
+
+    かつ ジョブ"/rjn0751/rj1"の"表示"リンクをクリックする
+    ならば "実行中のジョブ画面"が表示していること
+    かつ "メッセージ"に"RuntimeError"および"failed rj1 by explicitly coding"が表示されていること
+
+
+  # ./usecases/job/dsl/01_07_52_explicit_job_fail_with_exception_in_child_jobnet.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0752") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   jobnet('rjn1') do
+  #     ruby_job('rj2'){ job.fail(:exception => RuntimeError.new("failed rj2 by explicitly coding")); STDOUT.puts('rj2 executing...') }
+  #   end
+  #   ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  #   finally do
+  #     ruby_job('rj4'){ STDOUT.puts('rj4 executing...') }
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_52
+  シナリオ: 子のジョブネット内のjob_failに例外クラスを指定したルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_52_explicit_job_fail_with_exception_in_child_jobnet.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0752"を実行する
+    かつ ジョブネット"rjn0752"が完了することを確認する
+
+    ならば ジョブネット"/rjn0752"      のステータスがエラー終了であること
+    かつ ジョブ"/rjn0752/jr1"         のステータスが正常終了であること
+    かつ ジョブネット"/rjn0752/rjn1"   のステータスがエラー終了であること
+    かつ ジョブ"/rjn0752/rjn1/jr2"    のステータスがエラー終了であること
+    かつ ジョブ"/rjn0752/rj3"         のステータスが初期化済であること
+    かつ ジョブネット"/rjn0752/finally"のステータスが正常終了であること
+    かつ ジョブ"/rjn0752/finally/rj4" のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj4 executing...'と出力されており、'rj2 executing...'の後であること
+
+    かつ ジョブ"/rjn0752/rj2"の"表示"リンクをクリックする
+    ならば "実行中のジョブ画面"が表示していること
+    かつ "メッセージ"に"RuntimeError"および"failed rj2 by explicitly coding"が表示されていること
+
+
+  # ./usecases/job/dsl/01_07_53_explicit_job_fail_with_exception_in_finally.rb
+  # ---------------------------
+  # -*- coding: utf-8 -*-
+  # require 'tengine_job'
+  #
+  # jobnet("rjn0753") do
+  #   ruby_job('rj1'){ STDOUT.puts('rj1 executing...') }
+  #   ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
+  #   finally do
+  #     ruby_job('rj3'){ STDOUT.puts('rj3 executing...') }
+  #     ruby_job('rj4'){ job.fail(:exception => RuntimeError.new("failed rj4 by explicitly coding")); STDOUT.puts('rj4 executing...') }
+  #     ruby_job('rj5'){ STDOUT.puts('rj5 executing...') }
+  #   end
+  # end
+  # ---------------------------
+  #
+  @01_07_53
+  シナリオ: finally内のjob_failに例外クラスを指定したルートジョブネット
+    もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_53_explicit_job_fail_with_exception_in_finally.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
+    もし "Tengineコアプロセス"の標準出力からPIDを確認する
+    もし "Tengineコアプロセス"の状態が"稼働中"であることを確認する
+
+    もし ジョブネット"rjn0753"を実行する
+    かつ ジョブネット"rjn0753"が完了することを確認する
+
+    ならば ジョブネット"/rjn0753"      のステータスがエラー終了であること
+    かつ ジョブ"/rjn0753/jr1"         のステータスが正常終了であること
+    かつ ジョブ"/rjn0753/jr2"         のステータスが正常終了であること
+    かつ ジョブネット"/rjn0753/finally"のステータスが正常終了であること
+    かつ ジョブ"/rjn0753/finally/rj3" のステータスが正常終了であること
+    かつ ジョブ"/rjn0753/finally/rj4" のステータスが正常終了であること
+    かつ ジョブ"/rjn0753/finally/rj5" のステータスが正常終了であること
+
+    かつ "Tengineコアプロセス"の標準出力に'rj1 executing...'と出力されていることを確認する
+    かつ "Tengineコアプロセス"の標準出力に'rj2 executing...'と出力されており、'rj1 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj3 executing...'と出力されており、'rj2 executing...'の後であること
+    かつ "Tengineコアプロセス"の標準出力に'rj4 executing...'と出力されており、'rj3 executing...'の後であること
+
+    かつ ジョブ"/rjn0752/rj4"の"表示"リンクをクリックする
+    ならば "実行中のジョブ画面"が表示していること
+    かつ "メッセージ"に"RuntimeError"および"failed rj4 by explicitly coding"が表示されていること
+
 
   # ./usecases/job/dsl/01_07_54_expansion.rb
   # ---------------------------
@@ -1145,7 +2316,7 @@
   # end
   # ---------------------------
   #
-  @01_07_XX
+  @01_07_54
   シナリオ: expansionが含まれるルートジョブネット
     もし "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/01_07_54_expansion.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
     もし "Tengineコアプロセス"の標準出力からPIDを確認する
