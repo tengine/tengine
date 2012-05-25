@@ -8,9 +8,15 @@ describe Tengine::Core::OptimisticLock do
     include Tengine::Core::OptimisticLock
 
     set_locking_field :version
-
     field :version, :type => Integer
     field :value, :type => String
+  end
+
+  describe Tengine::Core::OptimisticLockTestBox1 do
+    context :class do
+      subject{ Tengine::Core::OptimisticLockTestBox1 }
+      its(:locking_field){ should == :version}
+    end
   end
 
   context "update_with_lock" do
@@ -43,6 +49,8 @@ describe Tengine::Core::OptimisticLock do
       # test_box2を更新
       test_box2_count = 0
       test_box2.update_with_lock do
+        # このブロックの最初の実行した時はtest_box1のバージョン3と競合しているので、
+        # このブロックがもう一度実行され新たなバージョン4となって実行されます
         test_box2_count += 1
         test_box2.value += "w"
       end
