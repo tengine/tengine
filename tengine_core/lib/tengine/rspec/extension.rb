@@ -40,7 +40,6 @@ module Tengine::RSpec::Extension
     end
   end
 
-  module InstanceMethods
     def session
       @__session__
     end
@@ -48,6 +47,5 @@ module Tengine::RSpec::Extension
     def tengine
       @__tengine__
     end
-  end
 
 end
