@@ -4,7 +4,13 @@ require 'tengine/core'
 
 describe Tengine::Core::Mutex do
   before do
-    Tengine::Core::Mutex::Mutex.delete_all
+    Tengine::Core::Mutex::Mutex.tap do |k|
+      k.delete_all
+      k.clear_static_bson_objectids
+      k.add_static_bson_objectid('test mutex 01', '4fbed7200e8ed82e83000001')
+      k.add_static_bson_objectid('test mutex 02', '4fbed7200e8ed82e83000002')
+      k.add_static_bson_objectid('test mutex 03', '4fbed7200e8ed82e83000003')
+    end
   end
 
   context "#new" do

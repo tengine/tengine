@@ -54,22 +54,30 @@ class Tengine::Core::Mutex::Mutex
   field :ttl, :type => Float
   field :waiters, :type => Array
 
-  STATIC_BSON_OBJECTIDS = {
-    # 以下、 spec/tengine/core/mutex_spec.rb で使用しているnameとそのBSON::ObjectId
-    'test mutex 01' => BSON::ObjectId.from_string('4fbed7200e8ed82e83000001'),
-    'test mutex 02' => BSON::ObjectId.from_string('4fbed7200e8ed82e83000002'),
-    'test mutex 03' => BSON::ObjectId.from_string('4fbed7200e8ed82e83000003'),
-  }.freeze
+  class << self
+    def static_bson_objectids
+      @static_bson_objectids ||= {}
+    end
 
-  def self.find_or_create name, ttl
-    id = BSON::ObjectId.legal?(name) ? name : STATIC_BSON_OBJECTIDS[name] or
-      raise ArgumentError, "Unknown name for BSON::ObjectId: #{name.inspect}"
-    collection.driver.update(
-      { :_id => id },
-      { "$set" => { :ttl => ttl, }, },
-      { :upsert => true, :safe => true, :multiple => false, }
-    )
-    return find(id)
+    def clear_static_bson_objectids
+      @static_bson_objectids = nil
+    end
+
+    def add_static_bson_objectid(name, objectid)
+      static_bson_objectids[name] = objectid.is_a?(BSON::ObjectId) ? objectid :
+        BSON::ObjectId.from_string(objectid.to_s)
+    end
+
+    def find_or_create name, ttl
+      id = BSON::ObjectId.legal?(name) ? name : static_bson_objectids[name] or
+        raise ArgumentError, "Unknown name for BSON::ObjectId: #{name.inspect}"
+      collection.driver.update(
+        { :_id => id },
+        { "$set" => { :ttl => ttl, }, },
+        { :upsert => true, :safe => true, :multiple => false, }
+      )
+      return find(id)
+    end
   end
 
   private
