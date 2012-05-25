@@ -4,13 +4,10 @@ require 'tengine/resource/config'
 
 require 'yaml'
 require 'optparse'
-require 'active_support/memoizable'
 
 require 'tengine/support/yaml_with_erb'
 
 class Tengine::Resource::Config::Resource < Tengine::Support::Config::Definition::Suite
-  # memoize については http://wota.jp/ac/?date=20081025#p11 などを参照してください
-  extend ActiveSupport::Memoizable
 
   class << self
     def default_hash
