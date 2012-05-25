@@ -36,8 +36,8 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
 
     respond_to do |format|
       format.html { # index.html.erb
-        if @auto_refresh = @finder.reflesh_interval.to_i != 0
-          @reflesh_interval = @finder.reflesh_interval
+        if @auto_refresh = @finder.refresh_interval.to_i != 0
+          @refresh_interval = @finder.refresh_interval
         end
         render
       }

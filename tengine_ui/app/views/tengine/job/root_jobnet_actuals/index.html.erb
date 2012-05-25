@@ -1,9 +1,9 @@
 <% if @auto_refresh -%>
 <% content_for :end_of_head do -%>
-  <meta http-equiv="refresh" content="<%= @reflesh_interval %>">
+  <meta http-equiv="refresh" content="<%= @refresh_interval %>">
 <% end -%>
 <p>
-[自動更新中] <%= @reflesh_interval %>秒間隔で自動更新しています。
+[自動更新中] <%= @refresh_interval %>秒間隔で自動更新しています。
 </p>
 <% end -%>
 <h1><%= page_title Tengine::Job::RootJobnetActual, :list %></h1>
@@ -55,8 +55,8 @@
            <% if @category -%>
              <%= hidden_field_tag :category, @category.id %>
            <% end -%>
-           <%= hidden_field_tag "finder[reflesh_interval]", @finder.reflesh_interval,
-             id:"hidden_finder_reflesh_interval" %>
+           <%= hidden_field_tag "finder[refresh_interval]", @finder.refresh_interval,
+             id:"hidden_finder_refresh_interval" %>
             <div class = "BoxBtns">
               <span class = "BtnWrap" >
                 <%= f.submit(t("views.links.search"), :class=> "BtnSearch") %>
@@ -73,8 +73,8 @@
       <div class="Section">
         <div class="BoxActionLinksRight">
           <%= form_for(:finder, :url => tengine_job_root_jobnet_actuals_path, :method => :get, html:{novalidate:true}) do |f| %>
-            <%= f.label :reflesh_interval, t(".refresher.form.refresh_interval") %>
-            <%= f.number_field :reflesh_interval, min:0, class:"InputText" %><%= t("datetime.prompts.second") %>
+            <%= f.label :refresh_interval, t(".refresher.form.refresh_interval") %>
+            <%= f.number_field :refresh_interval, min:0, class:"InputText" %><%= t("datetime.prompts.second") %>
 
             <%= hidden_field_tag "finder[duration]", @finder.duration,
               id:"hidden_finder_duration" %>

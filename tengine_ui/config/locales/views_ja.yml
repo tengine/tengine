@@ -27,7 +27,7 @@ ja:
       successfully_updated: "%{model}が更新されました。"
       successfully_destroyed: "%{model}が削除されました。"
     caution:
-      reflesh_interval: "指定した間隔で画面をリフレッシュします。0もしくは、空欄の場合リフレッシュしません。"
+      refresh_interval: "指定した間隔で画面をリフレッシュします。0もしくは、空欄の場合リフレッシュしません。"
     pagination:
       caption: "全%{total_number}件中%{first_number}〜%{last_number}件を表示"
       first: "最初へ"

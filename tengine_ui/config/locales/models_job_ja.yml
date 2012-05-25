@@ -44,7 +44,7 @@ ja:
         id: "ID"
         name: "ジョブネット名"
         phase_cd: "ステータス"
-        reflesh_interval: "リフレッシュ間隔(秒)"
+        refresh_interval: "リフレッシュ間隔(秒)"
       tengine/job/jobnet_actual:
         id: "ID"
         name: "ジョブ名"

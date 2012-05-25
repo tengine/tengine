@@ -10,7 +10,7 @@ class Tengine::Core::EventsController < ApplicationController
     respond_to do |format|
       format.html {
         if @auto_refresh = auto_refresh?
-          @reflesh_interval = reflesh_interval
+          @refresh_interval = refresh_interval
         end
         render
       } # index.html.erb
@@ -93,14 +93,14 @@ class Tengine::Core::EventsController < ApplicationController
 
   # indexアクション且つ、更新間隔が0以外の場合リフレッシュします。
   def auto_refresh?
-    action_name == 'index' && reflesh_interval != 0
+    action_name == 'index' && refresh_interval != 0
   end
 
   # パラメータから更新間隔を取り出し数値でかえします。
   # 有効な値がない場合は0を返します。
-  def reflesh_interval
+  def refresh_interval
     result = 0
-    result = params[:finder][:reflesh_interval].to_i if params[:finder]
+    result = params[:finder][:refresh_interval].to_i if params[:finder]
     return result
   end
 
