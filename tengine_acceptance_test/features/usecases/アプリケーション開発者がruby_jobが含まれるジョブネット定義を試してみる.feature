@@ -106,7 +106,7 @@
   # require 'tengine_job'
   #
   # jobnet("rjn0704") do
-  #   boot_jobs(['rj1', 'rj2])
+  #   boot_jobs(['rj1', 'rj2'])
   #   ruby_job('rj1', :to => 'rj3'){ STDOUT.puts('rj1 executing...') }
   #   ruby_job('rj2', :to => 'rj3'){ STDOUT.puts('rj2 executing...') }
   #   ruby_job('rj3', :to => 'rj4'){ STDOUT.puts('rj3 executing...') }
@@ -214,7 +214,7 @@
   # require 'tengine_job'
   #
   # jobnet("rjn07087", :instance_name => "test_server1", :credential_name => "test_credential1") do
-  #   boot_jobs(['rj1', 'j1])
+  #   boot_jobs(['rj1', 'j1'])
   #   ruby_job('rj1', :to => 'rj1'){ STDOUT.puts('rj1 executing...') }
   #   ruby_job('j1', "$HOME/tengine_job_test.sh 0 job1", :to => 'rj2')
   #   ruby_job('rj2', :to => 'rj3'){ STDOUT.puts('rj2 executing...') }
@@ -282,7 +282,7 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-  # ./usecases/job/dsl/01_07_09_sequencial_ruby_jobs_in_vain.rb
+  # ./usecases/job/dsl/01_07_09_sequential_ruby_jobs_in_vain.rb
   # ---------------------------
   # -*- coding: utf-8 -*-
   # require 'tengine_job'
@@ -373,7 +373,7 @@
   # require 'tengine_job'
   #
   # jobnet("rjn0711") do
-  #   boot_jobs(['rj1', 'rj2])
+  #   boot_jobs(['rj1', 'rj2'])
   #   ruby_job('rj1', :to => 'rj3'){ raise RuntimeError }
   #   ruby_job('rj2', :to => 'rj3'){ STDOUT.puts('rj2 executing...') }
   #   ruby_job('rj3', :to => 'rj4'){ STDOUT.puts('rj3 executing...') }
@@ -1874,7 +1874,7 @@
   #
   # jobnet('rjn0743', :instance_name => "test_server1", :credential_name => "test_credential1") do
   #   job('j1', "$HOME/tengine_job_test.sh 0 job1")
-  #   ruby_job('rj1', :conductor => {:ruby_job => custom_conductor}){ raise RuntimeError })
+  #   ruby_job('rj1', :conductor => {:ruby_job => custom_conductor}){ raise RuntimeError }
   #   ruby_job('rj2'){ STDOUT.puts('rj2 executing...') }
   # end
   # ---------------------------
