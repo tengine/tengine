@@ -172,10 +172,12 @@ describe Tengine::Core::Mutex do
       m = subject.mutex
       t1 = nil
       t0 = Time.now.to_f
+puts "t0: #{t0.to_f}"
       EM.run do
         EM.defer do
           subject.synchronize do
             20.times do
+puts "#{'%.7f' % Time.now.to_f} subject.heartbeat"
               subject.heartbeat
               sleep(m.ttl / 2)
             end
@@ -186,13 +188,41 @@ describe Tengine::Core::Mutex do
           loop do
             # hacky...
             if h = m.reload.waiters.first
-              if h["timeout"] < Time.now
+
+# TODO このスリープを外すとテストが失敗することがあります。本来どうあるべきか調査が必要です。
+sleep(0.0001)
+
+# このスリープがある場合は、以下のように出力されます。
+# t0: 1337924304.496109
+# 1337924304.5289791 subject.heartbeat
+# 1337924304.6869819 subject.heartbeat
+# (中略)
+# 1337924307.5581729 subject.heartbeat
+# 1337924307.7176809 waiters not found
+# t1: 1337924307.717678
+#
+# しかし、このスリープがない場合は、以下のように出力されます。
+# t0: 1337924287.2387378
+# 1337924287.2711830 subject.heartbeat
+# 1337924287.4292722 subject.heartbeat
+# 1337924287.5876880 subject.heartbeat
+# 1337924287.7442749 timeout
+# t1: 1337924287.744271
+# 1337924287.9021912 subject.heartbeat
+# (中略)
+# 1337924290.4389310 subject.heartbeat
+
+              if h["timeout"]  < Time.now
                 t1 = Time.now.to_f
+puts "#{'%.7f' % Time.now.to_f} timeout"
+puts "t1: #{t1.to_f}"
                 EM.stop
                 break
               end
             else
               t1 = Time.now.to_f
+puts "#{'%.7f' % Time.now.to_f} waiters not found"
+puts "t1: #{t1.to_f}"
               EM.stop
               break
             end
