@@ -8,7 +8,7 @@ version_path = File.expand_path("../TENGINE_VERSION", __FILE__)
 version = File.read(version_path).strip
 
 OUTDATED_THRESHOLDS = {
-  :unique => 10,
+  :unique => 18,
   :average => 7,
   :total => 50,
   :ignored => %w[amq-protocol amq-client amqp eventmachine mongo mongoid bson bson_ext]
@@ -86,11 +86,16 @@ task :outdated do
   }
 
   puts "total outdated dependencies: #{result[:total]}"
-  puts "unique outdated libraries: #{result[:unique]}"
-  puts "outdated dependencies average: #{result[:average]}"
   puts "package which has most outdated dependencies: #{most_entries_package} #{counts_each_package[most_entries_package]}"
+  puts "outdated dependencies average: #{result[:average]}"
+  puts "unique outdated library count: #{result[:unique]}"
+  puts "unique outdated libraries:#{package_counts.inspect}"
 
-  fail("too many outdated dependecies:#{result.inspect} thresholds:#{OUTDATED_THRESHOLDS}") if result.any?{|k,v| v >= OUTDATED_THRESHOLDS[k]}
+  if result.any?{|k,v| v >= OUTDATED_THRESHOLDS[k]}
+    fail("too many outdated dependecies:#{result.inspect} thresholds:#{OUTDATED_THRESHOLDS}")
+  else
+    puts "OK! It's under thresholds"
+  end
 end
 
 
