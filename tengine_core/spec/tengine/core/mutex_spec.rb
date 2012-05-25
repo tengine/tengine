@@ -169,6 +169,8 @@ describe Tengine::Core::Mutex do
     subject { Tengine::Core::Mutex.new "test mutex 01", Math::PI / 10 }
 
     it "prevents automatic unlocking" do
+      pending "もう少し内部構造に依存しない方法で書き直すべき"
+
       m = subject.mutex
       t1 = nil
       t0 = Time.now.to_f
@@ -190,7 +192,7 @@ puts "#{'%.7f' % Time.now.to_f} subject.heartbeat"
             if h = m.reload.waiters.first
 
 # TODO このスリープを外すとテストが失敗することがあります。本来どうあるべきか調査が必要です。
-sleep(0.0001)
+# sleep(0.0001)
 
 # このスリープがある場合は、以下のように出力されます。
 # t0: 1337924304.496109
