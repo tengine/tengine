@@ -2,9 +2,6 @@
 require 'mongoid'
 
 class Tengine::Resource::Provider
-  autoload :Ec2,    'tengine/resource/provider/ec2'
-  autoload :Wakame, 'tengine/resource/provider/wakame'
-
   include Mongoid::Document
   include Mongoid::Timestamps
   include Tengine::Core::Validation
