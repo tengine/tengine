@@ -148,7 +148,7 @@ describe Tengine::Core::Kernel do
           mock_mq.stub(:unsubscribe).and_yield
           mock_mq.stub(:stop).and_yield
           mock_mq.stub(:add_hook)
-          mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, b|
+          mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, &b|
             h[:confirm].yield(mock("confirm-ok"))
             #b.yield(@header, :message)
           end
@@ -200,7 +200,7 @@ describe Tengine::Core::Kernel do
           mock_mq.stub(:unsubscribe).and_yield
           mock_mq.stub(:stop).and_yield
           mock_mq.stub(:add_hook)
-          mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, b|
+          mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, &b|
             h[:confirm].yield(mock("confirm-ok"))
             b.yield(@header, :message)
           end
@@ -278,7 +278,7 @@ describe Tengine::Core::Kernel do
           mock_mq.stub(:unsubscribe).and_yield
           mock_mq.stub(:stop).and_yield
           mock_mq.stub(:add_hook)
-          mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, b|
+          mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, &b|
             h[:confirm].yield(mock("confirm-ok"))
             b.yield(@header, :message)
           end
@@ -316,7 +316,7 @@ describe Tengine::Core::Kernel do
         mock_mq.stub(:unsubscribe).and_yield
         mock_mq.stub(:stop).and_yield
         mock_mq.stub(:add_hook)
-        mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, b|
+        mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, &b|
           h[:confirm].yield(mock("confirm-ok"))
           b.yield(@header, :message)
         end
@@ -809,7 +809,7 @@ describe Tengine::Core::Kernel do
         mock_mq.stub(:unsubscribe).and_yield
         mock_mq.stub(:stop).and_yield
         mock_mq.stub(:add_hook)
-        mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, b|
+        mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, &b|
           h[:confirm].yield(mock("confirm-ok"))
         end
 
@@ -840,7 +840,7 @@ describe Tengine::Core::Kernel do
         mock_mq.stub(:unsubscribe).and_yield
         mock_mq.stub(:stop).and_yield
         mock_mq.stub(:add_hook)
-        mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, b|
+        mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, &b|
           h[:confirm].yield(mock("confirm-ok"))
         end
 
@@ -891,7 +891,7 @@ describe Tengine::Core::Kernel do
         mock_mq.stub(:unsubscribe).and_yield
         mock_mq.stub(:stop).and_yield
         mock_mq.stub(:add_hook)
-        mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, b|
+        mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, &b|
           h[:confirm].yield(mock("confirm-ok"))
         end
         sender = mock(:sender)
