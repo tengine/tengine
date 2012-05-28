@@ -9,8 +9,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'rspec'
 # require 'factory_girl'
 
-require 'tengine_resource'
-require 'mongoid'
+require 'tengine/resource/provider/wakame'
 Mongoid.load!(File.expand_path('mongoid.yml', File.dirname(__FILE__)))
 Mongoid.database.connection.drop_database(Mongoid.database.name)
 

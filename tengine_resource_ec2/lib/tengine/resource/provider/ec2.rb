@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require 'tengine_resource'
+
 class Tengine::Resource::Provider::Ec2 < Tengine::Resource::Provider
 
   field :connection_settings, :type => Hash

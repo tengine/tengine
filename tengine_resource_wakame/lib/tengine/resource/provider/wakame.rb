@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
+require 'tengine_resource'
+require 'tengine/resource/provider/ec2'
+
 require 'tama'
 require 'tengine/support/core_ext/hash/keys'
 require 'tengine/support/core_ext/enumerable/map_to_hash'
+
 
 class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
 
