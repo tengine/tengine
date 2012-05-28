@@ -34,13 +34,11 @@ module Tengine::Core::OptimisticLock
   def __update_with_lock__
     lock_field_name = self.class.locking_field
     current_version = self.send(lock_field_name)
-    hash = as_document.dup
+    hash = as_document.dup.stringify_keys
     new_version = current_version + 1
-    hash[lock_field_name] = new_version
-
+    hash[lock_field_name.to_s] = new_version
     selector = { :_id => self.id, lock_field_name.to_sym => current_version }
     result = update_in_safe_mode(self.class.collection, selector, hash)
-
     send("#{lock_field_name}=", new_version)
     result["updatedExisting"] && !result["err"]
   end
@@ -51,8 +49,9 @@ module Tengine::Core::OptimisticLock
     DEFAULT_LOCKING_FIELD = 'lock_version'.freeze
 
     # Set the field to use for optimistic locking. Defaults to +lock_version+.
-    def set_locking_field(value = nil, &block)
-      define_attr_method :locking_field, value, &block
+    def set_locking_field(value = nil)
+      # 後者のlocking_fieldメソッドを上書きします。
+      self.instance_eval("def locking_field; #{value.inspect}; end")
       value
     end
 

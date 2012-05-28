@@ -36,7 +36,7 @@ describe Tengine::Core::Driver do
     it "同じ名前で登録されているものが存在する場合エラー" do
       msg =
         case Mongoid::VERSION
-        when /^2\.2\./ then
+        when /^2\.2\.|^2\.4\./ then
           "Validation failed - Name is already taken in same version."
         else
           "Validation failed - Name is already taken."

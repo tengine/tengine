@@ -45,7 +45,7 @@ Tengine::Core::Kernel.event_exception_reporter = :raise_all
 Tengine::Core::Config::Core::Tengined.default_cache_drivers = true
 
 RSpec.configure do |config|
-  config.include Factory::Syntax::Methods
+  config.include FactoryGirl::Syntax::Methods
 
   config.before(:all) do
     unless Tengine::Core::Setting.first(:conditions => {:name => "dsl_version"})

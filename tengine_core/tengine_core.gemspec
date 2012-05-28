@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 version = File.read(File.expand_path("../../TENGINE_VERSION", __FILE__)).strip
+require File.expand_path("../../dependencies", __FILE__)
 
 Gem::Specification.new do |s|
   s.name = "tengine_core"
@@ -24,24 +25,18 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.8.12"
   s.summary = "tengine_core is a framework/engine to support distributed processing"
 
-  s.add_runtime_dependency('activesupport', "~> 3.1.0")
-  s.add_runtime_dependency('activemodel', "~> 3.1.0")
+  s.add_runtime_dependency('activesupport', ">= 3.1.0")
+  s.add_runtime_dependency('activemodel', ">= 3.1.0")
   s.add_runtime_dependency('selectable_attr', "~> 0.3.15")
-  s.add_runtime_dependency('bson', "~> 1.5.2")
-  s.add_runtime_dependency('bson_ext', "~> 1.5.2")
-  s.add_runtime_dependency('mongo', "~> 1.5.2")
-  s.add_runtime_dependency('mongoid', "~> 2.3.3")
+  s.add_runtime_dependency('bson', "~> 1.6.2")
+  s.add_runtime_dependency('bson_ext', "~> 1.6.2")
+  s.add_runtime_dependency('mongo', "~> 1.6.2")
+  s.add_runtime_dependency('mongoid', "~> 2.4.10")
   s.add_runtime_dependency('tengine_support', "~> #{version}")
   s.add_runtime_dependency('tengine_event', "~> #{version}")
   s.add_runtime_dependency('daemons', "~> 1.1.4")
-  s.add_development_dependency('rake', "~> 0.9.2.2")
-  s.add_development_dependency('rspec', "~> 2.6.0")
-  s.add_development_dependency('factory_girl', "~> 2.1.2")
-  s.add_development_dependency('yard', "~> 0.7.2")
-  s.add_development_dependency('bundler', "~> 1.1.3")
-  s.add_development_dependency('simplecov', "~> 0.5.3")
-  s.add_development_dependency('ZenTest', "~> 4.6.2")
-  s.add_development_dependency('rdiscount', ">= 0")
+
+  common_develooment_dependencies(s)
+  s.add_development_dependency('factory_girl', "~> 3.3.0")
   s.add_development_dependency('kramdown',  ">= 0")
 end
-

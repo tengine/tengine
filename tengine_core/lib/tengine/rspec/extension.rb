@@ -40,14 +40,12 @@ module Tengine::RSpec::Extension
     end
   end
 
-  module InstanceMethods
-    def session
-      @__session__
-    end
+  def session
+    @__session__
+  end
 
-    def tengine
-      @__tengine__
-    end
+  def tengine
+    @__tengine__
   end
 
 end

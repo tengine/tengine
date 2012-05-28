@@ -71,18 +71,15 @@ module Tengine::Core::EventExceptionReportable
 
   end
 
-  module InstanceMethods
-    def report_on_exception(dsl_context, event)
-      begin
-        yield
-      rescue Exception => e
-        Tengine.logger.error("[#{e.class.name}] #{e.message}\n  " << e.backtrace.join("\n  "))
-        if reporter = Tengine::Core::Kernel.event_exception_reporter
-          reporter.call(self, dsl_context, event, e)
-        end
+  def report_on_exception(dsl_context, event)
+    begin
+      yield
+    rescue Exception => e
+      Tengine.logger.error("[#{e.class.name}] #{e.message}\n  " << e.backtrace.join("\n  "))
+      if reporter = Tengine::Core::Kernel.event_exception_reporter
+        reporter.call(self, dsl_context, event, e)
       end
     end
-
   end
 
 end

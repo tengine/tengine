@@ -42,7 +42,7 @@ Tengine::Core::Kernel.event_exception_reporter = :raise_all
 Tengine::Core::Config::Core::Tengined.default_cache_drivers = true
 
 RSpec.configure do |config|
-  config.include Factory::Syntax::Methods
+  config.include FactoryGirl::Syntax::Methods
 end
 
 Dir["#{File.expand_path('factories', File.dirname(__FILE__))}/**/*.rb"].each {|f| require f}

@@ -1,9 +1,9 @@
 <% if @auto_refresh -%>
 <% content_for :end_of_head do -%>
-  <meta http-equiv="refresh" content="<%= @reflesh_interval %>">
+  <meta http-equiv="refresh" content="<%= @refresh_interval %>">
 <% end -%>
 <p>
-[自動更新中] <%= @reflesh_interval %>秒間隔で自動更新しています。
+[自動更新中] <%= @refresh_interval %>秒間隔で自動更新しています。
 </p>
 <% end -%>
 
@@ -50,8 +50,8 @@
           <td><%= f.text_field :sender_name, class:"InputText" %></td>
          </tr>
          <tr>
-          <th><%= f.label :reflesh_interval, "リフレッシュ間隔(秒)" %></th>
-          <td><%= f.text_field :reflesh_interval, class:"InputText" %>  <span class="TextNotice">指定した間隔で画面をリフレッシュします。0もしくは、空欄の場合リフレッシュしません。</span></td>
+          <th><%= f.label :refresh_interval, "リフレッシュ間隔(秒)" %></th>
+          <td><%= f.text_field :refresh_interval, class:"InputText" %>  <span class="TextNotice">指定した間隔で画面をリフレッシュします。0もしくは、空欄の場合リフレッシュしません。</span></td>
          </tr>
         </table>
       <% end %>

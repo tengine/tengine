@@ -257,7 +257,7 @@ describe Tengine::Resource::Watcher do
             anything())
 
           expect { @watcher.start }.should change(
-            @provider_wakame.virtual_server_types, :size).by(-1)
+            @provider_wakame.virtual_server_types, :count).by(-1)
         end
       end  # end to wakame
 
@@ -377,7 +377,7 @@ describe Tengine::Resource::Watcher do
             anything())
 
           expect { @watcher.start }.should change(
-            @provider_wakame.physical_servers, :size).by(-1)
+            @provider_wakame.physical_servers, :count).by(-1)
         end
       end   # end to :wakame
 
@@ -559,7 +559,7 @@ describe Tengine::Resource::Watcher do
             anything())
 
           expect { @watcher.start }.should change(
-            @provider_wakame.virtual_servers, :size).by(-1)
+            @provider_wakame.virtual_servers, :count).by(-1)
         end
       end  # end to wakame
 
@@ -674,7 +674,7 @@ describe Tengine::Resource::Watcher do
             anything())
 
           expect { @watcher.start }.should change(
-            @provider_wakame.virtual_server_images, :size).by(-1)
+            @provider_wakame.virtual_server_images, :count).by(-1)
         end
       end  # end to wakame
 

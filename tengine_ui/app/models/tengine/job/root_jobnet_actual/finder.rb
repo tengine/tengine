@@ -14,7 +14,7 @@ class Tengine::Job::RootJobnetActual::Finder
     :id,
     :name,
     :phase_ids,
-    :reflesh_interval, # 更新間隔
+    :refresh_interval, # 更新間隔
   ].freeze
 
   ATTRIBUTE_NAMES.each{|name| attr_accessor(name) }
@@ -35,13 +35,13 @@ class Tengine::Job::RootJobnetActual::Finder
       duration_start:  now.beginning_of_day,
       duration_finish: now.end_of_day,
       phase_ids:   Tengine::Job::RootJobnetActual.phase_ids,
-      reflesh_interval: DEFAULT_REFRESH_INTERVAL,
+      refresh_interval: DEFAULT_REFRESH_INTERVAL,
     }.update(attrs || {})
     ATTRIBUTE_NAMES.each do |attr|
       v = attrs[attr]
       send("#{attr}=", v) unless v.nil?
     end
-    self.reflesh_interval = 0 if reflesh_interval.to_i < 0
+    self.refresh_interval = 0 if refresh_interval.to_i < 0
   end
 
   def attributes
