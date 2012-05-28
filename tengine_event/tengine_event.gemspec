@@ -29,12 +29,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('uuid', "~> 2.3.4")
   s.add_runtime_dependency('amqp', "~> 0.8.0")
 
-  # common_develooment_dependencies(s)
-  s.add_development_dependency('rake', "~> 0.9.2.2")
-  s.add_development_dependency('rspec', "~> 2.10.0")
-  s.add_development_dependency('yard', "~> 0.8.1")
-  s.add_development_dependency('bundler', "~> 1.1.3")
-  s.add_development_dependency('simplecov', "~> 0.6.4")
+  common_develooment_dependencies(s)
   s.add_development_dependency('ci_reporter', "~> 1.6.5")
 end
-
