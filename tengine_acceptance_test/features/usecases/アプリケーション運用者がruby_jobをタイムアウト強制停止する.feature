@@ -139,7 +139,7 @@
 
 
   @05_03_01_03
-  シナリオ: 並列ジョブの一方が実行中で、も一方は正常終了
+  シナリオ: 並列ジョブの一方が実行中で、もう一方は正常終了
     前提 "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/03_03_stop_ruby_job_2.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
 
     もし "テンプレートジョブ一覧画面"を表示する
@@ -200,7 +200,7 @@
 
 
   @05_03_01_04
-  シナリオ: 並列ジョブの一方が実行中で、も一方はエラー終了
+  シナリオ: 並列ジョブの一方が実行中で、もう一方はエラー終了
     前提 "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/03_03_stop_ruby_job_2.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
 
     もし "テンプレートジョブ一覧画面"を表示する
@@ -444,7 +444,7 @@
 
 
   @05_03_01_08
-  シナリオ: 並列ジョブネットの一方が実行中で、も一方はエラー終了
+  シナリオ: 並列ジョブネットの一方が実行中で、もう一方はエラー終了
     前提 "Tengineコアプロセス"の起動を行うために"tengined -T ./usecases/job/dsl/03_03_stop_ruby_job_2.rb -f ./features/config/tengined_debug.yml.erb "というコマンドを実行する
 
     もし "テンプレートジョブ一覧画面"を表示する
