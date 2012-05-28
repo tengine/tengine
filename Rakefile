@@ -64,7 +64,9 @@ task :outdated do
 
   output = {}
   PACKAGES.each do |package|
+    puts "\n\e[1;33m[#{package.name}] bundele outdated\e[m\n"
     raw_output = `cd #{package.name} && bundle outdated`
+    puts raw_output
     entries = raw_output.scan(%r{\s*\*\s*(.+) \((.+) \> (.+)\)})
     entries.reject!{|entry| ignored.include?(entry.first) }
     output[package.name] = entries
