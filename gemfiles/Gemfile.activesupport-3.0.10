@@ -4,29 +4,29 @@ source "http://rubygems.org"
 #   gem "activesupport", ">= 2.3.5"
 
 gem "activesupport", "= 3.0.10"
-gem "activemodel", "~> 3.0.10"
+# gem "activemodel", "~> 3.0.10"
 group :test do
   gem "eventmachine", "~> 0.12.0"
 end
 
-gem "selectable_attr", "~> 0.3.15"
+# gem "selectable_attr", "~> 0.3.15"
 
-gem "bson",     "~> 1.6.2"
-platforms :ruby do
-  gem "bson_ext", "~> 1.6.2"
-end
-gem "mongo",    "~> 1.6.2"
+# gem "bson",     "~> 1.6.2"
+# platforms :ruby do
+#   gem "bson_ext", "~> 1.6.2"
+# end
+# gem "mongo",    "~> 1.6.2"
 
-gem "mongoid", "~> 2.4.10"
+# gem "mongoid", "~> 2.4.10"
 
-gem "wakame-adapters-tengine", "~> 0.0.0"
+# gem "wakame-adapters-tengine", "~> 0.0.0"
 
 # http://rightaws.rubyforge.org/
 # http://github.com/rightscale/right_aws
-gem "right_aws", "~> 2.1.0"
+# gem "right_aws", "~> 2.1.0"
 
-gem "daemons", "~> 1.1.4"
-gem "net-ssh", "~> 2.5.2"
+# gem "daemons", "~> 1.1.4"
+# gem "net-ssh", "~> 2.5.2"
 
 gem "tengine_support", :path => "../tengine_support"
 gem "tengine_event", :path => "../tengine_event"
