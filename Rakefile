@@ -1,6 +1,8 @@
 # encoding: utf-8
 require 'rubygems'
 require 'rake'
+require 'erb'
+require 'yaml'
 
 require File.expand_path("../dependencies", __FILE__)
 
@@ -129,5 +131,20 @@ namespace :gemsets do
     PACKAGES.each do |package|
       system("rvm --force gemset delete #{package.name}")
     end
+  end
+end
+
+
+namespace :travis do
+  desc "generate .travis.yml from .travis.yml.erb"
+  task :gen do
+    path = File.expand_path("../.travis.yml.erb", __FILE__)
+    erb = ERB.new(File.read(path))
+    erb.filename = path
+    result = erb.result
+    YAML.load(result) # validation
+    dest = File.expand_path("../.travis.yml", __FILE__)
+    File.open(dest, "w"){|f| f.puts(result)}
+    puts "#{dest} was generated successfully."
   end
 end
