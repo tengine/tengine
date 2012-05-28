@@ -179,13 +179,13 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
         rendered.should_not have_xpath("//input[@type='hidden'][@id='category']")
       end
 
-      it "@reflesh_intervalの値が絞り込みのフォームのhiddenフィールドとしてあること" do
-        finder = Tengine::Job::RootJobnetActual::Finder.new(reflesh_interval:10)
+      it "@refresh_intervalの値が絞り込みのフォームのhiddenフィールドとしてあること" do
+        finder = Tengine::Job::RootJobnetActual::Finder.new(refresh_interval:10)
         assign(:finder, finder)
 
         render
 
-        rendered.should have_xpath("//input[@type='hidden'][@id='hidden_finder_reflesh_interval'][@value='10']")
+        rendered.should have_xpath("//input[@type='hidden'][@id='hidden_finder_refresh_interval'][@value='10']")
       end
 
       it "@finderの値が画面の更新間隔のフォームのhiddenフィールドとしてあること" do
@@ -304,7 +304,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
           :id => "10",
           :name => "test name",
           :phase_ids => ["20"],
-          #:reflesh_interval => "20", # 更新間隔
+          #:refresh_interval => "20", # 更新間隔
         })
 
         @finder.stub(:phase_hash_array).and_return([{

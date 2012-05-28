@@ -6,6 +6,8 @@ require 'active_support/core_ext/hash/keys'
 require 'active_support/json'
 require 'uuid'
 
+ActiveSupport::OrderedHash = Hash unless defined?(ActiveSupport::OrderedHash)
+
 # Serializable Class of object to send to an MQ or to receive from MQ.
 class Tengine::Event
 

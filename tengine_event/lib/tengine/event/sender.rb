@@ -58,7 +58,7 @@ class Tengine::Event::Sender
         Tengine::Mq::Suite.new(options)
       end
     @default_keep_connection = @mq_suite.config[:sender][:keep_connection]
-    @logger = options[:logger] || Tengine::NullLogger.new
+    @logger = options[:logger] || Tengine::Support::NullLogger.new
   end
 
   def stop(&block)

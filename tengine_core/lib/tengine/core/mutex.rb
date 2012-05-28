@@ -54,13 +54,30 @@ class Tengine::Core::Mutex::Mutex
   field :ttl, :type => Float
   field :waiters, :type => Array
 
-  def self.find_or_create name, ttl
-    collection.driver.update(
-      { :_id => name },
-      { "$set" => { :ttl => ttl, }, },
-      { :upsert => true, :safe => true, :multiple => false, }
-    )
-    return find(name)
+  class << self
+    def static_bson_objectids
+      @static_bson_objectids ||= {}
+    end
+
+    def clear_static_bson_objectids
+      @static_bson_objectids = nil
+    end
+
+    def add_static_bson_objectid(name, objectid)
+      static_bson_objectids[name] = objectid.is_a?(BSON::ObjectId) ? objectid :
+        BSON::ObjectId.from_string(objectid.to_s)
+    end
+
+    def find_or_create name, ttl
+      id = BSON::ObjectId.legal?(name) ? name : static_bson_objectids[name] or
+        raise ArgumentError, "Unknown name for BSON::ObjectId: #{name.inspect}"
+      collection.driver.update(
+        { :_id => id },
+        { "$set" => { :ttl => ttl, }, },
+        { :upsert => true, :safe => true, :multiple => false, }
+      )
+      return find(id)
+    end
   end
 
   private

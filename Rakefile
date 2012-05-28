@@ -1,26 +1,25 @@
 # encoding: utf-8
 require 'rubygems'
 require 'rake'
+require 'erb'
+require 'yaml'
+
+require File.expand_path("../dependencies", __FILE__)
 
 version_path = File.expand_path("../TENGINE_VERSION", __FILE__)
 version = File.read(version_path).strip
 
-PackageDef = Struct.new(:package_type, :name, :dependencies)
-
-packages = [
-  PackageDef.new(:gem, 'tengine_support'  , %w[]),
-  PackageDef.new(:gem, 'tengine_event'    , %w[tengine_support]),
-  PackageDef.new(:gem, 'tengine_core'     , %w[tengine_support tengine_event]),
-  PackageDef.new(:gem, 'tengine_resource' , %w[tengine_support tengine_event tengine_core]),
-  PackageDef.new(:gem, 'tengine_job'      , %w[tengine_support tengine_event tengine_core tengine_resource]),
-  PackageDef.new(:gem, 'tengine_job_agent', %w[tengine_support tengine_event]),
-  PackageDef.new(:rails, 'tengine_ui'     , %w[tengine_support tengine_event tengine_core tengine_resource tengine_job]),
-]
+OUTDATED_THRESHOLDS = {
+  :unique => 18,
+  :average => 7,
+  :total => 50,
+  :ignored => %w[amq-protocol amq-client amqp eventmachine mongo mongoid bson bson_ext]
+}
 
 desc "install other tengine gems and bundle install"
 task :rebuild do
   errors = []
-  packages.each do |package|
+  PACKAGES.each do |package|
     puts "=" * 80
     puts "rebuilding #{package.name}"
     cmd = []
@@ -46,7 +45,7 @@ end
 
 desc "Run spec task for all projects"
 task :spec do
-  ENV['GEM'] = packages.map(&:name).join(',')
+  ENV['GEM'] = PACKAGES.map(&:name).join(',')
   require File.expand_path("../ci/travis.rb", __FILE__)
 end
 
@@ -54,12 +53,55 @@ end
   desc "Run #{task_name} task for all projects"
   task(task_name) do
     errors = []
-    packages.each do |package|
+    PACKAGES.each do |package|
       system(%(cd #{package.name} && bundle exec rake #{task_name})) || errors << package.name
     end
     fail("Errors in #{errors.join(', ')}") unless errors.empty?
   end
 end
+
+desc "Run bundle outdated for all projects"
+task :outdated do
+  ignored = OUTDATED_THRESHOLDS[:ignored]
+
+  output = {}
+  PACKAGES.each do |package|
+    puts "\n\e[1;33m[#{package.name}] bundele outdated\e[m\n"
+    raw_output = `cd #{package.name} && bundle outdated`
+    puts raw_output
+    entries = raw_output.scan(%r{\s*\*\s*(.+) \((.+) \> (.+)\)})
+    entries.reject!{|entry| ignored.include?(entry.first) }
+    output[package.name] = entries
+  end
+
+  total_count = output.values.inject(0){|sum, entries| sum += entries.length}
+  package_counts = output.values.map{|entries| entries.map{|items| items[0, 2]} }.sort.
+    inject({}) do |d, entries|
+      entries.each{|entry| d[entry] ||= 0; d[entry] += 1}
+      d
+    end
+  counts_each_package = output.inject({}){|d, (name,entries)| d[name] = entries.length; d}
+  most_entries_package = counts_each_package.keys.max_by{|key| counts_each_package[key]}
+
+  result = {
+    :total => total_count,
+    :unique => package_counts.length,
+    :average => 1.0 * total_count / counts_each_package.length,
+  }
+
+  puts "total outdated dependencies: #{result[:total]}"
+  puts "package which has most outdated dependencies: #{most_entries_package} #{counts_each_package[most_entries_package]}"
+  puts "outdated dependencies average: #{result[:average]}"
+  puts "unique outdated library count: #{result[:unique]}"
+  puts "unique outdated libraries:#{package_counts.inspect}"
+
+  if result.any?{|k,v| v >= OUTDATED_THRESHOLDS[k]}
+    fail("too many outdated dependecies:#{result.inspect} thresholds:#{OUTDATED_THRESHOLDS}")
+  else
+    puts "OK! It's under thresholds"
+  end
+end
+
 
 namespace :version do
   desc "increment the last number of version"
@@ -77,7 +119,7 @@ end
 namespace :gemsets do
   desc "create gemsets each packages"
   task :create do
-    packages.each do |package|
+    PACKAGES.each do |package|
       system("rvm gemset create #{package.name}")
       rvmrc = "rvm %s@%s" % [ENV['RUBY_VERSION'] || 'ruby-1.9.3-head', package.name]
       File.open("#{package.name}/.rvmrc", 'w'){|f| f.puts(rvmrc)}
@@ -86,8 +128,23 @@ namespace :gemsets do
 
   desc "delete gemsets each packages"
   task :delete do
-    packages.each do |package|
+    PACKAGES.each do |package|
       system("rvm --force gemset delete #{package.name}")
     end
+  end
+end
+
+
+namespace :travis do
+  desc "generate .travis.yml from .travis.yml.erb"
+  task :gen do
+    path = File.expand_path("../.travis.yml.erb", __FILE__)
+    erb = ERB.new(File.read(path))
+    erb.filename = path
+    result = erb.result
+    YAML.load(result) # validation
+    dest = File.expand_path("../.travis.yml", __FILE__)
+    File.open(dest, "w"){|f| f.puts(result)}
+    puts "#{dest} was generated successfully."
   end
 end

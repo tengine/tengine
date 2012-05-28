@@ -9,7 +9,7 @@ if $DEBUG
   require 'logger'
   AMQP::Session.logger = Tengine.logger = Logger.new(STDERR)
 else
-  AMQP::Session.logger = Tengine.logger = Tengine::NullLogger.new
+  AMQP::Session.logger = Tengine.logger = Tengine::Support::NullLogger.new
 end
 
 require 'amq/client/callbacks'
@@ -899,7 +899,13 @@ describe Tengine::Mq::Suite do
           end
           value
         end
-        and_yield([index, val])
+
+        case RSpec::Version::STRING
+        when "2.9.0", "2.10.0"
+          and_yield(*val)
+        else
+          and_yield([index, val])
+        end
       end
     end
 
@@ -913,7 +919,7 @@ describe Tengine::Mq::Suite do
       @callbacks      = Hash.new do |h, k|
         h[k]          = Hash.new 
       end
-      AMQP.stub(:connect).with(an_instance_of(Hash)) do |h, block|
+      AMQP.stub(:connect).with(an_instance_of(Hash)) do |h, &block|
         EM.next_tick do
           block.yield @the_connection
           if h[:port] != 5672
@@ -926,7 +932,7 @@ describe Tengine::Mq::Suite do
       AMQP::Channel.stub(:new).with(@the_connection, @the_channel_id, an_instance_of(Hash)).and_emyield(@the_channel).and_return(@the_channel)
       AMQP::Exchange.stub(:new).with(@the_channel, an_instance_of(Symbol), an_instance_of(String), an_instance_of(Hash)).and_emyield(@the_exchange).and_return(@the_exchange)
       @the_connection.stub(:connected?).and_return(true)
-      @the_connection.stub(:disconnect) do |block|
+      @the_connection.stub(:disconnect) do |&block|
         EM.next_tick do
           @callbacks[@the_connection][:on_closed].yield @the_connection if @callbacks[@the_connection][:on_closed]
           block.yield
@@ -937,16 +943,16 @@ describe Tengine::Mq::Suite do
       @the_connection.stub(:before_recovery)
       @the_connection.stub(:after_recovery)
       @the_connection.stub(:on_connection_interruption)
-      @the_connection.stub(:on_closed) do |block| @callbacks[@the_connection][:on_closed] = block end
+      @the_connection.stub(:on_closed) do |&block| @callbacks[@the_connection][:on_closed] = block end
       @the_connection.stub(:on_possible_authentication_failure)
-      @the_connection.stub(:on_tcp_connection_failure) do |block| @callbacks[@the_connection][:on_tcp_connection_failure] = block end
+      @the_connection.stub(:on_tcp_connection_failure) do |&block| @callbacks[@the_connection][:on_tcp_connection_failure] = block end
       @the_connection.stub(:on_tcp_connection_loss)
       @the_channel.stub(:queue).with(an_instance_of(String), an_instance_of(Hash)).and_emyield(@the_queue).and_return(@the_queue)
       @the_channel.stub(:close).and_emyield
       @the_channel.stub(:before_recovery)
       @the_channel.stub(:after_recovery)
       @the_channel.stub(:on_connection_interruption)
-      @the_channel.stub(:on_error) do |block| @callbacks[@the_channel][:on_error] = block end
+      @the_channel.stub(:on_error) do |&block| @callbacks[@the_channel][:on_error] = block end
       @the_channel.stub(:exec_callback_once_yielding_self).with(:error, "channel close reason object") do
         EM.next_tick do
           @callbacks[@the_channel][:on_error].yield @the_channel if @callbacks[@the_channel][:on_error]
@@ -959,7 +965,7 @@ describe Tengine::Mq::Suite do
       @the_exchange.stub(:after_recovery)
       @the_exchange.stub(:on_connection_interruption)
       @the_queue.stub(:bind).with(@the_exchange, an_instance_of(Hash)).and_emyield
-      @the_queue.stub(:subscribe).with(an_instance_of(Hash)) do |h, block|
+      @the_queue.stub(:subscribe).with(an_instance_of(Hash)) do |h, &block|
         h[:confirm].call mock(Mocker["confirm-ok"]) if h[:confirm] and not h[:nowait]
         cb = lambda do |ev|
           header = AMQP::Header.new @the_channel, nil, Hash.new

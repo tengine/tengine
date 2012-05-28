@@ -83,13 +83,15 @@ class Tengine::Resource::Watcher
       sender.wait_for_connection do
         providers = Tengine::Resource::Provider.all
         providers.each do |provider|
-          
           provider.retry_on_error = true if provider.respond_to?(:retry_on_error=)
           # polling_intervalが 0 以下の場合は、問い合わせを行わない
           if (polling_interval = provider.polling_interval) > 0
             # 仮想サーバタイプの監視
             provider.synchronize_virtual_server_types
-            mutex = Tengine::Core::Mutex.new "#{provider.name}@#{self.class}", provider.polling_interval
+            name = "#{provider.name}@#{self.class}"
+            # Tengine::Core::Mutexをnameに対して固有のObjectIdを設定します。
+            Tengine::Core::Mutex::Mutex.add_static_bson_objectid(name, provider.id)
+            mutex = Tengine::Core::Mutex.new(name, provider.polling_interval)
             @periodic = EM.add_periodic_timer(provider.polling_interval) do
               mutex.synchronize do
                 # 物理サーバの監視

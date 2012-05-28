@@ -4,8 +4,8 @@ source 'http://rubygems.org'
 version = File.read(File.expand_path("../../TENGINE_VERSION", __FILE__)).strip
 
 # すぐにパッチが出る事を予想しています。リリース近くなったらバージョンを固定します。
-gem 'rails', '~> 3.1.0'
-gem 'sass' , '~> 3.1.11'
+gem 'rails', '~> 3.2.3'
+gem 'sass' , '~> 3.1.18'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -13,11 +13,11 @@ gem 'sass' , '~> 3.1.11'
 gem "selectable_attr", "~> 0.3.14"
 gem "selectable_attr_rails", "~> 0.3.14"
 
-gem "mongoid", "~> 2.3.3"
-gem "mongo", "~> 1.5.2"
-gem "bson_ext", "~> 1.5.2"
+gem "mongoid", "~> 2.4.10"
+gem "mongo", "~> 1.6.2"
+gem "bson_ext", "~> 1.6.2"
 
-gem "kaminari", "~> 0.12.4"
+gem "kaminari", "~> 0.13.0"
 
 gem "tengine_event"   , "~> #{version}"
 gem "tengine_core"    , "~> #{version}"
@@ -30,14 +30,14 @@ gem "daemons", "~> 1.1.4"
 
 group :test, :development do
   gem "rails3-generators", "~> 0.17.4"
-  gem "rspec-rails", "~> 2.6.1"
+  gem "rspec-rails", "~> 2.10.1"
   gem "capybara", "~> 1.1.1"
 
-  gem "ZenTest", "~> 4.5.0"
-  gem "autotest-rails", "~> 4.1.1"
+  gem "ZenTest"
+  gem "autotest-rails"
 
   # gem "rcov", ">= 0"
-  gem "simplecov", "~> 0.5.3"
+  gem "simplecov", "~> 0.6.4"
 
   gem 'capistrano'       , "~> 2.9.0"
   gem 'capistrano-ext'   , "~> 1.2.1"
@@ -53,9 +53,9 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "  ~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
-  gem 'uglifier', "~> 1.0.3"
+  gem 'sass-rails', "  ~> 3.2.5"
+  gem 'coffee-rails', "~> 3.2.2"
+  gem 'uglifier', "~> 1.2.4"
 end
 
-gem 'jquery-rails', "~> 1.0.14"
+gem 'jquery-rails', "~> 2.0.2"

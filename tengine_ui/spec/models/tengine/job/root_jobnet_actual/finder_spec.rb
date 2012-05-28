@@ -132,7 +132,7 @@ describe Tengine::Job::RootJobnetActual::Finder do
       :id => "45u4w0tu40",
       :name => "test",
       :phase_ids => [20, 30],
-      :reflesh_interval => 10,
+      :refresh_interval => 10,
     }
     finder = Tengine::Job::RootJobnetActual::Finder.new(attrs)
     finder.duration.should == attrs[:duration]
@@ -141,7 +141,7 @@ describe Tengine::Job::RootJobnetActual::Finder do
     finder.id.should == attrs[:id]
     finder.name.should == attrs[:name]
     finder.phase_ids.should == attrs[:phase_ids]
-    finder.reflesh_interval.should == attrs[:reflesh_interval]
+    finder.refresh_interval.should == attrs[:refresh_interval]
   end
 
   it "duration_start(1i)だけ指定されていないときduration_startは初期値のままのこと" do

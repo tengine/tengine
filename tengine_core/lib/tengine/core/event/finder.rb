@@ -15,7 +15,7 @@ class Tengine::Core::Event::Finder
     :confirmed,
     :sender_name,
     :properties,
-    :reflesh_interval, # 更新間隔
+    :refresh_interval, # 更新間隔
   ].freeze
 
   ATTRIBUTE_NAMES.each{|name| attr_accessor(name)}

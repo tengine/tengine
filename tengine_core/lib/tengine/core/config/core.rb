@@ -3,7 +3,6 @@ require 'tengine/core/config'
 
 require 'yaml'
 require 'optparse'
-require 'active_support/memoizable'
 require 'active_support/core_ext/class/attribute_accessors'
 
 require 'tengine/support/yaml_with_erb'
@@ -15,8 +14,6 @@ Tengine::Support::Config::Definition::Group.module_eval do
 end
 
 class Tengine::Core::Config::Core < Tengine::Support::Config::Definition::Suite
-  # memoize については http://wota.jp/ac/?date=20081025#p11 などを参照してください
-  extend ActiveSupport::Memoizable
 
   class << self
     # この辺は以前のTengine::Core::Configとの互換のために用意してあります
@@ -228,12 +225,15 @@ EOS
     field :expire  , "heartbeat expire seconds"  , :type => :integer, :default => 120
   end
 
-  def dsl_load_path
-    original = self[:tengined][:load_path]
-    # 本来は指定する必要はありませんが、specでDir.pwdをstubで返すようにするために、明示的に第２引数にDir.pwdを指定しています
-    original ? File.expand_path(original, Dir.pwd) : nil
+  def dsl_load_path(clear_cache = false)
+    @dsl_load_path = nil if clear_cache
+    unless @dsl_load_path
+      original = self[:tengined][:load_path]
+      # 本来は指定する必要はありませんが、specでDir.pwdをstubで返すようにするために、明示的に第２引数にDir.pwdを指定しています
+      @dsl_load_path = original ? File.expand_path(original, Dir.pwd) : nil
+    end
+    @dsl_load_path
   end
-  memoize :dsl_load_path
 
   def prepare_dir_and_paths(force = false)
     return if !force && @prepare_dir_and_paths_done
@@ -265,16 +265,20 @@ EOS
   end
 
   def dsl_version_path
-    path = dsl_dir_path
-    path ? File.expand_path("VERSION", path) : nil
+    unless @dsl_version_path
+      path = dsl_dir_path
+      @dsl_version_path = path ? File.expand_path("VERSION", path) : nil
+    end
+    @dsl_version_path
   end
-  memoize :dsl_version_path
 
   def dsl_version
-    path = dsl_version_path
-    (path && File.exist?(dsl_version_path)) ? File.read(dsl_version_path).strip : Time.now.strftime("%Y%m%d%H%M%S")
+    unless @dsl_version
+      path = dsl_version_path
+      @dsl_version = (path && File.exist?(dsl_version_path)) ? File.read(dsl_version_path).strip : Time.now.strftime("%Y%m%d%H%M%S")
+    end
+    @dsl_version
   end
-  memoize :dsl_version
 
   def relative_path_from_dsl_dir(filepath)
     path = Pathname.new(filepath)
@@ -282,19 +286,16 @@ EOS
   end
 
   def status_dir
-    self[:tengined][:status_dir]
+    @status_dir ||= self[:tengined][:status_dir]
   end
-  memoize :status_dir
 
   def activation_dir
-    self[:tengined][:activation_dir]
+    @activation_dir ||= self[:tengined][:activation_dir]
   end
-  memoize :activation_dir
 
   def confirmation_threshold
-    Tengine::Event::LEVELS_INV[ self[:tengined][:confirmation_threshold].to_sym ]
+    @confirmation_threshold ||= Tengine::Event::LEVELS_INV[ self[:tengined][:confirmation_threshold].to_sym ]
   end
-  memoize :confirmation_threshold
 
   def heartbeat_period
     # [:][:heartbeat_period].to_i

@@ -61,7 +61,8 @@ class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
     end
   end
 
-  def capacities
+  def capacities(keep_cache = false)
+    reload unless keep_cache
     server_type_ids = virtual_server_types.map(&:provided_id)
     server_type_to_cpu = virtual_server_types.map_to_hash(:provided_id, &:cpu_cores)
     server_type_to_mem = virtual_server_types.map_to_hash(:provided_id, &:memory_size)
