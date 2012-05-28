@@ -1,11 +1,8 @@
 PATH
   remote: .
   specs:
-    tengine_resource (1.1.0.alpha1)
-      net-ssh (~> 2.5.2)
-      right_aws (~> 2.1.0)
-      tengine_core (~> 1.1.0.alpha1)
-      tengine_support (~> 1.1.0.alpha1)
+    tengine_resource_wakame (1.1.0.alpha1)
+      tengine_resource_ec2 (~> 1.1.0.alpha1)
       wakame-adapters-tengine (~> 0.0.0)
 
 GEM
@@ -83,6 +80,15 @@ GEM
       amqp (~> 0.8.0)
       tengine_support (~> 1.1.0.alpha1)
       uuid (~> 2.3.4)
+    tengine_resource (1.1.0.alpha1)
+      net-ssh (~> 2.5.2)
+      right_aws (~> 2.1.0)
+      tengine_core (~> 1.1.0.alpha1)
+      tengine_support (~> 1.1.0.alpha1)
+      wakame-adapters-tengine (~> 0.0.0)
+    tengine_resource_ec2 (1.1.0.alpha1)
+      right_aws (~> 2.1.0)
+      tengine_resource (~> 1.1.0.alpha1)
     tengine_support (1.1.0.alpha1)
       activesupport (>= 3.0.0)
     tzinfo (0.3.33)
@@ -104,5 +110,5 @@ DEPENDENCIES
   rdiscount
   rspec (~> 2.10.0)
   simplecov (~> 0.6.4)
-  tengine_resource!
+  tengine_resource_wakame!
   yard (~> 0.8.1)
