@@ -1,19 +1,19 @@
-<h1><%= page_title Tengine::Resource::Provider::Ec2, :show %></h1>
+<h1><%= page_title Tengine::ResourceEc2::Provider, :show %></h1>
 
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b><%= Tengine::Resource::Provider::Ec2.human_attribute_name(:name) %>:</b>
+  <b><%= Tengine::ResourceEc2::Provider.human_attribute_name(:name) %>:</b>
   <%= @ec2.name %>
 </p>
 
 <p>
-  <b><%= Tengine::Resource::Provider::Ec2.human_attribute_name(:description) %>:</b>
+  <b><%= Tengine::ResourceEc2::Provider.human_attribute_name(:description) %>:</b>
   <%= @ec2.description %>
 </p>
 
 <p>
-  <b><%= Tengine::Resource::Provider::Ec2.human_attribute_name(:connection_settings) %>:</b>
+  <b><%= Tengine::ResourceEc2::Provider.human_attribute_name(:connection_settings) %>:</b>
   <%= @ec2.connection_settings %>
 </p>
 

@@ -22,25 +22,25 @@ describe Tengine::Resource::Provider::Ec2sController do
 
 
   before(:all) do
-    Tengine::Resource::Provider::Ec2.delete_all
+    Tengine::ResourceEc2::Provider.delete_all
     @conn = {:access_key => 'ACCESS_KEY1', :secret_access_key => "SECRET_ACCESS_KEY1", :region => "us-west-1"}
   end
 
 
   # This should return the minimal set of attributes required to create a valid
-  # Tengine::Resource::Provider::Ec2. As you add validations to Tengine::Resource::Provider::Ec2, be sure to
+  # Tengine::ResourceEc2::Provider. As you add validations to Tengine::ResourceEc2::Provider, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
     {:name => "my_west-1", :connection_settings => @conn}
   end
 
   before do
-    Tengine::Resource::Provider::Ec2.delete_all
+    Tengine::ResourceEc2::Provider.delete_all
   end
 
   describe "GET index" do
     it "assigns all tengine_resource_provider_ec2s as @tengine_resource_provider_ec2s" do
-      ec2 = Tengine::Resource::Provider::Ec2.create! valid_attributes
+      ec2 = Tengine::ResourceEc2::Provider.create! valid_attributes
       get :index
       ec2s = assigns(:ec2s)
       ec2s.to_a.should eq([ec2])
@@ -49,7 +49,7 @@ describe Tengine::Resource::Provider::Ec2sController do
 
   describe "GET show" do
     it "assigns the requested ec2 as @ec2" do
-      ec2 = Tengine::Resource::Provider::Ec2.create! valid_attributes
+      ec2 = Tengine::ResourceEc2::Provider.create! valid_attributes
       get :show, :id => ec2.id.to_s
       assigns(:ec2).should eq(ec2)
     end
@@ -58,13 +58,13 @@ describe Tengine::Resource::Provider::Ec2sController do
   describe "GET new" do
     it "assigns a new ec2 as @ec2" do
       get :new
-      assigns(:ec2).should be_a_new(Tengine::Resource::Provider::Ec2)
+      assigns(:ec2).should be_a_new(Tengine::ResourceEc2::Provider)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested ec2 as @ec2" do
-      ec2 = Tengine::Resource::Provider::Ec2.create! valid_attributes
+      ec2 = Tengine::ResourceEc2::Provider.create! valid_attributes
       get :edit, :id => ec2.id.to_s
       assigns(:ec2).should eq(ec2)
     end
@@ -72,35 +72,35 @@ describe Tengine::Resource::Provider::Ec2sController do
 
   describe "POST create" do
     describe "with valid params" do
-      it "creates a new Tengine::Resource::Provider::Ec2" do
+      it "creates a new Tengine::ResourceEc2::Provider" do
         expect {
           post :create, :ec2 => valid_attributes
-        }.to change(Tengine::Resource::Provider::Ec2, :count).by(1)
+        }.to change(Tengine::ResourceEc2::Provider, :count).by(1)
       end
 
       it "assigns a newly created ec2 as @ec2" do
         post :create, :ec2 => valid_attributes
-        assigns(:ec2).should be_a(Tengine::Resource::Provider::Ec2)
+        assigns(:ec2).should be_a(Tengine::ResourceEc2::Provider)
         assigns(:ec2).should be_persisted
       end
 
       it "redirects to the created ec2" do
         post :create, :ec2 => valid_attributes
-        response.should redirect_to(Tengine::Resource::Provider::Ec2.last)
+        response.should redirect_to(tengine_resource_provider_ec2_url(Tengine::ResourceEc2::Provider.last))
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved ec2 as @ec2" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Resource::Provider::Ec2.any_instance.stub(:save).and_return(false)
+        Tengine::ResourceEc2::Provider.any_instance.stub(:save).and_return(false)
         post :create, :ec2 => {}
-        assigns(:ec2).should be_a_new(Tengine::Resource::Provider::Ec2)
+        assigns(:ec2).should be_a_new(Tengine::ResourceEc2::Provider)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Resource::Provider::Ec2.any_instance.stub(:save).and_return(false)
+        Tengine::ResourceEc2::Provider.any_instance.stub(:save).and_return(false)
         post :create, :ec2 => {}
         response.should render_template("new")
       end
@@ -110,41 +110,41 @@ describe Tengine::Resource::Provider::Ec2sController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested ec2" do
-        ec2 = Tengine::Resource::Provider::Ec2.create! valid_attributes
+        ec2 = Tengine::ResourceEc2::Provider.create! valid_attributes
         # Assuming there are no other tengine_resource_provider_ec2s in the database, this
-        # specifies that the Tengine::Resource::Provider::Ec2 created on the previous line
+        # specifies that the Tengine::ResourceEc2::Provider created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Tengine::Resource::Provider::Ec2.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        Tengine::ResourceEc2::Provider.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
         put :update, :id => ec2.id, :ec2 => {'these' => 'params'}
       end
 
       it "assigns the requested ec2 as @ec2" do
-        ec2 = Tengine::Resource::Provider::Ec2.create! valid_attributes
+        ec2 = Tengine::ResourceEc2::Provider.create! valid_attributes
         put :update, :id => ec2.id, :ec2 => valid_attributes
         assigns(:ec2).should eq(ec2)
       end
 
       it "redirects to the ec2" do
-        ec2 = Tengine::Resource::Provider::Ec2.create! valid_attributes
+        ec2 = Tengine::ResourceEc2::Provider.create! valid_attributes
         put :update, :id => ec2.id, :ec2 => valid_attributes
-        response.should redirect_to(ec2)
+        response.should redirect_to(tengine_resource_provider_ec2_url(ec2))
       end
     end
 
     describe "with invalid params" do
       it "assigns the ec2 as @ec2" do
-        ec2 = Tengine::Resource::Provider::Ec2.create! valid_attributes
+        ec2 = Tengine::ResourceEc2::Provider.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Resource::Provider::Ec2.any_instance.stub(:save).and_return(false)
+        Tengine::ResourceEc2::Provider.any_instance.stub(:save).and_return(false)
         put :update, :id => ec2.id.to_s, :ec2 => {}
         assigns(:ec2).should eq(ec2)
       end
 
       it "re-renders the 'edit' template" do
-        ec2 = Tengine::Resource::Provider::Ec2.create! valid_attributes
+        ec2 = Tengine::ResourceEc2::Provider.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Resource::Provider::Ec2.any_instance.stub(:save).and_return(false)
+        Tengine::ResourceEc2::Provider.any_instance.stub(:save).and_return(false)
         put :update, :id => ec2.id.to_s, :ec2 => {}
         response.should render_template("edit")
       end
@@ -153,14 +153,14 @@ describe Tengine::Resource::Provider::Ec2sController do
 
   describe "DELETE destroy" do
     it "destroys the requested ec2" do
-      ec2 = Tengine::Resource::Provider::Ec2.create! valid_attributes
+      ec2 = Tengine::ResourceEc2::Provider.create! valid_attributes
       expect {
         delete :destroy, :id => ec2.id.to_s
-      }.to change(Tengine::Resource::Provider::Ec2, :count).by(-1)
+      }.to change(Tengine::ResourceEc2::Provider, :count).by(-1)
     end
 
     it "redirects to the tengine_resource_provider_ec2s list" do
-      ec2 = Tengine::Resource::Provider::Ec2.create! valid_attributes
+      ec2 = Tengine::ResourceEc2::Provider.create! valid_attributes
       delete :destroy, :id => ec2.id.to_s
       response.should redirect_to(tengine_resource_provider_ec2s_url)
     end

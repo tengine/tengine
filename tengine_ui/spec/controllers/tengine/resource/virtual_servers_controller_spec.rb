@@ -134,7 +134,7 @@ describe Tengine::Resource::VirtualServersController do
         Tengine::Resource::PhysicalServer.delete_all
         Tengine::Resource::VirtualServer.delete_all
         Tengine::Resource::Provider.delete_all
-        @provider = Tengine::Resource::Provider::Wakame.create!(
+        @provider = Tengine::ResourceWakame::Provider.create!(
           :name => "provider1",
           :description => "Description",
         )
@@ -282,7 +282,7 @@ describe Tengine::Resource::VirtualServersController do
       Tengine::Resource::PhysicalServer.delete_all
       Tengine::Resource::VirtualServer.delete_all
       Tengine::Resource::Provider.delete_all
-      @provider = Tengine::Resource::Provider::Wakame.create!(
+      @provider = Tengine::ResourceWakame::Provider.create!(
         :name => "provider1",
         :description => "Description",
       )
@@ -369,7 +369,7 @@ describe Tengine::Resource::VirtualServersController do
     describe "with valid params" do
       it "creates a new Tengine::Resource::VirtualServer" do
         vs = OpenStruct.new(:provided_id => "ami0000005",)
-        Tengine::Resource::Provider::Wakame.any_instance.
+        Tengine::ResourceWakame::Provider.any_instance.
           should_receive(:create_virtual_servers).and_return([vs])
 
         post :create, valid_params
@@ -377,7 +377,7 @@ describe Tengine::Resource::VirtualServersController do
 
       it "redirects to the created virtual_server" do
         vs = OpenStruct.new(:provided_id => "ami0000005",)
-        Tengine::Resource::Provider::Wakame.any_instance.
+        Tengine::ResourceWakame::Provider.any_instance.
           should_receive(:create_virtual_servers).and_return([vs])
 
         post :create, valid_params
@@ -389,7 +389,7 @@ describe Tengine::Resource::VirtualServersController do
       it "assigns a newly created but unsaved virtual_server as @virtual_server" do
         # Trigger the behavior that occurs when invalid params are submitted
         Tengine::Resource::VirtualServer.any_instance.stub(:valid?).and_return(false)
-        Tengine::Resource::Provider::Wakame.any_instance.
+        Tengine::ResourceWakame::Provider.any_instance.
           should_not_receive(:create_virtual_servers)
 
         invalid_params = valid_params

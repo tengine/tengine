@@ -22,6 +22,7 @@ gem "kaminari", "~> 0.13.0"
 gem "tengine_event"          , "~> #{version}"
 gem "tengine_core"           , "~> #{version}"
 gem "tengine_resource"       , "~> #{version}"
+gem "tengine_resource_ec2"   , "~> #{version}"
 gem "tengine_resource_wakame", "~> #{version}"
 gem "tengine_job"            , "~> #{version}"
 

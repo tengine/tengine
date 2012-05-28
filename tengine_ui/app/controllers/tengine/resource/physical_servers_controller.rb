@@ -7,7 +7,7 @@ class Tengine::Resource::PhysicalServersController < ApplicationController
     @physical_servers = Mongoid::Criteria.new(Tengine::Resource::PhysicalServer)
 
     @check_status = {}
-    Tengine::Resource::Provider::Wakame::PHYSICAL_SERVER_STATES.each do | s |
+    Tengine::ResourceWakame::Provider::PHYSICAL_SERVER_STATES.each do | s |
       @check_status["st_#{s}"] = ["unchecked", s]
     end 
 
