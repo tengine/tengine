@@ -5,7 +5,7 @@ class GokuAtEc2ApNortheast
   # extend ActiveSupport::Memoizable
 
   def provider
-    Tengine::Resource::Provider::Ec2.find_or_create_by_name!({
+    Tengine::ResourceEc2::Provider.find_or_create_by_name!({
         :name => "goku_at_ec2_ap-northeast-1",
         :connection_settings => {
           :access_key => '12345',

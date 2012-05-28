@@ -3,9 +3,9 @@ require 'spec_helper'
 
 require 'right_aws'
 
-describe Tengine::Resource::Provider::Ec2 do
+describe Tengine::ResourceEc2::Provider do
   before do
-    Tengine::Resource::Provider::Ec2.delete_all
+    Tengine::ResourceEc2::Provider.delete_all
     @conn = {:access_key => 'ACCESS_KEY1', :secret_access_key => "SECRET_ACCESS_KEY1", :region => "us-west-1"}
     @valid_attributes1 = {
       :name => "my_west-1",
@@ -15,19 +15,19 @@ describe Tengine::Resource::Provider::Ec2 do
 
   describe :validation do
     context "valid" do
-      subject{ Tengine::Resource::Provider::Ec2.new(@valid_attributes1) }
+      subject{ Tengine::ResourceEc2::Provider.new(@valid_attributes1) }
       its(:valid?){ should be_true }
     end
 
     context "invalid" do
-      subject{ Tengine::Resource::Provider::Ec2.new }
+      subject{ Tengine::ResourceEc2::Provider.new }
       its(:valid?){ should be_false }
     end
   end
 
   describe 'update resources' do
     subject do
-      Tengine::Resource::Provider::Ec2.create!(:name => "ec2-us-west-1", :connection_settings => @conn)
+      Tengine::ResourceEc2::Provider.create!(:name => "ec2-us-west-1", :connection_settings => @conn)
     end
 
     context "物理サーバ" do
