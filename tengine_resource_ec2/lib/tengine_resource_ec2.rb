@@ -1,1 +1,5 @@
-require 'tengine/resource/provider/ec2'
+require 'tengine_resource'
+
+module Tengine
+  autoload :ResourceEc2, 'tengine/resource_ec2'
+end

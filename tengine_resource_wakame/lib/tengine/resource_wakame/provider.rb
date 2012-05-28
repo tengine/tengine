@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-require 'tengine_resource'
-require 'tengine/resource/provider/ec2'
+require 'tengine/resource_wakame'
 
 require 'tama'
 require 'tengine/support/core_ext/hash/keys'
 require 'tengine/support/core_ext/enumerable/map_to_hash'
 
 
-class Tengine::Resource::Provider::Wakame < Tengine::Resource::Provider::Ec2
+class Tengine::ResourceWakame::Provider < Tengine::Resource::Provider::Ec2
 
   attr_accessor :retry_on_error
 
