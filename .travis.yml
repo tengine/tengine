@@ -22,7 +22,11 @@ gemfile:
   - gemfiles/Gemfile.activesupport-3.2.3
 matrix:
   exclude:
+
 #
+    - rvm: 1.9.2
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_support"
     - rvm: 1.9.2
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_core"
@@ -36,6 +40,9 @@ matrix:
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_ui"
 #
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_support"
     - rvm: 1.9.3
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_core"

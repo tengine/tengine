@@ -22,8 +22,14 @@ gemfile:
   - gemfiles/Gemfile.activesupport-3.2.3
 matrix:
   exclude:
-<% # 3.0.xはtengine_support, tengine_event, tengine_job_agentのみ %>
+<%
+   # 3.0.xは tengine_event, tengine_job_agentのみ
+   # tengine_supportはテスト環境で activemodel ~> 3.1 という依存があるのでひとまず除外。
+%>
 <% ['1.9.2', '1.9.3'].each do |ruuby_version| %>#
+    - rvm: <%= ruuby_version %>
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_support"
     - rvm: <%= ruuby_version %>
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_core"
