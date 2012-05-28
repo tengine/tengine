@@ -73,7 +73,7 @@ describe Tengine::Resource::Provider do
       Tengine::Resource::VirtualServer.delete_all
       Tengine::Resource::Provider.delete_all
       test_files_dir = File.expand_path("test_files", File.dirname(__FILE__))
-      @provider = Tengine::Resource::Provider::Wakame.create!(:name => "Wakame",
+      @provider = Tengine::ResourceWakame::Provider.create!(:name => "Wakame",
         :connection_settings => {
           :test => true,
           :options => {

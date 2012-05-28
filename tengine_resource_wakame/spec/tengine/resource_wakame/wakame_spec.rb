@@ -4,10 +4,10 @@ require 'apis/ec2'
 require 'apis/wakame'
 require 'controllers/controller'
 
-describe Tengine::Resource::Provider::Wakame do
+describe Tengine::ResourceWakame::Provider do
   subject {
-    Tengine::Resource::Provider::Wakame.delete_all(:name => 'tama0001')
-    Tengine::Resource::Provider::Wakame.create(
+    Tengine::ResourceWakame::Provider.delete_all(:name => 'tama0001')
+    Tengine::ResourceWakame::Provider.create(
       :name => "tama0001",
       :description => "provided by wakame / tama",
       :connection_settings => {

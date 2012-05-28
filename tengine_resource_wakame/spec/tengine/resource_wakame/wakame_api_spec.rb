@@ -2,11 +2,11 @@
 require 'spec_helper'
 require 'apis/wakame'
 
-describe Tengine::Resource::Provider::Wakame do
+describe Tengine::ResourceWakame::Provider do
 
   subject {
-    Tengine::Resource::Provider::Wakame.delete_all
-    Tengine::Resource::Provider::Wakame.create(
+    Tengine::ResourceWakame::Provider.delete_all
+    Tengine::ResourceWakame::Provider.create(
       :name => "wakameTest1",
       :description => "provided by wakame / tama",
       :connection_settings => {

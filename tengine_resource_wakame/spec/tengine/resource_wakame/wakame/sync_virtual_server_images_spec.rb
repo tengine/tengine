@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Tengine::Resource::Provider::Wakame do
+describe Tengine::ResourceWakame::Provider do
   subject do
-    Tengine::Resource::Provider::Wakame.delete_all
-    Tengine::Resource::Provider::Wakame.create!(
+    Tengine::ResourceWakame::Provider.delete_all
+    Tengine::ResourceWakame::Provider.create!(
       :name => "tama_test_001",
       :connection_settings => { :test => true }
       )

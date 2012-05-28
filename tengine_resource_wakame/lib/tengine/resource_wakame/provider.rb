@@ -6,7 +6,7 @@ require 'tengine/support/core_ext/hash/keys'
 require 'tengine/support/core_ext/enumerable/map_to_hash'
 
 
-class Tengine::ResourceWakame::Provider < Tengine::Resource::Provider::Ec2
+class Tengine::ResourceWakame::Provider < Tengine::ResourceEc2::Provider
 
   attr_accessor :retry_on_error
 

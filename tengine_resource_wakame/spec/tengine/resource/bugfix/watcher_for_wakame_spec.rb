@@ -6,7 +6,7 @@ require 'tengine/mq/suite'
 require 'apis/wakame'
 require 'controllers/controller'
 
-describe Tengine::Resource::Provider::Wakame do
+describe Tengine::ResourceWakame::Provider do
 
   before :all do
     class Tengine::Resource::VirtualServerType
@@ -32,7 +32,7 @@ describe Tengine::Resource::Provider::Wakame do
 
   before do
     Tengine::Resource::Provider.delete_all
-    @provider_wakame = Tengine::Resource::Provider::Wakame.create!({
+    @provider_wakame = Tengine::ResourceWakame::Provider.create!({
         :name => "wakame-vdc",
         :description => "",
         :properties => {

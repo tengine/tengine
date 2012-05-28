@@ -97,7 +97,7 @@ describe Tengine::Resource::Watcher do
         with(@mq_config).and_return(@mock_mq)
 
       Tengine::Resource::Provider.delete_all
-      @provider_ec2 = Tengine::Resource::Provider::Ec2.create!({
+      @provider_ec2 = Tengine::ResourceEc2::Provider.create!({
           :name => "amazon-ec2",
           :description => "",
           :properties => {
@@ -117,7 +117,7 @@ describe Tengine::Resource::Watcher do
             }
           }
         })
-      @provider_wakame = Tengine::Resource::Provider::Wakame.create!({
+      @provider_wakame = Tengine::ResourceWakame::Provider.create!({
           :name => "wakame-vdc",
           :description => "",
           :properties => {
