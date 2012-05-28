@@ -27,6 +27,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('tengine_core', "~> #{version}")
   s.add_runtime_dependency('tengine_resource', "~> #{version}")
 
+  s.add_development_dependency('tengine_resource_ec2', "~> #{version}")
+
   common_develooment_dependencies(s)
   s.add_development_dependency('factory_girl', "~> 3.3.0")
 end
