@@ -22,114 +22,21 @@ gemfile:
   - gemfiles/Gemfile.activesupport-3.2.3
 matrix:
   exclude:
-    - rvm: 1.9.2
+# 3.0.xはtengine_support, tengine_event, tengine_job_agentのみ
+<% ['1.9.2', '1.9.3'].each do |ruuby_version| %>#
+    - rvm: <%= ruuby_version %>
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_core"
-    - rvm: 1.9.2
+    - rvm: <%= ruuby_version %>
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_resource"
-    - rvm: 1.9.2
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_event"
-    - rvm: 1.9.2
+    - rvm: <%= ruuby_version %>
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_job"
-    - rvm: 1.9.2
+    - rvm: <%= ruuby_version %>
       gemfile: gemfiles/Gemfile.activesupport-3.0.10
       env: "GEM=tengine_ui"
-    - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_core"
-    - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_resource"
-    - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_event"
-    - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_job"
-    - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_ui"
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_core"
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_resource"
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_event"
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_job"
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_ui"
-    - rvm: jruby-19mode
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_core"
-    - rvm: jruby-19mode
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_resource"
-    - rvm: jruby-19mode
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_event"
-    - rvm: jruby-19mode
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_job"
-    - rvm: jruby-19mode
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
-      env: "GEM=tengine_ui"
-    - rvm: 1.9.2
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_core"
-    - rvm: 1.9.2
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_resource"
-    - rvm: 1.9.2
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_job"
-    - rvm: 1.9.2
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_ui"
-    - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_core"
-    - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_resource"
-    - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_job"
-    - rvm: 1.9.3
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_ui"
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_core"
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_resource"
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_job"
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_ui"
-    - rvm: jruby-19mode
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_core"
-    - rvm: jruby-19mode
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_resource"
-    - rvm: jruby-19mode
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_job"
-    - rvm: jruby-19mode
-      gemfile: gemfiles/Gemfile.activesupport-3.2.3
-      env: "GEM=tengine_ui"
+<% end %>
 # branches:
 #   only:
 #     - 20120516_travis_ci
