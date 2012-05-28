@@ -1,0 +1,3 @@
+# encoding: utf-8
+require File.expand_path("../../raketasks", __FILE__)
+tengine_common_tasks('tengine_resource')
