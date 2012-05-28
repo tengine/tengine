@@ -58,47 +58,6 @@ describe Tengine::Resource::Provider do
     end
   end
 
-  context "nameで検索" do
-    before do
-      Tengine::Resource::Provider.delete_all
-      @fixture = GokuAtEc2ApNortheast.new
-      @provider1 = @fixture.provider
-    end
-
-    context "見つかる場合" do
-      it "find_by_name" do
-        found_credential = nil
-        lambda{
-          found_credential = Tengine::Resource::Provider.find_by_name(@provider1.name)
-        }.should_not raise_error
-        found_credential.should_not be_nil
-        found_credential.id.should == @provider1.id
-      end
-
-      it "find_by_name!" do
-        found_credential = nil
-        lambda{
-          found_credential = Tengine::Resource::Provider.find_by_name!(@provider1.name)
-        }.should_not raise_error
-        found_credential.should_not be_nil
-        found_credential.id.should == @provider1.id
-      end
-    end
-
-    context "見つからない場合" do
-      it "find_by_name" do
-        found_credential = Tengine::Resource::Provider.find_by_name("unexist_name").should == nil
-      end
-
-      it "find_by_name!" do
-        lambda{
-          found_credential = Tengine::Resource::Provider.find_by_name!("unexist_name")
-        }.should raise_error(Tengine::Core::FindByName::Error)
-      end
-    end
-
-  end
-
 
   describe "<BUG>仮想サーバ起動画面から仮想サーバを起動すると仮想サーバが２重に登録され、仮想サーバ一覧でも２つ表示される" do
     {
