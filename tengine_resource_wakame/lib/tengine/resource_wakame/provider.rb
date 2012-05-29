@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
-require 'tengine/resource_wakame'
+require 'tengine/resource'
 
 require 'tama'
 require 'tengine/support/core_ext/hash/keys'
 require 'tengine/support/core_ext/enumerable/map_to_hash'
 
-
-class Tengine::ResourceWakame::Provider < Tengine::ResourceEc2::Provider
+# 1.0.x ではTengine::Resource::Provider::Ec2を継承していましたが、
+# 1.1.x ではクラス構造を見直して継承する必要はないと判断しTengine::Resource::Providerを継承するように変更しました。
+class Tengine::ResourceWakame::Provider < Tengine::Resource::Provider
 
   attr_accessor :retry_on_error
 
-  # field :connection_settings, :type => Hash # 継承元のTengine::Resource::Provider::Ec2で定義されているので不要
+  field :connection_settings, :type => Hash
 
   PHYSICAL_SERVER_STATES = [:online, :offline].freeze
 
@@ -31,29 +32,78 @@ class Tengine::ResourceWakame::Provider < Tengine::ResourceEc2::Provider
   end
 
   # @param  [String]                                 name         Name template for created virtual servers
-  # @param  [Tengine::Resource::VirtualServerImage]  image        virtual server image object
-  # @param  [Tengine::Resource::VirtualServerType]   type         virtual server type object
-  # @param  [Tengine::Resource::PhysicalServer]      physical     physical server object
-  # @param  [String]                                 description  what this virtual server is
-  # @param  [Numeric]                                count        number of vortial servers to boot
+  # @param  [Tengine::Resource::VirtualServerImage]  image        Virtual server image object
+  # @param  [Tengine::Resource::VirtualServerType]   type         Virtual server type object
+  # @param  [String]                                 physical     Data center name to put virtual machines (availability zone)
+  # @param  [String]                                 description  What this virtual server is
+  # @param  [Numeric]                                min_count    Minimum number of vortial servers to boot
+  # @param  [Numeric]                                max_count    Maximum number of vortial servers to boot
+  # @param  [Array<Strng>]                           group_ids    Array of names of security group IDs
+  # @param  [Strng]                                  key_name     Name of root key to sue
+  # @param  [Strng]                                  user_data    User-specified
+  # @param  [Strng]                                  kernel_id    Kernel image ID
+  # @param  [Strng]                                  ramdisk_id   Ramdisk image ID
   # @return [Array<Tengine::Resource::VirtualServer>]
-  def create_virtual_servers(name, image, type, physical, description = "", count = 1, &block)
-    return super(
-      name,
-      image,
-      type,
-      physical.provided_id,
-      description,
-      count,  # min
-      count,  # max
-      [],     # grouop id
-      self.properties['key_name'] || self.properties[:key_name],
-      "",     # user data
-      nil,    # kernel id
-      nil,     # ramdisk id
-      &block
-    )
+  def create_virtual_servers(name, image, type, physical, description = "", count = 1)
+    physical_provided_id = physical.respond_to?(:provided_id) ? physical.provided_id : physical
+    connect {|conn|
+      results = conn.run_instances(
+        image.provided_id,
+        count,
+        count,
+        [],
+        self.properties['key_name'] || self.properties[:key_name],
+        "",
+        nil, # <- addressing_type
+        type.provided_id,
+        nil,
+        nil,
+        physical_provided_id,
+        nil  # <- block_device_mappings
+      )
+      yield if block_given? # テスト用のブロックの呼び出し
+      results.map.with_index {|hash, idx|
+        provided_id = hash.delete(:aws_instance_id)
+        if server = self.virtual_servers.find(:first, :conditions => {:provided_id => provided_id})
+          server
+        else
+          host_server_provided_id = hash[:aws_availability_zone]
+          host_server_provided_id = physical_provided_id if host_server_provided_id.nil? || host_server_provided_id.blank?
+          # findではなくfirstで検索しているので、もしhost_server_provided_idで指定されるサーバが見つからなくても
+          # host_serverがnilとして扱われるが、仮想サーバ自身の登録は行われます
+          host_server = (host_server_provided_id && !host_server_provided_id.blank?) ?
+            Tengine::Resource::PhysicalServer.first(:conditions => {:provided_id => host_server_provided_id}) : nil
+          begin
+            self.virtual_servers.create!(
+              :name                 => sprintf("%s%03d", name, idx + 1), # 1 origin
+              :address_order        => address_order,
+              :description          => description,
+              :provided_id          => provided_id,
+              :provided_image_id    => hash.delete(:aws_image_id),
+              :provided_type_id     => hash.delete(:aws_instance_type),
+              :host_server_id       => host_server ? host_server.id : nil,
+              :status               => hash.delete(:aws_state),
+              :properties           => hash,
+              :addresses            => {
+    #             :dns_name           => hash.delete(:dns_name),
+    #             :ip_address         => hash.delete(:ip_address),
+    #             :private_dns_name   => hash.delete(:private_dns_name),
+    #             :private_ip_address => hash.delete(:private_ip_address),
+              })
+          rescue Mongo::OperationFailure => e
+            raise e unless e.message =~ /E11000 duplicate key error/
+            self.virtual_servers.find(:first, :conditions => {:provided_id => provided_id}) or
+              raise "VirtualServer not found for #{provided_id}"
+          rescue Mongoid::Errors::Validations => e
+            raise e unless e.document.errors[:provided_id].any?{|s| s =~ /taken/}
+            self.virtual_servers.find(:first, :conditions => {:provided_id => provided_id}) or
+              raise "VirtualServer not found for #{provided_id}"
+          end
+        end
+      }
+    }
   end
+
 
   def terminate_virtual_servers(servers)
     connect do |conn|
