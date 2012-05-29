@@ -3,8 +3,6 @@ require 'mongoid'
 require 'selectable_attr'
 
 class Tengine::Resource::Credential
-  autoload :Ec2, 'tengine/resource/credential/ec2'
-
   include Mongoid::Document
   include Mongoid::Timestamps
   include Tengine::Core::SelectableAttr
@@ -104,13 +102,6 @@ class Tengine::Resource::Credential
       AuthField.new(:username        , :string),
       AuthField.new(:private_key_file, :string),
       AuthField.new(:passphrase      , :secret, :optional => true),
-    ].freeze,
-
-    # {:access_key => "xxxxx", :secret_access_key =>"xxxxx"}
-    :ec2_access_key => [
-      AuthField.new(:access_key, :string),
-      AuthField.new(:secret_access_key, :string),
-      AuthField.new(:default_region, :string, :default => "us-east-1"),
     ].freeze,
   }.freeze
 
