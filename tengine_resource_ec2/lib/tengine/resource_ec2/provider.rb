@@ -112,7 +112,7 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
           # host_serverがnilとして扱われるが、仮想サーバ自身の登録は行われます
           host_server = Tengine::Resource::PhysicalServer.by_provided_id(
             [hash[:aws_availability_zone], physical].detect{|i| !i.blank?})
-          begin
+          self.find_virtual_server_on_duplicaion_error(provided_id) do
             self.virtual_servers.create!(
               :name                 => sprintf("%s%03d", name, idx + 1), # 1 origin
               :address_order        => address_order,
@@ -129,14 +129,6 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
     #             :private_dns_name   => hash.delete(:private_dns_name),
     #             :private_ip_address => hash.delete(:private_ip_address),
               })
-          rescue Mongo::OperationFailure => e
-            raise e unless e.message =~ /E11000 duplicate key error/
-            self.virtual_servers.find(:first, :conditions => {:provided_id => provided_id}) or
-              raise "VirtualServer not found for #{provided_id}"
-          rescue Mongoid::Errors::Validations => e
-            raise e unless e.document.errors[:provided_id].any?{|s| s =~ /taken/}
-            self.virtual_servers.find(:first, :conditions => {:provided_id => provided_id}) or
-              raise "VirtualServer not found for #{provided_id}"
           end
         end
       }
