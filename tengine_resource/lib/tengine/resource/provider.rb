@@ -37,6 +37,22 @@ class Tengine::Resource::Provider
   def update_virtual_servers       ; raise NotImplementedError end
   def update_virtual_server_imagess; raise NotImplementedError end
 
+
+  def find_virtual_server_on_duplicaion_error(virtual_server_provided_id)
+    begin
+      yield
+    rescue Mongo::OperationFailure => e
+      raise e unless e.message =~ /E11000 duplicate key error/
+      self.virtual_servers.find(:first, :conditions => {:provided_id => virtual_server_provided_id}) or
+        raise "VirtualServer not found for #{virtual_server_provided_id}"
+    rescue Mongoid::Errors::Validations => e
+      raise e unless e.document.errors[:provided_id].any?{|s| s =~ /taken/}
+      self.virtual_servers.find(:first, :conditions => {:provided_id => virtual_server_provided_id}) or
+        raise "VirtualServer not found for #{virtual_server_provided_id}"
+    end
+  end
+
+
   private
   def update_physical_servers_by(hashs)
     found_ids = []
@@ -68,6 +84,7 @@ class Tengine::Resource::Provider
     end
     self.virtual_servers.not_in(:_id => found_ids).destroy_all
   end
+
 
   class << self
     def find_or_create_by_name!(attrs)
