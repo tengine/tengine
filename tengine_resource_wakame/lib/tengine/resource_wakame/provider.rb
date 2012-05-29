@@ -36,13 +36,7 @@ class Tengine::ResourceWakame::Provider < Tengine::Resource::Provider
   # @param  [Tengine::Resource::VirtualServerType]   type         Virtual server type object
   # @param  [String]                                 physical     Data center name to put virtual machines (availability zone)
   # @param  [String]                                 description  What this virtual server is
-  # @param  [Numeric]                                min_count    Minimum number of vortial servers to boot
-  # @param  [Numeric]                                max_count    Maximum number of vortial servers to boot
-  # @param  [Array<Strng>]                           group_ids    Array of names of security group IDs
-  # @param  [Strng]                                  key_name     Name of root key to sue
-  # @param  [Strng]                                  user_data    User-specified
-  # @param  [Strng]                                  kernel_id    Kernel image ID
-  # @param  [Strng]                                  ramdisk_id   Ramdisk image ID
+  # @param  [Numeric]                                count        number of vortial servers to boot
   # @return [Array<Tengine::Resource::VirtualServer>]
   def create_virtual_servers(name, image, type, physical, description = "", count = 1)
     physical_provided_id = physical.respond_to?(:provided_id) ? physical.provided_id : physical
@@ -67,13 +61,11 @@ class Tengine::ResourceWakame::Provider < Tengine::Resource::Provider
         if server = self.virtual_servers.find(:first, :conditions => {:provided_id => provided_id})
           server
         else
-          host_server_provided_id = hash[:aws_availability_zone]
-          host_server_provided_id = physical_provided_id if host_server_provided_id.nil? || host_server_provided_id.blank?
           # findではなくfirstで検索しているので、もしhost_server_provided_idで指定されるサーバが見つからなくても
           # host_serverがnilとして扱われるが、仮想サーバ自身の登録は行われます
-          host_server = (host_server_provided_id && !host_server_provided_id.blank?) ?
-            Tengine::Resource::PhysicalServer.first(:conditions => {:provided_id => host_server_provided_id}) : nil
-          begin
+          host_server = Tengine::Resource::PhysicalServer.by_provided_id(
+            [hash[:aws_availability_zone], physical_provided_id].detect{|i| !i.blank?})
+          self.find_virtual_server_on_duplicaion_error(provided_id) do
             self.virtual_servers.create!(
               :name                 => sprintf("%s%03d", name, idx + 1), # 1 origin
               :address_order        => address_order,
@@ -90,14 +82,6 @@ class Tengine::ResourceWakame::Provider < Tengine::Resource::Provider
     #             :private_dns_name   => hash.delete(:private_dns_name),
     #             :private_ip_address => hash.delete(:private_ip_address),
               })
-          rescue Mongo::OperationFailure => e
-            raise e unless e.message =~ /E11000 duplicate key error/
-            self.virtual_servers.find(:first, :conditions => {:provided_id => provided_id}) or
-              raise "VirtualServer not found for #{provided_id}"
-          rescue Mongoid::Errors::Validations => e
-            raise e unless e.document.errors[:provided_id].any?{|s| s =~ /taken/}
-            self.virtual_servers.find(:first, :conditions => {:provided_id => provided_id}) or
-              raise "VirtualServer not found for #{provided_id}"
           end
         end
       }
