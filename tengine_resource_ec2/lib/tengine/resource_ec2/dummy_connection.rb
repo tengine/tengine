@@ -8,7 +8,7 @@
 # [10/08/19 13:08:47] akimatter: developmentでは、RightAws::Ec2のインスタンスの代わりのダミー(一般的にはモックって言うけど、specのモックと区別して敢えてダミーします)を使うようにするべきかも。
 # [10/08/19 13:09:19] akimatter: ただし、developmentでもダミーではなくEC2にちゃんと繋ぎたい場合もあるので、
 # [10/08/19 13:09:41] akimatter: 環境変数か何かの設定でこれらの動作が変わる方が良いかと思います。
-class Tengine::Resource::Credential::Ec2::Dummy
+class Tengine::ResourceEc2::DummyConnection
   cattr_accessor :last_instance_index
   @@last_instance_index = 0
 

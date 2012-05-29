@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'tengine/support/core_ext/enumerable/map_to_hash'
 
-class Tengine::Resource::Credential::Ec2::LaunchOptions
+class Tengine::ResourceEc2::LaunchOptions
 
   def initialize(credential)
     @credential = credential
