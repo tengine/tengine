@@ -1,17 +1,24 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
+require 'fileutils'
 require 'tengine/resource/net_ssh'
 
 describe Net::SSH do
   describe :start do
-    before do
-      @e = Exception.new("ok")
-      Net::SSH::Transport::Session.stub(:new).with(anything, anything).and_raise(@e)
-    end
 
     after do
       Tengine::Resource::Credential.delete_all(:name => "ssh1")
     end
+
+    def setup_net_ssh_mocks(options, result = true)
+      options = {:user => "goku", :logger => an_instance_of(Logger)}.update(options)
+      mock_transport = mock(:transport, :logger => true, :socket => nil)
+      mock_auth = mock(:auth)
+      Net::SSH::Transport::Session.should_receive(:new).with("localhost", options).and_return(mock_transport)
+      Net::SSH::Authentication::Session.should_receive(:new).with(mock_transport, options).and_return(mock_auth)
+      mock_auth.should_receive(:authenticate).with("ssh-connection", "goku", options[:password]). and_return(result)
+    end
+
 
     describe "``Net::SSH.start(hostname, credential) {|ctx| ... }''" do
       describe "auth_type_key: :ssh_password" do
@@ -20,8 +27,8 @@ describe Net::SSH do
             :name => "ssh1",
             :auth_type_key => :ssh_password,
             :auth_values => {:username => 'goku', :password => "password1"})
-
-          expect { Net::SSH.start "localhost", c }.to raise_error(@e)
+          setup_net_ssh_mocks(:password => "password1")
+          Net::SSH.start("localhost", c)
         end
       end
 
@@ -60,7 +67,15 @@ Gh5L65ukAbWSC8yuQpKtq3EfpNcf83a+Xc5XXANbTgN/+sJjgd+ycmPzLv5Zcsg9
 -----END RSA PRIVATE KEY-----
 END
 
-          expect { Net::SSH.start "localhost", c }.to raise_error(@e)
+          base_tmp_dir = File.expand_path("../../../../tmp", __FILE__)
+          tmp_dir = File.expand_path("test", base_tmp_dir)
+          FileUtils.mkdir_p(tmp_dir)
+          Dir.stub(:mktmpdir).with(nil, base_tmp_dir).and_yield(tmp_dir)
+          tmpfile = Tempfile.new("pk", tmp_dir)
+          Tempfile.should_receive(:new).with("pk", tmp_dir).and_return(tmpfile)
+
+          setup_net_ssh_mocks(:passphrase => "", :keys => [tmpfile.path])
+          Net::SSH.start("localhost", c)
         end
       end
     end
@@ -72,8 +87,8 @@ END
             :name => "ssh1",
             :auth_type_key => :ssh_password,
             :auth_values => {:password => "password1"})
-
-          expect { Net::SSH.start "localhost", "goku", c }.to raise_error(@e)
+          setup_net_ssh_mocks(:password => "password1")
+          Net::SSH.start("localhost", "goku", c)
         end
       end
 
@@ -83,8 +98,7 @@ END
             :name => "ssh1",
             :auth_type_key => :ssh_password,
             :auth_values => {:username => "goku", :password => "password1"})
-
-          expect { Net::SSH.start "localhost", "goku", c }
+          expect{ Net::SSH.start("localhost", "goku", c) }
         end
         it { should raise_error(ArgumentError) }
       end
@@ -97,8 +111,8 @@ END
             :name => "ssh1",
             :auth_type_key => :ssh_password,
             :auth_values => {:username => "goku"})
-
-          expect { Net::SSH.start "localhost", c, :password => "passowrd1" }.to raise_error(@e)
+          setup_net_ssh_mocks(:password => "password1")
+          Net::SSH.start("localhost", c, :password => "password1")
         end
       end
 
@@ -108,8 +122,8 @@ END
             :name => "ssh1",
             :auth_type_key => :ssh_password,
             :auth_values => {:username => "goku", :password => "password1"})
-
-          expect { Net::SSH.start "localhost", c, :password => "password1" }
+          # setup_net_ssh_mocks(:password => "password1")
+          expect{ Net::SSH.start("localhost", c, :password => "password1") }
         end
         it { should raise_error(ArgumentError) }
       end
@@ -118,13 +132,14 @@ END
     describe "``Net::SSH.start(hostname, user, other_opts) {|ctx| ... }''" do
       describe "normal path" do
         it "starts" do
-          expect { Net::SSH.start "localhost", "goku", :password => "passowrd1" }.to raise_error(@e)
+          setup_net_ssh_mocks(:password => "password1")
+          Net::SSH.start("localhost", "goku", :password => "password1")
         end
       end
 
       describe "unknown key" do
         subject do
-          expect { Net::SSH.start "localhost", "goku", :foo => "bar" }
+          expect{ Net::SSH.start("localhost", "goku", :foo => "bar") }
         end
         it { should raise_error(ArgumentError) }
       end
@@ -133,13 +148,14 @@ END
     describe "``Net::SSH.start(hostname, other_opts) {|ctx| ... }''" do
       describe "normal path" do
         it "starts" do
-          expect { Net::SSH.start "localhost", :username => "goku", :password => "passowrd1" }.to raise_error(@e)
+          setup_net_ssh_mocks(:password => "password1")
+          Net::SSH.start("localhost", :username => "goku", :password => "password1")
         end
       end
 
       describe "missing username" do
         subject do
-          expect { Net::SSH.start "localhost", :password => "password1" }
+          expect{ Net::SSH.start("localhost", :password => "password1") }
         end
         it { should raise_error(ArgumentError) }
       end
