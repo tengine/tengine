@@ -6,6 +6,36 @@ require 'tengine/resource/net_ssh'
 describe Net::SSH do
   describe :start do
 
+    private_key_content = <<END_OF_PK
+-----BEGIN RSA PRIVATE KEY-----
+MIIEoAIBAAKCAQEAvdBvdpWxMumGZsyWpnsPetEW0da5/5sIfSgP8pAVgibp492O
+l++LQlITsSf3Lt/WOQNEfOrfU7HFZuRk3b7dPTJFneG+AIXS8PdrxDO8e9DSG1D4
+xDAgSrG4inuSQju1EPaPhIz7r0eg1tupP6UM8GVUu90zO7OCnvjYOPjNRvibW5ao
+dzo4T5cOLBZuUm3RqclQLehLAQpG6p+d6DbADTVVNpvgk+VfPpKI9E+q944ivJIM
+0KLNWyfEbxjoXuYnZYn1em6MHcaXsR1I5rlzuhfOaukerqFulG3MkU6A2t/CfbXM
+PiOtwPSse7ZuoBtdFhnxUpGRmlPoSvezfSz23wIBIwKCAQA7p+iEWu6MWAWrR50P
+wEaxkiu+Ssy+DCc9Rxr0dm0o56iYEm6kx6DLs2VGTmOhBIUn3HScSdEo7rpiKoYZ
+zkWIQv/vyprM9tvlVRM9qdwm6duiL2QgZuWT0XSDS2h7N1Yp5xcpqKbfUQap7UPS
+LI8JuXJm7b+lDIgjVYXIwzkzj2qEkoF+p8hHWD7X3v6db6Gz7+HMQx/rc6yMrZ0H
+RF/CKHOWvriY/41CxsYvpAK0ksXTXupxzEJdItvHYIJsQW6gxBGtxWo7Y55si8w/
+VBgmkiQ/wPVZsQ5omo3lwrLohW0k7xO8ZX2sAweb/NUKhZi0KcrwTHFT5MbwxrHi
+GGcbAoGBAPvjaPtg9171h+xu/MlpOBivhfApdhrEoRfn5Np8OmSRtOC5hK/UyQtk
+Ot4G10KQziK98xkSQ3OphR/kQA8oiq+TfZvPKJ69GYqLpWkBdM2rNXph5BCahri+
+qO04wqgpZkG7obCMrKXPNQj1MWhCAy5mRNYcuWSEeIXZZ66TT1SZAoGBAMDpoVbg
+W4qlmUKCme8i0ofsSB00s+HyJ6zmBriDaJ8o/77jQ/ypwKmox+6Ebo5WvnNGzgnI
+puOgkNH5MWjGoowvnH6CXWzSQYlvAOGnZ58IhbIm5OolRHC3fASUw0JZRVQGvlFC
+v73ltf+td9TfhmAVfqzE5PMK7C9E6UNJBFo3AoGAVlyZBbrYeFQumjSucPDgCHax
+lCt48zwZ+ZFVx0CJDIm6W61SEGY2TQxr9Fod6u/RpYL0Qxw0Yit+GZAV9pGOopj3
+3aYcjjI0pIembSUSGqEZpk1yw901gSttHiIW2pHZ6qa7F/W3iU5bU4dEI77chO/d
+FjW75/Lnflkq3MTKvesCgYALBgk4KhPcCXZ41ENPflUsVqUI+7KB8JSNiXy6FiM8
+S3xUDPySGFQm87OnOsR9KYc5yYgd0POX+ovuvchPIUsd9BeSM1XLtD5CXh1OuRvd
+M6/eS12JuPyYugcWNGLt2TcpX3iW7d8SKmIr3gbY9tR6hOKqyWwrJTIRVGUZyah6
+LwKBgA+Fdse5WibNPG1smoS/JzmPdrdD46x2D7HoLtbcNF4rPlduVI8yS3dRSqi4
+Gh5L65ukAbWSC8yuQpKtq3EfpNcf83a+Xc5XXANbTgN/+sJjgd+ycmPzLv5Zcsg9
+8xlb43zLCiEf5TyrlbmqfM97hxuPbrgifyU7jMaTdmHHGsDx
+-----END RSA PRIVATE KEY-----
+END_OF_PK
+
     after do
       Tengine::Resource::Credential.delete_all(:name => "ssh1")
     end
@@ -37,35 +67,7 @@ describe Net::SSH do
           c = Tengine::Resource::Credential.new(
             :name => "ssh1",
             :auth_type_key => :ssh_public_key,
-            :auth_values => {:username => 'goku', :private_keys => <<END, :passphrase => ""})
------BEGIN RSA PRIVATE KEY-----
-MIIEoAIBAAKCAQEAvdBvdpWxMumGZsyWpnsPetEW0da5/5sIfSgP8pAVgibp492O
-l++LQlITsSf3Lt/WOQNEfOrfU7HFZuRk3b7dPTJFneG+AIXS8PdrxDO8e9DSG1D4
-xDAgSrG4inuSQju1EPaPhIz7r0eg1tupP6UM8GVUu90zO7OCnvjYOPjNRvibW5ao
-dzo4T5cOLBZuUm3RqclQLehLAQpG6p+d6DbADTVVNpvgk+VfPpKI9E+q944ivJIM
-0KLNWyfEbxjoXuYnZYn1em6MHcaXsR1I5rlzuhfOaukerqFulG3MkU6A2t/CfbXM
-PiOtwPSse7ZuoBtdFhnxUpGRmlPoSvezfSz23wIBIwKCAQA7p+iEWu6MWAWrR50P
-wEaxkiu+Ssy+DCc9Rxr0dm0o56iYEm6kx6DLs2VGTmOhBIUn3HScSdEo7rpiKoYZ
-zkWIQv/vyprM9tvlVRM9qdwm6duiL2QgZuWT0XSDS2h7N1Yp5xcpqKbfUQap7UPS
-LI8JuXJm7b+lDIgjVYXIwzkzj2qEkoF+p8hHWD7X3v6db6Gz7+HMQx/rc6yMrZ0H
-RF/CKHOWvriY/41CxsYvpAK0ksXTXupxzEJdItvHYIJsQW6gxBGtxWo7Y55si8w/
-VBgmkiQ/wPVZsQ5omo3lwrLohW0k7xO8ZX2sAweb/NUKhZi0KcrwTHFT5MbwxrHi
-GGcbAoGBAPvjaPtg9171h+xu/MlpOBivhfApdhrEoRfn5Np8OmSRtOC5hK/UyQtk
-Ot4G10KQziK98xkSQ3OphR/kQA8oiq+TfZvPKJ69GYqLpWkBdM2rNXph5BCahri+
-qO04wqgpZkG7obCMrKXPNQj1MWhCAy5mRNYcuWSEeIXZZ66TT1SZAoGBAMDpoVbg
-W4qlmUKCme8i0ofsSB00s+HyJ6zmBriDaJ8o/77jQ/ypwKmox+6Ebo5WvnNGzgnI
-puOgkNH5MWjGoowvnH6CXWzSQYlvAOGnZ58IhbIm5OolRHC3fASUw0JZRVQGvlFC
-v73ltf+td9TfhmAVfqzE5PMK7C9E6UNJBFo3AoGAVlyZBbrYeFQumjSucPDgCHax
-lCt48zwZ+ZFVx0CJDIm6W61SEGY2TQxr9Fod6u/RpYL0Qxw0Yit+GZAV9pGOopj3
-3aYcjjI0pIembSUSGqEZpk1yw901gSttHiIW2pHZ6qa7F/W3iU5bU4dEI77chO/d
-FjW75/Lnflkq3MTKvesCgYALBgk4KhPcCXZ41ENPflUsVqUI+7KB8JSNiXy6FiM8
-S3xUDPySGFQm87OnOsR9KYc5yYgd0POX+ovuvchPIUsd9BeSM1XLtD5CXh1OuRvd
-M6/eS12JuPyYugcWNGLt2TcpX3iW7d8SKmIr3gbY9tR6hOKqyWwrJTIRVGUZyah6
-LwKBgA+Fdse5WibNPG1smoS/JzmPdrdD46x2D7HoLtbcNF4rPlduVI8yS3dRSqi4
-Gh5L65ukAbWSC8yuQpKtq3EfpNcf83a+Xc5XXANbTgN/+sJjgd+ycmPzLv5Zcsg9
-8xlb43zLCiEf5TyrlbmqfM97hxuPbrgifyU7jMaTdmHHGsDx
------END RSA PRIVATE KEY-----
-END
+            :auth_values => {:username => 'goku', :private_keys => private_key_content, :passphrase => ""})
 
           base_tmp_dir = File.expand_path("../../../../tmp", __FILE__)
           tmp_dir = File.expand_path("test", base_tmp_dir)
