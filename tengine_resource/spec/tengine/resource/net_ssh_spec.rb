@@ -60,6 +60,15 @@ END_OF_PK
           setup_net_ssh_mocks(:password => "password1")
           Net::SSH.start("localhost", c)
         end
+
+        it "raise ArgumentError without paassword" do
+          c = Tengine::Resource::Credential.new(
+            :name => "ssh1",
+            :auth_type_key => :ssh_password,
+            :auth_values => {:username => 'goku', :password => ""})
+          # setup_net_ssh_mocks(:password => "password1")
+          expect{ Net::SSH.start("localhost", c) }.to raise_error(ArgumentError)
+        end
       end
 
       describe "auth_type_key: :ssh_public_key" do
@@ -78,6 +87,14 @@ END_OF_PK
 
           setup_net_ssh_mocks(:passphrase => "", :keys => [tmpfile.path])
           Net::SSH.start("localhost", c)
+        end
+
+        it "raise ArgumentError without private_keys" do
+          c = Tengine::Resource::Credential.new(
+            :name => "ssh1",
+            :auth_type_key => :ssh_public_key,
+            :auth_values => {:username => 'goku', :private_keys => "", :passphrase => ""})
+          expect{ Net::SSH.start("localhost", c) }.to raise_error(ArgumentError)
         end
       end
     end

@@ -42,6 +42,8 @@ class << Net::SSH
     when Hash
       hash = obj1.symbolize_keys
     when Tengine::Resource::Credential
+      # obj1がCredentialでobj2が指定されていない場合は、objがinvalid?ならエラー
+      raise ArgumentError, obj1.errors.full_messages.join if !obj1.valid? && obj2.nil?
       hash = obj1.auth_values.symbolize_keys
     else
       raise TypeError, "#{obj1.class} not expected (expected String)"
