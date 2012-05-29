@@ -24,12 +24,12 @@ class Tengine::Resource::Credential
   # EC2での認証については以下などを参照してください。
   #     http://builder.japan.zdnet.com/member/u502383/blog/2008/08/08/entry_27012840/
   selectable_attr :auth_type_cd do
-    entry "01", :ssh_password  , "SSHパスワード認証"   , :for_launch => false
-    entry "02", :ssh_public_key, "SSH公開鍵認証"       , :for_launch => false
-    # entry "03", :ec2_access_key, "EC2 アクセスキー認証", :for_launch => true
+    entry "01", :ssh_password  , "SSHパスワード認証"
+    entry "02", :ssh_public_key, "SSH公開鍵認証"
+    # entry "03", :ec2_access_key, "EC2 アクセスキー認証"
     # entry "04", :ec2_x509_cert, "EC2 X.509認証"
-    # entry "05", :tama, "Tama", :for_launch => true
-    entry "06", :ssh_public_key_file, "SSH公開鍵認証(ファイル)", :for_launch => false
+    # entry "05", :tama, "Tama"
+    entry "06", :ssh_public_key_file, "SSH公開鍵認証(ファイル)"
   end
 
   validates :name, :presence => true, :uniqueness => true, :format => BASE_NAME.options
