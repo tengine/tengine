@@ -34,6 +34,7 @@ class Tengine::Core::Kernel
       update_status(:waiting_activation)
       wait_for_activation(&block)
     else
+      require 'profile' if ENV['tengined_profile']
       activate(&block)
     end
   end

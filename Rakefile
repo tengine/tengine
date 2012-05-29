@@ -148,3 +148,85 @@ namespace :travis do
     puts "#{dest} was generated successfully."
   end
 end
+
+desc "take profile of tengined"
+file 'profile' do
+
+  # create a temporary directory
+  require 'tmpdir'
+  root = File.dirname __FILE__
+  Dir.mktmpdir do |dir|
+    begin
+      STDOUT.write 'generating handlers...'
+      1024.times do |i|
+        open(dir + "/profile#{i}.rb", 'w') do |fp|
+          fp.puts 'require "tengine/core"'
+          fp.puts "class Profile#{i}"
+          fp.puts "include Tengine::Core::Driveable"
+          fp.puts "on:profile#{i}"
+          fp.puts "def profile#{i}"
+          fp.puts "Process.kill 2, 0" if i.zero?
+          fp.puts "end"
+          fp.puts "end"
+        end
+      end
+      puts
+
+      STDOUT.write 'generating feeder...'
+      open(dir + '/feeder.rb', 'w') do |fp|
+        fp.puts <<-'end_'
+          if $0 == __FILE__
+            require "bundler/setup"
+            require "tengine/event"
+            require "eventmachine"
+            require "logger"
+            Tengine.logger = Logger.new STDOUT
+            EM.run do
+              s = Tengine::Event::Sender.new
+              s.fire "profile1", :keep_connection => true do # initiate
+                1023.downto 0 do |i|
+                  s.fire "profile#{i}", :keep_connection => true do
+                    if i.zero?
+                      s.stop do
+                        Tengine.logger.info "event send complete."
+                        EM.stop
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end_
+      end
+      puts
+
+      # put Gemfile
+      open(dir + '/Gemfile', 'w') do |fp|
+        fp.puts 'source "http://rubygems.org"'
+        %w'tengine_core tengine_event tengine_job tengine_resource tengine_support'.each do |i|
+          fp.puts "gem '#{i}', :path => '#{root}/#{i}'"
+        end
+      end
+      puts 'bundle install'
+      system 'bundle install', :chdir => dir
+
+      env = { 'tengined_profile' => 'true' }
+      tengined = spawn env, "bundle exec tengined --tengined-cache-drivers -k start -T #{dir}", :chdir => dir, :err => root+'/profile'
+      feeder = spawn 'bundle exec ruby feeder.rb', :chdir => dir
+    ensure
+      begin
+        Process.waitall
+      rescue Interrupt
+        retry
+      end
+    end
+  end
+  next true
+end
+
+# 
+# Local Variables:
+# mode: ruby
+# coding: utf-8
+# End:
