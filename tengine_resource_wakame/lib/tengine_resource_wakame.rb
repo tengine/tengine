@@ -1,4 +1,4 @@
-require 'tengine_resource_ec2'
+require 'tengine_resource'
 
 module Tengine
   autoload :ResourceWakame, 'tengine/resource_wakame'
