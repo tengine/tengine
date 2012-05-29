@@ -67,6 +67,7 @@ class << Net::SSH
 
     u2 = hash.delete(:username)
     k2 = hash.delete(:private_keys)
+    f2 = hash.delete(:private_key_file)
 
     raise ArgumentError, "username specified twice in both ordinal and optional arguments" if user and u2
     user ||= u2
@@ -109,28 +110,37 @@ class << Net::SSH
 
     raise ArgumentError, "unknown optional argument(s): #{hash.keys.join(', ')}" unless hash.empty?
 
-    if k2
-      k2 = [k2] unless k2.is_a? Array
+    assign_options(argh, k2, f2) do
+      return __tengine_resource_net_ssh_backed_up_start__(host, user, argh, &block)
+    end
+  end
+
+  def assign_options(options, private_keys, private_key_file)
+    if private_keys
+      private_keys = [private_keys] unless private_keys.is_a?(Array)
       Dir.mktmpdir(nil, File.expand_path("../../../../tmp", __FILE__)) do |dir|
         begin
-          k3 = k2.map do |k|
+          pk_files = private_keys.map do |k|
             fp = Tempfile.new("pk", dir)
             fp.write(k)
             fp.chmod(0400)
             fp.flush
             fp # no close
           end
-          k4 = k3.map {|i| File.expand_path(i.path) }
-          argh[:keys] ||= []
-          argh[:keys].concat k4
-
-          return __tengine_resource_net_ssh_backed_up_start__ host, user, argh, &block
+          options[:keys] ||= []
+          options[:keys].concat(pk_files.map {|i| File.expand_path(i.path) })
+          yield
         ensure
-          k3.each {|i| i.close(:real) }
+          pk_files.each {|i| i.close(:real) }
         end
       end
+    elsif private_key_file
+      options[:keys] ||= []
+      options[:keys] << private_key_file
+      yield
     else
-      return __tengine_resource_net_ssh_backed_up_start__ host, user, argh, &block
+      yield
     end
   end
+
 end

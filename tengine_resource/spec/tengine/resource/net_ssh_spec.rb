@@ -36,6 +36,12 @@ Gh5L65ukAbWSC8yuQpKtq3EfpNcf83a+Xc5XXANbTgN/+sJjgd+ycmPzLv5Zcsg9
 -----END RSA PRIVATE KEY-----
 END_OF_PK
 
+    before(:all) do
+      @base_tmp_dir = File.expand_path("../../../../tmp", __FILE__)
+      @tmp_test_dir = File.expand_path("test", @base_tmp_dir)
+      FileUtils.mkdir_p(@tmp_test_dir)
+    end
+
     after do
       Tengine::Resource::Credential.delete_all(:name => "ssh1")
     end
@@ -78,12 +84,9 @@ END_OF_PK
             :auth_type_key => :ssh_public_key,
             :auth_values => {:username => 'goku', :private_keys => private_key_content, :passphrase => ""})
 
-          base_tmp_dir = File.expand_path("../../../../tmp", __FILE__)
-          tmp_dir = File.expand_path("test", base_tmp_dir)
-          FileUtils.mkdir_p(tmp_dir)
-          Dir.stub(:mktmpdir).with(nil, base_tmp_dir).and_yield(tmp_dir)
-          tmpfile = Tempfile.new("pk", tmp_dir)
-          Tempfile.should_receive(:new).with("pk", tmp_dir).and_return(tmpfile)
+          Dir.stub(:mktmpdir).with(nil, @base_tmp_dir).and_yield(@tmp_test_dir)
+          tmpfile = Tempfile.new("pk", @tmp_test_dir)
+          Tempfile.should_receive(:new).with("pk", @tmp_test_dir).and_return(tmpfile)
 
           setup_net_ssh_mocks(:passphrase => "", :keys => [tmpfile.path])
           Net::SSH.start("localhost", c)
@@ -95,6 +98,23 @@ END_OF_PK
             :auth_type_key => :ssh_public_key,
             :auth_values => {:username => 'goku', :private_keys => "", :passphrase => ""})
           expect{ Net::SSH.start("localhost", c) }.to raise_error(ArgumentError)
+        end
+      end
+
+      describe "auth_type_key: :ssh_public_key_file" do
+        it "starts" do
+          tmpfile = Tempfile.new("pk", @tmp_test_dir)
+          tmpfile.write(private_key_content)
+          tmpfile.chmod(0400)
+          tmpfile.flush
+
+          c = Tengine::Resource::Credential.new(
+            :name => "ssh1",
+            :auth_type_key => :ssh_public_key_file,
+            :auth_values => {:username => 'goku', :private_key_file => tmpfile.path, :passphrase => ""})
+
+          setup_net_ssh_mocks(:passphrase => "", :keys => [tmpfile.path])
+          Net::SSH.start("localhost", c)
         end
       end
     end

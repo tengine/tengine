@@ -29,6 +29,7 @@ class Tengine::Resource::Credential
     # entry "03", :ec2_access_key, "EC2 アクセスキー認証", :for_launch => true
     # entry "04", :ec2_x509_cert, "EC2 X.509認証"
     # entry "05", :tama, "Tama", :for_launch => true
+    entry "06", :ssh_public_key_file, "SSH公開鍵認証(ファイル)", :for_launch => false
   end
 
   validates :name, :presence => true, :uniqueness => true, :format => BASE_NAME.options
@@ -96,6 +97,13 @@ class Tengine::Resource::Credential
       AuthField.new(:username    , :string),
       AuthField.new(:private_keys, :text),
       AuthField.new(:passphrase  , :secret, :optional => true),
+    ].freeze,
+
+    # {:username => "goku", :private_key_file =>"xxx", :passphrase => "xxxx"}
+    :ssh_public_key_file => [
+      AuthField.new(:username        , :string),
+      AuthField.new(:private_key_file, :string),
+      AuthField.new(:passphrase      , :secret, :optional => true),
     ].freeze,
 
     # {:access_key => "xxxxx", :secret_access_key =>"xxxxx"}
