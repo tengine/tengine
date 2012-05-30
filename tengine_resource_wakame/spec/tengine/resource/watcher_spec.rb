@@ -6,6 +6,8 @@ require 'tengine/mq/suite'
 require 'apis/wakame'
 require 'controllers/controller'
 
+require 'tengine/resource_ec2'
+
 describe Tengine::Resource::Watcher do
 
   before do

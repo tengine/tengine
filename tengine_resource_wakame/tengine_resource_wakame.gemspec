@@ -26,8 +26,10 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.8.12"
   s.summary = "tengine_resource_wakame provides physical/virtual server management for wakame-vdc"
 
-  s.add_runtime_dependency('tengine_resource_ec2', "~> #{version}")
+  s.add_runtime_dependency('tengine_resource', "~> #{version}")
   s.add_runtime_dependency('wakame-adapters-tengine', "~> 0.0.0")
+
+  s.add_development_dependency('tengine_resource_ec2', "~> #{version}")
 
   common_develooment_dependencies(s)
 end
