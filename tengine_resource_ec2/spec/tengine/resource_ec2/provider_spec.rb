@@ -76,8 +76,10 @@ describe Tengine::ResourceEc2::Provider do
   end
 
   describe 'update resources' do
+    [1].each do |idx|
+
     subject do
-      Tengine::ResourceEc2::Provider.create!(:name => "ec2-us-west-1", :connection_settings => @conn1)
+      Tengine::ResourceEc2::Provider.create!(:name => "ec2-us-west-1", :connection_settings => instance_variable_get(:"@conn#{idx}"))
     end
 
     context "物理サーバ" do
@@ -518,6 +520,7 @@ describe Tengine::ResourceEc2::Provider do
           va[1].provided_id.should == 'i-f222222e'
         end
       end
+    end
     end
   end
 end
