@@ -76,6 +76,76 @@ describe Tengine::ResourceEc2::Provider do
   end
 
   describe 'update resources' do
+        shared_examples_for "取得した内容が反映される" do
+          it do
+            servers = subject.physical_servers.order(:provided_id, :asc)
+            west_1a = servers.first
+            west_1a.provider.should == subject
+            west_1a.name.should == "us-west-1a"
+            west_1a.provided_id.should == "us-west-1a"
+            west_1a.status.should == "available"
+            west_1b = servers.last
+            west_1b.provider.should == subject
+            west_1b.name.should == "us-west-1b"
+            west_1b.provided_id.should == "us-west-1b"
+            west_1b.status.should == "available"
+          end
+        end
+
+
+        shared_examples_for "取得したstaticな情報が反映される" do
+          it do
+            assert_server = lambda do |server|
+              server.provided_image_id.should == "ami-11111111"
+              server.properties.should == {
+                'aws_availability_zone' => "us-east-1a",
+                'ssh_key_name'=>"tengine",
+                'aws_groups'=>["default", "test2"],
+                'aws_launch_time' => @now.iso8601,
+                'ami_launch_index'=>"0",
+                'architecture'=>"i386",
+                'aws_reason' => ""
+              }
+            end
+            servers = subject.virtual_servers.order(:provided_id, :asc).to_a
+            servers.each(&assert_server)
+          end
+        end
+
+        shared_examples_for "取得した名前が反映される" do
+          it do
+            assert_server = lambda do |server, index|
+              name = "i-" + ((index + 1).to_s * 8)
+              server.name.should == name
+              server.provided_id.should == name
+            end
+            servers = subject.virtual_servers.order(:provided_id, :asc).to_a
+            servers.each_with_index(&assert_server)
+          end
+        end
+
+        shared_examples_for "取得したIPとホスト名が反映される" do
+          it do
+            assert_server = lambda do |server, index|
+              server.addresses['dns_name'].should == "ec2-184-72-203-#{index + 101}.us-west-1.compute.amazonaws.com"
+              server.addresses['ip_address'].should == "184.72.20.#{index + 101}"
+              server.addresses['private_dns_name'].should == "ip-10-162-153-#{index + 101}.us-west-1.compute.internal"
+              server.addresses['private_ip_address'].should == "10.162.153.#{index + 101}"
+            end
+            servers = subject.virtual_servers.order(:provided_id, :asc).to_a
+            servers.each_with_index(&assert_server)
+          end
+        end
+
+        shared_examples_for "取得した状態が反映される" do
+          it do
+            servers = subject.virtual_servers.order(:provided_id, :asc).to_a
+            servers.each do |server|
+              server.status.should == "running"
+            end
+          end
+        end
+
     [1].each do |idx|
 
       subject do
@@ -92,21 +162,6 @@ describe Tengine::ResourceEc2::Provider do
             and_return(setup_ec2_stub)
         end
 
-        shared_examples_for "取得した内容が反映される" do
-          it do
-            servers = subject.physical_servers.order(:provided_id, :asc)
-            west_1a = servers.first
-            west_1a.provider.should == subject
-            west_1a.name.should == "us-west-1a"
-            west_1a.provided_id.should == "us-west-1a"
-            west_1a.status.should == "available"
-            west_1b = servers.last
-            west_1b.provider.should == subject
-            west_1b.name.should == "us-west-1b"
-            west_1b.provided_id.should == "us-west-1b"
-            west_1b.status.should == "available"
-          end
-        end
 
         context "最初の実行時には物理サーバを登録する" do
           before do
@@ -316,59 +371,6 @@ describe Tengine::ResourceEc2::Provider do
           RightAws::Ec2.should_receive(:new).
             with('ACCESS_KEY1', "SECRET_ACCESS_KEY1", :region => "us-west-1", :logger => Tengine.logger).
             and_return(mock_ec2)
-        end
-
-        shared_examples_for "取得したstaticな情報が反映される" do
-          it do
-            assert_server = lambda do |server|
-              server.provided_image_id.should == "ami-11111111"
-              server.properties.should == {
-                'aws_availability_zone' => "us-east-1a",
-                'ssh_key_name'=>"tengine",
-                'aws_groups'=>["default", "test2"],
-                'aws_launch_time' => @now.iso8601,
-                'ami_launch_index'=>"0",
-                'architecture'=>"i386",
-                'aws_reason' => ""
-              }
-            end
-            servers = subject.virtual_servers.order(:provided_id, :asc).to_a
-            servers.each(&assert_server)
-          end
-        end
-
-        shared_examples_for "取得した名前が反映される" do
-          it do
-            assert_server = lambda do |server, index|
-              name = "i-" + ((index + 1).to_s * 8)
-              server.name.should == name
-              server.provided_id.should == name
-            end
-            servers = subject.virtual_servers.order(:provided_id, :asc).to_a
-            servers.each_with_index(&assert_server)
-          end
-        end
-
-        shared_examples_for "取得したIPとホスト名が反映される" do
-          it do
-            assert_server = lambda do |server, index|
-              server.addresses['dns_name'].should == "ec2-184-72-203-#{index + 101}.us-west-1.compute.amazonaws.com"
-              server.addresses['ip_address'].should == "184.72.20.#{index + 101}"
-              server.addresses['private_dns_name'].should == "ip-10-162-153-#{index + 101}.us-west-1.compute.internal"
-              server.addresses['private_ip_address'].should == "10.162.153.#{index + 101}"
-            end
-            servers = subject.virtual_servers.order(:provided_id, :asc).to_a
-            servers.each_with_index(&assert_server)
-          end
-        end
-
-        shared_examples_for "取得した状態が反映される" do
-          it do
-            servers = subject.virtual_servers.order(:provided_id, :asc).to_a
-            servers.each do |server|
-              server.status.should == "running"
-            end
-          end
         end
 
         context "最初の実行時には物理サーバを登録する" do
