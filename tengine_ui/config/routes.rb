@@ -1,4 +1,8 @@
 TengineConsole::Application.routes.draw do
+  if TengineConsole.test_console?
+    namespace :tengine do  namespace :test do resources :scripts end end
+  end
+
   namespace :tengine do  namespace :resource do resources :virtual_server_types end end
 
   namespace :tengine do  namespace :resource do resources :physical_servers end end
@@ -22,6 +26,7 @@ TengineConsole::Application.routes.draw do
     namespace :job do
       resources :root_jobnet_actuals do
         resources :jobnet_actuals
+        member{ get :vertecs }
       end
     end
   end

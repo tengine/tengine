@@ -1,0 +1,16 @@
+ja:
+  mongoid:
+    models:
+      tengine/test/ssh: "コマンド"
+      tengine/test/script: "スクリプト"
+
+    attributes:
+      tengine/test/ssh:
+        name: "Name"
+        version: "Version"
+        enabled: "Enabled"
+
+      tengine/test/script:
+        code: "コード"
+        result: "結果"
+        message: "メッセージ"
