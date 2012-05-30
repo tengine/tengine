@@ -2,32 +2,82 @@
 require 'spec_helper'
 
 require 'right_aws'
+require 'tempfile'
 
 describe Tengine::ResourceEc2::Provider do
   before do
     Tengine::ResourceEc2::Provider.delete_all
-    @conn = {:access_key => 'ACCESS_KEY1', :secret_access_key => "SECRET_ACCESS_KEY1", :region => "us-west-1"}
+    @conn1 = {:access_key => 'ACCESS_KEY1', :secret_access_key => "SECRET_ACCESS_KEY1", :region => "us-west-1"}
     @valid_attributes1 = {
       :name => "my_west-1",
-      :connection_settings => @conn
+      :connection_settings => @conn1
     }
+  end
+
+  before do
+    @access_key_file = Tempfile.new("access_key_file")
+    @access_key_file.write('ACCESS_KEY1')
+    @access_key_file.chmod(0444)
+    @access_key_file.flush
+
+    @secret_access_key_file = Tempfile.new("secret_access_key_file")
+    @secret_access_key_file.write('SECRET_ACCESS_KEY1')
+    @secret_access_key_file.chmod(0400)
+    @secret_access_key_file.flush
+
+    @conn2 = {:access_key_file => @access_key_file.path, :secret_access_key_file => @secret_access_key_file.path, :region => "us-west-1"}
+    @valid_attributes2 = {
+      :name => "my_west-1",
+      :connection_settings => @conn2
+    }
+  end
+
+  after do
+    @access_key_file.close(:real)
+    @secret_access_key_file.close(:real)
   end
 
   describe :validation do
     context "valid" do
-      subject{ Tengine::ResourceEc2::Provider.new(@valid_attributes1) }
-      its(:valid?){ should be_true }
+      context "key_specified_directlly" do
+        subject{ Tengine::ResourceEc2::Provider.new(@valid_attributes1) }
+        its(:valid?){ should be_true }
+      end
+
+      context "key_specified_by_file" do
+        subject{ Tengine::ResourceEc2::Provider.new(@valid_attributes2) }
+        its(:valid?){ should be_true }
+      end
+
+      # 本来警告にしたいところですが、connection_settingsが不正でもエラーにはしません。
+      context "empty connection_settings" do
+        subject{ Tengine::ResourceEc2::Provider.new(:name => "my_east-1") }
+        its(:valid?){ should be_true }
+      end
+
+      # 本来警告にしたいところですが、connection_settingsが不正でもエラーにはしません。
+      context "invalid filepath in connection_settings" do
+        subject{ Tengine::ResourceEc2::Provider.new(:name => "my_east-1",
+            :connection_settings => {
+              :access_key_file => "/unexist/access/key/file/path",
+              :secret_access_key_file => "/unexist/secret/access/key/file/path"
+            }) }
+        its(:valid?){ should be_true }
+      end
     end
 
     context "invalid" do
-      subject{ Tengine::ResourceEc2::Provider.new }
-      its(:valid?){ should be_false }
+      context "empty attributes" do
+        subject{ Tengine::ResourceEc2::Provider.new }
+        its(:valid?){ should be_false }
+      end
+
     end
   end
 
   describe 'update resources' do
     subject do
-      Tengine::ResourceEc2::Provider.create!(:name => "ec2-us-west-1", :connection_settings => @conn)
+      Tengine::ResourceEc2::Provider.create!(:name => "ec2-us-west-1", :connection_settings => @conn1)
     end
 
     context "物理サーバ" do
