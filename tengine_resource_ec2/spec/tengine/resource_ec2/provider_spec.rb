@@ -72,6 +72,23 @@ describe Tengine::ResourceEc2::Provider do
         its(:valid?){ should be_false }
       end
 
+      # 存在しないキーのファイル名を指定している場合、実際にアクセスする際に例外が起きますが、
+      # バリデーション等ではエラーになりません。
+      context "unexist access key" do
+        subject{ Tengine::ResourceEc2::Provider.new(:name => "my_east-1",
+            :connection_settings => {
+              :access_key_file => "/unexist/access/key/file/path",
+              :secret_access_key_file => "/unexist/secret/access/key/file/path"
+            }) }
+        it do
+          begin
+            subject.update_physical_servers
+            fail
+          rescue IOError, Errno::ENOENT => e
+          end
+        end
+      end
+
     end
   end
 
@@ -146,7 +163,7 @@ describe Tengine::ResourceEc2::Provider do
       end
     end
 
-    [1].each do |idx|
+    [1, 2].each do |idx|
 
       subject do
         Tengine::ResourceEc2::Provider.create!(:name => "ec2-us-west-1", :connection_settings => instance_variable_get(:"@conn#{idx}"))
