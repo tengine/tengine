@@ -184,7 +184,7 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
 
   def read_file_if_exist(filepath)
     return nil unless filepath
-    File.read(filepath).strip
+    File.read(File.expand_path(filepath)).strip # ~をホームディレクトリに展開するためにFile.expand_pathを使っています
   end
 
 end
