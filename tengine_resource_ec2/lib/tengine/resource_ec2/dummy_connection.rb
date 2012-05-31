@@ -113,11 +113,21 @@ class Tengine::ResourceEc2::DummyConnection
     end
   end
 
+
+  def describe_availability_zones(*args)
+    []
+  end
+
+  def describe_images(*args)
+    []
+  end
+
+
   private
   UPDATE_INTERVAL = (ENV['EC2_DUMMY_INTERVAL'] || 30).to_i.seconds
 
   def update_instances
-    t = Time.zone.now
+    t = (Time.zone || Time).now
     instances.each do |instanceid, hash|
       next unless hash[:aws_state] == "pending"
       launch_time = Time.zone.parse(hash[:aws_launch_time])
