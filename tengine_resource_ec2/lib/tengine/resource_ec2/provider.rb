@@ -75,6 +75,42 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
     end
   end
 
+
+  private
+  def update_physical_servers_by(hashs)
+    found_ids = []
+    hashs.each do |hash|
+      server = self.physical_servers.where(:provided_id => hash[:provided_id]).first
+      if server
+        server.update_attributes(:status => hash[:status])
+      else
+        server = self.physical_servers.create!(
+          :provided_id => hash[:provided_id],
+          :name => hash[:name],
+          :status => hash[:status])
+      end
+      found_ids << server.id
+    end
+    self.physical_servers.not_in(:_id => found_ids).update_all(:status => "not_found")
+  end
+
+  def update_virtual_servers_by(hashs)
+    found_ids = []
+    hashs.each do |hash|
+      server = self.virtual_servers.where(:provided_id => hash[:provided_id]).first
+      if server
+        server.update_attributes(hash)
+      else
+        server = self.virtual_servers.create!(hash.merge(:name => hash[:provided_id]))
+      end
+      found_ids << server.id
+    end
+    self.virtual_servers.not_in(:_id => found_ids).destroy_all
+  end
+
+
+  public
+
   # @param  [String]                                 name         Name template for created virtual servers
   # @param  [Tengine::Resource::VirtualServerImage]  image        Virtual server image object
   # @param  [Tengine::Resource::VirtualServerType]   type         Virtual server type object
