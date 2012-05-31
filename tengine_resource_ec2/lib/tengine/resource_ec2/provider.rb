@@ -7,25 +7,54 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
 
   field :connection_settings, :type => Hash
 
-  def synchronize_physical_servers
-    connect do |conn|
+  class Synchronizer < Tengine::Resource::Provider::Synchronizer
+  end
+
+
+  class PhysicalServerSynchronizer < Synchronizer
+    fetch_known_target_method :describe_availability_zones
+
+    map(:provided_id, :zone_name)
+    # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
+    map(:status     , :zone_status)
+    map(:cpu_cores  ) { 1000 }
+    map(:memory_size) { 1000 }
+  end
+
+  def describe_availability_zones
       # ec2.describe_availability_zones  #=> [{:region_name=>"us-east-1",
       #                                        :zone_name=>"us-east-1a",
       #                                        :zone_state=>"available"}, ... ]
       # http://docs.amazonwebservices.com/AWSEC2/latest/APIReference/index.html?ApiReference-query-DescribeAvailabilityZones.html
-      hashs = conn.describe_availability_zones.map do |hash|
-        {
-          :provided_id => hash[:zone_name],
-          :name    => hash[:zone_name],
-          :status => hash[:zone_state],
-        }
-      end
-      update_physical_servers_by(hashs)
+    connect{|conn| conn.describe_availability_zones }
+  end
+
+  def synchronize_physical_servers
+    synchronize_by(:physical_servers)
+  end
+
+
+
+  class VirtualServerSynchronizer < Synchronizer
+    fetch_known_target_method :describe_instances
+
+    map :provided_id      , :aws_instance_id
+    map :provided_image_id, :aws_image_id
+    map :status           , :aws_state
+
+    def attrs_to_create(properties)
+      result = super(properties)
+      result[:addresses] = {
+        :dns_name        => result.delete(:dns_name),
+        :ip_address      => result.delete(:ip_address),
+        :private_dns_name => result.delete(:private_dns_name),
+        :private_ip_address => result.delete(:private_ip_address),
+      }
+      result
     end
   end
 
-  def synchronize_virtual_servers
-    connect do |conn|
+  def describe_instances
       # http://rightscale.rubyforge.org/right_aws_gem_doc/
       # ec2.describe_instances #=>
       #   [{:aws_image_id       => "ami-e444444d",
@@ -46,35 +75,36 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
       #     :aws_ramdisk_id     => "ari-badbad00",
       #      ..., {...}]
       # http://docs.amazonwebservices.com/AWSEC2/latest/APIReference/index.html?ApiReference-query-DescribeInstances.html
-      hashs = conn.describe_instances.map do |hash|
-        result = {
-          :provided_id => hash.delete(:aws_instance_id),
-          :provided_image_id => hash.delete(:aws_image_id),
-          :status => hash.delete(:aws_state),
-        }
-        hash.delete(:aws_state_code)
-        result[:properties] = hash
-        result[:addresses] = {
-          :dns_name        => hash.delete(:dns_name),
-          :ip_address      => hash.delete(:ip_address),
-          :private_dns_name => hash.delete(:private_dns_name),
-          :private_ip_address => hash.delete(:private_ip_address),
-        }
-        result
-      end
-      update_virtual_servers_by(hashs)
-    end
+    connect{|conn| conn.describe_instances }
+  end
+
+  def synchronize_virtual_servers
+    synchronize_by(:virtual_servers)
+  end
+
+
+
+  class VirtualServerImageSynchronizer < Synchronizer
+    fetch_known_target_method :describe_images
+    map :provided_id         , :aws_id
+  end
+
+  def describe_images
+    connect{|conn| conn.describe_images}
   end
 
   def synchronize_virtual_server_images
-    connect do |conn|
-      hashs = conn.describe_images.map do |hash|
-        { :provided_id => hash.delete(:aws_id), }
-      end
-      update_virtual_server_images_by(hashs)
-    end
+    synchronize_by(:virtual_server_images)
   end
 
+
+
+  register_synchronizers({
+    :physical_servers      => PhysicalServerSynchronizer,
+    # :virtual_server_types  => VirtualServerTypeSynchronizer,
+    :virtual_server_images => VirtualServerImageSynchronizer,
+    :virtual_servers       => VirtualServerSynchronizer,
+  })
 
   private
   def update_physical_servers_by(hashs)
