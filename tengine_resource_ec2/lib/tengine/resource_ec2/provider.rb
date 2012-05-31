@@ -5,7 +5,7 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
 
   field :connection_settings, :type => Hash
 
-  def update_physical_servers
+  def synchronize_physical_servers
     connect do |conn|
       # ec2.describe_availability_zones  #=> [{:region_name=>"us-east-1",
       #                                        :zone_name=>"us-east-1a",
@@ -22,7 +22,7 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
     end
   end
 
-  def update_virtual_servers
+  def synchronize_virtual_servers
     connect do |conn|
       # http://rightscale.rubyforge.org/right_aws_gem_doc/
       # ec2.describe_instances #=>
@@ -64,7 +64,7 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
     end
   end
 
-  def update_virtual_server_images
+  def synchronize_virtual_server_images
     connect do |conn|
       hashs = conn.describe_images.map do |hash|
         { :provided_id => hash.delete(:aws_id), }
@@ -151,13 +151,6 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
   def synchronize_virtual_server_types
     # ec2から取得する情報はありません
   end
-
-  # 物理サーバの監視
-  def synchronize_physical_servers        ; raise NotImplementedError end
-  # 仮想サーバの監視
-  def synchronize_virtual_servers         ; raise NotImplementedError end
-  # 仮想サーバイメージの監視
-  def synchronize_virtual_server_images   ; raise NotImplementedError end
 
   private
   def address_order

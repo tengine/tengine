@@ -82,7 +82,7 @@ describe Tengine::ResourceEc2::Provider do
             }) }
         it do
           begin
-            subject.update_physical_servers
+            subject.synchronize_physical_servers
             fail
           rescue IOError, Errno::ENOENT => e
           end
@@ -183,7 +183,7 @@ describe Tengine::ResourceEc2::Provider do
         context "最初の実行時には物理サーバを登録する" do
           before do
             subject.physical_servers.count.should == 0
-            subject.update_physical_servers
+            subject.synchronize_physical_servers
             subject.physical_servers.count.should == 2
           end
           it_behaves_like "取得した内容が反映される"
@@ -193,7 +193,7 @@ describe Tengine::ResourceEc2::Provider do
           before do
             subject.physical_servers.create(:name => "us-west-1a", :provided_id => "us-west-1a", :status => "available")
             subject.physical_servers.count.should == 1
-            subject.update_physical_servers
+            subject.synchronize_physical_servers
             subject.physical_servers.count.should == 2
           end
           it_behaves_like "取得した内容が反映される"
@@ -205,7 +205,7 @@ describe Tengine::ResourceEc2::Provider do
               subject.physical_servers.create(:name => "us-west-1a", :provided_id => "us-west-1a", :status => "available")
               subject.physical_servers.create(:name => "us-west-1b", :provided_id => "us-west-1b", :status => "available")
               subject.physical_servers.count.should == 2
-              subject.update_physical_servers
+              subject.synchronize_physical_servers
               subject.physical_servers.count.should == 2
             end
             it_behaves_like "取得した内容が反映される"
@@ -218,7 +218,7 @@ describe Tengine::ResourceEc2::Provider do
               # こんな定義はないはずですが、そもそも定義がないので。
               # http://docs.amazonwebservices.com/AWSEC2/latest/APIReference/index.html?ApiReference-query-DescribeAvailabilityZones.html
               subject.physical_servers.count.should == 2
-              subject.update_physical_servers
+              subject.synchronize_physical_servers
               subject.physical_servers.count.should == 2
             end
             it_behaves_like "取得した内容が反映される"
@@ -229,7 +229,7 @@ describe Tengine::ResourceEc2::Provider do
               subject.physical_servers.create(:name => "foo", :provided_id => "us-west-1a", :status => "available")
               subject.physical_servers.create(:name => "us-west-1b", :provided_id => "us-west-1b", :status => "available")
               subject.physical_servers.count.should == 2
-              subject.update_physical_servers
+              subject.synchronize_physical_servers
               subject.physical_servers.count.should == 2
             end
 
@@ -255,7 +255,7 @@ describe Tengine::ResourceEc2::Provider do
             subject.physical_servers.create(:name => "us-west-1b", :provided_id => "us-west-1b", :status => "available")
             subject.physical_servers.create(:name => "us-west-1c", :provided_id => "us-west-1c", :status => "available")
             subject.physical_servers.count.should == 3
-            subject.update_physical_servers
+            subject.synchronize_physical_servers
             subject.physical_servers.count.should == 3
           end
           it "物理サーバが減るということは一大事なので、自動でデータを削除するのではなく、見つからなかったということにする" do
@@ -393,7 +393,7 @@ describe Tengine::ResourceEc2::Provider do
         context "最初の実行時には物理サーバを登録する" do
           before do
             subject.virtual_servers.count.should == 0
-            subject.update_virtual_servers
+            subject.synchronize_virtual_servers
             subject.virtual_servers.count.should == 3
           end
           it_behaves_like "取得したstaticな情報が反映される"
@@ -415,7 +415,7 @@ describe Tengine::ResourceEc2::Provider do
                   },
                 }))
             subject.virtual_servers.count.should == 1
-            subject.update_virtual_servers
+            subject.synchronize_virtual_servers
             subject.virtual_servers.count.should == 3
           end
           it_behaves_like "取得したstaticな情報が反映される"
@@ -431,7 +431,7 @@ describe Tengine::ResourceEc2::Provider do
               subject.virtual_servers.create(@base_attrs.merge(@server_base_attrs[1]))
               subject.virtual_servers.create(@base_attrs.merge(@server_base_attrs[2]))
               subject.virtual_servers.count.should == 3
-              subject.update_virtual_servers
+              subject.synchronize_virtual_servers
               subject.virtual_servers.count.should == 3
             end
             it_behaves_like "取得したstaticな情報が反映される"
@@ -446,7 +446,7 @@ describe Tengine::ResourceEc2::Provider do
               subject.virtual_servers.create(@base_attrs.merge(@server_base_attrs[1]).merge(:state => "shutting_down"))
               subject.virtual_servers.create(@base_attrs.merge(@server_base_attrs[2]))
               subject.virtual_servers.count.should == 3
-              subject.update_virtual_servers
+              subject.synchronize_virtual_servers
               subject.virtual_servers.count.should == 3
             end
             it_behaves_like "取得したstaticな情報が反映される"
@@ -461,7 +461,7 @@ describe Tengine::ResourceEc2::Provider do
               subject.virtual_servers.create(@base_attrs.merge(@server_base_attrs[1]).merge(:name => "slave1"))
               subject.virtual_servers.create(@base_attrs.merge(@server_base_attrs[2]).merge(:name => "slave2"))
               subject.virtual_servers.count.should == 3
-              subject.update_virtual_servers
+              subject.synchronize_virtual_servers
               subject.virtual_servers.count.should == 3
             end
             it_behaves_like "取得したstaticな情報が反映される"
@@ -488,7 +488,7 @@ describe Tengine::ResourceEc2::Provider do
             subject.virtual_servers.create(@base_attrs.merge(@server_base_attrs[2]))
             subject.virtual_servers.create(@base_attrs.merge(@server_base_attrs[3]))
             subject.virtual_servers.count.should == 4
-            subject.update_virtual_servers
+            subject.synchronize_virtual_servers
             subject.reload
             subject.virtual_servers.count.should == 3
           end
