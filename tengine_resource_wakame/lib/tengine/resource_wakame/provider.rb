@@ -117,25 +117,6 @@ class Tengine::ResourceWakame::Provider < Tengine::Resource::Provider
   def synchronize_virtual_server_images; synchronize_by(:virtual_server_images); end # 仮想サーバイメージの監視
   def synchronize_virtual_servers      ; synchronize_by(:virtual_servers      ); end # 仮想サーバの監視
 
-  private
-
-  def synchronize_by(target_name)
-    synchronizer = synchronizers_by(target_name)
-    synchronizer.execute
-  end
-
-  def synchronizers_by(target_name)
-    unless @synchronizers
-      @synchronizers = {}
-      SYNCHRONIZER_CLASSES.each do |target_name, klass|
-        @synchronizers[target_name] = klass.new(self, target_name)
-      end
-    end
-    @synchronizers[target_name]
-  end
-
-  public
-
   # wakame api for tama
   def describe_instance_specs_for_api(uuids = [], options = {})
     call_api_with_conversion(:describe_instance_specs, uuids, options)
@@ -330,11 +311,11 @@ class Tengine::ResourceWakame::Provider < Tengine::Resource::Provider
     end
   end
 
-  SYNCHRONIZER_CLASSES = {
+  register_synchronizers({
     :physical_servers      => PhysicalServerSynchronizer,
     :virtual_server_types  => VirtualServerTypeSynchronizer,
     :virtual_server_images => VirtualServerImageSynchronizer,
     :virtual_servers       => VirtualServerSynchronizer,
-  }.freeze
+  })
 
 end

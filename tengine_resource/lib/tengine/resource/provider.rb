@@ -58,6 +58,31 @@ class Tengine::Resource::Provider
       result ||= self.create!(attrs)
       result
     end
+
+    def synchronizers
+      @synchronizers ||= {}
+    end
+
+    def register_synchronizers(hash)
+      synchronizers.update(hash)
+    end
+  end
+
+  private
+
+  def synchronize_by(target_name)
+    synchronizer = synchronizers_by(target_name)
+    synchronizer.execute
+  end
+
+  def synchronizers_by(target_name)
+    unless @synchronizers
+      @synchronizers = {}
+      self.class.synchronizers.each do |target_name, klass|
+        @synchronizers[target_name] = klass.new(self, target_name)
+      end
+    end
+    @synchronizers[target_name]
   end
 
   public
