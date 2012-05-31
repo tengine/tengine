@@ -15,7 +15,7 @@ class Tengine::Test::ScriptsController < ApplicationController
   # GET /tengine/test/scripts/1
   # GET /tengine/test/scripts/1.json
   def show
-    @script = Tengine::Test::Script.find(params[:id])
+    @script = Tengine::Test::Script.find(params[:id].to_i)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,7 +36,7 @@ class Tengine::Test::ScriptsController < ApplicationController
 
   # GET /tengine/test/scripts/1/edit
   def edit
-    @script = Tengine::Test::Script.find(params[:id])
+    @script = Tengine::Test::Script.find(params[:id].to_i)
   end
 
   # POST /tengine/test/scripts
@@ -62,7 +62,7 @@ class Tengine::Test::ScriptsController < ApplicationController
   # PUT /tengine/test/scripts/1
   # PUT /tengine/test/scripts/1.json
   def update
-    @script = Tengine::Test::Script.find(params[:id])
+    @script = Tengine::Test::Script.find(params[:id].to_i)
 
     respond_to do |format|
       if @script.update_attributes(params[:script])
@@ -78,7 +78,7 @@ class Tengine::Test::ScriptsController < ApplicationController
   # DELETE /tengine/test/scripts/1
   # DELETE /tengine/test/scripts/1.json
   def destroy
-    @script = Tengine::Test::Script.find(params[:id])
+    @script = Tengine::Test::Script.find(params[:id].to_i)
     @script.destroy
 
     respond_to do |format|
