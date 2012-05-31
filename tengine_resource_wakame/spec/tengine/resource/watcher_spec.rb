@@ -397,16 +397,16 @@ describe Tengine::Resource::Watcher do
         end
 
         it "更新対象があったら更新完了後イベントを発火する" do
-          expect { @watcher.start }.should raise_error(NotImplementedError)
+          @watcher.start
         end
         it "削除対象があったら削除完了後イベントを発火する" do
-          expect { @watcher.start }.should raise_error(NotImplementedError)
+          @watcher.start
         end
         it "更新対象がなかったらイベントは発火しない" do
-          expect { @watcher.start }.should raise_error(NotImplementedError)
+          @watcher.start
         end
         it "登録対象があったら登録完了後イベントを発火する" do
-          expect { @watcher.start }.should raise_error(NotImplementedError)
+          @watcher.start
         end
       end   # end to ec2
     end   # end to :phyical_server_watch
@@ -579,16 +579,16 @@ describe Tengine::Resource::Watcher do
         end
 
         it "更新対象があったら更新完了後イベントを発火する" do
-          expect { @watcher.start }.should raise_error(NotImplementedError)
+          @watcher.start
         end
         it "削除対象があったら削除完了後イベントを発火する" do
-          expect { @watcher.start }.should raise_error(NotImplementedError)
+          @watcher.start
         end
         it "更新対象がなかったらイベントは発火しない" do
-          expect { @watcher.start }.should raise_error(NotImplementedError)
+          @watcher.start
         end
         it "登録対象があったら登録完了後イベントを発火する" do
-          expect { @watcher.start }.should raise_error(NotImplementedError)
+          @watcher.start
         end
       end   # end to ec2
     end   # end to :synchronize_virtual_servers
@@ -694,16 +694,16 @@ describe Tengine::Resource::Watcher do
         end
 
         it "更新対象があったら更新完了後イベントを発火する" do
-          expect { @watcher.start }.should raise_error(NotImplementedError)
+          @watcher.start
         end
         it "削除対象があったら削除完了後イベントを発火する" do
-          expect { @watcher.start }.should raise_error(NotImplementedError)
+          @watcher.start
         end
         it "更新対象がなかったらイベントは発火しない" do
-          expect { @watcher.start }.should raise_error(NotImplementedError)
+          @watcher.start
         end
         it "登録対象があったら登録完了後イベントを発火する" do
-          expect { @watcher.start }.should raise_error(NotImplementedError)
+          @watcher.start
         end
       end   # end to ec2
     end   # end to :synchronize_virtual_server_images
