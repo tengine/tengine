@@ -762,6 +762,9 @@ describe Tengine::Mq::Suite do
   end
 
   context "実際にMQに接続する試験" do
+    next if RUBY_VERSION < "1.9.2"
+    next if ENV['TRAVIS'] == 'true'
+
     let(:rabbitmq) do
       ret = nil
       ENV["PATH"].split(/:/).find do |dir|
@@ -792,7 +795,7 @@ describe Tengine::Mq::Suite do
           "RABBITMQ_MNESIA_BASE"     => $_dir.to_s,
           "RABBITMQ_LOG_BASE"        => $_dir.to_s,
         }
-        $_pid = Process.spawn(envp, rabbitmq, :chdir => $_dir, :in => :close)
+        $_pid = Process.spawn(envp, rabbitmq, :pgroup => true, :chdir => $_dir, :in => :close)
         x = Time.now
         while Time.now < x + 16.0 do # まあこんくらい待てばいいでしょ
           sleep 0.1
@@ -820,7 +823,7 @@ describe Tengine::Mq::Suite do
     def finish
       if $_pid
         begin
-          Process.kill "INT", $_pid
+          Process.kill "INT", -$_pid
           Process.waitpid $_pid
         rescue Errno::ECHILD, Errno::ESRCH
         ensure
@@ -832,7 +835,6 @@ describe Tengine::Mq::Suite do
     end
 
     before :all do
-      pending "these specs needs a ruby 1.9.2" if RUBY_VERSION < "1.9.2"
       trigger
     end
 

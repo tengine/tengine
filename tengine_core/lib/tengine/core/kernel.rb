@@ -78,14 +78,8 @@ class Tengine::Core::Kernel
   alias_method :context, :dsl_context
 
   def evaluate
-    clear_drivers_by_dsl_version
+    Tengine::Core::Driver.delete_all_with_handler_paths(dsl_context.config.dsl_version)
     dsl_context.__evaluate__
-  end
-
-  def clear_drivers_by_dsl_version
-    drivers = Tengine::Core::Driver.where(:version => dsl_context.config.dsl_version)
-    Tengine::Core::HandlerPath.where(:driver_id.in => drivers.map(&:id)).delete_all
-    drivers.delete_all
   end
 
   def bind
@@ -212,6 +206,19 @@ class Tengine::Core::Kernel
         ack_policy = ack_policy_for(event)
         safety_processing_headers(headers, event, ack_policy) do
           ack if ack_policy == :at_first
+
+          # ドライバを再ロードするならハンドラを検索する前に行います。
+          unless config.tengined.cache_drivers
+            Tengine::Core::Driveable.__remember_session_ids_for_drivers__(config.dsl_version)
+            begin
+              Tengine::Core::Driver.delete_all_with_handler_paths(dsl_context.config.dsl_version)
+              ActiveSupport::Dependencies.clear
+              evaluate
+            ensure
+              Tengine::Core::Driveable.__forget_session_ids_for_drivers__
+            end
+          end
+
           handlers = find_handlers(event)
           safty_handlers(handlers) do
             delegate(event, handlers)
@@ -410,6 +417,7 @@ class Tengine::Core::Kernel
       # * もうngが保存されているとき
       if event.new_record? or event.event_type_name != raw_event.event_type_name
         event.write_attributes raw_event.attributes.update(:confirmed => (raw_event.level.to_i <= config.confirmation_threshold))
+        event.created_at = Time.now
       else
         nil
       end
@@ -472,10 +480,6 @@ class Tengine::Core::Kernel
       end
     end
     after_delegate.call if after_delegate.respond_to?(:call)
-    unless config.tengined.cache_drivers
-      ActiveSupport::Dependencies.clear
-      evaluate
-    end
   end
 
   def close_if_shutting_down

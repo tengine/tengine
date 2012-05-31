@@ -7,6 +7,9 @@
 # (S1)--e1-->[F1]                [J1]--e6-->(E1)
 #              |--e3-->(j12)--e5-->|
 
+require File.expand_path('test_credential_fixture', File.dirname(__FILE__))
+require File.expand_path('test_server_fixture', File.dirname(__FILE__))
+
 class Rjn0002SimpleParallelJobnetBuilder < JobnetFixtureBuilder
   include TestCredentialFixture
   include TestServerFixture

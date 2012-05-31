@@ -1,0 +1,1 @@
+printjson( rs.status() )

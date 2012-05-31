@@ -156,16 +156,16 @@ class Tengine::Resource::Provider::Ec2 < Tengine::Resource::Provider
   end
 
   # 仮想サーバタイプの監視
-  def virtual_server_type_watch
+  def synchronize_virtual_server_types
     # ec2から取得する情報はありません
   end
 
   # 物理サーバの監視
-  def physical_server_watch        ; raise NotImplementedError end
+  def synchronize_physical_servers        ; raise NotImplementedError end
   # 仮想サーバの監視
-  def virtual_server_watch         ; raise NotImplementedError end
+  def synchronize_virtual_servers         ; raise NotImplementedError end
   # 仮想サーバイメージの監視
-  def virtual_server_image_watch   ; raise NotImplementedError end
+  def synchronize_virtual_server_images   ; raise NotImplementedError end
 
   private
   def address_order

@@ -1,6 +1,8 @@
 # tengine_core
 
-tengineはデータセンター運用のためのフレームワークおよび実行環境です。
+Tengine frameworkとは、分散環境のリソース・マネジメントとジョブ制御を統括的に扱う運用エンジンです。
+Tengine frameworkを利用することで"動的に変化するデータセンター(Programmable DataCenter)"を実現することができます。
+
 
 ## 概要
 
@@ -15,10 +17,10 @@ tengineはデータセンター運用のためのフレームワークおよび�
 ## インストールとセットアップ
 ### インストール
 
-* rabbitmqのインストール
+* RabbitMQのインストール
 * MongoDBのインストール
 
- gem install tengine_core --source http://bts.tenginefw.com/gemserver
+ gem install tengine_core
 
 ### セットアップ
 
@@ -32,11 +34,11 @@ tengineはデータセンター運用のためのフレームワークおよび�
 
 DSLを使用するためのAPIについては以下のモジュールのAPIを参照してください。
 [Tengine::Core::DslLoader](Tengine/Core/DslLoader.html)
-[Tengine::Core::DslBinder](Tengine/Core/DslBinder.html)
+[Tengine::Core::DslEvaluator](Tengine/Core/DslEvaluator.html)
 
 
 ## Contributing to tengine_core
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
@@ -51,4 +53,4 @@ tengine_event is distributed under the MPL2.0 or LGPLv3 or the dual license of M
 
 ## Copyright
 
-Copyright (c) 2012 Groovenauts, Inc. 
+Copyright (c) 2012 Groovenauts, Inc.

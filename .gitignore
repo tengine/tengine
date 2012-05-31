@@ -1,0 +1,17 @@
+*.*~
+*~
+.DS_Store
+.bundle
+.sass-cache/
+/.rvmrc
+/coverage
+db/*.sqlite3
+log/*.log
+
+# ci_reporter
+spec/reports/
+
+# bundler
+vendor/bundle/
+vendor/cache/
+

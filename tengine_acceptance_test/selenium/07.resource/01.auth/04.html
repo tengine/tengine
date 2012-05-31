@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/" />
+<title>03_00_01_00_00_00</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">03_00_01_00_00_00</td></tr>
+</thead><tbody>
+<!--[正常系]アプリケーション運用者が認証情報一覧で認証情報を削除する-->
+<!--下準備-->
+<tr>
+	<td>open</td>
+	<td>/tengine/test/scripts</td>
+	<td></td>
+</tr>
+<tr>
+	<td>setTimeout</td>
+	<td>120000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=スクリプト一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>Tengine::Resource::Credential.delete_all</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td># nihongo hack<br />d = Dir.glob('./features/usecases/**/scripts/').to_enum.first<br />f = File.expand_path 'create_credentials', d<br /><br />require f<br />create_credential 10</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--確認-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=認証情報一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[1]</td>
+	<td>name_001</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[2]</td>
+	<td>説明_001</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]</td>
+	<td>SSHパスワード認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[1]</td>
+	<td>name_002</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[2]</td>
+	<td>説明_002</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[3]</td>
+	<td>SSH公開鍵認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[1]</td>
+	<td>name_003</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[2]</td>
+	<td>説明_003</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[3]</td>
+	<td>SSHパスワード認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[1]</td>
+	<td>name_004</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[2]</td>
+	<td>説明_004</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[3]</td>
+	<td>SSH公開鍵認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[1]</td>
+	<td>name_005</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[2]</td>
+	<td>説明_005</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[3]</td>
+	<td>SSHパスワード認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[1]</td>
+	<td>name_006</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[2]</td>
+	<td>説明_006</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[3]</td>
+	<td>SSH公開鍵認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[1]</td>
+	<td>name_007</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[2]</td>
+	<td>説明_007</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[3]</td>
+	<td>SSHパスワード認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[1]</td>
+	<td>name_008</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[2]</td>
+	<td>説明_008</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[3]</td>
+	<td>SSH公開鍵認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[1]</td>
+	<td>name_009</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[2]</td>
+	<td>説明_009</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[3]</td>
+	<td>SSHパスワード認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[1]</td>
+	<td>name_010</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[2]</td>
+	<td>説明_010</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[10]/td[3]</td>
+	<td>SSH公開鍵認証</td>
+</tr>
+<!--編集を行う-->
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'削除')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyConfirmation</td>
+	<td>本当に削除しますか?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[1]</td>
+	<td>name_001</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[2]</td>
+	<td>説明_001</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]</td>
+	<td>SSHパスワード認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[1]</td>
+	<td>name_003</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[2]</td>
+	<td>説明_003</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[3]</td>
+	<td>SSHパスワード認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[1]</td>
+	<td>name_004</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[2]</td>
+	<td>説明_004</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[3]/td[3]</td>
+	<td>SSH公開鍵認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[1]</td>
+	<td>name_005</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[2]</td>
+	<td>説明_005</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[3]</td>
+	<td>SSHパスワード認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[1]</td>
+	<td>name_006</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[2]</td>
+	<td>説明_006</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[5]/td[3]</td>
+	<td>SSH公開鍵認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[1]</td>
+	<td>name_007</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[2]</td>
+	<td>説明_007</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[6]/td[3]</td>
+	<td>SSHパスワード認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[1]</td>
+	<td>name_008</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[2]</td>
+	<td>説明_008</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[7]/td[3]</td>
+	<td>SSH公開鍵認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[1]</td>
+	<td>name_009</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[2]</td>
+	<td>説明_009</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[8]/td[3]</td>
+	<td>SSHパスワード認証</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[1]</td>
+	<td>name_010</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[2]</td>
+	<td>説明_010</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[9]/td[3]</td>
+	<td>SSH公開鍵認証</td>
+</tr>
+</tbody></table>
+</body>
+</html>

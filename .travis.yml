@@ -1,0 +1,139 @@
+language: ruby
+script: 'ci/travis.rb'
+before_install:
+  - gem install bundler
+bundler_args: "--path vendor/bundle"
+rvm:
+  - 1.9.2
+#  - 1.9.3
+#  - ruby-head
+#  - jruby-19mode
+env:
+  - "GEM=tengine_core"
+  - "GEM=tengine_resource"
+  - "GEM=tengine_support"
+  - "GEM=tengine_event"
+  - "GEM=tengine_job"
+  - "GEM=tengine_job_agent"
+  - "GEM=tengine_ui"
+gemfile:
+  - gemfiles/Gemfile.activesupport-3.0.10
+  - gemfiles/Gemfile.activesupport-3.1.1
+  - gemfiles/Gemfile.activesupport-3.2.3
+matrix:
+  exclude:
+    - rvm: 1.9.2
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_core"
+    - rvm: 1.9.2
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_resource"
+    - rvm: 1.9.2
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_event"
+    - rvm: 1.9.2
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_job"
+    - rvm: 1.9.2
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_ui"
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_core"
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_resource"
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_event"
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_job"
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_ui"
+    - rvm: ruby-head
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_core"
+    - rvm: ruby-head
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_resource"
+    - rvm: ruby-head
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_event"
+    - rvm: ruby-head
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_job"
+    - rvm: ruby-head
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_ui"
+    - rvm: jruby-19mode
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_core"
+    - rvm: jruby-19mode
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_resource"
+    - rvm: jruby-19mode
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_event"
+    - rvm: jruby-19mode
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_job"
+    - rvm: jruby-19mode
+      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      env: "GEM=tengine_ui"
+    - rvm: 1.9.2
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_core"
+    - rvm: 1.9.2
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_resource"
+    - rvm: 1.9.2
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_job"
+    - rvm: 1.9.2
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_ui"
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_core"
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_resource"
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_job"
+    - rvm: 1.9.3
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_ui"
+    - rvm: ruby-head
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_core"
+    - rvm: ruby-head
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_resource"
+    - rvm: ruby-head
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_job"
+    - rvm: ruby-head
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_ui"
+    - rvm: jruby-19mode
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_core"
+    - rvm: jruby-19mode
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_resource"
+    - rvm: jruby-19mode
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_job"
+    - rvm: jruby-19mode
+      gemfile: gemfiles/Gemfile.activesupport-3.2.3
+      env: "GEM=tengine_ui"
+# branches:
+#   only:
+#     - 20120516_travis_ci
+#     - 20120516_travis_ci_rebase1
+#     - 20120518_travis_ci
+notifications:
+  email: false

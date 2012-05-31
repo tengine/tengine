@@ -36,4 +36,23 @@ class Tengine::Job::RootJobnetActual < Tengine::Job::JobnetActual
     Tengine::Job.test_harness_hook("after update_with_lock")
   end
 
+  def fire_stop_event(options = Hash.new)
+    root_jobnet_id = self.id.to_s
+    result = Tengine::Job::Execution.create!(
+      options.merge(:root_jobnet_id => root_jobnet_id))
+
+    EM.run do
+      Tengine::Event.fire(:"stop.jobnet.job.tengine",
+        :source_name => name_as_resource,
+        :properties => {
+          :execution_id => result.id.to_s,
+          :root_jobnet_id => root_jobnet_id,
+          :target_jobnet_id => root_jobnet_id.to_s,
+          :stop_reason => "user_stop",
+        })
+    end
+
+    return result
+  end
+
 end

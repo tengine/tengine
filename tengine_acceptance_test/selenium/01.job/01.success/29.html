@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/" />
+<title>01_01_29</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">01_01_29</td></tr>
+</thead><tbody>
+<!--[正常系]1071_ルートジョブネットが複数のジョブ(並列)を含むジョブネット_を試してみる-->
+<!--下準備-->
+<tr>
+	<td>setTimeout</td>
+	<td>120000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/tengine/test/scripts</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=スクリプト一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>[<br /> Tengine::Test::Script,<br /> Tengine::Job::Execution,<br /> Tengine::Job::RootJobnetActual,<br /> Tengine::Job::RootJobnetTemplate,<br /> Tengine::Core::Event<br />].map(&amp;:delete_all)</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>bundle exec tengined\<br />&nbsp;&nbsp;-k stop\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>bundle exec tengined\<br />&nbsp;&nbsp;-k force_stop\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=SSH</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>rm tengine_job_test.log</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_options_yaml</td>
+	<td>---<br />host: test_server1<br />user: goku<br />password: dragonball<br /></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>Process.waitall.inspect</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--tenginedを起動-->
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>rm tmp/tengined_status/*</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=system</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>bundle exec tengined \<br />&nbsp;&nbsp;-T usecases/job/dsl/01_01_29_rootjobnet_includes_parallel_jobs.rb\<br />&nbsp;&nbsp;-f ./features/config/tengined.yml.erb</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=spawn</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>require 'timeout'<br />results = []<br />timeout(30) do<br />&nbsp;&nbsp;loop do<br />&nbsp;&nbsp;&nbsp;&nbsp;result = `bundle exec tengined -k status`.chomp<br />&nbsp;&nbsp;&nbsp;&nbsp;results &lt;&lt; result<br />&nbsp;&nbsp;&nbsp;&nbsp;break if result.each_line.grep(/running/).count.nonzero?<br />&nbsp;&nbsp;end<br />end<br />results</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>running</td>
+	<td></td>
+</tr>
+<!--ジョブを実行-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=テンプレートジョブ一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=実行</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--停止されるまで待つ-->
+<tr>
+	<td>type</td>
+	<td>id=refresher_refresh_interval</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForNotText</td>
+	<td>//div[@id='main']/div/div/table/tbody/tr[7]/td</td>
+	<td></td>
+</tr>
+<!--ステータスの確認-->
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div/table/tbody/tr[8]/td</td>
+	<td>正常終了</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[1]/td[3]</td>
+	<td>正常終了</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[2]/td[3]</td>
+	<td>正常終了</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/div[2]/table/tbody/tr[4]/td[3]</td>
+	<td>正常終了</td>
+</tr>
+<!--ジョブ実行サーバからスクリプトログを取得-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=スクリプト一覧</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script_kind</td>
+	<td>label=SSH</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_code</td>
+	<td>cat tengine_job_test.log</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=script_options_yaml</td>
+	<td>---<br />host: test_server1<br />user: goku<br />password: dragonball<br /></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<!--スクリプトログを確認-->
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
+	<td>regexp:tengine_job_test job1 start</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
+	<td>regexp:tengine_job_test job1 start(\u000A|.)+tengine_job_test job1 finish</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
+	<td>regexp:tengine_job_test job2 start</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
+	<td>regexp:tengine_job_test job2 start(\u000A|.)+tengine_job_test job2 finish</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
+	<td>regexp:tengine_job_test job1 finish(\u000A|.)+tengine_job_test jobnet1071_finally start</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
+	<td>regexp:tengine_job_test job2 finish(\u000A|.)+tengine_job_test jobnet1071_finally start</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='main']/div/table/tbody/tr[2]/td[5]/pre</td>
+	<td>regexp:tengine_job_test jobnet1071_finally start(\u000A|.)+tengine_job_test jobnet1071_finally finish</td>
+</tr>
+</tbody></table>
+</body>
+</html>

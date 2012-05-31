@@ -48,15 +48,22 @@ class Tengine::Core::Driver
   belongs_to :session, :index => true, :class_name => "Tengine::Core::Session"
   has_many :handler_paths, :class_name => "Tengine::Core::HandlerPath"
 
-  after_create :update_handler_path
   before_create :create_session # has_oneによって追加されるメソッドcreate_sessionのように振る舞うメソッドです
+  after_create :update_handler_path
+
+  after_destroy :delete_handler_paths
+
+  def create_session
+    self.session ||= Tengine::Core::Session.create
+  end
 
   def update_handler_path
     handlers.each(&:update_handler_path)
   end
 
-  def create_session
-    self.session ||= Tengine::Core::Session.create
+  def delete_handler_paths
+    return if new_record?
+    Tengine::Core::HandlerPath.where(:driver_id => self.id).delete_all
   end
 
   class << self
@@ -64,6 +71,12 @@ class Tengine::Core::Driver
     def find_by_name(name, options = {})
       version = options[:version] || Tengine::Core::Setting.dsl_version
       first(:conditions => {:name => name, :version => version})
+    end
+
+    def delete_all_with_handler_paths(dsl_version)
+      drivers = Tengine::Core::Driver.where(:version => dsl_version)
+      Tengine::Core::HandlerPath.where(:driver_id.in => drivers.map(&:id)).delete_all
+      drivers.delete_all
     end
   end
 end

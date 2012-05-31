@@ -104,18 +104,26 @@ describe TengineJobAgent::CommandUtils do
         instance
         subject.stub(:new).with(anything, anything, anything).and_return(instance)
         subject.stub(:name).and_return(File.basename(__FILE__, ".rb"))
+        @workdir = Dir.mktmpdir
+        # config ディレクトリをコピーする
+        FileUtils.cp_r(File.expand_path("../../config", __FILE__), @workdir)
+        # log ディレクトリが必要なので掘っておく
+        FileUtils.mkdir_p(File.join(@workdir, "log"))
+      end
+      after do
+        FileUtils.rm_r(@workdir)
       end
 
       it "インスタンスを生成してprocessを呼ぶ" do
         instance.should_receive(:process)
-        Dir.chdir File.expand_path("../..", __FILE__) do
+        Dir.chdir @workdir do
           subject.process
         end
       end
 
       it "失敗するとfalseを返す" do
         instance.should_receive(:process).and_raise(RuntimeError)
-        Dir.chdir File.expand_path("../..", __FILE__) do
+        Dir.chdir @workdir do
           subject.process.should == false
         end
       end

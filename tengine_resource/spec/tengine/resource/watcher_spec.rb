@@ -140,24 +140,24 @@ describe Tengine::Resource::Watcher do
       @watcher.sender.should_receive(:wait_for_connection).and_yield
       Tengine::Resource::Provider.should_receive(:all).and_return([@provider_wakame, @provider_ec2])
 
-      @provider_wakame.should_receive(:virtual_server_type_watch)
+      @provider_wakame.should_receive(:synchronize_virtual_server_types)
       EM.should_receive(:add_periodic_timer).with(@provider_wakame.polling_interval).and_yield
 #       EM.should_receive(:defer).twice.and_yield
-      @provider_wakame.should_receive(:physical_server_watch)
-      @provider_wakame.should_receive(:virtual_server_watch)
-      @provider_wakame.should_receive(:virtual_server_image_watch)
+      @provider_wakame.should_receive(:synchronize_physical_servers)
+      @provider_wakame.should_receive(:synchronize_virtual_servers)
+      @provider_wakame.should_receive(:synchronize_virtual_server_images)
 
-      @provider_ec2.should_receive(:virtual_server_type_watch)
+      @provider_ec2.should_receive(:synchronize_virtual_server_types)
       EM.should_receive(:add_periodic_timer).with(@provider_ec2.polling_interval).and_yield
-      @provider_ec2.should_receive(:physical_server_watch)
-      @provider_ec2.should_receive(:virtual_server_watch)
-      @provider_ec2.should_receive(:virtual_server_image_watch)
+      @provider_ec2.should_receive(:synchronize_physical_servers)
+      @provider_ec2.should_receive(:synchronize_virtual_servers)
+      @provider_ec2.should_receive(:synchronize_virtual_server_images)
 
       @watcher.start
     end
 
     # 仮想サーバタイプ
-    describe :virtual_server_type_watch do
+    describe :synchronize_virtual_server_types do
       before do
         Tengine::Event.default_sender.should_receive(:fire).with(
           "Tengine::Resource::VirtualServerType.created.tengine_resource_watchd",
@@ -272,10 +272,10 @@ describe Tengine::Resource::Watcher do
           @watcher.start
         end
       end   # end to ec2
-    end   # end to :virtual_server_type_watch
+    end   # end to :synchronize_virtual_server_types
 
     # 物理サーバ
-    describe :physical_server_watch do
+    describe :synchronize_physical_servers do
       before do
         Tengine::Event.default_sender.should_receive(:fire).with(
           "Tengine::Resource::PhysicalServer.created.tengine_resource_watchd",
@@ -307,11 +307,11 @@ describe Tengine::Resource::Watcher do
       context "wakame" do
         before do
           Tengine::Resource::Provider.should_receive(:all).and_return([@provider_wakame])
-          @provider_wakame.should_receive(:virtual_server_type_watch)
+          @provider_wakame.should_receive(:synchronize_virtual_server_types)
           EM.should_receive(:add_periodic_timer).with(@provider_wakame.polling_interval).and_yield
 #           EM.should_receive(:defer).and_yield
-          @provider_wakame.should_receive(:virtual_server_watch)
-          @provider_wakame.should_receive(:virtual_server_image_watch)
+          @provider_wakame.should_receive(:synchronize_virtual_servers)
+          @provider_wakame.should_receive(:synchronize_virtual_server_images)
 
           @tama_controller_factory = mock(::Tama::Controllers::ControllerFactory.allocate)
           ::Tama::Controllers::ControllerFactory.
@@ -384,11 +384,11 @@ describe Tengine::Resource::Watcher do
       context "ec2" do
         before do
           Tengine::Resource::Provider.should_receive(:all).and_return([@provider_ec2])
-          @provider_ec2.should_receive(:virtual_server_type_watch)
+          @provider_ec2.should_receive(:synchronize_virtual_server_types)
           EM.should_receive(:add_periodic_timer).with(@provider_ec2.polling_interval).and_yield
 #           EM.should_receive(:defer).and_yield
-          # @provider_ec2.should_receive(:physical_server_watch)
-          # @provider_ec2.should_receive(:virtual_server_image_watch)
+          # @provider_ec2.should_receive(:synchronize_physical_servers)
+          # @provider_ec2.should_receive(:synchronize_virtual_server_images)
         end
 
         it "更新対象があったら更新完了後イベントを発火する" do
@@ -407,7 +407,7 @@ describe Tengine::Resource::Watcher do
     end   # end to :phyical_server_watch
 
     # 仮想サーバ
-    describe :virtual_server_watch do
+    describe :synchronize_virtual_servers do
       before do
         Tengine::Event.default_sender.should_receive(:fire).with(
           "Tengine::Resource::PhysicalServer.created.tengine_resource_watchd",
@@ -489,11 +489,11 @@ describe Tengine::Resource::Watcher do
       context "wakame" do
         before do
           Tengine::Resource::Provider.should_receive(:all).and_return([@provider_wakame])
-          @provider_wakame.should_receive(:virtual_server_type_watch)
+          @provider_wakame.should_receive(:synchronize_virtual_server_types)
           EM.should_receive(:add_periodic_timer).with(@provider_wakame.polling_interval).and_yield
 #           EM.should_receive(:defer).and_yield
-          @provider_wakame.should_receive(:physical_server_watch)
-          @provider_wakame.should_receive(:virtual_server_image_watch)
+          @provider_wakame.should_receive(:synchronize_physical_servers)
+          @provider_wakame.should_receive(:synchronize_virtual_server_images)
 
           @tama_controller_factory = mock(::Tama::Controllers::ControllerFactory.allocate)
           ::Tama::Controllers::ControllerFactory.
@@ -566,11 +566,11 @@ describe Tengine::Resource::Watcher do
       context "ec2" do
         before do
           Tengine::Resource::Provider.should_receive(:all).and_return([@provider_ec2])
-          @provider_ec2.should_receive(:virtual_server_type_watch)
+          @provider_ec2.should_receive(:synchronize_virtual_server_types)
           EM.should_receive(:add_periodic_timer).with(@provider_ec2.polling_interval).and_yield
 #           EM.should_receive(:defer).and_yield
-          # @provider_ec2.should_receive(:virtual_server_watch)
-          # @provider_ec2.should_receive(:virtual_server_image_watch)
+          # @provider_ec2.should_receive(:synchronize_virtual_servers)
+          # @provider_ec2.should_receive(:synchronize_virtual_server_images)
         end
 
         it "更新対象があったら更新完了後イベントを発火する" do
@@ -586,10 +586,10 @@ describe Tengine::Resource::Watcher do
           expect { @watcher.start }.should raise_error(NotImplementedError)
         end
       end   # end to ec2
-    end   # end to :virtual_server_watch
+    end   # end to :synchronize_virtual_servers
 
     # 仮想サーバイメージ
-    describe :virtual_server_image_watch do
+    describe :synchronize_virtual_server_images do
       before do
         Tengine::Event.default_sender.should_receive(:fire).with(
           "Tengine::Resource::VirtualServerImage.created.tengine_resource_watchd",
@@ -608,11 +608,11 @@ describe Tengine::Resource::Watcher do
       context "wakame" do
         before do
           Tengine::Resource::Provider.should_receive(:all).and_return([@provider_wakame])
-          @provider_wakame.should_receive(:virtual_server_type_watch)
+          @provider_wakame.should_receive(:synchronize_virtual_server_types)
           EM.should_receive(:add_periodic_timer).with(@provider_wakame.polling_interval).and_yield
 #           EM.should_receive(:defer).and_yield
-          @provider_wakame.should_receive(:physical_server_watch)
-          @provider_wakame.should_receive(:virtual_server_watch)
+          @provider_wakame.should_receive(:synchronize_physical_servers)
+          @provider_wakame.should_receive(:synchronize_virtual_servers)
 
           @tama_controller_factory = mock(::Tama::Controllers::ControllerFactory.allocate)
           ::Tama::Controllers::ControllerFactory.
@@ -681,11 +681,11 @@ describe Tengine::Resource::Watcher do
       context "ec2" do
         before do
           Tengine::Resource::Provider.should_receive(:all).and_return([@provider_ec2])
-          @provider_ec2.should_receive(:virtual_server_type_watch)
+          @provider_ec2.should_receive(:synchronize_virtual_server_types)
           EM.should_receive(:add_periodic_timer).with(@provider_ec2.polling_interval).and_yield
 #          EM.should_receive(:defer).and_yield
-          # @provider_ec2.should_receive(:physical_server_watch)
-          # @provider_ec2.should_receive(:virtual_server_watch)
+          # @provider_ec2.should_receive(:synchronize_physical_servers)
+          # @provider_ec2.should_receive(:synchronize_virtual_servers)
         end
 
         it "更新対象があったら更新完了後イベントを発火する" do
@@ -701,7 +701,7 @@ describe Tengine::Resource::Watcher do
           expect { @watcher.start }.should raise_error(NotImplementedError)
         end
       end   # end to ec2
-    end   # end to :virtual_server_image_watch
+    end   # end to :synchronize_virtual_server_images
 
     # polling_interval
     describe :polling_interval do
@@ -710,11 +710,11 @@ describe Tengine::Resource::Watcher do
         Tengine::Resource::Provider.should_receive(:all).and_return([@provider_wakame])
 
         @watcher.sender.should_receive(:wait_for_connection).and_yield
-        @provider_wakame.should_receive(:virtual_server_type_watch)
+        @provider_wakame.should_receive(:synchronize_virtual_server_types)
         EM.should_receive(:add_periodic_timer).with(@provider_wakame.polling_interval).and_yield
-        @provider_wakame.should_receive(:physical_server_watch)
-        @provider_wakame.should_receive(:virtual_server_watch)
-        @provider_wakame.should_receive(:virtual_server_image_watch)
+        @provider_wakame.should_receive(:synchronize_physical_servers)
+        @provider_wakame.should_receive(:synchronize_virtual_servers)
+        @provider_wakame.should_receive(:synchronize_virtual_server_images)
         @watcher.start
       end
 
@@ -723,11 +723,11 @@ describe Tengine::Resource::Watcher do
         Tengine::Resource::Provider.should_receive(:all).and_return([@provider_wakame])
 
         @watcher.sender.should_receive(:wait_for_connection).and_yield
-        @provider_wakame.should_not_receive(:virtual_server_type_watch)
+        @provider_wakame.should_not_receive(:synchronize_virtual_server_types)
         EM.should_not_receive(:add_periodic_timer).with(@provider_wakame.polling_interval).and_yield
-        @provider_wakame.should_not_receive(:physical_server_watch)
-        @provider_wakame.should_not_receive(:virtual_server_watch)
-        @provider_wakame.should_not_receive(:virtual_server_image_watch)
+        @provider_wakame.should_not_receive(:synchronize_physical_servers)
+        @provider_wakame.should_not_receive(:synchronize_virtual_servers)
+        @provider_wakame.should_not_receive(:synchronize_virtual_server_images)
         @watcher.start
       end
 
@@ -736,11 +736,11 @@ describe Tengine::Resource::Watcher do
         Tengine::Resource::Provider.should_receive(:all).and_return([@provider_wakame])
 
         @watcher.sender.should_receive(:wait_for_connection).and_yield
-        @provider_wakame.should_not_receive(:virtual_server_type_watch)
+        @provider_wakame.should_not_receive(:synchronize_virtual_server_types)
         EM.should_not_receive(:add_periodic_timer).with(@provider_wakame.polling_interval).and_yield
-        @provider_wakame.should_not_receive(:physical_server_watch)
-        @provider_wakame.should_not_receive(:virtual_server_watch)
-        @provider_wakame.should_not_receive(:virtual_server_image_watch)
+        @provider_wakame.should_not_receive(:synchronize_physical_servers)
+        @provider_wakame.should_not_receive(:synchronize_virtual_servers)
+        @provider_wakame.should_not_receive(:synchronize_virtual_server_images)
         @watcher.start
       end
     end # end to :polling_interval

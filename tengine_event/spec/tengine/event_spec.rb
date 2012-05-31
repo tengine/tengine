@@ -222,27 +222,49 @@ describe "Tengine::Event" do
   end
 
   describe :level do
-    {
-      0 => :gr_heartbeat,
-      1 => :debug,
-      2 => :info,
-      3 => :warn,
-      4 => :error,
-      5 => :fatal,
-    }.each do |level, level_key|
-      context "set by level" do
-        subject{ Tengine::Event.new(:level => level) }
-        its(:level_key){ should == level_key}
+    context :valid_levels do
+      {
+        0 => :gr_heartbeat,
+        1 => :debug,
+        2 => :info,
+        3 => :warn,
+        4 => :error,
+        5 => :fatal,
+      }.each do |level, level_key|
+        context "set by level" do
+          subject{ Tengine::Event.new(:level => level) }
+          its(:level_key){ should == level_key}
+        end
+        context "set Symbol by level_key" do
+          subject{ Tengine::Event.new(:level_key => level_key.to_sym) }
+          its(:level){ should == level}
+          its(:level_key){ should == level_key.to_sym}
+        end
+        context "set String by level_key" do
+          subject{ Tengine::Event.new(:level_key => level_key.to_s) }
+          its(:level){ should == level}
+          its(:level_key){ should == level_key.to_sym}
+        end
       end
-      context "set Symbol by level_key" do
-        subject{ Tengine::Event.new(:level_key => level_key.to_sym) }
-        its(:level){ should == level}
-        its(:level_key){ should == level_key.to_sym}
+    end
+
+    context 'invalid_level values' do
+      [-100, 10, -5 -1, 6, 10, 100].each do |value|
+        it value do
+          expect{
+            Tengine::Event.new(:level => value)
+          }.to raise_error(ArgumentError)
+        end
       end
-      context "set String by level_key" do
-        subject{ Tengine::Event.new(:level_key => level_key.to_s) }
-        its(:level){ should == level}
-        its(:level_key){ should == level_key.to_sym}
+    end
+
+    context 'invalid_level keys' do
+      [:unknown , :zero , :INFO].each do |key|
+        it key.inspect do
+          expect{
+            Tengine::Event.new(:level_key => key)
+          }.to raise_error(ArgumentError)
+        end
       end
     end
   end

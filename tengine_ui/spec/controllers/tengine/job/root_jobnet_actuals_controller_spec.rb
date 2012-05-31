@@ -806,27 +806,15 @@ describe Tengine::Job::RootJobnetActualsController do
   end
 
   describe "DELETE destroy" do
-    before do
-      EM.should_receive(:run).and_yield
-      @mock_sender = mock(:sender)
-      Tengine::Event.stub(:default_sender).and_return(@mock_sender)
-    end
-
     it "destroys the requested root_jobnet_actual" do
       root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
-      @mock_sender.should_receive(:fire).with(:"stop.jobnet.job.tengine", an_instance_of(Hash)) do |_, fire_options|
-        fire_options[:properties].should be_a(Hash)
-        fire_options[:properties][:stop_reason].should == "user_stop"
-      end
+      Tengine::Job::RootJobnetActual.any_instance.should_receive(:fire_stop_event)
       delete :destroy, :id => root_jobnet_actual.id.to_s
     end
 
     it "redirects to the tengine_job_root_jobnet_actuals list" do
       root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
-      @mock_sender.should_receive(:fire).with(:"stop.jobnet.job.tengine", an_instance_of(Hash)) do |_, fire_options|
-        fire_options[:properties].should be_a(Hash)
-        fire_options[:properties][:stop_reason].should == "user_stop"
-      end
+      Tengine::Job::RootJobnetActual.any_instance.should_receive(:fire_stop_event)
       delete :destroy, :id => root_jobnet_actual.id.to_s
       response.should redirect_to(tengine_job_root_jobnet_actual_path(root_jobnet_actual))
     end

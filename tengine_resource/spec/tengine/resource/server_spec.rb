@@ -3,6 +3,13 @@ require 'spec_helper'
 
 describe Tengine::Resource::Server do
 
+  before do
+    @original_locale, I18n.locale = I18n.locale, :en
+  end
+  before do
+    I18n.locale = @original_locale
+  end
+
   valid_attributes1 = {
     :name => "server1",
     :provided_id => "server_id1"

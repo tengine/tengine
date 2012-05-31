@@ -1,0 +1,24 @@
+Tengine Acceptance Test
+
+= 準備するもの
+
+ * Firefox http://www.mozilla.org/firefox
+ * Selenium IDE http://seleniumhq.org/
+
+ * ジョブ実行サーバ(必要に応じて数台)
+ * Tengineコアサーバ一台
+
+= セットアップ
+
+ 1. ジョブ実行サーバとTengineコアサーバを適切にセットアップして01_01_01_one_job_in_jobnet.rbが実行できるところまで確認する
+ 2. tengined, tengine_heartbeat_watched, tengine_resource_watchd, tengine_atdは止める(初期状態)
+ 3. 環境変数TEST_CONSOLE=trueを指定してwebサーバを起動する
+     3.1. rails sであれば TEST_CONSOLE=true bundle exec rails s ...
+     3.2. Passengerであればhttpd.confにSetEnv TEST_CONSOLE trueなど
+
+ 4. seleniumスクリプトは localhost:80 を参照するので、これを解決する。策としては:
+     4.1 TengineコアサーバにFirefoxをインストールしてしまう。X forwardingして使う
+     4.2 sshで転送する ssh -L 80:tengine_core_server:80 tengine_core_server
+
+ 5. FirefoxからTools -> Selenium IDEを開いて、File -> Open Test Suite… からテストスイートを開く
+ 6. Actoins -> Play Entire Test Suite で実行開始。

@@ -11,7 +11,7 @@ doc
 # bundler
 .bundle
 
-# jeweler generated
+# for build
 pkg
 
 # Have editor/IDE/OS specific files you need to ignore? Consider using a global gitignore: 
@@ -48,8 +48,6 @@ pkg
 #*.rbc
 
 .rvmrc
-
-tmp
 
 # ci_reporter
 spec/reports/

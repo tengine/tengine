@@ -158,7 +158,7 @@ describe Tengine::Resource::Provider::Wakame do
       $stdout.should_receive(:puts).with("invoked").once
 
       3.times do
-        @provider_wakame.virtual_server_type_watch
+        @provider_wakame.synchronize_virtual_server_types
       end
     end
   end
@@ -175,7 +175,7 @@ describe Tengine::Resource::Provider::Wakame do
       $stdout.should_receive(:puts).with("invoked").once
 
       3.times do
-        @provider_wakame.virtual_server_watch
+        @provider_wakame.synchronize_virtual_servers
       end
     end
   end
@@ -191,7 +191,7 @@ describe Tengine::Resource::Provider::Wakame do
       $stdout.should_receive(:puts).with("invoked").once
 
       3.times do
-        @provider_wakame.virtual_server_image_watch
+        @provider_wakame.synchronize_virtual_server_images
       end
     end
   end
@@ -208,7 +208,7 @@ describe Tengine::Resource::Provider::Wakame do
       $stdout.should_receive(:puts).with("invoked").once
 
       3.times do
-        @provider_wakame.virtual_server_watch
+        @provider_wakame.synchronize_virtual_servers
       end
     end
   end
@@ -224,7 +224,7 @@ describe Tengine::Resource::Provider::Wakame do
       $stdout.should_receive(:puts).with("invoked").once
 
       3.times do
-        @provider_wakame.physical_server_watch
+        @provider_wakame.synchronize_physical_servers
       end
     end
   end

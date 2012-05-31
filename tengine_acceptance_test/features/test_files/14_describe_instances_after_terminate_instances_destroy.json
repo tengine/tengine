@@ -1,0 +1,144 @@
+[
+  {
+    "owner_total": 3,
+    "start": 0,
+    "results": [
+      {
+        "id": "virtual_server_uuid_94",
+        "host_node": "physical_server_uuid_01",
+        "image_id": "virtual_server_image_uuid_01",
+        "instance_spec_id": "virtual_server_spec_uuid_02",
+        "state": "running",
+        "network": [
+          {
+            "network_name": "nw-data",
+            "ipaddr": ["192.168.2.94"],
+            "nat_network_name": "nw-outside",
+            "nat_ipaddr": ["172.16.0.94"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          },
+          {
+            "network_name": "nw-data_2",
+            "ipaddr": ["192.168.3.94"],
+            "nat_network_name": "nw-outside_2",
+            "nat_ipaddr": ["172.16.1.94"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          }
+        ],
+        "vif": [
+          {
+            "ipv4": {
+              "nat_address": "172.16.0.234",
+              "address": "192.168.2.188"
+            },
+            "vif_id": "vif-aspojqs4"
+          }
+        ],
+        "status": "online",
+        "cpu_cores": 1,
+        "memory_size": 256,
+        "ha_enabled": 0,
+        "arch": "x86_64",
+        "hostname": "jria301q",
+        "created_at": "2011-10-18T06:51:16Z",
+        "netfilter_group_id": ["ng-demofgr"],
+        "ssh_key_pair": null,
+        "volume": [],
+        "netfilter_group": ["default"]
+      },
+      {
+        "id": "virtual_server_uuid_95",
+        "host_node": "physical_server_uuid_01",
+        "image_id": "virtual_server_image_uuid_01",
+        "instance_spec_id": "virtual_server_spec_uuid_02",
+        "state": "running",
+        "network": [
+          {
+            "network_name": "nw-data",
+            "ipaddr": ["192.168.2.95"],
+            "nat_network_name": "nw-outside",
+            "nat_ipaddr": ["172.16.0.95"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          },
+          {
+            "network_name": "nw-data_2",
+            "ipaddr": ["192.168.3.95"],
+            "nat_network_name": "nw-outside_2",
+            "nat_ipaddr": ["172.16.1.95"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          }
+        ],
+        "vif": [
+          {
+            "ipv4": {
+              "nat_address": "172.16.0.234",
+              "address": "192.168.2.188"
+            },
+            "vif_id": "vif-aspojqs4"
+          }
+        ],
+        "status": "online",
+        "cpu_cores": 1,
+        "memory_size": 256,
+        "ha_enabled": 0,
+        "arch": "x86_64",
+        "hostname": "jria301q",
+        "created_at": "2011-10-18T06:51:16Z",
+        "netfilter_group_id": ["ng-demofgr"],
+        "ssh_key_pair": null,
+        "volume": [],
+        "netfilter_group": ["default"]
+      },
+      {
+        "id": "virtual_server_uuid_96",
+        "host_node": "physical_server_uuid_01",
+        "image_id": "virtual_server_image_uuid_01",
+        "instance_spec_id": "virtual_server_spec_uuid_02",
+        "state": "running",
+        "network": [
+          {
+            "network_name": "nw-data",
+            "ipaddr": ["192.168.2.96"],
+            "nat_network_name": "nw-outside",
+            "nat_ipaddr": ["172.16.0.96"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          },
+          {
+            "network_name": "nw-data_2",
+            "ipaddr": ["192.168.3.96"],
+            "nat_network_name": "nw-outside_2",
+            "nat_ipaddr": ["172.16.1.96"],
+            "dns_name": "jria301q.shpoolxx.vdc.local",
+            "nat_dns_name": "jria301q.shpoolxx.vdc.public"
+          }
+        ],
+        "vif": [
+          {
+            "ipv4": {
+              "nat_address": "172.16.0.234",
+              "address": "192.168.2.188"
+            },
+            "vif_id": "vif-aspojqs4"
+          }
+        ],
+        "status": "online",
+        "cpu_cores": 1,
+        "memory_size": 256,
+        "ha_enabled": 0,
+        "arch": "x86_64",
+        "hostname": "jria301q",
+        "created_at": "2011-10-18T06:51:16Z",
+        "netfilter_group_id": ["ng-demofgr"],
+        "ssh_key_pair": null,
+        "volume": [],
+        "netfilter_group": ["default"]
+      }
+    ],
+    "limit": null
+  }
+]

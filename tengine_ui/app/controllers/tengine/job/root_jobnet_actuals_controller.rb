@@ -179,21 +179,6 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
   end
 
   def stop(root_jobnet, options={})
-    root_jobnet_id = root_jobnet.id.to_s
-    result = Tengine::Job::Execution.create!(
-      options.merge(:root_jobnet_id => root_jobnet_id))
-
-    EM.run do
-      Tengine::Event.fire(:"stop.jobnet.job.tengine",
-        :source_name => root_jobnet.name_as_resource,
-        :properties => {
-          :execution_id => result.id.to_s,
-          :root_jobnet_id => root_jobnet_id,
-          :target_jobnet_id => root_jobnet_id.to_s,
-          :stop_reason => "user_stop",
-        })
-    end
-
-    return result
+    root_jobnet.fire_stop_event options
   end
 end

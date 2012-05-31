@@ -3,10 +3,10 @@
 ##############################
 # setting server and roles
 ##############################
-role :web, "zbtgnwb1", "zbtgnwb2"
-role :app, "zbtgnwb1", "zbtgnwb2"
-role :db,  "zbtgnwb1", :primary => true
-role :db,  "zbtgnwb2"
+role :web, "tengine-ui1", "tengine-ui2"
+role :app, "tengine-ui1", "tengine-ui2"
+role :db,  "tengine-ui1", :primary => true
+role :db,  "tengine-ui2"
 
 set :user,              'tengine'
 set :password do

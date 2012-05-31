@@ -35,6 +35,10 @@ describe Tengine::Resource::Credential do
     before do
       Tengine::Resource::Credential.delete_all
       @credential1 = Tengine::Resource::Credential.create!(valid_attributes1)
+      @original_locale, I18n.locale = I18n.locale, :en
+    end
+    after do
+      I18n.locale = @original_locale
     end
 
     it "同じ名前で登録されているものが存在する場合エラー" do

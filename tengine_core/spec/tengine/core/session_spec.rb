@@ -101,4 +101,43 @@ describe Tengine::Core::Session do
 
   end
 
+  describe :clear do
+    before { Tengine::Core::Session.delete_all }
+    subject{ Tengine::Core::Session.create(
+        :properties => {"foo" => 10, "bar" => 20},
+        :system_properties => {"mark_event08_a"=>true, "mark_event08_b"=>true}) }
+
+    context :clear_properties do
+      before do
+        subject.clear_properties
+        subject.save!
+        subject.reload
+      end
+      its(:properties){ should == {}}
+      its(:system_properties){ should == {"mark_event08_a"=>true, "mark_event08_b"=>true}}
+    end
+
+    context :clear_system_properties do
+      before do
+        subject.clear_system_properties
+        subject.save!
+        subject.reload
+      end
+      its(:properties){ should == {"foo" => 10, "bar" => 20}}
+      its(:system_properties){ should == {}}
+    end
+
+    context :clear do
+      before do
+        subject.clear
+        subject.save!
+        subject.reload
+      end
+      its(:properties){ should == {}}
+      its(:system_properties){ should == {}}
+    end
+
+  end
+
+
 end
