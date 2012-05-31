@@ -12,12 +12,12 @@ defaults: &defaults
 development:
   <<: *defaults
   host: localhost
-  database: tengine_resource_development
+  database: tengine_resource_ec2_development
 
 test:
   <<: *defaults
   host: localhost
-  database: tengine_resource_test
+  database: tengine_resource_ec2_test
   autocreate_indexes: true
 
 # set these environment variables on your prod server
