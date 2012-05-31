@@ -196,7 +196,7 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
   end
 
   def connect
-    klass = (ENV['EC2_DUMMY'] == "true") ? Tengine::Resource::Credential::Ec2::Dummy : RightAws::Ec2
+    klass = (ENV['EC2_DUMMY'] == "true") ? Tengine::ResourceEc2::DummyConnection : RightAws::Ec2
     connection_settings.stringify_keys! # DBに保存されるとSymbolのキーはStringに変換される
     Tengine.logger.info("now connecting by using #{connection_settings.inspect}")
     connection = klass.new(

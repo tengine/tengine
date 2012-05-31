@@ -9,6 +9,9 @@ require 'controllers/controller'
 require 'tengine/resource_ec2'
 
 describe Tengine::Resource::Watcher do
+  before(:all){ ENV['EC2_DUMMY'] = 'true' }
+  after(:all){ ENV['EC2_DUMMY'] = 'false' }
+
 
   before do
     @mq_config = {
