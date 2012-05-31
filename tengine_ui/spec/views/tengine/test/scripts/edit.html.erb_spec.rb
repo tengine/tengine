@@ -16,11 +16,10 @@ describe "tengine/test/scripts/edit.html.erb" do
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => tengine_test_scripts_path(@script), :method => "post" do
-      assert_select "input#script_kind", :name => "script[kind]"
-      assert_select "input#script_code", :name => "script[code]"
+      assert_select "select#script_kind", :name => "script[kind]"
+      assert_select "textarea#script_code", :name => "script[code]"
       assert_select "textarea#script_options_yaml", :name => "script[options_yaml]"
       assert_select "input#script_timeout", :name => "script[timeout]"
-      assert_select "textarea#script_messages_yaml", :name => "script[messages_yaml]"
     end
   end
 end
