@@ -115,7 +115,12 @@ class Tengine::ResourceEc2::DummyConnection
 
 
   def describe_availability_zones(*args)
-    []
+    [
+      {:region_name=>"us-east-1", :zone_name=>"us-east-1a", :zone_state=>"available"},
+      {:region_name=>"us-east-1", :zone_name=>"us-east-1b", :zone_state=>"available"},
+      {:region_name=>"us-east-1", :zone_name=>"us-east-1c", :zone_state=>"available"},
+      {:region_name=>"us-east-1", :zone_name=>"us-east-1d", :zone_state=>"available"}
+    ]
   end
 
   def describe_images(*args)

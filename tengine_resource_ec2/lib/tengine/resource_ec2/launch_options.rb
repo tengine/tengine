@@ -20,10 +20,11 @@ class Tengine::ResourceEc2::LaunchOptions
   attr_reader :current_region
 
   DEFAULT_REGION_CAPTIONS = {
-    "us-east-1"      => "US East" ,
-    "us-west-1"      => "US West" ,
-    "eu-west-1"      => "EU West" ,
-    "ap-southeast-1" => "Asia Pacific"
+    "us-east-1"      => "US East(Northern Virginia)" ,
+    "us-west-1"      => "US West(Northern California)" ,
+    "eu-west-1"      => "EU West(Ireland)" ,
+    "ap-southeast-1" => "Asia Pacific(Singapore)",
+    "ap-northeast-1" => "Asia Pacific(Tokyo)",
   }.freeze
 
   def regions

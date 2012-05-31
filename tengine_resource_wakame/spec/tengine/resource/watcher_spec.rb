@@ -397,15 +397,9 @@ describe Tengine::Resource::Watcher do
         end
 
         it "更新対象があったら更新完了後イベントを発火する" do
-          @watcher.start
-        end
-        it "削除対象があったら削除完了後イベントを発火する" do
-          @watcher.start
-        end
-        it "更新対象がなかったらイベントは発火しない" do
-          @watcher.start
-        end
-        it "登録対象があったら登録完了後イベントを発火する" do
+          Tengine::Event.default_sender.should_receive(:fire).with(
+            "Tengine::Resource::PhysicalServer.created.tengine_resource_watchd",
+            anything()).exactly(4).times
           @watcher.start
         end
       end   # end to ec2
@@ -578,16 +572,11 @@ describe Tengine::Resource::Watcher do
           # @provider_ec2.should_receive(:synchronize_virtual_server_images)
         end
 
-        it "更新対象があったら更新完了後イベントを発火する" do
-          @watcher.start
-        end
-        it "削除対象があったら削除完了後イベントを発火する" do
-          @watcher.start
-        end
-        it "更新対象がなかったらイベントは発火しない" do
-          @watcher.start
-        end
         it "登録対象があったら登録完了後イベントを発火する" do
+          Tengine::Event.default_sender.should_receive(:fire).with(
+            "Tengine::Resource::PhysicalServer.created.tengine_resource_watchd",
+            anything()).exactly(4).times
+
           @watcher.start
         end
       end   # end to ec2
@@ -693,16 +682,10 @@ describe Tengine::Resource::Watcher do
           # @provider_ec2.should_receive(:synchronize_virtual_servers)
         end
 
-        it "更新対象があったら更新完了後イベントを発火する" do
-          @watcher.start
-        end
-        it "削除対象があったら削除完了後イベントを発火する" do
-          @watcher.start
-        end
-        it "更新対象がなかったらイベントは発火しない" do
-          @watcher.start
-        end
         it "登録対象があったら登録完了後イベントを発火する" do
+          Tengine::Event.default_sender.should_receive(:fire).with(
+            "Tengine::Resource::PhysicalServer.created.tengine_resource_watchd",
+            anything()).exactly(4).times
           @watcher.start
         end
       end   # end to ec2

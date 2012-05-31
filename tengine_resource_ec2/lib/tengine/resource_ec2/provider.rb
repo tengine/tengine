@@ -108,6 +108,20 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
     self.virtual_servers.not_in(:_id => found_ids).destroy_all
   end
 
+  def update_virtual_server_images_by(hashs)
+    found_ids = []
+    hashs.each do |hash|
+      img = self.virtual_server_images.where(:provided_id => hash[:provided_id]).first
+      if img
+        img.update_attributes(hash)
+      else
+        img = self.virtual_server_images.create!(hash.merge(:name => hash[:provided_id]))
+      end
+      found_ids << img.id
+    end
+    self.virtual_server_images.not_in(:_id => found_ids).destroy_all
+  end
+
 
   public
 
