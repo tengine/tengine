@@ -11,6 +11,11 @@ describe Tengine::Resource::Watcher do
       Tengine::Resource::Provider.delete_all
     end
 
+    context "no provider exist" do
+        subject{ expect{ Tengine::Resource::Watcher.new.find_providers } }
+        it{ should raise_error(Tengine::Resource::Watcher::ConfigurationError, "no provider found")}
+    end
+
     context "providers exist" do
       before do
         @provider1 = TestProvider1.create!(:name => "test1", :connection_settings => {:foo => "FOO", :bar => "BAR"})
@@ -38,7 +43,7 @@ describe Tengine::Resource::Watcher do
         end
 
         subject{ expect{ Tengine::Resource::Watcher.new.find_providers } }
-        it{ should raise_error(NameError, "class not found: #{@provider_class_name}")}
+        it{ should raise_error(Tengine::Resource::Watcher::ConfigurationError, "provider class not found: #{@provider_class_name}")}
       end
 
     end

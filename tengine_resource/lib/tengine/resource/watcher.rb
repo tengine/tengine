@@ -9,6 +9,9 @@ require 'tengine/core/mongoid_fix'
 
 class Tengine::Resource::Watcher
 
+  class ConfigurationError < StandardError
+  end
+
   attr_reader :config, :pid
 
   def initialize(argv = [])
@@ -120,7 +123,9 @@ class Tengine::Resource::Watcher
   def find_providers
     providers = Tengine::Resource::Provider.all
     begin
-      return providers.to_a
+      result = providers.to_a
+      raise ConfigurationError, "no provider found" if result.empty?
+      return result
     rescue NameError => e
       raise e unless e.message =~ /uninitialized constant/
       documents = Mongoid.database.collections.
@@ -134,7 +139,7 @@ class Tengine::Resource::Watcher
           true
         end
       end
-      raise NameError, "class not found: " << undefined_type_names.join(", ")
+      raise ConfigurationError, "provider class not found: " << undefined_type_names.join(", ")
     end
   end
 
