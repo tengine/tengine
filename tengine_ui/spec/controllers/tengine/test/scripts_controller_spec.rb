@@ -24,7 +24,7 @@ describe Tengine::Test::ScriptsController do
   # Tengine::Test::Script. As you add validations to Tengine::Test::Script, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    { :kind => '01', :code => 'true' }
   end
 
   describe "GET index" do
