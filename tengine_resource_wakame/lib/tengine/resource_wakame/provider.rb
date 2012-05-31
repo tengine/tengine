@@ -19,18 +19,6 @@ class Tengine::ResourceWakame::Provider < Tengine::Resource::Provider
     :scheduling, :pending, :starting, :running,
     :failingover, :shuttingdown, :terminated].freeze
 
-  def update_virtual_server_images
-    connect do |conn|
-      hashs = conn.describe_images.map do |hash|
-        {
-          :provided_id => hash.delete(:aws_id),
-          :provided_description => hash.delete(:aws_description),
-        }
-      end
-      update_virtual_server_images_by(hashs)
-    end
-  end
-
   # @param  [String]                                 name         Name template for created virtual servers
   # @param  [Tengine::Resource::VirtualServerImage]  image        Virtual server image object
   # @param  [Tengine::Resource::VirtualServerType]   type         Virtual server type object
