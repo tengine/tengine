@@ -7,7 +7,9 @@ require 'tempfile'
 describe Tengine::ResourceEc2::Provider do
   before do
     Tengine::ResourceEc2::Provider.delete_all
-    @conn1 = {:access_key => 'ACCESS_KEY1', :secret_access_key => "SECRET_ACCESS_KEY1", :region => "us-west-1"}
+    @access_key1 = 'ACCESS_KEY1'
+    @secret_access_key1 = 'SECRET_ACCESS_KEY1'
+    @conn1 = {'access_key' => @access_key1, 'secret_access_key' => @secret_access_key1, 'region' => "us-west-1"}
     @valid_attributes1 = {
       :name => "my_west-1",
       :connection_settings => @conn1
@@ -16,16 +18,16 @@ describe Tengine::ResourceEc2::Provider do
 
   before do
     @access_key_file = Tempfile.new("access_key_file")
-    @access_key_file.write('ACCESS_KEY1')
+    @access_key_file.write(@access_key1)
     @access_key_file.chmod(0444)
     @access_key_file.flush
 
     @secret_access_key_file = Tempfile.new("secret_access_key_file")
-    @secret_access_key_file.write('SECRET_ACCESS_KEY1')
+    @secret_access_key_file.write(@secret_access_key1)
     @secret_access_key_file.chmod(0400)
     @secret_access_key_file.flush
 
-    @conn2 = {:access_key_file => @access_key_file.path, :secret_access_key_file => @secret_access_key_file.path, :region => "us-west-1"}
+    @conn2 = {'access_key_file' => @access_key_file.path, 'secret_access_key_file' => @secret_access_key_file.path, 'region' => "us-west-1"}
     @valid_attributes2 = {
       :name => "my_west-1",
       :connection_settings => @conn2
@@ -35,6 +37,20 @@ describe Tengine::ResourceEc2::Provider do
   after do
     @access_key_file.close(:real)
     @secret_access_key_file.close(:real)
+  end
+
+  describe 'access_key and secret_access_key' do
+    context "@valid_attributes1" do
+      subject{ Tengine::ResourceEc2::Provider.new(@valid_attributes1) }
+      its(:access_key){ should == @conn1['access_key']}
+      its(:secret_access_key){ should == @conn1['secret_access_key']}
+    end
+
+    context "@valid_attributes2" do
+      subject{ Tengine::ResourceEc2::Provider.new(@valid_attributes2) }
+      its(:access_key){ should == @conn1['access_key']}
+      its(:secret_access_key){ should == @conn1['secret_access_key']}
+    end
   end
 
   describe :validation do
@@ -175,7 +191,7 @@ describe Tengine::ResourceEc2::Provider do
           Tengine::Resource::PhysicalServer.delete_all
           # spec/support/ec2.rb を参照してください
           RightAws::Ec2.should_receive(:new).
-            with('ACCESS_KEY1', "SECRET_ACCESS_KEY1", :region => "us-west-1", :logger => Tengine.logger).
+            with(@access_key1, @secret_access_key1, :region => "us-west-1", :logger => Tengine.logger).
             and_return(setup_ec2_stub)
         end
 
@@ -386,7 +402,7 @@ describe Tengine::ResourceEc2::Provider do
               describe_instances_item.call(3),
             ])
           RightAws::Ec2.should_receive(:new).
-            with('ACCESS_KEY1', "SECRET_ACCESS_KEY1", :region => "us-west-1", :logger => Tengine.logger).
+            with(@access_key1, @secret_access_key1, :region => "us-west-1", :logger => Tengine.logger).
             and_return(mock_ec2)
         end
 

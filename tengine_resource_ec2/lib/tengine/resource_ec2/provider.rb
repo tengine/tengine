@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 require 'tengine/resource_ec2'
 
+require 'right_aws'
+
 class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
 
   field :connection_settings, :type => Hash
@@ -159,28 +161,30 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
 
   def connect
     klass = (ENV['EC2_DUMMY'] == "true") ? Tengine::Resource::Credential::Ec2::Dummy : RightAws::Ec2
+    connection_settings.stringify_keys! # DBに保存されるとSymbolのキーはStringに変換される
+    Tengine.logger.info("now connecting by using #{connection_settings.inspect}")
     connection = klass.new(
       access_key,
       secret_access_key,
       {
         :logger => Tengine.logger,
-        :region => self.connection_settings[:region]
+        :region => connection_settings['region']
       }
       )
     yield connection
   end
 
   def access_key
-    connection_settings[:access_key] || read_file_if_exist(connection_settings[:access_key_file])
+    connection_settings['access_key'] || read_file_if_exist(connection_settings['access_key_file'])
   end
 
   def secret_access_key
-    connection_settings[:secret_access_key] || read_file_if_exist(connection_settings[:secret_access_key_file])
+    connection_settings['secret_access_key'] || read_file_if_exist(connection_settings['secret_access_key_file'])
   end
 
   def read_file_if_exist(filepath)
     return nil unless filepath
-    File.read(filepath)
+    File.read(filepath).strip
   end
 
 end
