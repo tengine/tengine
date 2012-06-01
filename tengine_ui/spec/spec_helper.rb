@@ -1,5 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
+ENV["TEST_CONSOLE"] ||= 'true'
 
 require 'simplecov'
 SimpleCov.start if ENV["COVERAGE"]

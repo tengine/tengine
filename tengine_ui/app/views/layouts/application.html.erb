@@ -68,6 +68,15 @@
           <%= navi_link_to(Tengine::Core::HandlerPath) %>
         </ul>
       </li>
+
+      <% if TengineConsole.test_console? -%>
+      <li><a href="#"><span>テスト</span></a>
+        <ul>
+          <%= navi_link_to(Tengine::Test::Script) %>
+        </ul>
+      </li>
+      <% end -%>
+
     </ul>
   </div>
 <hr>
