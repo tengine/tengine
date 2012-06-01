@@ -123,6 +123,10 @@ class Tengine::ResourceEc2::DummyConnection
     ]
   end
 
+  def describe_images_by_owner(*args)
+    []
+  end
+
   def describe_images(*args)
     []
   end
