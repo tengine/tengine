@@ -203,6 +203,9 @@ class Tengine::Resource::Provider
       else
         target.save! if target.changed?
       end
+    rescue => e
+      Tengine.logger.error "#{log_prefix} [#{e.class}] #{e.message}: failed to update (#{provided_id}): #{hash.inspect}"
+      raise
     end
 
     def create_by_hashs(hashs)
@@ -212,7 +215,8 @@ class Tengine::Resource::Provider
     def create_by_hash(hash)
       properties = hash.dup
       properties.deep_symbolize_keys!
-      Tengine.logger.debug "#{log_prefix} create #{properties[:provided_id]}"
+      provided_id = properties[:provided_id]
+      Tengine.logger.debug "#{log_prefix} create #{provided_id}"
       attrs = attrs_to_create(properties)
       target = provider.send(target_name).new
       attrs[:properties] = properties if target.respond_to?(:properties)
@@ -220,6 +224,9 @@ class Tengine::Resource::Provider
       target.attributes = attrs
       target.save!
       target
+    rescue => e
+      Tengine.logger.error "#{log_prefix} [#{e.class}] #{e.message}: failed to create (#{provided_id}): #{hash.inspect}"
+      raise
     end
 
     def attrs_to_create(properties)
