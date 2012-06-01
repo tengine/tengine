@@ -7,33 +7,50 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
 
   field :connection_settings, :type => Hash
 
-  class Synchronizer < Tengine::Resource::Provider::Synchronizer
+  def synchronize_physical_servers
+    synchronize_by(:physical_servers)
   end
 
+  def synchronize_virtual_server_images
+    synchronize_by(:virtual_server_images)
+  end
+
+  def synchronize_virtual_servers
+    synchronize_by(:virtual_servers)
+  end
+
+
+
+  class Synchronizer < Tengine::Resource::Provider::Synchronizer
+  end
 
   class PhysicalServerSynchronizer < Synchronizer
     fetch_known_target_method :describe_availability_zones
 
     map(:provided_id, :zone_name)
-    # wakame-adapters-tengine が name を返さない仕様の場合は、provided_id を name に登録します
     map(:status     , :zone_status)
     map(:cpu_cores  ) { 1000 }
     map(:memory_size) { 1000 }
+
+    def attrs_to_create(properties)
+      result = super(properties)
+      # 初期登録時、default 値として name には一意な provided_id を name へ登録します
+      result[:name] = result[:provided_id]
+      result
+    end
   end
 
-  def describe_availability_zones
-      # ec2.describe_availability_zones  #=> [{:region_name=>"us-east-1",
-      #                                        :zone_name=>"us-east-1a",
-      #                                        :zone_state=>"available"}, ... ]
-      # http://docs.amazonwebservices.com/AWSEC2/latest/APIReference/index.html?ApiReference-query-DescribeAvailabilityZones.html
-    connect{|conn| conn.describe_availability_zones }
+  class VirtualServerImageSynchronizer < Synchronizer
+    fetch_known_target_method :describe_images
+    map :provided_id         , :aws_id
+
+    def attrs_to_create(properties)
+      result = super(properties)
+      # 初期登録時、default 値として name には一意な provided_id を name へ登録します
+      result[:name] = result[:provided_id]
+      result
+    end
   end
-
-  def synchronize_physical_servers
-    synchronize_by(:physical_servers)
-  end
-
-
 
   class VirtualServerSynchronizer < Synchronizer
     fetch_known_target_method :describe_instances
@@ -44,6 +61,7 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
 
     def attrs_to_create(properties)
       result = super(properties)
+      result[:name] = result[:provided_id]
       result[:addresses] = {
         :dns_name        => result.delete(:dns_name),
         :ip_address      => result.delete(:ip_address),
@@ -52,6 +70,18 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
       }
       result
     end
+  end
+
+  def describe_availability_zones
+      # ec2.describe_availability_zones  #=> [{:region_name=>"us-east-1",
+      #                                        :zone_name=>"us-east-1a",
+      #                                        :zone_state=>"available"}, ... ]
+      # http://docs.amazonwebservices.com/AWSEC2/latest/APIReference/index.html?ApiReference-query-DescribeAvailabilityZones.html
+    connect{|conn| conn.describe_availability_zones }
+  end
+
+  def describe_images
+    connect{|conn| conn.describe_images_by_owner("self")}
   end
 
   def describe_instances
@@ -78,24 +108,9 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
     connect{|conn| conn.describe_instances }
   end
 
-  def synchronize_virtual_servers
-    synchronize_by(:virtual_servers)
-  end
 
 
 
-  class VirtualServerImageSynchronizer < Synchronizer
-    fetch_known_target_method :describe_images
-    map :provided_id         , :aws_id
-  end
-
-  def describe_images
-    connect{|conn| conn.describe_images}
-  end
-
-  def synchronize_virtual_server_images
-    synchronize_by(:virtual_server_images)
-  end
 
 
 
