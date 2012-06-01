@@ -58,16 +58,21 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
     map :provided_id      , :aws_instance_id
     map :provided_image_id, :aws_image_id
     map :status           , :aws_state
+    map(:host_server) do |props, provider|
+      provider.physical_servers.where(:provided_id => props[:aws_availability_zone]).first
+    end
+    map :addresses do |props, provider|
+      {
+        :dns_name           => props.delete(:dns_name          ),
+        :ip_address         => props.delete(:ip_address        ),
+        :private_dns_name   => props.delete(:private_dns_name  ),
+        :private_ip_address => props.delete(:private_ip_address),
+      }
+    end
 
     def attrs_to_create(properties)
       result = super(properties)
       result[:name] = result[:provided_id]
-      result[:addresses] = {
-        :dns_name        => result.delete(:dns_name),
-        :ip_address      => result.delete(:ip_address),
-        :private_dns_name => result.delete(:private_dns_name),
-        :private_ip_address => result.delete(:private_ip_address),
-      }
       result
     end
   end
