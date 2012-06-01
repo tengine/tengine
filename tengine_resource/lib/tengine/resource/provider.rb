@@ -186,7 +186,7 @@ class Tengine::Resource::Provider
       if target.respond_to?(:properties)
         properties.each do |key, val|
           value =  properties.delete(key)
-          unless val.inspect == value.inspect
+          if (val.to_s != value.to_s) or (value.blank?)
             if target.properties[key.to_sym]
               target.properties[key.to_sym] = value
             else
