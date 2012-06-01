@@ -143,10 +143,7 @@ class Tengine::Resource::Provider
 
       differential_update(updated_target_hashs)
       create_by_hashs(created_target_hashs)
-      destroyed_targets.each do |target|
-        Tengine.logger.debug "#{log_prefix} destroy #{target.provided_id}"
-        target.destroy
-      end
+      destroy_targets(destroyed_targets)
     end
 
     private
@@ -189,7 +186,7 @@ class Tengine::Resource::Provider
       if target.respond_to?(:properties)
         properties.each do |key, val|
           value =  properties.delete(key)
-          unless val.to_s == value.to_s
+          unless val.inspect == value.inspect
             if target.properties[key.to_sym]
               target.properties[key.to_sym] = value
             else
@@ -243,6 +240,14 @@ class Tengine::Resource::Provider
       end
       result
     end
+
+    def destroy_targets(targets)
+      targets.each do |target|
+        Tengine.logger.debug "#{log_prefix} destroy #{target.provided_id}"
+        target.destroy
+      end
+    end
+
   end
 
 end

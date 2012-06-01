@@ -2,6 +2,8 @@
 require 'tengine/resource_ec2'
 
 require 'right_aws'
+require 'tengine/support/core_ext/hash/keys'
+
 
 class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
 
@@ -28,7 +30,7 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
     fetch_known_target_method :describe_availability_zones
 
     map(:provided_id, :zone_name)
-    map(:status     , :zone_status)
+    map(:status     , :zone_state)
     map(:cpu_cores  ) { 1000 }
     map(:memory_size) { 1000 }
 
@@ -37,6 +39,13 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
       # 初期登録時、default 値として name には一意な provided_id を name へ登録します
       result[:name] = result[:provided_id]
       result
+    end
+
+    def destroy_targets(targets)
+      targets.each do |target|
+        target.status = "not_found"
+        target.save!
+      end
     end
   end
 
@@ -73,6 +82,12 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
     def attrs_to_create(properties)
       result = super(properties)
       result[:name] = result[:provided_id]
+      result
+    end
+
+    def mapped_attributes(properties)
+      properties.delete(:aws_state_code)
+      result = super(properties)
       result
     end
   end
