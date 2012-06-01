@@ -2,9 +2,6 @@
 require 'mongoid'
 
 class Tengine::Resource::Provider
-  autoload :Ec2,    'tengine/resource/provider/ec2'
-  autoload :Wakame, 'tengine/resource/provider/wakame'
-
   include Mongoid::Document
   include Mongoid::Timestamps
   include Tengine::Core::Validation
@@ -40,36 +37,19 @@ class Tengine::Resource::Provider
   def update_virtual_servers       ; raise NotImplementedError end
   def update_virtual_server_imagess; raise NotImplementedError end
 
-  private
-  def update_physical_servers_by(hashs)
-    found_ids = []
-    hashs.each do |hash|
-      server = self.physical_servers.where(:provided_id => hash[:provided_id]).first
-      if server
-        server.update_attributes(:status => hash[:status])
-      else
-        server = self.physical_servers.create!(
-          :provided_id => hash[:provided_id],
-          :name => hash[:name],
-          :status => hash[:status])
-      end
-      found_ids << server.id
-    end
-    self.physical_servers.not_in(:_id => found_ids).update_all(:status => "not_found")
-  end
 
-  def update_virtual_servers_by(hashs)
-    found_ids = []
-    hashs.each do |hash|
-      server = self.virtual_servers.where(:provided_id => hash[:provided_id]).first
-      if server
-        server.update_attributes(hash)
-      else
-        server = self.virtual_servers.create!(hash.merge(:name => hash[:provided_id]))
-      end
-      found_ids << server.id
+  def find_virtual_server_on_duplicaion_error(virtual_server_provided_id)
+    begin
+      yield
+    rescue Mongo::OperationFailure => e
+      raise e unless e.message =~ /E11000 duplicate key error/
+      self.virtual_servers.find(:first, :conditions => {:provided_id => virtual_server_provided_id}) or
+        raise "VirtualServer not found for #{virtual_server_provided_id}"
+    rescue Mongoid::Errors::Validations => e
+      raise e unless e.document.errors[:provided_id].any?{|s| s =~ /taken/}
+      self.virtual_servers.find(:first, :conditions => {:provided_id => virtual_server_provided_id}) or
+        raise "VirtualServer not found for #{virtual_server_provided_id}"
     end
-    self.virtual_servers.not_in(:_id => found_ids).destroy_all
   end
 
   class << self
@@ -78,6 +58,31 @@ class Tengine::Resource::Provider
       result ||= self.create!(attrs)
       result
     end
+
+    def synchronizers
+      @synchronizers ||= {}
+    end
+
+    def register_synchronizers(hash)
+      synchronizers.update(hash)
+    end
+  end
+
+  private
+
+  def synchronize_by(target_name)
+    synchronizer = synchronizers_by(target_name)
+    synchronizer.execute
+  end
+
+  def synchronizers_by(target_name)
+    unless @synchronizers
+      @synchronizers = {}
+      self.class.synchronizers.each do |target_name, klass|
+        @synchronizers[target_name] = klass.new(self, target_name)
+      end
+    end
+    @synchronizers[target_name]
   end
 
   public
@@ -138,10 +143,7 @@ class Tengine::Resource::Provider
 
       differential_update(updated_target_hashs)
       create_by_hashs(created_target_hashs)
-      destroyed_targets.each do |target|
-        Tengine.logger.debug "#{log_prefix} destroy #{target.provided_id}"
-        target.destroy
-      end
+      destroy_targets(destroyed_targets)
     end
 
     private
@@ -184,7 +186,7 @@ class Tengine::Resource::Provider
       if target.respond_to?(:properties)
         properties.each do |key, val|
           value =  properties.delete(key)
-          unless val.to_s == value.to_s
+          if (val.to_s != value.to_s) or (value.blank?)
             if target.properties[key.to_sym]
               target.properties[key.to_sym] = value
             else
@@ -198,6 +200,9 @@ class Tengine::Resource::Provider
       else
         target.save! if target.changed?
       end
+    rescue => e
+      Tengine.logger.error "#{log_prefix} [#{e.class}] #{e.message}: failed to update (#{provided_id}): #{hash.inspect}"
+      raise
     end
 
     def create_by_hashs(hashs)
@@ -207,7 +212,8 @@ class Tengine::Resource::Provider
     def create_by_hash(hash)
       properties = hash.dup
       properties.deep_symbolize_keys!
-      Tengine.logger.debug "#{log_prefix} create #{properties[:provided_id]}"
+      provided_id = properties[:provided_id]
+      Tengine.logger.debug "#{log_prefix} create #{provided_id}"
       attrs = attrs_to_create(properties)
       target = provider.send(target_name).new
       attrs[:properties] = properties if target.respond_to?(:properties)
@@ -215,6 +221,9 @@ class Tengine::Resource::Provider
       target.attributes = attrs
       target.save!
       target
+    rescue => e
+      Tengine.logger.error "#{log_prefix} [#{e.class}] #{e.message}: failed to create (#{provided_id}): #{hash.inspect}"
+      raise
     end
 
     def attrs_to_create(properties)
@@ -231,6 +240,14 @@ class Tengine::Resource::Provider
       end
       result
     end
+
+    def destroy_targets(targets)
+      targets.each do |target|
+        Tengine.logger.debug "#{log_prefix} destroy #{target.provided_id}"
+        target.destroy
+      end
+    end
+
   end
 
 end

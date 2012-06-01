@@ -18,8 +18,8 @@ describe Tengine::Resource::VirtualServer::Finder do
     end
   end
 
-  it "Tengine::Resource::Provider::Wakame::VIRTUAL_SERVER_STATESがstatus_cdに登録されていること" do
-    Tengine::Resource::Provider::Wakame::VIRTUAL_SERVER_STATES.each do |status|
+  it "Tengine::ResourceWakame::Provider::VIRTUAL_SERVER_STATESがstatus_cdに登録されていること" do
+    Tengine::ResourceWakame::Provider::VIRTUAL_SERVER_STATES.each do |status|
       entry = subject.status_enum[status]
       entry.id.to_s.should == status.to_s
       entry.name.to_s.should == status.to_s

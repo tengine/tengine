@@ -48,7 +48,7 @@ describe Tengine::Resource::PhysicalServersController do
       get :index
 
       check_status = assigns(:check_status)
-      states = Tengine::Resource::Provider::Wakame::PHYSICAL_SERVER_STATES
+      states = Tengine::ResourceWakame::Provider::PHYSICAL_SERVER_STATES
       check_status.size.should == states.size
       states.each do |state|
         check_status = check_status.stringify_keys
@@ -97,11 +97,11 @@ describe Tengine::Resource::PhysicalServersController do
 
     context "複数のレコードが登録されているとき" do
       before do
-        Tengine::Resource::Provider::Wakame.delete_all
+        Tengine::ResourceWakame::Provider.delete_all
         Tengine::Resource::PhysicalServer.delete_all
 
-        pr1 = Tengine::Resource::Provider::Wakame.create!(name:"testwakame")
-        pr2 = Tengine::Resource::Provider::Ec2.create!(name:"testec2")
+        pr1 = Tengine::ResourceWakame::Provider.create!(name:"testwakame")
+        pr2 = Tengine::ResourceEc2::Provider.create!(name:"testec2")
         @ps1 = Tengine::Resource::PhysicalServer.create!(
           provider_id:pr1.id,
           name:"atestfoo",

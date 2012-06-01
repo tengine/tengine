@@ -190,20 +190,6 @@ describe Tengine::Resource::Credential do
         end
       end
 
-      describe :ec2_access_key do
-        it "access_keyが空文字列" do
-          credential1 = Tengine::Resource::Credential.new(:name => "ec2-access-key1",
-            :auth_type_key => :ec2_access_key,
-            :auth_values => {:access_key => '', :secret_access_key => "abcdef"})
-          credential1.valid?.should == false
-        end
-        it "secret_access_keyがnil" do
-          credential1 = Tengine::Resource::Credential.new(:name => "ec2-access-key1",
-            :auth_type_key => :ec2_access_key,
-            :auth_values => {'access_key' => '12345', 'secret_access_key' => nil})
-          credential1.valid?.should == false
-        end
-      end
     end
   end
 end

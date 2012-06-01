@@ -3,12 +3,12 @@ require 'spec_helper'
 describe "tengine/resource/provider/ec2s/index.html.erb" do
   before(:each) do
     mock_pagination(assign(:ec2s, [
-      stub_model(Tengine::Resource::Provider::Ec2,
+      stub_model(Tengine::ResourceEc2::Provider,
         :name => "Name",
         :description => "Description",
         :credential => nil
       ),
-      stub_model(Tengine::Resource::Provider::Ec2,
+      stub_model(Tengine::ResourceEc2::Provider,
         :name => "Name",
         :description => "Description",
         :credential => nil

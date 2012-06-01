@@ -1,12 +1,12 @@
-<h1><%= page_title Tengine::Resource::Provider::Ec2, :list %></h1>
+<h1><%= page_title Tengine::ResourceEc2::Provider, :list %></h1>
 
 <p id="notice"><%= notice %></p>
 
 <table>
   <tr>
-    <th><%= Tengine::Resource::Provider::Ec2.human_attribute_name(:name) %></th>
-    <th><%= Tengine::Resource::Provider::Ec2.human_attribute_name(:description) %></th>
-    <th><%= Tengine::Resource::Provider::Ec2.human_attribute_name(:connection_settings) %></th>
+    <th><%= Tengine::ResourceEc2::Provider.human_attribute_name(:name) %></th>
+    <th><%= Tengine::ResourceEc2::Provider.human_attribute_name(:description) %></th>
+    <th><%= Tengine::ResourceEc2::Provider.human_attribute_name(:connection_settings) %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -30,4 +30,4 @@
 
 <br />
 
-<%= link_to_new Tengine::Resource::Provider::Ec2, new_tengine_resource_provider_ec2_path %>
+<%= link_to_new Tengine::ResourceEc2::Provider, new_tengine_resource_provider_ec2_path %>

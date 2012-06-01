@@ -14,7 +14,7 @@ require 'mongoid'
 Mongoid.load!(File.expand_path('mongoid.yml', File.dirname(__FILE__)))
 Mongoid.database.connection.drop_database(Mongoid.database.name)
 
-gem_names = ["tengine_core", "tengine_resource"]
+gem_names = ["tengine_core", "tengine_resource", "tengine_resource_ec2"]
 gem_names.each{|f| require f}
 
 base_dirs = gem_names.map{|gem_name| Gem.loaded_specs[gem_name].gem_dir}

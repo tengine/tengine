@@ -26,6 +26,9 @@ module ApplicationHelper
     link_to(name, options, html_options)
   end
 
+  def tengine_resource_ec2_provider_path(*args, &block); tengine_resource_provider_ec2_path(*args, &block); end
+  def tengine_resource_ec2_providers_path(*args, &block); tengine_resource_provider_ec2s_path(*args, &block); end
+
   def link_to_show(*args, &block)
     link_to(I18n.t(:show, :scope => [:views, :links]), *args_for_nested_path(*args), &block)
   end

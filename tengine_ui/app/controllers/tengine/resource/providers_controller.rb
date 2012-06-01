@@ -1,3 +1,5 @@
+require 'tengine/resource/provider'
+
 class Tengine::Resource::ProvidersController < ApplicationController
   # GET /tengine/resource/providers
   # GET /tengine/resource/providers.json

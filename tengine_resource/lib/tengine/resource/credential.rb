@@ -3,8 +3,6 @@ require 'mongoid'
 require 'selectable_attr'
 
 class Tengine::Resource::Credential
-  autoload :Ec2, 'tengine/resource/credential/ec2'
-
   include Mongoid::Document
   include Mongoid::Timestamps
   include Tengine::Core::SelectableAttr
@@ -24,11 +22,12 @@ class Tengine::Resource::Credential
   # EC2での認証については以下などを参照してください。
   #     http://builder.japan.zdnet.com/member/u502383/blog/2008/08/08/entry_27012840/
   selectable_attr :auth_type_cd do
-    entry "01", :ssh_password  , "SSHパスワード認証"   , :for_launch => false
-    entry "02", :ssh_public_key, "SSH公開鍵認証"       , :for_launch => false
-    # entry "03", :ec2_access_key, "EC2 アクセスキー認証", :for_launch => true
+    entry "01", :ssh_password  , "SSHパスワード認証"
+    entry "02", :ssh_public_key, "SSH公開鍵認証"
+    # entry "03", :ec2_access_key, "EC2 アクセスキー認証"
     # entry "04", :ec2_x509_cert, "EC2 X.509認証"
-    # entry "05", :tama, "Tama", :for_launch => true
+    # entry "05", :tama, "Tama"
+    entry "06", :ssh_public_key_file, "SSH公開鍵認証(ファイル)"
   end
 
   validates :name, :presence => true, :uniqueness => true, :format => BASE_NAME.options
@@ -98,11 +97,11 @@ class Tengine::Resource::Credential
       AuthField.new(:passphrase  , :secret, :optional => true),
     ].freeze,
 
-    # {:access_key => "xxxxx", :secret_access_key =>"xxxxx"}
-    :ec2_access_key => [
-      AuthField.new(:access_key, :string),
-      AuthField.new(:secret_access_key, :string),
-      AuthField.new(:default_region, :string, :default => "us-east-1"),
+    # {:username => "goku", :private_key_file =>"xxx", :passphrase => "xxxx"}
+    :ssh_public_key_file => [
+      AuthField.new(:username        , :string),
+      AuthField.new(:private_key_file, :string),
+      AuthField.new(:passphrase      , :secret, :optional => true),
     ].freeze,
   }.freeze
 

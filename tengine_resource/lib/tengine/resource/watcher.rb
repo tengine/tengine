@@ -9,6 +9,9 @@ require 'tengine/core/mongoid_fix'
 
 class Tengine::Resource::Watcher
 
+  class ConfigurationError < StandardError
+  end
+
   attr_reader :config, :pid
 
   def initialize(argv = [])
@@ -81,7 +84,7 @@ class Tengine::Resource::Watcher
 
     EM.run do
       sender.wait_for_connection do
-        providers = Tengine::Resource::Provider.all
+        providers = find_providers
         providers.each do |provider|
           provider.retry_on_error = true if provider.respond_to?(:retry_on_error=)
           # polling_intervalが 0 以下の場合は、問い合わせを行わない
@@ -116,6 +119,30 @@ class Tengine::Resource::Watcher
       sender.stop
     end
   end
+
+  def find_providers
+    providers = Tengine::Resource::Provider.all
+    begin
+      result = providers.to_a
+      raise ConfigurationError, "no provider found" if result.empty?
+      return result
+    rescue NameError => e
+      raise e unless e.message =~ /uninitialized constant/
+      documents = Mongoid.database.collections.
+        detect{|c| c.name == Tengine::Resource::Provider.collection_name}.find
+      types = documents.map{|d| d['_type']}
+      undefined_type_names = types.select do |t|
+        begin
+          t.constantize
+          false
+        rescue Exception
+          true
+        end
+      end
+      raise ConfigurationError, "provider class not found: " << undefined_type_names.join(", ")
+    end
+  end
+
 
   extend Tengine::Core::MethodTraceable
   method_trace(*instance_methods(false))

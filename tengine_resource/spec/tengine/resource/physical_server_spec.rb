@@ -1,46 +1,43 @@
-# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe Tengine::Resource::PhysicalServer do
-  context "nameで検索" do
+  describe :by_provided_id do
     before do
-      Tengine::Resource::Server.delete_all
-      @fixture = GokuAtEc2ApNortheast.new
-      @physical1 = @fixture.availability_zone(1)
-      @virtual1 = @fixture.hadoop_master_node
+      @valid_provided_id1 = "i-000001"
     end
 
-    context "見つかる場合" do
-      it "find_by_name" do
-        found_credential = nil
-        lambda{
-          found_credential = Tengine::Resource::PhysicalServer.find_by_name(@physical1.name)
-        }.should_not raise_error
-        found_credential.should_not be_nil
-        found_credential.id.should == @physical1.id
+    shared_examples_for "returns nil for blank provided_id" do
+      it "returns nil for nil" do
+        Tengine::Resource::PhysicalServer.by_provided_id(nil).should == nil
       end
-
-      it "find_by_name!" do
-        found_credential = nil
-        lambda{
-          found_credential = Tengine::Resource::PhysicalServer.find_by_name!(@physical1.name)
-        }.should_not raise_error
-        found_credential.should_not be_nil
-        found_credential.id.should == @physical1.id
+      it "returns nil for blank String" do
+        Tengine::Resource::PhysicalServer.by_provided_id("").should == nil
       end
     end
 
-    context "見つからない場合" do
-      it "find_by_name" do
-        found_credential = Tengine::Resource::PhysicalServer.find_by_name(@virtual1.name).should == nil
+    context "PhysicalServer exists" do
+      before do
+        Tengine::Resource::PhysicalServer.delete_all
+        @physical_server1 = Tengine::Resource::PhysicalServer.create!(:name => "server1", :provided_id => @valid_provided_id1)
       end
 
-      it "find_by_name!" do
-        lambda{
-          found_credential = Tengine::Resource::PhysicalServer.find_by_name!(@virtual1.name)
-        }.should raise_error(Tengine::Core::FindByName::Error)
+      it "returns the server for valid provided_id" do
+        Tengine::Resource::PhysicalServer.by_provided_id(@valid_provided_id1).id.should == @physical_server1.id
       end
+      it_should_behave_like "returns nil for blank provided_id"
     end
+
+    context "PhysicalServer doesn't exist" do
+      before do
+        Tengine::Resource::PhysicalServer.delete_all
+      end
+
+      it "returns the server for valid provided_id" do
+        Tengine::Resource::PhysicalServer.by_provided_id(@valid_provided_id1).should == nil
+      end
+      it_should_behave_like "returns nil for blank provided_id"
+    end
+
 
   end
 

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "tengine/resource/provider/ec2s/new.html.erb" do
   before(:each) do
-    assign(:ec2, stub_model(Tengine::Resource::Provider::Ec2,
+    assign(:ec2, stub_model(Tengine::ResourceEc2::Provider,
       :name => "MyString",
       :description => "MyString",
       :connection_settings => nil
