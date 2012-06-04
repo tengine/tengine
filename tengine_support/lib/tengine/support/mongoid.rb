@@ -32,16 +32,7 @@ module Tengine::Support::Mongoid
     end
 
     Dir.glob("#{pattern}/**/*.rb").each do |file|
-      begin
-        model = determine_model(file)
-      rescue => e
-        logger.error(%Q{Failed to determine model from #{file}:
-            #{e.class}:#{e.message}
-            #{e.backtrace.join("\n")}
-          })
-      end
-
-      if model
+      if model = determine_model(file)
         model.create_indexes
         logger.info "Generated indexes for #{model}"
       else

@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+require 'tengine_support'
+
+include Tengine::Support::MongoIndex
+
+Tengine::Support::MongoIndex.create_index(__FILE__, ARGV.join(','))

@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+# Use to create indexes. Sample is below.
+#  create_indexes_for_tengine_job localhost:27017/tengine_production
+#
+# Default options
+#  hostname localhost
+#  port     27017
+#  database tengine_production
+#
+require 'tengine_support'
+require 'tengine_job'
+
+include Tengine::Support::MongoIndex
+
+Tengine::Support::MongoIndex.create_index(__FILE__, ARGV.shift)
