@@ -22,6 +22,8 @@ module Tengine::Support::Mongoid
   # the class is not embedded.
   #
   def create_indexes(pattern, connect_to=nil)
+    logger = Logger.new($stdout)
+
     connect_to ||= 'localhost:27017/tengine_production'
     host, port, db_name = connect_to.split('/').map{|s| s.split(':')}.flatten
 
@@ -33,7 +35,7 @@ module Tengine::Support::Mongoid
       begin
         model = determine_model(file)
       rescue => e
-        $stderr.puts(%Q{Failed to determine model from #{file}:
+        logger.error(%Q{Failed to determine model from #{file}:
             #{e.class}:#{e.message}
             #{e.backtrace.join("\n")}
           })
@@ -41,9 +43,9 @@ module Tengine::Support::Mongoid
 
       if model
         model.create_indexes
-        $stdout.puts "Generated indexes for #{model}"
+        logger.info "Generated indexes for #{model}"
       else
-        $stdout.puts "Not a Mongoid parent model: #{file}"
+        logger.info "Not a Mongoid parent model: #{file}"
       end
     end
   end
