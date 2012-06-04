@@ -35,8 +35,6 @@ module Tengine::Support::Mongoid
       if model = determine_model(file)
         model.create_indexes
         logger.info "Generated indexes for #{model}"
-      else
-        logger.info "Not a Mongoid parent model: #{file}"
       end
     end
   end
@@ -49,9 +47,16 @@ module Tengine::Support::Mongoid
         name = parts.join('::')
         klass = name.constantize
       rescue NameError, LoadError => e
-        klass = parts.last.constantize
+        begin
+          klass = parts.last.constantize
+        rescue => e
+          return nil
+        end
       end
     end
-    return klass if klass.ancestors.include?(::Mongoid::Document) && !klass.embedded
+
+    if klass.ancestors.include?(::Mongoid::Document) && !klass.embedded
+      return klass
+    end
   end
 end

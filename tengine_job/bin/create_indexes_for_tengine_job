@@ -12,6 +12,7 @@
 require 'tengine_support'
 require 'tengine_job'
 
-include Tengine::Support::MongoIndex
+include Tengine::Support::Mongoid
 
-Tengine::Support::MongoIndex.create_index(__FILE__, ARGV.shift)
+target = File.expand_path('../lib', File.dirname(__FILE__))
+Tengine::Support::Mongoid.create_indexes(target, ARGV.shift)
