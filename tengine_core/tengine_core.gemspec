@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   # s.date = "2012-05-02"
   s.description = "tengine_core is a framework/engine to support distributed processing"
   s.email = "tengine-info@groovenauts.jp"
-  s.executables = ["tengined", "tengine_heartbeat_watchd", "tengine_atd"]
+  s.executables = ["tengined", "tengine_heartbeat_watchd", "tengine_atd", "create_indexes_for_tengine_core"]
   s.extra_rdoc_files = [
     "README.md"
   ]
