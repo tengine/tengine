@@ -12,10 +12,11 @@ Gem::Specification.new do |s|
   # s.date = "2012-05-21"
   s.description = "tengine_job provides jobnet management"
   s.email = "tengine-info@groovenauts.jp"
+  s.executables = ["create_indexes_for_tengine_job"]
   s.extra_rdoc_files = [
     "README.rdoc"
   ]
-  s.files = Dir["Gemfile", "Gemfile.lock", "README.rdoc", "examples/**/*", "lib/**/*" ]
+  s.files = Dir["Gemfile", "Gemfile.lock", "README.rdoc", "examples/**/*", "lib/**/*", "bin/**/*"]
 
   s.homepage = "http://github.com/tengine/tengine_job"
   s.licenses = ["MPL2.0/LGPLv3"]

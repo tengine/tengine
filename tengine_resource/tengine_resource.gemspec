@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   # s.date = "2012-05-02"
   s.description = "tengine_resource provides physical/virtual server management"
   s.email = "tengine-info@groovenauts.jp"
-  s.executables = ["tengine_resource_watchd"]
+  s.executables = ["tengine_resource_watchd", "create_indexes_for_tengine_resource"]
   s.extra_rdoc_files = [
     "README.rdoc"
   ]
