@@ -204,6 +204,7 @@ file 'profile' do
       # put Gemfile
       open(dir + '/Gemfile', 'w') do |fp|
         fp.puts 'source "http://rubygems.org"'
+        fp.puts "gem 'mongo', '1.6.2'"
         %w'tengine_core tengine_event tengine_job tengine_resource tengine_support'.each do |i|
           fp.puts "gem '#{i}', :path => '#{root}/#{i}'"
         end
