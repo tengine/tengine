@@ -26,6 +26,9 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.8.12"
   s.summary = "tengine_resource_ec2 provides physical/virtual server management for EC2"
 
+  s.add_runtime_dependency('bson', "1.6.2")
+  s.add_runtime_dependency('bson_ext', "1.6.2")
+  s.add_runtime_dependency('mongo', "1.6.2")
   s.add_runtime_dependency('tengine_resource', "~> #{version}")
   s.add_runtime_dependency('right_aws', "~> 2.1.0")
 
