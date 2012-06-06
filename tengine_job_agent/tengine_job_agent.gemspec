@@ -26,6 +26,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('tengine_support', "~> #{version}")
   s.add_runtime_dependency('tengine_event', "~> #{version}")
 
-  common_develooment_dependencies(s)
+  common_development_dependencies(s)
   s.add_development_dependency('ci_reporter', "~> 1.6.5")
 end

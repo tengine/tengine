@@ -33,5 +33,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('tengine_core', "~> #{version}")
   s.add_runtime_dependency('net-ssh', "~> 2.5.2")
 
-  common_develooment_dependencies(s)
+  common_development_dependencies(s)
 end

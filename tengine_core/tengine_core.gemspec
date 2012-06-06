@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('tengine_event', "~> #{version}")
   s.add_runtime_dependency('daemons', "~> 1.1.4")
 
-  common_develooment_dependencies(s)
+  common_development_dependencies(s)
   s.add_development_dependency('factory_girl', "~> 3.3.0")
   s.add_development_dependency('kramdown',  ">= 0")
 end

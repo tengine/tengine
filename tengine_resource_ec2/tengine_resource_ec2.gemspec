@@ -32,5 +32,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('tengine_resource', "~> #{version}")
   s.add_runtime_dependency('right_aws', "~> 2.1.0")
 
-  common_develooment_dependencies(s)
+  common_development_dependencies(s)
 end

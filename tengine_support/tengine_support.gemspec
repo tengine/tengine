@@ -31,5 +31,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('bson_ext'     , "1.6.2")
   s.add_runtime_dependency('mongo'        , "1.6.2")
 
-  common_develooment_dependencies(s)
+  common_development_dependencies(s)
 end
