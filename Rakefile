@@ -24,11 +24,9 @@ task :rebuild do
     puts "rebuilding #{package.name}"
     cmd = []
     cmd << "cd #{package.name}"
-    package.dependencies.each do |dep|
-      cmd << "gem uninstall #{dep} -a -I -x"
-    end
-    package.dependencies.each do |dep|
-      cmd << "gem install ../#{dep}/pkg/#{dep}-#{version}.gem"
+    unless package.dependencies.empty?
+      cmd << "gem uninstall #{package.dependencies.join(' ')} -a -I -x"
+      cmd << ("gem install --no-rdoc --no-ri " + package.dependencies.map {|dep| "../#{dep}/pkg/#{dep}-#{version}.gem" }.join(' '))
     end
     cmd << "bundle install"
 
