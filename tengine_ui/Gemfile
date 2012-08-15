@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 source 'http://rubygems.org'
 
-version = File.read(File.expand_path("../../TENGINE_VERSION", __FILE__)).strip
+begin
+  version = File.read(File.expand_path("../../TENGINE_VERSION", __FILE__)).strip
+rescue Errno::ENOENT
+  # deployed
+  version = File.read(File.expand_path("../TENGINE_VERSION", __FILE__)).strip
+end
 
 # すぐにパッチが出る事を予想しています。リリース近くなったらバージョンを固定します。
 gem 'rails', '~> 3.2.3'

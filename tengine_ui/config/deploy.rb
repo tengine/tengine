@@ -6,6 +6,7 @@
 set :stages, %w(development staging production)
 set :default_stage, "staging"
 require 'capistrano/ext/multistage'
+require 'bundler/capistrano'
 
 desc "hello task"
 task :hello do
@@ -64,6 +65,8 @@ after "deploy:setup",       "app:make_uuid_file"
 before "deploy:update"    , "app:chown_deploy_path"
 after "deploy:update_code", "app:symlinks"
 after "deploy:update"     , "app:change_owner"
+before "deploy:update"    , "app:regem"
+before "bundle:install"   , "app:tengine_version"
 
 namespace :app do
   desc "setup shared directories"
@@ -95,6 +98,17 @@ namespace :app do
 
   task :change_owner do
     run "#{sudo} chown -R #{apache_user}:#{apache_group} #{deploy_to}/"
+  end
+
+  desc 'collect gem files'
+  task :regem do
+    run_locally 'bundle package'
+  end
+
+  desc 'put TENGINE_VERSION'
+  task :tengine_version do
+    tengine_version = File.expand_path("../../../TENGINE_VERSION", __FILE__)
+    upload tengine_version, "#{release_path}/TENGINE_VERSION"
   end
 end
 
