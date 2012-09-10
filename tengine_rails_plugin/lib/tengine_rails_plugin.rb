@@ -17,8 +17,9 @@ module TengineRailsPlugin
 
     initializer "newplugin.initialize" do |app|
       require 'tengine_event'
+      require 'tengine/support/yaml_with_erb'
       expandpath app, "event_sender.yml" do |yml|
-        Tengine::Event.default_sender = Tengine::Event.parse(yml)
+        Tengine::Event.config = YAML.load_file(yml)
       end
     end
   end

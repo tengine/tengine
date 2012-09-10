@@ -4,6 +4,7 @@ PATH
     tengine_rails_plugin (0.0.1)
       rails (~> 3.2.8)
       tengine_event (~> 0.4.0)
+      tengine_support (~> 0.3.27)
 
 GEM
   remote: http://rubygems.org/
