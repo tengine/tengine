@@ -4,6 +4,5 @@ gemspec
 
 group :test do
   gem "eventmachine", "~> 0.12.0"
-  gem "bson_ext", "~> 1.6.2"
-  gem "mongoid", "~> 2.4.10"
+  gem "mongoid", "~> 3.0.0"
 end
