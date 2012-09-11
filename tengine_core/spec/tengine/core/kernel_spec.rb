@@ -101,7 +101,11 @@ describe Tengine::Core::Kernel do
 
     describe :activate, "メッセージの受信を開始" do
       before do
-        @header = AMQP::Header.new(@mock_channel, nil, {
+        mock_channel = mock("channel")
+        mock_channel.stub(:reject)
+        mock_method  = mock("method")
+        mock_method.stub(:delivery_tag).and_return(1)
+        @header = AMQP::Header.new(mock_channel, mock_method, {
             :routing_key  => "",
             :content_type => "application/octet-stream",
             :priority     => 0,
@@ -257,7 +261,7 @@ describe Tengine::Core::Kernel do
           raw_event = Tengine::Event.new(:key => "uuid1", :sender_name => "another_host", :event_type_name => "event1")
           lambda {
             Tengine::Core::Event.create!(raw_event.attributes.update(:confirmed => (raw_event.level <= @kernel.config.confirmation_threshold)))
-          }.should raise_error(Mongo::OperationFailure)
+          }.should raise_error(Mongoid::Errors::Validations)
           @kernel.process_message(@header, raw_event.to_json).should_not be_true
         end
 
@@ -368,7 +372,7 @@ describe Tengine::Core::Kernel do
         context "異常系" do
           it "無限地獄の回避" do
             @header.stub(:reject)
-            Tengine::Core::Event.stub(:create!).and_raise(Mongo::OperationFailure.new)
+            Tengine::Core::Event.stub(:create!).and_raise(Moped::Errors::OperationFailure)
             e = Tengine::Event.new key: @uuid.generate, event_type_name: "something.failed.tengine"
 
             @kernel.process_message @header, e.to_json
@@ -531,8 +535,8 @@ describe Tengine::Core::Kernel do
               context name do
                 it "Mongo::OperationFailureの場合、failed eventを連鎖" do
                   @sender.stub(:fire).with("#{kind}.heartbeat.tengine.failed.tengine", an_instance_of(Hash))
-                  Tengine::Core::Event.stub(:create!).and_raise(Mongo::OperationFailure.new)
-                  @kernel.stub(:upsert).and_raise Mongo::OperationFailure
+                  Tengine::Core::Event.stub(:create!).and_raise(Moped::Errors::OperationFailure)
+                  @kernel.stub(:upsert).and_raise Moped::Errors::OperationFailure
 
                   @kernel.process_message @header, Tengine::Event.new(key: @uuid.generate, event_type_name: eval(name)).to_json
                 end

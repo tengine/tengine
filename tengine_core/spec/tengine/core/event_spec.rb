@@ -35,18 +35,16 @@ describe Tengine::Core::Event do
       begin
         Tengine::Core::Event.create!(valid_attributes1)
         fail
-      rescue Mongo::OperationFailure => e
-        e.message.should =~ /E11000/
-        e.message.should =~ /duplicate key error/
-        e.message.should =~ /tengine_core_events/
-        e.message.should =~ /some_unique_key1/
+      rescue Mongoid::Errors::Validations => e
+        e.message.should =~ /Tengine::Core::Event/
+        e.message.should =~ /Key is already taken/
       end
     end
   end
 
   context "must be unique with key and sender_name" do
     it "raise an exception when violate unique consistent" do
-      Mongoid.persist_in_safe_mode.should == true
+      Mongoid.persist_in_safe_mode.should == true if defined?(Mongo)
 
       unique_key_name = "key1"
       Tengine::Core::Event.delete_all

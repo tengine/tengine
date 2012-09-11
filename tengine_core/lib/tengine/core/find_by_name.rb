@@ -19,7 +19,7 @@ module Tengine::Core::FindByName
 
   module ClassMethods
     def find_by_name(name)
-      first(:conditions => {:name => name})
+      where({:name => name}).first
     end
 
     def find_by_name!(name, *args, &block)

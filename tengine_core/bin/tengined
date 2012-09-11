@@ -171,8 +171,10 @@ run do
   require 'mongoid'
   require File.expand_path('./lib/tengine_core', tengined_root)
   require 'tengine/core/mongoid_fix'
-  Mongoid.config.from_hash(config[:db])
-  Mongoid.config.option(:persist_in_safe_mode, :default => true)
+  Mongoid.configure do |c|
+    c.send :load_configuration, config[:db]
+    c.persist_in_safe_mode = true
+  end
   require 'amqp'
   Mongoid.logger = AMQP::Session.logger = Tengine.logger
   Tengine::Core::MethodTraceable.disabled = !@__config__[:verbose] # Tengine::Core::Bootstrapが動く前に設定しないと余計なログが出ます

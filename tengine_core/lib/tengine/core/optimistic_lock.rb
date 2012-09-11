@@ -35,6 +35,7 @@ module Tengine::Core::OptimisticLock
     lock_field_name = self.class.locking_field
     current_version = self.send(lock_field_name)
     hash = as_document.dup.stringify_keys
+    hash.delete("_id") # _id not allowed in mod
     new_version = current_version + 1
     hash[lock_field_name.to_s] = new_version
     selector = { :_id => self.id, lock_field_name.to_sym => current_version }

@@ -173,7 +173,7 @@ class Tengine::Core::Kernel
                   save_event(raw_event)
                 end
 
-      rescue Mongo::OperationFailure, Mongoid::Errors::Validations => e
+      rescue Moped::Errors::OperationFailure, Mongoid::Errors::Validations => e
         Tengine.logger.warn("failed to store an event.\n[#{e.class.name}] #{e.message}")
         event = nil
       rescue Exception => e
@@ -187,7 +187,7 @@ class Tengine::Core::Kernel
 
         begin
           n = Tengine::Core::Event.where(:key => raw_event.key, :sender_name => raw_event.sender_name).count
-        rescue Mongo::ConnectionFailure, Mongo::OperationTimeout, Mongo::OperationFailure => e
+        rescue Moped::Errors::ConnectionFailure, Moped::Errors::OperationFailure => e
           Tengine.logger.error("giving up processing an event due to #{e} (#{e.class.name})")
           n = 0
         end
@@ -229,7 +229,7 @@ class Tengine::Core::Kernel
         end
         close_if_shutting_down
         true
-      rescue Mongo::ConnectionFailure, Mongo::OperationTimeout, Mongo::OperationFailure => e
+      rescue Moped::Errors::ConnectionFailure, Moped::Errors::OperationFailure => e
         Tengine.logger.error("giving up processing an event due to #{e} (#{e.class.name})")
         Tengine.logger.info("requeue an event #{raw_event.inspect}")
         headers.reject(:requeue => true)
@@ -341,7 +341,7 @@ class Tengine::Core::Kernel
       raw_event.attributes.update(:confirmed => (raw_event.level.to_i <= config.confirmation_threshold)))
     Tengine.logger.debug("saved an event #{event.inspect}")
     event
-  rescue Mongo::OperationFailure => e
+  rescue Moped::Errors::OperationFailure => e
     Tengine.logger.error("failed to save an event #{raw_event.inspect}\n[#{e.class.name}] #{e.message}")
     # FIXME!!
     # このままではログに埋もれてしまうのでなんとかすべき。

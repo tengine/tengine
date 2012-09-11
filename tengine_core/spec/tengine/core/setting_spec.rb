@@ -6,7 +6,7 @@ describe Tengine::Core::Setting do
     it "nameは必須" do
       expect{
         Tengine::Core::Setting.create!(:name => nil, :value => "123")
-      }.to raise_error(Mongoid::Errors::Validations, "Validation failed - Name can't be blank.")
+      }.to raise_error(Mongoid::Errors::Validations, /Name can't be blank/)
     end
 
     it "同じ名前のデータがなければ登録できる" do
@@ -19,7 +19,7 @@ describe Tengine::Core::Setting do
       Tengine::Core::Setting.create!(:name => 'foo', :value => "123")
       expect{
         Tengine::Core::Setting.create!(:name => 'foo', :value => "123")
-      }.to raise_error(Mongoid::Errors::Validations, "Validation failed - Name is already taken.")
+      }.to raise_error(Mongoid::Errors::Validations, /Name is already taken/)
     end
   end
 

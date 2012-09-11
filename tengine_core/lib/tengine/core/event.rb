@@ -32,17 +32,16 @@ class Tengine::Core::Event
 
   # 複数の経路から同じ意味のイベントが複数個送られる場合に
   # これらを重複して登録しないようにユニーク制約を設定
-  index :key, unique: true
-  # :unique => trueのindexを設定しているので、uniquenessのバリデーションは設定しません
-  validates :key, :presence => true #, :uniqueness => true
+  index({ key: 1}, {unique: true})
+  validates :key, :presence => true, :uniqueness => true
 
-  index([ [:event_type_name, Mongo::ASCENDING], [:confirmed, Mongo::ASCENDING], ])
-  index([ [:event_type_name, Mongo::ASCENDING], [:level, Mongo::ASCENDING], [:occurred_at, Mongo::DESCENDING], ])
-  index([ [:event_type_name, Mongo::ASCENDING], [:occurred_at, Mongo::ASCENDING], ])
-  index([ [:event_type_name, Mongo::ASCENDING], [:source_name, Mongo::ASCENDING], ])
-  index([ [:level, Mongo::ASCENDING], [:sender_name, Mongo::ASCENDING], [:occurred_at, Mongo::DESCENDING], ])
-  index([ [:level, Mongo::ASCENDING], [:occurred_at, Mongo::DESCENDING], ])
-  index([ [:source_name, Mongo::ASCENDING], [:level, Mongo::ASCENDING], [:occurred_at, Mongo::DESCENDING], ])
+  index event_type_name: 1, confirmed:1
+  index event_type_name: 1, level:1, occurred_at: -1
+  index event_type_name: 1, occurred_at: 1
+  index event_type_name: 1, source_name:1
+  index level: 1, sender_name: 1, occurred_at: -1
+  index level: 1, occurred_at: -1
+  index source_name: 1, level: 1, occurred_at: -1
 
   # selectable_attrを使ってます
   # see http://github.com/akm/selectable_attr
@@ -86,11 +85,7 @@ class Tengine::Core::Event
     retries = -1
     results = nil
 
-    case collection.driver.db.connection when Mongo::ReplSetConnection then
-      safemode = { :w => "majority", :wtimeout => wtimeout, } # mongodb 2.0+, 参加しているレプリカセットの多数派に書き込んだ時点でOK扱い
-    else
-      safemode = true
-    end
+    safemode = Tengine::Core::SafeUpdatable.safemode(collection, wtimeout)
 
     while true do
       return false if retries >= retry_max # retryしすぎ
@@ -111,29 +106,47 @@ class Tengine::Core::Event
       hash['created_at'] ||= Time.at(Time.now.to_i)
       hash['updated_at'] = Time.at(Time.now.to_i)
 
+      results = nil
       begin
-        results = collection.driver.update(
-          { :key => the_event.key, :lock_version => the_event.lock_version },
-          { "$set" => hash },
-          { :upsert => true, :safe => safemode, :multiple => false }
-        )
-      rescue Mongo::OperationFailure => e
+        # Can't, no results returned...
+        # results = with(safe: safemode).where(
+        #   key: the_event.key, lock_version: the_event.lock_version
+        # ).update(
+        #   "$set" => hash,
+        #   flags: [ :upsert ]
+        # )
+        mongo_session.with(safe: safemode) do |ss|
+          col = ss[collection.name]
+          results = ss.context.update(
+            col.database.name,
+            col.name,
+            { key: the_event.key, lock_version: the_event.lock_version },
+            { "$set" => hash },
+            flags: [ :upsert ]
+          )
+        end
+      rescue Moped::Errors::OperationFailure => e
         # upsert = trueだがindexのunique制約があるので重複したkeyは
         # 作成不可、lock_versionの更新失敗はこちらに来る。これは意
         # 図した動作なのでraiseしない。
         Tengine.logger.debug "retrying due to mongodb error #{e}"
         # lock_versionが存在しない可能性(そのような古いDBを引きずっている等)
-        collection.driver.update(
-          { :key => the_event.key, :lock_version => { "$exists" => false } },
-          { "$set" => { :lock_version => -(2**63) } },
-          { :upsert => false, :safe => $safemode, :multiple => false }
-        )
+        mongo_session.with(safe: safemode) do |ss|
+          col = ss[collection.name]
+          results = ss.context.update(
+            col.database.name,
+            col.name,
+            { "$query" => { key: the_event.key, lock_version: { "$exists" => false} } },
+            { "$set" => { lock_version: -(2**63) } },
+          )
+        end
+        # again
       else
         if results["error"]
-          raise Mongo::OperationFailure, results["error"]
+          raise Moped::Errors::OperationFailure, results["error"]
         elsif results["upserted"]
           # *hack* _idを消してupsertしたので、このとき_idは新しくなっている
-          the_event.write_attributes "_id" => results["upserted"]
+          the_event._id = results["upserted"]
           the_event.reload
           return the_event
         else
@@ -142,5 +155,7 @@ class Tengine::Core::Event
         end
       end
     end
+rescue Exception
+p $!
   end
 end

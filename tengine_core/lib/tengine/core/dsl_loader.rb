@@ -58,7 +58,7 @@ module Tengine::Core::DslLoader
       return
     end
 
-    if dsl_version_document = Tengine::Core::Setting.first(:conditions => {:name => "dsl_version"})
+    if dsl_version_document = Tengine::Core::Setting.where({:name => "dsl_version"}).first
       dsl_version_document.value = config.dsl_version
       dsl_version_document.save!
     else

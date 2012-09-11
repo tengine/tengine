@@ -31,11 +31,11 @@ class Tengine::Core::Driver
   # @attribute 対象クラス名
   field :target_class_name, :type => String
 
-  index([ [:_id, Mongo::ASCENDING], [:enabled, Mongo::ASCENDING], [:version, Mongo::ASCENDING], ])
-  index([ [:name, Mongo::ASCENDING], [:version, Mongo::ASCENDING], ], :unique => true)
-  index([ [:version, Mongo::ASCENDING], [:enabled_on_activation, Mongo::ASCENDING], ])
-  index([ [:version, Mongo::ASCENDING], ])
-  index([ [:_id, Mongo::ASCENDING], [:name, Mongo::ASCENDING], ])
+  index _id: 1, enabled: 1, version: 1
+  index({name: 1, version: 1}, {unique: true})
+  index version: 1, enabled_on_activation: 1
+  index version: 1
+  index _id: 1, name: 1
 
   validates(:name, :presence => true,
     :uniqueness => {:scope => :version, :message => "is already taken in same version"},
@@ -70,7 +70,7 @@ class Tengine::Core::Driver
     # Tengine::Core::FindByName で定義しているクラスメソッドfind_by_nameを上書きしています
     def find_by_name(name, options = {})
       version = options[:version] || Tengine::Core::Setting.dsl_version
-      first(:conditions => {:name => name, :version => version})
+      where({:name => name, :version => version}).first
     end
 
     def delete_all_with_handler_paths(dsl_version)

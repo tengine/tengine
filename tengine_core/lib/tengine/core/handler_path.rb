@@ -11,7 +11,7 @@ class Tengine::Core::HandlerPath
 
   scope(:event_type_name, lambda{|v| where(:event_type_name => v)})
 
-  index([ [:event_type_name, Mongo::ASCENDING], [:_id, Mongo::ASCENDING], ])
+  index event_type_name: 1, _id: 1
 
   class << self
     def find_handlers(event_type_name)

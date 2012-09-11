@@ -104,7 +104,7 @@ module Tengine::Core::Driveable
           :name => self.driver_name, # self.name.gsub(/:/, 'Colon'),
           :version => Tengine::Core::Setting.dsl_version
         }
-        @driver = Tengine::Core::Driver.first(:conditions => driver_attrs)
+        @driver = Tengine::Core::Driver.where(driver_attrs).first
       end
       @driver
     end

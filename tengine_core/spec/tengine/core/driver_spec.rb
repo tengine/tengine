@@ -38,8 +38,10 @@ describe Tengine::Core::Driver do
         case Mongoid::VERSION
         when /^2\.2\.|^2\.4\./ then
           "Validation failed - Name is already taken in same version."
-        else
+        when /^2/ then
           "Validation failed - Name is already taken."
+        else
+          /Name is already taken/
         end
       expect{
         Tengine::Core::Driver.create!(valid_attributes1)

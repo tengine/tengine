@@ -16,6 +16,6 @@ class Tengine::Core::Schedule
   field :source_name    , :type => String
   field :properties     , :type => Hash   , :default => proc { Hash.new }
 
-  index([ [:scheduled_at, Mongo::ASCENDING], [:status, Mongo::ASCENDING], ])
-  index([ [:status, Mongo::ASCENDING], ])
+  index scheduled_at: 1, status: 1
+  index status: 1
 end

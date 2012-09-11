@@ -72,10 +72,11 @@ class Tengine::Core::SessionWrapper
   end
 
   def __find_and_modify__(target_name, values)
-    result = Tengine::Core::Session.collection.find_and_modify({
-        :query => {:_id => @source.id, :lock_version => @source.lock_version},
-        :update => { target_name => values, :lock_version => @source.lock_version + 1}
-      })
+    result = Tengine::Core::Session.where({
+        :_id => @source.id, :lock_version => @source.lock_version
+    }).find_and_modify({
+        "$set" => { target_name => values, :lock_version => @source.lock_version + 1}
+    }, new: true)
     result
   end
 

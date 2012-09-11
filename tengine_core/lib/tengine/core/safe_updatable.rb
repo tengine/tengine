@@ -14,9 +14,9 @@ module Tengine::Core::SafeUpdatable
     begin
       # Return a Hash containing the last error object if running safe mode.
       # Otherwise, returns true
-      result = collection.driver.update(selector, document, options)
-    rescue Mongo::ConnectionFailure, Mongo::OperationFailure => ex
-      case ex when Mongo::OperationFailure then
+      self.class.with(options).where(selector).update(document)
+    rescue Moped::Errors::ConnectionFailure, Moped::Errors::OperationFailure => ex
+      case ex when Moped::Errors::OperationFailure then
         raise ex unless ex.message =~ /wtimeout/
       end
       retries += 1
@@ -28,10 +28,10 @@ module Tengine::Core::SafeUpdatable
   end
 
   def safemode(collection, wtimeout=61440)
-    res = true
-    case collection.driver.db.connection when Mongo::ReplSetConnection then
-      res = { :w => "majority", :wtimeout => wtimeout, }
+    collection.database.session.cluster.with_primary do |n|
+      return n.peers.size.zero? ||
+        { :w => "majority", :wtimeout => wtimeout, }
     end
-    res
   end
+  module_function :safemode
 end

@@ -111,6 +111,7 @@ describe Tengine::Core::Scheduler do
       Daemons.stub(:run_proc).with(anything, anything).and_yield
       EM.should_receive(:add_periodic_timer).exactly(2).times
       Tengine::Core::MethodTraceable.stub(:disabled=)
+      Mongoid.should_receive(:configure) #.and_yield
       sender = mock(:sender)
       sender.stub(:wait_for_connection).and_yield
       subject.stub(:sender).and_return(sender)

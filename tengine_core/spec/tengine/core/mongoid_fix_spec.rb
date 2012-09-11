@@ -2,6 +2,8 @@
 require 'spec_helper'
 require 'tengine/core/mongoid_fix'
 
+if Mongoid::VERSION < "3.0.0" then
+
 describe Mongoid::Cursor do
 
   class TestDocument
@@ -48,5 +50,7 @@ describe Mongoid::Cursor do
       # its(:to_a) { should be_empty }
     end
   end
+
+end
 
 end

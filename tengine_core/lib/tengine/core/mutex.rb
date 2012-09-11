@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'tengine/core'
+require 'moped' # part of mongoid 3
 
 require_relative 'safe_updatable'
 
@@ -64,18 +65,14 @@ class Tengine::Core::Mutex::Mutex
     end
 
     def add_static_bson_objectid(name, objectid)
-      static_bson_objectids[name] = objectid.is_a?(BSON::ObjectId) ? objectid :
-        BSON::ObjectId.from_string(objectid.to_s)
+      static_bson_objectids[name] = objectid.is_a?(Moped::BSON::ObjectId) ? objectid :
+        Moped::BSON::ObjectId.from_string(objectid.to_s)
     end
 
     def find_or_create name, ttl
-      id = BSON::ObjectId.legal?(name) ? name : static_bson_objectids[name] or
+      id = Moped::BSON::ObjectId.legal?(name) ? name : static_bson_objectids[name] or
         raise ArgumentError, "Unknown name for BSON::ObjectId: #{name.inspect}"
-      collection.driver.update(
-        { :_id => id },
-        { "$set" => { :ttl => ttl, }, },
-        { :upsert => true, :safe => true, :multiple => false, }
-      )
+      collection.find(_id: id).upsert(_id: id, ttl: ttl)
       return find(id)
     end
   end
@@ -134,7 +131,7 @@ class Tengine::Core::Mutex
       raise TypeError, "finite numeric expected (got #{t})" unless t.finite?
       raise ArgumentError, "TTL doesn't make sense." unless t > 0
 
-      return oldnew(Tengine::Core::Mutex::Mutex.find_or_create(name, t), BSON::ObjectId.new, 0)
+      return oldnew(Tengine::Core::Mutex::Mutex.find_or_create(name, t), Moped::BSON::ObjectId.new, 0)
     end
   end
 

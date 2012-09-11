@@ -116,8 +116,10 @@ class Tengine::Core::HeartbeatWatcher
   def start
     @config.setup_loggers
 
-    Mongoid.config.from_hash @config[:db]
-    Mongoid.config.option :persist_in_safe_mode, :default => true
+    Mongoid.configure do |c|
+      c.send :load_configuration, @config[:db]
+      c.persist_in_safe_mode = true
+    end
 
     require 'amqp'
     Mongoid.logger = AMQP::Session.logger = Tengine.logger

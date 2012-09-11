@@ -9,12 +9,12 @@ class Tengine::Core::Setting
 
   validates :name, :presence => true, :uniqueness => true
 
-  index :name, :unique => true
+  index({name: 1}, {unique: true})
 
   class << self
     def dsl_version
-      document = first(:conditions => {:name => "dsl_version"})
-      raise Mongoid::Errors::DocumentNotFound.new(Tengine::Core::Setting, "dsl_version") unless document
+      document = where({:name => "dsl_version"}).first
+      raise Mongoid::Errors::DocumentNotFound.new(Tengine::Core::Setting, "dsl_version", "dsl_version") unless document
       document.value
     end
   end

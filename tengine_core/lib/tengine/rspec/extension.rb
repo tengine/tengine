@@ -28,7 +28,7 @@ module Tengine::RSpec::Extension
 
     def driver(driver_name)
       before do
-        @__driver__ = Tengine::Core::Driver.first(:conditions => {:name => driver_name})
+        @__driver__ = Tengine::Core::Driver.where({:name => driver_name}).first
         if @__driver__
           session = @__driver__.session
           @__session__ = Tengine::Core::SessionWrapper.new(session)

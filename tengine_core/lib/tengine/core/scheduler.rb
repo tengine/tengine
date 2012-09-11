@@ -64,8 +64,8 @@ class Tengine::Core::Scheduler
     # 複数のマシンで複数のatdが複数動いている可能性があり、その場合には複数の
     # atdが同時に同じエントリに更新をかける可能性はとても高い。そのような状況
     # でもエラーになってはいけない。
-    Tengine::Core::Schedule.safely(
-      safemode(Tengine::Core::Schedule.collection)
+    Tengine::Core::Schedule.with(
+      safe: safemode(Tengine::Core::Schedule.collection)
     ).where(
       :_id => sched.id,
       :status => Tengine::Core::Schedule::SCHEDULED
@@ -120,8 +120,10 @@ class Tengine::Core::Scheduler
   def start
     @config.setup_loggers
 
-    Mongoid.config.from_hash @config[:db]
-    Mongoid.config.option :persist_in_safe_mode, :default => true
+    Mongoid.configure do |c|
+      c.send :load_configuration, @config[:db]
+      c.persist_in_safe_mode = true
+    end
 
     require 'amqp'
     Mongoid.logger = AMQP::Session.logger = Tengine.logger

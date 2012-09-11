@@ -3,9 +3,10 @@
 require 'tengine_core'
 require 'mongoid'
 require 'mongoid/version'
-require 'mongoid/cursor'
 
 if Mongoid::VERSION < "3.0.0"
+  require 'mongoid/cursor'
+
   class Mongoid::Cursor
     # https://github.com/mongoid/mongoid/pull/1609
     def each

@@ -155,7 +155,7 @@ describe "Tengine::Core::Bootstrap" do
             })
           @bootstrap = Tengine::Core::Bootstrap.new(config)
           @bootstrap.load_dsl
-          dsl_version_document = Tengine::Core::Setting.first(:conditions => {:name => "dsl_version"})
+          dsl_version_document = Tengine::Core::Setting.where({:name => "dsl_version"}).first
           dsl_version_document.should_not be_nil
           dsl_version_document.value.should == "20110902213500" # examples/VERSION の中身
         end
