@@ -28,7 +28,18 @@ module Tengine::Support::Mongoid
     host, port, db_name = connect_to.split('/').map{|s| s.split(':')}.flatten
 
     Mongoid.configure do |c|
-      c.master = Mongo::Connection.new(host, port).db(db_name)
+      if Mongoid::VERSION < '3.0.0'
+        c.master = Mongo::Connection.new(host, port).db(db_name)
+      else
+        c.sessions = {
+          default: {
+            database: db_name,
+            hosts: [
+              "#{host}:#{port}"
+            ]
+          }
+        }
+      end
     end
 
     Dir.glob("#{pattern}/**/*.rb").each do |file|
