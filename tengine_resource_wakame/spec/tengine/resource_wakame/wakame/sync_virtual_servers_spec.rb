@@ -128,7 +128,7 @@ describe Tengine::ResourceWakame::Provider do
             server.provider_id.should == subject.id
 
             provided_physical_server_id = expectations.delete(:provided_physical_server_id)
-            physical_server = Tengine::Resource::PhysicalServer.first(:conditions => {:provided_id => provided_physical_server_id})
+            physical_server = Tengine::Resource::PhysicalServer.where({:provided_id => provided_physical_server_id}).first
             server.host_server_id.should == physical_server.id
           end
         end
@@ -148,7 +148,7 @@ describe Tengine::ResourceWakame::Provider do
 
               provided_physical_server_id = attrs.delete(:provided_physical_server_id)
               raise ":provided_physical_server_id not found for #{provided_id}" unless provided_physical_server_id
-              physical_server = Tengine::Resource::PhysicalServer.first(:conditions => {:provided_id => provided_physical_server_id})
+              physical_server = Tengine::Resource::PhysicalServer.where({:provided_id => provided_physical_server_id}).first
               raise "physical_server not found for #{provided_physical_server_id}" unless physical_server
               attrs.update(:host_server_id => physical_server.id)
 

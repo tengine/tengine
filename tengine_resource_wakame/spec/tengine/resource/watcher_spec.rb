@@ -31,6 +31,7 @@ describe Tengine::Resource::Watcher do
         :keep_connection => true
         },
     }
+    Mongoid.stub(:configure)
   end
 
   after :all do

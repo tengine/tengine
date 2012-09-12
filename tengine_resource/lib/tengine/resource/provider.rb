@@ -183,7 +183,7 @@ class Tengine::Resource::Provider
         target.send("#{attr}=", value)
       end
       prop_backup = properties.dup
-      if target.respond_to?(:properties)
+      if target.respond_to?(:properties) && target.properties
         properties.each do |key, val|
           value =  properties.delete(key)
           if (val.to_s != value.to_s) or (value.blank?)
