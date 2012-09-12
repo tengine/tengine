@@ -111,7 +111,7 @@ describe Tengine::ResourceEc2::Provider do
   describe 'update resources' do
     shared_examples_for "取得した内容が反映される" do
       it do
-        servers = subject.physical_servers.order(:provided_id, :asc)
+        servers = subject.physical_servers.asc(:provided_id)
         west_1a = servers.first
         west_1a.provider.should == subject
         west_1a.name.should == "us-west-1a"
@@ -140,7 +140,7 @@ describe Tengine::ResourceEc2::Provider do
             'aws_reason' => ""
           }
         end
-        servers = subject.virtual_servers.order(:provided_id, :asc).to_a
+        servers = subject.virtual_servers.asc(:provided_id).to_a
         servers.each(&assert_server)
       end
     end
@@ -152,7 +152,7 @@ describe Tengine::ResourceEc2::Provider do
           server.name.should == name
           server.provided_id.should == name
         end
-        servers = subject.virtual_servers.order(:provided_id, :asc).to_a
+        servers = subject.virtual_servers.asc(:provided_id).to_a
         servers.each_with_index(&assert_server)
       end
     end
@@ -165,14 +165,14 @@ describe Tengine::ResourceEc2::Provider do
           server.addresses['private_dns_name'].should == "ip-10-162-153-#{index + 101}.us-west-1.compute.internal"
           server.addresses['private_ip_address'].should == "10.162.153.#{index + 101}"
         end
-        servers = subject.virtual_servers.order(:provided_id, :asc).to_a
+        servers = subject.virtual_servers.asc(:provided_id).to_a
         servers.each_with_index(&assert_server)
       end
     end
 
     shared_examples_for "取得した状態が反映される" do
       it do
-        servers = subject.virtual_servers.order(:provided_id, :asc).to_a
+        servers = subject.virtual_servers.asc(:provided_id).to_a
         servers.each do |server|
           server.status.should == "running"
         end
@@ -250,7 +250,7 @@ describe Tengine::ResourceEc2::Provider do
             end
 
             it do
-              servers = subject.physical_servers.order(:provided_id, :asc)
+              servers = subject.physical_servers.asc(:provided_id)
               west_1a = servers.first
               west_1a.provider.should == subject
               west_1a.name.should == "foo"
@@ -275,7 +275,7 @@ describe Tengine::ResourceEc2::Provider do
             subject.physical_servers.count.should == 3
           end
           it "物理サーバが減るということは一大事なので、自動でデータを削除するのではなく、見つからなかったということにする" do
-            servers = subject.physical_servers.order(:provided_id, :asc)
+            servers = subject.physical_servers.asc(:provided_id)
             west_1a = servers.first
             west_1a.provider.should == subject
             west_1a.name.should == "us-west-1a"
@@ -486,7 +486,7 @@ describe Tengine::ResourceEc2::Provider do
             it_behaves_like "取得した状態が反映される"
 
             it "nameはTenigneで指定するものなので更新されません" do
-              servers = subject.virtual_servers.order(:provided_id, :asc).to_a
+              servers = subject.virtual_servers.asc(:provided_id).to_a
               servers[0].name.should == "master1"
               servers[1].name.should == "slave1"
               servers[2].name.should == "slave2"

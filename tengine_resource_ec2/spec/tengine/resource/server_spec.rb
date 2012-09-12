@@ -79,7 +79,7 @@ describe Tengine::Resource::Server do
         expect{
           Tengine::Resource::VirtualServer.create!(:name => name)
         }.to raise_error(Mongoid::Errors::Validations,
-          "Validation failed - Name is already taken.")
+          /Name is already taken/)
       end
 
       it "同名のVirtualServerが先にある場合" do
@@ -88,7 +88,7 @@ describe Tengine::Resource::Server do
         expect{
           Tengine::Resource::PhysicalServer.create!(:name => name)
         }.to raise_error(Mongoid::Errors::Validations,
-          "Validation failed - Name is already taken.")
+          /Name is already taken/)
       end
 
     end

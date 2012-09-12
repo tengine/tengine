@@ -12,7 +12,7 @@ require 'rspec'
 require 'tengine/resource_ec2'
 require 'mongoid'
 Mongoid.load!(File.expand_path('mongoid.yml', File.dirname(__FILE__)))
-Mongoid.database.connection.drop_database(Mongoid.database.name)
+Mongoid.default_session.drop
 
 I18n.backend = I18n::Backend::Simple.new
 I18n.backend.load_translations(File.expand_path('mongoid_en.yml', File.dirname(__FILE__)))

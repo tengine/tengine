@@ -222,7 +222,7 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
       yield if block_given? # テスト用のブロックの呼び出し
       results.map.with_index {|hash, idx|
         provided_id = hash.delete(:aws_instance_id)
-        if server = self.virtual_servers.find(:first, :conditions => {:provided_id => provided_id})
+        if server = self.virtual_servers.where({:provided_id => provided_id}).first
           server
         else
           # findではなくfirstで検索しているので、もしhost_server_provided_idで指定されるサーバが見つからなくても
@@ -232,7 +232,7 @@ class Tengine::ResourceEc2::Provider < Tengine::Resource::Provider
           self.find_virtual_server_on_duplicaion_error(provided_id) do
             self.virtual_servers.create!(
               :name                 => sprintf("%s%03d", name, idx + 1), # 1 origin
-              :address_order        => address_order,
+              :address_order        => address_order.dup,
               :description          => description,
               :provided_id          => provided_id,
               :provided_image_id    => hash.delete(:aws_image_id),

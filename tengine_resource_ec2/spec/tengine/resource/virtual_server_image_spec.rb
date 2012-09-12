@@ -33,7 +33,7 @@ describe Tengine::Resource::VirtualServerImage do
     it "同じ名前で登録されているものが存在する場合エラー" do
       expect{
         @credential1 = Tengine::Resource::VirtualServerImage.create!(valid_attributes1)
-      }.to raise_error(Mongoid::Errors::Validations, "Validation failed - Name is already taken.")
+      }.to raise_error(Mongoid::Errors::Validations, /Name is already taken/)
     end
   end
 
