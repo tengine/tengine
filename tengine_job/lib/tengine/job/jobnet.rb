@@ -34,7 +34,7 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
 
   class << self
     def by_name(name)
-      first(:conditions => {:name => name})
+      where({:name => name}).first
     end
   end
 

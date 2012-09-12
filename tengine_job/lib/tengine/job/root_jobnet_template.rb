@@ -22,9 +22,9 @@ class Tengine::Job::RootJobnetTemplate < Tengine::Job::JobnetTemplate
   def execute(options = {})
     event_sender = options.delete(:sender) || Tengine::Event.default_sender
     actual = generate
-    actual.safely(safemode(actual.class.collection)).save!
-    result = Tengine::Job::Execution.safely(
-                safemode(Tengine::Job::Execution.collection)
+    actual.with(safe: safemode(actual.class.collection)).save!
+    result = Tengine::Job::Execution.with(
+                safe: safemode(Tengine::Job::Execution.collection)
              ).create!(
                (options || {}).update(:root_jobnet_id => actual.id)
              )
@@ -45,7 +45,7 @@ class Tengine::Job::RootJobnetTemplate < Tengine::Job::JobnetTemplate
     # Tengine::Core::FindByName で定義しているクラスメソッドfind_by_nameを上書きしています
     def find_by_name(name, options = {})
       version = options[:version] || Tengine::Core::Setting.dsl_version
-      first(:conditions => {:name => name, :dsl_version => version})
+      where({:name => name, :dsl_version => version}).first
     end
   end
 end

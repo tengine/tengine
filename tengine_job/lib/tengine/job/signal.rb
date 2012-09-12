@@ -93,7 +93,7 @@ class Tengine::Job::Signal
     options ||= {}
     options[:properties] = properties
     properties.each do |key, value|
-      if value.is_a?(BSON::ObjectId)
+      if value.is_a?(Moped::BSON::ObjectId)
         properties[key] = value.to_s
       end
     end

@@ -23,8 +23,8 @@ describe Tengine::Job::DslLoader do
         tengine.should_fire(:"start.execution.job.tengine", {
             :properties=>{
               :execution_id => mock_execution.id.to_s,
-              :root_jobnet_id => an_instance_of(BSON::ObjectId),
-              :target_jobnet_id => an_instance_of(BSON::ObjectId),
+              :root_jobnet_id => an_instance_of(Moped::BSON::ObjectId),
+              :target_jobnet_id => an_instance_of(Moped::BSON::ObjectId),
             }
           })
         tengine.receive("foo")

@@ -80,9 +80,9 @@ describe 'schedule_driver' do
             :target_jobnet_id => @root.id.to_s,
           })
         end
-        Tengine::Core::Schedule.count(:conditions => {:status => Tengine::Core::Schedule::SCHEDULED}).should == 2
-        s1 = Tengine::Core::Schedule.first(:conditions => {:event_type_name => "alert.execution.job.tengine"})
-        s2 = Tengine::Core::Schedule.first(:conditions => {:event_type_name => "stop.execution.job.tengine"})
+        Tengine::Core::Schedule.where({:status => Tengine::Core::Schedule::SCHEDULED}).count.should == 2
+        s1 = Tengine::Core::Schedule.where({:event_type_name => "alert.execution.job.tengine"}).first
+        s2 = Tengine::Core::Schedule.where({:event_type_name => "stop.execution.job.tengine"}).first
         [s1, s2].each do |i|
           i.source_name.should == @execution.name_as_resource
           i.scheduled_at.should >= Time.now
@@ -118,9 +118,9 @@ describe 'schedule_driver' do
                 :target_jobnet_id => @root.id.to_s,
               }}})
         end
-        Tengine::Core::Schedule.count(:conditions => {:status => Tengine::Core::Schedule::SCHEDULED}).should == 2
-        s1 = Tengine::Core::Schedule.first(:conditions => {:event_type_name => "alert.execution.job.tengine"})
-        s2 = Tengine::Core::Schedule.first(:conditions => {:event_type_name => "stop.execution.job.tengine"})
+        Tengine::Core::Schedule.where({:status => Tengine::Core::Schedule::SCHEDULED}).count.should == 2
+        s1 = Tengine::Core::Schedule.where({:event_type_name => "alert.execution.job.tengine"}).first
+        s2 = Tengine::Core::Schedule.where({:event_type_name => "stop.execution.job.tengine"}).first
         [s1, s2].each do |i|
           i.source_name.should == @execution.name_as_resource
           i.scheduled_at.should >= Time.now

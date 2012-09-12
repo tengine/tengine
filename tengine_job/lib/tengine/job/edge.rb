@@ -16,8 +16,8 @@ class Tengine::Job::Edge
   embedded_in :owner, :class_name => "Tengine::Job::Jobnet", :inverse_of => :edges
 
   field :phase_cd     , :type => Integer, :default => 0 # ステータス。とりうる値は後述を参照してください。詳しくはtengine_jobパッケージ設計書の「edge状態遷移」を参照してください。
-  field :origin_id     , :type => BSON::ObjectId # 辺の遷移元となるvertexのid
-  field :destination_id, :type => BSON::ObjectId # 辺の遷移先となるvertexのid
+  field :origin_id     , :type => Moped::BSON::ObjectId # 辺の遷移元となるvertexのid
+  field :destination_id, :type => Moped::BSON::ObjectId # 辺の遷移先となるvertexのid
 
   validates :origin_id, :presence => true
   validates :destination_id, :presence => true

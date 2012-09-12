@@ -51,7 +51,7 @@ describe Tengine::Job::Category do
           expect{
             Tengine::Job::Category.update_for(@base_dir)
           }.to change(Tengine::Job::Category, :count).by(5)
-          root = Tengine::Job::Category.first(:conditions => {:parent_id => nil})
+          root = Tengine::Job::Category.where({:parent_id => nil}).first
           root.name.should == "root"
           root.caption.should == "ルート"
           root.children.count.should == 1
@@ -96,7 +96,7 @@ describe Tengine::Job::Category do
         expect{
           Tengine::Job::Category.update_for(@base_dir)
         }.to change(Tengine::Job::Category, :count).by(1)
-        root = Tengine::Job::Category.first(:conditions => {:parent_id => nil})
+        root = Tengine::Job::Category.where({:parent_id => nil}).first
         foo = root.children[0]
         foo.children[2].tap do |bar3|
           bar3.name.should == "bar3"
@@ -121,7 +121,7 @@ describe Tengine::Job::Category do
         expect{
           Tengine::Job.notify(mock_sender, :after_load_dsl)
         }.to change(Tengine::Job::Category, :count).by(5)
-        root = Tengine::Job::Category.first(:conditions => {:parent_id => nil})
+        root = Tengine::Job::Category.where({:parent_id => nil}).first
         root.name.should == "root"
         root.caption.should == "ルート"
         root.children.count.should == 1

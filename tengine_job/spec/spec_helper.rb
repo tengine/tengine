@@ -12,7 +12,8 @@ require 'factory_girl'
 require 'tengine_job'
 require 'mongoid'
 Mongoid.load!(File.expand_path('mongoid.yml', File.dirname(__FILE__)))
-Mongoid.database.connection.drop_database(Mongoid.database.name)
+Mongoid.default_session.drop
+
 
 gem_names = ["tengine_core", "tengine_resource", "tengine_resource_ec2"]
 gem_names.each{|f| require f}
@@ -48,7 +49,7 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:all) do
-    unless Tengine::Core::Setting.first(:conditions => {:name => "dsl_version"})
+    unless Tengine::Core::Setting.where({:name => "dsl_version"}).first
       Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1234567890")
     end
   end

@@ -18,7 +18,7 @@ class Tengine::Job::RootJobnetActual < Tengine::Job::JobnetActual
     result = Tengine::Job::Execution.new(options)
     result.target_actual_ids ||= []
     result.target_actual_ids += args.flatten
-    result.safely(safemode(Tengine::Job::Execution.collection)).save!
+    result.with(safe: safemode(Tengine::Job::Execution.collection)).save!
     sender.wait_for_connection do
       sender.fire(:'start.execution.job.tengine', :properties => {
           :execution_id => result.id.to_s
