@@ -118,7 +118,6 @@ class Tengine::Core::HeartbeatWatcher
 
     Mongoid.configure do |c|
       c.send :load_configuration, @config[:db]
-      c.persist_in_safe_mode = true
     end
 
     require 'amqp'

@@ -173,7 +173,6 @@ run do
   require 'tengine/core/mongoid_fix'
   Mongoid.configure do |c|
     c.send :load_configuration, config[:db]
-    c.persist_in_safe_mode = true
   end
   require 'amqp'
   Mongoid.logger = AMQP::Session.logger = Tengine.logger
