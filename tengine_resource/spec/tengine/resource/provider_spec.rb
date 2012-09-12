@@ -28,8 +28,8 @@ describe Tengine::Resource::Provider do
 
     it "重複でないMongo::OperationFailureはそのままraiseされます" do
       expect{
-        subject.find_virtual_server_on_duplicaion_error(:foo){ raise Mongo::OperationFailure, "bar" }
-      }.to raise_error(Mongo::OperationFailure, "bar")
+        subject.find_virtual_server_on_duplicaion_error(:foo){ raise Moped::Errors::OperationFailure.new('', 'err' => "bar") }
+      }.to raise_error(Moped::Errors::OperationFailure, /bar/)
     end
 
     it "重複でないMongoid::Errors::Validationsはそのままraiseされます" do
@@ -46,7 +46,7 @@ describe Tengine::Resource::Provider do
 
       context "データが見つかる場合" do
         it "重複のMongo::OperationFailureの場合、引数からvirtual_serversを検索します" do
-          result = subject.find_virtual_server_on_duplicaion_error(@virtual_server_provided_id){ raise Mongo::OperationFailure, "E11000 duplicate key error" }
+          result = subject.find_virtual_server_on_duplicaion_error(@virtual_server_provided_id){ raise Moped::Errors::OperationFailure.new('', 'err' => "E11000 duplicate key error") }
           result.id.should == @virtual_server.id
         end
 
@@ -61,7 +61,7 @@ describe Tengine::Resource::Provider do
       context "データが見つからない場合" do
         it "重複のMongo::OperationFailureの場合、引数からvirtual_serversを検索します" do
           expect{
-            subject.find_virtual_server_on_duplicaion_error("invalid_id"){ raise Mongo::OperationFailure, "E11000 duplicate key error" }
+            subject.find_virtual_server_on_duplicaion_error("invalid_id"){ raise Moped::Errors::OperationFailure.new('', 'err' => "E11000 duplicate key error") }
           }.to raise_error
         end
 

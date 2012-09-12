@@ -79,8 +79,9 @@ class Tengine::Resource::Watcher
     Mongoid.observers = Tengine::Resource::Observer
     Mongoid.instantiate_observers
 
-    Mongoid.config.from_hash(config[:db])
-    Mongoid.config.option(:persist_in_safe_mode, :default => true)
+    Mongoid.configure do |c|
+      c.send :load_configuration, @config[:db]
+    end
 
     EM.run do
       sender.wait_for_connection do
@@ -128,8 +129,8 @@ class Tengine::Resource::Watcher
       return result
     rescue NameError => e
       raise e unless e.message =~ /uninitialized constant/
-      documents = Mongoid.database.collections.
-        detect{|c| c.name == Tengine::Resource::Provider.collection_name}.find
+      documents = Mongoid.default_session.collections.
+        detect{|c| c.name.to_s == Tengine::Resource::Provider.collection_name.to_s}.find
       types = documents.map{|d| d['_type']}
       undefined_type_names = types.select do |t|
         begin

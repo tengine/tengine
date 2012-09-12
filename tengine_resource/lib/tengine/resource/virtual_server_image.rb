@@ -15,18 +15,18 @@ class Tengine::Resource::VirtualServerImage
     :class_name => "Tengine::Resource::Provider"
 
   validates :name, :presence => true, :uniqueness => true, :format => BASE_NAME.options
-  index :name, :unique => true
+  index({ name: 1 }, { unique: true })
 
-  index([ [:description, Mongo::ASCENDING], ])
-  index([ [:description, Mongo::DESCENDING], ])
-  index([ [:provided_description, Mongo::ASCENDING], ])
-  index([ [:provided_description, Mongo::DESCENDING], ])
-  index([ [:provided_id, Mongo::ASCENDING], ])
-  index([ [:provided_id, Mongo::DESCENDING], ])
+  index description: 1
+  index description: -1
+  index provided_description: 1
+  index provided_description: -1
+  index provided_id: 1
+  index provided_id: -1
 
   class << self
     def find_or_create_by_name!(attrs = {}, &block)
-      result = self.first(:conditions => {:name => attrs[:name]})
+      result = self.where({:name => attrs[:name]}).first
       result ||= self.create!(attrs)
       result
     end

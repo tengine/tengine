@@ -9,7 +9,7 @@ class Tengine::Resource::VirtualServer < Tengine::Resource::Server
     :class_name => "Tengine::Resource::Provider"
 
   validates_uniqueness_of :provided_id, :scope => :provider_id, :unless => :ignore_provided_id_uniqueness
-  index [[:provided_id,  Mongo::ASCENDING], [:provider_id,  Mongo::ASCENDING], ], :unique => true
+  index({ provided_id: 1, provider_id: 1 }, { unique: true })
 
   ## launch_modeに関する実装
 

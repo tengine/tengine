@@ -33,12 +33,12 @@ class Tengine::Resource::Credential
   validates :name, :presence => true, :uniqueness => true, :format => BASE_NAME.options
   validates :auth_type_cd, :presence => true
 
-  index :name, :unique => true
+  index({ name: 1 }, { unique: true })
 
-  index([ [:_id, Mongo::ASCENDING], [:auth_type_cd, Mongo::ASCENDING], ])
-  index([ [:_id, Mongo::ASCENDING], [:auth_type_cd, Mongo::DESCENDING], ])
-  index([ [:_id, Mongo::ASCENDING], [:description, Mongo::ASCENDING], ])
-  index([ [:_id, Mongo::ASCENDING], [:description, Mongo::DESCENDING], ])
+  index _id: 1, auth_type_cd: 1
+  index _id: 1, auth_type_cd: -1
+  index _id: 1, description: 1
+  index _id: 1, description: -1
 
   before_validation :prepare_auth_values_default # auth_valuesの各値がnilならデフォルト値を設定します
   validate{|c| c.validate_auth_values}
@@ -146,7 +146,7 @@ class Tengine::Resource::Credential
 
   class << self
     def find_or_create_by_name!(attrs = {}, &block)
-      result = self.first(:conditions => {:name => attrs[:name]})
+      result = self.where({:name => attrs[:name]}).first
       result ||= self.create!(attrs)
       result
     end

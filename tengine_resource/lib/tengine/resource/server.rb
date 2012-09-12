@@ -24,9 +24,9 @@ class Tengine::Resource::Server
   validates :name, :presence => true, :format => BASE_NAME.options
 
   validates :name, :uniqueness => {:scope => :provider_id}, :if => :need_to_validate_name_uniqueness?
-  index [[:name,  Mongo::ASCENDING], [:provider_id,  Mongo::ASCENDING], ], :unique => true
+  index({ name: 1, provider_id: 1 }, { unique: 1 })
 
-  index([ [:status,  Mongo::ASCENDING], [:_type,  Mongo::ASCENDING], ])
+  index status: 1,  _type: 1
 
   has_many :guest_servers, :class_name => "Tengine::Resource::VirtualServer", :inverse_of => :host_server
 
@@ -34,7 +34,7 @@ class Tengine::Resource::Server
 
   class << self
     def find_or_create_by_name!(attrs = {}, &block)
-      result = Tengine::Resource::Server.first(:conditions => {:name => attrs[:name]})
+      result = Tengine::Resource::Server.where({:name => attrs[:name]}).first
       result ||= self.create!(attrs)
       result
     end

@@ -8,7 +8,7 @@ class Tengine::Resource::PhysicalServer < Tengine::Resource::Server
   class << self
     def by_provided_id(provided_id)
       return nil if provided_id.blank?
-      first(:conditions => {:provided_id => provided_id})
+      where({:provided_id => provided_id}).first
     end
 
   end

@@ -15,7 +15,7 @@ class Tengine::Resource::Provider
   field :properties,       :type => Hash,    :default => {}
 
   validates :name, :presence => true, :uniqueness => true, :format => BASE_NAME.options
-  index :name, :unique => true
+  index({ name: 1 }, { unique: true })
 
   with_options(:inverse_of => :provider, :dependent => :destroy) do |c|
     c.has_many :physical_servers       , :class_name => "Tengine::Resource::PhysicalServer"
@@ -41,20 +41,20 @@ class Tengine::Resource::Provider
   def find_virtual_server_on_duplicaion_error(virtual_server_provided_id)
     begin
       yield
-    rescue Mongo::OperationFailure => e
+    rescue Moped::Errors::OperationFailure => e
       raise e unless e.message =~ /E11000 duplicate key error/
-      self.virtual_servers.find(:first, :conditions => {:provided_id => virtual_server_provided_id}) or
+      self.virtual_servers.where({:provided_id => virtual_server_provided_id}).first or
         raise "VirtualServer not found for #{virtual_server_provided_id}"
     rescue Mongoid::Errors::Validations => e
       raise e unless e.document.errors[:provided_id].any?{|s| s =~ /taken/}
-      self.virtual_servers.find(:first, :conditions => {:provided_id => virtual_server_provided_id}) or
+      self.virtual_servers.where({:provided_id => virtual_server_provided_id}).first or
         raise "VirtualServer not found for #{virtual_server_provided_id}"
     end
   end
 
   class << self
     def find_or_create_by_name!(attrs)
-      result = self.first(:conditions => {:name => attrs[:name]})
+      result = self.where({:name => attrs[:name]}).first
       result ||= self.create!(attrs)
       result
     end

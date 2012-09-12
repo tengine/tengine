@@ -44,7 +44,7 @@ describe Tengine::Resource::Credential do
     it "同じ名前で登録されているものが存在する場合エラー" do
       expect{
         @credential1 = Tengine::Resource::Credential.create!(valid_attributes1)
-      }.to raise_error(Mongoid::Errors::Validations, "Validation failed - Name is already taken.")
+      }.to raise_error(Mongoid::Errors::Validations, /Name is already taken/)
     end
   end
 
@@ -73,7 +73,7 @@ describe Tengine::Resource::Credential do
       it "name で検索できるか" do
         found_credential = nil
         lambda{
-          found_credential = Tengine::Resource::Credential.first(:conditions => {:name => "ssh-private_key"})
+          found_credential = Tengine::Resource::Credential.where({:name => "ssh-private_key"}).first
         }.should_not raise_error
         found_credential.should_not be_nil
         found_credential.id.should == @credential.id

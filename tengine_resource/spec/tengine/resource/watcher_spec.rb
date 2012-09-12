@@ -37,7 +37,7 @@ describe Tengine::Resource::Watcher do
         before do
           @provider_class_name = "Tengine::ResourceEc2::Provider"
           Tengine::Resource::Provider.collection.tap do |c|
-            c.insert({:_id => BSON::ObjectId.new, :_type => @provider_class_name, :name => "tengine@ec2-tokyo",
+            c.insert({:_id => Moped::BSON::ObjectId.new, :_type => @provider_class_name, :name => "tengine@ec2-tokyo",
                 :connection_settings => {"access_key_file" => "~/.ec2/access_key", "secret_access_key_file" => "~/.ec2/secret_access_key"}})
           end
         end
