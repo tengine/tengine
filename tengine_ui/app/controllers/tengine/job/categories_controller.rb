@@ -2,7 +2,7 @@ class Tengine::Job::CategoriesController < ApplicationController
   # GET /tengine/job/categories
   # GET /tengine/job/categories.json
   def index
-    @categories = Tengine::Job::Category.all(:sort => [[:_id]]).page(params[:page])
+    @categories = Tengine::Job::Category.asc(:_id).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

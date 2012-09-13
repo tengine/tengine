@@ -2,7 +2,7 @@ class Tengine::Job::ExecutionsController < ApplicationController
   # GET /tengine/job/executions
   # GET /tengine/job/executions.json
   def index
-    @executions = Tengine::Job::Execution.all(:sort => [[:_id]]).page(params[:page])
+    @executions = Tengine::Job::Execution.asc(:_id).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

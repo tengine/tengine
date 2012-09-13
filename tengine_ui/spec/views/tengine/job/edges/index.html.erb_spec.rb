@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe "tengine/job/edges/index.html.erb" do
   before(:each) do
-    @id1 = BSON::ObjectId.new
-    @id2 = BSON::ObjectId.new
+    @id1 = Moped::BSON::ObjectId.new
+    @id2 = Moped::BSON::ObjectId.new
     mock_pagination(assign(:edges, [
       stub_model(Tengine::Job::Edge,
         :phase_cd => 1,

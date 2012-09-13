@@ -4,7 +4,7 @@ class Tengine::Resource::ProvidersController < ApplicationController
   # GET /tengine/resource/providers
   # GET /tengine/resource/providers.json
   def index
-    @providers = Tengine::Resource::Provider.all(:sort => [[:_id]]).page(params[:page])
+    @providers = Tengine::Resource::Provider.asc(:_id).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

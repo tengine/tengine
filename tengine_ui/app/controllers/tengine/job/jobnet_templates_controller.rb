@@ -2,7 +2,7 @@ class Tengine::Job::JobnetTemplatesController < ApplicationController
   # GET /tengine/job/jobnet_templates
   # GET /tengine/job/jobnet_templates.json
   def index
-    @jobnet_templates = Tengine::Job::JobnetTemplate.all(:sort => [[:_id]]).page(params[:page])
+    @jobnet_templates = Tengine::Job::JobnetTemplate.asc(:_id).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

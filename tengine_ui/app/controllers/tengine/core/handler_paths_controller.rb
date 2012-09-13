@@ -2,7 +2,7 @@ class Tengine::Core::HandlerPathsController < ApplicationController
   # GET /tengine/core/handler_paths
   # GET /tengine/core/handler_paths.json
   def index
-    @handler_paths = Tengine::Core::HandlerPath.all(:sort => [[:_id]]).page(params[:page])
+    @handler_paths = Tengine::Core::HandlerPath.asc(:_id).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

@@ -6,7 +6,7 @@ describe "tengine/resource/credentials/index.html.erb" do
   before(:each) do
     assign(:credentials, mock_pagination([
       @cr1 = stub_model(Tengine::Resource::Credential,
-        :id=>BSON::ObjectId("4eb6a247df46903c8600007b"),
+        :id=>Moped::BSON::ObjectId("4eb6a247df46903c8600007b"),
         :name => "ssh_password",
         :description => "Description",
         :auth_type_cd => "01",
@@ -16,7 +16,7 @@ describe "tengine/resource/credentials/index.html.erb" do
         :updated_at => Time.now
       ),
       @cr2 = stub_model(Tengine::Resource::Credential,
-        :id=>BSON::ObjectId('4eb79ed8be074a4282000002'),
+        :id=>Moped::BSON::ObjectId('4eb79ed8be074a4282000002'),
         :name => "ssh_public_key",
         :description => "Description",
         :auth_type_cd => "02",

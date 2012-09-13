@@ -14,7 +14,9 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
       request.query_parameters[:sort] = default_sort
       order = default_sort.to_a
     end
-    @root_jobnet_actuals = @root_jobnet_actuals.order_by(order)
+    order.each do |n, v|
+      @root_jobnet_actuals = @root_jobnet_actuals.send(v, n)
+    end
 
     @finder = Tengine::Job::RootJobnetActual::Finder.new(params[:finder])
     if @finder.valid?
@@ -23,7 +25,7 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
 
     @category = nil
     if category_id = params[:category]
-      @category = Tengine::Job::Category.first(:conditions => {:id => category_id})
+      @category = Tengine::Job::Category.where({:id => category_id}).first
       categories = category_childrens(@category).collect(&:id)
       unless categories.blank?
         @root_jobnet_actuals = \
@@ -32,7 +34,7 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     end
 
     @root_jobnet_actuals = @root_jobnet_actuals.page(params[:page])
-    @root_categories = Tengine::Job::Category.all(:conditions => {:parent_id => nil})
+    @root_categories = Tengine::Job::Category.where({:parent_id => nil})
 
     respond_to do |format|
       format.html { # index.html.erb

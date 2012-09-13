@@ -20,7 +20,7 @@ describe "tengine/job/root_jobnet_templates/show.html.erb" do
 
       @root_jobnet_template = assign(:root_jobnet_template,
         stub_model(Tengine::Job::RootJobnetTemplate,
-        :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+        :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
         :name => "Name",
         :server_name => "Server Name",
         :credential_name => "Credential Name",

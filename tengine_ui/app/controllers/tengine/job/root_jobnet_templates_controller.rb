@@ -26,7 +26,9 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
       request.query_parameters[:sort] = default_sort
       order = default_sort.to_a
     end
-    @root_jobnet_templates = @root_jobnet_templates.order_by(order)
+    order.each do |n, v|
+      @root_jobnet_templates = @root_jobnet_templates.send(v, n)
+    end
 
     if search_param = params[:finder]
       @finder = ::OpenStruct.new search_param
@@ -34,7 +36,7 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
       [:id, :name, :description].each do |field|
         next if (value = @finder.send(field)).blank?
         if field.to_s == "id"
-          finder[:_id] = value
+          finder[:_id] = Moped::BSON::ObjectId(value)
         else
           value = /#{Regexp.escape(value)}/
           finder[field] = value
@@ -45,7 +47,7 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
 
     @category = nil
     if category_id = params[:category]
-      @category = Tengine::Job::Category.first(:conditions => {:id => category_id})
+      @category = Tengine::Job::Category.where({:id => category_id}).first
       categories = category_childrens(@category).collect(&:id)
       unless categories.blank?
         @root_jobnet_templates = \
@@ -54,7 +56,7 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
     end
 
     @root_jobnet_templates = @root_jobnet_templates.page(params[:page])
-    @root_categories = Tengine::Job::Category.all(:conditions => {:parent_id => nil})
+    @root_categories = Tengine::Job::Category.where({:parent_id => nil})
 
     respond_to do |format|
       format.html # index.html.erb

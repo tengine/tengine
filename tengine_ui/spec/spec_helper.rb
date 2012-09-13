@@ -43,7 +43,7 @@ RSpec.configure do |config|
   # config.use_transactional_fixtures = true
 
   config.before(:all) do
-    unless Tengine::Core::Setting.first(:conditions => {:name => "dsl_version"})
+    unless Tengine::Core::Setting.where({:name => "dsl_version"}).first
       Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1234567890")
     end
   end

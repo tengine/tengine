@@ -2,7 +2,7 @@ class Tengine::Core::SettingsController < ApplicationController
   # GET /tengine/core/settings
   # GET /tengine/core/settings.json
   def index
-    @settings = Tengine::Core::Setting.all(:sort => [[:_id]]).page(params[:page])
+    @settings = Tengine::Core::Setting.asc(:_id).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

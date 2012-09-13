@@ -2,7 +2,7 @@ class Tengine::Job::ExpansionsController < ApplicationController
   # GET /tengine/job/expansions
   # GET /tengine/job/expansions.json
   def index
-    @expansions = Tengine::Job::Expansion.all(:sort => [[:_id]]).page(params[:page])
+    @expansions = Tengine::Job::Expansion.asc(:_id).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

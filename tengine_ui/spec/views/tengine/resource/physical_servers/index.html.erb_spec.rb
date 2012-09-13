@@ -8,7 +8,7 @@ describe "tengine/resource/physical_servers/index.html.erb" do
     before(:each) do
       Tengine::Resource::PhysicalServer.delete_all
       @ps1 = stub_model(Tengine::Resource::PhysicalServer,
-        :id => BSON::ObjectId("4e855633c3406b3a9f000001"),
+        :id => Moped::BSON::ObjectId("4e855633c3406b3a9f000001"),
         :name => "physical1",
         :description  => "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         :status => "offline",
@@ -18,7 +18,7 @@ describe "tengine/resource/physical_servers/index.html.erb" do
         :provided_id => "abcde"
       )
       @ps2 = stub_model(Tengine::Resource::PhysicalServer,
-        :id => BSON::ObjectId("4ec7e021df46900a35000003"),
+        :id => Moped::BSON::ObjectId("4ec7e021df46900a35000003"),
         :name => "physical2",
         :description  => "aaaaaaaaaaaaaaaaaaaaaaaaaaab",
         :status => "offline",
@@ -28,7 +28,7 @@ describe "tengine/resource/physical_servers/index.html.erb" do
         :provided_id => "abcde"
       )
       @ps3 = stub_model(Tengine::Resource::PhysicalServer,
-        :id => BSON::ObjectId("4ec7e049df46900a35000005"),
+        :id => Moped::BSON::ObjectId("4ec7e049df46900a35000005"),
         :name => "physical3",
         :description  => "aaaaaaaaaaaaaaaaaaaaaaaaaaac",
         :status => "online",
@@ -169,7 +169,7 @@ describe "tengine/resource/physical_servers/index.html.erb" do
     before(:each) do
       assign(:physical_servers, Kaminari.paginate_array([
         stub_model(Tengine::Resource::PhysicalServer,
-          :id => BSON::ObjectId("4e855633c3406b3a9f000011"),
+          :id => Moped::BSON::ObjectId("4e855633c3406b3a9f000011"),
           :name => "physical3",
           :provided_id=>"aaaaaa3",
           :description => "sasisuseso",
@@ -179,7 +179,7 @@ describe "tengine/resource/physical_servers/index.html.erb" do
           :properties => {:aa => "bb", :cc=> "dd"},
         ),
         stub_model(Tengine::Resource::PhysicalServer,
-          :id => BSON::ObjectId("4e855633c3406b3a9f000022"),
+          :id => Moped::BSON::ObjectId("4e855633c3406b3a9f000022"),
           :name => "physical4",
           :provided_id=>"aaaaaa3",
           :description => "aiueo",
@@ -189,7 +189,7 @@ describe "tengine/resource/physical_servers/index.html.erb" do
           :properties => {:aa => "bb", :cc=> "dd"},
         ),
         stub_model(Tengine::Resource::PhysicalServer,
-          :id => BSON::ObjectId("4e855633c3406b3a9f000032"),
+          :id => Moped::BSON::ObjectId("4e855633c3406b3a9f000032"),
           :name => "physical5",
           :provided_id=>"aaaaaa5",
           :description => "aiueo",

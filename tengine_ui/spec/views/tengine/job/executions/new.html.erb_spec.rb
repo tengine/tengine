@@ -22,7 +22,7 @@ end
       ).as_new_record)
       Tengine::Job::RootJobnetTemplate.delete_all
       @test = stub_model(Tengine::Job::RootJobnetTemplate,
-        :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+        :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
         :name => "Name",
         :description => "Description",
         :script => "Script",
@@ -89,14 +89,14 @@ end
       Tengine::Job::RootJobnetTemplate.delete_all
       Tengine::Job::RootJobnetActual.delete_all
       @test_template = stub_model(Tengine::Job::RootJobnetTemplate,
-        :id => BSON::ObjectId("4e955633c3406b3a9f000005"),
+        :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000005"),
         :name => "Name",
         :description => "Description",
         :script => "Script",
         :dsl_filepath => "Dsl Filepath",
       )
       @test = stub_model(Tengine::Job::RootJobnetActual,
-        :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+        :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
         :name => "Name",
         :description => "Description",
         :script => "Script",

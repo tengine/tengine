@@ -116,10 +116,11 @@ class Tengine::Test::Script
   end
 
   def auto_increment
-    self._id = Counter.collection.find_and_modify(
-      query: { "key" => self.class.name },
-      update: { "$inc" => { "sequence" => 1 } },
-      new: true, upsert: true
+    self._id = Counter.
+      where(key: self.class.name).
+      find_and_modify(
+        { "$inc" => { sequence: 1 } },
+        { new: true, upsert: true }
     )["sequence"]
   end
 end

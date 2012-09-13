@@ -2,7 +2,7 @@ class Tengine::Core::SessionsController < ApplicationController
   # GET /tengine/core/sessions
   # GET /tengine/core/sessions.json
   def index
-    @sessions = Tengine::Core::Session.all(:sort => [[:_id]]).page(params[:page])
+    @sessions = Tengine::Core::Session.asc(:_id).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

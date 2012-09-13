@@ -2,7 +2,7 @@ class Tengine::Job::VerticesController < ApplicationController
   # GET /tengine/job/vertices
   # GET /tengine/job/vertices.json
   def index
-    @vertices = Tengine::Job::Vertex.all(:sort => [[:_id]]).page(params[:page])
+    @vertices = Tengine::Job::Vertex.asc(:_id).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

@@ -9,7 +9,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
     category = stub_model(Tengine::Job::Category, :to_s => "category")
     templates = [
       stub_model(Tengine::Job::RootJobnetTemplate,
-        :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+        :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
         :name => "Name",
         :server_name => "Server Name",
         :credential_name => "Credential Name",
@@ -25,7 +25,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
         :dsl_version => "Dsl Version"
       ),
       stub_model(Tengine::Job::RootJobnetTemplate,
-        :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+        :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
         :name => "Name",
         :server_name => "Server Name",
         :credential_name => "Credential Name",
@@ -45,7 +45,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
     children = []
     @foo = stub_model(Tengine::Job::Category,
-      :id => BSON::ObjectId("4e855633c3406b3a9f000001"),
+      :id => Moped::BSON::ObjectId("4e855633c3406b3a9f000001"),
       :dsl_verion => 0,
       :name => "foo",
       :caption => "ふー",
@@ -53,7 +53,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       :children => children
     )
     @baz = stub_model(Tengine::Job::Category,
-      :id => BSON::ObjectId("4e855633c3406b3a9f000002"),
+      :id => Moped::BSON::ObjectId("4e855633c3406b3a9f000002"),
       :dsl_verion => 0,
       :name => "baz",
       :caption => "ばず",
@@ -70,7 +70,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
   it "renders a list of tengine_job_root_jobnet_templates" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => BSON::ObjectId("4e955633c3406b3a9f000001").to_s, :count => 2
+    assert_select "tr>td", :text => Moped::BSON::ObjectId("4e955633c3406b3a9f000001").to_s, :count => 2
     assert_select "tr>td", :text => "Name".to_s, :count => 2
     assert_select "tr>td", :text => "Description".to_s, :count => 2
   end
@@ -332,7 +332,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       category = stub_model(Tengine::Job::Category, :to_s => "category")
       templates = assign(:root_jobnet_templates, Kaminari.paginate_array([
         stub_model(Tengine::Job::RootJobnetTemplate,
-          :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+          :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
           :name => "Name",
           :server_name => "Server Name",
           :credential_name => "Credential Name",
@@ -348,7 +348,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
           :dsl_version => "Dsl Version"
         ),
         stub_model(Tengine::Job::RootJobnetTemplate,
-          :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+          :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
           :name => "Name",
           :server_name => "Server Name",
           :credential_name => "Credential Name",
@@ -364,7 +364,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
           :dsl_version => "Dsl Version"
         ),
         stub_model(Tengine::Job::RootJobnetTemplate,
-          :id => BSON::ObjectId("4e955633c3406b3a9f000001"),
+          :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
           :name => "Name",
           :server_name => "Server Name",
           :credential_name => "Credential Name",
@@ -383,7 +383,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
       children = []
       @foo = stub_model(Tengine::Job::Category,
-        :id => BSON::ObjectId("4e855633c3406b3a9f000001"),
+        :id => Moped::BSON::ObjectId("4e855633c3406b3a9f000001"),
         :dsl_verion => 0,
         :name => "foo",
         :caption => "ふー",
@@ -391,7 +391,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
         :children => children
       )
       @baz = stub_model(Tengine::Job::Category,
-        :id => BSON::ObjectId("4e855633c3406b3a9f000002"),
+        :id => Moped::BSON::ObjectId("4e855633c3406b3a9f000002"),
         :dsl_verion => 0,
         :name => "baz",
         :caption => "ばず",

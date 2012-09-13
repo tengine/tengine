@@ -2,7 +2,7 @@ class Tengine::Resource::ServersController < ApplicationController
   # GET /tengine/resource/servers
   # GET /tengine/resource/servers.json
   def index
-    @servers = Tengine::Resource::Server.all(:sort => [[:_id]]).page(params[:page])
+    @servers = Tengine::Resource::Server.asc(:_id).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

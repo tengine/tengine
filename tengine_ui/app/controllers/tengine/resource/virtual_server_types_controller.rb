@@ -2,7 +2,7 @@ class Tengine::Resource::VirtualServerTypesController < ApplicationController
   # GET /tengine/resource/virtual_server_types
   # GET /tengine/resource/virtual_server_types.json
   def index
-    @virtual_server_types = Tengine::Resource::VirtualServerType.all(:sort => [[:_id]]).page(params[:page])
+    @virtual_server_types = Tengine::Resource::VirtualServerType.asc(:_id).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

@@ -4,7 +4,7 @@ class Tengine::Resource::CredentialsController < ApplicationController
   # GET /tengine/resource/credentials
   # GET /tengine/resource/credentials.json
   def index
-    @credentials = Tengine::Resource::Credential.all(:sort => [[:_id]]).page(params[:page])
+    @credentials = Tengine::Resource::Credential.page(params[:page])
     @check_status = {
       "auth_type_cd_01" => "checked", 
       "auth_type_cd_02" => "checked"
@@ -30,7 +30,9 @@ class Tengine::Resource::CredentialsController < ApplicationController
       request.query_parameters[:sort] = default_sort
       order = default_sort.to_a
     end
-    @credentials = @credentials.order_by(order)
+    order.each do |n, v|
+      @credentials = @credentials.send(v, n)
+    end
 
     if search_param = params[:finder]
       @finder = ::OpenStruct.new search_param

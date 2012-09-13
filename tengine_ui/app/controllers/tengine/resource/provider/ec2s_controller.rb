@@ -4,7 +4,7 @@ class Tengine::Resource::Provider::Ec2sController < ApplicationController
   # GET /tengine/resource/provider/ec2s
   # GET /tengine/resource/provider/ec2s.json
   def index
-    @ec2s = Tengine::ResourceEc2::Provider.all(:sort => [[:_id]]).page(params[:page])
+    @ec2s = Tengine::ResourceEc2::Provider.asc(:_id).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
