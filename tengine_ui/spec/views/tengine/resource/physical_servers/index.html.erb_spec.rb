@@ -92,9 +92,9 @@ describe "tengine/resource/physical_servers/index.html.erb" do
     end
 
     it "propertiesが空のときYamlViewが表示されていないこと" do
-      @ps1.properties = ""
-      @ps2.properties = ""
-      @ps3.properties = ""
+      @ps1.properties = {}
+      @ps2.properties = {}
+      @ps3.properties = {}
       render
 
       rendered.should_not have_xpath("//div[@class='YamlView'][@id='yamlProperties']")

@@ -23,9 +23,9 @@ describe "<%= class_name.underscore.pluralize %>/show.html.<%= options[:template
 <% else -%>
 <%    case attribute.type -%>
 <%    when :array then -%>
-    rendered.should match(/#{Regexp.escape(CGI.escapeHTML(<%= attribute.default.join(",").inspect %>))}/)
+    rendered.should match(/#{Regexp.escape(ERB::Util.html_escape(<%= attribute.default.join(",").inspect %>))}/)
 <%    when :hash then -%>
-    rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump(<%= attribute.default %>)))}/)
+    rendered.should match(/#{Regexp.escape(ERB::Util.html_escape(YAML.dump(<%= attribute.default %>)))}/)
 <%    else -%>
     rendered.should match(/<%= eval(value_for(attribute)) %>/)
 <%    end -%>

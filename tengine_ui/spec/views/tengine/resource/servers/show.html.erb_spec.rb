@@ -21,7 +21,7 @@ describe "tengine/resource/servers/show.html.erb" do
     rendered.should match(/Provided Name/)
     rendered.should match(/Description/)
     rendered.should match(/Status/)
-    rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump({"a"=>"1", "b"=>"2"})))}/)
-    rendered.should match(/#{Regexp.escape(CGI.escapeHTML(YAML.dump({"a"=>"1", "b"=>"2"})))}/)
+    rendered.should match(/#{Regexp.escape(ERB::Util.html_escape(YAML.dump({"a"=>"1", "b"=>"2"})))}/)
+    rendered.should match(/#{Regexp.escape(ERB::Util.html_escape(YAML.dump({"a"=>"1", "b"=>"2"})))}/)
   end
 end

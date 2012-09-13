@@ -19,7 +19,7 @@ describe "tengine/job/executions/show.html.erb" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(//)
-    rendered.should match(/#{Regexp.escape(CGI.escapeHTML("abc,123"))}/)
+    rendered.should match(/#{Regexp.escape(ERB::Util.html_escape("abc,123"))}/)
     rendered.should match(/1/)
     rendered.should match(/Preparation Command/)
     rendered.should match(/1/)

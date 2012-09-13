@@ -110,7 +110,7 @@ describe "tengine/resource/virtual_servers/index.html.erb" do
     assert_select "tr>td>pre",
       :text => "eth0: 192.168.2.1\neth1: 10.10.10.1\n", :count => 2
     assert_select "tr>td>div>div>pre",
-      :text => "d: '1'\nb: '2'\n", :count => 2
+      :text => ERB::Util.html_escape("d: '1'\nb: '2'\n"), :count => 2
   end
 
   it "descriptionがない場合説明のセルに何も表示されないこと" do

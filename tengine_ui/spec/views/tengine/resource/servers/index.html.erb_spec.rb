@@ -32,7 +32,7 @@ describe "tengine/resource/servers/index.html.erb" do
     assert_select "tr>td", :text => "Provided Name".to_s, :count => 2
     assert_select "tr>td", :text => "Description".to_s, :count => 2
     assert_select "tr>td", :text => "Status".to_s, :count => 2
-    assert_select "tr>td>pre", :text => CGI.escapeHTML(YAML.dump({"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"})), :count => 2
-    assert_select "tr>td>pre", :text => CGI.escapeHTML(YAML.dump({"a"=>"1", "b"=>"2"})), :count => 2
+    assert_select "tr>td>pre", :text => ERB::Util.html_escape(YAML.dump({"eth0"=>"192.168.1.1", "eth1"=>"10.10.10.1"})), :count => 2
+    assert_select "tr>td>pre", :text => ERB::Util.html_escape(YAML.dump({"a"=>"1", "b"=>"2"})), :count => 2
   end
 end

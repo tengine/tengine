@@ -18,7 +18,7 @@ describe "tengine/job/expansions/show.html.erb" do
     rendered.should match(/Name/)
     rendered.should match(/Server Name/)
     rendered.should match(/Credential Name/)
-    rendered.should match(/#{Regexp.escape(CGI.escapeHTML("abc,123"))}/)
+    rendered.should match(/#{Regexp.escape(ERB::Util.html_escape("abc,123"))}/)
     rendered.should match(/1/)
     rendered.should match(/Description/)
   end
