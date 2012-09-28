@@ -26,9 +26,6 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.8.12"
   s.summary = "tengine_resource_wakame provides physical/virtual server management for wakame-vdc"
 
-  s.add_runtime_dependency('bson', "1.6.2")
-  s.add_runtime_dependency('bson_ext', "1.6.2")
-  s.add_runtime_dependency('mongo', "1.6.2")
   s.add_runtime_dependency('tengine_resource', "~> #{version}")
   s.add_runtime_dependency('wakame-adapters-tengine', "~> 0.0.0")
 

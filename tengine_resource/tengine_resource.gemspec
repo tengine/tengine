@@ -26,9 +26,6 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.8.12"
   s.summary = "tengine_resource provides physical/virtual server management"
 
-  s.add_runtime_dependency('bson', "1.6.2")
-  s.add_runtime_dependency('bson_ext', "1.6.2")
-  s.add_runtime_dependency('mongo', "1.6.2")
   s.add_runtime_dependency('tengine_support', "~> #{version}")
   s.add_runtime_dependency('tengine_core', "~> #{version}")
   s.add_runtime_dependency('net-ssh', "~> 2.5.2")
