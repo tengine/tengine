@@ -12,7 +12,7 @@ require 'factory_girl'
 require 'tengine_job'
 require 'mongoid'
 Mongoid.load!(File.expand_path('mongoid.yml', File.dirname(__FILE__)))
-Mongoid.default_session.drop
+Mongoid.default_session.drop rescue nil
 
 
 gem_names = ["tengine_core", "tengine_resource", "tengine_resource_ec2"]
