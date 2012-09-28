@@ -3,6 +3,9 @@ script: 'ci/travis.rb'
 before_install:
   - gem install bundler
 bundler_args: "--path vendor/bundle"
+services:
+  - mongodb
+  - rabbitmq
 rvm:
   - 1.9.2
 #  - 1.9.3
