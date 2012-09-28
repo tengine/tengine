@@ -45,7 +45,7 @@ describe "receive_event" do
       :key => "uuid1",
       'source_name' => "server1",
       :occurred_at => Time.utc(2011,8,11,12,0),
-      :level => "1",
+      :level => 1,
       'sender_name' => "server2",
       :properties => {:bar => "ABC", :baz => 999}
       )
@@ -55,7 +55,7 @@ describe "receive_event" do
     event.key.should == "uuid1"
     event.source_name.should == "server1"
     event.sender_name.should == "server2"
-    event.level.should == "1"
+    event.level.should == 1
     event.properties.should == {"bar" => "ABC", "baz" => 999}
 
     @raw_event.event_type_name.should == event.event_type_name
