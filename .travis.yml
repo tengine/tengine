@@ -11,12 +11,12 @@ rvm:
 #  - ruby-head
 #  - jruby-19mode
 env:
-  - "GEM=tengine_support"
-  - "GEM=tengine_event"
-  - "GEM=tengine_core"
-  - "GEM=tengine_resource"
-  - "GEM=tengine_job"
-  - "GEM=tengine_job_agent"
+  # - "GEM=tengine_support"
+  # - "GEM=tengine_event"
+  # - "GEM=tengine_core"
+  # - "GEM=tengine_resource"
+  # - "GEM=tengine_job"
+  # - "GEM=tengine_job_agent"
   - "GEM=tengine_ui"
 gemfile:
 #  - gemfiles/Gemfile.activesupport-3.0.10
