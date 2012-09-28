@@ -94,9 +94,9 @@ describe Tengine::Core::Driveable do
           f1.resume
 
           f2 = Fiber.new {
-            Tengine::Core::Setting.should_receive(:dsl_version).exactly(2).times.and_return("123")
+            Tengine::Core::Setting.should_receive(:dsl_version).at_least(1).times.and_return("123")
             @klass2.should_receive(:driver).and_return(nil)
-            @klass2.should_receive(:driver_name).exactly(2).times.and_return("bar")
+            @klass2.should_receive(:driver_name).at_least(1).times.and_return("bar")
             @klass2.module_eval { include Tengine::Core::Driveable }
           }
           f2.resume
