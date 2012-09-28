@@ -30,7 +30,17 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
   end
   def chained_box?; jobnet_type_entry[:chained_box]; end
 
-  embeds_many :edges, :class_name => "Tengine::Job::Edge", :inverse_of => :owner
+  embeds_many :edges, :class_name => "Tengine::Job::Edge", :inverse_of => :owner , :validate => false
+
+  before_validation do |r|
+    r.edges.each do |edge|
+      unless edge.valid?
+        edge.errors.each do |f, error|
+          r.errors.add(:base, "#{edge.name_for_message} #{f.to_s.humanize} #{error}")
+        end
+      end
+    end
+  end
 
   class << self
     def by_name(name)

@@ -12,7 +12,16 @@ class Tengine::Job::Vertex
   self.cyclic = true
   with_options(:class_name => self.name, :cyclic => true) do |c|
     c.embedded_in :parent  , :inverse_of => :children
-    c.embeds_many :children, :inverse_of => :parent
+    c.embeds_many :children, :inverse_of => :parent , :validate => false
+  end
+
+  before_validation do |r|
+    r.children.each do |child|
+      child.valid?
+      child.errors.each do |f, error|
+        r.errors.add(:base, error)
+      end
+    end
   end
 
 #   def short_inspect

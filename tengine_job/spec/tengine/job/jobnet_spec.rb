@@ -354,7 +354,8 @@ describe Tengine::Job::Jobnet do
         fail
       rescue Mongoid::Errors::Validations => e
         msg = "Origin can't be blank"
-        e.message.should =~ %r<edge\([0-9a-f]+\) from no origin to /j1000/j1100/j1110 #{msg}>
+        # e.message.should =~ %r<edge\([0-9a-f]+\) from no origin to /j1000/j1100/j1110 #{msg}>
+        e.document.errors.full_messages.join(".").should =~ %r<edge\([0-9a-f]+\) from no origin to /j1000/j1100/j1110 #{msg}>
       end
     end
 
@@ -366,7 +367,8 @@ describe Tengine::Job::Jobnet do
         fail
       rescue Mongoid::Errors::Validations => e
         msg = "Origin can't be blank"
-        e.message.should =~ %r<edge\([0-9a-f]+\) from no origin to /j1000/j1100/j1110 #{msg}>
+        # e.message.should =~ %r<edge\([0-9a-f]+\) from no origin to /j1000/j1100/j1110 #{msg}>
+        e.document.errors.full_messages.join(", ").should =~ %r<edge\([0-9a-f]+\) from no origin to /j1000/j1100/j1110 #{msg}>
       end
     end
 
@@ -376,7 +378,8 @@ describe Tengine::Job::Jobnet do
         fail
       rescue Mongoid::Errors::Validations => e
         msg = "Name can't be blank"
-        e.message.should =~ %r</ #{msg}>
+        # e.message.should =~ %r</ #{msg}>
+        e.document.errors.full_messages.join(", ").should =~ %r<#{msg}>
       end
     end
 
