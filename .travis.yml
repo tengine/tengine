@@ -2,6 +2,9 @@ language: ruby
 script: 'ci/travis.rb'
 before_install:
   - gem install bundler
+  - sudo echo deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen > /etc/apt/sources.list.d/10gen.list
+  - sudo apt-get update
+  - sudo apt-get upgrade mongodb-10gen
 bundler_args: "--path vendor/bundle"
 services:
   - mongodb
