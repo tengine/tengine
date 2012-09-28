@@ -3,6 +3,7 @@ require 'spec_helper'
 
 describe "bind_dsl_file_in_multi_byte_dir" do
   before do
+    pending "mac only" unless RUBY_PLATFORM =~ /darwin/i
     Tengine::Core::Driver.delete_all
     Tengine::Core::Session.delete_all
     @config = Tengine::Core::Config::Core.new({
