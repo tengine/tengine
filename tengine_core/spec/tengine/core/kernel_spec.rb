@@ -630,6 +630,19 @@ describe Tengine::Core::Kernel do
         @timers.each {|i| EM.cancel_timer i } if @timers
         @next_tick_queue = nil
       end
+      # kill all EM defers
+      begin
+        EM.run do
+          EM.add_timer(1) do
+            EM.stop
+          end
+        end
+      rescue Exception
+        retry
+      else
+        # ok
+      end
+
       trigger
       config = Tengine::Core::Config::Core.new({
         :tengined => {
@@ -794,6 +807,19 @@ describe Tengine::Core::Kernel do
 
     describe :running do
       before do
+        # kill all EM defers
+        begin
+          EM.run do
+            EM.add_timer(1) do
+              EM.stop
+            end
+          end
+        rescue Exception
+          retry
+        else
+          # ok
+        end
+
         config = Tengine::Core::Config::Core.new({
             :tengined => {
               :load_path => File.expand_path('../../../examples/uc01_execute_processing_for_event.rb', File.dirname(__FILE__)),
@@ -816,9 +842,6 @@ describe Tengine::Core::Kernel do
         mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, &b|
           h[:confirm].yield(mock("confirm-ok"))
         end
-
-        EM.stub(:run).and_yield
-        @kernel.stub(:stop)
 
         @kernel.should_receive(:setup_mq_connection)
         @kernel.start do
@@ -850,9 +873,6 @@ describe Tengine::Core::Kernel do
         mock_mq.stub(:subscribe).with(nil).with(:ack => true, :nowait => false, :confirm => an_instance_of(Proc)) do |h, &b|
           h[:confirm].yield(mock("confirm-ok"))
         end
-
-        EM.stub(:run).and_yield
-        kernel.stub(:stop).and_yield
 
         kernel.start do
           kernel.status.should == :running
