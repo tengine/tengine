@@ -14,73 +14,68 @@ gem "tengine_resource_ec2"   , :path => "../tengine_resource_ec2"
 gem "tengine_resource_wakame", :path => "../tengine_resource_wakame"
 gem "tengine_job"            , :path => "../tengine_job"
 
-group :common_development_dependencies do
-  gem 'bundler'
-  gem 'rake', "~> 0.9.2.2"
-  gem 'rspec', "~> 2.10.0"
-  gem 'yard', "~> 0.8.1"
-  gem 'simplecov', "~> 0.6.4"
-  gem 'autotest', ">= 0"
-  gem 'rdiscount', ">= 0"
+# for common_development_dependencies
+gem 'bundler'
+gem 'rake', "~> 0.9.2.2"
+gem 'rspec', "~> 2.10.0"
+gem 'yard', "~> 0.8.1"
+gem 'simplecov', "~> 0.6.4"
+gem 'autotest', ">= 0"
+gem 'rdiscount', ">= 0"
+
+# for tengine_job
+group :development do
+  gem 'factory_girl', "~> 3.3.0"
 end
 
-group :tengine_job do
-  group :development do
-    gem 'factory_girl', "~> 3.3.0"
+# for tengine_core
+group :development do
+  gem 'kramdown', ">= 0"
+end
+
+# for tengine_event
+group :development do
+  gem 'ci_reporter', "~> 1.6.5"
+end
+
+# for tengine_ui
+gem 'rails', '~> 3.1.0'
+gem 'sass' , '~> 3.1.18'
+gem "selectable_attr", "~> 0.3.14"
+gem "selectable_attr_rails", "~> 0.3.14"
+
+gem "mongoid", "~> 3.0.0"
+
+gem "kaminari", "~> 0.13.0"
+
+gem "daemons", "~> 1.1.4"
+
+group :test, :development do
+  gem "rails3-generators", "~> 0.17.4"
+  gem "rspec-rails", "~> 2.10.1"
+  gem "capybara", "~> 1.1.1"
+  
+  gem "ZenTest"
+  gem "autotest-rails"
+  
+  # gem "rcov", ">= 0"
+  gem "simplecov", "~> 0.6.4"
+  
+  gem 'capistrano'       , "~> 2.9.0"
+  gem 'capistrano-ext'   , "~> 1.2.1"
+  gem 'capistrano_colors', "~> 0.5.5"
+end
+
+group :js_engine do
+  if RUBY_PLATFORM =~ /linux/ then
+    gem 'therubyracer', "~> 0.9.4"
   end
 end
 
-group :tengine_core do
-  group :development do
-    gem 'kramdown', ">= 0"
-  end
-end
+# group :assets do
+#   gem 'sass-rails', "  ~> 3.2.3"
+#   gem 'coffee-rails', "~> 3.2.2"
+#   gem 'uglifier', "~> 1.2.4"
+# end
 
-group :tengine_event do
-  group :development do
-    gem 'ci_reporter', "~> 1.6.5"
-  end
-end
-
-group :tengine_ui do
-  gem 'rails', '~> 3.1.0'
-  gem 'sass' , '~> 3.1.18'
-  gem "selectable_attr", "~> 0.3.14"
-  gem "selectable_attr_rails", "~> 0.3.14"
-
-  gem "mongoid", "~> 3.0.0"
-
-  gem "kaminari", "~> 0.13.0"
-
-  gem "daemons", "~> 1.1.4"
-
-  group :test, :development do
-    gem "rails3-generators", "~> 0.17.4"
-    gem "rspec-rails", "~> 2.10.1"
-    gem "capybara", "~> 1.1.1"
-
-    gem "ZenTest"
-    gem "autotest-rails"
-
-    # gem "rcov", ">= 0"
-    gem "simplecov", "~> 0.6.4"
-
-    gem 'capistrano'       , "~> 2.9.0"
-    gem 'capistrano-ext'   , "~> 1.2.1"
-    gem 'capistrano_colors', "~> 0.5.5"
-  end
-
-  group :js_engine do
-    if RUBY_PLATFORM =~ /linux/ then
-      gem 'therubyracer', "~> 0.9.4"
-    end
-  end
-
-  # group :assets do
-  #   gem 'sass-rails', "  ~> 3.2.3"
-  #   gem 'coffee-rails', "~> 3.2.2"
-  #   gem 'uglifier', "~> 1.2.4"
-  # end
-
-  gem 'jquery-rails', "~> 2.0.2"
-end
+gem 'jquery-rails', "~> 2.0.2"
