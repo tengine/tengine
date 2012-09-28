@@ -817,6 +817,9 @@ describe Tengine::Core::Kernel do
           h[:confirm].yield(mock("confirm-ok"))
         end
 
+        EM.stub(:run).and_yield
+        @kernel.stub(:stop)
+
         @kernel.should_receive(:setup_mq_connection)
         @kernel.start do
           @kernel.status.should == :running
