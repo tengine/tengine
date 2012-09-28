@@ -38,8 +38,9 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
     rendered.should match(/Credential Name/)
     rendered.should match(/Description/)
     rendered.should match(/初期化済/)
-    rendered.should match(/#{Regexp.escape(Time.new(2011, 11, 5).to_s)}/)
-    rendered.should match(/#{Regexp.escape(Time.new(2011, 11, 6).to_s)}/)
+    # TODO 要仕様確認。mongoid3で時刻周りの仕様が変更されている？UTCで表示されるのが正しい？
+    rendered.should match(/#{Regexp.escape(Time.local(2011, 11, 5).utc.to_s)}/)
+    rendered.should match(/#{Regexp.escape(Time.local(2011, 11, 6).utc.to_s)}/)
   end
 
   it "タイトルが表示されていること" do

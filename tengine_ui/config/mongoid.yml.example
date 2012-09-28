@@ -1,35 +1,47 @@
+defaults: &default_session
+  # Defines the name of the default database that Mongoid can connect to.
+  # (required).
+  # database: fontana_development
+
+  # Provides the hosts the default session can connect to. Must be an array
+  # of host:port pairs. (required)
+  hosts:
+    - localhost:27017
+
+  options:
+    # Change whether the session persists in safe mode by default.
+    # (default: false)
+    safe: true
+
+    # Change the default consistency model to :eventual or :strong.
+    # :eventual will send reads to secondaries, :strong sends everything
+    # to master. (default: :eventual)
+    consistency: :strong
+
 development:
   sessions:
+    # Defines the default session. (required)
     default:
-      database: tengine_console_development
-      hosts:
-        - '127.0.0.1:27017'
-      options:
-        safe: true
-        read_secondary: false
-        max_retries_on_connection_failure: 100
+      <<: *default_session
+      database: tengine_ui_development
 
 test:
   sessions:
+    # Defines the default session. (required)
     default:
-      database: tengine_console_test
-      hosts:
-        - '127.0.0.1:27017'
-      options:
-        safe: true
-        read_secondary: false
-        max_retries_on_connection_failure: 100
+      <<: *default_session
+      database: tengine_ui_test
 
 # set these environment variables on your prod server
 production:
   sessions:
+    # Defines the default session. (required)
     default:
-      database: tengine_production
+      <<: *default_session
+      database: tengine_ui_production
+      # Provides the hosts the default session can connect to. Must be an array
+      # of host:port pairs. (required)
       hosts:
-        - 'zbtgndb1:27017'
-        - 'zbtgndb2:27017'
-        - 'zbtgndb3:27017'
-      options:
-        safe: true
-        read_secondary: false
-        max_retries_on_connection_failure: 100
+        - tengine-db1:27017
+        - tengine-db2:27017
+        - tengine-db3:27017
