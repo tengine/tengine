@@ -1,3 +1,9 @@
-= TengineRailsPlugin
+# tengine_rails_plugin
+tengine_rails_plugin supports the use of tengine in Rails application.
 
-This project rocks and uses MIT-LICENSE.
+## License
+tengine_event is distributed under the MPL2.0 or LGPLv3 or the dual license of MPL2.0/LGPLv3
+
+## Copyright
+
+Copyright (c) 2012 Groovenauts, Inc.

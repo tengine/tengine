@@ -7,13 +7,16 @@ require "tengine_rails_plugin/version"
 Gem::Specification.new do |s|
   s.name        = "tengine_rails_plugin"
   s.version     = TengineRailsPlugin::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of TengineRailsPlugin."
-  s.description = "TODO: Description of TengineRailsPlugin."
+	s.authors = ["taigou", "totty", "g-morita", "shyouhei", "akm"]
+  s.email = "tengine-info@groovenauts.jp"
+  s.homepage    = "https://github.com/tengine/tengine/tree/develop/tengine_rails_plugin"
+  s.licenses = ["MPL2.0/LGPLv3"]
+  s.require_paths = ["lib"]
+  s.rubygems_version = "1.8.12"
+  s.summary     = "tengine_rails_plugin supports the use of tengine in Rails application."
+  s.description = "tengine_rails_plugin supports the use of tengine in Rails application."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["lib/**/*", "Gemfile", "Gemfile.lock", "README.rdoc"] 
 
   s.add_dependency "rails", "~> 3.2.8"
   s.add_dependency "tengine_event", "~> 0.4.0"
