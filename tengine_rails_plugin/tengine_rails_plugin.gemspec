@@ -19,8 +19,8 @@ Gem::Specification.new do |s|
   s.files = Dir["lib/**/*", "Gemfile", "Gemfile.lock", "README.rdoc"] 
 
   s.add_dependency "rails", "~> 3.2.8"
-  s.add_dependency "tengine_event", "~> 0.4.0"
-  s.add_dependency "tengine_support", "~> 0.3.27"
+  s.add_dependency "tengine_event", "1.1.0.alpha1"
+  s.add_dependency "tengine_support", "1.1.0.alpha1"
 
   s.add_development_dependency "sqlite3"
 end
