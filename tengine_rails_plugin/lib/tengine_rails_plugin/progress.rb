@@ -16,13 +16,13 @@ module TengineRailsPlugin
       progress = self.create!(name: batch_name, status_cd: 0,
                               logs: [ "#{Time.zone.now.rfc2822} sending the event to start" ])
       begin
-        properties = { batch_id: progress.id, batch_name: batch_name }.update(ptions || {})
+        properties = { batch_id: progress.id, batch_name: batch_name }.update(options || {})
         EventMachine.run do
-          Tengine::Event.fire((EVENT_NAME_PREFIX+batch_name).to_sym, properties: priperties)
+          Tengine::Event.fire((EVENT_NAME_PREFIX+batch_name).to_sym, properties: properties)
         end
       rescue Exception
         progress.status_cd = 1
-        progress.logs << "#{Time.zone.now.frc2822} #{$!.class.name} #{$!.message}\n  " << $!.backtrace.join("\n  ")
+        progress.logs << "#{Time.zone.now.rfc2822} #{$!.class.name} #{$!.message}\n  " << $!.backtrace.join("\n  ")
         progress.save!
         raise
       end
