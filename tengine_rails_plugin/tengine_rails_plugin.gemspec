@@ -1,5 +1,8 @@
 $:.push File.expand_path("../lib", __FILE__)
 
+# version = File.read(File.expand_path("../../TENGINE_VERSION", __FILE__)).strip
+require File.expand_path("../../dependencies", __FILE__)
+
 # Maintain your gem's version:
 require "tengine_rails_plugin/version"
 
@@ -22,5 +25,6 @@ Gem::Specification.new do |s|
   s.add_dependency "tengine_event", "1.1.0.alpha1"
   s.add_dependency "tengine_support", "1.1.0.alpha1"
 
+  common_development_dependencies(s)
   s.add_development_dependency "sqlite3"
 end
