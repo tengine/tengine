@@ -113,6 +113,7 @@ describe Tengine::Mq::Suite do
 
           EM.run do
             subject.subscribe {|x, y| }
+            sleep 0.1
             EM.add_timer(0.1) { subject.stop }
           end
           block_called.should be_true
@@ -477,6 +478,7 @@ describe Tengine::Mq::Suite do
             block_called = false
             EM.run do
               sender.fire "foo", :keep_connection => false
+              sleep 0.1
               EM.add_timer(1) do
                 block_called = true
                 subject.stop
