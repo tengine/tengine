@@ -19,11 +19,11 @@ Gem::Specification.new do |s|
   s.summary     = "tengine_rails_plugin supports the use of tengine in Rails application."
   s.description = "tengine_rails_plugin supports the use of tengine in Rails application."
 
-  s.files = Dir["lib/**/*", "Gemfile", "Gemfile.lock", "README.rdoc"] 
+  s.files = Dir["lib/**/*", "Gemfile", "Gemfile.lock", "README.rdoc"]
 
   s.add_dependency "rails", "~> 3.2.8"
-  s.add_dependency "tengine_event", "1.1.0.alpha1"
-  s.add_dependency "tengine_support", "1.1.0.alpha1"
+  s.add_dependency "tengine_event", "~> 1.1.0"
+  s.add_dependency "tengine_support", "~> 1.1.0"
 
   common_development_dependencies(s)
   s.add_development_dependency "sqlite3"
