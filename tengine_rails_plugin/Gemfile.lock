@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tengine_rails_plugin (0.0.1)
+    tengine_rails_plugin (1.1.0)
       rails (~> 3.2.8)
       tengine_event (~> 1.1.0)
       tengine_support (~> 1.1.0)

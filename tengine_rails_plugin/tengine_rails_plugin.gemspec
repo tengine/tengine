@@ -1,6 +1,7 @@
 $:.push File.expand_path("../lib", __FILE__)
 
-# version = File.read(File.expand_path("../../TENGINE_VERSION", __FILE__)).strip
+version = File.read(File.expand_path("../../TENGINE_VERSION", __FILE__)).strip
+
 require File.expand_path("../../dependencies", __FILE__)
 
 # Maintain your gem's version:
@@ -9,7 +10,7 @@ require "tengine_rails_plugin/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "tengine_rails_plugin"
-  s.version     = TengineRailsPlugin::VERSION
+  s.version     = version
 	s.authors = ["taigou", "totty", "g-morita", "shyouhei", "akm"]
   s.email = "tengine-info@groovenauts.jp"
   s.homepage    = "https://github.com/tengine/tengine/tree/develop/tengine_rails_plugin"
