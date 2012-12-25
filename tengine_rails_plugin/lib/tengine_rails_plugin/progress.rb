@@ -36,7 +36,7 @@ module TengineRailsPlugin
 
     def fire(batch_name, options={}, &block)
       add_logs("#{Time.zone.now.rfc2822} sending the event to start")
-      set_status(1)
+      set_status(STATUS_TYPES.id_by_key(:sended))
       begin
         properties = { batch_id: self.id, batch_name: batch_name }.update(options || {})
         EventMachine.run do
@@ -44,7 +44,7 @@ module TengineRailsPlugin
         end
       rescue Exception
         add_logs("#{Time.zone.now.rfc2822} #{$!.class.name} #{$!.message}\n  " + $!.backtrace.join("\n  "))
-        set_status(2)
+        set_status(STATUS_TYPES.id_by_key(:send_failure))
         self.save!
         raise
       end
@@ -54,18 +54,18 @@ module TengineRailsPlugin
       progress = model.find(event[:batch_id])
       progress.extend(self)
       progress.add_logs("#{Time.zone.now.rfc2822} Starting")
-      progress.set_status(3)
+      progress.set_status(STATUS_TYPES.id_by_key(:starting))
       progress.save!
       begin
         yield(progress) if block_given?
       rescue
         progress.add_logs("#{Time.zone.now.rfc2822} [#{$!.class.name}] #{$!.message}\n  " + $!.backtrace.join("\n  "))
-        progress.set_status(5)
+        progress.set_status(STATUS_TYPES.id_by_key(:error))
         progress.save!
         raise
       else
         progress.add_logs("#{Time.zone.now.rfc2822} SUCCESS")
-        progress.set_status(6)
+        progress.set_status(STATUS_TYPES.id_by_key(:success))
         progress.save!
       end
     end
