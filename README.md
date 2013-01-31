@@ -1,4 +1,4 @@
-# Welcome to Tengine
+# Welcome to Tengine [![Build Status](https://secure.travis-ci.org/tengine/tengine.png)](http://travis-ci.org/tengine/tengine)
 
 ## 概要
 
