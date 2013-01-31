@@ -1,10 +1,14 @@
 language: ruby
 script: 'ci/travis.rb'
 before_install:
+  - clear
   - gem install bundler
 bundler_args: "--path vendor/bundle"
+services:
+  - rabbitmq
+  - mongodb
 rvm:
-  - 1.9.2
+#  - 1.9.2
   - 1.9.3
 #  - ruby-head
 #  - jruby-19mode
@@ -17,7 +21,7 @@ env:
   - "GEM=tengine_job_agent"
   - "GEM=tengine_ui"
 gemfile:
-  - gemfiles/Gemfile.activesupport-3.0.10
+#  - gemfiles/Gemfile.activesupport-3.0.10
   - gemfiles/Gemfile.activesupport-3.1.1
   - gemfiles/Gemfile.activesupport-3.2.3
 matrix:
