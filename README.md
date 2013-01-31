@@ -1,6 +1,68 @@
 # Welcome to Tengine
 
-Description goes here.
+## 概要
+
+Tengineは単一障害点のないジョブを実現するための実行エンジンと、ジョブの実行のためのDSLを提供します。
+
+実行エンジンは、AMQPとMongoDBを用いたメッセージングの仕組みで、イベントドリブンな制御を行うことができます。この制御のためにジョブ用のDSLとは別の基盤となるDSLも提供します。
+
+## 利用方法
+
+[Tengine framework Guide](http://tengine.github.com/) をご覧ください。
+
+
+## 構成
+
+### tengine_ui
+
+ジョブの実行やリソースの管理を行うためのUIを提供します。
+
+### tengine_job
+
+ジョブの実行の制御とそのためのDSLを提供します。
+
+### tengine_job_agent
+
+ジョブを実行する際に実行環境を制御するためのエージェントです。
+
+### tengine_resource
+
+ジョブの実行などで使用されるリソースの制御のためのライブラリです。
+
+### tengine_resource_ec2
+
+AWS EC2を用いたリソースの制御のためのライブラリです。
+
+### tengine_resource_wakame
+
+Wakameを用いたリソースの制御のためのライブラリです。
+
+
+### tengine_core
+
+tengineの中心機能であるイベントハンドリングの機能とDSLを提供します。
+
+### tengine_event
+
+tengineで制御するイベントを発火するためのライブラリです。
+
+### tengine_rails_plugin
+
+Railsアプリからtengineのイベントを簡単に発火するためのライブラリです。
+
+
+### tengine_support
+
+tengineで使用する汎用的な機能を集めたライブラリです。
+
+
+
+
+
+## 各gemのビルド
+
+[How to build Tengine gems](https://github.com/tengine/tengine/blob/develop/HOW_TO_BUILD.md) をご覧ください。
+
 
 ## Contributing
 
