@@ -31,20 +31,25 @@ describe Tengine::Core::Config::Core do
     its(:heartbeat_enabled?){ should == false }
 
     its(:db){ should == {
-        'host' => 'localhost',
-        'port' => 27017,
-        'username' => nil,
-        'password' => nil,
-        'database' => 'tengine_production',
-      }}
+        "sessions" => {
+          "default"=>{
+            "database"=>"tengine_production",
+            "hosts"=>["localhost:27017"],
+            "options"=>{"safe"=>true, "consistency"=>:strong}
+          }
+        }
+      }
+    }
 
     it do
       subject.db.should == {
-        'host' => 'localhost',
-        'port' => 27017,
-        'username' => nil,
-        'password' => nil,
-        'database' => 'tengine_production',
+        "sessions" => {
+          "default"=>{
+            "database"=>"tengine_production",
+            "hosts"=>["localhost:27017"],
+            "options"=>{"safe"=>true, "consistency"=>:strong}
+          }
+        }
       }
     end
   end

@@ -7,4 +7,5 @@ module Tengine::Core::Config
   autoload :Core, 'tengine/core/config/core'
   autoload :Atd,  'tengine/core/config/atd'
   autoload :HeartbeatWatcher,  'tengine/core/config/heartbeat_watcher'
+  autoload :DB, 'tengine/core/config/db'
 end

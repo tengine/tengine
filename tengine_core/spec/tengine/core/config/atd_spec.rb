@@ -23,20 +23,25 @@ describe Tengine::Core::Config::Atd do
       Tengine::Core::Config::Atd.new
     end
     its(:db){ should == {
-        'host' => 'localhost',
-        'port' => 27017,
-        'username' => nil,
-        'password' => nil,
-        'database' => 'tengine_production',
-      }}
+        "sessions" => {
+          "default"=>{
+            "database"=>"tengine_production",
+            "hosts"=>["localhost:27017"],
+            "options"=>{"safe"=>true, "consistency"=>:strong}
+          }
+        }
+      }
+    }
 
     it "db" do
       subject.db.should == {
-        'host' => 'localhost',
-        'port' => 27017,
-        'username' => nil,
-        'password' => nil,
-        'database' => 'tengine_production',
+        "sessions" => {
+          "default"=>{
+            "database"=>"tengine_production",
+            "hosts"=>["localhost:27017"],
+            "options"=>{"safe"=>true, "consistency"=>:strong}
+          }
+        }
       }
     end
 

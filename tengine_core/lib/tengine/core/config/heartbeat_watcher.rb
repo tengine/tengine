@@ -85,13 +85,8 @@ EOS
     load_config(:config, "path/to/config_file", :type => :string)
 
     add(:process, Tengine::Core::Config::HeartbeatWatcher::Process)
-    field(:db, "settings to connect to db", :type => :hash, :default => {
-        'host' => 'localhost',
-        'port' => 27017,
-        'username' => nil,
-        'password' => nil,
-        'database' => 'tengine_production',
-      })
+    field(:db, "settings to connect to db", :type => :hash,
+      :default => Tengine::Core::Config::DB::DEFAULT_SETTINGS)
 
     group(:heartbeat) do
       add(:core     , Tengine::Core::Config::Core::Heartbeat)
