@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
+require 'timeout'
 
 describe Tengine::Core::EventIgnitionsController do
 
@@ -29,6 +30,8 @@ describe Tengine::Core::EventIgnitionsController do
         }
         post 'fire', event: event
         assigns[:core_event].errors.should be_empty
+        flash[:notice].should_not be_blank
+        flash[:notice].should_not =~ /\[error\]/i
         response.should redirect_to(tengine_core_event_ignitions_new_url)
       end
 
@@ -37,8 +40,12 @@ describe Tengine::Core::EventIgnitionsController do
           "event_type_name" => "event_ignitions_controller_test",
           "key" => "",
         }
-        post 'fire', event: event
+        timeout((ENV['CONTROLLER_TIMEOUT'] || 10).to_i) do
+          post 'fire', event: event
+        end
         assigns[:core_event].errors.should be_empty
+        flash[:notice].should_not be_blank
+        flash[:notice].should_not =~ /\[error\]/i
         response.should redirect_to(tengine_core_event_ignitions_new_url)
       end
     end
