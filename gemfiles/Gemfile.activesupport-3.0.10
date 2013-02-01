@@ -48,7 +48,7 @@ group :development do
   # gem "rcov", ">= 0"
   gem "simplecov", "~> 0.6.4"
   gem "autotest"
-  gem "ZenTest", "~> 4.8.0"
+  gem "ZenTest", "= 4.8.3" # for except 4.8.4
 
   # for markdown
   gem 'rdiscount'
