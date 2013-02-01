@@ -6,57 +6,61 @@ Tengineは単一障害点のないジョブを実現するための実行エン�
 
 実行エンジンは、AMQPとMongoDBを用いたメッセージングの仕組みで、イベントドリブンな制御を行うことができます。この制御のためにジョブ用のDSLとは別の基盤となるDSLも提供します。
 
-## 利用方法
+## 使用方法
 
 [Tengine framework Guide](http://tengine.github.com/) をご覧ください。
 
 
-## 構成
+## gemの構成
 
-### tengine_ui
-
-ジョブの実行やリソースの管理を行うためのUIを提供します。
-
-### tengine_job
-
-ジョブの実行の制御とそのためのDSLを提供します。
-
-### tengine_job_agent
-
-ジョブを実行する際に実行環境を制御するためのエージェントです。
-
-### tengine_resource
-
-ジョブの実行などで使用されるリソースの制御のためのライブラリです。
-
-### tengine_resource_ec2
-
-AWS EC2を用いたリソースの制御のためのライブラリです。
-
-### tengine_resource_wakame
-
-Wakameを用いたリソースの制御のためのライブラリです。
+* tengine_ui
+    * ジョブの実行やリソースの管理を行うためのUIを提供します。
+* tengine_job
+    * ジョブの実行の制御とそのためのDSLを提供します。
+* tengine_job_agent
+    * ジョブを実行する際に実行環境を制御するためのエージェントです。
+* tengine_resource
+    * ジョブの実行などで使用されるリソースの制御のためのライブラリです。
+* tengine_resource_ec2
+    * AWS EC2を用いたリソースの制御のためのライブラリです。
+* tengine_resource_wakame
+    * Wakameを用いたリソースの制御のためのライブラリです。
+* tengine_core
+    * tengineの中心機能であるイベントハンドリングの機能とDSLを提供します。
+* tengine_event
+    * tengineで制御するイベントを発火するためのライブラリです。
+* tengine_rails_plugin
+    * Railsアプリからtengineのイベントを簡単に発火するためのライブラリです。
+* tengine_support
+    * tengineで使用する汎用的な機能を集めたライブラリです。
 
 
-### tengine_core
+## インストール
 
-tengineの中心機能であるイベントハンドリングの機能とDSLを提供します。
+### 必要条件
 
-### tengine_event
+* MongoDB 2.0以降
+* RabbitMQ 2.6.x以降
 
-tengineで制御するイベントを発火するためのライブラリです。
+### 各gem
 
-### tengine_rails_plugin
+各gemはgemコマンドでインストール可能です。
 
-Railsアプリからtengineのイベントを簡単に発火するためのライブラリです。
+    $ gem install tengine_core
 
+bundlerを使用する場合Gemfileに使用するgemを記述してください。
 
-### tengine_support
+    gem "tengine_job"
 
-tengineで使用する汎用的な機能を集めたライブラリです。
+## 接続テスト
 
+localhost上でMongoDBとRabbitMQがデフォルトのポートで動作している場合、以下のコマンドでtengine_coreで提供されるtenginedコマンドの動作確認ができます。
 
+    $ bundle exec tengined -k test
+    
+上記コマンドを実行した結果、以下の出力が得られることを確認します。
 
+    STDOUT  Connection test success.
 
 
 ## 各gemのビルド
