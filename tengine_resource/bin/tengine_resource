@@ -1,0 +1,126 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+require 'thor'
+
+$LOAD_PATH << File.expand_path('../lib', File.dirname(__FILE__))
+
+module GlobalOptions
+  def self.included(mod)
+    mod.extend(ClassMethods)
+  end
+
+  def load_config
+    require 'tengine_resource'
+    @config = Tengine::Resource::Config::Resource.new.tap do |c|
+      if path = options[:config]
+        c.load_file(path)
+      else
+        c.load({:db => Tengine::Core::Config::DB::DEFAULT_SETTINGS})
+      end
+    end
+  end
+
+  def config_mongoid
+    load_config
+    require 'mongoid'
+    Mongoid.configure do |c|
+      c.send :load_configuration, @config[:db]
+    end
+  end
+
+  module ClassMethods
+    def self.extended(obj)
+      obj.instance_eval do
+        alias :desc_without_global_options :desc
+        alias :desc :desc_with_global_options
+      end
+    end
+
+    def desc_with_global_options(*args, &block)
+      res = desc_without_global_options(*args, &block)
+      config_file
+      res
+    end
+
+    def config_file
+      option :config, :type => :string, :aliases => "-f", :desc => "config to connect MongoDB as same as tengine_resource_watcher's config"
+    end
+  end
+end
+
+class Server < Thor
+  include GlobalOptions
+
+  desc "list", "list servers"
+  def list
+    config_mongoid
+    require 'text-table'
+    res = [%w[provider virtual? name addresses]]
+    Tengine::Resource::Server.all.each do |server|
+      res << [
+        server.provider.name,
+        server.is_a?(Tengine::Resource::VirtualServer) ? "virtual" : "physical",
+        server.name,
+        server.addresses.to_json
+      ]
+    end
+    puts res.to_table(:first_row_is_head => true)
+  end
+
+  desc "add [name]", "add server"
+  method_option :addresses , type: :hash, aliases: '-a', desc: "ip addesses and hostnames like 'private_ip_address:192.168.1.10,private_dns_name:i-12345'"
+  method_option :properties, type: :hash, aliases: '-p', desc: "any properties"
+  def add(name)
+    config_mongoid
+    Tengine::Resource::Provider.manual.tap do |provider|
+      server = provider.physical_servers.create!({
+          name: name,
+          provided_id: name,
+          addresses: options[:addresses],
+          properties: options[:properties]
+        })
+      puts "server created successfully!: #{server.to_json}"
+    end
+  end
+
+  desc "remove", "remove server manually by using [name]"
+  def remove(name)
+    config_mongoid
+    Tengine::Resource::Provider.manual.tap do |provider|
+      if server = provider.physical_servers.where({name: name})
+        server.destroy
+        puts "server was destroyed successfully!: #{name}"
+      else
+        raise "server not found under provider \"#{provider.name}\""
+      end
+    end
+  end
+
+end
+
+class Credential < Thor
+  include GlobalOptions
+
+  desc "list", "list credentials"
+  def list
+    puts "list credentials"
+  end
+
+  desc "add", "add credential manually"
+  def add
+    puts "add credential"
+  end
+
+  desc "remove", "remove credential manually"
+  def remove
+    puts "remove credential"
+  end
+
+end
+
+class CLI < Thor
+  register(Server    , 'server'    , 'server <command>'    , 'Description.')
+  register(Credential, 'credential', 'credential <command>', 'Description.')
+end
+
+CLI.start
