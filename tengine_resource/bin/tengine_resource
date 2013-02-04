@@ -3,5 +3,5 @@
 
 $LOAD_PATH << File.expand_path('../lib', File.dirname(__FILE__))
 
-require 'tengine_resource'
+require 'tengine/resource/cli'
 Tengine::Resource::CLI.start
