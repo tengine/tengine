@@ -5,11 +5,14 @@ class Tengine::Resource::CLI:: Server < Thor
   include Tengine::Resource::CLI::GlobalOptions
 
   desc "list", "list servers"
-  def list
+  method_option :sort, type: :string, aliases: '-s', desc: "sort pattern. name, created_at and updated_at", default: "name"
+  def list(options = {})
     config_mongoid
     require 'text-table'
     res = [%w[provider virtual? name addresses]]
-    Tengine::Resource::Server.all.each do |server|
+    sort_options = {(options["sort"] || "name").to_sym => 1}
+    sort_options[:name] = 1 # 同じ時刻などのソートキーが決まらない場合を想定して名前もソートキーに入れる
+    Tengine::Resource::Server.all.order_by(sort_options).each do |server|
       res << [
         server.provider.name,
         server.is_a?(Tengine::Resource::VirtualServer) ? "virtual" : "physical",
