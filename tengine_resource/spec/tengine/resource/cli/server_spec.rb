@@ -53,6 +53,14 @@ describe Tengine::Resource::CLI::Server do
   end
 
   describe "#add" do
+    before do
+      @name = "test_server1"
+      @attrs = {
+        provider_id: Tengine::Resource::Provider.manual.id,
+        addresses: {"private_ip_address" => "192.168.1.11", "private_dns_name" => "server11"}
+      }
+    end
+
     context "valid" do
       before do
         Tengine::Resource::Server.delete_all
@@ -72,12 +80,7 @@ describe Tengine::Resource::CLI::Server do
     context "duplicated" do
       before do
         Tengine::Resource::Server.delete_all
-        @name = "test_server1"
-        @attrs = {
-          provider_id: Tengine::Resource::Provider.manual.id,
-          addresses: {"private_ip_address" => "192.168.1.11", "private_dns_name" => "server11"}
-        }
-        Tengine::Resource::PhysicalServer.create!(@attrs.update(name: @name))
+        Tengine::Resource::PhysicalServer.create!(@attrs.merge(name: @name))
       end
 
       it do
@@ -90,5 +93,40 @@ describe Tengine::Resource::CLI::Server do
     end
   end
 
+  describe "#remove" do
+    before do
+      @name = "test_server1"
+      @attrs = {
+        provider_id: Tengine::Resource::Provider.manual.id,
+        addresses: {"private_ip_address" => "192.168.1.11", "private_dns_name" => "server11"}
+      }
+    end
+
+    context "target exists" do
+      before do
+        Tengine::Resource::Server.delete_all
+        Tengine::Resource::PhysicalServer.create!(@attrs.update(name: @name))
+      end
+      it do
+        $stdout.stub(:puts) # ignore output to stdout
+        expect{
+          Tengine::Resource::CLI::Server.new.remove(@name)
+        }.to change(Tengine::Resource::Server, :count).by(-1)
+      end
+    end
+
+    context "target doesn't exist" do
+      before do
+        Tengine::Resource::Server.delete_all
+      end
+      it do
+        expect{
+          expect{
+            Tengine::Resource::CLI::Server.new.remove(@name)
+          }.to raise_error
+        }.to change(Tengine::Resource::Server, :count).by(0)
+      end
+    end
+  end
 
 end

@@ -44,11 +44,11 @@ class Tengine::Resource::CLI:: Server < Thor
   def remove(name)
     config_mongoid
     Tengine::Resource::Provider.manual.tap do |provider|
-      if server = provider.physical_servers.where({name: name})
+      if server = provider.physical_servers.where({name: name}).first
         server.destroy
         $stdout.puts "server was destroyed successfully!: #{name}"
       else
-        raise "server not found under provider \"#{provider.name}\""
+        raise Mongoid::Errors::DocumentNotFound, "server \"#{name}\" not found under provider \"#{provider.name}\""
       end
     end
   end
