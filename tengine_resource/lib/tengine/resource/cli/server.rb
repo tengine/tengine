@@ -17,7 +17,8 @@ class Tengine::Resource::CLI:: Server < Thor
         server.addresses.to_json
       ]
     end
-    puts res.to_table(:first_row_is_head => true)
+    $stdout.puts res.to_table(:first_row_is_head => true)
+    res
   end
 
   desc "add [name]", "add server"
@@ -32,7 +33,7 @@ class Tengine::Resource::CLI:: Server < Thor
           addresses: options[:addresses],
           properties: options[:properties]
         })
-      puts "server created successfully!: #{server.to_json}"
+      $stdout.puts "server created successfully!: #{server.to_json}"
     end
   end
 
@@ -42,7 +43,7 @@ class Tengine::Resource::CLI:: Server < Thor
     Tengine::Resource::Provider.manual.tap do |provider|
       if server = provider.physical_servers.where({name: name})
         server.destroy
-        puts "server was destroyed successfully!: #{name}"
+        $stdout.puts "server was destroyed successfully!: #{name}"
       else
         raise "server not found under provider \"#{provider.name}\""
       end
