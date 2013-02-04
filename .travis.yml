@@ -17,6 +17,8 @@ env:
   - "GEM=tengine_event"
   - "GEM=tengine_core"
   - "GEM=tengine_resource"
+  - "GEM=tengine_resource_ec2"
+  - "GEM=tengine_resource_wakame"
   - "GEM=tengine_job"
   - "GEM=tengine_job_agent"
   - "GEM=tengine_ui"
