@@ -9,8 +9,9 @@ def common_development_dependencies(s)
   s.add_development_dependency('autotest')
   s.add_development_dependency('rdiscount')
   s.add_development_dependency('pry')
-  s.add_development_dependency('pry-remote')
-  s.add_development_dependency('pry-stack_explorer')
+  # s.add_development_dependency('pry-remote')
+  # s.add_development_dependency('pry-stack_explorer')
+  s.add_development_dependency('pry-doc')
   s.add_development_dependency('pry-debugger')
 end
 

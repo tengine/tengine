@@ -56,16 +56,22 @@ group :test, :development do
   gem "rails3-generators", "~> 0.17.4"
   gem "rspec-rails", "~> 2.10.1"
   gem "capybara", "~> 1.1.1"
-  
+
   gem "ZenTest", "= 4.8.3" # for except 4.8.4
   gem "autotest-rails"
-  
+
   # gem "rcov", ">= 0"
   gem "simplecov", "~> 0.6.4"
-  
+
   gem 'capistrano'       , "~> 2.9.0"
   gem 'capistrano-ext'   , "~> 1.2.1"
   gem 'capistrano_colors', "~> 0.5.5"
+
+  gem 'pry'
+  # gem 'pry-remote'
+  # gem 'pry-stack_explorer'
+  gem 'pry-doc'
+  gem 'pry-debugger'
 end
 
 group :js_engine do
