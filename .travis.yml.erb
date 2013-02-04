@@ -22,8 +22,8 @@ env:
   - "GEM=tengine_ui"
 gemfile:
 #  - gemfiles/Gemfile.activesupport-3.0.10
-  - gemfiles/Gemfile.activesupport-3.1.1
-  - gemfiles/Gemfile.activesupport-3.2.3
+  - gemfiles/Gemfile.activesupport-3.1
+  - gemfiles/Gemfile.activesupport-3.2
 matrix:
   exclude:
 <%
@@ -32,19 +32,19 @@ matrix:
 %>
 <% ['1.9.2', '1.9.3'].each do |ruuby_version| %>#
     - rvm: <%= ruuby_version %>
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      gemfile: gemfiles/Gemfile.activesupport-3.0
       env: "GEM=tengine_support"
     - rvm: <%= ruuby_version %>
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      gemfile: gemfiles/Gemfile.activesupport-3.0
       env: "GEM=tengine_core"
     - rvm: <%= ruuby_version %>
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      gemfile: gemfiles/Gemfile.activesupport-3.0
       env: "GEM=tengine_resource"
     - rvm: <%= ruuby_version %>
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      gemfile: gemfiles/Gemfile.activesupport-3.0
       env: "GEM=tengine_job"
     - rvm: <%= ruuby_version %>
-      gemfile: gemfiles/Gemfile.activesupport-3.0.10
+      gemfile: gemfiles/Gemfile.activesupport-3.0
       env: "GEM=tengine_ui"
 <% end %>
 # branches:

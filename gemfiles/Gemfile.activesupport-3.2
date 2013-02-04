@@ -3,8 +3,8 @@ source "http://rubygems.org"
 # Example:
 #   gem "activesupport", ">= 2.3.5"
 
-gem "activesupport", "= 3.1.1"
-gem "activemodel", "~> 3.1.1"
+gem "activesupport", "~> 3.2.11"
+gem "activemodel", "~> 3.2.11"
 
 gem "tengine_support"        , :path => "../tengine_support"
 gem "tengine_event"          , :path => "../tengine_event"
@@ -23,15 +23,17 @@ gem 'simplecov', "~> 0.6.4"
 gem 'autotest', ">= 0"
 gem 'rdiscount', ">= 0"
 
-# for tengine_job
+# for tengine_jon
 group :development do
   gem 'factory_girl', "~> 3.3.0"
 end
+
 
 # for tengine_core
 group :development do
   gem 'kramdown', ">= 0"
 end
+
 
 # for tengine_event
 group :development do
@@ -39,7 +41,7 @@ group :development do
 end
 
 # for tengine_ui
-gem 'rails', '~> 3.1.0'
+gem 'rails', '~> 3.2.3'
 gem 'sass' , '~> 3.1.18'
 gem "selectable_attr", "~> 0.3.14"
 gem "selectable_attr_rails", "~> 0.3.14"
