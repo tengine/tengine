@@ -41,3 +41,5 @@ RSpec.configure do |config|
 end
 
 # Dir["#{File.expand_path('factories', File.dirname(__FILE__))}/**/*.rb"].each {|f| require f}
+
+require 'pry-debugger'
