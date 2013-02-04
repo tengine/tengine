@@ -27,7 +27,7 @@ class Tengine::Resource::CLI:: Server < Thor
   desc "add [name]", "add server"
   method_option :addresses , type: :hash, aliases: '-a', desc: "ip addesses and hostnames like 'private_ip_address:192.168.1.10,private_dns_name:i-12345'"
   method_option :properties, type: :hash, aliases: '-p', desc: "any properties"
-  def add(name)
+  def add(name, options = {})
     config_mongoid
     Tengine::Resource::Provider.manual.tap do |provider|
       server = provider.physical_servers.create!({

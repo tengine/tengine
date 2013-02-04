@@ -52,4 +52,43 @@ describe Tengine::Resource::CLI::Server do
     end
   end
 
+  describe "#add" do
+    context "valid" do
+      before do
+        Tengine::Resource::Server.delete_all
+      end
+
+      it do
+        $stdout.stub(:puts) # ignore output to stdout
+        expect{
+          Tengine::Resource::CLI::Server.new.add("test_server1", addresses: {"private_ip_address" => "192.168.1.11", "private_dns_name" => "server11"})
+        }.to change(Tengine::Resource::Server, :count).by(1)
+        s1 = Tengine::Resource::Server.first
+        s1.addresses["private_ip_address"].should == "192.168.1.11"
+        s1.addresses["private_dns_name"].should == "server11"
+      end
+    end
+
+    context "duplicated" do
+      before do
+        Tengine::Resource::Server.delete_all
+        @name = "test_server1"
+        @attrs = {
+          provider_id: Tengine::Resource::Provider.manual.id,
+          addresses: {"private_ip_address" => "192.168.1.11", "private_dns_name" => "server11"}
+        }
+        Tengine::Resource::PhysicalServer.create!(@attrs.update(name: @name))
+      end
+
+      it do
+        expect{
+          expect{
+            Tengine::Resource::CLI::Server.new.add(@name, @attrs)
+          }.to raise_error
+        }.to change(Tengine::Resource::Server, :count).by(0)
+      end
+    end
+  end
+
+
 end
