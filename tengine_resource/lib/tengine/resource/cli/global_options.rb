@@ -41,7 +41,7 @@ module Tengine::Resource::CLI::GlobalOptions
     end
 
     def config_file
-      option :config, :type => :string, :aliases => "-f", :desc => "config to connect MongoDB as same as tengine_resource_watcher's config"
+      method_option :config, :type => :string, :aliases => "-f", :desc => "config to connect MongoDB as same as tengine_resource_watcher's config"
     end
   end
 end

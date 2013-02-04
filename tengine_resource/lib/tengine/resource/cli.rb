@@ -2,6 +2,7 @@
 require 'tengine/resource'
 
 require 'thor'
+require 'thor/group'
 
 class Tengine::Resource::CLI < Thor
   autoload :GlobalOptions, 'tengine/resource/cli/global_options'

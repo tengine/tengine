@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.8.12"
   s.summary = "tengine_resource provides physical/virtual server management"
 
-  s.add_runtime_dependency('thor', "~> 0.17.0")
+  s.add_runtime_dependency('thor', ">= 0.14.6") # for compatibility to rails-3.1.x
   s.add_runtime_dependency('text-table', "~> 1.2.2")
 
   s.add_runtime_dependency('tengine_support', "~> #{version}")
