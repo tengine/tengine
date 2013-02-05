@@ -74,14 +74,6 @@ describe Tengine::Resource::Server do
       end
 
       it "同名のPhysicalServerが先にある場合" do
-        # 下のuniquenessのvalidationでの例外を期待しているテストがTravis-CI上で失敗するので、調査のためのコードを追加します。
-        base_col = Tengine::Resource::Server.collection
-        [Tengine::Resource::PhysicalServer, Tengine::Resource::VirtualServer].each do |klass|
-          col = klass.collection
-          col.name.should == base_col.name
-          col.database.name.to_s.should == base_col.database.name.to_s
-        end
-
         name = "server1"
         Tengine::Resource::PhysicalServer.create!(:name => name)
         expect{
