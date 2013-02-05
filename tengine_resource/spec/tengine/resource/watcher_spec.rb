@@ -8,15 +8,9 @@ describe Tengine::Resource::Watcher do
 
     # A. [Mongoidのモデルを継承した場合のコレクションの接続先DBの不一致] への対応
     # A-1. store_inによる明示的に接続先を設定することも可能
-    # Tengine::Resource::Provider.collection.tap do |c|
-    #   store_in collection: c.name, database: c.database.name
-    # end
-    #
-    # A-2. collectionの呼び出しによる接続先の事前確定
-    # クラス定義時にcollectionを実行することで接続先が決定されるらしいので、
-    # collectionメソッドを呼び出すだけで下記の実行時の接続先データベースが
-    # 異なってしまう現象を避けることができるようです。
-    collection
+    Tengine::Resource::Provider.collection.tap do |c|
+      store_in collection: c.name, database: c.database.name
+    end
   end
 
   describe :find_providers do
