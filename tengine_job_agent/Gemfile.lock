@@ -82,6 +82,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ZenTest (~> 4.8.0, < 4.8.4)
   autotest
   bundler
   ci_reporter (~> 1.6.5)

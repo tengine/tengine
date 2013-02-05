@@ -5,7 +5,7 @@ PATH
       activemodel (>= 3.1.0)
       activesupport (>= 3.1.0)
       daemons (~> 1.1.4)
-      mongoid (~> 3.0.0)
+      mongoid (~> 3.0.0, < 3.0.20)
       selectable_attr (~> 0.3.15)
       tengine_event (~> 1.1.0)
       tengine_support (~> 1.1.0)
@@ -14,10 +14,10 @@ GEM
   remote: http://rubygems.org/
   specs:
     ZenTest (4.8.2)
-    activemodel (3.2.8)
-      activesupport (= 3.2.8)
+    activemodel (3.2.11)
+      activesupport (= 3.2.11)
       builder (~> 3.0.0)
-    activesupport (3.2.8)
+    activesupport (3.2.11)
       i18n (~> 0.6)
       multi_json (~> 1.0)
     amq-client (0.8.7)
@@ -50,13 +50,13 @@ GEM
     macaddr (1.6.1)
       systemu (~> 2.5.0)
     method_source (0.8.1)
-    mongoid (3.0.15)
+    mongoid (3.0.19)
       activemodel (~> 3.1)
-      moped (~> 1.1)
+      moped (~> 1.2)
       origin (~> 1.0)
       tzinfo (~> 0.3.22)
-    moped (1.3.1)
-    multi_json (1.3.6)
+    moped (1.3.2)
+    multi_json (1.5.0)
     origin (1.0.11)
     pry (0.9.10)
       coderay (~> 1.0.5)
@@ -94,7 +94,7 @@ GEM
     tengine_support (1.1.0)
       activesupport (>= 3.0.0)
     tzinfo (0.3.35)
-    uuid (2.3.5)
+    uuid (2.3.6)
       macaddr (~> 1.0)
     yard (0.8.2.1)
 
@@ -102,6 +102,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ZenTest (~> 4.8.0, < 4.8.4)
   autotest
   bundler
   factory_girl (~> 3.3.0)
