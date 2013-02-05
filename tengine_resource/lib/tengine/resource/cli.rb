@@ -6,6 +6,8 @@ require 'thor/group'
 
 class Tengine::Resource::CLI < Thor
   autoload :GlobalOptions, 'tengine/resource/cli/global_options'
+  autoload :Options      , 'tengine/resource/cli/options'
+
   autoload :Server       , 'tengine/resource/cli/server'
   autoload :Credential   , 'tengine/resource/cli/credential'
 

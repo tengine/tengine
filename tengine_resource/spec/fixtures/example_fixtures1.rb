@@ -2,8 +2,12 @@
 module ExampleFixtures1
   module_function
 
+  def setup_timezone(zone_name = "Tokyo")
+    Time.zone ||= ActiveSupport::TimeZone.new(zone_name)
+  end
+
   def build
-    Time.zone = ActiveSupport::TimeZone.new("Tokyo")
+    setup_timezone
     Tengine::Resource::Provider.delete_all
     Tengine::Resource::Server.delete_all
     Tengine::Resource::Provider.create!({
@@ -67,6 +71,48 @@ module ExampleFixtures1
             updated_at: Time.zone.parse("2013/02/04 10:00:00"),
           })
       end
+    end
+  end
+
+
+  def build_credentials
+    setup_timezone
+    Tengine::Resource::Credential.tap do |c|
+      c.delete_all
+      c.create!({name: "ssh_pw1", auth_type_key: :ssh_password,
+          auth_values: {
+            username: "goku",
+            password: "password1",
+          },
+          created_at: Time.zone.parse("2013/02/01 10:00:00"),
+          updated_at: Time.zone.parse("2013/02/04 10:00:00"),
+        })
+      c.create!({name: "ssh_pkf1", auth_type_key: :ssh_public_key_file,
+          auth_values: {
+            username: "gohan",
+            private_key_file: "~/.ssh/id_rsa",
+            passphrase: "passphrase",
+          },
+          created_at: Time.zone.parse("2013/02/01 14:00:00"),
+          updated_at: Time.zone.parse("2013/02/03 12:00:00"),
+        })
+      c.create!({name: "ssh_pw2", auth_type_key: :ssh_password,
+          auth_values: {
+            username: "piccolo",
+            password: "password2",
+          },
+          created_at: Time.zone.parse("2013/02/01 18:00:00"),
+          updated_at: Time.zone.parse("2013/02/04 12:00:00"),
+        })
+      c.create!({name: "ssh_pkf2", auth_type_key: :ssh_public_key_file,
+          auth_values: {
+            username: "yamcha",
+            private_key_file: "~/.ssh/id_rsa",
+            passphrase: "",
+          },
+          created_at: Time.zone.parse("2013/02/03 12:00:00"),
+          updated_at: Time.zone.parse("2013/02/03 12:00:00"),
+        })
     end
   end
 end
