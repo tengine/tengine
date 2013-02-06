@@ -9,6 +9,10 @@ require 'tengine/support/core_ext/enumerable/map_to_hash'
 # 1.1.x ではクラス構造を見直して継承する必要はないと判断しTengine::Resource::Providerを継承するように変更しました。
 class Tengine::ResourceWakame::Provider < Tengine::Resource::Provider
 
+  # モデルの継承時に問題が発生する場合があるので、collectionの呼び出しによる接続先の事前確定を行います。
+  # https://github.com/tengine/tengine/commit/9a986a3b52b18a95b1d5324b9731f720d087d1e4
+  collection
+
   attr_accessor :retry_on_error
 
   field :connection_settings, :type => Hash

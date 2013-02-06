@@ -2,12 +2,18 @@
 
 def common_development_dependencies(s)
   s.add_development_dependency('bundler') # any
-  s.add_development_dependency('rake', "~> 0.9.2.2")
+  s.add_development_dependency('rake')
   s.add_development_dependency('rspec', "~> 2.10.0")
-  s.add_development_dependency('yard', "~> 0.8.1")
-  s.add_development_dependency('simplecov', "~> 0.6.4")
-  s.add_development_dependency('autotest', ">= 0")
-  s.add_development_dependency('rdiscount', ">= 0")
+  s.add_development_dependency('yard')
+  s.add_development_dependency('simplecov')
+  s.add_development_dependency('autotest')
+  s.add_development_dependency('rdiscount')
+  s.add_development_dependency('pry')
+  # s.add_development_dependency('pry-remote')
+  # s.add_development_dependency('pry-stack_explorer')
+  s.add_development_dependency('pry-doc')
+  s.add_development_dependency('pry-debugger')
+  s.add_development_dependency('ZenTest', "~> 4.8.0", "< 4.8.4")
 end
 
 
