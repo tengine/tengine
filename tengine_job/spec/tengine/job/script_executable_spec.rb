@@ -104,7 +104,7 @@ describe Tengine::Job::ScriptExecutable do
 
     it "終了コードを取得できる" do
       j = Tengine::Job::JobnetActual.new(
-        :server_name => @server.name, 
+        :server_name => @server.name,
         :credential_name => @credential.name,
         :script => File.expand_path("tengine_job_test.sh", ssh_dir)
       )
@@ -119,7 +119,7 @@ describe Tengine::Job::ScriptExecutable do
 
     it "https://www.pivotaltracker.com/story/show/22269461" do
       j = Tengine::Job::JobnetActual.new(
-        :server_name => @server.name, 
+        :server_name => @server.name,
         :credential_name => @credential.name,
         :script => "echo \u{65e5}\u{672c}\u{8a9e}"
       )
