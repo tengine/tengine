@@ -5,7 +5,6 @@ require 'etc'
 require 'tempfile'
 
 describe Tengine::Job::ScriptExecutable do
-  describe :execute do
     let :ssh_dir do
       File.expand_path("../../../sshd", __FILE__)
     end
@@ -100,6 +99,8 @@ describe Tengine::Job::ScriptExecutable do
         },
       )
     end
+
+  describe :execute do
 
     it "終了コードを取得できる" do
       j = Tengine::Job::JobnetActual.new(
