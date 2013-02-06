@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   # s.date = "2012-05-02"
   s.description = "tengine_resource provides physical/virtual server management"
   s.email = "tengine-info@groovenauts.jp"
-  s.executables = ["tengine_resource_watchd", "create_indexes_for_tengine_resource"]
+  s.executables = ["tengine_resource_watchd", "create_indexes_for_tengine_resource", "tengine_resource"]
   s.extra_rdoc_files = [
     "README.rdoc"
   ]
@@ -25,6 +25,9 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.12"
   s.summary = "tengine_resource provides physical/virtual server management"
+
+  s.add_runtime_dependency('thor', ">= 0.14.6") # for compatibility to rails-3.1.x
+  s.add_runtime_dependency('text-table', "~> 1.2.2")
 
   s.add_runtime_dependency('tengine_support', "~> #{version}")
   s.add_runtime_dependency('tengine_core', "~> #{version}")

@@ -4,6 +4,7 @@ require 'mongoid'
 class Tengine::Resource::Provider
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Tengine::Core::SelectableAttr
   include Tengine::Core::Validation
   include Tengine::Core::FindByName
 
@@ -13,6 +14,13 @@ class Tengine::Resource::Provider
   field :retry_interval,   :type => Integer, :default => 10   # プロバイダへの問い合わせリトライ間隔
   field :retry_count,      :type => Integer, :default => 30   # プロバイダへの問い合わせリトライ回数
   field :properties,       :type => Hash,    :default => {}
+
+  field :type_cd, type: Integer, default: 0
+
+  selectable_attr :type_cd do
+    entry 0, :normal, "Normal"
+    entry 1, :manual_control, "ManualControl"
+  end
 
   validates :name, :presence => true, :uniqueness => true, :format => BASE_NAME.options
   index({ name: 1 }, { unique: true })
@@ -53,6 +61,13 @@ class Tengine::Resource::Provider
   end
 
   class << self
+    def manual
+      entry = type_entry_by_key(:manual_control)
+      result = self.where({:type_cd => entry.id}).first
+      result ||= self.create!({name: entry.name, type_cd: entry.id})
+      result
+    end
+
     def find_or_create_by_name!(attrs)
       result = self.where({:name => attrs[:name]}).first
       result ||= self.create!(attrs)
