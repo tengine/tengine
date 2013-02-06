@@ -4,13 +4,14 @@ require 'tengine/resource/cli'
 
 describe Tengine::Resource::CLI::Server do
 
+  before do
+    $stdout.stub(:puts) # ignore output to stdout
+    Mongoid.should_receive(:configure) # and ignore given block
+  end
+
   describe "#list" do
     context "no server" do
       before(:all){ Tengine::Resource::Server.delete_all }
-      before do
-        $stdout.stub(:puts) # ignore output to stdout
-        Mongoid.should_receive(:configure) # and ignore given block
-      end
       subject{ Tengine::Resource::CLI::Server.new.list }
       its(:class){ should == Array }
       its(:length){ should == 1 } # header line
@@ -18,10 +19,6 @@ describe Tengine::Resource::CLI::Server do
 
     context "some servers" do
       before(:all){ ExampleFixtures1.build }
-      before do
-        $stdout.stub(:puts) # ignore output to stdout
-        Mongoid.should_receive(:configure) # and ignore given block
-      end
 
       shared_examples_for "Tengine::Resource::CLI::Server#list with sort" do |options, expected_names|
         let(:list){ Tengine::Resource::CLI::Server.new.list(options) }

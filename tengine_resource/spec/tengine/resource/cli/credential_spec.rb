@@ -4,13 +4,14 @@ require 'tengine/resource/cli'
 
 describe Tengine::Resource::CLI::Credential do
 
+  before do
+    $stdout.stub(:puts) # ignore output to stdout
+    Mongoid.should_receive(:configure) # and ignore given block
+  end
+
   describe "#list" do
     context "no credential" do
       before(:all){ Tengine::Resource::Credential.delete_all }
-      before do
-        $stdout.stub(:puts) # ignore output to stdout
-        Mongoid.should_receive(:configure) # and ignore given block
-      end
       subject{ Tengine::Resource::CLI::Credential.new.list }
       its(:class){ should == Array }
       its(:length){ should == 1 } # header line
@@ -18,10 +19,6 @@ describe Tengine::Resource::CLI::Credential do
 
     context "some credential" do
       before(:all){ ExampleFixtures1.build_credentials }
-      before do
-        $stdout.stub(:puts) # ignore output to stdout
-        Mongoid.should_receive(:configure) # and ignore given block
-      end
 
       shared_examples_for "Tengine::Resource::CLI::Credential#list with sort" do |options, expected_names|
         let(:list){ Tengine::Resource::CLI::Credential.new.list(options) }
