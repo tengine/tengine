@@ -32,7 +32,7 @@ describe Tengine::Resource::CLI::Credential do
         end
 
         describe :header do
-          it{ header.should == %w[name auth_values] }
+          it{ header.should == %w[name auth_values created_at updated_at] }
         end
 
         describe :result do

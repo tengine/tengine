@@ -12,7 +12,7 @@ class Tengine::Resource::CLI::Server < Thor
     opts = merge_options(args, options)
     config_mongoid
     require 'text-table'
-    res = [%w[provider virtual? name addresses]]
+    res = [%w[provider virtual? name status addresses created_at updated_at]]
     sort_options = {(opts[:sort] || "name").to_sym => 1}
     sort_options[:name] = 1 # 同じ時刻などのソートキーが決まらない場合を想定して名前もソートキーに入れる
     Tengine::Resource::Server.all.order_by(sort_options).each do |server|
@@ -20,7 +20,10 @@ class Tengine::Resource::CLI::Server < Thor
         server.provider ? server.provider.name : "-",
         server.is_a?(Tengine::Resource::VirtualServer) ? "virtual" : "physical",
         server.name,
-        server.addresses.to_json
+        server.status,
+        server.addresses.to_json,
+        server.created_at.iso8601,
+        server.updated_at.iso8601,
       ]
     end
     $stdout.puts res.to_table(:first_row_is_head => true)

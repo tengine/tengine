@@ -32,7 +32,7 @@ describe Tengine::Resource::CLI::Server do
         end
 
         describe :header do
-          it{ header.should == %w[provider virtual? name addresses] }
+          it{ header.should == %w[provider virtual? name status addresses created_at updated_at] }
         end
 
         describe :result do
