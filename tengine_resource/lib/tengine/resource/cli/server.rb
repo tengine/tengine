@@ -41,8 +41,8 @@ class Tengine::Resource::CLI::Server < Thor
       server = provider.physical_servers.create!({
           name: name,
           provided_id: name,
-          addresses: opts[:addresses],
-          properties: opts[:properties]
+          addresses: opts[:addresses] || {},
+          properties: opts[:properties] || {}
         })
       $stdout.puts "server created successfully!: #{server.to_json}"
     end
