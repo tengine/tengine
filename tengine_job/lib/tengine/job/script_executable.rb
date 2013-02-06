@@ -57,25 +57,25 @@ module Tengine::Job::ScriptExecutable
       c = ssh.open_channel do |channel|
         # channel.exec("bash -l") do |shell_ch, success|
         channel.request_pty do |shell_ch, success|
-        Tengine.logger.info("now exec on ssh: " << cmd)
-        shell_ch.exec(cmd.force_encoding("binary")) do |ch, success|
-          raise Error, "could not execute command" unless success
+          Tengine.logger.info("now exec on ssh: " << cmd)
+          shell_ch.exec(cmd.force_encoding("binary")) do |ch, success|
+            raise Error, "could not execute command" unless success
 
-          ch.on_close do |ch|
-            # puts "ch is closing!"
-          end
+            ch.on_close do |ch|
+              # puts "ch is closing!"
+            end
 
-          ch.on_data do |ch, data|
-            Tengine.logger.debug("got stdout: #{data}")
-            yield(ch, data) if block_given?
-          end
+            ch.on_data do |ch, data|
+              Tengine.logger.debug("got stdout: #{data}")
+              yield(ch, data) if block_given?
+            end
 
-          ch.on_extended_data do |ch, type, data|
-            self.error_messages ||= []
-            self.error_messages += [data]
-            raise Error, "Failure to execute #{self.name_path} via SSH: #{data}"
+            ch.on_extended_data do |ch, type, data|
+              self.error_messages ||= []
+              self.error_messages += [data]
+              raise Error, "Failure to execute #{self.name_path} via SSH: #{data}"
+            end
           end
-        end
         end
       end
       c.wait
