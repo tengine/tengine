@@ -2,6 +2,8 @@
 require 'spec_helper'
 
 describe 'hadoop_job_run' do
+  include NetSshMock
+
   before(:all) do
     Tengine.plugins.add(Tengine::Job::DslLoader)
   end
@@ -33,8 +35,7 @@ describe 'hadoop_job_run' do
           signal = Tengine::Job::Signal.new(mock_event)
           mock_ssh = mock(:ssh)
           Net::SSH.should_receive(:start).and_yield(mock_ssh)
-          mock_channel = mock(:channel)
-          mock_ssh.should_receive(:open_channel).and_yield(mock_channel)
+          mock_channel = mock_channel_fof_script_executable(mock_ssh)
           mock_channel.should_receive(:exec).with(an_instance_of(String)) do |cmd|
             cmd.should =~ /export FOO=BAR/
           end
@@ -46,8 +47,7 @@ describe 'hadoop_job_run' do
           signal = Tengine::Job::Signal.new(mock_event)
           mock_ssh = mock(:ssh)
           Net::SSH.should_receive(:start).and_yield(mock_ssh)
-          mock_channel = mock(:channel)
-          mock_ssh.should_receive(:open_channel).and_yield(mock_channel)
+          mock_channel = mock_channel_fof_script_executable(mock_ssh)
           mock_channel.should_receive(:exec).with(an_instance_of(String)) do |cmd|
             cmd.should =~ /export SERVER_NAME=test_server1 && export DNS_NAME=localhost/
           end

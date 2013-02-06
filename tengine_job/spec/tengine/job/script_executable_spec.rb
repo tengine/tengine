@@ -130,4 +130,32 @@ describe Tengine::Job::ScriptExecutable do
       str.force_encoding('UTF-8').should be_valid_encoding
     end
   end
+
+  describe "#run" do
+    # https://www.pivotaltracker.com/story/show/43918327
+    it "開発環境(mac, zsh)でジョブが実行されない" do
+      dir = File.expand_path("../../../..", __FILE__)
+      text_path = "tmp/log/env.txt"
+      script = "cd #{dir} && spec/tengine/job/script_executable/echo_env.sh #{text_path}"
+      j = Tengine::Job::JobnetActual.new(
+        :server_name => @server.name,
+        :credential_name => @credential.name,
+        :script => script
+      )
+      mock_execution = mock(:execution, {
+                              id: "execution_id1",
+                              signal: nil,
+                              estimated_time: 10,
+                              actual_estimated_end: nil,
+                              preparation_command: nil,
+                            })
+      j.run(mock_execution)
+      File.exist?(text_path).should == true
+      # File.read(text_path).should == `env | sort` # PATHや実行時に環境変数が異なるのでこの比較はできません
+      text = File.read(text_path)
+      %w[USER HOME].each do |key|
+        text.should =~ /^#{key}\=#{ENV[key]}$/
+      end
+    end
+  end
 end
