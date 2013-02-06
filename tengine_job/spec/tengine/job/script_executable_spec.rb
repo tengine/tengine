@@ -132,6 +132,15 @@ describe Tengine::Job::ScriptExecutable do
   end
 
   describe "#run" do
+    before do
+      # tengine_job_agent_run を使わないようにします
+      ENV['MM_RUNNER_PATH'] = ""
+    end
+
+    after do
+      ENV.delete('MM_RUNNER_PATH')
+    end
+
     # https://www.pivotaltracker.com/story/show/43918327
     it "開発環境(mac, zsh)でジョブが実行されない" do
       dir = File.expand_path("../../../..", __FILE__)
@@ -150,6 +159,10 @@ describe Tengine::Job::ScriptExecutable do
                               preparation_command: nil,
                             })
       j.run(mock_execution)
+      20.times do
+        break if File.exist?(text_path)
+        sleep(0.5) # ファイルができるまで10秒間待ってみる
+      end
       File.exist?(text_path).should == true
       # File.read(text_path).should == `env | sort` # PATHや実行時に環境変数が異なるのでこの比較はできません
       text = File.read(text_path)
