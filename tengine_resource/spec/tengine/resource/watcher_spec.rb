@@ -1,9 +1,16 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe Tengine::Resource::Watcher do
 
   class TestProvider1 < Tengine::Resource::Provider
     field :connection_settings, :type => Hash
+
+    # A. [Mongoidのモデルを継承した場合のコレクションの接続先DBの不一致] への対応
+    # A-1. store_inによる明示的に接続先を設定することも可能
+    Tengine::Resource::Provider.collection.tap do |c|
+      store_in collection: c.name, database: c.database.name
+    end
   end
 
   describe :find_providers do
@@ -18,6 +25,25 @@ describe Tengine::Resource::Watcher do
 
     context "providers exist" do
       before do
+        # [Mongoidのモデルを継承した場合のコレクションの接続先DBの不一致]
+        #
+        # テストの実行順によってはTestProvider1とTengine::Resource::Providerの
+        # コレクションのデータベースが異なってしまうことがあります。
+        #
+        # 具体的には
+        # 1. bundle exec rspec spec/tengine/resource/watcher_spec.rb spec/tengine/resource/cli/server_spec.rb
+        # 2. bundle exec rspec spec/tengine/resource/cli/server_spec.rb spec/tengine/resource/watcher_spec.rb
+        # があった場合
+        # 1は成功しますが、2は以下のようなエラーで失敗します。
+        #
+        # 1) Tengine::Resource::Watcher find_providers providers exist valid
+        #    Failure/Error: Tengine::Resource::Provider.collection.database.name.to_s
+        #      expected: "tengine_resource_test"
+        #           got: "tengine_production" (using ==)
+        #    # ./spec/tengine/resource/watcher_spec.rb:47:in `block (4 levels) in <top (required)>'
+        #
+        TestProvider1.collection.database.name.to_s.should == Tengine::Resource::Provider.collection.database.name.to_s
+
         @provider1 = TestProvider1.create!(:name => "test1", :connection_settings => {:foo => "FOO", :bar => "BAR"})
         @provider2 = TestProvider1.create!(:name => "test2", :connection_settings => {:baz => "BAZ"})
       end

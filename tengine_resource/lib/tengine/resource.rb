@@ -17,6 +17,10 @@ module Tengine::Resource
   autoload :Watcher           , 'tengine/resource/watcher'
   autoload :Config            , 'tengine/resource/config'
 
+  # 定数を参照した際にrequireしないように、明示的にrequireすることにしてあります。
+  # データ操作のためのコマンドラインインタフェース
+  # autoload :CLI               , 'tengine/resource/cli'
+
   def self.notify ctx, msg
     # called from tengine_core/lib/tengine/core/plugins.rb
     case msg when :after___evalate__
