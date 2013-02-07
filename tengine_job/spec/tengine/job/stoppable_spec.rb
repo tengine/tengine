@@ -4,6 +4,7 @@ require 'spec_helper'
 describe Tengine::Job::Stoppable do
   include TestCredentialFixture
   include TestServerFixture
+  include NetSshMock
 
   describe :stop do
     context "rjn0011" do
@@ -89,16 +90,14 @@ describe Tengine::Job::Stoppable do
             @root.reload
 
             mock_ssh = mock(:ssh)
-            mock_channel = mock(:channel)
             Net::SSH.should_receive(:start).
               with(test_server1.hostname_or_ipv4,
               an_instance_of(Tengine::Resource::Credential),
               an_instance_of(Hash)).and_yield(mock_ssh)
-            mock_ssh.should_receive(:open_channel).and_yield(mock_channel)
+            mock_channel = mock_channel_fof_script_executable(mock_ssh)
             mock_channel.should_receive(:exec) do |*args|
               args.length.should == 1
               args.first.tap do |cmd|
-                cmd.should =~ %r<source \/etc\/profile>
                 cmd.should =~ /tengine_job_agent_kill #{@pid} 30 INT,HUP,QUIT,KILL/
               end
             end
@@ -130,16 +129,14 @@ describe Tengine::Job::Stoppable do
         it do
           @pid = "111"
           mock_ssh = mock(:ssh)
-          mock_channel = mock(:channel)
           Net::SSH.should_receive(:start).
             with(test_server1.hostname_or_ipv4,
             an_instance_of(Tengine::Resource::Credential),
             an_instance_of(Hash)).and_yield(mock_ssh)
-          mock_ssh.should_receive(:open_channel).and_yield(mock_channel)
+          mock_channel = mock_channel_fof_script_executable(mock_ssh)
           mock_channel.should_receive(:exec) do |*args|
             args.length.should == 1
             args.first.tap do |cmd|
-              cmd.should =~ %r<source \/etc\/profile>
               cmd.should =~ /tengine_job_agent_kill #{@pid} #{interval} #{signals}/
             end
           end

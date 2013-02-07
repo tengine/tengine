@@ -4,6 +4,7 @@ require 'tengine/rspec'
 
 describe 'job_control_driver' do
   include Tengine::RSpec::Extension
+  include NetSshMock
 
   target_dsl File.expand_path("../../../../../lib/tengine/job/drivers/job_control_driver.rb", File.dirname(__FILE__))
   driver :job_control_driver
@@ -20,14 +21,12 @@ describe 'job_control_driver' do
       @root.reload
       tengine.should_not_fire
       mock_ssh = mock(:ssh)
-      mock_channel = mock(:channel)
       Net::SSH.should_receive(:start).
         with("localhost", an_instance_of(Tengine::Resource::Credential), an_instance_of(Hash)).and_yield(mock_ssh)
-      mock_ssh.should_receive(:open_channel).and_yield(mock_channel)
+      mock_channel = mock_channel_fof_script_executable(mock_ssh)
       mock_channel.should_receive(:exec) do |*args|
         args.length.should == 1
-        # args.first.should =~ %r<source \/etc\/profile && export MM_ACTUAL_JOB_ID=[0-9a-f]{24} MM_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_FULL_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_ACTUAL_JOB_NAME_PATH=\\"/rjn0001/j11\\" MM_ACTUAL_JOB_SECURITY_TOKEN= MM_SCHEDULE_ID=[0-9a-f]{24} MM_SCHEDULE_ESTIMATED_TIME= MM_TEMPLATE_JOB_ID=[0-9a-f]{24} MM_TEMPLATE_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" && tengine_job_agent_run -- \$HOME/j11\.sh>
-        args.first.should =~ %r<source \/etc\/profile>
+        # args.first.should =~ %r<export MM_ACTUAL_JOB_ID=[0-9a-f]{24} MM_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_FULL_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_ACTUAL_JOB_NAME_PATH=\\"/rjn0001/j11\\" MM_ACTUAL_JOB_SECURITY_TOKEN= MM_SCHEDULE_ID=[0-9a-f]{24} MM_SCHEDULE_ESTIMATED_TIME= MM_TEMPLATE_JOB_ID=[0-9a-f]{24} MM_TEMPLATE_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" && tengine_job_agent_run -- \$HOME/j11\.sh>
           t_rjn1001 = Tengine::Job::RootJobnetTemplate.find_by_name("rjn0001")
         t_rjn1001.dsl_version.should == dsl_version
         t_j11 = t_rjn1001.vertex_by_name_path("/rjn0001/j11")

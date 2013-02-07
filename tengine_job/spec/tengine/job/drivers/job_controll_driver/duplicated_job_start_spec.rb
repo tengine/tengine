@@ -23,6 +23,7 @@ require 'net/ssh'
 #
 describe "<BUG>tengindのプロセスを二つ起動した際に並列ジョブがある際にジョブが２度実行される" do
   include Tengine::RSpec::Extension
+  include NetSshMock
 
   driver_path = File.expand_path("../../../../../lib/tengine/job/drivers/job_control_driver.rb", File.dirname(__FILE__))
 
@@ -113,8 +114,7 @@ describe "<BUG>tengindのプロセスを二つ起動した際に並列ジョブ�
         Net::SSH.should_receive(:start).with("localhost",
           an_instance_of(Tengine::Resource::Credential),
           an_instance_of(Hash)).once.and_yield(ssh1)
-        channel1 = mock(:channel1)
-        ssh1.stub(:open_channel).and_yield(channel1)
+        channel1 = mock_channel_fof_script_executable(ssh1, :channel1)
         channel1.stub(:exec).with(any_args).and_yield(channel1, true)
         channel1.should_receive(:on_close) do
           Tengine.logger.debug( ("!" * 100) << "\non_close: Fiber.yield #{Process.pid} #{__FILE__}##{__LINE__}")
@@ -134,8 +134,7 @@ describe "<BUG>tengindのプロセスを二つ起動した際に並列ジョブ�
         Net::SSH.should_receive(:start).with("192.168.1.2",
           an_instance_of(Tengine::Resource::Credential),
           an_instance_of(Hash)).once.and_yield(ssh2)
-        channel2 = mock(:channel2)
-        ssh2.stub(:open_channel).and_yield(channel2)
+        channel2 = mock_channel_fof_script_executable(ssh2, :channel2)
         channel2.stub(:exec).with(any_args).and_yield(channel2, true)
         channel2.should_receive(:on_close) do
           Tengine.logger.debug( ("!" * 100) << "\non_close: Fiber.yield #{Process.pid} #{__FILE__}##{__LINE__}")

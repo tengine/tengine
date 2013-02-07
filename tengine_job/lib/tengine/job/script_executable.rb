@@ -42,6 +42,9 @@ module Tengine::Job::ScriptExecutable
         end
       end
     end
+  rescue Exception => e
+    Tengine.logger.error("[#{e.class}] #{e.message}\n  " << e.backtrace.join("\n  "))
+    raise
   end
 
   def execute(cmd)
@@ -51,28 +54,31 @@ module Tengine::Job::ScriptExecutable
     keys_only = actual_credential.auth_type_cd == :ssh_public_key
     Net::SSH.start(actual_server.hostname_or_ipv4, actual_credential, :port => port, :logger => Tengine.logger, :keys_only => keys_only) do |ssh|
       # see http://net-ssh.github.com/ssh/v2/api/classes/Net/SSH/Connection/Channel.html
-      ssh.open_channel do |channel|
-        Tengine.logger.info("now exec on ssh: " << cmd)
-        channel.exec(cmd.force_encoding("binary")) do |ch, success|
-          raise Error, "could not execute command" unless success
+      c = ssh.open_channel do |channel|
+        # channel.exec("bash -l") do |shell_ch, success|
+        channel.request_pty do |shell_ch, success|
+          Tengine.logger.info("now exec on ssh: " << cmd)
+          shell_ch.exec(cmd.force_encoding("binary")) do |ch, success|
+            raise Error, "could not execute command" unless success
 
-          channel.on_close do |ch|
-            # puts "channel is closing!"
-          end
+            ch.on_close do |ch|
+              # puts "ch is closing!"
+            end
 
-          channel.on_data do |ch, data|
-            Tengine.logger.debug("got stdout: #{data}")
-            yield(ch, data) if block_given?
-          end
+            ch.on_data do |ch, data|
+              Tengine.logger.debug("got stdout: #{data}")
+              yield(ch, data) if block_given?
+            end
 
-          channel.on_extended_data do |ch, type, data|
-            self.error_messages ||= []
-            self.error_messages += [data]
-            raise Error, "Failure to execute #{self.name_path} via SSH: #{data}"
+            ch.on_extended_data do |ch, type, data|
+              self.error_messages ||= []
+              self.error_messages += [data]
+              raise Error, "Failure to execute #{self.name_path} via SSH: #{data}"
+            end
           end
         end
       end
-
+      c.wait
     end
   rescue Tengine::Job::ScriptExecutable::Error
     raise
@@ -86,7 +92,7 @@ module Tengine::Job::ScriptExecutable
   end
 
   def kill(execution)
-    lines = source_profiles
+    lines = []
 
     if self.executing_pid.blank?
       Tengine.logger.warn("PID is blank when kill!!\n#{self.inspect}\n  " << caller.join("\n  "))
@@ -110,7 +116,7 @@ module Tengine::Job::ScriptExecutable
 #   end
 
   def build_command(execution)
-    result = source_profiles
+    result = []
     mm_env = build_mm_env(execution).map{|k,v| "#{k}=#{v}"}.join(" ")
     # Hadoopジョブの場合は環境変数をセットする
     if is_a?(Tengine::Job::Jobnet) && (jobnet_type_key == :hadoop_job_run)
@@ -150,16 +156,6 @@ module Tengine::Job::ScriptExecutable
     result.join(" && ")
   end
 
-  def source_profiles
-    # RubyのNet::SSHでは設定ファイルが読み込まれないので、ロードするようにします。
-    # ~/.bash_profile, ~/.bashrc などは非対応。
-    # ファイルが存在していたらsourceで読み込むようにしたいのですが、一旦保留します。
-    # http://www.syns.net/10/
-    ["/etc/profile", "/etc/bashrc", "$HOME/.bashrc", "$HOME/.bash_profile"].map do |path|
-      "if [ -f #{path} ]; then source #{path}; fi"
-    end
-  end
-
   def executable_command(command)
     if prefix = ENV["MM_CMD_PREFIX"]
       "#{prefix} #{command}"
@@ -188,7 +184,7 @@ module Tengine::Job::ScriptExecutable
     result = {
       "MM_SERVER_NAME" => actual_server_name,  # [Tengineの仕様として追加] ジョブの実行サーバ名を設定
       "MM_ROOT_JOBNET_ID" => root.id.to_s,
-      "MM_TARGET_JOBNET_ID" => parent.id.to_s,
+      "MM_TARGET_JOBNET_ID" => (parent ? parent.id.to_s : nil),
       "MM_ACTUAL_JOB_ID" => id.to_s,
       "MM_ACTUAL_JOB_ANCESTOR_IDS" => '"%s"' % ancestors_until_expansion.map(&:id).map(&:to_s).join(';'),
       "MM_FULL_ACTUAL_JOB_ANCESTOR_IDS" => '"%s"' % ancestors.map(&:id).map(&:to_s).join(';'),
