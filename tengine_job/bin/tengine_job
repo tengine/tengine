@@ -1,0 +1,71 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+$LOAD_PATH << File.expand_path('../lib', File.dirname(__FILE__))
+
+require 'thor'
+require 'tengine_job'
+
+class TengineJob < Thor
+
+  private
+  def setup
+    config = Tengine::Core::Config::Core.new.tap do |c|
+      if path = (options[:config] || options["config"])
+        c.load_file(path)
+      else
+        c.load({:db => Tengine::Core::Config::DB::DEFAULT_SETTINGS})
+      end
+    end
+    require 'mongoid'
+    Mongoid.configure do |c|
+      c.send :load_configuration, config[:db]
+    end
+  end
+
+  public
+  desc "list", "list RootJobnetTemplate names"
+  method_option :config, type: :string, aliases: '-f', :desc => "config to connect MongoDB and RabbitmQ as same as tengined's config"
+  def list
+    setup
+    require 'text-table'
+    res = [%w[name type category server credential created_at updated_at]]
+    Tengine::Job::RootJobnetTemplate.all.order_by({name: 1}).each do |t|
+      res << [
+        t.name,
+        t.jobnet_type_name,
+        t.category ? t.category.name : nil,
+        t.server_name,
+        t.credential_name,
+        t.created_at.iso8601,
+        t.updated_at.iso8601,
+      ]
+    end
+    $stdout.puts res.to_table(:first_row_is_head => true)
+    res
+  end
+
+  desc "kick [RootJobnetTemplate name]", "start job"
+  method_option :config, type: :string, aliases: '-f', :desc => "config to connect MongoDB and RabbitmQ as same as tengined's config"
+  def kick(name, *args)
+    setup
+    EM.run {
+      t = Tengine::Job::RootJobnetTemplate.where(name: name).first
+      r = t.execute
+      $stdout.puts "#{name} was executed successfully.\n#{r.inspect}"
+    }
+  end
+
+  desc "remove [RootJobnetTemplate name]", "remove job"
+  method_option :config, type: :string, aliases: '-f', :desc => "config to connect MongoDB and RabbitmQ as same as tengined's config"
+  def remove(name, *args)
+    setup
+    t = Tengine::Job::RootJobnetTemplate.where(name: name).first
+    t.destroy
+    $stdout.puts "#{name} was removed successfully."
+  end
+
+end
+
+
+TengineJob.start
