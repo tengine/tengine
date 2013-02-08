@@ -7,7 +7,5 @@ jobnet("jobnet0021", :caption => "ジョブネット0021", :instance_name => "i-
   job("job1", "ジョブ1", "job1.sh")
   job("job2", "job2.sh", :description => "ジョブ2")
   job("job3", "job3.sh", :caption => "ジョブ3")
-  hadoop_job_run("hadoop_job_run4", "hadoop_job_run4.sh", :caption => "Hadoopジョブ4") do
-    hadoop_job("hadoop_job")
-  end
+  job("job4", "hadoop_job_run4.sh", :caption => "Hadoopジョブ4")
 end

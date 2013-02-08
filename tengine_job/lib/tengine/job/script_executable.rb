@@ -118,10 +118,6 @@ module Tengine::Job::ScriptExecutable
   def build_command(execution)
     result = []
     mm_env = build_mm_env(execution).map{|k,v| "#{k}=#{v}"}.join(" ")
-    # Hadoopジョブの場合は環境変数をセットする
-    if is_a?(Tengine::Job::Jobnet) && (jobnet_type_key == :hadoop_job_run)
-      mm_env << ' ' << hadoop_job_env
-    end
     result << "export #{mm_env}"
     template_root = root_or_expansion.template
     if template_root
@@ -219,12 +215,6 @@ module Tengine::Job::ScriptExecutable
     #   })
     # end
     result
-  end
-
-  def hadoop_job_env
-    s = children.select{|c| c.is_a?(Tengine::Job::Jobnet) && (c.jobnet_type_key == :hadoop_job)}.
-      map{|c| "#{c.name}\\t#{c.id.to_s}\\n"}.join
-    "MM_HADOOP_JOBS=\"#{s}\""
   end
 
 

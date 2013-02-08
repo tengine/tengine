@@ -30,7 +30,7 @@ describe Tengine::Job::DslLoader do
           j.version.should == 0
           j.dsl_version.should == @version
           j.dsl_filepath.should == "0013_hadoop_job_run.rb"
-          j.dsl_lineno.should == 21
+          j.dsl_lineno.should == 8
           j.name.should == "jobnet0013"
           j.description.should == "ジョブネット0013"
           j.server_name.should == "i-11111111"
@@ -44,64 +44,8 @@ describe Tengine::Job::DslLoader do
           Tengine::Job::End,
         ]
         root_jobnet.children[1].tap{|j| j.name.should == "job1"; j.description.should == "ジョブ1"; j.script.should == "import_hdfs.sh"}
-        hadoop_job_run = root_jobnet.children[2]
-        root_jobnet.children[3].tap{|j| j.name.should == "job2"; j.description.should == "ジョブ2"; j.script.should == "export_hdfs.sh"}
-        root_jobnet.edges.map{|edge| [edge.origin, edge.destination]}.should == [
-          [root_jobnet.children[0], root_jobnet.children[1]],
-          [root_jobnet.children[1], root_jobnet.children[2]],
-          [root_jobnet.children[2], root_jobnet.children[3]],
-          [root_jobnet.children[3], root_jobnet.children[4]],
-        ]
-        hadoop_job_run.tap{|j| j.name.should == "hadoop_job_run1"; j.description.should == "Hadoopジョブ1"; j.script.should == "hadoop_job_run.sh"}
-        hadoop_job_run.children.map(&:class).should == [
-          Tengine::Job::Start,
-          Tengine::Job::JobnetTemplate,
-          Tengine::Job::JobnetTemplate,
-          Tengine::Job::End,
-        ]
-        hadoop_job_run.edges.map{|edge| [edge.origin, edge.destination]}.should == [
-          [hadoop_job_run.children[0], hadoop_job_run.children[1]],
-          [hadoop_job_run.children[1], hadoop_job_run.children[2]],
-          [hadoop_job_run.children[2], hadoop_job_run.children[3]],
-        ]
-        hadoop_job1 = hadoop_job_run.children[1]
-        hadoop_job1.tap{|j| j.name.should == "hadoop_job1"}
-        hadoop_job1.children.map(&:class).should == [
-          Tengine::Job::Start,
-          Tengine::Job::Fork,
-          Tengine::Job::JobnetTemplate,
-          Tengine::Job::JobnetTemplate,
-          Tengine::Job::Join,
-          Tengine::Job::End,
-        ]
-
-        hadoop_job1.edges.map{|edge| [edge.origin, edge.destination]}.should == [
-          [hadoop_job1.children[0], hadoop_job1.children[1]],
-          [hadoop_job1.children[1], hadoop_job1.children[2]],
-          [hadoop_job1.children[1], hadoop_job1.children[3]],
-          [hadoop_job1.children[2], hadoop_job1.children[4]],
-          [hadoop_job1.children[3], hadoop_job1.children[4]],
-          [hadoop_job1.children[4], hadoop_job1.children[5]],
-        ]
-
-        hadoop_job1.edges.map{|edge| [edge.origin.class, edge.destination.class]}.should == [
-          [Tengine::Job::Start         , Tengine::Job::Fork          ],
-          [Tengine::Job::Fork          , Tengine::Job::JobnetTemplate],
-          [Tengine::Job::Fork          , Tengine::Job::JobnetTemplate],
-          [Tengine::Job::JobnetTemplate, Tengine::Job::Join          ],
-          [Tengine::Job::JobnetTemplate, Tengine::Job::Join          ],
-          [Tengine::Job::Join          , Tengine::Job::End           ],
-        ]
-        hadoop_job2 = hadoop_job_run.children[2]
-        hadoop_job2.tap{|j| j.name.should == "hadoop_job2"}
-        hadoop_job2.children.map(&:class).should == [
-          Tengine::Job::Start,
-          Tengine::Job::Fork,
-          Tengine::Job::JobnetTemplate,
-          Tengine::Job::JobnetTemplate,
-          Tengine::Job::Join,
-          Tengine::Job::End,
-        ]
+        root_jobnet.children[2].tap{|j| j.name.should == "job2"; j.description.should == "ジョブ2"; j.script.should == "hadoop_job_run.sh"}
+        root_jobnet.children[3].tap{|j| j.name.should == "job3"; j.description.should == "ジョブ3"; j.script.should == "export_hdfs.sh"}
       end
     end
 
@@ -406,7 +350,7 @@ describe Tengine::Job::DslLoader do
         root_jobnet.children[1].tap{|j| j.name.should == "job1"; j.description.should == "ジョブ1"; j.script.should == "job1.sh"}
         root_jobnet.children[2].tap{|j| j.name.should == "job2"; j.description.should == "ジョブ2"; j.script.should == "job2.sh"}
         root_jobnet.children[3].tap{|j| j.name.should == "job3"; j.description.should == "ジョブ3"; j.script.should == "job3.sh"}
-        root_jobnet.children[4].tap{|j| j.name.should == "hadoop_job_run4"; j.description.should == "Hadoopジョブ4"; j.script.should == "hadoop_job_run4.sh"}
+        root_jobnet.children[4].tap{|j| j.name.should == "job4"; j.description.should == "Hadoopジョブ4"; j.script.should == "hadoop_job_run4.sh"}
       end
     end
 

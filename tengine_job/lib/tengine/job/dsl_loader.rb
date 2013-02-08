@@ -113,33 +113,6 @@ module Tengine::Job::DslLoader
     result
   end
 
-  def hadoop_job_run(name, *args, &block)
-    script, description, options = __parse_job_args__(name, args)
-    options[:script] = script
-    options[:jobnet_type_key] = :hadoop_job_run
-    jobnet(name, description, options, &block)
-  end
-
-  def hadoop_job(name, options = {})
-    result = __with_redirection__(options) do
-      Tengine::Job::JobnetTemplate.new(:name => name, :jobnet_type_key => :hadoop_job)
-    end
-    result.children << start  = Tengine::Job::Start.new
-    result.children << fork   = Tengine::Job::Fork.new
-    result.children << map    = Tengine::Job::JobnetTemplate.new(:name => "Map"   , :jobnet_type_key => :map_phase   )
-    result.children << reduce = Tengine::Job::JobnetTemplate.new(:name => "Reduce", :jobnet_type_key => :reduce_phase)
-    result.children << join   = Tengine::Job::Join.new
-    result.children << _end   = Tengine::Job::End.new
-    result.edges.new(:origin_id => start.id , :destination_id => fork.id  )
-    result.edges.new(:origin_id => fork.id  , :destination_id => map.id   )
-    result.edges.new(:origin_id => fork.id  , :destination_id => reduce.id)
-    result.edges.new(:origin_id => map.id   , :destination_id => join.id  )
-    result.edges.new(:origin_id => reduce.id, :destination_id => join.id  )
-    result.edges.new(:origin_id => join.id  , :destination_id => _end.id  )
-    @jobnet.children << result
-    result
-  end
-
   def finally(&block)
     jobnet("finally", :jobnet_type_key => :finally, &block)
   end
