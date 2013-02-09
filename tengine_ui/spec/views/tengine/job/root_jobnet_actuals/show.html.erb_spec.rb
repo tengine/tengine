@@ -525,49 +525,5 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
       end
     end
 
-    context "<BUG>hadoop_job_runを含むジョブを実行すると、「ジョブネット監視」画面のhadoop_job、Map、Reduceに強制停止リンク、及び再実行リンクが表示されてしまう" do
-      [:hadoop_job, :map_phase, :reduce_phase].each do |jobnet_type_key|
-        context "jobnet_type_keyが#{jobnet_type_key.inspect}ならば" do
-          Tengine::Job::JobnetActual.phase_keys.each do |phase_key|
-            context "どんな状態でも(#{phase_key.inspect})" do
-              before do
-                @job1 = stub_model(Tengine::Job::JobnetActual,
-                  :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000002"),
-                  :jobnet_type_key => jobnet_type_key,
-                  :name => "job1 name",
-                  :description => "job1 description",
-                  :script => "job1 script",
-                  :server_name => "job1 server_name",
-                  :credential_name => "job1 credential_name",
-                  :phase_cd => 90,
-                  :phase_name => "stuck",
-                  :phase_key => :stuck,
-                  :started_at => Time.new(2011, 11, 5),
-                  )
-                @jobnet_actuals = assign(:jobnet_actuals, [
-                    [@job1, 0],
-                  ])
-              end
-
-              it "強制停止や再実行のリンクは表示されない" do
-                render
-                rendered.should_not have_link(I18n.t("views.links.edit_status"),
-                  :href => edit_tengine_job_root_jobnet_actual_jobnet_actual_path(
-                    @job1, :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
-                rendered.should_not have_link(I18n.t("views.links.rerun"),
-                  :href => new_tengine_job_execution_path(
-                    :root_jobnet_id => @root_jobnet_actual,
-                    :target_actual_ids => [@job1.id.to_s],
-                    :retry => true))
-                rendered.should_not have_link(I18n.t("views.links.force_exit"),
-                  :href => tengine_job_root_jobnet_actual_jobnet_actual_path(@job1.id.to_s,
-                    :root_jobnet_actual_id => @root_jobnet_actual.id.to_s))
-              end
-
-            end
-          end
-        end
-      end
-    end
   end
 end
