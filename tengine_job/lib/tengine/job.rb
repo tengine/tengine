@@ -32,6 +32,8 @@ module Tengine::Job
 
   autoload :Expansion           , "tengine/job/expansion"
 
+  autoload :RubyJob             , "tengine/job/ruby_job"
+
   autoload :Root                , "tengine/job/root"
   autoload :NamePath            , "tengine/job/name_path"
   autoload :Executable          , "tengine/job/executable"

@@ -12,8 +12,10 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
 
   autoload :Builder, "tengine/job/jobnet/builder"
   autoload :StateTransition, 'tengine/job/jobnet/state_transition'
+  autoload :JobBaseStateTransition, 'tengine/job/jobnet/job_base_state_transition'
   autoload :JobStateTransition, 'tengine/job/jobnet/job_state_transition'
   autoload :JobnetStateTransition, 'tengine/job/jobnet/jobnet_state_transition'
+  autoload :RubyJobStateTransition, 'tengine/job/jobnet/ruby_job_state_transition'
 
   field :script        , :type => String # 実行されるスクリプト(本来Tengine::Job::Scriptが保持しますが、子要素を保持してかつスクリプトを実行するhadoop_job_runもある)
   field :description   , :type => String # ジョブネットの説明
@@ -27,6 +29,7 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
     entry 5, :hadoop_job    , "hadoop job"    , :chained_box => true
     entry 6, :map_phase     , "map phase"     , :chained_box => true
     entry 7, :reduce_phase  , "reduce phase"  , :chained_box => true
+    entry 8, :ruby_job      , "ruby job"
   end
   def chained_box?; jobnet_type_entry[:chained_box]; end
 
@@ -180,5 +183,27 @@ class Tengine::Job::Jobnet < Tengine::Job::Job
     child = child_by_name(head)
     tail ? child.vertex_by_relative_name_path(tail) : child
   end
+
+  def ruby_job_conductor
+    result =
+      case jobnet_type_key
+      when :ruby_job then
+        template_block_for(:conductor)
+      else
+        template_block_for(:ruby_job_conductor)
+      end
+    return result if result
+    parent ? parent.ruby_job_conductor : nil
+  end
+
+  def conductor
+    case jobnet_type_key
+    when :ruby_job then
+      ruby_job_conductor || Tengine::Job::RubyJob.default_conductor
+    else
+      raise "jobnet has no #conductor but #ruby_job_conductor and #ssh_conductor"
+    end
+  end
+
 
 end

@@ -12,7 +12,7 @@ class Tengine::RSpec::ContextWrapper
 
   def receive(event_type_name, options = {})
     mock_headers = Object.new
-    mock_headers.should_receive(:ack)
+    mock_headers.should_receive(:ack) unless options.delete(:without_ack)
     raw_event = Tengine::Event.new({:event_type_name => event_type_name}.update(options || {}))
     @kernel.process_message(mock_headers, raw_event.to_json)
   end

@@ -9,6 +9,9 @@ module Tengine::Job::DslLoader
     def loading_template_block_store
       @loading_template_block_store ||= {}
     end
+    def add_loading_template_block(job, name, block)
+      loading_template_block_store[[job, name]] = block
+    end
 
     def template_block_store
       @template_block_store ||= {}
@@ -20,13 +23,17 @@ module Tengine::Job::DslLoader
 
     def update_loaded_blocks(loaded_root)
       if loaded_root
-        loading_template_block_store.each do |unsaved_job, (name, block)|
+        loading_template_block_store.each do |(unsaved_job, name), block|
           loaded_job = loaded_root.vertex_by_name_path(unsaved_job.name_path)
+          unless loaded_job
+            Tengine.logger.warn("#{unsaved_job.name_path} not found")
+            next
+          end
           key = template_block_store_key(loaded_job, name)
           template_block_store[key] = block
         end
       else
-        loading_template_block_store.each do |saved_job, (name, block)|
+        loading_template_block_store.each do |(saved_job, name), block|
           key = template_block_store_key(saved_job, name)
           template_block_store[key] = block
         end
@@ -44,6 +51,13 @@ module Tengine::Job::DslLoader
       :description => args.first || name,
     }.update(options)
     auto_sequence = options.delete(:auto_sequence)
+    conductors = options.delete(:conductors)
+    if conductors && !conductors.is_a?(Hash)
+      raise Tengine::Job::DslError, ":conductors options must be a Hash but is #{conductors.inspect}"
+    end
+    if conductor = options.delete(:conductor)
+      raise Tengine::Job::DslError, ":conductor options for jobnet instead of :conductors options"
+    end
     result = __with_redirection__(options) do
       if @jobnet.nil?
         klass = Tengine::Job::RootJobnetTemplate
@@ -79,10 +93,14 @@ module Tengine::Job::DslLoader
       loaded = result.find_duplication
       result.save! unless loaded
       Tengine::Job::DslLoader.update_loaded_blocks(loaded)
-      loaded || result
-    else
-      result
+      result = loaded || result
     end
+    if conductors
+      if c = conductors[:ruby_job]
+        Tengine::Job::DslLoader.add_loading_template_block(result, :ruby_job_conductor, c)
+      end
+    end
+    result
   end
 
   def auto_sequence
@@ -108,7 +126,37 @@ module Tengine::Job::DslLoader
     end
     @jobnet.children << result
     if preparation
-      Tengine::Job::DslLoader.loading_template_block_store[result] = [:preparation, preparation]
+      Tengine::Job::DslLoader.add_loading_template_block(result, :preparation, preparation)
+    end
+    result
+  end
+
+  def ruby_job(name, *args, &block)
+    raise Tengine::Job::DslError, "no block given for ruby_job" unless block
+    options = args.extract_options!
+    description = args.shift
+    options = {
+      :name => name,
+      :description => description,
+      :jobnet_type_key => :ruby_job,
+    }.update(options)
+    if preparation = options.delete(:preparation)
+      Tengine.logger.warn(":preparation option for ruby_job is ignored at #{@jobnet.name_path}/#{name}")
+    end
+    conductor = options.delete(:conductor)
+    if conductor && !conductor.respond_to?(:call)
+      raise Tengine::Job::DslError, ":conductor options must be an object which responds to 'call' like Proc. "
+    end
+    if conductors = options.delete(:conductors)
+      raise Tengine::Job::DslError, ":conductors options for ruby_job instead of :conductor options"
+    end
+    result = __with_redirection__(options) do
+      Tengine::Job::JobnetTemplate.new(options)
+    end
+    @jobnet.children << result
+    Tengine::Job::DslLoader.add_loading_template_block(result, :ruby_job, block)
+    if conductor
+      Tengine::Job::DslLoader.add_loading_template_block(result, :conductor, conductor)
     end
     result
   end
@@ -176,7 +224,5 @@ module Tengine::Job::DslLoader
     end
     result
   end
-
-
 
 end

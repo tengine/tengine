@@ -132,15 +132,17 @@ describe 'job_control_driver' do
 
           tengine.should_not_fire
           expect{
-            tengine.receive("start.job.job.tengine", :properties => {
-                :execution_id => @execution.id.to_s,
-                :root_jobnet_id => @root.id.to_s,
-                :root_jobnet_name_path => @root.name_path,
-                :target_jobnet_id => @root.id.to_s,
-                :target_jobnet_name_path => @root.name_path,
-                :target_job_id => @ctx.vertex(:j1).id.to_s,
-                :target_job_name_path => @ctx.vertex(:j1).name_path,
-              })
+            tengine.receive("start.job.job.tengine",
+              properties: {
+                execution_id: @execution.id.to_s,
+                root_jobnet_id: @root.id.to_s,
+                root_jobnet_name_path: @root.name_path,
+                target_jobnet_id: @root.id.to_s,
+                target_jobnet_name_path: @root.name_path,
+                target_job_id: @ctx.vertex(:j1).id.to_s,
+                target_job_name_path: @ctx.vertex(:j1).name_path,
+              },
+              without_ack: true)
           }.should raise_error(klass)
           @root.reload
           @ctx.edge(:e1).phase_key.should == :transmitted

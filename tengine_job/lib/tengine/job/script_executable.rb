@@ -123,19 +123,11 @@ module Tengine::Job::ScriptExecutable
       mm_env << ' ' << hadoop_job_env
     end
     result << "export #{mm_env}"
-    template_root = root_or_expansion.template
-    if template_root
-      template_job = template_root.vertex_by_name_path(self.name_path_until_expansion)
-      unless template_job
-        raise "job not found #{self.name_path_until_expansion.inspect} in #{template_root.inspect}"
-      end
-      key = Tengine::Job::DslLoader.template_block_store_key(template_job, :preparation)
-      preparation_block = Tengine::Job::DslLoader.template_block_store[key]
-      if preparation_block
-        preparation = instance_eval(&preparation_block)
-        unless preparation.blank?
-          result << preparation
-        end
+    preparation_block = template_block_for(:preparation)
+    if preparation_block
+      preparation = instance_eval(&preparation_block)
+      unless preparation.blank?
+        result << preparation
       end
     end
     unless execution.preparation_command.blank?

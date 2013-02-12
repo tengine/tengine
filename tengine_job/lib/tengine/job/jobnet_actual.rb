@@ -8,6 +8,7 @@ class Tengine::Job::JobnetActual < Tengine::Job::Jobnet
   include Tengine::Job::Stoppable
   include Tengine::Job::Jobnet::JobStateTransition
   include Tengine::Job::Jobnet::JobnetStateTransition
+  include Tengine::Job::Jobnet::RubyJobStateTransition
 
   field :was_expansion, :type => Boolean # テンプレートがTenigne::Job::Expansionであった場合にtrueです。
 
@@ -20,6 +21,8 @@ class Tengine::Job::JobnetActual < Tengine::Job::Jobnet
   STATE_TRANSITION_METHODS.each do |method_name|
     class_eval(<<-END_OF_METHOD, __FILE__, __LINE__ + 1)
       def #{method_name}(signal, &block)
+        jobnet_type_key == :ruby_job ?
+          ruby_job_#{method_name}(signal, &block) :
         script_executable? ?
           job_#{method_name}(signal, &block) :
           jobnet_#{method_name}(signal, &block)
@@ -30,6 +33,19 @@ class Tengine::Job::JobnetActual < Tengine::Job::Jobnet
   def root_or_expansion
     p = parent
     p.nil? ? self : p.was_expansion ? p : p.root_or_expansion
+  end
+
+  def template_block_for(block_name)
+    key = Tengine::Job::DslLoader.template_block_store_key(self, block_name)
+    result = Tengine::Job::DslLoader.template_block_store[key]
+    return result if result
+    template_root = root_or_expansion.template
+    return nil unless template_root
+    template_job = template_root.vertex_by_name_path(self.name_path_until_expansion)
+    unless template_job
+      raise "job not found #{self.name_path_until_expansion.inspect} in #{template_root.inspect}"
+    end
+    template_job.template_block_for(block_name)
   end
 
   # https://www.pivotaltracker.com/story/show/23329935

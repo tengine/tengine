@@ -3,17 +3,11 @@ require 'tengine/job/jobnet'
 
 module Tengine::Job::Jobnet::JobStateTransition
   include Tengine::Job::Jobnet::StateTransition
+  include Tengine::Job::Jobnet::JobBaseStateTransition
 
   # ハンドリングするドライバ: ジョブネット制御ドライバ
   def job_transmit(signal)
-    self.phase_key = :ready
-    self.started_at = signal.event.occurred_at
-    signal.fire(self, :"start.job.job.tengine", {
-        :target_jobnet_id => parent.id,
-        :target_jobnet_name_path => parent.name_path,
-        :target_job_id => self.id,
-        :target_job_name_path => self.name_path,
-      })
+    job_base_transmit(signal)
   end
   available(:job_transmit, :on => :initialized,
     :ignored => [:ready, :starting, :running, :dying, :success, :error, :stuck])
@@ -31,18 +25,7 @@ module Tengine::Job::Jobnet::JobStateTransition
       complete_origin_edge(signal)
       self.phase_key = :starting
       self.started_at = signal.event.occurred_at
-      execution = signal.execution
-      if execution.retry
-        if execution.target_actual_ids.include?(self.id.to_s)
-          execution.ack(signal)
-        elsif execution.target_actuals.map{|t| t.parent.id.to_s if t.parent }.include?(self.parent.id.to_s)
-          # 自身とTengine::Job::Execution#target_actual_idsに含まれるジョブ／ジョブネットと親が同じならば、ackしない
-        else
-          parent.ack(signal)
-        end
-      else
-        parent.ack(signal) # 再実行でない場合
-      end
+      job_base_ack_to_parent_or_execution(signal)
       # このコールバックはjob_control_driverでupdate_with_lockの外側から
       # 再度呼び出してもらうためにcallbackを設定しています
       signal.callback = lambda{ root.vertex(self.id).activate(signal) }
@@ -81,39 +64,13 @@ module Tengine::Job::Jobnet::JobStateTransition
 
   # ハンドリングするドライバ: ジョブ制御ドライバ
   def job_succeed(signal)
-    self.phase_key = :success
-    self.finished_at = signal.event.occurred_at
-    signal.fire(self, :"success.job.job.tengine", {
-        :exit_status => self.exit_status,
-        :target_jobnet_id => parent.id,
-        :target_jobnet_name_path => parent.name_path,
-        :target_job_id => self.id,
-        :target_job_name_path => self.name_path,
-      })
+    job_base_succeed(signal)
   end
   available :job_succeed, :on => [:starting, :running, :dying, :stuck], :ignored => [:success]
 
   # ハンドリングするドライバ: ジョブ制御ドライバ
   def job_fail(signal, options = nil)
-    self.phase_key = :error
-    if msg = signal.event[:message]
-      self.error_messages ||= []
-      self.error_messages += [msg]
-    end
-    if options && (msg = options[:message])
-      self.error_messages ||= []
-      self.error_messages += [msg]
-    end
-    self.finished_at = signal.event.occurred_at
-    event_options = {
-      :exit_status => self.exit_status,
-      :target_jobnet_id => parent.id,
-      :target_jobnet_name_path => parent.name_path,
-      :target_job_id => self.id,
-      :target_job_name_path => self.name_path,
-    }
-    event_options.update(options) if options
-    signal.fire(self, :"error.job.job.tengine", event_options)
+    job_base_fail(signal, options)
   end
   available :job_fail, :on => [:starting, :running, :dying], :ignored => [:error, :stuck]
 
