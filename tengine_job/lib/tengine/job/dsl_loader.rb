@@ -50,6 +50,7 @@ module Tengine::Job::DslLoader
       :name => name,
       :description => args.first || name,
     }.update(options)
+    job_method = options.delete(:job_method)
     auto_sequence = options.delete(:auto_sequence)
     conductors = options.delete(:conductors)
     if conductors && !conductors.is_a?(Hash)
@@ -81,6 +82,7 @@ module Tengine::Job::DslLoader
       end
     end
 
+    __stack_instance_variable__(:@job_method,  job_method || :ssh_job) do
     __stack_instance_variable__(:@auto_sequence,  auto_sequence || @auto_sequence) do
       __stack_instance_variable__(:@boot_job_names,  []) do
         __stack_instance_variable__(:@redirections,  []) do
@@ -88,6 +90,7 @@ module Tengine::Job::DslLoader
           result.build_edges(@auto_sequence, @boot_job_names, @redirections)
         end
       end
+    end
     end
     if result.parent.nil?
       loaded = result.find_duplication
@@ -112,7 +115,7 @@ module Tengine::Job::DslLoader
     @boot_job_names = boot_job_names
   end
 
-  def job(name, *args)
+  def ssh_job(name, *args)
     script, description, options = __parse_job_args__(name, args)
     options[:description] = options.delete(:caption) if options[:caption]
     options = {
@@ -159,6 +162,10 @@ module Tengine::Job::DslLoader
       Tengine::Job::DslLoader.add_loading_template_block(result, :conductor, conductor)
     end
     result
+  end
+
+  def job(*args, &block)
+    send(@job_method, *args, &block)
   end
 
   def hadoop_job_run(name, *args, &block)

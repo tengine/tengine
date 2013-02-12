@@ -434,4 +434,31 @@ describe Tengine::Job::DslLoader do
       end
     end
   end
+
+  context "rjn0025_job_method.rb" do
+    before do
+      Tengine::Job::JobnetTemplate.delete_all
+      load_dsl("0025_job_method.rb")
+    end
+
+    it do
+      root_jobnet = Tengine::Job::JobnetTemplate.by_name("rjn0025")
+      root_jobnet.should be_a(Tengine::Job::RootJobnetTemplate)
+      # ruby jobs
+      %w[j13@jn1 j21@jn2 j23@jn2 j33@jn3].each do |path|
+        root_jobnet.element(path).tap do |job|
+          [job.name_path, job.jobnet_type_key].should == [job.name_path, :ruby_job]
+        end
+      end
+      # ssh jobs
+      %w[j11@jn1 j12@jn1 j22@jn2 j31@jn3 j32@jn3].each do |path|
+        root_jobnet.element(path).tap do |job|
+          job.jobnet_type_key.should == :normal # :ssh_jobと書きたいけど・・・
+          job.script.should_not be_blank
+        end
+      end
+    end
+
+  end
+
 end
