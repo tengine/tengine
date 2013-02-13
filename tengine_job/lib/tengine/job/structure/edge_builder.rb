@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require 'tengine/job/structure'
+
 require 'tsort'
 
 class Tengine::Job::Structure::EdgeBuilder

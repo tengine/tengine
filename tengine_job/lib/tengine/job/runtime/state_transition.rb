@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job/jobnet'
+require 'tengine/job/runtime'
 
-module Tengine::Job::Jobnet::StateTransition
+module Tengine::Job::Runtime::StateTransition
 
   def self.included(mod)
     mod.extend(ClassMethods)

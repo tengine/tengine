@@ -25,4 +25,6 @@ module Tengine::Job::Runtime
   autoload :Execution           , "tengine/job/runtime/execution"
 
   autoload :Signal              , 'tengine/job/runtime/runtime/signal'
+
+  autoload :StateTransition     , 'tengine/job/runtime/runtime/state_transition'
 end
