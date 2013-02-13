@@ -32,22 +32,22 @@ class Tengine::Job::Runtime::Signal
   end
 
   def execution
-    @execution ||= Tengine::Job::Execution.find(event[:execution_id])
+    @execution ||= Tengine::Job::Runtime::Execution.find(event[:execution_id])
   end
 
   def leave(obj, action = :transmit)
     @paths << obj
     begin
-      if obj.is_a?(Tengine::Job::Edge)
+      if obj.is_a?(Tengine::Job::Runtime::Edge)
         obj.destination.send(action, self)
-      elsif obj.is_a?(Tengine::Job::Vertex)
+      elsif obj.is_a?(Tengine::Job::Runtime::Vertex)
         obj.next_edges.each do |edge|
           with_paths_backup{ edge.send(action, self) }
         end
       else
-        raise Tengine::Job::Signal::Error, "leaving unsupported object: #{obj.inspect}"
+        raise Tengine::Job::Runtime::Signal::Error, "leaving unsupported object: #{obj.inspect}"
       end
-    rescue Tengine::Job::Signal::Error => e
+    rescue Tengine::Job::Runtime::Signal::Error => e
       puts "[#{e.class.name}] #{e.message}\nsignal.paths: #{@paths.inspect}"
       raise e
     end
@@ -77,7 +77,7 @@ class Tengine::Job::Runtime::Signal
 
   def fire(source, event_type_name, properties = {}, options = {})
     case source
-    when Tengine::Job::Execution then
+    when Tengine::Job::Runtime::Execution then
       properties[:execution_id] ||= source.id.to_s
       properties[:root_jobnet_id] ||= source.root_jobnet.id.to_s
       properties[:root_jobnet_name_path] ||= source.root_jobnet.name_path
