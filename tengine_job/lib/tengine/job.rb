@@ -18,7 +18,7 @@ Tengine::Core.stdout_logger.info("#{self.name}.notify  #{f}")
         end
       # if (msg == :before___evaluate__) # だと、最初にtengine/jobがrequireされる前に実行されるのでフックできません
       if (msg == :after___evaluate__)
-        Tengine::Core::Driveable.module_eval{ include Tengine::Job::DslBinder }
+        Tengine::Core::Driveable.module_eval{ include Tengine::Job::Dsl::Binder }
         Dir[File.expand_path("job/drivers/*.rb", File.dirname(__FILE__))].each do |f|
           # Tengine::Core.stdout_logger.debug("#{self.name} now evaluating #{f}")
           # sender.instance_eval(File.read(f), f)
@@ -27,7 +27,7 @@ Tengine::Core.stdout_logger.info("#{self.name}.notify  #{f}")
       end
       if (msg == :after_load_dsl) && sender.respond_to?(:config)
         # RootJobnetTemplateのdsl_filepathからCategoryを生成します
-        Tengine::Job::Category.update_for(sender.config.dsl_dir_path)
+        Tengine::Job::Structure::Category.update_for(sender.config.dsl_dir_path)
       end
     end
 
