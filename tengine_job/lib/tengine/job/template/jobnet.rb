@@ -7,8 +7,10 @@ require 'selectable_attr'
 # 自身もジョブネットを構成するVertexの一部として扱われる。
 class Tengine::Job::Template::Jobnet < Tengine::Job::Template::NamedVertex
   include Tengine::Core::SelectableAttr
-  include Tengine::Job::ElementSelectorNotation
   include Tengine::Core::SafeUpdatable
+
+  include Tengine::Job::Structure::ElementSelectorNotation
+  include Tengine::Job::Template::SshJob::Settings
 
   autoload :Builder, "tengine/job/jobnet/builder"
   autoload :StateTransition, 'tengine/job/jobnet/state_transition'

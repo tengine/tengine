@@ -6,7 +6,7 @@ require 'tengine/job/template'
 class Tengine::Job::Template::Vertex
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Tengine::Job::NamePath
+  include Tengine::Job::Structure::NamePath
 
   self.cyclic = true
   with_options(:class_name => self.name, :cyclic => true) do |c|

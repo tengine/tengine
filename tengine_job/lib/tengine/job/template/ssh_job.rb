@@ -4,7 +4,7 @@ require 'tengine/job/template'
 # ルートジョブネットを他のジョブネット内に展開するための特殊なテンプレート用Vertex。
 class Tengine::Job::Template::SshJob < Tengine::Job::Template::NamedVertex
 
-  # Tengine::Job::Runtime::SshJobでも必要な属性
+  # Tengine::Job::Runtime::SshJobとTengine::Job::Template::Jobnetでも必要な属性
   module Settings
     extend ActiveSupport::Concern
 
@@ -46,20 +46,20 @@ class Tengine::Job::Template::SshJob < Tengine::Job::Template::NamedVertex
       raise Mongoid::Errors::DocumentNotFound.new(Tengine::Resource::Server, key, []) unless result
       result
     end
+
+    DEFAULT_KILLING_SIGNAL_INTERVAL = 5
+
+    def actual_killing_signals
+      killing_signals ? killing_signals :
+        (parent ? parent.actual_killing_signals : ['KILL'])
+    end
+
+    def actual_killing_signal_interval
+      killing_signals ? killing_signal_interval :
+        (parent ? parent.actual_killing_signal_interval : DEFAULT_KILLING_SIGNAL_INTERVAL)
+    end
   end
 
   include Settings
-
-  DEFAULT_KILLING_SIGNAL_INTERVAL = 5
-
-  def actual_killing_signals
-    killing_signals ? killing_signals :
-      (parent ? parent.actual_killing_signals : ['KILL'])
-  end
-
-  def actual_killing_signal_interval
-    killing_signals ? killing_signal_interval :
-      (parent ? parent.actual_killing_signal_interval : DEFAULT_KILLING_SIGNAL_INTERVAL)
-  end
 
 end
