@@ -5,5 +5,6 @@ require 'tengine/job/runtime'
 class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
 
   include Tengine::Job::Template::SshJob::Settings
+  include Tengine::Job::Jobnet::JobStateTransition
 
 end

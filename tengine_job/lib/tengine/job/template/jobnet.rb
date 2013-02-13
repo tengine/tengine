@@ -18,18 +18,22 @@ class Tengine::Job::Template::Jobnet < Tengine::Job::Template::NamedVertex
   autoload :JobnetStateTransition, 'tengine/job/jobnet/jobnet_state_transition'
 
   field :description   , :type => String # ジョブネットの説明
-  field :jobnet_type_cd, :type => Integer, :default => 1 # ジョブネットの種類。後述の定義を参照してください。
 
-  selectable_attr :jobnet_type_cd do
-    entry 1, :normal        , "normal"
-    entry 2, :finally       , "finally", :alternative => true
-    # entry 3, :recover       , "recover", :alternative => true
-    entry 4, :hadoop_job_run, "hadoop job run"
-    entry 5, :hadoop_job    , "hadoop job"    , :chained_box => true
-    entry 6, :map_phase     , "map phase"     , :chained_box => true
-    entry 7, :reduce_phase  , "reduce phase"  , :chained_box => true
-  end
-  def chained_box?; jobnet_type_entry[:chained_box]; end
+  #
+  # [重要] jobnet_type_cd は不要になります
+  #
+  # field :jobnet_type_cd, :type => Integer, :default => 1 # ジョブネットの種類。後述の定義を参照してください。
+  #
+  # selectable_attr :jobnet_type_cd do
+  #   entry 1, :normal        , "normal"
+  #   entry 2, :finally       , "finally", :alternative => true
+  #   # entry 3, :recover       , "recover", :alternative => true
+  #   entry 4, :hadoop_job_run, "hadoop job run"
+  #   entry 5, :hadoop_job    , "hadoop job"    , :chained_box => true
+  #   entry 6, :map_phase     , "map phase"     , :chained_box => true
+  #   entry 7, :reduce_phase  , "reduce phase"  , :chained_box => true
+  # end
+  # def chained_box?; jobnet_type_entry[:chained_box]; end
 
   embeds_many :edges, :class_name => "Tengine::Job::Template::Edge", :inverse_of => :owner , :validate => false
 
@@ -189,45 +193,9 @@ end
 
 # ジョブネットの始端を表すVertex。特に状態は持たない。
 class Tengine::Job::Template::Start < Tengine::Job::Template::Vertex
-  # https://cacoo.com/diagrams/hdLgrzYsTBBpV3Wj#D26C1
-  def transmit(signal)
-    activate(signal)
-  end
-
-  def activate(signal)
-    signal.leave(self)
-  end
-
-  def reset(signal)
-    signal.leave(self, :reset)
-  end
 end
 
 
 # ジョブネットの終端を表すVertex。特に状態は持たない。
 class Tengine::Job::Template::End < Tengine::Job::Template::Vertex
-  # https://cacoo.com/diagrams/hdLgrzYsTBBpV3Wj#D26C1
-  def transmit(signal)
-    activate(signal)
-  end
-
-  def activate(signal)
-    complete_origin_edge(signal, :except_closed => true)
-    parent = self.parent # Endのparentであるジョブネット
-    parent_finally = parent.finally_vertex
-    if parent_finally && (parent.phase_key != :dying)
-      parent_finally.transmit(signal)
-    else
-      parent.finish(signal) unless parent.phase_key == :stuck
-    end
-  end
-
-  def reset(signal)
-    parent = self.parent # Endのparentであるジョブネット
-    if signal.execution.in_scope?(parent)
-      if f = parent.finally_vertex
-        f.reset(signal)
-      end
-    end
-  end
 end
