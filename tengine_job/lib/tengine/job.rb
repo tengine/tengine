@@ -4,10 +4,10 @@ require 'tengine_job'
 require 'active_support/concern'
 
 module Tengine::Job
-  autoload :Base    , "tengine/job/base"
-  autoload :Template, "tengine/job/template"
-  autoload :Runtime , "tengine/job/runtime"
-  autoload :Dsl     , "tengine/job/dsl"
+  autoload :Structure, "tengine/job/structure"
+  autoload :Template , "tengine/job/template"
+  autoload :Runtime  , "tengine/job/runtime"
+  autoload :Dsl      , "tengine/job/dsl"
 
   class << self
     # tengine_coreからそのプラグインへ通知を受けるための

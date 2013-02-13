@@ -1,7 +1,6 @@
 require 'tengine/job'
 
 module Tengine::Job::Template
-  autoload :Category            , "tengine/job/template/category"
 
   autoload :Root                , "tengine/job/template/root"
   autoload :Connectable         , "tengine/job/template/connectable"

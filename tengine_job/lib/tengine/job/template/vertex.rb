@@ -6,7 +6,6 @@ require 'tengine/job/template'
 class Tengine::Job::Template::Vertex
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Tengine::Job::Signal::Transmittable
   include Tengine::Job::NamePath
 
   self.cyclic = true
