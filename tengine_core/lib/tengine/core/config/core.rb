@@ -138,6 +138,7 @@ EOS
         [:config] => :f,
         [:tengined, :daemon] => :D,
         [:tengined, :load_path] => :T,
+        [:tengined, :cache_drivers] => :c,
         # [:tengined, :heartbeat_period] => :G,
         [:tengined, :confirmation_threshold] => :C,
 
