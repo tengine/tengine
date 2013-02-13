@@ -13,13 +13,13 @@ module Tengine::Job
     # tengine_coreからそのプラグインへ通知を受けるための
     def notify(sender, msg)
 Tengine::Core.stdout_logger.info("*" * 100)
-        Dir[File.expand_path("job/drivers/*.rb", File.dirname(__FILE__))].each do |f|
+        Dir[File.expand_path("job/runtime/drivers/*.rb", File.dirname(__FILE__))].each do |f|
 Tengine::Core.stdout_logger.info("#{self.name}.notify  #{f}")
         end
       # if (msg == :before___evaluate__) # だと、最初にtengine/jobがrequireされる前に実行されるのでフックできません
       if (msg == :after___evaluate__)
         Tengine::Core::Driveable.module_eval{ include Tengine::Job::Dsl::Binder }
-        Dir[File.expand_path("job/drivers/*.rb", File.dirname(__FILE__))].each do |f|
+        Dir[File.expand_path("job/runtime/drivers/*.rb", File.dirname(__FILE__))].each do |f|
           # Tengine::Core.stdout_logger.debug("#{self.name} now evaluating #{f}")
           # sender.instance_eval(File.read(f), f)
           load(f)
@@ -50,7 +50,6 @@ Tengine::Core.stdout_logger.info("#{self.name}.notify  #{f}")
       Tengine.logger.debug("#{self.name}.test_harness(#{@test_harness_index}, #{msg.inspect})")
       test_harness(@test_harness_index, msg)
     end
-
   end
 
 end
