@@ -16,7 +16,6 @@ module Tengine::Job::Template
   autoload :Fork                , "tengine/job/template/fork"
   autoload :Join                , "tengine/job/template/join"
 
-  autoload :JobnetTemplate      , "tengine/job/template/jobnet_template"
   autoload :RootJobnetTemplate  , "tengine/job/template/root_jobnet_template"
 
   autoload :Expansion           , "tengine/job/template/expansion"
