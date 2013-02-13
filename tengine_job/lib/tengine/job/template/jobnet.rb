@@ -184,3 +184,51 @@ class Tengine::Job::Template::Jobnet < Tengine::Job::Template::NamedVertex
   end
 
 end
+
+
+
+
+# ジョブネットの始端を表すVertex。特に状態は持たない。
+class Tengine::Job::Template::Start < Tengine::Job::Template::Vertex
+  # https://cacoo.com/diagrams/hdLgrzYsTBBpV3Wj#D26C1
+  def transmit(signal)
+    activate(signal)
+  end
+
+  def activate(signal)
+    signal.leave(self)
+  end
+
+  def reset(signal)
+    signal.leave(self, :reset)
+  end
+end
+
+
+# ジョブネットの終端を表すVertex。特に状態は持たない。
+class Tengine::Job::Template::End < Tengine::Job::Template::Vertex
+  # https://cacoo.com/diagrams/hdLgrzYsTBBpV3Wj#D26C1
+  def transmit(signal)
+    activate(signal)
+  end
+
+  def activate(signal)
+    complete_origin_edge(signal, :except_closed => true)
+    parent = self.parent # Endのparentであるジョブネット
+    parent_finally = parent.finally_vertex
+    if parent_finally && (parent.phase_key != :dying)
+      parent_finally.transmit(signal)
+    else
+      parent.finish(signal) unless parent.phase_key == :stuck
+    end
+  end
+
+  def reset(signal)
+    parent = self.parent # Endのparentであるジョブネット
+    if signal.execution.in_scope?(parent)
+      if f = parent.finally_vertex
+        f.reset(signal)
+      end
+    end
+  end
+end
