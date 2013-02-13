@@ -10,6 +10,8 @@ class Tengine::Job::Template::RootJobnet < Tengine::Job::Template::Jobnet
   field :dsl_lineno  , :type => Integer # ルートジョブネットを定義するjobnetメソッドの呼び出しの、ロードされたDSLのファイルでの行番号
   field :dsl_version , :type => String  # ルートジョブネットを定義した際のDSLのバージョン
 
+  belongs_to :category, :inverse_of => :root_jobnet_templates, :index => true, :class_name => "Tengine::Job::Category"
+
   def actual_class
     Tengine::Job::RootJobnetActual
   end

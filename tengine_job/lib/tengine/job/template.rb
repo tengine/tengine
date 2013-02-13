@@ -6,7 +6,6 @@ module Tengine::Job::Template
   autoload :Jobnet              , "tengine/job/template/jobnet"
   autoload :RootJobnet          , "tengine/job/template/root_jobnet"
 
-  autoload :Root                , "tengine/job/template/root"
   autoload :Connectable         , "tengine/job/template/connectable"
 
   autoload :Edge                , "tengine/job/template/edge"
