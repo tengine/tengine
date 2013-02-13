@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-require 'tengine/core'
 
-class Tengine::Job::Execution
+require 'tengine/core'
+require 'tengine/job/runtime'
+
+class Tengine::Job::Runtime::Execution
   include Mongoid::Document
   include Mongoid::Timestamps
   include Tengine::Job::Executable

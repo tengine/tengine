@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/dsl'
 
 # Tengine::Job::DslLoader と Tengine::Job::DslBinder がincludeしているモジュールです。
 # それぞれに共通のメソッドを定義します。
-module Tengine::Job::DslEvaluator
+module Tengine::Job::Dsl::Evaluator
   private
   def __stack_instance_variable__(ivar_name, value)
     backup = instance_variable_get(ivar_name)

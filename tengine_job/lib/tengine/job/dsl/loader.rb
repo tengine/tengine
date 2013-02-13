@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/dsl'
 
 # ジョブDSLをロードする際に使用される語彙に関するメソッドを定義するモジュール
-module Tengine::Job::DslLoader
-  include Tengine::Job::DslEvaluator
+module Tengine::Job::Dsl::Loader
+  include Tengine::Job::Dsl::Evaluator
 
   class << self
     def loading_template_block_store

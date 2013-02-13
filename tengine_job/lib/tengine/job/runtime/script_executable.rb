@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/runtime'
 require 'tengine/resource/net_ssh'
 
 # ジョブとして実際にスクリプトを実行する処理をまとめるモジュール。
 # Tengine::Job::JobnetActualと、Tengine::Job::ScriptActualがincludeします
-module Tengine::Job::ScriptExecutable
+module Tengine::Job::Runtime::ScriptExecutable
   extend ActiveSupport::Concern
 
   class Error < StandardError

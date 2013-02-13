@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/template'
 
 # Edgeとともにジョブネットを構成するグラフの「頂点」を表すモデル
 # 自身がツリー構造を
-class Tengine::Job::Vertex
+class Tengine::Job::Template::Vertex
   include Mongoid::Document
   include Mongoid::Timestamps
   include Tengine::Job::Signal::Transmittable

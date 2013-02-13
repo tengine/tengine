@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/template'
 
 require 'tengine_resource'
 
-module Tengine::Job::Connectable
+module Tengine::Job::Template::Connectable
   extend ActiveSupport::Concern
 
   included do

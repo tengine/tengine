@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/template'
 
 # ジョブネットの終端を表すVertex。特に状態は持たない。
-class Tengine::Job::End < Tengine::Job::Vertex
+class Tengine::Job::Template::End < Tengine::Job::Vertex
 
   # https://cacoo.com/diagrams/hdLgrzYsTBBpV3Wj#D26C1
   def transmit(signal)

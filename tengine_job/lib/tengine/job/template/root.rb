@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/template'
 
 # ルートジョブネットとして必要な情報に関するモジュール
-module Tengine::Job::Root
+module Tengine::Job::Template::Root
   extend ActiveSupport::Concern
 
   included do

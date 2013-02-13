@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/template'
 
 # ForkやJoinの継承元となるVertex。特に状態は持たない。
-class Tengine::Job::Junction < Tengine::Job::Vertex
+class Tengine::Job::Template::Junction < Tengine::Job::Vertex
 
   # https://cacoo.com/diagrams/hdLgrzYsTBBpV3Wj#D26C1
   def transmit(signal)

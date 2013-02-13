@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/template'
 
 # DSLを評価して登録されるルートジョブネットを表すVertex
-class Tengine::Job::RootJobnetTemplate < Tengine::Job::JobnetTemplate
+class Tengine::Job::Template::RootJobnetTemplate < Tengine::Job::JobnetTemplate
   include Tengine::Job::Root
   include Tengine::Core::FindByName
 

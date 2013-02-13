@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/runtime'
 
-class Tengine::Job::Signal
+class Tengine::Job::Runtime::Signal
 
   class Error < StandardError
   end

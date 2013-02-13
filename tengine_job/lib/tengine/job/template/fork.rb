@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/template'
 
 # 一つのVertexから複数のVertexへSignalを通知する分岐のVertex。
-class Tengine::Job::Fork < Tengine::Job::Junction
+class Tengine::Job::Template::Fork < Tengine::Job::Junction
 end

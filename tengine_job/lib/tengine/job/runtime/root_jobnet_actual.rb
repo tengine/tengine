@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/runtime'
 
 # 実行時のルートジョブネットを表すVertex
-class Tengine::Job::RootJobnetActual < Tengine::Job::JobnetActual
+class Tengine::Job::Runtime::RootJobnetActual < Tengine::Job::JobnetActual
   include Tengine::Job::Root
 
   has_many :executions, :inverse_of => :root_jobnet, :class_name => "Tengine::Job::Execution"

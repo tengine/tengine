@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/runtime'
 require 'selectable_attr'
 
 # ジョブ／ジョブネットを実行する際の情報に関するモジュール
 # Tengine::Job::JobnetActual, Tengine::Job::JobnetTemplateがこのモジュールをincludeします
-module Tengine::Job::Executable
+module Tengine::Job::Runtime::Executable
   extend ActiveSupport::Concern
 
   class PhaseError < StandardError

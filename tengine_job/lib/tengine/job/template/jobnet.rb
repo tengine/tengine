@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/template'
 
 require 'selectable_attr'
 
 # ジョブの始端から終端までを持ち、VertexとEdgeを組み合わせてジョブネットを構成することができるVertex。
 # 自身もジョブネットを構成するVertexの一部として扱われる。
-class Tengine::Job::Jobnet < Tengine::Job::Job
+class Tengine::Job::Template::Jobnet < Tengine::Job::Job
   include Tengine::Core::SelectableAttr
   include Tengine::Job::ElementSelectorNotation
   include Tengine::Core::SafeUpdatable

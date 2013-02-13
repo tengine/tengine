@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/template'
 
 require 'yaml'
 require 'tengine/support/yaml_with_erb'
 
-class Tengine::Job::Category
+class Tengine::Job::Template::Category
   include Mongoid::Document
   include Mongoid::Timestamps
   include Tengine::Core::FindByName

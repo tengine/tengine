@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/template'
 require 'selectable_attr'
 
 # Vertexとともにジョブネットを構成するグラフの「辺」を表すモデル
 # Tengine::Job::Jobnetにembeddedされます。
-class Tengine::Job::Edge
+class Tengine::Job::Template::Edge
   include Mongoid::Document
   include Mongoid::Timestamps
   include Tengine::Core::SelectableAttr

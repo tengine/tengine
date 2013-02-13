@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job'
+require 'tengine/job/template'
 
 # 終了対象となりうるVertexで使用するモジュール
-module Tengine::Job::Killing
+module Tengine::Job::Template::Killing
   extend ActiveSupport::Concern
 
   included do
