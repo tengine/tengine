@@ -5,5 +5,4 @@ module Tengine::Job::Dsl
   autoload :Evaluator           , 'tengine/job/dsl/evaluator'
   autoload :Loader              , 'tengine/job/dsl/loader'
 
-
 end

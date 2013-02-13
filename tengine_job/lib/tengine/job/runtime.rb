@@ -19,13 +19,10 @@ module Tengine::Job::Runtime
 
   autoload :SshJob              , "tengine/job/runtime/ssh_job"
 
-
   autoload :Executable          , "tengine/job/runtime/executable"
-  autoload :Execution           , "tengine/job/runtime/execution"
-  autoload :JobnetActual        , "tengine/job/runtime/jobnet_actual"
-  autoload :RootJobnetActual    , "tengine/job/runtime/root_jobnet_actual"
-  autoload :ScriptExecutable    , "tengine/job/runtime/script_executable"
-  autoload :Signal              , 'tengine/job/runtime/runtime/signal'
   autoload :Stoppable           , "tengine/job/runtime/stoppable"
 
+  autoload :Execution           , "tengine/job/runtime/execution"
+
+  autoload :Signal              , 'tengine/job/runtime/runtime/signal'
 end
