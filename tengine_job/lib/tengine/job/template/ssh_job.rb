@@ -12,6 +12,8 @@ class Tengine::Job::Template::SshJob < Tengine::Job::Template::NamedVertex
       require 'tengine/core'
       include Tengine::Core::CollectionAccessible
 
+      field :script        , :type => String # 実行されるスクリプト
+
       field :server_name    , :type => String # 接続先となるサーバ名。Tengine::Resource::Server#name を指定します
       field :credential_name, :type => String # 接続時に必要な認証情報。Tengine::Resource::Credential#name を指定します
 

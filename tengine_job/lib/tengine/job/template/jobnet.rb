@@ -17,7 +17,6 @@ class Tengine::Job::Template::Jobnet < Tengine::Job::Template::NamedVertex
   autoload :JobStateTransition, 'tengine/job/jobnet/job_state_transition'
   autoload :JobnetStateTransition, 'tengine/job/jobnet/jobnet_state_transition'
 
-  field :script        , :type => String # 実行されるスクリプト(本来Tengine::Job::Scriptが保持しますが、子要素を保持してかつスクリプトを実行するhadoop_job_runもある)
   field :description   , :type => String # ジョブネットの説明
   field :jobnet_type_cd, :type => Integer, :default => 1 # ジョブネットの種類。後述の定義を参照してください。
 
