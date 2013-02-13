@@ -6,7 +6,7 @@ module Tengine::Job::Dsl::Binder
   include Tengine::Job::Dsl::Evaluator
 
   def jobnet(name, *args, &block)
-    Tengine::Job::RootJobnetTemplate.by_name(name)
+    Tengine::Job::Template::RootJobnet.by_name(name)
   end
 
 end

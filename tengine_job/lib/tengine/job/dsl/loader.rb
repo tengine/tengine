@@ -46,13 +46,13 @@ module Tengine::Job::Dsl::Loader
     auto_sequence = options.delete(:auto_sequence)
     result = __with_redirection__(options) do
       if @jobnet.nil?
-        klass = Tengine::Job::RootJobnetTemplate
+        klass = Tengine::Job::Template::RootJobnet
         options[:dsl_version] = config.dsl_version
         path, lineno = *block.source_location
         options[:dsl_filepath] = config.relative_path_from_dsl_dir(path)
         options[:dsl_lineno] = lineno.to_i
       else
-        klass = Tengine::Job::JobnetTemplate
+        klass = Tengine::Job::Template::Jobnet
       end
       klass.new(options)
     end
@@ -62,7 +62,7 @@ module Tengine::Job::Dsl::Loader
       if duplicated = result.find_duplication
         if (duplicated.dsl_filepath != result.dsl_filepath) ||
             (duplicated.dsl_lineno != result.dsl_lineno)
-          raise Tengine::Job::DslError, "2 jobnet named #{name.inspect} found at #{duplicated.dsl_filepath}:#{duplicated.dsl_lineno} and #{result.dsl_filepath}:#{result.dsl_lineno}"
+          raise Tengine::Job::Dsl::Error, "2 jobnet named #{name.inspect} found at #{duplicated.dsl_filepath}:#{duplicated.dsl_lineno} and #{result.dsl_filepath}:#{result.dsl_lineno}"
         end
       end
     end
@@ -78,7 +78,7 @@ module Tengine::Job::Dsl::Loader
     if result.parent.nil?
       loaded = result.find_duplication
       result.save! unless loaded
-      Tengine::Job::DslLoader.update_loaded_blocks(loaded)
+      Tengine::Job::Dsl::Loader.update_loaded_blocks(loaded)
       loaded || result
     else
       result
@@ -104,11 +104,11 @@ module Tengine::Job::Dsl::Loader
     }.update(options)
     preparation = options.delete(:preparation)
     result = __with_redirection__(options) do
-      Tengine::Job::JobnetTemplate.new(options)
+      Tengine::Job::Template::Jobnet.new(options)
     end
     @jobnet.children << result
     if preparation
-      Tengine::Job::DslLoader.loading_template_block_store[result] = [:preparation, preparation]
+      Tengine::Job::Dsl::Loader.loading_template_block_store[result] = [:preparation, preparation]
     end
     result
   end
@@ -122,14 +122,14 @@ module Tengine::Job::Dsl::Loader
 
   def hadoop_job(name, options = {})
     result = __with_redirection__(options) do
-      Tengine::Job::JobnetTemplate.new(:name => name, :jobnet_type_key => :hadoop_job)
+      Tengine::Job::Template::Jobnet.new(:name => name, :jobnet_type_key => :hadoop_job)
     end
-    result.children << start  = Tengine::Job::Start.new
-    result.children << fork   = Tengine::Job::Fork.new
-    result.children << map    = Tengine::Job::JobnetTemplate.new(:name => "Map"   , :jobnet_type_key => :map_phase   )
-    result.children << reduce = Tengine::Job::JobnetTemplate.new(:name => "Reduce", :jobnet_type_key => :reduce_phase)
-    result.children << join   = Tengine::Job::Join.new
-    result.children << _end   = Tengine::Job::End.new
+    result.children << start  = Tengine::Job::Template::Start.new
+    result.children << fork   = Tengine::Job::Template::Fork.new
+    result.children << map    = Tengine::Job::Template::Jobnet.new(:name => "Map"   , :jobnet_type_key => :map_phase   )
+    result.children << reduce = Tengine::Job::Template::Jobnet.new(:name => "Reduce", :jobnet_type_key => :reduce_phase)
+    result.children << join   = Tengine::Job::Template::Join.new
+    result.children << _end   = Tengine::Job::Template::End.new
     result.edges.new(:origin_id => start.id , :destination_id => fork.id  )
     result.edges.new(:origin_id => fork.id  , :destination_id => map.id   )
     result.edges.new(:origin_id => fork.id  , :destination_id => reduce.id)
@@ -149,7 +149,7 @@ module Tengine::Job::Dsl::Loader
       :name => root_jobnet_name,
     }.update(options)
     result = __with_redirection__(options) do
-      Tengine::Job::Expansion.new(options)
+      Tengine::Job::Template::Expansion.new(options)
     end
     @jobnet.children << result
     result
@@ -176,7 +176,5 @@ module Tengine::Job::Dsl::Loader
     end
     result
   end
-
-
 
 end

@@ -53,8 +53,4 @@ Tengine::Core.stdout_logger.info("#{self.name}.notify  #{f}")
 
   end
 
-  # DSLの記述に問題があることを示す例外
-  class DslError < ::Tengine::DslError
-  end
-
 end
