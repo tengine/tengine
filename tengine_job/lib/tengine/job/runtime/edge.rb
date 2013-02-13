@@ -9,11 +9,12 @@ class Tengine::Job::Runtime::Edge
   include Mongoid::Timestamps
   include Tengine::Core::SelectableAttr
   include Tengine::Job::Signal::Transmittable
+  include Tengine::Job::Structure::Visitor::Accepter
 
   class StatusError < StandardError
   end
 
-  embedded_in :owner, :class_name => "Tengine::Job::Jobnet", :inverse_of => :edges
+  embedded_in :owner, :class_name => "Tengine::Job::Runtime::Jobnet", :inverse_of => :edges
 
   field :phase_cd     , :type => Integer, :default => 0 # ステータス。とりうる値は後述を参照してください。詳しくはtengine_jobパッケージ設計書の「edge状態遷移」を参照してください。
   field :origin_id     , :type => Moped::BSON::ObjectId # 辺の遷移元となるvertexのid
@@ -119,10 +120,6 @@ class Tengine::Job::Runtime::Edge
     accept_visitor(Tengine::Job::Edge::Closer.new)
   end
 
-  def accept_visitor(visitor)
-    visitor.visit(self)
-  end
-
   def phase_key=(phase_key)
     Tengine.logger.debug("edge phase changed. <#{self.id.to_s}> #{self.phase_name} -> #{Tengine::Job::Edge.phase_name_by_key(phase_key)}")
     self.write_attribute(:phase_cd, Tengine::Job::Edge.phase_id_by_key(phase_key))
@@ -143,8 +140,6 @@ class Tengine::Job::Runtime::Edge
         raise "Unsupported class #{obj.inspect}"
       end
     end
-
   end
-
 
 end

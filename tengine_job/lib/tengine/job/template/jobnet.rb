@@ -32,7 +32,7 @@ class Tengine::Job::Template::Jobnet < Tengine::Job::Template::NamedVertex
   end
   def chained_box?; jobnet_type_entry[:chained_box]; end
 
-  embeds_many :edges, :class_name => "Tengine::Job::Edge", :inverse_of => :owner , :validate => false
+  embeds_many :edges, :class_name => "Tengine::Job::Template::Edge", :inverse_of => :owner , :validate => false
 
   before_validation do |r|
     r.edges.each do |edge|
