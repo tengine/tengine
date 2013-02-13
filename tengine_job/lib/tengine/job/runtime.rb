@@ -17,6 +17,8 @@ module Tengine::Job::Runtime
 
   autoload :RootJobnet          , "tengine/job/runtime/root_jobnet"
 
+  autoload :JobBase             , "tengine/job/runtime/job_base"
+
   autoload :SshJob              , "tengine/job/runtime/ssh_job"
 
   autoload :Executable          , "tengine/job/runtime/executable"
@@ -24,7 +26,7 @@ module Tengine::Job::Runtime
 
   autoload :Execution           , "tengine/job/runtime/execution"
 
-  autoload :Signal              , 'tengine/job/runtime/runtime/signal'
+  autoload :Signal              , 'tengine/job/runtime/signal'
 
-  autoload :StateTransition     , 'tengine/job/runtime/runtime/state_transition'
+  autoload :StateTransition     , 'tengine/job/runtime/state_transition'
 end

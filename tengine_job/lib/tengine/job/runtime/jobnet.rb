@@ -23,21 +23,18 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
   # JobnetActualでもtemplateが必要です。
   belongs_to :template, :inverse_of => :root_jobnet_actuals, :index => true, :class_name => "Tengine::Job::RootJobnetTemplate"
 
-  #
-  # [重要] jobnet_type_cd は不要になります
-  #
-  # field :jobnet_type_cd, :type => Integer, :default => 1 # ジョブネットの種類。後述の定義を参照してください。
-  #
-  # selectable_attr :jobnet_type_cd do
-  #   entry 1, :normal        , "normal"
-  #   entry 2, :finally       , "finally", :alternative => true
-  #   # entry 3, :recover       , "recover", :alternative => true
-  #   entry 4, :hadoop_job_run, "hadoop job run"
-  #   entry 5, :hadoop_job    , "hadoop job"    , :chained_box => true
-  #   entry 6, :map_phase     , "map phase"     , :chained_box => true
-  #   entry 7, :reduce_phase  , "reduce phase"  , :chained_box => true
-  # end
-  # def chained_box?; jobnet_type_entry[:chained_box]; end
+  field :jobnet_type_cd, :type => Integer, :default => 1 # ジョブネットの種類。後述の定義を参照してください。
+
+  selectable_attr :jobnet_type_cd do
+    entry 1, :normal        , "normal"
+    entry 2, :finally       , "finally", :alternative => true
+    # entry 3, :recover       , "recover", :alternative => true
+    entry 4, :hadoop_job_run, "hadoop job run"
+    entry 5, :hadoop_job    , "hadoop job"    , :chained_box => true
+    entry 6, :map_phase     , "map phase"     , :chained_box => true
+    entry 7, :reduce_phase  , "reduce phase"  , :chained_box => true
+  end
+  def chained_box?; jobnet_type_entry[:chained_box]; end
 
   embeds_many :edges, :class_name => "Tengine::Job::Runtime::Edge", :inverse_of => :owner , :validate => false
 

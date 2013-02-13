@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job/base'
+require 'tengine/job/structure'
 
 # # Tengine Jobnet Element Selector Notation
 # Tengineジョブネット要素セレクタ記法
@@ -60,7 +60,7 @@ require 'tengine/job/base'
 #
 #
 
-module Tengine::Job::Base::ElementSelectorNotation
+module Tengine::Job::Structure::ElementSelectorNotation
 
   class NotFound < Tengine::Errors::NotFound
     attr_reader :jobnet, :notation

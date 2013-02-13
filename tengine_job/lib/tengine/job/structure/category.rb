@@ -4,7 +4,7 @@ require 'tengine/job/template'
 require 'yaml'
 require 'tengine/support/yaml_with_erb'
 
-class Tengine::Job::Template::Category
+class Tengine::Job::Structure::Category
   include Mongoid::Document
   include Mongoid::Timestamps
   include Tengine::Core::FindByName
@@ -12,7 +12,7 @@ class Tengine::Job::Template::Category
   field :name       , :type => String # カテゴリ名。ディレクトリ名を元に設定されるので、"/"などは使用不可。
   field :caption    , :type => String # カテゴリの表示名。各ディレクトリ名に対応する表示名。通常dictionary.ymlに定義する。
 
-  with_options(:class_name => "Tengine::Job::Category") do |c|
+  with_options(:class_name => self.name) do |c|
     c.belongs_to :parent, :inverse_of => :children, :index => true
     c.has_many   :children, :inverse_of => :parent, :order => [:name, :asc]
   end
@@ -24,7 +24,7 @@ class Tengine::Job::Template::Category
     def update_for(base_dir)
       root_dir = File.basename(base_dir)
       dic_dir_base = File.dirname(base_dir)
-      root_jobnets = Tengine::Job::RootJobnetTemplate.all
+      root_jobnets = Tengine::Job::Template::RootJobnet.all
       root_jobnets.each do |root_jobnet|
         dirs = File.dirname(root_jobnet.dsl_filepath || "").split('/') - ['.', '..']
         dirs.unshift(root_dir)
@@ -38,7 +38,7 @@ class Tengine::Job::Template::Category
             hash = YAML.load_file(dic_path)
             caption = hash[dir]
           end
-          category = Tengine::Job::Category.find_or_create_by(
+          category = self.find_or_create_by(
             :name => dir,
             :caption => caption || dir,
             :parent_id => last_category ? last_category.id : nil)

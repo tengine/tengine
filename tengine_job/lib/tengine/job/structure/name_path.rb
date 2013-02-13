@@ -1,6 +1,6 @@
-require 'tengine/job/base'
+require 'tengine/job/structure'
 
-module Tengine::Job::Base::NamePath
+module Tengine::Job::Structure::NamePath
 
   SEPARATOR = '/'.freeze
   ABSOLUTE_PATH_REGEXP = /^\//.freeze

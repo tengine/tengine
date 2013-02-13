@@ -3,34 +3,34 @@ require 'spec_helper'
 require 'tmpdir'
 require 'fileutils'
 
-describe Tengine::Job::Category do
+describe Tengine::Job::Structure::Category do
 
   describe :update_for do
 
     context "RootJobnetTemplateのdsl_filepathからCategoryを登録します" do
 
       before do
-        Tengine::Job::Vertex.delete_all
-        Tengine::Job::Category.delete_all
-        @root1 = Tengine::Job::RootJobnetTemplate.create!({
+        Tengine::Job::Template::Vertex.delete_all
+        Tengine::Job::Structure::Category.delete_all
+        @root1 = Tengine::Job::Template::RootJobnet.create!({
             :name => "root_jobnet_template01",
             :dsl_filepath => "foo/bar1/jobnet01.rb",
             :dsl_lineno => 4,
             :dsl_version => "1"
           })
-        @root2 = Tengine::Job::RootJobnetTemplate.create!({
+        @root2 = Tengine::Job::Template::RootJobnet.create!({
             :name => "root_jobnet_template01",
             :dsl_filepath => "foo/bar2/jobnet01.rb",
             :dsl_lineno => 4,
             :dsl_version => "2"
           })
-        @root3 = Tengine::Job::RootJobnetTemplate.create!({
+        @root3 = Tengine::Job::Template::RootJobnet.create!({
             :name => "root_jobnet_template01",
             :dsl_filepath => "foo/bar3/jobnet2.rb",
             :dsl_lineno => 4,
             :dsl_version => "2"
           })
-        @root4 = Tengine::Job::RootJobnetTemplate.create!({
+        @root4 = Tengine::Job::Template::RootJobnet.create!({
             :name => "root_jobnet_template04",
             :dsl_filepath => "jobnet4.rb",
             :dsl_lineno => 4,
@@ -49,9 +49,9 @@ describe Tengine::Job::Category do
       context "指定されたバージョンのRootJobneTTemplateからカテゴリを生成します" do
         it "全ドキュメントを対象にしています・・・" do
           expect{
-            Tengine::Job::Category.update_for(@base_dir)
-          }.to change(Tengine::Job::Category, :count).by(5)
-          root = Tengine::Job::Category.where({:parent_id => nil}).first
+            Tengine::Job::Structure::Category.update_for(@base_dir)
+          }.to change(Tengine::Job::Structure::Category, :count).by(5)
+          root = Tengine::Job::Structure::Category.where({:parent_id => nil}).first
           root.name.should == "root"
           root.caption.should == "ルート"
           root.children.count.should == 1
@@ -85,18 +85,18 @@ describe Tengine::Job::Category do
 
       it "後から追加された場合" do
         expect{
-          Tengine::Job::Category.update_for(@base_dir)
-        }.to change(Tengine::Job::Category, :count).by(5)
-        @root4 = Tengine::Job::RootJobnetTemplate.create!({
+          Tengine::Job::Structure::Category.update_for(@base_dir)
+        }.to change(Tengine::Job::Structure::Category, :count).by(5)
+        @root4 = Tengine::Job::Template::RootJobnet.create!({
             :name => "root_jobnet_template01",
             :dsl_filepath => "foo/bar3/baz1/jobnet2.rb",
             :dsl_lineno => 4,
             :dsl_version => "3"
           })
         expect{
-          Tengine::Job::Category.update_for(@base_dir)
-        }.to change(Tengine::Job::Category, :count).by(1)
-        root = Tengine::Job::Category.where({:parent_id => nil}).first
+          Tengine::Job::Structure::Category.update_for(@base_dir)
+        }.to change(Tengine::Job::Structure::Category, :count).by(1)
+        root = Tengine::Job::Structure::Category.where({:parent_id => nil}).first
         foo = root.children[0]
         foo.children[2].tap do |bar3|
           bar3.name.should == "bar3"
@@ -120,8 +120,8 @@ describe Tengine::Job::Category do
         mock_sender.should_receive(:config).and_return(mock_config)
         expect{
           Tengine::Job.notify(mock_sender, :after_load_dsl)
-        }.to change(Tengine::Job::Category, :count).by(5)
-        root = Tengine::Job::Category.where({:parent_id => nil}).first
+        }.to change(Tengine::Job::Structure::Category, :count).by(5)
+        root = Tengine::Job::Structure::Category.where({:parent_id => nil}).first
         root.name.should == "root"
         root.caption.should == "ルート"
         root.children.count.should == 1
@@ -160,29 +160,29 @@ describe Tengine::Job::Category do
 
   describe "名前で検索" do
     before do
-      Tengine::Job::Category.delete_all
-      Tengine::Job::Category.create!(:name => "category1", :caption => "ONE")
-      Tengine::Job::Category.create!(:name => "category2", :caption => "TWO")
+      Tengine::Job::Structure::Category.delete_all
+      Tengine::Job::Structure::Category.create!(:name => "category1", :caption => "ONE")
+      Tengine::Job::Structure::Category.create!(:name => "category2", :caption => "TWO")
     end
 
     [:find_by_name, :find_by_name!].each do |method_name|
       it "存在する場合はそれを返す" do
-        driver = Tengine::Job::Category.send(method_name, "category1")
-        driver.should be_a(Tengine::Job::Category)
+        driver = Tengine::Job::Structure::Category.send(method_name, "category1")
+        driver.should be_a(Tengine::Job::Structure::Category)
         driver.name.should == "category1"
         driver.caption.should == "ONE"
       end
     end
 
     it ":find_by_nameは見つからなかった場合はnilを返す" do
-      Tengine::Job::Category.find_by_name("unexist_category").should == nil
+      Tengine::Job::Structure::Category.find_by_name("unexist_category").should == nil
     end
 
     it ":find_by_name!は見つからなかった場合はTengine::Core::FindByName::Errorをraiseする" do
       begin
-          Tengine::Job::Category.find_by_name!("unexist_category")
+          Tengine::Job::Structure::Category.find_by_name!("unexist_category")
       rescue Tengine::Errors::NotFound => e
-        e.message.should == "Tengine::Job::Category named \"unexist_category\" not found"
+        e.message.should == "Tengine::Job::Structure::Category named \"unexist_category\" not found"
       end
     end
 

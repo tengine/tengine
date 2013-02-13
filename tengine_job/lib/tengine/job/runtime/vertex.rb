@@ -10,8 +10,8 @@ class Tengine::Job::Runtime::Vertex
   include Tengine::Job::Structure::Tree
   include Tengine::Job::Structure::Visitor::Accepter
 
-  self.cyclic = true
-  with_options(:class_name => self.name, :cyclic => true) do |c|
+  # self.cyclic = true
+  with_options(:class_name => self.name) do |c|
     c.belongs_to :parent  , :inverse_of => :children
     c.has_many   :children, :inverse_of => :parent , :validate => false
   end

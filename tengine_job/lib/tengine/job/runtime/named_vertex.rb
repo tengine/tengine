@@ -18,8 +18,8 @@ class Tengine::Job::Runtime::NamedVertex < Tengine::Job::Runtime::Vertex
   end
 
   # 末端のジョブあるいはジョブネット単位で実行・停止します。
-  include Tengine::Job::Executable
-  include Tengine::Job::Stoppable
+  include Tengine::Job::Runtime::Executable
+  include Tengine::Job::Runtime::Stoppable
 
   def root_or_expansion
     p = parent
