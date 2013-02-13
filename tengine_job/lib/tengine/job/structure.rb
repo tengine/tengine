@@ -7,9 +7,14 @@ module Tengine::Job::Structure
 
   autoload :Visitor                , "tengine/job/structure/visitor"
 
+  autoload :EdgeBuilder            , "tengine/job/structure/edge_builder"
+
   autoload :JobnetBuilder          , "tengine/job/structure/jobnet_builder"
   autoload :JobnetFinder           , "tengine/job/structure/jobnet_finder"
 
   autoload :ElementSelectorNotation, "tengine/job/structure/element_selector_notation"
+
+  class Error < StandardError
+  end
 
 end

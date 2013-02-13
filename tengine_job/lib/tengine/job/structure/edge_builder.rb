@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'tsort'
 
-class Tengine::Job::Jobnet::Builder
+class Tengine::Job::Structure::EdgeBuilder
   include TSort
 
   def initialize(client, boot_job_names, redirections)
@@ -20,7 +20,7 @@ class Tengine::Job::Jobnet::Builder
   def process
     tsort
   rescue TSort::Cyclic
-    raise Tengine::Job::DslError, "circular dependency found in jobnet ``#{@client.name}''"
+    raise Tengine::Job::Structure::Error, "circular dependency found in jobnet ``#{@client.name}''"
   else
     build_start_edges
     build_edge_by_redirections
