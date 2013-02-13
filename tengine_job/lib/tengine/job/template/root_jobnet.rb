@@ -3,18 +3,13 @@ require 'tengine/job/template'
 
 # DSLを評価して登録されるルートジョブネットを表すVertex
 class Tengine::Job::Template::RootJobnet < Tengine::Job::Template::Jobnet
-  include Tengine::Job::Root
-  include Tengine::Core::FindByName
 
   field :dsl_filepath, :type => String  # ルートジョブネットを定義した際にロードされたDSLのファイル名(Tengine::Core::Config#dsl_dir_pathからの相対パス)
   field :dsl_lineno  , :type => Integer # ルートジョブネットを定義するjobnetメソッドの呼び出しの、ロードされたDSLのファイルでの行番号
   field :dsl_version , :type => String  # ルートジョブネットを定義した際のDSLのバージョン
 
-  belongs_to :category, :inverse_of => :root_jobnet_templates, :index => true, :class_name => "Tengine::Job::Category"
+  belongs_to :category, :inverse_of => :template_root_jobnets, :index => true, :class_name => "Tengine::Job::Structure::Category"
 
-  def actual_class
-    Tengine::Job::RootJobnetActual
-  end
   def generate(klass = actual_class)
     result = super(klass)
     result.template = self

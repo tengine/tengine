@@ -17,6 +17,9 @@ class Tengine::Job::Template::Category
     c.has_many   :children, :inverse_of => :parent, :order => [:name, :asc]
   end
 
+  has_many :template_root_jobnets, class_name: "Tengine::Job::Template::RootJobnet", inverse_of: :category
+  has_many :runtime_root_jobnets , class_name: "Tengine::Job::Runtime::RootJobnet" , inverse_of: :category
+
   class << self
     def update_for(base_dir)
       root_dir = File.basename(base_dir)
