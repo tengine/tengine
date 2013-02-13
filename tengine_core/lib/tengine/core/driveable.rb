@@ -53,7 +53,7 @@ module Tengine::Core::Driveable
       @__context__.__on_args__ = nil
       return unless @__context__.__creating_driver__
       driver = @__context__.driver
-      driver.reload
+      reload_driver_with_cache_message_if_need(driver)
       options = args.extract_options!
       handler = driver.handlers.create!({
           :event_type_names => args,
@@ -78,7 +78,7 @@ module Tengine::Core::Driveable
       context.__on_args__ = nil
       return unless @__context__.__creating_driver__
       driver = context.driver
-      driver.reload
+      reload_driver_with_cache_message_if_need(driver)
       options = args.extract_options!
       handler = driver.handlers.create!({
           :event_type_names => args,
@@ -88,6 +88,18 @@ module Tengine::Core::Driveable
       # puts "handler: #{handler.inspect}\n#{args.inspect}"
       args.each do |event_type_name|
         driver.handler_paths.create!(:event_type_name => event_type_name, :handler_id => handler.id)
+      end
+    end
+
+    # --tengined-cache-driversオプションを指定せずに複数のtenginedプロセスを起動すると
+    # ドライバのリロードに失敗することがあるため、複数プロセスを起動する際には、
+    # --tengined-cache-driversオプションを指定するようにメッセージを出力します。
+    def self.reload_driver_with_cache_message_if_need(driver)
+      begin
+        driver.reload
+      rescue Mongoid::Errors::DocumentNotFound => e
+        Tengine::Core.stderr_logger.error("[#{Process.pid}] failed to reload driver. Use --tengined-cache-drivers option if you execute multiple tengined processes. driver : #{driver.inspect}. ")
+        raise e
       end
     end
   end
