@@ -2,7 +2,7 @@
 require 'tengine/job/template'
 
 # ルートジョブネットを他のジョブネット内に展開するための特殊なテンプレート用Vertex。
-class Tengine::Job::Template::Expansion < Tengine::Job::Job
+class Tengine::Job::Template::Expansion < Tengine::Job::Template::NamedVertex
   def actual_class
     Tengine::Job::JobnetActual
   end
