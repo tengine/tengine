@@ -2,7 +2,7 @@
 require 'tengine/job/template'
 
 # DSLを評価して登録されるルートジョブネットを表すVertex
-class Tengine::Job::Template::RootJobnetTemplate < Tengine::Job::JobnetTemplate
+class Tengine::Job::Template::RootJobnet < Tengine::Job::Template::Jobnet
   include Tengine::Job::Root
   include Tengine::Core::FindByName
 
