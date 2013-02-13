@@ -2,7 +2,7 @@
 require 'tengine/job/template'
 
 # ジョブネットの終端を表すVertex。特に状態は持たない。
-class Tengine::Job::Template::End < Tengine::Job::Vertex
+class Tengine::Job::Template::End < Tengine::Job::Template::Vertex
 
   # https://cacoo.com/diagrams/hdLgrzYsTBBpV3Wj#D26C1
   def transmit(signal)
