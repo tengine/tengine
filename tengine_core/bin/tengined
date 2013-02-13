@@ -175,7 +175,7 @@ run do
     c.send :load_configuration, config[:db]
   end
   require 'amqp'
-  Mongoid.logger = AMQP::Session.logger = Tengine.logger
+  Moped.logger = Mongoid.logger = AMQP::Session.logger = Tengine.logger
   Tengine::Core::MethodTraceable.disabled = !@__config__[:verbose] # Tengine::Core::Bootstrapが動く前に設定しないと余計なログが出ます
   @__bootstrap__ = Tengine::Core::Bootstrap.new(config)
   @__bootstrap__.boot
