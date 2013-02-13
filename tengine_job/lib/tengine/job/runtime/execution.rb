@@ -6,7 +6,7 @@ require 'tengine/job/runtime'
 class Tengine::Job::Runtime::Execution
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Tengine::Job::Executable
+  include Tengine::Job::Runtime::Executable
   include Tengine::Core::CollectionAccessible
 
   field :target_actual_ids, :type => Array

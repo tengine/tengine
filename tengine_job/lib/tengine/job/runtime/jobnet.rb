@@ -10,14 +10,12 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
   include Tengine::Core::SafeUpdatable
 
   include Tengine::Job::Structure::ElementSelectorNotation
-  include Tengine::Job::Template::SshJob::Settings
 
   autoload :Builder, "tengine/job/jobnet/builder"
   autoload :StateTransition, 'tengine/job/jobnet/state_transition'
   autoload :JobStateTransition, 'tengine/job/jobnet/job_state_transition'
   autoload :JobnetStateTransition, 'tengine/job/jobnet/jobnet_state_transition'
 
-  field :script        , :type => String # 実行されるスクリプト(本来Tengine::Job::Scriptが保持しますが、子要素を保持してかつスクリプトを実行するhadoop_job_runもある)
   field :description   , :type => String # ジョブネットの説明
   field :jobnet_type_cd, :type => Integer, :default => 1 # ジョブネットの種類。後述の定義を参照してください。
 
