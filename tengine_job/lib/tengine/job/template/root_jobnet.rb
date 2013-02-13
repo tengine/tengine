@@ -16,23 +16,6 @@ class Tengine::Job::Template::RootJobnet < Tengine::Job::Template::Jobnet
     result
   end
 
-  def execute(options = {})
-    event_sender = options.delete(:sender) || Tengine::Event.default_sender
-    actual = generate
-    actual.with(safe: safemode(actual.class.collection)).save!
-    result = Tengine::Job::Execution.with(
-                safe: safemode(Tengine::Job::Execution.collection)
-             ).create!(
-               (options || {}).update(:root_jobnet_id => actual.id)
-             )
-    event_sender.fire(:"start.execution.job.tengine", :properties => {
-        :execution_id => result.id,
-        :root_jobnet_id => actual.id,
-        :target_jobnet_id => actual.id
-      })
-    result
-  end
-
   def find_duplication
     return nil unless self.new_record?
     self.class.find_by_name(name, :version => self.dsl_version)
