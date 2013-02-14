@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class JobnetFixtureBuilder
 
   attr_reader :instances
@@ -35,7 +36,11 @@ class JobnetFixtureBuilder
     reset
     @mode = :runtime
     options = (options || {}).update(:template => template)
-    create(options)
+    result = create(options)
+    # Tengine::Job::Runtime::Vertexは構成されるツリーのルートを保存しても、embedでないため
+    # 各vertexをsaveしないと保存されません。明示的に保存しています。
+    result.accept_visitor(Tengine::Job::Structure::Visitor::All.new{|v| v.save! if v.new_record?})
+    result
   end
   alias :create_actual :create_runtime
 

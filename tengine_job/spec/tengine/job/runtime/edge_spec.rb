@@ -114,6 +114,7 @@ describe Tengine::Job::Runtime::Edge do
         @ctx[:e4].phase_key = :transmitted
         @ctx[:e5].phase_key = :active
         @ctx[:e6].phase_key = :active
+        @ctx[:J1].should_not be_new_record
         @ctx[:root].save!
         @ctx[:e5].transmit(@signal)
         @ctx[:root].save!
