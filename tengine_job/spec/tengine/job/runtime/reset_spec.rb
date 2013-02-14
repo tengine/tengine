@@ -213,7 +213,8 @@ describe "reset" do
           @ctx[:e1].phase_key = :transmitted
           (2..8).each{|idx| @ctx[:"e#{idx}"].phase_key = :closed}
           (19..26).each{|idx| @ctx[:"e#{idx}"].phase_key = :transmitted}
-          @root.save!
+
+          @root.save_descendants!
         end
 
         it "/jn0005/jn4/j41を再実行できる" do
@@ -273,7 +274,7 @@ describe "reset" do
         [1].each{|idx| @ctx[:"e#{idx}"].phase_key = :transmitted}
         [5,7,8].each{|idx| @ctx[:"e#{idx}"].phase_key = :active}
         (9..26).each{|idx| @ctx[:"e#{idx}"].phase_key = :active}
-        @root.save!
+        @root.save_descendants!
       end
 
       it "成功しても/jn0005/j4は実行されない" do
@@ -331,7 +332,7 @@ describe "reset" do
         (2..9).each{|idx| @ctx[:"e#{idx}"].phase_key = :closed}
         (10..18).each{|idx| @ctx[:"e#{idx}"].phase_key = :active}
         (19..26).each{|idx| @ctx[:"e#{idx}"].phase_key = :transmitted}
-        @root.save!
+        @root.save_descendants!
       end
 
       it "j41の後続のジョブがactivateされる" do
@@ -350,9 +351,9 @@ describe "reset" do
         @root.reload
         @root.element("/jn0005/jn4/j42").tap{|j| j.phase_key.should == :ready }
         @root.element("/jn0005/jn4/j43").tap{|j| j.phase_key.should == :ready }
-        @root.element("next!/jn0005/jn4/j41").phase_key.should == :transmitted
-        @root.element("prev!/jn0005/jn4/j42").phase_key.should == :transmitting
-        @root.element("prev!/jn0005/jn4/j43").phase_key.should == :transmitting
+        @root.element("next!/jn0005/jn4/j41").tap{|j| j.reload; j.phase_key.should == :transmitted }
+        @root.element("prev!/jn0005/jn4/j42").tap{|j| j.reload; j.phase_key.should == :transmitting }
+        @root.element("prev!/jn0005/jn4/j43").tap{|j| j.reload; j.phase_key.should == :transmitting }
 
         t2 = Time.now
         event2 = mock(:"start.job.job.tengine")
@@ -386,7 +387,7 @@ describe "reset" do
          :jn0005_fjn_f, :jn0005_fif].each{|j| @ctx[j].phase_key = :success}
 
         (1..26).each{|idx| @ctx[:"e#{idx}"].phase_key = :transmitted}
-        @root.save!
+        @root.save_descendants!
       end
 
       context "j41を起点に再実行すると" do
@@ -435,7 +436,7 @@ describe "reset" do
         it "jn4内のジョブの処理が全部終わって、jn4をsucceedしてもignore" do
           [:j41, :j42, :j43, :j44, :jn4f, :jn4_f].each{|j| @ctx[j].phase_key = :success}
           (10..18).each{|idx| @ctx[:"e#{idx}"].phase_key = :transmitted}
-          @root.save!
+          @root.save_descendants!
 
           j41 = @root.element("j41@jn4")
           execution = Tengine::Job::Runtime::Execution.create!({
@@ -617,7 +618,7 @@ describe "reset" do
           @root.element('/jn0005/jn4').phase_key = :starting
           j41 = @root.element('/jn0005/jn4/j41')
           j41.phase_key = :ready
-          @root.save!
+          @root.save_descendants!
           @root.update_with_lock{ j41.activate(signal2) }
           @root.reload
           @root.element('/jn0005/jn4').phase_key.should == :running
@@ -633,7 +634,7 @@ describe "reset" do
           @root.element('/jn0005/jn4/finally').phase_key = :starting
           jn4_f = @root.element('/jn0005/jn4/finally/jn4_f')
           jn4_f.phase_key = :ready
-          @root.save!
+          @root.save_descendants!
           @root.update_with_lock{ jn4_f.activate(signal2) }
           @root.reload
           @root.element('/jn0005/jn4/finally').phase_key.should == :running
@@ -649,7 +650,7 @@ describe "reset" do
           @root.element('/jn0005/finally/jn0005_fjn/finally').phase_key = :starting
           jn0005_fif = @root.element('/jn0005/finally/jn0005_fjn/finally/jn0005_fif')
           jn0005_fif.phase_key = :ready
-          @root.save!
+          @root.save_descendants!
           @root.update_with_lock{ jn0005_fif.activate(signal2) }
           @root.reload
           @root.element('/jn0005/finally/jn0005_fjn/finally').phase_key.should == :running
@@ -671,7 +672,7 @@ describe "reset" do
         (9..13).each{|idx|  @ctx[:"e#{idx}"].phase_key = :transmitted}
         (14..16).each{|idx| @ctx[:"e#{idx}"].phase_key = :closed}
         (17..26).each{|idx| @ctx[:"e#{idx}"].phase_key = :transmitted}
-        @root.save!
+        @root.save_descendants!
       end
 
       context "j43を起点に再実行すると" do
@@ -823,7 +824,7 @@ describe "reset" do
         (22..23).each{|idx| @ctx[:"e#{idx}"].phase_key = :transmitted}
         [24].each{|idx|     @ctx[:"e#{idx}"].phase_key = :closed}
         (25..26).each{|idx| @ctx[:"e#{idx}"].phase_key = :transmitted}
-        @root.save!
+        @root.save_descendants!
       end
 
       context "jn0005_f2を起点に再実行すると" do
