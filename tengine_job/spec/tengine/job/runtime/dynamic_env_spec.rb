@@ -5,15 +5,15 @@ describe 'hadoop_job_run' do
   include NetSshMock
 
   before(:all) do
-    Tengine.plugins.add(Tengine::Job::DslLoader)
+    Tengine.plugins.add(Tengine::Job::Dsl::Loader)
   end
 
   def load_dsl(filename)
     config = {
       :action => "load",
-      :tengined => { :load_path => File.expand_path("../../../examples/#{filename}", File.dirname(__FILE__)) },
+      :tengined => { :load_path => File.expand_path("../../../../../examples/#{filename}", __FILE__) },
     }
-    @version = File.read(File.expand_path("../../../examples/VERSION", File.dirname(__FILE__))).strip
+    @version = File.read(File.expand_path("../../../../../examples/VERSION", __FILE__)).strip
     @bootstrap = Tengine::Core::Bootstrap.new(config)
     @bootstrap.boot
     Tengine::Core::Setting.stub(:dsl_version).and_return(@version)
