@@ -27,7 +27,7 @@ describe Tengine::Job::Dsl::Loader do
         root_jobnet = Tengine::Job::Template::Jobnet.by_name("jobnet0013")
         root_jobnet.should be_a(Tengine::Job::Template::RootJobnet)
         root_jobnet.tap do |j|
-          j.version.should == 0
+          j.respond_to?(:version).should be_false
           j.dsl_version.should == @version
           j.dsl_filepath.should == "0013_hadoop_job_run.rb"
           j.dsl_lineno.should == 21
@@ -115,7 +115,7 @@ describe Tengine::Job::Dsl::Loader do
         root_jobnet = Tengine::Job::Template::Jobnet.by_name("jobnet0014")
         root_jobnet.should be_a(Tengine::Job::Template::RootJobnet)
         root_jobnet.tap do |j|
-          j.version.should == 0
+          j.respond_to?(:version).should be_false
           j.dsl_version.should == @version
           j.dsl_filepath.should == "0014_join_and_join.rb"
           j.dsl_lineno.should == 12
@@ -168,7 +168,7 @@ describe Tengine::Job::Dsl::Loader do
         root_jobnet = Tengine::Job::Template::Jobnet.by_name("jobnet0015")
         root_jobnet.should be_a(Tengine::Job::Template::RootJobnet)
         root_jobnet.tap do |j|
-          j.version.should == 0
+          j.respond_to?(:version).should be_false
           j.dsl_version.should == @version
           j.dsl_filepath.should == "0015_fork_and_fork.rb"
           j.dsl_lineno.should == 11
@@ -221,7 +221,7 @@ describe Tengine::Job::Dsl::Loader do
         root_jobnet = Tengine::Job::Template::Jobnet.by_name("jobnet0016")
         root_jobnet.should be_a(Tengine::Job::Template::RootJobnet)
         root_jobnet.tap do |j|
-          j.version.should == 0
+          j.respond_to?(:version).should be_false
           j.dsl_version.should == @version
           j.dsl_filepath.should == "0016_complex_fork_and_join.rb"
           j.dsl_lineno.should == 11
@@ -288,7 +288,7 @@ describe Tengine::Job::Dsl::Loader do
         root_jobnet = Tengine::Job::Template::Jobnet.by_name("jobnet0017")
         root_jobnet.should be_a(Tengine::Job::Template::RootJobnet)
         root_jobnet.tap do |j|
-          j.version.should == 0
+          j.respond_to?(:version).should be_false
           j.dsl_version.should == @version
           j.dsl_filepath.should == "0017_finally.rb"
           j.dsl_lineno.should == 5
@@ -346,7 +346,7 @@ describe Tengine::Job::Dsl::Loader do
         root_jobnet = Tengine::Job::Template::Jobnet.by_name("jobnet0018")
         root_jobnet.should be_a(Tengine::Job::Template::RootJobnet)
         root_jobnet.tap do |j|
-          j.version.should == 0
+          j.respond_to?(:version).should be_false
           j.dsl_version.should == @version
           j.dsl_filepath.should == "0018_expansion.rb"
           j.dsl_lineno.should == 19
@@ -386,7 +386,7 @@ describe Tengine::Job::Dsl::Loader do
         root_jobnet = Tengine::Job::Template::Jobnet.by_name("jobnet0021")
         root_jobnet.should be_a(Tengine::Job::Template::RootJobnet)
         root_jobnet.tap do |j|
-          j.version.should == 0
+          j.respond_to?(:version).should be_false
           j.dsl_version.should == @version
           j.dsl_filepath.should == "0021_caption.rb"
           j.dsl_lineno.should == 5
