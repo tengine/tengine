@@ -17,8 +17,8 @@ describe Tengine::Job::Template::RootJobnet do
         root.should be_a(Tengine::Job::Runtime::RootJobnet)
         root.children.length.should == 4
         root.children[0].should be_a(Tengine::Job::Runtime::Start)
-        root.children[1].tap{|j| j.should be_a(Tengine::Job::Runtime::Jobnet); j.name.should == "j11"}
-        root.children[2].tap{|j| j.should be_a(Tengine::Job::Runtime::Jobnet); j.name.should == "j12"}
+        root.children[1].tap{|j| j.should be_a(Tengine::Job::Runtime::SshJob); j.name.should == "j11"}
+        root.children[2].tap{|j| j.should be_a(Tengine::Job::Runtime::SshJob); j.name.should == "j12"}
         root.children[3].should be_a(Tengine::Job::Runtime::End)
         root.edges.length.should == 3
         root.edges[0].tap{|edge| edge.origin.should == root.children[0]; edge.destination.should == root.children[1]}
@@ -42,8 +42,8 @@ describe Tengine::Job::Template::RootJobnet do
         root.children.length.should == 6
         root.children[0].should be_a(Tengine::Job::Runtime::Start)
         root.children[1].should be_a(Tengine::Job::Runtime::Fork)
-        root.children[2].tap{|j| j.should be_a(Tengine::Job::Runtime::Jobnet); j.name.should == "j11"}
-        root.children[3].tap{|j| j.should be_a(Tengine::Job::Runtime::Jobnet); j.name.should == "j12"}
+        root.children[2].tap{|j| j.should be_a(Tengine::Job::Runtime::SshJob); j.name.should == "j11"}
+        root.children[3].tap{|j| j.should be_a(Tengine::Job::Runtime::SshJob); j.name.should == "j12"}
         root.children[4].should be_a(Tengine::Job::Runtime::Join)
         root.children[5].should be_a(Tengine::Job::Runtime::End)
         root.edges.length.should == 6
@@ -92,7 +92,7 @@ describe Tengine::Job::Template::RootJobnet do
           j1000.children[1].tap do |j1100|
             j1100.children.length.should == 3
             j1100.children[0].should be_a(Tengine::Job::Runtime::Start)
-            j1100.children[1].tap{|j| j.should be_a(Tengine::Job::Runtime::Jobnet); j.name.should == "j1110"}
+            j1100.children[1].tap{|j| j.should be_a(Tengine::Job::Runtime::SshJob); j.name.should == "j1110"}
             j1100.children[2].should be_a(Tengine::Job::Runtime::End)
             j1100.edges.length.should == 2
             j1100.edges[0].tap{|edge| edge.origin.should == j1100.children[0]; edge.destination.should == j1100.children[1]}
@@ -101,7 +101,7 @@ describe Tengine::Job::Template::RootJobnet do
           j1000.children[2].tap do |j1200|
             j1200.children.length.should == 3
             j1200.children[0].should be_a(Tengine::Job::Runtime::Start)
-            j1200.children[1].tap{|j| j.should be_a(Tengine::Job::Runtime::Jobnet); j.name.should == "j1210"}
+            j1200.children[1].tap{|j| j.should be_a(Tengine::Job::Runtime::SshJob); j.name.should == "j1210"}
             j1200.children[2].should be_a(Tengine::Job::Runtime::End)
             j1200.edges.length.should == 2
             j1200.edges[0].tap{|edge| edge.origin.should == j1200.children[0]; edge.destination.should == j1200.children[1]}
@@ -119,7 +119,7 @@ describe Tengine::Job::Template::RootJobnet do
             j1f00.children[1].tap do |j1f10|
               j1f10.children.length.should == 3
               j1f10.children[0].should be_a(Tengine::Job::Runtime::Start)
-              j1f10.children[1].tap{|j| j.should be_a(Tengine::Job::Runtime::Jobnet); j.name.should == "j1f11"}
+              j1f10.children[1].tap{|j| j.should be_a(Tengine::Job::Runtime::SshJob); j.name.should == "j1f11"}
               j1f10.children[2].should be_a(Tengine::Job::Runtime::End)
               j1f10.edges.length.should == 2
               j1f10.edges[0].tap{|edge| edge.origin.should == j1f10.children[0]; edge.destination.should == j1f10.children[1]}
@@ -128,7 +128,7 @@ describe Tengine::Job::Template::RootJobnet do
             j1f00.children[2].tap do |j1ff0|
               j1ff0.children.length.should == 3
               j1ff0.children[0].should be_a(Tengine::Job::Runtime::Start)
-              j1ff0.children[1].tap{|j| j.should be_a(Tengine::Job::Runtime::Jobnet); j.name.should == "j1ff1"}
+              j1ff0.children[1].tap{|j| j.should be_a(Tengine::Job::Runtime::SshJob); j.name.should == "j1ff1"}
               j1ff0.children[2].should be_a(Tengine::Job::Runtime::End)
               j1ff0.edges.length.should == 2
               j1ff0.edges[0].tap{|edge| edge.origin.should == j1ff0.children[0]; edge.destination.should == j1ff0.children[1]}
@@ -139,7 +139,7 @@ describe Tengine::Job::Template::RootJobnet do
         root.children[2].tap do |j2000|
           j2000.children.length.should == 3
           j2000.children[0].should be_a(Tengine::Job::Runtime::Start)
-          j2000.children[1].tap{|j| j.should be_a(Tengine::Job::Runtime::Jobnet); j.name.should == "j2100"}
+          j2000.children[1].tap{|j| j.should be_a(Tengine::Job::Runtime::SshJob); j.name.should == "j2100"}
           j2000.children[2].should be_a(Tengine::Job::Runtime::End)
           j2000.edges.length.should == 2
           j2000.edges[0].tap{|edge| edge.origin.should == j2000.children[0]; edge.destination.should == j2000.children[1]}
@@ -148,7 +148,7 @@ describe Tengine::Job::Template::RootJobnet do
         root.children[3].tap do |jf000|
           jf000.children.length.should == 3
           jf000.children[0].should be_a(Tengine::Job::Runtime::Start)
-          jf000.children[1].tap{|j| j.should be_a(Tengine::Job::Runtime::Jobnet); j.name.should == "jf100"}
+          jf000.children[1].tap{|j| j.should be_a(Tengine::Job::Runtime::SshJob); j.name.should == "jf100"}
           jf000.children[2].should be_a(Tengine::Job::Runtime::End)
           jf000.edges.length.should == 2
           jf000.edges[0].tap{|edge| edge.origin.should == jf000.children[0]; edge.destination.should == jf000.children[1]}
@@ -176,7 +176,8 @@ describe Tengine::Job::Template::RootJobnet do
     it "create Execution" do
       mock_sender = mock(:sender)
       mock_sender.should_receive(:fire)
-      execution = @jobnet.execute(:sender => mock_sender)
+      actual = @jobnet.generate
+      execution = actual.execute(:sender => mock_sender)
       execution.should be_a(Tengine::Job::Runtime::Execution)
       root_jobnet_actual = execution.root_jobnet
       root_jobnet_actual.should be_a(Tengine::Job::Runtime::RootJobnet)
