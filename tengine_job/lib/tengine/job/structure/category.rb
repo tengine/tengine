@@ -17,7 +17,8 @@ class Tengine::Job::Structure::Category
     c.has_many   :children, :inverse_of => :parent, :order => [:name, :asc]
   end
 
-  has_many :template_root_jobnets, class_name: "Tengine::Job::Template::RootJobnet", inverse_of: :category
+  # embeddedなDocumentをその外部のドキュメントから参照することはできないので、これはNG
+  # has_many :template_root_jobnets, class_name: "Tengine::Job::Template::RootJobnet", inverse_of: :category
   has_many :runtime_root_jobnets , class_name: "Tengine::Job::Runtime::RootJobnet" , inverse_of: :category
 
   class << self

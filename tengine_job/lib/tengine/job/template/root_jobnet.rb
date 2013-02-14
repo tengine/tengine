@@ -8,7 +8,7 @@ class Tengine::Job::Template::RootJobnet < Tengine::Job::Template::Jobnet
   field :dsl_lineno  , :type => Integer # ルートジョブネットを定義するjobnetメソッドの呼び出しの、ロードされたDSLのファイルでの行番号
   field :dsl_version , :type => String  # ルートジョブネットを定義した際のDSLのバージョン
 
-  belongs_to :category, :inverse_of => :template_root_jobnets, :index => true, :class_name => "Tengine::Job::Structure::Category"
+  belongs_to :category, inverse_of: nil, index: true, class_name: "Tengine::Job::Structure::Category"
 
   def generate(klass = actual_class)
     result = super(klass)
