@@ -12,7 +12,7 @@ describe 'job_execution_driver' do
   # (S1) --e1-->(j11)--e2-->(j12)--e3-->(E1)
   context "rjn0001" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context

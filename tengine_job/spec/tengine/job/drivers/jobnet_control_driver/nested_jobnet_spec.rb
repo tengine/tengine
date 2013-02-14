@@ -25,7 +25,7 @@ describe 'jobnet_control_driver' do
   #
   context "rjn0011" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0011NestedForkJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context

@@ -63,7 +63,7 @@ describe 'job_control_driver' do
     before do
       Tengine::Core::Setting.delete_all
       Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1")
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Template::Vertex.delete_all
       Rjn0001SimpleJobnetBuilder.new.create_template
       Rjn0002SimpleParallelJobnetBuilder.new.create_template
       builder = Rjn0008ExpansionFixture.new
@@ -87,7 +87,7 @@ describe 'job_control_driver' do
     before do
       Tengine::Core::Setting.delete_all
       Tengine::Core::Setting.create!(:name => "dsl_version", :value => "2")
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Template::Vertex.delete_all
       Rjn0001SimpleJobnetBuilder.new.tap do |f|
         f.create_template(:dsl_version => "1")
         f.create_template(:dsl_version => "2")

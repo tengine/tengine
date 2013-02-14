@@ -13,7 +13,7 @@ describe 'job_control_driver' do
 
   context "rjn0001" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @jobnet = builder.create_actual
       @ctx = builder.context
@@ -422,7 +422,7 @@ describe 'job_control_driver' do
         context(caption) do
 
           before do
-            Tengine::Job::Vertex.delete_all
+            Tengine::Job::Runtime::Vertex.delete_all
             builder = Rjn0001SimpleJobnetBuilder.new
             @root = builder.create_actual
             @ctx = builder.context
@@ -553,7 +553,7 @@ describe 'job_control_driver' do
       before do
         Tengine::Core::Setting.delete_all
         Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1")
-        Tengine::Job::Vertex.delete_all
+        Tengine::Job::Template::Vertex.delete_all
         Rjn0001SimpleJobnetBuilder.new.tap do |builder|
           @template = builder.create_template(:dsl_version => "1")
           @root = @template.generate
@@ -571,7 +571,7 @@ describe 'job_control_driver' do
       before do
         Tengine::Core::Setting.delete_all
         Tengine::Core::Setting.create!(:name => "dsl_version", :value => "2")
-        Tengine::Job::Vertex.delete_all
+        Tengine::Job::Template::Vertex.delete_all
         Rjn0001SimpleJobnetBuilder.new.tap do |builder|
           builder.create_template(:dsl_version => "1")
           @template = builder.create_template(:dsl_version => "2")
@@ -590,7 +590,7 @@ describe 'job_control_driver' do
       before do
         Tengine::Core::Setting.delete_all
         Tengine::Core::Setting.create!(:name => "dsl_version", :value => "10")
-        Tengine::Job::Vertex.delete_all
+        Tengine::Job::Template::Vertex.delete_all
         Rjn0001SimpleJobnetBuilder.new.tap do |builder|
           (1..9).each do |idx|
             builder.create_template(:dsl_version => idx.to_s)
@@ -611,7 +611,7 @@ describe 'job_control_driver' do
   context "https://www.pivotaltracker.com/story/show/22624209" do
     it "stuckにする" do
       Tengine::Core::Schedule.delete_all
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -636,7 +636,7 @@ describe 'job_control_driver' do
   context "start.job.job.tengine.failed.tengined" do
     it "stuckにする" do
       Tengine::Core::Schedule.delete_all
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -665,7 +665,7 @@ describe 'job_control_driver' do
 
     it "broken event" do
       Tengine::Core::Schedule.delete_all
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -701,7 +701,7 @@ describe 'job_control_driver' do
     describe i do
       it "stuckにする" do
         Tengine::Core::Schedule.delete_all
-        Tengine::Job::Vertex.delete_all
+        Tengine::Job::Runtime::Vertex.delete_all
         builder = Rjn0001SimpleJobnetBuilder.new
         @root = builder.create_actual
         @ctx = builder.context

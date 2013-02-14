@@ -17,7 +17,7 @@ describe 'job_control_driver' do
   # (S1) --e1-->(j11)--e2-->(j12)--e3-->(E1)
   context "rjn0001" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -197,7 +197,7 @@ describe 'job_control_driver' do
   #              |--e3-->(j12)--e5-->|
   context "rjn0002" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0002SimpleParallelJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -390,7 +390,7 @@ describe 'job_control_driver' do
   #              |--e3-->(j12)--e5-->(j13)--e6-->|
   context "rjn0010" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn00102jobsAnd1jobParallelJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -456,7 +456,7 @@ describe 'job_control_driver' do
   context "start.jobnet.job.tengine.failed.tengined" do
     it "stuckにする" do
       Tengine::Core::Schedule.delete_all
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -483,7 +483,7 @@ describe 'job_control_driver' do
 
     it "broken event" do
       Tengine::Core::Schedule.delete_all
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -513,7 +513,7 @@ describe 'job_control_driver' do
   context "success.job.job.tengine.failed.tengined" do
     it "stuckにする(ただし上位のジョブネットを)" do
       Tengine::Core::Schedule.delete_all
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -543,7 +543,7 @@ describe 'job_control_driver' do
   context "error.job.job.tengine.failed.tengined" do
     it "stuckにする(ただし上位のジョブネットを)" do
       Tengine::Core::Schedule.delete_all
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -579,7 +579,7 @@ describe 'job_control_driver' do
     describe i do
       it "stuckにする" do
         Tengine::Core::Schedule.delete_all
-        Tengine::Job::Vertex.delete_all
+        Tengine::Job::Runtime::Vertex.delete_all
         builder = Rjn0001SimpleJobnetBuilder.new
         @root = builder.create_actual
         @ctx = builder.context

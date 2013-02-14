@@ -10,7 +10,7 @@ describe 'stop.jobnet.job.tengine' do
 
   context "rjn0011" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0011NestedForkJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -130,7 +130,7 @@ describe 'stop.jobnet.job.tengine' do
   #
   context "jn0004" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0004ParallelJobnetWithFinally.new
       @root = builder.create_actual
       @ctx = builder.context

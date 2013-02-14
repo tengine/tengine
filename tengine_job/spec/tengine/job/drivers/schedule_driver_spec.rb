@@ -11,7 +11,7 @@ describe 'schedule_driver' do
   context "rjn0001" do
     before do
       Tengine::Core::Schedule.delete_all
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context

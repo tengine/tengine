@@ -29,7 +29,7 @@ describe "<BUG>(tengined複数起動)強制停止すると、ステータスが�
     before do
       Tengine::Resource::Server.delete_all
       Tengine::Job::Runtime::Execution.delete_all
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       TestCredentialFixture.test_credential1
       TestServerFixture.test_server1
       TestServerFixture.test_server2

@@ -37,7 +37,7 @@ describe 'jobnet_control_driver' do
   #
   context "rjn0012" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0012NestedAndFinallyBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -303,7 +303,7 @@ describe 'jobnet_control_driver' do
 
   context "rjn0005" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0005RetryTwoLayerFixture.new
       @root = builder.create_actual
       @ctx = builder.context
