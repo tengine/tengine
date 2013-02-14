@@ -22,7 +22,9 @@ describe 'hadoop_job_run' do
   describe "基本的なジョブDSL" do
     context "0021_dynamic_env.rb" do
       before do
-        Tengine::Job::JobnetTemplate.delete_all
+        pending "本来Tengine::Job::Runtime以下のクラスを使うべきテストがそうなっていないので要検討"
+
+        Tengine::Job::Template::Jobnet.delete_all
         Tengine::Resource::PhysicalServer.delete_all
         TestServerFixture.test_server1
         TestCredentialFixture.test_credential1
@@ -32,7 +34,7 @@ describe 'hadoop_job_run' do
       shared_examples_for "実行時に環境変数を設定できる" do
         it "j1" do
           mock_event = mock(:event)
-          signal = Tengine::Job::Signal.new(mock_event)
+          signal = Tengine::Job::Runtime::Signal.new(mock_event)
           mock_ssh = mock(:ssh)
           Net::SSH.should_receive(:start).and_yield(mock_ssh)
           mock_channel = mock_channel_fof_script_executable(mock_ssh)
@@ -44,7 +46,7 @@ describe 'hadoop_job_run' do
 
         it "j2" do
           mock_event = mock(:event)
-          signal = Tengine::Job::Signal.new(mock_event)
+          signal = Tengine::Job::Runtime::Signal.new(mock_event)
           mock_ssh = mock(:ssh)
           Net::SSH.should_receive(:start).and_yield(mock_ssh)
           mock_channel = mock_channel_fof_script_executable(mock_ssh)
@@ -57,7 +59,7 @@ describe 'hadoop_job_run' do
 
       context "rjn0021_1" do
         before do
-          @template = Tengine::Job::RootJobnetTemplate.find_by_name!("rjn0021_1")
+          @template = Tengine::Job::Template::RootJobnet.find_by_name!("rjn0021_1")
           mock_sender = mock(:sender)
           mock_sender.should_receive(:fire).with(any_args)
           @execution = @template.execute(:sender => mock_sender)
@@ -68,7 +70,7 @@ describe 'hadoop_job_run' do
 
       context "/rjn0021/rjn0021_1" do
         before do
-          @template = Tengine::Job::RootJobnetTemplate.find_by_name!("rjn0021")
+          @template = Tengine::Job::Template::RootJobnet.find_by_name!("rjn0021")
           mock_sender = mock(:sender)
           mock_sender.should_receive(:fire).with(any_args)
           @execution = @template.execute(:sender => mock_sender)
@@ -79,7 +81,7 @@ describe 'hadoop_job_run' do
 
       context "/rjn0021/rjn0021_2" do
         before do
-          @template = Tengine::Job::RootJobnetTemplate.find_by_name!("rjn0021")
+          @template = Tengine::Job::Template::RootJobnet.find_by_name!("rjn0021")
           mock_sender = mock(:sender)
           mock_sender.should_receive(:fire).with(any_args)
           @execution = @template.execute(:sender => mock_sender)
