@@ -47,19 +47,23 @@ class Tengine::Job::Template::Jobnet < Tengine::Job::Template::NamedVertex
     end
   end
 
+
+  VERTEX_CLASSES = {
+    vertex: "Vertex",
+    start_vertex: "Start",
+    end_vertex: "End",
+    jobnet: "Jobnet",
+  }.freeze
+
+  VERTEX_CLASSES.each do |key, value|
+    instance_eval("def #{key}_class; Tengine::Job::Template::#{value}; end", __FILE__, __LINE__)
+  end
+
   class << self
     def by_name(name)
       where({:name => name}).first
     end
 
-    {
-      vertex: "Vertex",
-      start_vertex: "Start",
-      end_vertex: "End",
-      jobnet: "Jobnet",
-    }.each do |key, value|
-      instance_eval("def #{key}_class; \"Tengine::Job::Template::#{value}\"; end")
-    end
   end
 end
 

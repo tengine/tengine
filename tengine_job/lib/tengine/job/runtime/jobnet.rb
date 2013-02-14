@@ -19,9 +19,9 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
 
   field :was_expansion, :type => Boolean # テンプレートがTenigne::Job::Expansionであった場合にtrueです。
 
-  # was_expansionがtrueなら元々のtemplateへの参照が必要なのでRootJobnetActualだけでなく
+  # was_expansionがtrueなら元々のtemplateへの参照が必要なのでTenigne::Job::Runtime::RootJobnetだけでなく
   # JobnetActualでもtemplateが必要です。
-  belongs_to :template, :inverse_of => :root_jobnet_actuals, :index => true, :class_name => "Tengine::Job::RootJobnetTemplate"
+  belongs_to :template, :inverse_of => :root_jobnet_actuals, :index => true, :class_name => "Tengine::Job::Template::RootJobnet"
 
   field :jobnet_type_cd, :type => Integer, :default => 1 # ジョブネットの種類。後述の定義を参照してください。
 
@@ -48,18 +48,20 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
     end
   end
 
+  VERTEX_CLASSES = {
+    vertex: "Vertex",
+    start_vertex: "Start",
+    end_vertex: "End",
+    jobnet: "Jobnet",
+  }.freeze
+
+  VERTEX_CLASSES.each do |key, value|
+    instance_eval("def #{key}_class; Tengine::Job::Runtime::#{value}; end", __FILE__, __LINE__)
+  end
+
   class << self
     def by_name(name)
       where({:name => name}).first
-    end
-
-    {
-      vertex: "Vertex",
-      start_vertex: "Start",
-      end_vertex: "End",
-      jobnet: "Jobnet",
-    }.each do |key, value|
-      instance_eval("def #{key}_class; \"Tengine::Job::Runtime::#{value}\"; end")
     end
   end
 
@@ -176,7 +178,7 @@ end
 
 
 # ジョブネットの始端を表すVertex。特に状態は持たない。
-class Tengine::Job::Template::Start < Tengine::Job::Template::Vertex
+class Tengine::Job::Runtime::Start < Tengine::Job::Runtime::Vertex
   # https://cacoo.com/diagrams/hdLgrzYsTBBpV3Wj#D26C1
   def transmit(signal)
     activate(signal)
@@ -193,7 +195,7 @@ end
 
 
 # ジョブネットの終端を表すVertex。特に状態は持たない。
-class Tengine::Job::Template::End < Tengine::Job::Template::Vertex
+class Tengine::Job::Runtime::End < Tengine::Job::Runtime::Vertex
   # https://cacoo.com/diagrams/hdLgrzYsTBBpV3Wj#D26C1
   def transmit(signal)
     activate(signal)

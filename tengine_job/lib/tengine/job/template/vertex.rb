@@ -31,6 +31,9 @@ class Tengine::Job::Template::Vertex
 #   alias_method :long_inspect, :inspect
 #   alias_method :inspect, :short_inspect
 
+  def template?; true; end
+  def runtime?; !template?; end
+
   class VertexValidations < Mongoid::Errors::Validations
     def translate(key, options)
       ::I18n.translate(

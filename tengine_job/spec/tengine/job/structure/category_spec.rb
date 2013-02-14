@@ -7,7 +7,7 @@ describe Tengine::Job::Structure::Category do
 
   describe :update_for do
 
-    context "RootJobnetTemplateのdsl_filepathからCategoryを登録します" do
+    context "Tengine::Job::Template::RootJobnetのdsl_filepathからCategoryを登録します" do
 
       before do
         Tengine::Job::Template::Vertex.delete_all

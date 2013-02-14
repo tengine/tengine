@@ -18,7 +18,7 @@ driver :jobnet_control_driver do
 
   on :'start.jobnet.job.tengine' do
     signal = Tengine::Job::Signal.new(event)
-    root_jobnet = Tengine::Job::RootJobnetActual.find(event[:root_jobnet_id])
+    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     root_jobnet.update_with_lock do
       signal.reset
       target_jobnet = root_jobnet.find_descendant(event[:target_jobnet_id]) || root_jobnet
@@ -40,7 +40,7 @@ driver :jobnet_control_driver do
     h = g["properties"]        or next
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
-    k = Tengine::Job::RootJobnetActual.find(i) or next
+    k = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
     k.update_with_lock do
       l = k.find_descendant(j) || k
@@ -50,7 +50,7 @@ driver :jobnet_control_driver do
 
   on :'success.job.job.tengine' do
     signal = Tengine::Job::Signal.new(event)
-    root_jobnet = Tengine::Job::RootJobnetActual.find(event[:root_jobnet_id])
+    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     root_jobnet.update_with_lock do
       signal.reset
       target_job = root_jobnet.find_descendant(event[:target_job_id])
@@ -74,7 +74,7 @@ driver :jobnet_control_driver do
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
     k = h["target_job_id"]     or next
-    l = Tengine::Job::RootJobnetActual.find(i) or next
+    l = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
     # 上記(*1)のポイントでtenginedが落ちた時のことを考えると、後続のエッ
     # ジはもうtransmitしているが送信すべきイベントが欠けている状態であ
@@ -90,7 +90,7 @@ driver :jobnet_control_driver do
 
   on :'error.job.job.tengine' do
     signal = Tengine::Job::Signal.new(event)
-    root_jobnet = Tengine::Job::RootJobnetActual.find(event[:root_jobnet_id])
+    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     root_jobnet.update_with_lock do
       signal.reset
       target_job = root_jobnet.vertex(event[:target_job_id])
@@ -116,7 +116,7 @@ driver :jobnet_control_driver do
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
     k = h["target_job_id"]     or next
-    l = Tengine::Job::RootJobnetActual.find(i) or next
+    l = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
     # 同上で、この場合このジョブがおかしくなっているというよりむしろジョ
     # ブネット全体がおかしくなっているというべきである。
@@ -130,7 +130,7 @@ driver :jobnet_control_driver do
 
   on :'success.jobnet.job.tengine' do
     signal = Tengine::Job::Signal.new(event)
-    root_jobnet = Tengine::Job::RootJobnetActual.find(event[:root_jobnet_id])
+    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     root_jobnet.update_with_lock do
       signal.reset
       target_jobnet = root_jobnet.vertex(event[:target_jobnet_id])
@@ -165,7 +165,7 @@ driver :jobnet_control_driver do
     h = g["properties"]        or next
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
-    k = Tengine::Job::RootJobnetActual.find(i) or next
+    k = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
     k.update_with_lock do
       l = k.find_descendant(j) || k
@@ -175,7 +175,7 @@ driver :jobnet_control_driver do
 
   on :'error.jobnet.job.tengine' do
     signal = Tengine::Job::Signal.new(event)
-    root_jobnet = Tengine::Job::RootJobnetActual.find(event[:root_jobnet_id])
+    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     root_jobnet.update_with_lock do
       signal.reset
       target_jobnet = root_jobnet.find_descendant(event[:target_jobnet_id]) || root_jobnet
@@ -210,7 +210,7 @@ driver :jobnet_control_driver do
     h = g["properties"]        or next
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
-    k = Tengine::Job::RootJobnetActual.find(i) or next
+    k = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
     k.update_with_lock do
       l = k.find_descendant(j) || k
@@ -220,7 +220,7 @@ driver :jobnet_control_driver do
 
   on :'stop.jobnet.job.tengine' do
     signal = Tengine::Job::Signal.new(event)
-    root_jobnet = Tengine::Job::RootJobnetActual.find(event[:root_jobnet_id])
+    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     root_jobnet.update_with_lock do
       signal.reset
       target_jobnet = root_jobnet.find_descendant(event[:target_jobnet_id]) || root_jobnet
@@ -239,7 +239,7 @@ driver :jobnet_control_driver do
     h = g["properties"]        or next
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
-    k = Tengine::Job::RootJobnetActual.find(i) or next
+    k = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
     k.update_with_lock do
       l = k.find_descendant(j) || k

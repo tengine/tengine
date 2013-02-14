@@ -24,7 +24,7 @@ class Tengine::Job::Runtime::Execution
   field :retry, :type => Boolean, :default => false # 再実行かどうか
   field :spot , :type => Boolean, :default => false # スポット実行かどうか
 
-  belongs_to :root_jobnet, :class_name => "Tengine::Job::RootJobnetActual", :index => true, :inverse_of => :executions
+  belongs_to :root_jobnet, :class_name => "Tengine::Job::Runtime::RootJobnet", :index => true, :inverse_of => :executions
 
   attr_accessor :signal # runを実行して、ackを返す際に一時的にsignalを記録しておく属性です。それ以外には使用しないでください。
 

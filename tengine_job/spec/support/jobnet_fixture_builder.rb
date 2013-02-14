@@ -1,4 +1,7 @@
 class JobnetFixtureBuilder
+
+  attr_reader :instances
+
   def initialize
     reset
   end
@@ -56,25 +59,16 @@ class JobnetFixtureBuilder
     raise NotImplementedError, "You must use inherited class of FixtureBuilder"
   end
 
-  MODE_AND_METHOD_TO_CLASS = {
-    [:template, :root_jobnet] => Tengine::Job::Template::RootJobnet,
-    [:template, :jobnet     ] => Tengine::Job::Template::Jobnet    ,
-    [:template, :script     ] => Tengine::Job::Template::SshJob    ,
-    [:template, :finally    ] => Tengine::Job::Template::Jobnet    ,
-    [:runtime , :root_jobnet] => Tengine::Job::Runtime::RootJobnet ,
-    [:runtime , :jobnet     ] => Tengine::Job::Runtime::Jobnet     ,
-    [:runtime , :script     ] => Tengine::Job::Runtime::SshJob     ,
-    [:runtime , :finally    ] => Tengine::Job::Runtime::Jobnet     ,
-  }.freeze
-
   %w[root_jobnet jobnet ssh_job].each do |method_name|
     root_assign = method_name =~ /^root_/ ? "@instances[:root] = result" : ""
 
-    class_eval(<<-EOS)
+    class_eval(<<-EOS, __FILE__, __LINE__ + 1)
       def new_#{method_name}(name, attrs = {}, &block)
         attrs[:name] = name.to_s
         klass = "Tengine::Job::\#{@mode.to_s.camelize}::#{method_name.camelize}".constantize
-        if klass == Tengine::Job::RootJobnetTemplate
+        unknown_fields = attrs.keys - klass.fields.keys.map(&:to_sym)
+        unknown_fields.each{|f| attrs.delete(f)}
+        if klass == Tengine::Job::Template::RootJobnet
           attrs[:dsl_version] ||= Tengine::Core::Setting.dsl_version
         end
         result = klass.new(attrs, &block)

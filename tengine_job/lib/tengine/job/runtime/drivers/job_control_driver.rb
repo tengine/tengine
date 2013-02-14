@@ -17,7 +17,7 @@ driver :job_control_driver do
   on :'start.job.job.tengine' do
     signal = Tengine::Job::Signal.new(event)
     # activate
-    root_jobnet = Tengine::Job::RootJobnetActual.find(event[:root_jobnet_id])
+    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     root_jobnet.update_with_lock do
       signal.reset
       target_jobnet = root_jobnet.find_descendant(event[:target_jobnet_id]) || root_jobnet
@@ -49,7 +49,7 @@ driver :job_control_driver do
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
     k = h["target_job_id"]     or next
-    l = Tengine::Job::RootJobnetActual.find(i) or next
+    l = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
     l.update_with_lock do
       m = l.find_descendant(j)  || l
@@ -60,7 +60,7 @@ driver :job_control_driver do
 
   on :'stop.job.job.tengine' do
     signal = Tengine::Job::Signal.new(event)
-    root_jobnet = Tengine::Job::RootJobnetActual.find(event[:root_jobnet_id])
+    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     root_jobnet.update_with_lock do
       signal.reset
       target_jobnet = root_jobnet.find_descendant(event[:target_jobnet_id]) || root_jobnet
@@ -87,7 +87,7 @@ driver :job_control_driver do
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
     k = h["target_job_id"]     or next
-    l = Tengine::Job::RootJobnetActual.find(i) or next
+    l = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
     l.update_with_lock do
       m = l.find_descendant(j)  || l
@@ -98,7 +98,7 @@ driver :job_control_driver do
 
   on :'finished.process.job.tengine' do
     signal = Tengine::Job::Signal.new(event)
-    root_jobnet = Tengine::Job::RootJobnetActual.find(event[:root_jobnet_id])
+    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     # finish
     root_jobnet.update_with_lock do
       signal.reset
@@ -119,7 +119,7 @@ driver :job_control_driver do
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
     k = h["target_job_id"]     or next
-    l = Tengine::Job::RootJobnetActual.find(i) or next
+    l = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
     l.update_with_lock do
       m = l.find_descendant(j)  || l
@@ -130,7 +130,7 @@ driver :job_control_driver do
 
   on :'expired.job.heartbeat.tengine' do
     event.tap do |e|
-      Tengine::Job::RootJobnetActual.find(e[:root_jobnet_id]).tap do |r|
+      Tengine::Job::Runtime::RootJobnet.find(e[:root_jobnet_id]).tap do |r|
         r.update_with_lock do
           r.find_descendant(e[:target_job_id]).phase_key = :stuck
         end
@@ -149,7 +149,7 @@ driver :job_control_driver do
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
     k = h["target_job_id"]     or next
-    l = Tengine::Job::RootJobnetActual.find(i) or next
+    l = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
     l.update_with_lock do
       m = l.find_descendant(j)  || l
@@ -161,7 +161,7 @@ driver :job_control_driver do
   on :'restart.job.job.tengine' do
     begin
       signal = Tengine::Job::Signal.new(event)
-      root_jobnet = Tengine::Job::RootJobnetActual.find(event[:root_jobnet_id])
+      root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
       root_jobnet.update_with_lock do
         signal.reset
         job = root_jobnet.find_descendant(event[:target_job_id])
@@ -184,7 +184,7 @@ driver :job_control_driver do
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
     k = h["target_job_id"]     or next
-    l = Tengine::Job::RootJobnetActual.find(i) or next
+    l = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
     l.update_with_lock do
       m = l.find_descendant(j)  || l

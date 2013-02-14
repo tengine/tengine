@@ -16,6 +16,9 @@ class Tengine::Job::Runtime::Vertex
     c.has_many   :children, :inverse_of => :parent , :validate => false
   end
 
+  def template?; false; end
+  def runtime?; !template?; end
+
   def previous_edges
     return nil unless parent
     parent.edges.select{|edge| edge.destination_id == self.id}

@@ -24,11 +24,11 @@ class Tengine::Job::Template::SshJob < Tengine::Job::Template::NamedVertex
     end
 
     def actual_credential_name
-      credential_name || (parent ? parent.actual_credential_name : nil)
+      credential_name || (runtime? ? nil : parent ? parent.actual_credential_name : nil)
     end
 
     def actual_server_name
-      server_name || (parent ? parent.actual_server_name : nil)
+      server_name || (runtime? ? nil : parent ? parent.actual_server_name : nil)
     end
 
     def actual_credential
@@ -53,12 +53,12 @@ class Tengine::Job::Template::SshJob < Tengine::Job::Template::NamedVertex
 
     def actual_killing_signals
       killing_signals ? killing_signals :
-        (parent ? parent.actual_killing_signals : ['KILL'])
+        (runtime? ? nil : parent ? parent.actual_killing_signals : ['KILL'])
     end
 
     def actual_killing_signal_interval
       killing_signals ? killing_signal_interval :
-        (parent ? parent.actual_killing_signal_interval : DEFAULT_KILLING_SIGNAL_INTERVAL)
+        (runtime? ? nil : parent ? parent.actual_killing_signal_interval : DEFAULT_KILLING_SIGNAL_INTERVAL)
     end
   end
 

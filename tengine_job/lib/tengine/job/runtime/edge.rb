@@ -8,7 +8,7 @@ class Tengine::Job::Runtime::Edge
   include Mongoid::Document
   include Mongoid::Timestamps
   include Tengine::Core::SelectableAttr
-  include Tengine::Job::Signal::Transmittable
+  include Tengine::Job::Runtime::Signal::Transmittable
   include Tengine::Job::Structure::Visitor::Accepter
 
   class StatusError < StandardError

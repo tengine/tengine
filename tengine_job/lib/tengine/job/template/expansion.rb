@@ -9,7 +9,7 @@ class Tengine::Job::Template::Expansion < Tengine::Job::Template::NamedVertex
   def root_jobnet_template
     unless @root_jobnet_template
       cond = {:dsl_version => root.dsl_version, :name => name}
-      @root_jobnet_template = Tengine::Job::RootJobnetTemplate.where(cond).first
+      @root_jobnet_template = Tengine::Job::Template::RootJobnet.where(cond).first
     end
     @root_jobnet_template
   end

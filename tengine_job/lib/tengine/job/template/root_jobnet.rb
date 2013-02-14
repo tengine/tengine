@@ -28,4 +28,9 @@ class Tengine::Job::Template::RootJobnet < Tengine::Job::Template::Jobnet
       where({:name => name, :dsl_version => version}).first
     end
   end
+
+  Tengine::Job::Template::Jobnet::VERTEX_CLASSES.keys.each do |key|
+    instance_eval("def #{key}_class; Tengine::Job::Template::Jobnet.#{key}_class; end", __FILE__, __LINE__)
+  end
+
 end

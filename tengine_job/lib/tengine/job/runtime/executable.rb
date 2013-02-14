@@ -30,8 +30,8 @@ module Tengine::Job::Runtime::Executable
     def phase_key=(phase_key)
       element_type = nil
       case self.class
-      when Tengine::Job::Execution then element_type = "execution"
-      when Tengine::Job::RootJobnetActual then element_type = "root_jobnet"
+      when Tengine::Job::Runtime::Execution then element_type = "execution"
+      when Tengine::Job::Runtime::RootJobnet then element_type = "root_jobnet"
       when Tengine::Job::JobnetActual then element_type = self.script_executable? ? "job" :
         self.jobnet_type_key == :normal ?  "jobnet" : self.jobnet_type_name
       end

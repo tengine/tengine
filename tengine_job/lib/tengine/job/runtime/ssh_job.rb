@@ -199,11 +199,11 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
       unless t
         template_name_parts = self.name_path_until_expansion.split(Tengine::Job::NamePath::SEPARATOR).select{|s| !s.empty?}
         root_jobnet_name = template_name_parts.first
-        if rjt = Tengine::Job::RootJobnetTemplate.find_by_name(root_jobnet_name, :version => rjt.dsl_version)
+        if rjt = Tengine::Job::Template::RootJobnet.find_by_name(root_jobnet_name, :version => rjt.dsl_version)
           t = rjt.find_descendant_by_name_path(self.name_path_until_expansion)
           raise "template job #{path.inspect} not found in #{rjt.inspect}" unless t
         else
-          raise "Tengine::Job::RootJobnetTemplate not found #{self.name_path_until_expansion.inspect}"
+          raise "Tengine::Job::Template::RootJobnet not found #{self.name_path_until_expansion.inspect}"
         end
       end
       result.update({
