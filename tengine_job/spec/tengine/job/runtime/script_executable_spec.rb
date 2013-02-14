@@ -6,7 +6,7 @@ require 'tempfile'
 
 describe Tengine::Job::Runtime::SshJob do
   let :ssh_dir do
-    File.expand_path("../../../sshd", __FILE__)
+    File.expand_path("../../../../sshd", __FILE__)
   end
 
   before :all do
