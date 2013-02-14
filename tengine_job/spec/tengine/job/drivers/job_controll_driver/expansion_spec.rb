@@ -27,7 +27,7 @@ describe 'job_control_driver' do
       mock_channel.should_receive(:exec) do |*args|
         args.length.should == 1
         # args.first.should =~ %r<export MM_ACTUAL_JOB_ID=[0-9a-f]{24} MM_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_FULL_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_ACTUAL_JOB_NAME_PATH=\\"/rjn0001/j11\\" MM_ACTUAL_JOB_SECURITY_TOKEN= MM_SCHEDULE_ID=[0-9a-f]{24} MM_SCHEDULE_ESTIMATED_TIME= MM_TEMPLATE_JOB_ID=[0-9a-f]{24} MM_TEMPLATE_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" && tengine_job_agent_run -- \$HOME/j11\.sh>
-          t_rjn1001 = Tengine::Job::RootJobnetTemplate.find_by_name("rjn0001")
+          t_rjn1001 = Tengine::Job::Template::RootJobnet.find_by_name("rjn0001")
         t_rjn1001.dsl_version.should == dsl_version
         t_j11 = t_rjn1001.vertex_by_name_path("/rjn0001/j11")
         args.first.should =~ %r<MM_TEMPLATE_JOB_ID=#{t_j11.id.to_s}>

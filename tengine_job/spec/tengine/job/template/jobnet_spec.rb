@@ -340,11 +340,11 @@ describe Tengine::Job::Template::Jobnet do
       @j1100.prepare_end
       @j1000.build_sequencial_edges
       # @j1100.build_sequencial_edges
-      @j1000.edges << @e1 = Tengine::Job::Edge.new(:origin_id => @j1000.start_vertex.id, :destination_id => @j1100.id)
-      @j1000.edges << @e2 = Tengine::Job::Edge.new(:origin_id => @j1110.id, :destination_id => @j1000.end_vertex.id)
-      @j1100.edges << @e3 = Tengine::Job::Edge.new(:origin_id => @j1100.start_vertex.id, :destination_id => @j1110.id)
-      @j1100.edges << @e4 = Tengine::Job::Edge.new(:origin_id => @j1110.id, :destination_id => @j1120.id)
-      @j1100.edges << @e5 = Tengine::Job::Edge.new(:origin_id => @j1120.id, :destination_id => @j1100.end_vertex.id)
+      @j1000.edges << @e1 = Tengine::Job::Template::Edge.new(:origin_id => @j1000.start_vertex.id, :destination_id => @j1100.id)
+      @j1000.edges << @e2 = Tengine::Job::Template::Edge.new(:origin_id => @j1110.id, :destination_id => @j1000.end_vertex.id)
+      @j1100.edges << @e3 = Tengine::Job::Template::Edge.new(:origin_id => @j1100.start_vertex.id, :destination_id => @j1110.id)
+      @j1100.edges << @e4 = Tengine::Job::Template::Edge.new(:origin_id => @j1110.id, :destination_id => @j1120.id)
+      @j1100.edges << @e5 = Tengine::Job::Template::Edge.new(:origin_id => @j1120.id, :destination_id => @j1100.end_vertex.id)
     end
 
     it "save!" do
@@ -374,7 +374,7 @@ describe Tengine::Job::Template::Jobnet do
 
     it "create!" do
       begin
-        Tengine::Job::RootJobnetTemplate.create!(:name => nil)
+        Tengine::Job::Template::RootJobnet.create!(:name => nil)
         fail
       rescue Mongoid::Errors::Validations => e
         msg = "Name can't be blank"
