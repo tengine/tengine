@@ -24,6 +24,7 @@ describe Tengine::Job::Dsl::Loader do
       }
 
       it do
+        pending
         root_jobnet = Tengine::Job::Template::Jobnet.by_name("jobnet0013")
         root_jobnet.should be_a(Tengine::Job::Template::RootJobnet)
         root_jobnet.tap do |j|
