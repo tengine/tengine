@@ -37,9 +37,7 @@ class JobnetFixtureBuilder
     @mode = :runtime
     options = (options || {}).update(:template => template)
     result = create(options)
-    # Tengine::Job::Runtime::Vertexは構成されるツリーのルートを保存しても、embedでないため
-    # 各vertexをsaveしないと保存されません。明示的に保存しています。
-    result.accept_visitor(Tengine::Job::Structure::Visitor::All.new{|v| v.save! if v.new_record?})
+    result.save_descendants!
     result
   end
   alias :create_actual :create_runtime

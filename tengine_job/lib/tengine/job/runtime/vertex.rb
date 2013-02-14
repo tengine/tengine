@@ -39,4 +39,9 @@ class Tengine::Job::Runtime::Vertex
     end
   end
 
+  # Tengine::Job::Runtime::Vertexは構成されるツリーのルートを保存しても、embedでないので
+  # 各vertexをsaveしないと保存されないため、明示的に保存しています。
+  def save_descendants!
+    accept_visitor(Tengine::Job::Structure::Visitor::All.new{|v| v.save! if v.new_record?})
+  end
 end
