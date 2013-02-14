@@ -37,7 +37,7 @@ describe Tengine::Job::Dsl::Loader do
           j.credential_name.should == "goku-ssh-pk1"
         end
         root_jobnet.children.map(&:class).should == [
-          Tengine::Job::Templapte::Start,
+          Tengine::Job::Template::Start,
           Tengine::Job::Template::Jobnet,
           Tengine::Job::Template::Jobnet,
           Tengine::Job::Template::Jobnet,
@@ -54,7 +54,7 @@ describe Tengine::Job::Dsl::Loader do
         ]
         hadoop_job_run.tap{|j| j.name.should == "hadoop_job_run1"; j.description.should == "Hadoopジョブ1"; j.script.should == "hadoop_job_run.sh"}
         hadoop_job_run.children.map(&:class).should == [
-          Tengine::Job::Templapte::Start,
+          Tengine::Job::Template::Start,
           Tengine::Job::Template::Jobnet,
           Tengine::Job::Template::Jobnet,
           Tengine::Job::Template::End,
@@ -67,11 +67,11 @@ describe Tengine::Job::Dsl::Loader do
         hadoop_job1 = hadoop_job_run.children[1]
         hadoop_job1.tap{|j| j.name.should == "hadoop_job1"}
         hadoop_job1.children.map(&:class).should == [
-          Tengine::Job::Templapte::Start,
-          Tengine::Job::Fork,
+          Tengine::Job::Template::Start,
+          Tengine::Job::Template::Fork,
           Tengine::Job::Template::Jobnet,
           Tengine::Job::Template::Jobnet,
-          Tengine::Job::Join,
+          Tengine::Job::Template::Join,
           Tengine::Job::Template::End,
         ]
 
@@ -85,21 +85,21 @@ describe Tengine::Job::Dsl::Loader do
         ]
 
         hadoop_job1.edges.map{|edge| [edge.origin.class, edge.destination.class]}.should == [
-          [Tengine::Job::Templapte::Start         , Tengine::Job::Fork          ],
-          [Tengine::Job::Fork          , Tengine::Job::Template::Jobnet],
-          [Tengine::Job::Fork          , Tengine::Job::Template::Jobnet],
-          [Tengine::Job::Template::Jobnet, Tengine::Job::Join          ],
-          [Tengine::Job::Template::Jobnet, Tengine::Job::Join          ],
-          [Tengine::Job::Join          , Tengine::Job::Template::End           ],
+          [Tengine::Job::Template::Start         , Tengine::Job::Template::Fork          ],
+          [Tengine::Job::Template::Fork          , Tengine::Job::Template::Jobnet],
+          [Tengine::Job::Template::Fork          , Tengine::Job::Template::Jobnet],
+          [Tengine::Job::Template::Jobnet, Tengine::Job::Template::Join          ],
+          [Tengine::Job::Template::Jobnet, Tengine::Job::Template::Join          ],
+          [Tengine::Job::Template::Join          , Tengine::Job::Template::End           ],
         ]
         hadoop_job2 = hadoop_job_run.children[2]
         hadoop_job2.tap{|j| j.name.should == "hadoop_job2"}
         hadoop_job2.children.map(&:class).should == [
-          Tengine::Job::Templapte::Start,
-          Tengine::Job::Fork,
+          Tengine::Job::Template::Start,
+          Tengine::Job::Template::Fork,
           Tengine::Job::Template::Jobnet,
           Tengine::Job::Template::Jobnet,
-          Tengine::Job::Join,
+          Tengine::Job::Template::Join,
           Tengine::Job::Template::End,
         ]
       end
@@ -125,15 +125,15 @@ describe Tengine::Job::Dsl::Loader do
           j.credential_name.should == "goku-ssh-pk1"
         end
         root_jobnet.children.map(&:class).should == [
-          Tengine::Job::Templapte::Start         , # 0
+          Tengine::Job::Template::Start         , # 0
           Tengine::Job::Template::Jobnet, # 1
           Tengine::Job::Template::Jobnet, # 2
           Tengine::Job::Template::Jobnet, # 3
           Tengine::Job::Template::Jobnet, # 4
           Tengine::Job::Template::Jobnet, # 5
-          Tengine::Job::Fork          , # 6
-          Tengine::Job::Join          , # 7
-          Tengine::Job::Join          , # 8
+          Tengine::Job::Template::Fork          , # 6
+          Tengine::Job::Template::Join          , # 7
+          Tengine::Job::Template::Join          , # 8
           Tengine::Job::Template::End           , # 9
         ]
         root_jobnet.children[1].tap{|j| j.name.should == "job1"; j.description.should == "job1"; j.script.should == "echo 'job1'"}
@@ -178,15 +178,15 @@ describe Tengine::Job::Dsl::Loader do
           j.credential_name.should == "goku-ssh-pk1"
         end
         root_jobnet.children.map(&:class).should == [
-          Tengine::Job::Templapte::Start         , # 0
+          Tengine::Job::Template::Start         , # 0
           Tengine::Job::Template::Jobnet, # 1
           Tengine::Job::Template::Jobnet, # 2
           Tengine::Job::Template::Jobnet, # 3
           Tengine::Job::Template::Jobnet, # 4
           Tengine::Job::Template::Jobnet, # 5
-          Tengine::Job::Fork          , # 6
-          Tengine::Job::Fork          , # 7
-          Tengine::Job::Join          , # 8
+          Tengine::Job::Template::Fork          , # 6
+          Tengine::Job::Template::Fork          , # 7
+          Tengine::Job::Template::Join          , # 8
           Tengine::Job::Template::End           , # 9
         ]
         root_jobnet.children[1].tap{|j| j.name.should == "job1"; j.description.should == "job1"; j.script.should == "echo 'job1'"}
@@ -231,7 +231,7 @@ describe Tengine::Job::Dsl::Loader do
           j.credential_name.should == "goku-ssh-pk1"
         end
         root_jobnet.children.map(&:class).should == [
-          Tengine::Job::Templapte::Start         , # 0
+          Tengine::Job::Template::Start         , # 0
           Tengine::Job::Template::Jobnet, # 1
           Tengine::Job::Template::Jobnet, # 2
           Tengine::Job::Template::Jobnet, # 3
@@ -239,11 +239,11 @@ describe Tengine::Job::Dsl::Loader do
           Tengine::Job::Template::Jobnet, # 5
           Tengine::Job::Template::Jobnet, # 6
           Tengine::Job::Template::Jobnet, # 7
-          Tengine::Job::Fork          , # 8
-          Tengine::Job::Fork          , # 9
-          Tengine::Job::Fork          , # 10
-          Tengine::Job::Join          , # 11
-          Tengine::Job::Join          , # 12
+          Tengine::Job::Template::Fork          , # 8
+          Tengine::Job::Template::Fork          , # 9
+          Tengine::Job::Template::Fork          , # 10
+          Tengine::Job::Template::Join          , # 11
+          Tengine::Job::Template::Join          , # 12
           Tengine::Job::Template::End           , # 13
         ]
         (1..7).each do |idx|
@@ -298,7 +298,7 @@ describe Tengine::Job::Dsl::Loader do
           j.credential_name.should == "goku-ssh-pk1"
         end
         root_jobnet.children.map(&:class).should == [
-          Tengine::Job::Templapte::Start         , # 0
+          Tengine::Job::Template::Start         , # 0
           Tengine::Job::Template::Jobnet, # 1
           Tengine::Job::Template::Jobnet, # 2
           Tengine::Job::Template::Jobnet, # 3
@@ -323,7 +323,7 @@ describe Tengine::Job::Dsl::Loader do
 
         finally_jobnet = root_jobnet.children[4]
         finally_jobnet.children.map(&:class).should == [
-          Tengine::Job::Templapte::Start         , # 0
+          Tengine::Job::Template::Start         , # 0
           Tengine::Job::Template::Jobnet, # 1
           Tengine::Job::Template::Jobnet, # 2
           Tengine::Job::Template::End           , # 3
@@ -356,7 +356,7 @@ describe Tengine::Job::Dsl::Loader do
           j.credential_name.should == nil
         end
         root_jobnet.children.map(&:class).should == [
-          Tengine::Job::Templapte::Start    , # 0
+          Tengine::Job::Template::Start    , # 0
           Tengine::Job::Expansion, # 1
           Tengine::Job::Expansion, # 2
           Tengine::Job::Template::End      , # 3
@@ -396,7 +396,7 @@ describe Tengine::Job::Dsl::Loader do
           j.credential_name.should == "goku-ssh-pk1"
         end
         root_jobnet.children.map(&:class).should == [
-          Tengine::Job::Templapte::Start         , # 0
+          Tengine::Job::Template::Start         , # 0
           Tengine::Job::Template::Jobnet, # 1
           Tengine::Job::Template::Jobnet, # 2
           Tengine::Job::Template::Jobnet, # 3
@@ -429,7 +429,7 @@ describe Tengine::Job::Dsl::Loader do
         it do
           expect do
             load_dsl "2003_expansion/expansion_5.rb"
-          end.should raise_error(Tengine::Job::Dsl::Error)
+          end.should raise_error(Tengine::Job::Structure::Error)
         end
       end
     end
