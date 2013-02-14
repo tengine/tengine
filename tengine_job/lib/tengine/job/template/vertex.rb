@@ -38,7 +38,7 @@ class Tengine::Job::Template::Vertex
     def translate(key, options)
       ::I18n.translate(
         "#{Mongoid::Errors::MongoidError::BASE_KEY}.validations",
-        {:errors => Tengine::Job::Vertex.flatten_errors(document).to_a.join(', ')})
+        {:errors => Tengine::Job::Template::Vertex.flatten_errors(document).to_a.join(', ')})
     end
   end
 

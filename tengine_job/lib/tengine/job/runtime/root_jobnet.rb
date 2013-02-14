@@ -12,8 +12,8 @@ class Tengine::Job::Runtime::RootJobnet < Tengine::Job::Runtime::Jobnet
     event_sender = options.delete(:sender) || Tengine::Event.default_sender
     actual = generate
     actual.with(safe: safemode(actual.class.collection)).save!
-    result = Tengine::Job::Execution.with(
-                safe: safemode(Tengine::Job::Execution.collection)
+    result = Tengine::Job::Runtime::Execution.with(
+                safe: safemode(Tengine::Job::Runtime::Execution.collection)
              ).create!(
                (options || {}).update(:root_jobnet_id => actual.id)
              )
@@ -32,10 +32,10 @@ class Tengine::Job::Runtime::RootJobnet < Tengine::Job::Runtime::Jobnet
         :retry => true,
         :root_jobnet_id => self.id,
       })
-    result = Tengine::Job::Execution.new(options)
+    result = Tengine::Job::Runtime::Execution.new(options)
     result.target_actual_ids ||= []
     result.target_actual_ids += args.flatten
-    result.with(safe: safemode(Tengine::Job::Execution.collection)).save!
+    result.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save!
     sender.wait_for_connection do
       sender.fire(:'start.execution.job.tengine', :properties => {
           :execution_id => result.id.to_s
@@ -55,7 +55,7 @@ class Tengine::Job::Runtime::RootJobnet < Tengine::Job::Runtime::Jobnet
 
   def fire_stop_event(options = Hash.new)
     root_jobnet_id = self.id.to_s
-    result = Tengine::Job::Execution.create!(
+    result = Tengine::Job::Runtime::Execution.create!(
       options.merge(:root_jobnet_id => root_jobnet_id))
 
     EM.run do

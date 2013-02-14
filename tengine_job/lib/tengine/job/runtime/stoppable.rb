@@ -3,7 +3,7 @@ require 'tengine/job/runtime'
 require 'selectable_attr'
 
 # ジョブ／ジョブネットを実行する際の情報に関するモジュール
-# Tengine::Job::JobnetActual, Tengine::Job::JobnetTemplateがこのモジュールをincludeします
+# Tengine::Job::Runtime::Jobnet, Tengine::Job::Template::Jobnetがこのモジュールをincludeします
 module Tengine::Job::Runtime::Stoppable
   extend ActiveSupport::Concern
 
@@ -34,7 +34,7 @@ module Tengine::Job::Runtime::Stoppable
 
   def fire_stop_event(root_jobnet, options = Hash.new)
     root_jobnet_id = root_jobnet.id.to_s
-    result = Tengine::Job::Execution.create!(
+    result = Tengine::Job::Runtime::Execution.create!(
       options.merge(:root_jobnet_id => root_jobnet_id))
     properties = {
       :execution_id => result.id.to_s,

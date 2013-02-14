@@ -28,7 +28,7 @@ describe "<BUG>(tengined複数起動)強制停止すると、ステータスが�
   context "jn0004" do
     before do
       Tengine::Resource::Server.delete_all
-      Tengine::Job::Execution.delete_all
+      Tengine::Job::Runtime::Execution.delete_all
       Tengine::Job::Vertex.delete_all
       TestCredentialFixture.test_credential1
       TestServerFixture.test_server1
@@ -36,7 +36,7 @@ describe "<BUG>(tengined複数起動)強制停止すると、ステータスが�
       builder = Rjn0004ParallelJobnetWithFinally.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @base_props = {

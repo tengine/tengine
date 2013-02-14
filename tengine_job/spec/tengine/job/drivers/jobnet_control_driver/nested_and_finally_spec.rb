@@ -41,7 +41,7 @@ describe 'jobnet_control_driver' do
       builder = Rjn0012NestedAndFinallyBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @base_props = {
@@ -307,7 +307,7 @@ describe 'jobnet_control_driver' do
       builder = Rjn0005RetryTwoLayerFixture.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @base_props = {

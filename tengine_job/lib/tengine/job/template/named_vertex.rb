@@ -2,7 +2,7 @@
 require 'tengine/job/template'
 
 # 処理を意味するVertex。実際に実行を行うTengine::Job::Scriptやジョブネットである
-# Tengine::Job::Jobnetの継承元である。
+# Tengine::Job::Template::Jobnetの継承元である。
 class Tengine::Job::Template::NamedVertex < Tengine::Job::Template::Vertex
 
   field :name, :type => String # ジョブの名称。

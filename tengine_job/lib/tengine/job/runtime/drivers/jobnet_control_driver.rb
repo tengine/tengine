@@ -26,7 +26,7 @@ driver :jobnet_control_driver do
         target_jobnet.activate(signal)
       end
     end
-    signal.execution.with(safe: safemode(Tengine::Job::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
+    signal.execution.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
   end
@@ -151,7 +151,7 @@ driver :jobnet_control_driver do
         end
       end
     end
-    signal.execution.with(sage: safemode(Tengine::Job::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
+    signal.execution.with(sage: safemode(Tengine::Job::Runtime::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
   end
@@ -196,7 +196,7 @@ driver :jobnet_control_driver do
       #   target_parent.end_vertex.transmit(signal)
       # end
     end
-    signal.execution.with(safe: safemode(Tengine::Job::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
+    signal.execution.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
   end

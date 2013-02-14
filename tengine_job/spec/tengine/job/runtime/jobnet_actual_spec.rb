@@ -78,11 +78,11 @@ describe Tengine::Job::Runtime::Jobnet do
     # [S1]--e1-->[F1]                            [J1]--e7-->[E1]
     #              |--e3-->(j12)--e5-->(j13)--e6-->|
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn00102jobsAnd1jobParallelJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @base_props = {
@@ -92,7 +92,7 @@ describe Tengine::Job::Runtime::Jobnet do
       }
       mock_event = mock(:event)
       mock_event.stub(:[]).with(:execution_id).and_return(@execution.id.to_s)
-      @signal = Tengine::Job::Signal.new(mock_event)
+      @signal = Tengine::Job::Runtime::Signal.new(mock_event)
     end
 
     shared_examples_for "全て再実行するためにrootをリセット" do

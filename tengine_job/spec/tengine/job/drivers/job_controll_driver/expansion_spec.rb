@@ -70,7 +70,7 @@ describe 'job_control_driver' do
       @template = builder.create_template
       @root = @template.generate
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @base_props = {
@@ -101,7 +101,7 @@ describe 'job_control_driver' do
       @template = builder.create_template(:dsl_version => "2")
       @root = @template.generate
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @base_props = {

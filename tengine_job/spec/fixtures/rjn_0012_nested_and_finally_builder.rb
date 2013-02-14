@@ -141,7 +141,7 @@ class Rjn0012NestedAndFinallyBuilder < JobnetFixtureBuilder
     end
 
     unless root.valid?
-      v = Tengine::Job::Vertex::AllVisitorWithEdge.new do |obj|
+      v = Tengine::Job::Structure::Visitor::AllWithEdge.new do |obj|
         if obj.respond_to?(:errors) && !obj.errors.empty?
           puts obj.errors.inspect
           true

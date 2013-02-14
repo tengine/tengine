@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Tengine::Job::Expansion do
+describe Tengine::Job::Template::Expansion do
 
   context "rjn0008" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Template::Vertex.delete_all
       Rjn0001SimpleJobnetBuilder.new.create_template
       Rjn0002SimpleParallelJobnetBuilder.new.create_template
       builder = Rjn0008ExpansionFixture.new
@@ -97,7 +97,7 @@ describe Tengine::Job::Expansion do
 
   context "複数のバージョンが混在する場合" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Template::Vertex.delete_all
       @jobnet1_ver1 = Rjn0001SimpleJobnetBuilder.new.create_template(:dsl_version => 1)
       @jobnet2_ver1 = Rjn0002SimpleParallelJobnetBuilder.new.create_template(:dsl_version => 1)
       @jobnet1_ver2 = Rjn0001SimpleJobnetBuilder.new.create_template(:dsl_version => 2)

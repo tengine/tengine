@@ -5,9 +5,9 @@ describe "reset" do
   context "@4056" do
     before do
       @record = eval(File.read(File.expand_path("reset_spec/4056_1_dump.txt", File.dirname(__FILE__))))
-      Tengine::Job::Vertex.delete_all
-      Tengine::Job::Vertex.collection.insert(@record)
-      @root = Tengine::Job::Vertex.find(@record["_id"])
+      Tengine::Job::Runtime::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.collection.insert(@record)
+      @root = Tengine::Job::Runtime::Vertex.find(@record["_id"])
     end
 
     it "状況確認" do
@@ -47,7 +47,7 @@ describe "reset" do
       @event = mock(:event, :occurred_at => @now)
       @signal = Tengine::Job::Signal.new(@event)
       @jn11 = @root.element("jn11@jn1")
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :target_actual_ids => [@jn11.id.to_s],
           :retry => true, :spot => true,
           :root_jobnet_id => @root.id
@@ -110,7 +110,7 @@ describe "reset" do
       @event = mock(:event, :occurred_at => @now)
       @signal = Tengine::Job::Signal.new(@event)
       @jn11 = @root.element("jn11@jn1")
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :target_actual_ids => [@jn11.id.to_s],
           :retry => true, :spot => false,
           :root_jobnet_id => @root.id
@@ -196,7 +196,7 @@ describe "reset" do
   }.each do |scenario_no, spot|
     context "#{scenario_no} スポット実行#{spot}" do
       before do
-        Tengine::Job::Vertex.delete_all
+        Tengine::Job::Runtime::Vertex.delete_all
         builder = Rjn0005RetryTwoLayerFixture.new
         @root = builder.create_actual
         @ctx = builder.context
@@ -217,7 +217,7 @@ describe "reset" do
         end
 
         it "/jn0005/jn4/j41を再実行できる" do
-          execution = Tengine::Job::Execution.create!({
+          execution = Tengine::Job::Runtime::Execution.create!({
               :retry => true, :spot => spot,
               :root_jobnet_id => @root.id,
               :target_actual_ids => [@ctx[:j41].id.to_s]
@@ -258,7 +258,7 @@ describe "reset" do
   context "@4035" do
 
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0005RetryTwoLayerFixture.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -277,7 +277,7 @@ describe "reset" do
       end
 
       it "成功しても/jn0005/j4は実行されない" do
-        execution = Tengine::Job::Execution.create!({
+        execution = Tengine::Job::Runtime::Execution.create!({
             :retry => true, :spot => false,
             :root_jobnet_id => @root.id,
             :target_actual_ids => [@ctx[:j2].id.to_s]
@@ -305,7 +305,7 @@ describe "reset" do
 
   context "@4034 [bug]initializedのジョブネット内のジョブを起点として再実行すると、起点となるジョブの後続ジョブがactivateされた際に親のジョブネットにackを返してしまいTengine::Job::Executable::PhaseError" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0005RetryTwoLayerFixture.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -313,7 +313,7 @@ describe "reset" do
 
     context "/jn0005/jn4/j41を起点として再実行" do
       before do
-        @execution = Tengine::Job::Execution.create!({
+        @execution = Tengine::Job::Runtime::Execution.create!({
           :retry => true, :spot => false,
           :root_jobnet_id => @root.id,
           :target_actual_ids => [@ctx[:j41].id.to_s]
@@ -372,7 +372,7 @@ describe "reset" do
 
   context "ジョブネット内のジョブネットまたはジョブを起点にリセット" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0005RetryTwoLayerFixture.new
       @root = builder.create_actual
       @ctx = builder.context
@@ -395,7 +395,7 @@ describe "reset" do
           event1 = mock(:event, :occurred_at => t1)
           signal1 = Tengine::Job::Signal.new(event1)
           j41 = @root.element('/jn0005/jn4/j41')
-          execution = Tengine::Job::Execution.create!({
+          execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [j41.id.to_s],
             :retry => true, :spot => false,
             :root_jobnet_id => @root.id
@@ -438,7 +438,7 @@ describe "reset" do
           @root.save!
 
           j41 = @root.element("j41@jn4")
-          execution = Tengine::Job::Execution.create!({
+          execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [j41.id.to_s],
             :retry => true, :spot => false,
             :root_jobnet_id => @root.id
@@ -483,7 +483,7 @@ describe "reset" do
           event1 = mock(:event, :occurred_at => t1)
           signal1 = Tengine::Job::Signal.new(event1)
           jn4 = @root.element('/jn0005/jn4')
-          execution = Tengine::Job::Execution.create!({
+          execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [jn4.id.to_s],
             :retry => true, :spot => false,
             :root_jobnet_id => @root.id
@@ -525,7 +525,7 @@ describe "reset" do
           event1 = mock(:event, :occurred_at => t1)
           signal1 = Tengine::Job::Signal.new(event1)
           jn0005_fif = @root.element('/jn0005/finally/jn0005_fjn/finally/jn0005_fif')
-          execution = Tengine::Job::Execution.create!({
+          execution = Tengine::Job::Runtime::Execution.create!({
                         :target_actual_ids => [jn0005_fif.id.to_s],
                         :retry => true, :spot => false,
                         :root_jobnet_id => @root.id
@@ -566,7 +566,7 @@ describe "reset" do
       context "j1を起点に再実行すると" do
         before do
           j1 = @root.element('/jn0005/j1')
-          @execution = Tengine::Job::Execution.create!({
+          @execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [j1.id.to_s],
             :retry => true, :spot => false,
             :root_jobnet_id => @root.id
@@ -680,7 +680,7 @@ describe "reset" do
           event1 = mock(:event, :occurred_at => t1)
           signal1 = Tengine::Job::Signal.new(event1)
           j43 = @root.element('/jn0005/jn4/j43')
-          execution = Tengine::Job::Execution.create!({
+          execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [j43.id.to_s],
             :retry => true, :spot => false,
             :root_jobnet_id => @root.id
@@ -725,7 +725,7 @@ describe "reset" do
           event1 = mock(:event, :occurred_at => t1)
           signal1 = Tengine::Job::Signal.new(event1)
           j44 = @root.element('/jn0005/jn4/j44')
-          execution = Tengine::Job::Execution.create!({
+          execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [j44.id.to_s],
             :retry => true, :spot => false,
             :root_jobnet_id => @root.id
@@ -771,7 +771,7 @@ describe "reset" do
           event1 = mock(:event, :occurred_at => t1)
           signal1 = Tengine::Job::Signal.new(event1)
           jn4 = @root.element('/jn0005/jn4')
-          execution = Tengine::Job::Execution.create!({
+          execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [jn4.id.to_s],
             :retry => true, :spot => false,
             :root_jobnet_id => @root.id
@@ -832,7 +832,7 @@ describe "reset" do
           event1 = mock(:event, :occurred_at => t1)
           signal1 = Tengine::Job::Signal.new(event1)
           jn0005_f2 = @root.element('/jn0005/finally/jn0005_fjn/jn0005_f2')
-          execution = Tengine::Job::Execution.create!({
+          execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [jn0005_f2.id.to_s],
             :retry => true, :spot => false,
             :root_jobnet_id => @root.id
@@ -876,7 +876,7 @@ describe "reset" do
           event1 = mock(:event, :occurred_at => t1)
           signal1 = Tengine::Job::Signal.new(event1)
           jn0005_fjn = @root.element('/jn0005/finally/jn0005_fjn')
-          execution = Tengine::Job::Execution.create!({
+          execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [jn0005_fjn.id.to_s],
             :retry => true, :spot => false,
             :root_jobnet_id => @root.id
@@ -918,7 +918,7 @@ describe "reset" do
           event1 = mock(:event, :occurred_at => t1)
           signal1 = Tengine::Job::Signal.new(event1)
           finally = @root.element('/jn0005/finally')
-          execution = Tengine::Job::Execution.create!({
+          execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [finally.id.to_s],
             :retry => true, :spot => false,
             :root_jobnet_id => @root.id

@@ -101,12 +101,12 @@ describe Tengine::Job::Runtime::Jobnet do
         {"_id"=>Moped::BSON::ObjectId('4ece649e39efe202d000021f'), "phase_cd"=>0, "origin_id"=>Moped::BSON::ObjectId('4ece649e39efe202d0000207'), "destination_id"=>Moped::BSON::ObjectId('4ece649e39efe202d0000210')}
       ], "started_at"=>"2011-11-24 15:37:03 UTC"}
 
-    Tengine::Job::Vertex.delete_all
-    Tengine::Job::Vertex.collection.insert(actual_document)
-    @root = Tengine::Job::Vertex.first
+    Tengine::Job::Runtime::Vertex.delete_all
+    Tengine::Job::Runtime::Vertex.collection.insert(actual_document)
+    @root = Tengine::Job::Runtime::Vertex.first
     @parent = @root.vertex_by_name_path("/complicated_jobnet/i_jobnet1-3")
     @failure_job = @root.vertex_by_name_path("/complicated_jobnet/i_jobnet1-3/i_job2-1")
-    @execution = Tengine::Job::Execution.create!({
+    @execution = Tengine::Job::Runtime::Execution.create!({
         :root_jobnet_id => @root.id,
       })
   end

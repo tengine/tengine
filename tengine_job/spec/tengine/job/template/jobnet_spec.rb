@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Tengine::Job::Jobnet do
+describe Tengine::Job::Template::Jobnet do
 
   context "基本機能" do
     before do
-      @j1000 = Tengine::Job::JobnetTemplate.new(:name => "j1000").with_start
-      @j1000.children << @j1100 = Tengine::Job::JobnetTemplate.new(:name => "j1100").with_start
-      @j1100.children << @j1110 = Tengine::Job::JobnetTemplate.new(:name => "j1110", :script => "j1110.sh")
-      @j1100.children << @j1120 = Tengine::Job::JobnetTemplate.new(:name => "j1120", :script => "j1120.sh")
-      @j1000.children << @j1200 = Tengine::Job::JobnetTemplate.new(:name => "j1200").with_start
-      @j1200.children << @j1210 = Tengine::Job::JobnetTemplate.new(:name => "j1210").with_start
-      @j1210.children << @j1211 = Tengine::Job::JobnetTemplate.new(:name => "j1211", :script => "j1211.sh")
-      @j1210.children << @j1212 = Tengine::Job::JobnetTemplate.new(:name => "j1212", :script => "j1212.sh")
-      @j1200.children << @j1220 = Tengine::Job::JobnetTemplate.new(:name => "j1220").with_start
-      @j1220.children << @j1221 = Tengine::Job::JobnetTemplate.new(:name => "j1221", :script => "j1221.sh")
-      @j1220.children << @j1222 = Tengine::Job::JobnetTemplate.new(:name => "j1222", :script => "j1222.sh")
+      @j1000 = Tengine::Job::Template::Jobnet.new(:name => "j1000").with_start
+      @j1000.children << @j1100 = Tengine::Job::Template::Jobnet.new(:name => "j1100").with_start
+      @j1100.children << @j1110 = Tengine::Job::Template::Jobnet.new(:name => "j1110", :script => "j1110.sh")
+      @j1100.children << @j1120 = Tengine::Job::Template::Jobnet.new(:name => "j1120", :script => "j1120.sh")
+      @j1000.children << @j1200 = Tengine::Job::Template::Jobnet.new(:name => "j1200").with_start
+      @j1200.children << @j1210 = Tengine::Job::Template::Jobnet.new(:name => "j1210").with_start
+      @j1210.children << @j1211 = Tengine::Job::Template::Jobnet.new(:name => "j1211", :script => "j1211.sh")
+      @j1210.children << @j1212 = Tengine::Job::Template::Jobnet.new(:name => "j1212", :script => "j1212.sh")
+      @j1200.children << @j1220 = Tengine::Job::Template::Jobnet.new(:name => "j1220").with_start
+      @j1220.children << @j1221 = Tengine::Job::Template::Jobnet.new(:name => "j1221", :script => "j1221.sh")
+      @j1220.children << @j1222 = Tengine::Job::Template::Jobnet.new(:name => "j1222", :script => "j1222.sh")
       @j1000.prepare_end
       @j1100.prepare_end
       @j1200.prepare_end
@@ -276,7 +276,7 @@ describe Tengine::Job::Jobnet do
 
     context "vertex_by_name_path for finally" do
       before do
-        Tengine::Job::Vertex.delete_all
+        Tengine::Job::Template::Vertex.delete_all
         builder = Rjn0012NestedAndFinallyBuilder.new
         @root = builder.create_template
         @ctx = builder.context
@@ -315,7 +315,7 @@ describe Tengine::Job::Jobnet do
 
     context "child_by_name" do
       before do
-        Tengine::Job::Vertex.delete_all
+        Tengine::Job::Template::Vertex.delete_all
         builder = Rjn0009TreeSequentialJobnetBuilder.new
         @root = builder.create_template
         @ctx = builder.context
@@ -332,10 +332,10 @@ describe Tengine::Job::Jobnet do
 
   context "バリデーションエラーでraiseされる例外から原因を判断できるように" do
     before do
-      @j1000 = Tengine::Job::JobnetTemplate.new(:name => "j1000").with_start
-      @j1000.children << @j1100 = Tengine::Job::JobnetTemplate.new(:name => "j1100").with_start
-      @j1100.children << @j1110 = Tengine::Job::JobnetTemplate.new(:name => "j1110", :script => "j1110.sh")
-      @j1100.children << @j1120 = Tengine::Job::JobnetTemplate.new(:name => "j1120", :script => "j1120.sh")
+      @j1000 = Tengine::Job::Template::Jobnet.new(:name => "j1000").with_start
+      @j1000.children << @j1100 = Tengine::Job::Template::Jobnet.new(:name => "j1100").with_start
+      @j1100.children << @j1110 = Tengine::Job::Template::Jobnet.new(:name => "j1110", :script => "j1110.sh")
+      @j1100.children << @j1120 = Tengine::Job::Template::Jobnet.new(:name => "j1120", :script => "j1120.sh")
       @j1000.prepare_end
       @j1100.prepare_end
       @j1000.build_sequencial_edges

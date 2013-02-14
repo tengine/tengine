@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Tengine::Job::Structure::ElementSelectorNotation do
 
   # Tengine::Job::Structure::ElementSelectorNotation は、#element, #element! を提供します。
-  # Tengine::Job::Jobnetにincludeされます。
+  # Tengine::Job::Template::Jobnet, Tengine::Job::Runtime::Jobnetにincludeされます。
   # #element は指定されたnotationで対象となる要素が見つからなかった場合はnilを返しますが、
   # #element! は指定されたnotationで対象となる要素が見つからなかった場合は例外をraiseします
 

@@ -17,7 +17,7 @@ describe 'job_control_driver' do
       builder = Rjn0001SimpleJobnetBuilder.new
       @jobnet = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @jobnet.id,
         })
     end
@@ -426,7 +426,7 @@ describe 'job_control_driver' do
             builder = Rjn0001SimpleJobnetBuilder.new
             @root = builder.create_actual
             @ctx = builder.context
-            @execution = Tengine::Job::Execution.create!({
+            @execution = Tengine::Job::Runtime::Execution.create!({
                 :root_jobnet_id => @root.id,
                 :spot => spot, :retry => true,
                 :target_actual_ids => [@ctx[:j11].id.to_s]
@@ -559,7 +559,7 @@ describe 'job_control_driver' do
           @root = @template.generate
           @ctx = builder.context
         end
-        @execution = Tengine::Job::Execution.create!({
+        @execution = Tengine::Job::Runtime::Execution.create!({
             :root_jobnet_id => @root.id,
           })
       end
@@ -578,7 +578,7 @@ describe 'job_control_driver' do
           @root = @template.generate
           @ctx = builder.context
         end
-        @execution = Tengine::Job::Execution.create!({
+        @execution = Tengine::Job::Runtime::Execution.create!({
             :root_jobnet_id => @root.id,
           })
       end
@@ -599,7 +599,7 @@ describe 'job_control_driver' do
           @root = @template.generate
           @ctx = builder.context
         end
-        @execution = Tengine::Job::Execution.create!({
+        @execution = Tengine::Job::Runtime::Execution.create!({
             :root_jobnet_id => @root.id,
           })
       end
@@ -615,7 +615,7 @@ describe 'job_control_driver' do
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @root.phase_key = :initialized
@@ -640,7 +640,7 @@ describe 'job_control_driver' do
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @root.phase_key = :initialized
@@ -669,7 +669,7 @@ describe 'job_control_driver' do
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @root.phase_key = :initialized
@@ -705,7 +705,7 @@ describe 'job_control_driver' do
         builder = Rjn0001SimpleJobnetBuilder.new
         @root = builder.create_actual
         @ctx = builder.context
-        @execution = Tengine::Job::Execution.create!({
+        @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
         @root.phase_key = :running

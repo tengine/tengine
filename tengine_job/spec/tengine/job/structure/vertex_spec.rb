@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Tengine::Job::Vertex do
+describe Tengine::Job::Template::Vertex do
   describe :ancestors do
     context "templateの場合" do
       before do

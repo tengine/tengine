@@ -14,7 +14,7 @@ describe 'stop.jobnet.job.tengine' do
       builder = Rjn0011NestedForkJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
     end
@@ -134,7 +134,7 @@ describe 'stop.jobnet.job.tengine' do
       builder = Rjn0004ParallelJobnetWithFinally.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
     end

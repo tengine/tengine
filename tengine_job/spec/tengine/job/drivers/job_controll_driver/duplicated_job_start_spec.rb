@@ -34,7 +34,7 @@ describe "<BUG>tengindのプロセスを二つ起動した際に並列ジョブ�
   context "rjn0002" do
     before do
       Tengine::Resource::Server.delete_all
-      Tengine::Job::Execution.delete_all
+      Tengine::Job::Runtime::Execution.delete_all
       Tengine::Job::Vertex.delete_all
       TestCredentialFixture.test_credential1
       TestServerFixture.test_server1
@@ -46,7 +46,7 @@ describe "<BUG>tengindのプロセスを二つ起動した際に並列ジョブ�
       @root.save!
 
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @base_props = {

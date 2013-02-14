@@ -5,7 +5,7 @@ describe Tengine::Job::Runtime::RootJobnet do
 
   context :update_with_lock do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       builder.create_actual
       @ctx = builder.context
@@ -39,12 +39,12 @@ describe Tengine::Job::Runtime::RootJobnet do
 
   describe :rerun do
     before do
-      Tengine::Job::Execution.delete_all
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Execution.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @root.phase_key = :error
@@ -62,10 +62,10 @@ describe Tengine::Job::Runtime::RootJobnet do
       [true, false].each do |spot|
 
         it "スポット実行 #{spot.inspect}" do
-          execution1 = Tengine::Job::Execution.new(:retry => true, :spot => spot,
+          execution1 = Tengine::Job::Runtime::Execution.new(:retry => true, :spot => spot,
             :root_jobnet_id => @root.id,
             :target_actual_ids => [@ctx[:j12].id])
-          Tengine::Job::Execution.should_receive(:new).with({
+          Tengine::Job::Runtime::Execution.should_receive(:new).with({
               :retry => true, :spot => spot,
               :root_jobnet_id => @root.id
             }).and_return(execution1)
@@ -78,7 +78,7 @@ describe Tengine::Job::Runtime::RootJobnet do
           expect{
             execution = @root.rerun(@ctx[:j12].id, :spot => spot, :sender => sender)
             execution.id.should_not == @execution.id # rerunの戻り値のexecutionは元々のexecutionとは別物です
-          }.to change(Tengine::Job::Execution, :count).by(1)
+          }.to change(Tengine::Job::Runtime::Execution, :count).by(1)
         end
       end
 

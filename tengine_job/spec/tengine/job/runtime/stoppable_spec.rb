@@ -16,7 +16,7 @@ describe Tengine::Job::Runtime::Stoppable do
           j.killing_signals = ["INT", "HUP", "QUIT", "KILL"]
           j.killing_signal_interval = 30
         end
-        @execution = Tengine::Job::Execution.create!({
+        @execution = Tengine::Job::Runtime::Execution.create!({
             :root_jobnet_id => @root.id,
           })
         @mock_event = mock(:event,

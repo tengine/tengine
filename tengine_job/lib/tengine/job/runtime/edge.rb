@@ -3,7 +3,7 @@ require 'tengine/job/runtime'
 require 'selectable_attr'
 
 # Vertexとともにジョブネットを構成するグラフの「辺」を表すモデル
-# Tengine::Job::Jobnetにembeddedされます。
+# Tengine::Job::Runtime::Jobnetにembeddedされます。
 class Tengine::Job::Runtime::Edge
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -127,11 +127,11 @@ class Tengine::Job::Runtime::Edge
 
   class Closer
     def visit(obj)
-      if obj.is_a?(Tengine::Job::End)
+      if obj.is_a?(Tengine::Job::Runtime::End)
         if parent = obj.parent
           (parent.next_edges || []).each{|edge| edge.accept_visitor(self)}
         end
-      elsif obj.is_a?(Tengine::Job::Vertex)
+      elsif obj.is_a?(Tengine::Job::Runtime::Vertex)
         obj.next_edges.each{|edge| edge.accept_visitor(self)}
       elsif obj.is_a?(Tengine::Job::Runtime::Edge)
         obj.close(nil)

@@ -15,7 +15,7 @@ driver :job_execution_driver do
       signal.reset
       execution.transmit(signal)
     end
-    execution.with(safe: safemode(Tengine::Job::Execution.collection)).save!
+    execution.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save!
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
   end
@@ -28,7 +28,7 @@ driver :job_execution_driver do
     g = f["original_event"]              or next
     h = g["properties"]                  or next
     i = h["execution_id"]                or next
-    j = Tengine::Job::Execution.find(i)  or next
+    j = Tengine::Job::Runtime::Execution.find(i)  or next
 
     j.update_attributes :phase_key => :stuck
   end
@@ -41,7 +41,7 @@ driver :job_execution_driver do
       signal.reset
       execution.stop(signal)
     end
-    execution.with(safe: safemode(Tengine::Job::Execution.collection)).save!
+    execution.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save!
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
   end
@@ -54,7 +54,7 @@ driver :job_execution_driver do
     g = f["original_event"]              or next
     h = g["properties"]                  or next
     i = h["execution_id"]                or next
-    j = Tengine::Job::Execution.find(i)  or next
+    j = Tengine::Job::Runtime::Execution.find(i)  or next
 
     j.update_attributes :phase_key => :stuck
   end

@@ -5,11 +5,11 @@ describe 'hadoop_job_run' do
 
   context "rjn1004" do
     before(:all) do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn1004HadoopJobInJobnetFixture.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
     end

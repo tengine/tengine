@@ -2,7 +2,7 @@
 require 'tengine/job/runtime'
 
 # 処理を意味するVertex。実際に実行を行うTengine::Job::Scriptやジョブネットである
-# Tengine::Job::Jobnetの継承元である。
+# Tengine::Job::Runtime::Jobnetの継承元である。
 class Tengine::Job::Runtime::NamedVertex < Tengine::Job::Runtime::Vertex
   field :name, :type => String # ジョブの名称。
 
