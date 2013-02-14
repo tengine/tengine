@@ -27,7 +27,7 @@ module Tengine::Job::Runtime::StateTransition
             self.save!
           #{ignore_case}
           else
-            raise Tengine::Job::Executable::PhaseError, "\#{name_path} \#{self.class.name}##{method_name} not available when the phase_key of \#{self.name_path.inspect} is \#{self.phase_key.inspect}"
+            raise Tengine::Job::Runtime::Executable::PhaseError, "\#{name_path} \#{self.class.name}##{method_name} not available when the phase_key of \#{self.name_path.inspect} is \#{self.phase_key.inspect}"
           end
         end
       EOS

@@ -303,7 +303,7 @@ describe "reset" do
 
   end
 
-  context "@4034 [bug]initializedのジョブネット内のジョブを起点として再実行すると、起点となるジョブの後続ジョブがactivateされた際に親のジョブネットにackを返してしまいTengine::Job::Executable::PhaseError" do
+  context "@4034 [bug]initializedのジョブネット内のジョブを起点として再実行すると、起点となるジョブの後続ジョブがactivateされた際に親のジョブネットにackを返してしまいTengine::Job::Runtime::Executable::PhaseError" do
     before do
       Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0005RetryTwoLayerFixture.new

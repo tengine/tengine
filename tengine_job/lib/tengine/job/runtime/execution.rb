@@ -100,7 +100,7 @@ class Tengine::Job::Runtime::Execution
   def ack(signal)
     case phase_key
     when :ready then
-      raise Tengine::Job::Executable::PhaseError, "ack not available on #{phase_key.inspect}"
+      raise Tengine::Job::Runtime::Executable::PhaseError, "ack not available on #{phase_key.inspect}"
     when :starting then
       self.phase_key = :running
     end
@@ -109,7 +109,7 @@ class Tengine::Job::Runtime::Execution
   def succeed(signal)
     case phase_key
     when :initialized, :ready, :error then
-      raise Tengine::Job::Executable::PhaseError, "succeed not available on #{phase_key.inspect}"
+      raise Tengine::Job::Runtime::Executable::PhaseError, "succeed not available on #{phase_key.inspect}"
     when :starting, :running, :dying, :stuck then
       self.phase_key = :success
       signal.fire(self, :"success.execution.job.tengine")
@@ -119,7 +119,7 @@ class Tengine::Job::Runtime::Execution
   def fail(signal)
     case phase_key
     when :initialized, :ready, :success then
-      raise Tengine::Job::Executable::PhaseError, "fail not available on #{phase_key.inspect}"
+      raise Tengine::Job::Runtime::Executable::PhaseError, "fail not available on #{phase_key.inspect}"
     when :starting, :running, :dying, :stuck then
       self.phase_key = :error
       signal.fire(self, :"error.execution.job.tengine")
