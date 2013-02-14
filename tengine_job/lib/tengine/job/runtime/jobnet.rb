@@ -67,7 +67,14 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
     end
   end
 
-
+  # @override
+  def ancestors_until_expansion
+    if (parent = self.parent) && !self.was_expansion?
+      parent.ancestors_until_expansion + [parent]
+    else
+      []
+    end
+  end
 
   ## 状態遷移アクション
 

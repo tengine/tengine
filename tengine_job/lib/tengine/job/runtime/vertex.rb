@@ -9,6 +9,7 @@ class Tengine::Job::Runtime::Vertex
   include Tengine::Job::Structure::NamePath
   include Tengine::Job::Structure::Tree
   include Tengine::Job::Structure::Visitor::Accepter
+  include Tengine::Job::Runtime::Signal::Transmittable
 
   # self.cyclic = true
   with_options(:class_name => self.name) do |c|
@@ -31,12 +32,11 @@ class Tengine::Job::Runtime::Vertex
   end
 
   def ancestors_until_expansion
-    if (parent = self.parent) && !self.was_expansion?
+    if parent = self.parent
       parent.ancestors_until_expansion + [parent]
     else
       []
     end
   end
-
 
 end

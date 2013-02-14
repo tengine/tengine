@@ -78,7 +78,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
       end
       c.wait
     end
-  rescue Tengine::Job::ScriptExecutable::Error
+  rescue Tengine::Job::Runtime::SshJob::Error
     raise
   rescue Mongoid::Errors::DocumentNotFound, SocketError, Net::SSH::AuthenticationFailed => src
     error = Error.new("[#{src.class.name}] #{src.message}")
@@ -117,7 +117,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
     result = []
     mm_env = build_mm_env(execution).map{|k,v| "#{k}=#{v}"}.join(" ")
     # Hadoopジョブの場合は環境変数をセットする
-    if is_a?(Tengine::Job::Jobnet) && (jobnet_type_key == :hadoop_job_run)
+    if is_a?(Tengine::Job::Runtime::Jobnet) && (jobnet_type_key == :hadoop_job_run)
       mm_env << ' ' << hadoop_job_env
     end
     result << "export #{mm_env}"
@@ -220,7 +220,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
   end
 
   def hadoop_job_env
-    s = children.select{|c| c.is_a?(Tengine::Job::Jobnet) && (c.jobnet_type_key == :hadoop_job)}.
+    s = children.select{|c| c.is_a?(Tengine::Job::Runtime::Jobnet) && (c.jobnet_type_key == :hadoop_job)}.
       map{|c| "#{c.name}\\t#{c.id.to_s}\\n"}.join
     "MM_HADOOP_JOBS=\"#{s}\""
   end
@@ -276,7 +276,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
       execution.signal = signal # ackを呼び返してもらうための苦肉の策
       begin
         run(execution)
-      rescue Tengine::Job::ScriptExecutable::Error => e
+      rescue Tengine::Job::Runtime::SshJob::Error => e
         signal.callback = lambda do
           fail(signal, :message => e.message)
         end

@@ -123,7 +123,7 @@ class JobnetFixtureBuilder
     dest_vertex   = dest  .is_a?(Symbol) ? self[dest  ] : dest
     raise "no origin vertex found: #{origin.inspect}" unless origin_vertex
     raise "no dest   vertex found: #{dest.inspect  }" unless dest_vertex
-    klass = "Tengine::Job::#{method_name.camelcase}::Edge"
+    klass = "Tengine::Job::#{@mode.to_s.camelize}::Edge".constantize
     result = klass.new(:origin_id => origin_vertex.id, :destination_id => dest_vertex.id)
     remember_edge(result)
   end

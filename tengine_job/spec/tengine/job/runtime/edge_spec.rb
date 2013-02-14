@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Tengine::Job::Edge do
+describe Tengine::Job::Runtime::Edge do
   before do
     @now = Time.now.utc
     @event = mock(:event, :occurred_at => @now)
@@ -12,7 +12,7 @@ describe Tengine::Job::Edge do
       :preparation_command => nil)
     @execution.stub!(:retry).and_return(false) # 再実行ではないという設定
     @execution.stub!(:in_scope?).with(any_args).and_return(true)
-    @signal = Tengine::Job::Signal.new(@event)
+    @signal = Tengine::Job::Runtime::Signal.new(@event)
     @signal.stub!(:execution).and_return(@execution)
   end
 
@@ -230,8 +230,8 @@ describe Tengine::Job::Edge do
           :target_actual_ids => [@ctx[:j2].id.to_s],
           :actual_estimated_end => Time.utc(2011,10,27,19,8),
           :preparation_command => "export J2_FAIL=true")
-        @execution.should_receive(:ack).with(an_instance_of(Tengine::Job::Signal))
-        @signal = Tengine::Job::Signal.new(@event)
+        @execution.should_receive(:ack).with(an_instance_of(Tengine::Job::Runtime::Signal))
+        @signal = Tengine::Job::Runtime::Signal.new(@event)
         @signal.stub!(:execution).and_return(@execution)
         @ctx.vertex(:j2).activate(@signal)
       end

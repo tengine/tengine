@@ -93,7 +93,7 @@ class Tengine::Job::Runtime::Edge
       # IG
     when :suspended, :keeping then
       # N/A
-      raise Tengine::Job::Edge::StatusError, "#{self.class.name}#complete not available on #{phase_key.inspect} at #{self.inspect}"
+      raise Tengine::Job::Runtime::Edge::StatusError, "#{self.class.name}#complete not available on #{phase_key.inspect} at #{self.inspect}"
     end
   end
 
@@ -117,12 +117,12 @@ class Tengine::Job::Runtime::Edge
   end
 
   def close_followings
-    accept_visitor(Tengine::Job::Edge::Closer.new)
+    accept_visitor(Tengine::Job::Runtime::Edge::Closer.new)
   end
 
   def phase_key=(phase_key)
-    Tengine.logger.debug("edge phase changed. <#{self.id.to_s}> #{self.phase_name} -> #{Tengine::Job::Edge.phase_name_by_key(phase_key)}")
-    self.write_attribute(:phase_cd, Tengine::Job::Edge.phase_id_by_key(phase_key))
+    Tengine.logger.debug("edge phase changed. <#{self.id.to_s}> #{self.phase_name} -> #{Tengine::Job::Runtime::Edge.phase_name_by_key(phase_key)}")
+    self.write_attribute(:phase_cd, Tengine::Job::Runtime::Edge.phase_id_by_key(phase_key))
   end
 
   class Closer
@@ -133,7 +133,7 @@ class Tengine::Job::Runtime::Edge
         end
       elsif obj.is_a?(Tengine::Job::Vertex)
         obj.next_edges.each{|edge| edge.accept_visitor(self)}
-      elsif obj.is_a?(Tengine::Job::Edge)
+      elsif obj.is_a?(Tengine::Job::Runtime::Edge)
         obj.close(nil)
         obj.destination.accept_visitor(self)
       else
