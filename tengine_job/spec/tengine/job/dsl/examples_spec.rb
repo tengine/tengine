@@ -22,18 +22,18 @@ describe "job DSL examples" do
       it "load #{job_dsl_path}" do
         Tengine::Core::Driver.delete_all
         Tengine::Core::HandlerPath.delete_all
-        Tengine::Job::Vertex.delete_all
-        Tengine::Job::Vertex.count.should == 0
+        Tengine::Job::Template::Vertex.delete_all
+        Tengine::Job::Template::Vertex.count.should == 0
         expect {
           load_dsl(File.basename(job_dsl_path))
         }.to_not raise_error
-        Tengine::Job::Vertex.count.should_not == 0
+        Tengine::Job::Template::Vertex.count.should_not == 0
       end
 
       it "bind #{job_dsl_path}" do
         Tengine::Core::Driver.delete_all
         Tengine::Core::HandlerPath.delete_all
-        Tengine::Job::Vertex.delete_all
+        Tengine::Job::Template::Vertex.delete_all
         load_dsl(File.basename(job_dsl_path))
       end
 
@@ -44,8 +44,8 @@ describe "job DSL examples" do
     it do
       Tengine::Core::Driver.delete_all
       Tengine::Core::HandlerPath.delete_all
-      Tengine::Job::Vertex.delete_all
-      Tengine::Job::Vertex.count.should == 0
+      Tengine::Job::Template::Vertex.delete_all
+      Tengine::Job::Template::Vertex.count.should == 0
       expect {
         dsl_dir = File.expand_path("../../dsls/1060_test_dir1", __FILE__)
         config = {
@@ -55,7 +55,7 @@ describe "job DSL examples" do
         @bootstrap = Tengine::Core::Bootstrap.new(config)
         @bootstrap.boot
       }.to_not raise_error
-      Tengine::Job::Vertex.count.should_not == 0
+      Tengine::Job::Template::Vertex.count.should_not == 0
     end
   end
 
