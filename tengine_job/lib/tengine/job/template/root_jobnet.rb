@@ -12,9 +12,9 @@ class Tengine::Job::Template::RootJobnet < Tengine::Job::Template::Jobnet
   belongs_to :category, inverse_of: nil, index: true, class_name: "Tengine::Job::Structure::Category"
 
   def generate(klass = actual_class)
-    result = super(klass)
-    result.template = self
-    result
+    super(klass) do |r|
+      r.template = self
+    end
   end
 
   def find_duplication

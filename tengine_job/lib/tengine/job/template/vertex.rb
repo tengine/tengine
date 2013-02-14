@@ -114,6 +114,7 @@ class Tengine::Job::Template::Vertex
       generated.destination_id = src_to_generated[edge.destination_id]
       result.edges << generated
     end
+    yield(result) if block_given? # 派生クラスでsave!の前に処理を入れるためのyield
     result.save!
     result
   end
