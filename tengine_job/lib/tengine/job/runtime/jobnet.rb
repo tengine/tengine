@@ -61,6 +61,26 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
     instance_eval("def #{key}_class; Tengine::Job::Runtime::#{value}; end", __FILE__, __LINE__)
   end
 
+  attr_reader :stop_modified
+  before_save :check_stop_modified
+  after_save :update_children_stop_modified, if: :stop_modified
+
+  def check_stop_modified
+    @stop_modified = stop_reason_changed? || stopped_at_changed?
+    true
+  end
+
+  def update_children_stop_modified
+    @stop_modified = false
+    children.each do |child|
+      if child.is_a?(Tengine::Job::Runtime::Stoppable) && child.respond_to?(:chained_box?) && child.chained_box?
+        child.stop_reason = stop_reason
+        child.stopped_at = stopped_at
+        child.save!
+      end
+    end
+  end
+
   class << self
     def by_name(name)
       where({:name => name}).first

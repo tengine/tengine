@@ -17,8 +17,10 @@ describe 'hadoop_job_run' do
     Tengine::Job::Runtime::Jobnet.phase_keys.each do |phase_key|
       context "hadoop_job_run1のphase_keyを#{phase_key}に設定する" do
         before(:all) do
-          @ctx[:hadoop_job_run1].phase_key = phase_key
-          @root.save!
+          @ctx[:hadoop_job_run1].tap do |j|
+            j.phase_key = phase_key
+          end
+          @root.save_descendants!
         end
 
         %w[
@@ -35,11 +37,13 @@ describe 'hadoop_job_run' do
         end
       end
 
-      context "https://www.pivotaltracker.com/story/show/23329935" do        
+      context "https://www.pivotaltracker.com/story/show/23329935" do
         before(:all) do
-          @ctx[:hadoop_job_run1].stopped_at = Time.at(0)
-          @ctx[:hadoop_job_run1].stop_reason = "test test"
-          @root.save!
+          @ctx[:hadoop_job_run1].tap do |j|
+            j.stopped_at = Time.at(0)
+            j.stop_reason = "test test"
+          end
+          @root.save_descendants!
         end
 
         %w[
@@ -50,10 +54,10 @@ describe 'hadoop_job_run' do
            /rjn1004/hadoop_job_run1/hadoop_job2/Map
            /rjn1004/hadoop_job_run1/hadoop_job2/Reduce
         ].each do |name_path|
-          it "その子どものhadoop_job, Map, Reduceのstop_reasonもtest testになる" do
+          it "その子どもの#{name_path}のstop_reasonもtest testになる" do
             @root.vertex_by_name_path(name_path).stop_reason.should == "test test"
           end
-          it "その子どものhadoop_job, Map, Reduceのstopped_atも0になる" do
+          it "その子どもの#{name_path}のstopped_atも0になる" do
             @root.vertex_by_name_path(name_path).stopped_at.to_f.should == 0.0
           end
         end
