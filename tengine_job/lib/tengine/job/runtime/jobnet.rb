@@ -76,6 +76,11 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
     end
   end
 
+  # TODO このメソッドは削除するべき。これを使わないで動くようにする。
+  def script_executable?
+    false
+  end
+
   ## 状態遷移アクション
 
   # ハンドリングするドライバ: ジョブネット制御ドライバ or ジョブ起動ドライバ
