@@ -9,13 +9,13 @@ describe "job DSL examples" do
   def load_dsl(filename)
     config = {
       :action => "load",
-      :tengined => { :load_path => File.expand_path("../../../examples/#{filename}", File.dirname(__FILE__)) },
+      :tengined => { :load_path => File.expand_path("../../../../../examples/#{filename}", __FILE__) },
     }
     @bootstrap = Tengine::Core::Bootstrap.new(config)
     @bootstrap.boot
   end
 
-  example_dir = File.expand_path("../../../examples", File.dirname(__FILE__))
+  example_dir = File.expand_path("../../../../../examples", __FILE__)
 
   context "load and bind" do
     Dir.glob("#{example_dir}/*.rb") do |job_dsl_path|
@@ -47,7 +47,7 @@ describe "job DSL examples" do
       Tengine::Job::Vertex.delete_all
       Tengine::Job::Vertex.count.should == 0
       expect {
-        dsl_dir = File.expand_path("dsls/1060_test_dir1", File.dirname(__FILE__))
+        dsl_dir = File.expand_path("../../dsls/1060_test_dir1", __FILE__)
         config = {
           :action => "load",
           :tengined => { :load_path => dsl_dir },
