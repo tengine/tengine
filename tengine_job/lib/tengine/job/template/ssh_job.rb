@@ -8,6 +8,9 @@ class Tengine::Job::Template::SshJob < Tengine::Job::Template::NamedVertex
   module Settings
     extend ActiveSupport::Concern
 
+    DEFAULT_KILLING_SIGNAL_INTERVAL = 5
+    DEFAULT_KILLING_SIGNALS = ['KILL'].freeze
+
     included do
       require 'tengine/core'
       include Tengine::Core::CollectionAccessible
@@ -17,10 +20,12 @@ class Tengine::Job::Template::SshJob < Tengine::Job::Template::NamedVertex
       field :server_name    , :type => String # 接続先となるサーバ名。Tengine::Resource::Server#name を指定します
       field :credential_name, :type => String # 接続時に必要な認証情報。Tengine::Resource::Credential#name を指定します
 
-      field :killing_signals, :type => Array # 強制停止時にプロセスに送るシグナルの配列
+      # 強制停止時にプロセスに送るシグナルの配列
+      field :killing_signals, type: Array
       array_text_accessor :killing_signals
 
-      field :killing_signal_interval, :type => Integer # 強制停止時にkilling_signalsで定義されるシグナルを順次送信する間隔。
+      # 強制停止時にkilling_signalsで定義されるシグナルを順次送信する間隔。
+      field :killing_signal_interval, type: Integer
     end
 
     def actual_credential_name
@@ -49,11 +54,9 @@ class Tengine::Job::Template::SshJob < Tengine::Job::Template::NamedVertex
       result
     end
 
-    DEFAULT_KILLING_SIGNAL_INTERVAL = 5
-
     def actual_killing_signals
       killing_signals ? killing_signals :
-        (runtime? ? nil : parent ? parent.actual_killing_signals : ['KILL'])
+        (runtime? ? nil : parent ? parent.actual_killing_signals : DEFAULT_KILLING_SIGNALS)
     end
 
     def actual_killing_signal_interval
