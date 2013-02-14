@@ -15,6 +15,7 @@ describe Tengine::Job::Runtime::RootJobnet do
       root = @ctx[:root]
       j11 = root.find_descendant(@ctx[:j11].id)
       j11.executing_pid = "1111"
+      j11.save!
       root.save!
       #
       loaded = Tengine::Job::Runtime::RootJobnet.find(root.id)
@@ -28,6 +29,7 @@ describe Tengine::Job::Runtime::RootJobnet do
         count += 1
         j11 = root.find_descendant(@ctx[:j11].id)
         j11.executing_pid = "1111"
+        j11.save!
       end
       count.should == 1
       #
