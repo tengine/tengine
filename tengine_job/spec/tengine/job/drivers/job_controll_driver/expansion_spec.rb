@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
+
+require 'net/ssh'
 require 'tengine/rspec'
 
 describe 'job_control_driver' do
@@ -15,6 +17,10 @@ describe 'job_control_driver' do
       @j11 = @root.vertex_by_name_path("/rjn0008/rjn0001/j11")
       @root.phase_key = :running
       @rjn0001.phase_key = :running
+
+      @rjn0001.class.should == Tengine::Job::Runtime::Jobnet
+      @j11.class.should == Tengine::Job::Runtime::SshJob
+
       @j11.phase_key = :ready
       @j11.prev_edges.each{|edge| edge.phase_key = :transmitting}
       @root.save!
@@ -69,6 +75,7 @@ describe 'job_control_driver' do
       builder = Rjn0008ExpansionFixture.new
       @template = builder.create_template
       @root = @template.generate
+      @root.class.should == Tengine::Job::Runtime::RootJobnet
       @ctx = builder.context
       @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,

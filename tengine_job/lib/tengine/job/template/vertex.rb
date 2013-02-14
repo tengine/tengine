@@ -88,7 +88,10 @@ class Tengine::Job::Template::Vertex
 
   IGNORED_FIELD_NAMES = ["_type", "_id"].freeze
 
-  def actual_class; self.class; end
+  def actual_class
+    @actual_class ||= self.class.name.sub(/Template/, 'Runtime').constantize
+  end
+
   def generating_attrs
     field_names = self.class.fields.keys - IGNORED_FIELD_NAMES
     field_names.inject({}){|d, name| d[name] = send(name); d }
@@ -105,7 +108,7 @@ class Tengine::Job::Template::Vertex
       result.children << generated
     end
     generating_edges.each do |edge|
-      generated = edge.class.new
+      generated = Tengine::Job::Runtime::Edge.new
       generated.origin_id = src_to_generated[edge.origin_id]
       generated.destination_id = src_to_generated[edge.destination_id]
       result.edges << generated
