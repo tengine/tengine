@@ -54,7 +54,11 @@ module Tengine::Job::Structure::JobnetBuilder
       prepare_end
       build_sequencial_edges
     else
-      Tengine::Job::Structure::EdgeBuilder.new(self, boot_job_names, redirections).process
+      edge_builder = Tengine::Job::Structure::EdgeBuilder.new(self, boot_job_names, redirections,
+        fork_class: self.class.fork_class,
+        join_class: self.class.join_class
+      )
+      edge_builder.process
     end
   end
 

@@ -6,12 +6,14 @@ require 'tsort'
 class Tengine::Job::Structure::EdgeBuilder
   include TSort
 
-  def initialize(client, boot_job_names, redirections)
+  def initialize(client, boot_job_names, redirections, options = {})
     @client, @boot_job_names, @redirections = client, boot_job_names, redirections.dup
     @graph = Hash.new do |h, k| h[k] = Array.new end
     @redirections.each do |(x, y)|
       @graph[x] << y
     end
+    @fork_class = options[:fork_class]
+    @join_class = options[:join_class]
   end
 
   def children; @client.children; end
@@ -48,7 +50,7 @@ class Tengine::Job::Structure::EdgeBuilder
     when 1 then
       new_edge(start, child_by_name(@boot_job_names.first))
     else
-      fork = Tengine::Job::Fork.new
+      fork = @fork_class.new
       children << fork
       new_edge(start, fork)
       @boot_job_names.each do |boot_job_name|
@@ -89,7 +91,7 @@ class Tengine::Job::Structure::EdgeBuilder
   def build_forks_and_edges
     @fork_origin_to_fork = {}
     @fork_origins.each do |fork_origin|
-      children << fork = Tengine::Job::Fork.new
+      children << fork = @fork_class.new
       @fork_origin_to_fork[fork_origin] = fork
       new_edge(child_by_name(fork_origin), fork)
       @redirections.dup.
@@ -103,7 +105,7 @@ class Tengine::Job::Structure::EdgeBuilder
   def build_joins_and_edges
     @join_destination_to_join = {}
     @join_destinations.each do |join_destination|
-      children << join = Tengine::Job::Join.new
+      children << join = @join_class.new
       @join_destination_to_join[join_destination] = join
       @redirections.dup.
         delete_if{|r| @fork_to_join.include?(r)}.
@@ -134,7 +136,7 @@ class Tengine::Job::Structure::EdgeBuilder
     when 0 then raise "Must be a bug!!!"
     when 1 then new_edge(child_by_name(end_points.first), _end)
     else
-      join = Tengine::Job::Join.new
+      join = @join_class.new
       children << join
       end_points.each{|point| new_edge(child_by_name(point), join)}
       new_edge(join, _end)

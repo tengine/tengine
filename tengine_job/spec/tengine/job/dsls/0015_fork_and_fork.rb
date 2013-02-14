@@ -8,7 +8,7 @@ require 'tengine_job'
 # start --- job1 ---F              |--- job4 --- J--- end
 #                   |--- job3 ---- F             |
 #                                  |--- job5 ----|
-jobnet("jobnet0015", :instance_name => "i-11111111", :credential_name => "goku-ssh-pk1") do
+jobnet("jobnet0015", :server_name => "i-11111111", :credential_name => "goku-ssh-pk1") do
   boot_jobs("job1")
   job("job1", "echo 'job1'", :to => ["job2", "job3"])
   job("job2", "echo 'job2'")

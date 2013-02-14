@@ -357,8 +357,8 @@ describe Tengine::Job::Dsl::Loader do
         end
         root_jobnet.children.map(&:class).should == [
           Tengine::Job::Template::Start    , # 0
-          Tengine::Job::Expansion, # 1
-          Tengine::Job::Expansion, # 2
+          Tengine::Job::Template::Expansion, # 1
+          Tengine::Job::Template::Expansion, # 2
           Tengine::Job::Template::End      , # 3
         ]
         root_jobnet.children[1].tap{|j| j.name.should == "jobnet0018_01" }

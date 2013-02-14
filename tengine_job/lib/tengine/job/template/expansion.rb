@@ -14,7 +14,7 @@ class Tengine::Job::Template::Expansion < Tengine::Job::Template::NamedVertex
     @root_jobnet_template
   end
 
-  IGNORED_FIELD_NAMES = (Tengine::Job::Vertex::IGNORED_FIELD_NAMES + %w[name dsl_version jobnet_type_cd version updated_at created_at children edges]).freeze
+  IGNORED_FIELD_NAMES = (Tengine::Job::Template::Vertex::IGNORED_FIELD_NAMES + %w[name dsl_version jobnet_type_cd version updated_at created_at children edges]).freeze
 
   def generating_attrs
     result = super

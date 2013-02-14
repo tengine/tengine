@@ -53,6 +53,8 @@ class Tengine::Job::Template::Jobnet < Tengine::Job::Template::NamedVertex
     start_vertex: "Start",
     end_vertex: "End",
     jobnet: "Jobnet",
+    fork: "Fork",
+    join: "Join",
   }.freeze
 
   VERTEX_CLASSES.each do |key, value|
