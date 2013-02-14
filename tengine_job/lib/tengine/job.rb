@@ -31,6 +31,9 @@ Tengine::Core.stdout_logger.info("#{self.name}.notify  #{f}")
       end
     end
 
+    def dsl_loader
+      ::Tengine::Job::Dsl::Loader
+    end
 
     # 自動テストで呼び出しをフックするためのメソッド
     def test_harness(idx, msg)
