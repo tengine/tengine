@@ -64,4 +64,12 @@ class Tengine::Job::Template::SshJob < Tengine::Job::Template::NamedVertex
 
   include Settings
 
+  # @override
+  def generating_attrs
+    result = super
+    result[:server_name] = actual_server_name
+    result[:credential_name] = actual_credential_name
+    result
+  end
+
 end
