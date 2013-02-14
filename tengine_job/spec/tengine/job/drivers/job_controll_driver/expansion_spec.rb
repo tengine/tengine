@@ -21,6 +21,12 @@ describe 'job_control_driver' do
       @rjn0001.class.should == Tengine::Job::Runtime::Jobnet
       @j11.class.should == Tengine::Job::Runtime::SshJob
 
+      [@rjn0001, @j11].each{|j| j.should_not be_new_record}
+      @rjn0001.parent_id.should == @root.id
+      @rjn0001.parent.id.should == @root.id
+      @j11.parent_id.should == @rjn0001.id
+      @j11.parent.id.should == @rjn0001.id
+
       @j11.phase_key = :ready
       @j11.prev_edges.each{|edge| edge.phase_key = :transmitting}
       @root.save!

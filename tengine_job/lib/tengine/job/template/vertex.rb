@@ -101,6 +101,7 @@ class Tengine::Job::Template::Vertex
 
   def generate(klass = actual_class)
     result = klass.new(generating_attrs)
+    result.save!
     src_to_generated = {}
     generating_children.each do |child|
       generated = child.generate
@@ -113,6 +114,7 @@ class Tengine::Job::Template::Vertex
       generated.destination_id = src_to_generated[edge.destination_id]
       result.edges << generated
     end
+    result.save!
     result
   end
 end
