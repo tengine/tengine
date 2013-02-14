@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Tengine::Job::Killing do
+describe Tengine::Job::Template::SshJob::Settings do
 
   context "強制停止の設定" do
     before do
@@ -16,7 +16,7 @@ describe Tengine::Job::Killing do
         its(:killing_signals){ should == nil}
         its(:killing_signal_interval){ should == nil}
         its(:actual_killing_signals){ should == ['KILL']}
-        its(:actual_killing_signal_interval){ should == Tengine::Job::Killing::DEFAULT_KILLING_SIGNAL_INTERVAL}
+        its(:actual_killing_signal_interval){ should == Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNAL_INTERVAL}
       end
     end
 
@@ -38,7 +38,7 @@ describe Tengine::Job::Killing do
           its(:killing_signals){ should == nil}
           its(:killing_signal_interval){ should == nil}
           its(:actual_killing_signals){ should == ['KILL']}
-          its(:actual_killing_signal_interval){ should == Tengine::Job::Killing::DEFAULT_KILLING_SIGNAL_INTERVAL}
+          its(:actual_killing_signal_interval){ should == Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNAL_INTERVAL}
         end
       end
 

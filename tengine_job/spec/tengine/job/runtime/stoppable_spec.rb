@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Tengine::Job::Stoppable do
+describe Tengine::Job::Runtime::Stoppable do
   include TestCredentialFixture
   include TestServerFixture
   include NetSshMock
@@ -156,7 +156,7 @@ describe Tengine::Job::Stoppable do
         end
       end
 
-      default_interval = Tengine::Job::Killing::DEFAULT_KILLING_SIGNAL_INTERVAL
+      default_interval = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNAL_INTERVAL
       [
         [:j1110, 30, "INT,HUP,QUIT,KILL"],
         [:j1121, 30, "INT,HUP,QUIT,KILL"],

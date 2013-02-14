@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Tengine::Job::RootJobnetActual do
+describe Tengine::Job::Runtime::RootJobnet do
 
   context :update_with_lock do
     before do
@@ -17,7 +17,7 @@ describe Tengine::Job::RootJobnetActual do
       j11.executing_pid = "1111"
       root.save!
       #
-      loaded = Tengine::Job::RootJobnetActual.find(root.id)
+      loaded = Tengine::Job::Runtime::RootJobnet.find(root.id)
       loaded.find_descendant(@ctx[:j11].id).executing_pid.should == "1111"
     end
 
@@ -31,7 +31,7 @@ describe Tengine::Job::RootJobnetActual do
       end
       count.should == 1
       #
-      loaded = Tengine::Job::RootJobnetActual.find(root.id)
+      loaded = Tengine::Job::Runtime::RootJobnet.find(root.id)
       loaded.find_descendant(@ctx[:j11].id).executing_pid.should == "1111"
     end
   end
@@ -101,7 +101,7 @@ describe Tengine::Job::RootJobnetActual do
     end
 
     it "destroys the requested root_jobnet_actual" do
-      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+      root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes
       @mock_sender.should_receive(:fire).with(:"stop.jobnet.job.tengine", an_instance_of(Hash)) do |_, fire_options|
         fire_options[:properties].should be_a(Hash)
         fire_options[:properties][:stop_reason].should == "user_stop"
@@ -110,7 +110,7 @@ describe Tengine::Job::RootJobnetActual do
     end
 
     it "redirects to the tengine_job_root_jobnet_actuals list" do
-      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+      root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes
       @mock_sender.should_receive(:fire).with(:"stop.jobnet.job.tengine", an_instance_of(Hash)) do |_, fire_options|
         fire_options[:properties].should be_a(Hash)
         fire_options[:properties][:stop_reason].should == "user_stop"

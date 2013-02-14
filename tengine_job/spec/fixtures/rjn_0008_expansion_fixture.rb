@@ -16,7 +16,7 @@ class Rjn0008ExpansionFixture < JobnetFixtureBuilder
 
   def create(options = {})
     root = new_root_jobnet("rjn0008", options)
-    root.children << Tengine::Job::Start.new
+    root.children << new_start
     root.children << new_expansion("rjn0001")
     root.children << new_expansion("rjn0002")
     root.prepare_end

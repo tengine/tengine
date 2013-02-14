@@ -387,13 +387,13 @@ describe Tengine::Job::Jobnet do
 
   describe :error_messages do
     context "デフォルト" do
-      subject{ Tengine::Job::JobnetActual.new }
+      subject{ Tengine::Job::Runtime::Jobnet.new }
       its(:error_messages){ should == nil }
       its(:error_messages_text){ should == "" }
     end
 
     context "複数音メッセージ" do
-      subject{ Tengine::Job::JobnetActual.new(:error_messages => ["foo", "bar"]) }
+      subject{ Tengine::Job::Runtime::Jobnet.new(:error_messages => ["foo", "bar"]) }
       its(:error_messages){ should == ["foo", "bar"] }
       its(:error_messages_text){ should == "foo\nbar" }
     end

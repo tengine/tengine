@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Tengine::Job::JobnetActual do
+describe Tengine::Job::Runtime::Jobnet do
 
   describe :human_phase_key do
     human_phase_name_hash = {
@@ -31,16 +31,16 @@ describe Tengine::Job::JobnetActual do
       I18n.locale = @i18_locale_backup
     end
 
-    (Tengine::Job::JobnetActual.phase_keys - [:dying, :error]).each do |phase_key|
+    (Tengine::Job::Runtime::Jobnet.phase_keys - [:dying, :error]).each do |phase_key|
       context "#{phase_key.inspect}の場合" do
-        subject{ Tengine::Job::JobnetActual.new(:phase_key => phase_key) }
+        subject{ Tengine::Job::Runtime::Jobnet.new(:phase_key => phase_key) }
         its(:human_phase_key){ should == phase_key } # 変わらない
         its(:human_phase_name){ should == human_phase_name_hash[phase_key] }
       end
     end
 
     context "phase_keyが:dyingの場合" do
-      subject{ Tengine::Job::JobnetActual.new(:phase_key => :dying) }
+      subject{ Tengine::Job::Runtime::Jobnet.new(:phase_key => :dying) }
       its(:human_phase_key){ should == :dying }
       its(:human_phase_name){ should == human_phase_name_hash[:dying] }
       context "stop_reasonがuser_stopならば" do
@@ -56,7 +56,7 @@ describe Tengine::Job::JobnetActual do
     end
 
     context "phase_keyが:errorの場合" do
-      subject{ Tengine::Job::JobnetActual.new(:phase_key => :error) }
+      subject{ Tengine::Job::Runtime::Jobnet.new(:phase_key => :error) }
       its(:human_phase_key){ should == :error }
       its(:human_phase_name){ should == human_phase_name_hash[:error] }
       context "stop_reasonがuser_stopならば" do
@@ -188,11 +188,11 @@ describe Tengine::Job::JobnetActual do
 
     it "destroys the requested jobnet_actual" do
       root_jobnet_actual = \
-        Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
-      jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
-      job_actual = Tengine::Job::JobnetActual.create! valid_attributes
+        Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
+      jobnet_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
+      job_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
       jobnet_actual.stub(:children).and_return([job_actual])
-      Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
+      Tengine::Job::Runtime::RootJobnet.any_instance.stub(:find_descendant).
         and_return(jobnet_actual)
       @mock_sender.should_receive(:fire).with(:"stop.jobnet.job.tengine", an_instance_of(Hash)) do |_, fire_options|
         fire_options[:properties].should be_a(Hash)
@@ -203,13 +203,13 @@ describe Tengine::Job::JobnetActual do
 
     it "destroys the requested actual job. example: job, hadoop_job_run (script_executable? => true)" do
       root_jobnet_actual = \
-        Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
-      jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
-      job_actual = Tengine::Job::JobnetActual.create! valid_attributes
+        Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
+      jobnet_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
+      job_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
       # job_actual.stub(:children).and_return(nil)
       job_actual.stub(:script_executable?).and_return(true)
       job_actual.stub(:parent).and_return(jobnet_actual)
-      Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
+      Tengine::Job::Runtime::RootJobnet.any_instance.stub(:find_descendant).
         and_return(job_actual)
       @mock_sender.should_receive(:fire).with(:"stop.job.job.tengine", an_instance_of(Hash)) do |_, fire_options|
         fire_options[:properties].should be_a(Hash)
@@ -220,12 +220,12 @@ describe Tengine::Job::JobnetActual do
 
     it "destroys to the tengine_job_jobnet_actuals list. example: jobnet (script_executable? => false)" do
       root_jobnet_actual = \
-        Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
-      jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
-      job_actual = Tengine::Job::JobnetActual.create! valid_attributes
+        Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
+      jobnet_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
+      job_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
       # jobnet_actual.stub(:children).and_return([job_actual])
       jobnet_actual.stub(:script_executable?).and_return(false)
-      Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
+      Tengine::Job::Runtime::RootJobnet.any_instance.stub(:find_descendant).
         and_return(jobnet_actual)
       @mock_sender.should_receive(:fire).with(:"stop.jobnet.job.tengine", an_instance_of(Hash)) do |_, fire_options|
         fire_options[:properties].should be_a(Hash)

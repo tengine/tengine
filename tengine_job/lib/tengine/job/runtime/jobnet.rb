@@ -102,7 +102,7 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
     :ignored => [:starting, :running, :dying, :success, :error, :stuck])
 
   # ハンドリングするドライバ: ジョブネット制御ドライバ
-  # このackは、子要素のTengine::Job::Start#activateから呼ばれます
+  # このackは、子要素のTengine::Job::Runtime::Start#activateから呼ばれます
   def ack(signal)
     self.phase_key = :running
   end

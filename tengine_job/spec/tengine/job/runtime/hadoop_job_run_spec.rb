@@ -14,7 +14,7 @@ describe 'hadoop_job_run' do
         })
     end
 
-    Tengine::Job::JobnetActual.phase_keys.each do |phase_key|
+    Tengine::Job::Runtime::Jobnet.phase_keys.each do |phase_key|
       context "hadoop_job_run1のphase_keyを#{phase_key}に設定する" do
         before(:all) do
           @ctx[:hadoop_job_run1].phase_key = phase_key

@@ -2,16 +2,16 @@
 require 'spec_helper'
 require 'time'
 
-describe Tengine::Job::Execution do
+describe Tengine::Job::Runtime::Execution do
   describe :actual_estimated_end do
     context "strted_atがnilならnil" do
-      subject{ Tengine::Job::Execution.new(:started_at => nil, :estimated_time => 10.minutes) }
+      subject{ Tengine::Job::Runtime::Execution.new(:started_at => nil, :estimated_time => 10.minutes) }
       its(:actual_estimated_end) { should == nil }
     end
 
     context "strted_atが設定されていたらstarted_atに見積もり時間を足した時間" do
       subject do
-        Tengine::Job::Execution.new(
+        Tengine::Job::Runtime::Execution.new(
           :started_at => Time.parse("2011/10/11 01:00Z"),
           :estimated_time => 10 * 60)
       end
@@ -27,11 +27,11 @@ describe Tengine::Job::Execution do
     # [S1]--e1-->[F1]                            [J1]--e7-->[E1]
     #              |--e3-->(j12)--e5-->(j13)--e6-->|
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn00102jobsAnd1jobParallelJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
           :retry => true, :spot => false,
         })
@@ -43,7 +43,7 @@ describe Tengine::Job::Execution do
       mock_event = mock(:event)
       mock_event.stub(:occurred_at).and_return{ Time.now }
       mock_event.stub(:[]).with(:execution_id).and_return(@execution.id.to_s)
-      @signal = Tengine::Job::Signal.new(mock_event)
+      @signal = Tengine::Job::Runtime::Signal.new(mock_event)
     end
 
     context "全て正常終了した後に" do

@@ -262,7 +262,7 @@ describe 'job_control_driver' do
         with("localhost", an_instance_of(Tengine::Resource::Credential), an_instance_of(Hash)).and_yield(mock_ssh)
       mock_channel = mock_channel_fof_script_executable(mock_ssh)
       mock_channel.should_receive(:exec) do |*args|
-        interval = Tengine::Job::Killing::DEFAULT_KILLING_SIGNAL_INTERVAL
+        interval = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNAL_INTERVAL
         args.length.should == 1
         args.first.should =~ %r<tengine_job_agent_kill #{@pid} #{interval} KILL$>
       end
@@ -348,7 +348,7 @@ describe 'job_control_driver' do
         with("localhost", an_instance_of(Tengine::Resource::Credential), an_instance_of(Hash)).and_yield(mock_ssh)
       mock_channel = mock_channel_fof_script_executable(mock_ssh)
       mock_channel.should_receive(:exec) do |*args|
-        interval = Tengine::Job::Killing::DEFAULT_KILLING_SIGNAL_INTERVAL
+        interval = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNAL_INTERVAL
         args.length.should == 1
         args.first.should =~ %r<tengine_job_agent_kill #{@pid12} #{interval} KILL$>
       end

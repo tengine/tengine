@@ -4,7 +4,7 @@ require 'erb'
 require 'etc'
 require 'tempfile'
 
-describe Tengine::Job::ScriptExecutable do
+describe Tengine::Job::Runtime::SshJob do
   let :ssh_dir do
     File.expand_path("../../../sshd", __FILE__)
   end
@@ -103,7 +103,7 @@ describe Tengine::Job::ScriptExecutable do
   describe :execute do
 
     it "終了コードを取得できる" do
-      j = Tengine::Job::JobnetActual.new(
+      j = Tengine::Job::Runtime::Jobnet.new(
         :server_name => @server.name,
         :credential_name => @credential.name,
         :script => File.expand_path("tengine_job_test.sh", ssh_dir)
@@ -118,7 +118,7 @@ describe Tengine::Job::ScriptExecutable do
 #       end
 
     it "https://www.pivotaltracker.com/story/show/22269461" do
-      j = Tengine::Job::JobnetActual.new(
+      j = Tengine::Job::Runtime::Jobnet.new(
         :server_name => @server.name,
         :credential_name => @credential.name,
         :script => "echo \u{65e5}\u{672c}\u{8a9e}"
@@ -146,7 +146,7 @@ describe Tengine::Job::ScriptExecutable do
       dir = File.expand_path("../../../..", __FILE__)
       text_path = "tmp/log/env.txt"
       script = "cd #{dir} && spec/tengine/job/script_executable/echo_env.sh #{text_path}"
-      j = Tengine::Job::JobnetActual.new(
+      j = Tengine::Job::Runtime::Jobnet.new(
         :server_name => @server.name,
         :credential_name => @credential.name,
         :script => script
