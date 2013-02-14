@@ -73,6 +73,9 @@ module Tengine::Job::Structure::ElementSelectorNotation
     end
   end
 
+  def base_module
+    self.template? ? Tengine::Job::Template : Tengine::Job::Runtime
+  end
 
   NAME_PART = /[A-Za-z_][\w\-]*/.freeze
   NAME_PATH_PART = /[A-Za-z_\/][\w\-\/]*/.freeze
@@ -81,7 +84,7 @@ module Tengine::Job::Structure::ElementSelectorNotation
   # 例外をraiseさせたい場合は element!メソッドを使ってください。
   def element(notation)
     direction, current_path = *notation.split(/@/, 2)
-    return vertex_by_name_path(direction) if current_path.nil? && Tengine::Job::NamePath.absolute?(direction)
+    return vertex_by_name_path(direction) if current_path.nil? && Tengine::Job::Structure::NamePath.absolute?(direction)
     current = current_path ? vertex_by_name_path(current_path) : self
     raise "#{current_path.inspect} not found" unless current
     case direction
@@ -99,10 +102,10 @@ module Tengine::Job::Structure::ElementSelectorNotation
       job2 = current.child_by_name($2)
       job1.next_edges.detect{|edge| edge.destination_id == job2.id}
     when /^(fork|join)!(#{NAME_PART})~(#{NAME_PART})$/ then
-      klass = Tengine::Job.const_get($1.capitalize)
+      klass = base_module.const_get($1.capitalize)
       job1 = current.child_by_name($2)
       job2 = current.child_by_name($3)
-      paths = PathFinder.new(job1, job2).process
+      paths = PathFinder.new(self, job1, job2).process
       paths.each do |path|
         path.each do |element|
           return element if element.is_a?(klass)
@@ -111,12 +114,12 @@ module Tengine::Job::Structure::ElementSelectorNotation
     when /^fork~join!(#{NAME_PART})~(#{NAME_PART})$/ then
       job1 = current.child_by_name($1)
       job2 = current.child_by_name($2)
-      paths = PathFinder.new(job1, job2).process
+      paths = PathFinder.new(self, job1, job2).process
       paths.each do |path|
         path.each do |element|
-          if element.is_a?(Tengine::Job::Edge)
-            if element.origin.is_a?(Tengine::Job::Fork) &&
-                element.destination.is_a?(Tengine::Job::Join)
+          if element.is_a?(base_module.const_get(:Edge))
+            if element.origin.is_a?(base_module.const_get(:Fork)) &&
+                element.destination.is_a?(base_module.const_get(:Join))
               return element
             end
           end
@@ -136,7 +139,8 @@ module Tengine::Job::Structure::ElementSelectorNotation
   end
 
   class PathFinder
-    def initialize(origin, dest)
+    def initialize(client, origin, dest)
+      @client = client
       @origin, @dest = origin, dest
     end
 
@@ -149,7 +153,7 @@ module Tengine::Job::Structure::ElementSelectorNotation
 
     def visit(element)
       @current_route << element
-      if element.is_a?(Tengine::Job::Edge)
+      if element.is_a?(@client.base_module.const_get(:Edge))
         element.destination.accept_visitor(self)
       else
         @routes << @current_route.dup

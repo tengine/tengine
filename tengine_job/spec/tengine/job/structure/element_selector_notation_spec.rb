@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Tengine::Job::ElementSelectorNotation do
+describe Tengine::Job::Structure::ElementSelectorNotation do
 
-  # Tengine::Job::ElementSelectorNotation は、#element, #element! を提供します。
+  # Tengine::Job::Structure::ElementSelectorNotation は、#element, #element! を提供します。
   # Tengine::Job::Jobnetにincludeされます。
   # #element は指定されたnotationで対象となる要素が見つからなかった場合はnilを返しますが、
   # #element! は指定されたnotationで対象となる要素が見つからなかった場合は例外をraiseします
@@ -215,10 +215,11 @@ describe Tengine::Job::ElementSelectorNotation do
         "start~j1110@/rjn0009/j1100",
         "start~j1110@j1100",
       ],
-      :j11 => [
-        "/rjn0009/j1110",
-        "j1110@/rjn0009",
-        "j1110",
+      :j1110 => [
+        "/rjn0009/j1100/j1110",
+        "j1110@/rjn0009/j1100",
+        # "j1100/j1110" # TODO バグかどうか確認
+        "j1110@j1100",
       ],
       :e9 => [
         "next!/rjn0009/j1100/j1110",
@@ -288,7 +289,8 @@ describe Tengine::Job::ElementSelectorNotation do
     context builder_class.name do
       %w[actual template].each do |type|
         before do
-          Tengine::Job::Vertex.delete_all
+          Tengine::Job::Template::Vertex.delete_all
+          Tengine::Job::Runtime::Vertex.delete_all
           builder = builder_class.new
           @root = builder.send(:"create_#{type}")
           @ctx = builder.context
@@ -298,12 +300,14 @@ describe Tengine::Job::ElementSelectorNotation do
           notations.each do |notation|
             it "#{notation.inspect} selects #{type} #{element_key.inspect}" do
               expected = @ctx[element_key]
-              if expected.is_a?(Tengine::Job::Vertex)
+              if expected.is_a?(Tengine::Job::Template::Vertex) || expected.is_a?(Tengine::Job::Runtime::Vertex)
                 expected_name_path = expected.name_path
                 actual_name_path = @root.element(notation).name_path
                 actual_name_path.should == expected_name_path
-              else
+              elsif expected.is_a?(Tengine::Job::Template::Edge) || expected.is_a?(Tengine::Job::Runtime::Edge)
                 @root.element(notation).should == expected
+              else
+                fail("Unknown object #{expected.inspect}")
               end
             end
           end
@@ -318,7 +322,8 @@ describe Tengine::Job::ElementSelectorNotation do
   # (S1) --e1-->(j11)--e2-->(j12)--e3-->(E1)
   context "rjn0001" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Template::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_template
       @ctx = builder.context
