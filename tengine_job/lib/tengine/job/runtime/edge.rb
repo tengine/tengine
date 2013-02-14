@@ -76,7 +76,7 @@ class Tengine::Job::Runtime::Edge
       self.phase_key = :closed
       signal.paths << self
       signal.with_paths_backup do
-        if destination.is_a?(Tengine::Job::Job)
+        if destination.is_a?(Tengine::Job::Runtime::NamedVertex)
           destination.next_edges.first.transmit(signal)
         else
           signal.leave(self)
