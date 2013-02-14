@@ -8,7 +8,7 @@ ack_policy :after_all_handler_submit, :'stop.execution.job.tengine'
 driver :job_execution_driver do
 
   on :'start.execution.job.tengine' do
-    signal = Tengine::Job::Signal.new(event)
+    signal = Tengine::Job::Runtime::Signal.new(event)
     execution = signal.execution
     root_jobnet = execution.root_jobnet
     root_jobnet.update_with_lock do
@@ -34,7 +34,7 @@ driver :job_execution_driver do
   end
 
   on :'stop.execution.job.tengine' do
-    signal = Tengine::Job::Signal.new(event)
+    signal = Tengine::Job::Runtime::Signal.new(event)
     execution = signal.execution
     root_jobnet = execution.root_jobnet
     root_jobnet.update_with_lock do

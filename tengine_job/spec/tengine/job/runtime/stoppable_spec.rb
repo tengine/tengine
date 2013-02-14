@@ -22,7 +22,7 @@ describe Tengine::Job::Runtime::Stoppable do
         @mock_event = mock(:event,
           :occurred_at => Time.utc(2011,10,28,0,50))
         @mock_event.stub!(:[]).with(:execution_id).and_return(@execution.id.to_s)
-        @signal = Tengine::Job::Signal.new(@mock_event)
+        @signal = Tengine::Job::Runtime::Signal.new(@mock_event)
       end
 
       context "強制停止しても何も変更なし" do

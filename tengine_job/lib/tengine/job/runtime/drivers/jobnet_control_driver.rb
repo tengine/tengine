@@ -17,7 +17,7 @@ end
 driver :jobnet_control_driver do
 
   on :'start.jobnet.job.tengine' do
-    signal = Tengine::Job::Signal.new(event)
+    signal = Tengine::Job::Runtime::Signal.new(event)
     root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     root_jobnet.update_with_lock do
       signal.reset
@@ -49,7 +49,7 @@ driver :jobnet_control_driver do
   end
 
   on :'success.job.job.tengine' do
-    signal = Tengine::Job::Signal.new(event)
+    signal = Tengine::Job::Runtime::Signal.new(event)
     root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     root_jobnet.update_with_lock do
       signal.reset
@@ -89,7 +89,7 @@ driver :jobnet_control_driver do
   end
 
   on :'error.job.job.tengine' do
-    signal = Tengine::Job::Signal.new(event)
+    signal = Tengine::Job::Runtime::Signal.new(event)
     root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     root_jobnet.update_with_lock do
       signal.reset
@@ -129,7 +129,7 @@ driver :jobnet_control_driver do
   end
 
   on :'success.jobnet.job.tengine' do
-    signal = Tengine::Job::Signal.new(event)
+    signal = Tengine::Job::Runtime::Signal.new(event)
     root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     root_jobnet.update_with_lock do
       signal.reset
@@ -174,7 +174,7 @@ driver :jobnet_control_driver do
   end
 
   on :'error.jobnet.job.tengine' do
-    signal = Tengine::Job::Signal.new(event)
+    signal = Tengine::Job::Runtime::Signal.new(event)
     root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     root_jobnet.update_with_lock do
       signal.reset
@@ -219,7 +219,7 @@ driver :jobnet_control_driver do
   end
 
   on :'stop.jobnet.job.tengine' do
-    signal = Tengine::Job::Signal.new(event)
+    signal = Tengine::Job::Runtime::Signal.new(event)
     root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     root_jobnet.update_with_lock do
       signal.reset

@@ -158,7 +158,7 @@ describe 'job_control_driver' do
       tengine.should_not_fire
       mock_event = mock(:event)
       @pid = "123"
-      signal = Tengine::Job::Signal.new(mock_event)
+      signal = Tengine::Job::Runtime::Signal.new(mock_event)
       signal.data = {:executing_pid => @pid}
       @ctx.vertex(:j11).ack(signal) # このメソッド内ではsaveされないので、ここでreloadもしません。
       @ctx.vertex(:j11).executing_pid.should == @pid

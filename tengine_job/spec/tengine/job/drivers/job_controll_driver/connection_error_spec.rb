@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 require 'tengine/rspec'
+require 'tempfile'
 
 describe 'connection error' do
   include Tengine::RSpec::Extension
 
-  target_dsl File.expand_path("../../../../../lib/tengine/job/drivers/job_control_driver.rb", File.dirname(__FILE__))
+  target_dsl File.expand_path("../../../../../lib/tengine/job/runtime/drivers/job_control_driver.rb", File.dirname(__FILE__))
   driver :job_control_driver
 
   let :ssh_dir do
@@ -99,7 +100,7 @@ describe 'connection error' do
   #
   context "rjn0001" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context

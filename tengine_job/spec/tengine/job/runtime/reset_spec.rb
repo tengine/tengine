@@ -45,7 +45,7 @@ describe "reset" do
     it "jn11をspotで再実行" do
       @now = Time.now.utc
       @event = mock(:event, :occurred_at => @now)
-      @signal = Tengine::Job::Signal.new(@event)
+      @signal = Tengine::Job::Runtime::Signal.new(@event)
       @jn11 = @root.element("jn11@jn1")
       @execution = Tengine::Job::Runtime::Execution.create!({
           :target_actual_ids => [@jn11.id.to_s],
@@ -108,7 +108,7 @@ describe "reset" do
     it "jn11以降を再実行" do
       @now = Time.now.utc
       @event = mock(:event, :occurred_at => @now)
-      @signal = Tengine::Job::Signal.new(@event)
+      @signal = Tengine::Job::Runtime::Signal.new(@event)
       @jn11 = @root.element("jn11@jn1")
       @execution = Tengine::Job::Runtime::Execution.create!({
           :target_actual_ids => [@jn11.id.to_s],
@@ -226,7 +226,7 @@ describe "reset" do
           t1 = Time.now
           event1 = mock(:event1)
           event1.stub(:occurred_at).and_return(t1)
-          signal1 = Tengine::Job::Signal.new(event1)
+          signal1 = Tengine::Job::Runtime::Signal.new(event1)
           signal1.stub(:execution).and_return(execution)
           @root.update_with_lock do
             execution.transmit(signal1)
@@ -239,7 +239,7 @@ describe "reset" do
           t2 = Time.now
           event2 = mock(:event2)
           event2.stub(:occurred_at).and_return(t2)
-          signal2 = Tengine::Job::Signal.new(event2)
+          signal2 = Tengine::Job::Runtime::Signal.new(event2)
           signal2.stub(:execution).and_return(execution)
           @root.reload
           j41 = @root.element("/jn0005/jn4/j41")
@@ -286,7 +286,7 @@ describe "reset" do
         t1 = Time.now
         event1 = mock(:"success.job.job.tengine")
         event1.stub(:occurred_at).and_return(t1)
-        signal1 = Tengine::Job::Signal.new(event1)
+        signal1 = Tengine::Job::Runtime::Signal.new(event1)
         signal1.stub(:execution).and_return(execution)
         next_of_j2 = @root.element("next!j2")
         @root.update_with_lock do
@@ -338,7 +338,7 @@ describe "reset" do
         t1 = Time.now
         event1 = mock(:"success.job.job.tengine")
         event1.stub(:occurred_at).and_return(t1)
-        signal1 = Tengine::Job::Signal.new(event1)
+        signal1 = Tengine::Job::Runtime::Signal.new(event1)
         signal1.stub(:execution).and_return(@execution)
         next_of_j41 = @root.element("next!/jn0005/jn4/j41")
         @root.update_with_lock do
@@ -357,7 +357,7 @@ describe "reset" do
         t2 = Time.now
         event2 = mock(:"start.job.job.tengine")
         event2.stub(:occurred_at).and_return(t2)
-        signal2 = Tengine::Job::Signal.new(event2)
+        signal2 = Tengine::Job::Runtime::Signal.new(event2)
         signal2.stub(:execution).and_return(@execution)
         j42 = @root.element("/jn0005/jn4/j42")
         @root.update_with_lock do
@@ -393,7 +393,7 @@ describe "reset" do
         it "jn4内のVertexのみリセットされる" do
           t1 = Time.now
           event1 = mock(:event, :occurred_at => t1)
-          signal1 = Tengine::Job::Signal.new(event1)
+          signal1 = Tengine::Job::Runtime::Signal.new(event1)
           j41 = @root.element('/jn0005/jn4/j41')
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [j41.id.to_s],
@@ -448,7 +448,7 @@ describe "reset" do
           # jn4fのジョブネット正常終了イベント
           event2 = mock(:"success.jobnet.job.tengine")
           event2.stub(:occurred_at).and_return(t2)
-          signal2 = Tengine::Job::Signal.new(event2)
+          signal2 = Tengine::Job::Runtime::Signal.new(event2)
           signal2.stub(:execution).and_return(execution)
           jn4 = @root.element('/jn0005/jn4')
           jn4.phase_key.should == :success
@@ -481,7 +481,7 @@ describe "reset" do
         it "jn0005内のjn4以降がリセットされる" do
           t1 = Time.now
           event1 = mock(:event, :occurred_at => t1)
-          signal1 = Tengine::Job::Signal.new(event1)
+          signal1 = Tengine::Job::Runtime::Signal.new(event1)
           jn4 = @root.element('/jn0005/jn4')
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [jn4.id.to_s],
@@ -523,7 +523,7 @@ describe "reset" do
         it "/jn0005/finally/jn0005_fjn/finally内のVertexのみリセットされる" do
           t1 = Time.now
           event1 = mock(:event, :occurred_at => t1)
-          signal1 = Tengine::Job::Signal.new(event1)
+          signal1 = Tengine::Job::Runtime::Signal.new(event1)
           jn0005_fif = @root.element('/jn0005/finally/jn0005_fjn/finally/jn0005_fif')
           execution = Tengine::Job::Runtime::Execution.create!({
                         :target_actual_ids => [jn0005_fif.id.to_s],
@@ -573,7 +573,7 @@ describe "reset" do
           })
           t1 = Time.now
           event1 = mock(:event, :occurred_at => t1)
-          signal1 = Tengine::Job::Signal.new(event1)
+          signal1 = Tengine::Job::Runtime::Signal.new(event1)
           @execution.stub(:root_jobnet).and_return(@root)
           event1.stub(:[]).with(:execution_id).and_return(@execution.id.to_s)
           @root.update_with_lock{ @execution.transmit(signal1) }
@@ -611,7 +611,7 @@ describe "reset" do
           t2 = Time.now
           event2 = mock(:"start.job.job.tengine") # j41のジョブ開始イベント
           event2.stub(:occurred_at).and_return(t2)
-          signal2 = Tengine::Job::Signal.new(event2)
+          signal2 = Tengine::Job::Runtime::Signal.new(event2)
           signal2.stub(:execution).and_return(@execution)
 
           @root.element('/jn0005/jn4').phase_key = :starting
@@ -627,7 +627,7 @@ describe "reset" do
           t2 = Time.now
           event2 = mock(:"start.job.job.tengine") # jn4fのジョブ開始イベント
           event2.stub(:occurred_at).and_return(t2)
-          signal2 = Tengine::Job::Signal.new(event2)
+          signal2 = Tengine::Job::Runtime::Signal.new(event2)
           signal2.stub(:execution).and_return(@execution)
 
           @root.element('/jn0005/jn4/finally').phase_key = :starting
@@ -643,7 +643,7 @@ describe "reset" do
           t2 = Time.now
           event2 = mock(:"start.job.job.tengine") # jn0005_fifのジョブ開始イベント
           event2.stub(:occurred_at).and_return(t2)
-          signal2 = Tengine::Job::Signal.new(event2)
+          signal2 = Tengine::Job::Runtime::Signal.new(event2)
           signal2.stub(:execution).and_return(@execution)
 
           @root.element('/jn0005/finally/jn0005_fjn/finally').phase_key = :starting
@@ -678,7 +678,7 @@ describe "reset" do
         it "jn4内のj43以降がリセットされる" do
           t1 = Time.now
           event1 = mock(:event, :occurred_at => t1)
-          signal1 = Tengine::Job::Signal.new(event1)
+          signal1 = Tengine::Job::Runtime::Signal.new(event1)
           j43 = @root.element('/jn0005/jn4/j43')
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [j43.id.to_s],
@@ -723,7 +723,7 @@ describe "reset" do
         it "jn4内のj44の後続のみリセットされる" do
           t1 = Time.now
           event1 = mock(:event, :occurred_at => t1)
-          signal1 = Tengine::Job::Signal.new(event1)
+          signal1 = Tengine::Job::Runtime::Signal.new(event1)
           j44 = @root.element('/jn0005/jn4/j44')
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [j44.id.to_s],
@@ -769,7 +769,7 @@ describe "reset" do
         it "jn0005内のjn4以降がリセットされる" do
           t1 = Time.now
           event1 = mock(:event, :occurred_at => t1)
-          signal1 = Tengine::Job::Signal.new(event1)
+          signal1 = Tengine::Job::Runtime::Signal.new(event1)
           jn4 = @root.element('/jn0005/jn4')
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [jn4.id.to_s],
@@ -830,7 +830,7 @@ describe "reset" do
         it "jn0005_fjn内のjn0005_f2以降がリセットされる" do
           t1 = Time.now
           event1 = mock(:event, :occurred_at => t1)
-          signal1 = Tengine::Job::Signal.new(event1)
+          signal1 = Tengine::Job::Runtime::Signal.new(event1)
           jn0005_f2 = @root.element('/jn0005/finally/jn0005_fjn/jn0005_f2')
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [jn0005_f2.id.to_s],
@@ -874,7 +874,7 @@ describe "reset" do
         it "jn0005_fjn内がリセットされる" do
           t1 = Time.now
           event1 = mock(:event, :occurred_at => t1)
-          signal1 = Tengine::Job::Signal.new(event1)
+          signal1 = Tengine::Job::Runtime::Signal.new(event1)
           jn0005_fjn = @root.element('/jn0005/finally/jn0005_fjn')
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [jn0005_fjn.id.to_s],
@@ -916,7 +916,7 @@ describe "reset" do
         it "jn0005/finally内がリセットされる" do
           t1 = Time.now
           event1 = mock(:event, :occurred_at => t1)
-          signal1 = Tengine::Job::Signal.new(event1)
+          signal1 = Tengine::Job::Runtime::Signal.new(event1)
           finally = @root.element('/jn0005/finally')
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [finally.id.to_s],

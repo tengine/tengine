@@ -5,7 +5,7 @@ include Tengine::Core::SafeUpdatable
 driver :schedule_driver do
 
   on :'start.execution.job.tengine' do
-    exec = Tengine::Job::Signal.new(event).execution
+    exec = Tengine::Job::Runtime::Signal.new(event).execution
     name = exec.name_as_resource
     status = Tengine::Core::Schedule::SCHEDULED
     if exec.actual_base_timeout_alert && !exec.actual_base_timeout_alert.zero?
@@ -35,7 +35,7 @@ driver :schedule_driver do
     i = h["execution_id"]                or next
 
     orig = Tengine::Core::EventWrapper.new(Tengine::Core::Event.new(g)) # this object shall noe be persisted
-    exec = Tengine::Job::Signal.new(orig).execution
+    exec = Tengine::Job::Runtime::Signal.new(orig).execution
     name = exec.name_as_resource
     status = Tengine::Core::Schedule::SCHEDULED
     if exec.actual_base_timeout_alert && !exec.actual_base_timeout_alert.zero? && Tengine::Core::Schedule.where(event_type_name: "alert.execution.job.tengine", source_name: name).count.zero?
@@ -58,7 +58,7 @@ driver :schedule_driver do
   end
 
   on :'success.execution.job.tengine' do
-    name = Tengine::Job::Signal.new(event).execution.name_as_resource
+    name = Tengine::Job::Runtime::Signal.new(event).execution.name_as_resource
     Tengine::Core::Schedule.with(
       safe: safemode(Tengine::Core::Schedule.collection)
     ).where(
@@ -68,7 +68,7 @@ driver :schedule_driver do
   end
 
   on :'error.execution.job.tengine' do
-    name = Tengine::Job::Signal.new(event).execution.name_as_resource
+    name = Tengine::Job::Runtime::Signal.new(event).execution.name_as_resource
     Tengine::Core::Schedule.with(
       safe: safemode(Tengine::Core::Schedule.collection)
     ).where(
