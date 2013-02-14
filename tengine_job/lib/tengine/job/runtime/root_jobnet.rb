@@ -10,17 +10,16 @@ class Tengine::Job::Runtime::RootJobnet < Tengine::Job::Runtime::Jobnet
 
   def execute(options = {})
     event_sender = options.delete(:sender) || Tengine::Event.default_sender
-    actual = generate
-    actual.with(safe: safemode(actual.class.collection)).save!
+    with(safe: safemode(self.class.collection)).save! if new_record?
     result = Tengine::Job::Runtime::Execution.with(
                 safe: safemode(Tengine::Job::Runtime::Execution.collection)
              ).create!(
-               (options || {}).update(:root_jobnet_id => actual.id)
+               (options || {}).update(:root_jobnet_id => self.id)
              )
     event_sender.fire(:"start.execution.job.tengine", :properties => {
         :execution_id => result.id,
-        :root_jobnet_id => actual.id,
-        :target_jobnet_id => actual.id
+        :root_jobnet_id => self.id,
+        :target_jobnet_id => self.id
       })
     result
   end
