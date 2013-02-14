@@ -11,8 +11,8 @@ class Tengine::Job::Template::RootJobnet < Tengine::Job::Template::Jobnet
 
   belongs_to :category, inverse_of: nil, index: true, class_name: "Tengine::Job::Structure::Category"
 
-  def generate(klass = actual_class)
-    super(klass) do |r|
+  def generate(options = {})
+    super(options) do |r|
       r.template = self
     end
   end

@@ -99,12 +99,17 @@ class Tengine::Job::Template::Vertex
   def generating_children; self.children; end
   def generating_edges; respond_to?(:edges) ? self.edges : []; end
 
-  def generate(klass = actual_class)
-    result = klass.new(generating_attrs)
+  def generate(options = {})
+    options = {
+      class: actual_class,
+      child_index: 0
+    }.update(options || {})
+    klass = options[:class]
+    result = klass.new(generating_attrs.update(child_index: options[:child_index]))
     result.save!
     src_to_generated = {}
-    generating_children.each do |child|
-      generated = child.generate
+    generating_children.each.with_index do |child, index|
+      generated = child.generate(child_index: index + 1)
       src_to_generated[child.id] = generated.id
       result.children << generated
     end

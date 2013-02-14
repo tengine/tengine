@@ -11,10 +11,12 @@ class Tengine::Job::Runtime::Vertex
   include Tengine::Job::Structure::Visitor::Accepter
   include Tengine::Job::Runtime::Signal::Transmittable
 
+  field :child_index, type: Integer
+
   # self.cyclic = true
   with_options(class_name: self.name, foreign_key: "parent_id") do |c|
     c.belongs_to :parent  , inverse_of: :children
-    c.has_many   :children, inverse_of: :parent , :validate => false
+    c.has_many   :children, inverse_of: :parent , validate: false, order: {child_index: 1}
   end
 
   def template?; false; end

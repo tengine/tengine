@@ -7,12 +7,18 @@ describe Tengine::Job::Template::RootJobnet do
     context "rjn0001" do
       before do
         Tengine::Job::Template::Vertex.delete_all
+        Tengine::Job::Runtime::Vertex.delete_all
         builder = Rjn0001SimpleJobnetBuilder.new
         @jobnet = builder.create_template
         @ctx = builder.context
       end
 
       it "実行用ジョブネットを生成する" do
+        @jobnet.children[0].should be_a(Tengine::Job::Template::Start)
+        @jobnet.children[1].tap{|j| j.should be_a(Tengine::Job::Template::SshJob); j.name.should == "j11"}
+        @jobnet.children[2].tap{|j| j.should be_a(Tengine::Job::Template::SshJob); j.name.should == "j12"}
+        @jobnet.children[3].should be_a(Tengine::Job::Template::End)
+
         root = @jobnet.generate
         root.should be_a(Tengine::Job::Runtime::RootJobnet)
         root.children.length.should == 4
@@ -31,6 +37,7 @@ describe Tengine::Job::Template::RootJobnet do
     context "rjn0002" do
       before do
         Tengine::Job::Template::Vertex.delete_all
+        Tengine::Job::Runtime::Vertex.delete_all
         builder = Rjn0002SimpleParallelJobnetBuilder.new
         @jobnet = builder.create_template
         @ctx = builder.context
@@ -60,6 +67,7 @@ describe Tengine::Job::Template::RootJobnet do
     context "rjn0012" do
       before do
         Tengine::Job::Template::Vertex.delete_all
+        Tengine::Job::Runtime::Vertex.delete_all
         builder = Rjn0012NestedAndFinallyBuilder.new
         @jobnet = builder.create_template
         @ctx = builder.context
@@ -165,6 +173,7 @@ describe Tengine::Job::Template::RootJobnet do
 
     before do
       Tengine::Job::Template::Vertex.delete_all
+        Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @jobnet = builder.create_template
       @ctx = builder.context
