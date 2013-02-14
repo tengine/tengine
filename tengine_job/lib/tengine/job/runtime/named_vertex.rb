@@ -8,6 +8,13 @@ class Tengine::Job::Runtime::NamedVertex < Tengine::Job::Runtime::Vertex
 
   validates :name, :presence => true
 
+  # 楽観的ロックのためのバージョン。更新するたびにインクリメントされます。
+  # これはジョブネットや末端のSshJob毎にロックをかけられるようにしています。
+  include Tengine::Core::OptimisticLock
+  set_locking_field :version
+
+  field :version, :type => Integer, :default => 0
+
   # リソース識別子を返します
   def name_as_resource
     @name_as_resource ||= "job:#{Tengine::Event.host_name}/#{Process.pid.to_s}/#{root.id.to_s}/#{id.to_s}"
