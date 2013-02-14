@@ -5,7 +5,7 @@ require 'tengine/rspec'
 describe 'schedule_driver' do
   include Tengine::RSpec::Extension
 
-  target_dsl File.expand_path("../../../../lib/tengine/job/drivers/schedule_driver.rb", File.dirname(__FILE__))
+  target_dsl File.expand_path("../../../../lib/tengine/job/runtime/drivers/schedule_driver.rb", File.dirname(__FILE__))
   driver :schedule_driver
 
   context "rjn0001" do

@@ -25,7 +25,7 @@ describe "<BUG>tengindのプロセスを二つ起動した際に並列ジョブ�
   include Tengine::RSpec::Extension
   include NetSshMock
 
-  driver_path = File.expand_path("../../../../../lib/tengine/job/drivers/job_control_driver.rb", File.dirname(__FILE__))
+  driver_path = File.expand_path("../../../../../lib/tengine/job/runtime/drivers/job_control_driver.rb", File.dirname(__FILE__))
 
   # in [rjn0002]
   #              |--e2-->(j11)--e4-->|

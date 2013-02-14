@@ -5,7 +5,7 @@ require 'tengine/rspec'
 describe 'stop.jobnet.job.tengine' do
   include Tengine::RSpec::Extension
 
-  target_dsl File.expand_path("../../../../../lib/tengine/job/drivers/jobnet_control_driver.rb", File.dirname(__FILE__))
+  target_dsl File.expand_path("../../../../../lib/tengine/job/runtime/drivers/jobnet_control_driver.rb", File.dirname(__FILE__))
   driver :jobnet_control_driver
 
   context "rjn0011" do

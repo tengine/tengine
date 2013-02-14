@@ -6,7 +6,7 @@ describe 'job_control_driver' do
   include Tengine::RSpec::Extension
   include NetSshMock
 
-  target_dsl File.expand_path("../../../../../lib/tengine/job/drivers/job_control_driver.rb", File.dirname(__FILE__))
+  target_dsl File.expand_path("../../../../../lib/tengine/job/runtime/drivers/job_control_driver.rb", File.dirname(__FILE__))
   driver :job_control_driver
 
   shared_examples_for "/rjn0008/rjn0001/j11を実行する際の環境変数" do |dsl_version|

@@ -5,7 +5,7 @@ require 'tengine/rspec'
 describe 'job_execution_driver' do
   include Tengine::RSpec::Extension
 
-  target_dsl File.expand_path("../../../../lib/tengine/job/drivers/job_execution_driver.rb", File.dirname(__FILE__))
+  target_dsl File.expand_path("../../../../lib/tengine/job/runtime/drivers/job_execution_driver.rb", File.dirname(__FILE__))
   driver :job_execution_driver
 
   # in [rjn0001]

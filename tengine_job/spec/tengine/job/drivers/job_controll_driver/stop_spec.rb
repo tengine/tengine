@@ -8,7 +8,7 @@ describe "<BUG>(tengined複数起動)強制停止すると、ステータスが�
   include Tengine::RSpec::Extension
   include NetSshMock
 
-  driver_path = File.expand_path("../../../../../lib/tengine/job/drivers/job_control_driver.rb", File.dirname(__FILE__))
+  driver_path = File.expand_path("../../../../../lib/tengine/job/runtime/drivers/job_control_driver.rb", File.dirname(__FILE__))
 
   #
   # in [jn0004]

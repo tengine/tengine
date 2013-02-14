@@ -5,7 +5,7 @@ describe Tengine::Job::Runtime::Jobnet do
 
   include Tengine::RSpec::Extension
 
-  target_dsl File.expand_path("../../../../lib/tengine/job/drivers/job_control_driver.rb", File.dirname(__FILE__))
+  target_dsl File.expand_path("../../../../lib/tengine/job/runtime/drivers/job_control_driver.rb", File.dirname(__FILE__))
   driver :job_control_driver
 
   before do
