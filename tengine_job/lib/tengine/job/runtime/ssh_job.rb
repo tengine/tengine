@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 require 'tengine/job/runtime'
 
+require 'tengine/resource/net_ssh'
+
 # ルートジョブネットを他のジョブネット内に展開するための特殊なテンプレート用Vertex。
 class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
 
@@ -121,7 +123,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
       mm_env << ' ' << hadoop_job_env
     end
     result << "export #{mm_env}"
-    template_root = root_or_expansion.template
+    template_root = (parent ? root_or_expansion.template : nil)
     if template_root
       template_job = template_root.vertex_by_name_path(self.name_path_until_expansion)
       unless template_job
@@ -194,7 +196,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
     if estimated_end = execution.actual_estimated_end
       result["MM_SCHEDULE_ESTIMATED_END"] = estimated_end.strftime("%Y%m%d%H%M%S")
     end
-    if rjt = root.template
+    if rjt = (parent ? root.template : nil)
       t = rjt.find_descendant_by_name_path(self.name_path)
       unless t
         template_name_parts = self.name_path_until_expansion.split(Tengine::Job::NamePath::SEPARATOR).select{|s| !s.empty?}

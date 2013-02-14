@@ -103,7 +103,7 @@ describe Tengine::Job::Runtime::SshJob do
   describe :execute do
 
     it "終了コードを取得できる" do
-      j = Tengine::Job::Runtime::Jobnet.new(
+      j = Tengine::Job::Runtime::SshJob.new(
         :server_name => @server.name,
         :credential_name => @credential.name,
         :script => File.expand_path("tengine_job_test.sh", ssh_dir)
@@ -118,7 +118,7 @@ describe Tengine::Job::Runtime::SshJob do
 #       end
 
     it "https://www.pivotaltracker.com/story/show/22269461" do
-      j = Tengine::Job::Runtime::Jobnet.new(
+      j = Tengine::Job::Runtime::SshJob.new(
         :server_name => @server.name,
         :credential_name => @credential.name,
         :script => "echo \u{65e5}\u{672c}\u{8a9e}"
@@ -146,7 +146,7 @@ describe Tengine::Job::Runtime::SshJob do
       dir = File.expand_path("../../../..", __FILE__)
       text_path = "tmp/log/env.txt"
       script = "cd #{dir} && spec/tengine/job/script_executable/echo_env.sh #{text_path}"
-      j = Tengine::Job::Runtime::Jobnet.new(
+      j = Tengine::Job::Runtime::SshJob.new(
         :server_name => @server.name,
         :credential_name => @credential.name,
         :script => script
