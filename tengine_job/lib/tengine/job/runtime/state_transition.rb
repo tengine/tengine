@@ -23,8 +23,9 @@ module Tengine::Job::Runtime::StateTransition
         def #{method_name}(*args, &block)
           case self.phase_key
           when #{available_phase_keys.map(&:inspect).join(', ')} then
-            #{original_method}(*args, &block)
-            self.save!
+            update_with_lock do
+              #{original_method}(*args, &block)
+            end
           #{ignore_case}
           else
             raise Tengine::Job::Runtime::Executable::PhaseError, "\#{name_path} \#{self.class.name}##{method_name} not available when the phase_key of \#{self.name_path.inspect} is \#{self.phase_key.inspect}"

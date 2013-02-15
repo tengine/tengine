@@ -280,7 +280,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
         run(execution)
       rescue Tengine::Job::Runtime::SshJob::Error => e
         signal.callback = lambda do
-          fail(signal, :message => e.message)
+          self.fail(signal, :message => e.message)
         end
       end
     end

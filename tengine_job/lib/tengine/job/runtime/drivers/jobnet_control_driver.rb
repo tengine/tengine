@@ -18,14 +18,13 @@ driver :jobnet_control_driver do
 
   on :'start.jobnet.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
-    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
-    root_jobnet.update_with_lock do
       signal.reset
-      target_jobnet = root_jobnet.find_descendant(event[:target_jobnet_id]) || root_jobnet
+      target_jobnet =
+        Tengine::Job::Runtime::Jobnet.find(event[:target_jobnet_id]) ||
+        Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
       signal.with_paths_backup do
         target_jobnet.activate(signal)
       end
-    end
     signal.execution.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
@@ -40,25 +39,18 @@ driver :jobnet_control_driver do
     h = g["properties"]        or next
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
-    k = Tengine::Job::Runtime::RootJobnet.find(i) or next
-
-    k.update_with_lock do
-      l = k.find_descendant(j) || k
-      l.phase_key = :stuck
-    end
+    k = Tengine::Job::Runtime::NamedVertex.find(j) or next
+    k.update_with_lock{ k.phase_key = :stuck }
   end
 
   on :'success.job.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
-    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
-    root_jobnet.update_with_lock do
       signal.reset
-      target_job = root_jobnet.find_descendant(event[:target_job_id])
+      target_job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
       signal.with_paths_backup do
         edge = target_job.next_edges.first
         edge.transmit(signal)
       end
-    end
     # (*1)
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
@@ -74,26 +66,20 @@ driver :jobnet_control_driver do
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
     k = h["target_job_id"]     or next
-    l = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
     # 上記(*1)のポイントでtenginedが落ちた時のことを考えると、後続のエッ
     # ジはもうtransmitしているが送信すべきイベントが欠けている状態であ
     # るので、この場合このジョブがおかしくなっているというよりむしろジョ
     # ブネット全体がおかしくなっているというべきである。
-    l.update_with_lock do
-      m = l.find_descendant(j)  || l
-      n = m.find_descendant(k)
-      o = n.parent || n
-      o.phase_key = :stuck
-    end
+    l = Tengine::Job::Runtime::NamedVertex.find(k) or next
+    m = l.parent || l
+    m.update_with_lock{ m.phase_key = :stuck }
   end
 
   on :'error.job.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
-    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
-    root_jobnet.update_with_lock do
       signal.reset
-      target_job = root_jobnet.vertex(event[:target_job_id])
+      target_job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
       signal.with_paths_backup do
         edge = target_job.next_edges.first
         edge.close_followings
@@ -101,7 +87,6 @@ driver :jobnet_control_driver do
       end
       # target_jobnet = target_job.parent
       # target_jobnet.jobnet_fail(signal)
-    end
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
   end
@@ -116,24 +101,18 @@ driver :jobnet_control_driver do
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
     k = h["target_job_id"]     or next
-    l = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
     # 同上で、この場合このジョブがおかしくなっているというよりむしろジョ
     # ブネット全体がおかしくなっているというべきである。
-    l.update_with_lock do
-      m = l.find_descendant(j)  || l
-      n = m.find_descendant(k)
-      o = n.parent || n
-      o.phase_key = :stuck
-    end
+    l = Tengine::Job::Runtime::NamedVertex.find(k) or next
+    m = l.parent || l
+    m.update_with_lock{ m.phase_key = :stuck }
   end
 
   on :'success.jobnet.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
-    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
-    root_jobnet.update_with_lock do
       signal.reset
-      target_jobnet = root_jobnet.vertex(event[:target_jobnet_id])
+      target_jobnet = Tengine::Job::Runtime::Jobnet.find(event[:target_jobnet_id])
       signal.with_paths_backup do
         case target_jobnet.jobnet_type_key
         when :finally then
@@ -150,7 +129,6 @@ driver :jobnet_control_driver do
           end
         end
       end
-    end
     signal.execution.with(sage: safemode(Tengine::Job::Runtime::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
@@ -165,20 +143,17 @@ driver :jobnet_control_driver do
     h = g["properties"]        or next
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
-    k = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
-    k.update_with_lock do
-      l = k.find_descendant(j) || k
-      l.phase_key = :stuck
-    end
+    k = Tengine::Job::Runtime::NamedVertex.find(j) or next
+    k.update_with_lock{ k.phase_key = :stuck }
   end
 
   on :'error.jobnet.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
-    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
-    root_jobnet.update_with_lock do
       signal.reset
-      target_jobnet = root_jobnet.find_descendant(event[:target_jobnet_id]) || root_jobnet
+      target_jobnet =
+        Tengine::Job::Runtime::Jobnet.find(event[:target_jobnet_id]) ||
+        Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
       signal.with_paths_backup do
         case target_jobnet.jobnet_type_key
         when :finally then
@@ -195,7 +170,6 @@ driver :jobnet_control_driver do
       # if target_parent = target_jobnet.parent
       #   target_parent.end_vertex.transmit(signal)
       # end
-    end
     signal.execution.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
@@ -210,22 +184,18 @@ driver :jobnet_control_driver do
     h = g["properties"]        or next
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
-    k = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
-    k.update_with_lock do
-      l = k.find_descendant(j) || k
-      l.phase_key = :stuck
-    end
+    k = Tengine::Job::Runtime::NamedVertex.find(j) or next
+    k.update_with_lock{ k.phase_key = :stuck }
   end
 
   on :'stop.jobnet.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
-    root_jobnet = Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
-    root_jobnet.update_with_lock do
       signal.reset
-      target_jobnet = root_jobnet.find_descendant(event[:target_jobnet_id]) || root_jobnet
+      target_jobnet =
+        Tengine::Job::Runtime::Jobnet.find(event[:target_jobnet_id]) ||
+        Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
       target_jobnet.stop(signal)
-    end
     signal.reservations.each{|r| fire(*r.fire_args) }
     submit
   end
@@ -239,11 +209,8 @@ driver :jobnet_control_driver do
     h = g["properties"]        or next
     i = h["root_jobnet_id"]    or next
     j = h["target_jobnet_id"]  or next
-    k = Tengine::Job::Runtime::RootJobnet.find(i) or next
 
-    k.update_with_lock do
-      l = k.find_descendant(j) || k
-      l.phase_key = :stuck
-    end
+    k = Tengine::Job::Runtime::NamedVertex.find(j) or next
+    k.update_with_lock{ k.phase_key = :stuck }
   end
 end
