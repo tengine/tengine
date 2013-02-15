@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 [
- :'start.job.job.tengine',
- :'stop.job.job.tengine',
- :'finished.process.job.tengine',
- :'expired.job.heartbeat.tengine',
- :'restart.job.job.tengine',
+  :'start.job.job.tengine',
+  :'stop.job.job.tengine',
+  :'finished.process.job.tengine',
+  :'expired.job.heartbeat.tengine',
+  :'restart.job.job.tengine',
 ].each do |i|
   ack_policy :after_all_handler_submit, i
 end
@@ -16,11 +16,11 @@ driver :job_control_driver do
 
   on :'start.job.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
-      signal.reset
-      target_job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
-      signal.with_paths_backup do
-        target_job.activate(signal) # transmitは既にされているはず。
-      end
+    signal.reset
+    target_job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
+    signal.with_paths_backup do
+      target_job.activate(signal) # transmitは既にされているはず。
+    end
     if signal.callback
       block, signal.callback = signal.callback, nil
       block.call
@@ -48,11 +48,11 @@ driver :job_control_driver do
 
   on :'stop.job.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
-      signal.reset
-      target_job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
-      signal.with_paths_backup do
-        target_job.stop(signal)
-      end
+    signal.reset
+    target_job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
+    signal.with_paths_backup do
+      target_job.stop(signal)
+    end
     if signal.callback
       block, signal.callback = signal.callback, nil
       block.call
@@ -78,9 +78,9 @@ driver :job_control_driver do
   on :'finished.process.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
     # finish
-      signal.reset
-      job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
-      job.finish(signal) unless job.phase_key == :stuck
+    signal.reset
+    job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
+    job.finish(signal) unless job.phase_key == :stuck
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
   end
@@ -122,10 +122,10 @@ driver :job_control_driver do
   on :'restart.job.job.tengine' do
     begin
       signal = Tengine::Job::Runtime::Signal.new(event)
-        signal.reset
-        job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
-        job.reset(signal)
-        job.transmit(signal)
+      signal.reset
+      job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
+      job.reset(signal)
+      job.transmit(signal)
       signal.reservations.each{|r| fire(*r.fire_args)}
     ensure
       submit

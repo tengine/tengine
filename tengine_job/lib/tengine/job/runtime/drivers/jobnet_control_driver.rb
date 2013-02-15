@@ -2,12 +2,12 @@
 include Tengine::Core::SafeUpdatable
 
 [
- :'start.jobnet.job.tengine',
- :'success.job.job.tengine',
- :'error.job.job.tengine',
- :'success.jobnet.job.tengine',
- :'error.jobnet.job.tengine',
- :'stop.jobnet.job.tengine',
+  :'start.jobnet.job.tengine',
+  :'success.job.job.tengine',
+  :'error.job.job.tengine',
+  :'success.jobnet.job.tengine',
+  :'error.jobnet.job.tengine',
+  :'stop.jobnet.job.tengine',
 ].each do |i|
   ack_policy :after_all_handler_submit, i
 end
@@ -18,13 +18,13 @@ driver :jobnet_control_driver do
 
   on :'start.jobnet.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
-      signal.reset
-      target_jobnet =
-        Tengine::Job::Runtime::Jobnet.find(event[:target_jobnet_id]) ||
-        Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
-      signal.with_paths_backup do
-        target_jobnet.activate(signal)
-      end
+    signal.reset
+    target_jobnet =
+      Tengine::Job::Runtime::Jobnet.find(event[:target_jobnet_id]) ||
+    Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
+    signal.with_paths_backup do
+      target_jobnet.activate(signal)
+    end
     signal.execution.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
@@ -45,12 +45,12 @@ driver :jobnet_control_driver do
 
   on :'success.job.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
-      signal.reset
-      target_job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
-      signal.with_paths_backup do
-        edge = target_job.next_edges.first
-        edge.transmit(signal)
-      end
+    signal.reset
+    target_job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
+    signal.with_paths_backup do
+      edge = target_job.next_edges.first
+      edge.transmit(signal)
+    end
     # (*1)
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
@@ -78,15 +78,15 @@ driver :jobnet_control_driver do
 
   on :'error.job.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
-      signal.reset
-      target_job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
-      signal.with_paths_backup do
-        edge = target_job.next_edges.first
-        edge.close_followings
-        edge.transmit(signal)
-      end
-      # target_jobnet = target_job.parent
-      # target_jobnet.jobnet_fail(signal)
+    signal.reset
+    target_job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
+    signal.with_paths_backup do
+      edge = target_job.next_edges.first
+      edge.close_followings
+      edge.transmit(signal)
+    end
+    # target_jobnet = target_job.parent
+    # target_jobnet.jobnet_fail(signal)
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
   end
@@ -111,24 +111,24 @@ driver :jobnet_control_driver do
 
   on :'success.jobnet.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
-      signal.reset
-      target_jobnet = Tengine::Job::Runtime::Jobnet.find(event[:target_jobnet_id])
-      signal.with_paths_backup do
-        case target_jobnet.jobnet_type_key
-        when :finally then
-          parent = target_jobnet.parent
-          edge = parent.end_vertex.prev_edges.first
-          (edge.closed? || edge.closing?) ?
-            parent.fail(signal) :
-            parent.succeed(signal)
+    signal.reset
+    target_jobnet = Tengine::Job::Runtime::Jobnet.find(event[:target_jobnet_id])
+    signal.with_paths_backup do
+      case target_jobnet.jobnet_type_key
+      when :finally then
+        parent = target_jobnet.parent
+        edge = parent.end_vertex.prev_edges.first
+        (edge.closed? || edge.closing?) ?
+        parent.fail(signal) :
+          parent.succeed(signal)
+      else
+        if edge = (target_jobnet.next_edges || []).first
+          edge.transmit(signal)
         else
-          if edge = (target_jobnet.next_edges || []).first
-            edge.transmit(signal)
-          else
-            (target_jobnet.parent || signal.execution).succeed(signal)
-          end
+          (target_jobnet.parent || signal.execution).succeed(signal)
         end
       end
+    end
     signal.execution.with(sage: safemode(Tengine::Job::Runtime::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
@@ -150,26 +150,26 @@ driver :jobnet_control_driver do
 
   on :'error.jobnet.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
-      signal.reset
-      target_jobnet =
-        Tengine::Job::Runtime::Jobnet.find(event[:target_jobnet_id]) ||
-        Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
-      signal.with_paths_backup do
-        case target_jobnet.jobnet_type_key
-        when :finally then
-          target_jobnet.parent.fail(signal)
+    signal.reset
+    target_jobnet =
+      Tengine::Job::Runtime::Jobnet.find(event[:target_jobnet_id]) ||
+      Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
+    signal.with_paths_backup do
+      case target_jobnet.jobnet_type_key
+      when :finally then
+        target_jobnet.parent.fail(signal)
+      else
+        if edge = (target_jobnet.next_edges || []).first
+          edge.close_followings
+          edge.transmit(signal)
         else
-          if edge = (target_jobnet.next_edges || []).first
-            edge.close_followings
-            edge.transmit(signal)
-          else
-            (target_jobnet.parent || signal.execution).fail(signal)
-          end
+          (target_jobnet.parent || signal.execution).fail(signal)
         end
       end
-      # if target_parent = target_jobnet.parent
-      #   target_parent.end_vertex.transmit(signal)
-      # end
+    end
+    # if target_parent = target_jobnet.parent
+    #   target_parent.end_vertex.transmit(signal)
+    # end
     signal.execution.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
@@ -191,11 +191,11 @@ driver :jobnet_control_driver do
 
   on :'stop.jobnet.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
-      signal.reset
-      target_jobnet =
-        Tengine::Job::Runtime::Jobnet.find(event[:target_jobnet_id]) ||
-        Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
-      target_jobnet.stop(signal)
+    signal.reset
+    target_jobnet =
+      Tengine::Job::Runtime::Jobnet.find(event[:target_jobnet_id]) ||
+      Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
+    target_jobnet.stop(signal)
     signal.reservations.each{|r| fire(*r.fire_args) }
     submit
   end
