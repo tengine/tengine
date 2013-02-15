@@ -80,7 +80,12 @@ class Tengine::Job::Runtime::Edge
       puts "#{object_id} #{inspect}"
       puts "#{owner.object_id} #{owner.inspect}"
 
+puts "c" * 100
+puts "#{object_id} #{inspect}"
+puts caller[0, 20].join("\n  ")
+
 # binding.pry
+
       self.phase_key = :closed
       signal.paths << self
       signal.with_paths_backup do
@@ -121,6 +126,8 @@ class Tengine::Job::Runtime::Edge
     case phase_key
     when :active, :suspended, :keeping, :transmitting then
       self.phase_key = :closing
+    else
+      $stderr.puts "#{object_id} #{inspect} wasn't closed"
     end
   end
 
@@ -139,7 +146,7 @@ class Tengine::Job::Runtime::Edge
       closing_edges = self.close_followings(signal, dry_run: true)
       closing_edges.each do |e|
         next unless e.owner.id == jobnet.id
-        je = signal.cache(jobnet.edges.detect{|je| je.id == e.id}) # jobnet単位で保存するので、jobnetオブエジェクトに紐付けられたものを見つける
+        je = signal.cache(e) # jobnet単位で保存するので、jobnetオブエジェクトに紐付けられたものを見つける
         je.close(nil)
         closed_edges << e
       end
