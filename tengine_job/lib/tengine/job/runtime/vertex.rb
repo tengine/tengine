@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 require 'tengine/job/runtime'
 
-# Edgeとともにジョブネットを構成するグラフの「頂点」を表すモデル
-# 自身がツリー構造を
+# Edgeとともにジョブネットを構成するグラフの「頂点」を表すモデルです。
+# このクラスだけでツリー構造を作ることができますが、ほぼ抽象クラスであり実際には
+# 派生クラスのオブジェクトによってツリー構造が作られます。
 class Tengine::Job::Runtime::Vertex
   include Mongoid::Document
   include Mongoid::Timestamps
