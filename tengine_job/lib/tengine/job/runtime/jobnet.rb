@@ -137,9 +137,12 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
   # ハンドリングするドライバ: ジョブネット制御ドライバ
   # このackは、子要素のTengine::Job::End#activateから呼ばれます
   def finish(signal)
-    edge = end_vertex.prev_edges.first
+
+    Tengine.logger.info("#{__FILE__}##{__LINE__} #{self.class}#finish")
+
+    edge = signal.cache(end_vertex.prev_edges).first
     edge.closed? ?
-    fail(signal) :
+    self.fail(signal) :
       succeed(signal)
   end
 
@@ -156,7 +159,9 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
 
   # ハンドリングするドライバ: ジョブネット制御ドライバ
   def fail(signal)
-    return if self.edges.any?(&:alive?)
+    Tengine.logger.info("#{__FILE__}##{__LINE__} #{self.class}#fail")
+
+    return if signal.cache(self.edges).any?(&:alive?)
     self.phase_key = :error
     self.finished_at = signal.event.occurred_at
     signal.fire(self, :"error.jobnet.job.tengine", {
@@ -187,7 +192,7 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
   available :stop, :on => [:initialized, :ready, :starting, :running], :ignored => [:dying, :success, :error, :stuck]
 
   def close(signal)
-    self.edges.each{|edge| edge.close(signal)}
+    self.edges.each{|edge| signal.cache(edge).close(signal)}
   end
 
 
@@ -197,7 +202,7 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
     if s = start_vertex
       s.reset(signal)
     end
-    if edge = (next_edges || []).first
+    if edge = signal.cache((next_edges || [])).first
       edge.reset(signal)
     end
   rescue Exception => e
@@ -247,6 +252,9 @@ class Tengine::Job::Runtime::End < Tengine::Job::Runtime::Vertex
   end
 
   def reset(signal)
+
+    Tengine.logger.info("#{__FILE__}##{__LINE__} #{self.class}#reset")
+
     parent = self.parent # Endのparentであるジョブネット
     if signal.execution.in_scope?(parent)
       if f = parent.finally_vertex

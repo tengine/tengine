@@ -25,10 +25,48 @@ class Tengine::Job::Runtime::Signal
   end
 
   def reset
+    @cache = {}
     @paths = []
     @reservations = []
     @data = nil
     @callback = nil
+  end
+
+  def remember(obj)
+    if obj.is_a?(Array)
+      obj.each{|o| remember(o)}
+    else
+      return nil if obj.nil?
+      key = [obj.class.name, obj.id.to_s]
+      @cache[key] = obj
+    end
+    obj
+  end
+
+  def cache(*args)
+    case args.length
+    when 1 then
+      obj = args.first
+      return nil if obj.nil?
+      if obj.is_a?(Array)
+        obj.map{|o| cache(o)}
+      else
+        cache(obj.class, obj.id) || remember(obj)
+      end
+    when 2 then
+      klass, id = *args
+      key = [klass.is_a?(Class) ? klass.name : klass.to_s, id.to_s]
+      @cache[key]
+    else
+      raise ArgumentError, "#{self.class.name}#cache requires 1 or 2 arguments"
+    end
+  end
+
+  def cache_list
+    puts "-" * 100
+    @cache.each do |key, obj|
+      puts "#{obj.object_id} #{key.inspect} #{obj.inspect}"
+    end
   end
 
   def execution
@@ -39,10 +77,11 @@ class Tengine::Job::Runtime::Signal
     @paths << obj
     begin
       if obj.is_a?(Tengine::Job::Runtime::Edge)
-        obj.destination.send(action, self)
+        cache(obj.destination).send(action, self)
       elsif obj.is_a?(Tengine::Job::Runtime::Vertex)
         obj.next_edges.each do |edge|
-          with_paths_backup{ edge.send(action, self) }
+          cache_list
+          with_paths_backup{ cache(edge).send(action, self) }
         end
       else
         raise Tengine::Job::Runtime::Signal::Error, "leaving unsupported object: #{obj.inspect}"
@@ -106,8 +145,8 @@ class Tengine::Job::Runtime::Signal
     def activate(signal); raise NotImplementedError; end
 
     def complete_origin_edge(signal, options = {})
-      origin_edge = signal.paths.last
-      origin_edge ||= prev_edges.first
+      origin_edge = signal.cache(signal.paths.last)
+      origin_edge ||= signal.cache(prev_edges.first)
       begin
         return if options[:except_closed] && origin_edge.closed?
         origin_edge.complete(signal)

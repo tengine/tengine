@@ -59,7 +59,7 @@ class Tengine::Job::Runtime::Edge
   end
 
   def inspect
-    "#<#{self.class.name} #{name_for_message}>"
+    "#<#{self.class.name} #{phase_key.inspect} #{name_for_message}>"
   end
 
   # https://cacoo.com/diagrams/hdLgrzYsTBBpV3Wj#3E9EA
@@ -76,11 +76,16 @@ class Tengine::Job::Runtime::Edge
     when :suspended then
       self.phase_key = :keeping
     when :closing then
+      puts "c" * 100
+      puts "#{object_id} #{inspect}"
+      puts "#{owner.object_id} #{owner.inspect}"
+
+# binding.pry
       self.phase_key = :closed
       signal.paths << self
       signal.with_paths_backup do
         if destination.is_a?(Tengine::Job::Runtime::NamedVertex)
-          destination.next_edges.first.transmit(signal)
+          signal.cache(destination.next_edges.first).transmit(signal)
         else
           signal.leave(self)
         end
@@ -119,8 +124,29 @@ class Tengine::Job::Runtime::Edge
     end
   end
 
-  def close_followings
-    accept_visitor(Tengine::Job::Runtime::Edge::Closer.new)
+  def close_followings(signal, options = {})
+    v = Tengine::Job::Runtime::Edge::Closer.new(signal, options)
+    accept_visitor(v)
+    v.closed_edges
+  end
+
+  # ownerのupdate_with_lockを使っています。
+  def close_followings_and_trasmit(signal)
+    jobnet = signal.cache(self.owner)
+    closing_edges = nil
+    closed_edges = []
+    jobnet.update_with_lock do
+      closing_edges = self.close_followings(signal, dry_run: true)
+      closing_edges.each do |e|
+        next unless e.owner.id == jobnet.id
+        je = signal.cache(jobnet.edges.detect{|je| je.id == e.id}) # jobnet単位で保存するので、jobnetオブエジェクトに紐付けられたものを見つける
+        je.close(nil)
+        closed_edges << e
+      end
+      # jobnetオブジェクトのedgesに含まれないエッジについては、そのowner毎にまとめて保存する
+      self.transmit(signal)
+    end
+    (closing_edges - closed_edges).map(&:owner).uniq.each(&:save!)
   end
 
   def phase_key=(phase_key)
@@ -129,7 +155,20 @@ class Tengine::Job::Runtime::Edge
   end
 
   class Closer
+    attr_reader :closed_edges
+    def initialize(signal, options = {})
+      @signal = signal
+      @dry_run = options[:dry_run]
+      @closed_edges = []
+    end
+
+    def close(edge)
+      edge.close(nil) unless @dry_run
+      @closed_edges << edge
+    end
+
     def visit(obj)
+      @signal.remember(obj)
       if obj.is_a?(Tengine::Job::Runtime::End)
         if parent = obj.parent
           (parent.next_edges || []).each{|edge| edge.accept_visitor(self)}
@@ -137,8 +176,8 @@ class Tengine::Job::Runtime::Edge
       elsif obj.is_a?(Tengine::Job::Runtime::Vertex)
         obj.next_edges.each{|edge| edge.accept_visitor(self)}
       elsif obj.is_a?(Tengine::Job::Runtime::Edge)
-        obj.close(nil)
-        obj.destination.accept_visitor(self)
+        close(obj)
+        @signal.cache(obj.destination).accept_visitor(self)
       else
         raise "Unsupported class #{obj.inspect}"
       end

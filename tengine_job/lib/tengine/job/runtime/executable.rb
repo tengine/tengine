@@ -28,14 +28,13 @@ module Tengine::Job::Runtime::Executable
     end
 
     def phase_key=(phase_key)
-      element_type = nil
-      case self.class
-      when Tengine::Job::Runtime::Execution then element_type = "execution"
-      when Tengine::Job::Runtime::RootJobnet then element_type = "root_jobnet"
-      when Tengine::Job::Runtime::Jobnet then
-        element_type = self.script_executable? ? "job" :
-          self.jobnet_type_key == :normal ?  "jobnet" : self.jobnet_type_name
-      end
+      element_type =
+        case self.class
+        when Tengine::Job::Runtime::Execution  then "execution"
+        when Tengine::Job::Runtime::RootJobnet then "root_jobnet"
+        when Tengine::Job::Runtime::Jobnet     then self.jobnet_type_key == :normal ?  "jobnet" : self.jobnet_type_name
+        when Tengine::Job::Runtime::SshJob     then "job"
+        end
       Tengine.logger.debug("#{element_type} phase changed. <#{ self.id.to_s}> #{self.phase_name} -> #{ self.class.phase_name_by_key(phase_key)}")
       self.write_attribute(:phase_cd, self.class.phase_id_by_key(phase_key))
     end

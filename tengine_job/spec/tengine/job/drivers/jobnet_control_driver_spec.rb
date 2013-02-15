@@ -250,13 +250,13 @@ describe 'job_control_driver' do
         @ctx[:e1].phase_key = :transmitted
         @ctx[:e2].phase_key = :transmitted
         @ctx[:e3].phase_key = :transmitted
-        @ctx[:j11].phase_key = :running
-        @ctx[:j12].phase_key = :running
+        @ctx[:j11].update_phase! :running
+        @ctx[:j12].update_phase! :running
         @root.save!
       end
 
       it "成功した場合" do
-        @ctx[:j11].phase_key = :success
+        @ctx[:j11].update_phase! :success
         @root.save!
         tengine.should_not_fire
         tengine.receive("success.job.job.tengine", :properties => {
@@ -271,7 +271,7 @@ describe 'job_control_driver' do
       end
 
       it "失敗した場合" do
-        @ctx[:j11].phase_key = :error
+        @ctx[:j11].update_phase! :error
         @root.save!
         tengine.should_not_fire
         tengine.receive("error.job.job.tengine", :properties => {
@@ -294,14 +294,14 @@ describe 'job_control_driver' do
           @ctx[:e2].phase_key = :transmitted
           @ctx[:e3].phase_key = :transmitted
           @ctx[:e4].phase_key = :transmitted
-          @ctx[:j11].phase_key = :success
-          @ctx[:j12].phase_key = :running
+          @ctx[:j11].update_phase! :success
+          @ctx[:j12].update_phase! :running
           @root.save!
         end
 
         it "成功した場合" do
-          @ctx[:j12].phase_key = :success
-          @root.save!
+          @ctx[:j12].update_phase! :success
+          # @root.save!
           tengine.should_fire(:"success.jobnet.job.tengine",
             :source_name => @root.name_as_resource,
             :properties => @base_props)
@@ -316,8 +316,8 @@ describe 'job_control_driver' do
         end
 
         it "失敗した場合" do
-          @ctx[:j12].phase_key = :error
-          @root.save!
+          @ctx[:j12].update_phase! :error
+          # @root.save!
           tengine.should_fire(:"error.jobnet.job.tengine",
             :source_name => @root.name_as_resource,
             :properties => @base_props)
@@ -341,14 +341,14 @@ describe 'job_control_driver' do
           @ctx[:e4].phase_key = :closed
           @ctx[:e5].phase_key = :active
           @ctx[:e6].phase_key = :closing
-          @ctx[:j11].phase_key = :error
-          @ctx[:j12].phase_key = :running
+          @ctx[:j11].update_phase! :error
+          @ctx[:j12].update_phase! :running
           @root.save!
         end
 
         it "成功した場合" do
-          @ctx[:j12].phase_key = :success
-          @root.save!
+          @ctx[:j12].update_phase! :success
+          # @root.save!
           tengine.should_fire(:"error.jobnet.job.tengine",
             :source_name => @root.name_as_resource,
             :properties => @base_props)
@@ -364,8 +364,8 @@ describe 'job_control_driver' do
 
 
         it "失敗した場合" do
-          @ctx[:j12].phase_key = :error
-          @root.save!
+          @ctx[:j12].update_phase! :error
+          # @root.save!
           tengine.should_fire(:"error.jobnet.job.tengine",
             :source_name => @root.name_as_resource,
             :properties => @base_props)
@@ -422,19 +422,21 @@ describe 'job_control_driver' do
           @ctx[:e1].phase_key = :transmitted
           @ctx[:e2].phase_key = :transmitted
           @ctx[:e3].phase_key = :transmitted
-          @ctx[:j11].phase_key = :running
-          @ctx[:j12].phase_key = :running
-          @ctx[:j13].phase_key = :ready
+          @ctx[:j11].update_phase! :running
+          @ctx[:j12].update_phase! :running
+          @ctx[:j13].update_phase! :ready
           @root.save!
         end
 
         it do
           # j12が成功したという、finished.job.job.tengineイベントが投げられて、j13のstart.job.job.tengineが受信されるまでの間に、
-          @ctx[:j12].phase_key = :success
-          @ctx[:e5].phase_key = :active
+          @ctx[:j12].update_phase! :success
           # j11が失敗したという finished.job.job.tengineイベントが受信された場合
-          @ctx[:j11].phase_key = :error
+          @ctx[:j11].update_phase! :error
+
+          @ctx[:e5].phase_key = :active
           @root.save!
+
           tengine.should_not_fire # j13が動いていないので、e5,e6はactiveなので、ジョブネットは終了しません。
           tengine.receive("error.job.job.tengine", :properties => {
               :target_job_id => @ctx[:j11].id.to_s,
@@ -570,7 +572,6 @@ describe 'job_control_driver' do
     end
   end
 
-  
   %w[
     success.jobnet.job.tengine.failed.tengined
     error.jobnet.job.tengine.failed.tengined

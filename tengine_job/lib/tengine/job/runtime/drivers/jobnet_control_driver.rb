@@ -80,10 +80,14 @@ driver :jobnet_control_driver do
     signal = Tengine::Job::Runtime::Signal.new(event)
     signal.reset
     target_job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
+    signal.remember(target_job)
     signal.with_paths_backup do
       edge = target_job.next_edges.first
-      edge.close_followings
-      edge.transmit(signal)
+      signal.remember(edge)
+      signal.remember(edge.owner)
+      signal.remember(edge.owner.edges)
+      # signal.cache_list
+      edge.close_followings_and_trasmit(signal)
     end
     # target_jobnet = target_job.parent
     # target_jobnet.jobnet_fail(signal)
@@ -160,8 +164,7 @@ driver :jobnet_control_driver do
         target_jobnet.parent.fail(signal)
       else
         if edge = (target_jobnet.next_edges || []).first
-          edge.close_followings
-          edge.transmit(signal)
+          edge.close_followings_and_trasmit(signal)
         else
           (target_jobnet.parent || signal.execution).fail(signal)
         end

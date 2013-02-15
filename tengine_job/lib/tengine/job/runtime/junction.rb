@@ -11,7 +11,9 @@ class Tengine::Job::Runtime::Junction < Tengine::Job::Runtime::Vertex
     # activate(signal) if prev_edges.all?(&:transmitted?)
     execution = signal.execution
     predicate = execution.retry ? :alive_or_closing_or_closed? : :alive_or_closing?
-    activate(signal) unless prev_edges.any?(&predicate)
+    unless signal.cache(prev_edges).any?(&predicate)
+      activate(signal)
+    end
   end
 
   def activatable?
@@ -19,6 +21,9 @@ class Tengine::Job::Runtime::Junction < Tengine::Job::Runtime::Vertex
   end
 
   def activate(signal)
+    puts "a" * 100
+    puts "#{object_id} #{inspect}"
+    puts "#{signal.cache(parent).object_id} #{signal.cache(parent).inspect}"
     signal.leave(self)
   end
 
