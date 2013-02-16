@@ -51,7 +51,10 @@ module Tengine::Job::Runtime::Executable
       end
     end
 
-    def update_phase!(phase_key)
+    def update_phase!(phase_key, attrs = {})
+      attrs.each do |key, value|
+        self.send("#{key}=", value)
+      end
       self.phase_key = phase_key
       self.save!
     end
