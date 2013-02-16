@@ -75,6 +75,7 @@ describe 'stop.jobnet.job.tengine' do
             before do
               @ctx[:j1121].tap{|j| j.update_phase! j1121_phase_key}
               [:e10].each{|name| @ctx[name].phase_key = e10_phase_key}
+              @ctx[:j1120].save! # e10の変更を保存
               @root.save!
             end
 
