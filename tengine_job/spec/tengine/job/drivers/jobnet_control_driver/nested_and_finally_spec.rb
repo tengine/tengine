@@ -55,13 +55,13 @@ describe 'jobnet_control_driver' do
 
     context "j1100が終了して" do
       it "j1100が成功した場合、j1200を実行するイベントが発火される" do
-        @root.phase_key = :running
-        @ctx.vertex(:j1000).phase_key = :running
-        @ctx.vertex(:j1100).phase_key = :success
-        @ctx.vertex(:j1110).phase_key = :success
-        @ctx.vertex(:j1200).phase_key = :initialized
-        @ctx.vertex(:j1000).finally_vertex.phase_key = :initialized
         [:e1, :e4, :e7, :e8].each{|name| @ctx.edge(name).phase_key = :transmitted}
+        @root.phase_key = :running
+        @ctx.vertex(:j1000).update_phase! :running
+        @ctx.vertex(:j1100).update_phase! :success
+        @ctx.vertex(:j1110).update_phase! :success
+        @ctx.vertex(:j1200).update_phase! :initialized
+        @ctx.vertex(:j1000).finally_vertex.update_phase! :initialized
         @root.save!
         tengine.should_fire(:"start.jobnet.job.tengine",
           :source_name => @ctx[:j1200].name_as_resource,
@@ -83,15 +83,15 @@ describe 'jobnet_control_driver' do
       end
 
       it "j1100が失敗した場合、j1200ではなく、j1f00が実行するイベントが発火される" do
-        @root.phase_key = :running
-        @ctx.vertex(:j1000).phase_key = :running
-        @ctx.vertex(:j1100).phase_key = :error
-        @ctx.vertex(:j1110).phase_key = :error
-        @ctx.vertex(:j1200).phase_key = :initialized
-        @ctx.vertex(:j1000).finally_vertex.phase_key = :initialized
         [:e1, :e4, :e7].each{ |name| @ctx.edge(name).phase_key = :transmitted}
         [:e8          ].each{ |name| @ctx.edge(name).phase_key = :closed     }
         [:e5, :e6     ].each{ |name| @ctx.edge(name).phase_key = :active     }
+        @root.phase_key = :running
+        @ctx.vertex(:j1000).update_phase! :running
+        @ctx.vertex(:j1100).update_phase! :error
+        @ctx.vertex(:j1110).update_phase! :error
+        @ctx.vertex(:j1200).update_phase! :initialized
+        @ctx.vertex(:j1000).finally_vertex.update_phase! :initialized
         @root.save!
         tengine.should_fire(:"start.jobnet.job.tengine",
           :source_name => @ctx[:j1000].finally_vertex.name_as_resource,
@@ -116,15 +116,15 @@ describe 'jobnet_control_driver' do
 
     context "j1200が終了して、j1f00が実行される" do
       it "j1200が成功した場合、j1f00が実行するイベントが発火される" do
-        @root.phase_key = :running
-        @ctx.vertex(:j1000).phase_key = :running
-        @ctx.vertex(:j1100).phase_key = :success
-        @ctx.vertex(:j1110).phase_key = :success
-        @ctx.vertex(:j1200).phase_key = :success
-        @ctx.vertex(:j1210).phase_key = :success
-        @ctx.vertex(:j1000).finally_vertex.phase_key = :initialized
         [:e1, :e4, :e5, :e7, :e8, :e9, :e10].each{|name| @ctx.edge(name).phase_key = :transmitted}
         [:e2, :e3, :e6,                    ].each{|name| @ctx.edge(name).phase_key = :active     }
+        @root.phase_key = :running
+        @ctx.vertex(:j1000).update_phase! :running
+        @ctx.vertex(:j1100).update_phase! :success
+        @ctx.vertex(:j1110).update_phase! :success
+        @ctx.vertex(:j1200).update_phase! :success
+        @ctx.vertex(:j1210).update_phase! :success
+        @ctx.vertex(:j1000).finally_vertex.update_phase! :initialized
         @root.save!
         tengine.should_fire(:"start.jobnet.job.tengine",
           :source_name => @ctx[:j1000].finally_vertex.name_as_resource,
@@ -147,15 +147,15 @@ describe 'jobnet_control_driver' do
       end
 
       it "j1200が失敗した場合、j1f00が実行するイベントが発火される" do
-        @root.phase_key = :running
-        @ctx.vertex(:j1000).phase_key = :running
-        @ctx.vertex(:j1100).phase_key = :success
-        @ctx.vertex(:j1110).phase_key = :success
-        @ctx.vertex(:j1200).phase_key = :error
-        @ctx.vertex(:j1210).phase_key = :error
-        @ctx.vertex(:j1000).finally_vertex.phase_key = :initialized
         [:e1, :e4, :e5, :e7, :e8, :e9].each{|name| @ctx.edge(name).phase_key = :transmitted}
         [:e10                        ].each{|name| @ctx.edge(name).phase_key = :closed     }
+        @root.phase_key = :running
+        @ctx.vertex(:j1000).update_phase! :running
+        @ctx.vertex(:j1100).update_phase! :success
+        @ctx.vertex(:j1110).update_phase! :success
+        @ctx.vertex(:j1200).update_phase! :error
+        @ctx.vertex(:j1210).update_phase! :error
+        @ctx.vertex(:j1000).finally_vertex.update_phase! :initialized
         @root.save!
         tengine.should_fire(:"start.jobnet.job.tengine",
           :source_name => @ctx[:j1000].finally_vertex.name_as_resource,
@@ -182,18 +182,19 @@ describe 'jobnet_control_driver' do
 
     context "j1f00が終了" do
       it "j1f00が成功した場合" do
-        @root.phase_key = :running
-        @ctx.vertex(:j1000).phase_key = :running
-        @ctx.vertex(:j1100).phase_key = :success
-        @ctx.vertex(:j1110).phase_key = :success
-        @ctx.vertex(:j1200).phase_key = :success
-        @ctx.vertex(:j1210).phase_key = :success
-        @ctx.vertex(:j1000).finally_vertex.phase_key = :success
-        @ctx.vertex(:j1000).finally_vertex.finally_vertex.phase_key = :success
-        @ctx.vertex(:j1ff1).phase_key = :success
         [:e2, :e3, :e17, :e18, :e19, :e20].each{|name| @ctx.edge(name).phase_key = :active     }
         [:e1, :e4, :e5, :e6, :e7, :e8, :e9, :e10, :e11, :e12, :e13, :e14, :e15, :e16].
           each{|name| @ctx.edge(name).phase_key = :transmitted}
+        @root.phase_key = :running
+        @ctx.vertex(:j1000).update_phase! :running
+        @ctx.vertex(:j1100).update_phase! :success
+        @ctx.vertex(:j1110).update_phase! :success
+        @ctx.vertex(:j1200).update_phase! :success
+        @ctx.vertex(:j1210).update_phase! :success
+        @ctx.vertex(:j1000).finally_vertex.update_phase! :success
+        @ctx.vertex(:j1f10).save!
+        @ctx.vertex(:j1000).finally_vertex.finally_vertex.update_phase! :success
+        @ctx.vertex(:j1ff1).update_phase! :success
         @root.save!
         tengine.should_fire(:"success.jobnet.job.tengine",
           :source_name => @ctx[:j1000].name_as_resource,
@@ -209,7 +210,7 @@ describe 'jobnet_control_driver' do
         @root.reload
         [:e2, :e3, :e17, :e18, :e19, :e20].each{|name| @ctx.edge(name).phase_key.should == :active     }
         [:e1, :e4, :e5, :e6, :e7, :e8, :e9, :e10, :e11, :e12, :e13, :e14, :e15, :e16].
-          each{|name| @ctx.edge(name).phase_key.should == :transmitted}
+          each{|name| [name, @ctx.edge(name).phase_key].should == [name, :transmitted]}
         @ctx.vertex(:j1100).phase_key.should == :success
         @ctx.vertex(:j1110).phase_key.should == :success
         @ctx.vertex(:j1200).phase_key.should == :success
@@ -219,18 +220,19 @@ describe 'jobnet_control_driver' do
       end
 
       it "j1000が成功した場合" do
-        @root.phase_key = :running
-        @ctx[:j1000].phase_key = :success
-        @ctx[:j1100].phase_key = :success
-        @ctx[:j1110].phase_key = :success
-        @ctx[:j1200].phase_key = :success
-        @ctx[:j1210].phase_key = :success
-        @ctx[:j1000].finally_vertex.phase_key = :success
-        @ctx[:j1000].finally_vertex.finally_vertex.phase_key = :success
-        @ctx[:j1ff1].phase_key = :success
         [:e2, :e3, :e17, :e18, :e19, :e20].each{|name| @ctx[name].phase_key = :active     }
         [:e1, :e4, :e5, :e6, :e7, :e8, :e9, :e10, :e11, :e12, :e13, :e14, :e15, :e16].
           each{|name| @ctx[name].phase_key = :transmitted}
+        @root.phase_key = :running
+        @ctx[:j1000].update_phase! :success
+        @ctx[:j1100].update_phase! :success
+        @ctx[:j1110].update_phase! :success
+        @ctx[:j1200].update_phase! :success
+        @ctx[:j1210].update_phase! :success
+        @ctx[:j1000].finally_vertex.update_phase! :success
+        @ctx[:j1f10].save!
+        @ctx[:j1000].finally_vertex.finally_vertex.update_phase! :success
+        @ctx[:j1ff1].update_phase! :success
         @root.save!
         tengine.should_fire(:"start.jobnet.job.tengine",
           :source_name => @ctx[:j2000].name_as_resource,
@@ -247,7 +249,7 @@ describe 'jobnet_control_driver' do
         [:e3, :e17, :e18, :e19, :e20].each{|name| @ctx.edge(name).phase_key.should == :active     }
         [:e2  ].each{|name| @ctx.edge(name).phase_key.should == :transmitting     }
         [:e1, :e4, :e5, :e6, :e7, :e8, :e9, :e10, :e11, :e12, :e13, :e14, :e15, :e16].
-          each{|name| @ctx.edge(name).phase_key.should == :transmitted}
+          each{|name| [name, @ctx.edge(name).phase_key].should == [name, :transmitted]}
         @ctx.vertex(:j1100).phase_key.should == :success
         @ctx.vertex(:j1110).phase_key.should == :success
         @ctx.vertex(:j1200).phase_key.should == :success
@@ -257,19 +259,20 @@ describe 'jobnet_control_driver' do
       end
 
       it "j1f00が失敗した場合" do
-        @root.phase_key = :running
-        @ctx.vertex(:j1000).phase_key = :running
-        @ctx.vertex(:j1100).phase_key = :success
-        @ctx.vertex(:j1110).phase_key = :success
-        @ctx.vertex(:j1200).phase_key = :success
-        @ctx.vertex(:j1210).phase_key = :success
-        @ctx.vertex(:j1000).finally_vertex.phase_key = :error
-        @ctx.vertex(:j1000).finally_vertex.finally_vertex.phase_key = :error
-        @ctx.vertex(:j1ff1).phase_key = :error
         [:e2, :e3, :e17, :e18, :e19, :e20].each{|name| @ctx.edge(name).phase_key = :active     }
         [:e12, :e16].each{|name| @ctx.edge(name).phase_key = :closed}
         [:e1, :e4, :e5, :e6, :e7, :e8, :e9, :e10, :e11, :e13, :e14, :e15].
           each{|name| @ctx.edge(name).phase_key = :transmitted}
+        @root.phase_key = :running
+        @ctx.vertex(:j1000).update_phase! :running
+        @ctx.vertex(:j1100).update_phase! :success
+        @ctx.vertex(:j1110).update_phase! :success
+        @ctx.vertex(:j1200).update_phase! :success
+        @ctx.vertex(:j1210).update_phase! :success
+        @ctx.vertex(:j1000).finally_vertex.update_phase! :error
+        @ctx.vertex(:j1f10).save!
+        @ctx.vertex(:j1000).finally_vertex.finally_vertex.update_phase! :error
+        @ctx.vertex(:j1ff1).update_phase! :error
         @root.save!
         tengine.should_fire(:"error.jobnet.job.tengine",
           :source_name => @ctx[:j1000].name_as_resource,
@@ -286,7 +289,7 @@ describe 'jobnet_control_driver' do
         [:e2, :e3, :e17, :e18, :e19, :e20].each{|name| @ctx.edge(name).phase_key.should == :active     }
         [:e12, :e16].each{|name| @ctx.edge(name).phase_key.should == :closed}
         [:e1, :e4, :e5, :e6, :e7, :e8, :e9, :e10, :e11, :e13, :e14, :e15].
-          each{|name| @ctx.edge(name).phase_key.should == :transmitted}
+          each{|name| [name, @ctx.edge(name).phase_key].should == [name, :transmitted]}
         @ctx.vertex(:j1100).phase_key.should == :success
         @ctx.vertex(:j1110).phase_key.should == :success
         @ctx.vertex(:j1200).phase_key.should == :success
@@ -323,23 +326,24 @@ describe 'jobnet_control_driver' do
 
     context "j41がエラーになったことをjn4で受けた場合" do
       it "以降のvertexがclosedになる" do
+        transmitted_edges = [:e1, :e2, :e3, :e4, :e9]
+        transmitted_edges.each{|name| @ctx[name].phase_key = :transmitted}
+        (all_edge_names - transmitted_edges).each{|name| @ctx[name].phase_key = :active}
+
         @root.phase_key = :running
-        @ctx[:j1].phase_key = :success
-        @ctx[:j2].phase_key = :success
-        @ctx[:j4].phase_key = :initialized
-        @ctx[:jn4].phase_key = :running
-        @ctx[:j41].phase_key = :error
+        @ctx[:j1].update_phase! :success
+        @ctx[:j2].update_phase! :success
+        @ctx[:j4].update_phase! :initialized
+        @ctx[:jn4].update_phase! :running
+        @ctx[:j41].update_phase! :error
         [
           :j42, :j43, :j44,
           :jn4f, :jn4_f,
           :finally, :jn0005_fjn, :jn0005_f, :jn0005_fjn,
           :jn0005_f1, :jn0005_f2, :jn0005_fjn_f,  :jn0005_fif
         ].each do |key|
-          @ctx[key].phase_key = :initialized
+          @ctx[key].update_phase! :initialized
         end
-        transmitted_edges = [:e1, :e2, :e3, :e4, :e9]
-        transmitted_edges.each{|name| @ctx[name].phase_key = :transmitted}
-        (all_edge_names - transmitted_edges).each{|name| @ctx[name].phase_key = :active}
         @root.save!
         tengine.should_fire(:"start.jobnet.job.tengine",
           :source_name => @ctx[:jn4f].name_as_resource,
@@ -397,21 +401,6 @@ describe 'jobnet_control_driver' do
 
     context "j41がエラーになって、jn4_fを実行中に、j2が失敗した場合" do
       it "jn4の終了を待ってからfinallyが実行される" do
-        @root.phase_key = :running
-        @ctx[:j1].phase_key = :success
-        @ctx[:j2].phase_key = :error
-        @ctx[:j4].phase_key = :initialized
-        @ctx[:jn4].phase_key = :running
-        @ctx[:jn4f].phase_key = :running
-        @ctx[:jn4_f].phase_key = :running
-        @ctx[:j41].phase_key = :error
-        [
-          :j42, :j43, :j44,
-          :finally, :jn0005_fjn, :jn0005_f, :jn0005_fjn,
-          :jn0005_f1, :jn0005_f2, :jn0005_fjn_f,  :jn0005_fif
-        ].each do |key|
-          @ctx[key].phase_key = :initialized
-        end
         transmitted_edges = [:e1, :e2, :e3, :e4, :e9, :e17]
         transmitted_edges.each{|name| @ctx[name].phase_key = :transmitted}
         closed_edges = [:e10, :e11, :e12, :e13, :e14, :e15, :e16] # jn4のedge
@@ -420,6 +409,22 @@ describe 'jobnet_control_driver' do
         closing_edges.each{|name| @ctx.edge(name).phase_key = :closing}
         (all_edge_names - transmitted_edges - closed_edges - closing_edges).
           each{|name| @ctx[name].phase_key = :active}
+
+        @root.phase_key = :running
+        @ctx[:j1].update_phase! :success
+        @ctx[:j2].update_phase! :error
+        @ctx[:j4].update_phase! :initialized
+        @ctx[:jn4].update_phase! :running
+        @ctx[:jn4f].update_phase! :running
+        @ctx[:jn4_f].update_phase! :running
+        @ctx[:j41].update_phase! :error
+        [
+          :j42, :j43, :j44,
+          :finally, :jn0005_fjn, :jn0005_f, :jn0005_fjn,
+          :jn0005_f1, :jn0005_f2, :jn0005_fjn_f,  :jn0005_fif
+        ].each do |key|
+          @ctx[key].update_phase! :initialized
+        end
         @root.save!
         tengine.should_not_fire
         tengine.receive(:"error.job.job.tengine",
