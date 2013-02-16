@@ -313,8 +313,8 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
         :exit_status => self.exit_status,
         :target_jobnet_id => parent.id,
         :target_jobnet_name_path => parent.name_path,
-        :target_id => self.id,
-        :target_name_path => self.name_path,
+        :target_job_id => self.id,
+        :target_job_name_path => self.name_path,
       })
   end
   available :succeed, :on => [:starting, :running, :dying, :stuck], :ignored => [:success]
