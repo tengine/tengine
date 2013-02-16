@@ -129,8 +129,8 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
       unless template_job
         raise "job not found #{self.name_path_until_expansion.inspect} in #{template_root.inspect}"
       end
-      key = Tengine::Job::DslLoader.template_block_store_key(template_job, :preparation)
-      preparation_block = Tengine::Job::DslLoader.template_block_store[key]
+      key = Tengine::Job::Dsl::Loader.template_block_store_key(template_job, :preparation)
+      preparation_block = Tengine::Job::Dsl::Loader.template_block_store[key]
       if preparation_block
         preparation = instance_eval(&preparation_block)
         unless preparation.blank?
