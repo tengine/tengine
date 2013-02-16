@@ -103,6 +103,14 @@ describe 'connection error' do
       Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
+      @root.children.each do |c|
+        next unless c.is_a?(Tengine::Job::Runtime::SshJob)
+        c.server_name = builder.test_server1.name
+        c.credential_name = builder.test_credential1.name
+        c.killing_signal_interval = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNAL_INTERVAL
+        c.killing_signals         = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNALS.dup
+        c.save!
+      end
       @ctx = builder.context
       @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
@@ -126,7 +134,7 @@ describe 'connection error' do
         Tengine::Resource::Credential.delete_all
         @root.phase_key = :starting
         @ctx.edge(:e1).phase_key = :transmitting
-        @ctx.vertex(:j11).phase_key = :ready
+        @ctx.vertex(:j11).update_phase! :ready
         @root.save!
         @root.reload
         tengine.should_fire(:"error.job.job.tengine", an_instance_of(Hash))
@@ -156,7 +164,7 @@ describe 'connection error' do
         credential.save!
         @root.phase_key = :starting
         @ctx.edge(:e1).phase_key = :transmitting
-        @ctx.vertex(:j11).phase_key = :ready
+        @ctx.vertex(:j11).update_phase! :ready
         @root.save!
         @root.reload
         tengine.should_fire(:"error.job.job.tengine", an_instance_of(Hash))
@@ -181,7 +189,7 @@ describe 'connection error' do
         Tengine::Resource::Server.delete_all
         @root.phase_key = :starting
         @ctx.edge(:e1).phase_key = :transmitting
-        @ctx.vertex(:j11).phase_key = :ready
+        @ctx.vertex(:j11).update_phase! :ready
         @root.save!
         @root.reload
         tengine.should_fire(:"error.job.job.tengine", an_instance_of(Hash))
@@ -209,7 +217,7 @@ describe 'connection error' do
         server.save!
         @root.phase_key = :starting
         @ctx.edge(:e1).phase_key = :transmitting
-        @ctx.vertex(:j11).phase_key = :ready
+        @ctx.vertex(:j11).update_phase! :ready
         @root.save!
         @root.reload
         tengine.should_fire(:"error.job.job.tengine", an_instance_of(Hash))
