@@ -20,6 +20,8 @@ describe 'job_control_driver' do
         next unless c.is_a?(Tengine::Job::Runtime::SshJob)
         c.server_name = builder.test_server1.name
         c.credential_name = builder.test_credential1.name
+        c.killing_signal_interval = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNAL_INTERVAL
+        c.killing_signals         = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNALS.dup
         c.save!
       end
       @ctx = builder.context
@@ -195,8 +197,11 @@ describe 'job_control_driver' do
         j11.executing_pid = "123"
         j11.update_phase! :running
         j11.previous_edges.length.should == 1
-        j11.previous_edges.first.phase_key = :transmitted
         @ctx[:root].save!
+
+        @jobnet.edges.detect{|e| e.destination_id == j11.id}.phase_key = :transmitted
+        @jobnet.save!
+
         tengine.should_fire(:"#{phase_key}.job.job.tengine",
           :source_name => @ctx[:j11].name_as_resource,
           :properties => {
@@ -239,8 +244,11 @@ describe 'job_control_driver' do
       @jobnet.reload
       j11 = @jobnet.find_descendant_by_name_path("/rjn0001/j11")
       j11.update_phase! :stuck
-      j11.previous_edges.first.phase_key = :transmitted
       @ctx[:root].save!
+
+      @jobnet.edges.detect{|e| e.destination_id == j11.id}.phase_key = :transmitted
+      @jobnet.save!
+
       tengine.receive(:"finished.process.job.tengine",
          :properties => {
            :execution_id => @execution.id.to_s,
@@ -263,8 +271,10 @@ describe 'job_control_driver' do
       j11.executing_pid = @pid
       j11.update_phase! :running
       j11.previous_edges.length.should == 1
-      j11.previous_edges.first.phase_key = :transmitted
       @ctx[:root].save!
+
+      @jobnet.edges.detect{|e| e.destination_id == j11.id}.phase_key = :transmitted
+      @jobnet.save!
 
       tengine.should_not_fire
       mock_ssh = mock(:ssh)
@@ -345,13 +355,14 @@ describe 'job_control_driver' do
       j11.executing_pid = @pid11
       j11.update_phase! :success
       j11.previous_edges.length.should == 1
-      j11.previous_edges.first.phase_key = :transmitted
       j12 = @jobnet.find_descendant_by_name_path("/rjn0001/j12")
       j12.executing_pid = @pid12
       j12.update_phase! :running
       j12.previous_edges.length.should == 1
-      j12.previous_edges.first.phase_key = :transmitted
-      @ctx[:root].save!
+
+      @jobnet.edges.detect{|e| e.destination_id == j11.id}.phase_key = :transmitted
+      @jobnet.edges.detect{|e| e.destination_id == j12.id}.phase_key = :transmitted
+      @jobnet.save!
 
       mock_ssh = mock(:ssh)
       Net::SSH.should_receive(:start).
