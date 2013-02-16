@@ -35,6 +35,14 @@ describe "<BUG>(tengined複数起動)強制停止すると、ステータスが�
       TestServerFixture.test_server2
       builder = Rjn0004ParallelJobnetWithFinally.new
       @root = builder.create_actual
+      @root.children.each do |c|
+        next unless c.is_a?(Tengine::Job::Runtime::SshJob)
+        c.server_name = builder.test_server1.name
+        c.credential_name = builder.test_credential1.name
+        c.killing_signal_interval = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNAL_INTERVAL
+        c.killing_signals         = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNALS.dup
+        c.save!
+      end
       @ctx = builder.context
       @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
@@ -63,6 +71,7 @@ describe "<BUG>(tengined複数起動)強制停止すると、ステータスが�
       @ctx[:j1].tap do |j|
         j.phase_key = :running
         j.executing_pid = @pid
+        j.save!
       end
       @root.phase_key = :running
       @root.version = 4
@@ -116,6 +125,8 @@ describe "<BUG>(tengined複数起動)強制停止すると、ステータスが�
     end
 
     it "tengine_job_agent_killの戻り値の前にfinished.process.job.tengineが来ても強制終了となるべき" do
+      pending "難しい状況なので、新しい設計ではどうなるべきか要検討"
+
       # f1-1.
       Tengine.logger.info("1" * 100)
       # Tengine::Job.should_receive(:test_harness).with(1, "before yield in update_with_lock").once
