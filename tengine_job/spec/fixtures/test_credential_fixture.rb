@@ -1,6 +1,7 @@
 module TestCredentialFixture
   module_function
 
+  public
   def test_credential1
     Tengine::Resource::Credential.find_or_create_by(
       :name => "test_credential1",
