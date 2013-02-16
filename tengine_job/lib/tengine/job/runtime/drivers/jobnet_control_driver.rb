@@ -23,6 +23,8 @@ driver :jobnet_control_driver do
       Tengine::Job::Runtime::Jobnet.find(event[:target_jobnet_id]) ||
     Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
     signal.with_paths_backup do
+      signal.remember(target_jobnet)
+      signal.remember(target_jobnet.edges)
       target_jobnet.activate(signal)
     end
     signal.execution.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
