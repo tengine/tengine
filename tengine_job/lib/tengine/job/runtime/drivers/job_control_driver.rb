@@ -48,9 +48,11 @@ driver :job_control_driver do
   end
 
   on :'stop.job.job.tengine' do
+    target_job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
     signal = Tengine::Job::Runtime::Signal.new(event)
     signal.reset
-    target_job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
+    signal.remember_all(target_job.root)
+    signal.cache_list
     signal.with_paths_backup do
       target_job.stop(signal)
     end
