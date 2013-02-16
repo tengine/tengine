@@ -101,8 +101,8 @@ describe "<BUG>tengindのプロセスを二つ起動した際に並列ジョブ�
       @ctx[:e1].phase_key = :transmitted
       @ctx[:e2].phase_key = :transmitting
       @ctx[:e3].phase_key = :transmitting
-      @ctx[:j11].phase_key = :ready
-      @ctx[:j12].phase_key = :ready
+      @ctx[:j11].update_phase! :ready
+      @ctx[:j12].update_phase! :ready
       @root.phase_key = :starting
       @root.version = 0
       @root.save!
