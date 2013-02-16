@@ -60,10 +60,10 @@ describe 'jobnet_control_driver' do
 
     context "j1100を起動" do
       it do
-        @root.phase_key = :starting
-        @ctx.vertex(:j1100).phase_key = :ready
         @ctx[:e1].phase_key = :transmitting
         (2..15).each{|idx| @ctx[:"e#{idx}"].phase_key = :active }
+        @root.phase_key = :starting
+        @ctx.vertex(:j1100).update_phase! :ready
         @root.save!
         tengine.should_fire(:"start.job.job.tengine",
           :source_name => @ctx[:j1110].name_as_resource,
@@ -89,11 +89,11 @@ describe 'jobnet_control_driver' do
 
     context 'j1110を実行' do
       it "成功した場合" do
-        @root.phase_key = :starting
-        @ctx.vertex(:j1100).phase_key = :running
-        @ctx.vertex(:j1110).phase_key = :success
         @ctx[:e1].phase_key = :transmitted
         @ctx[:e5].phase_key = :transmitted
+        @root.phase_key = :starting
+        @ctx.vertex(:j1100).update_phase! :running
+        @ctx.vertex(:j1110).update_phase! :success
         @root.save!
         tengine.should_not_fire(:"start.job.job.tengine",
           :source_name => @ctx[:j1110].name_as_resource,
@@ -129,12 +129,14 @@ describe 'jobnet_control_driver' do
       end
 
       it "失敗した場合" do
-        @root.phase_key = :running
-        @ctx.vertex(:j1100).phase_key = :running
-        @ctx.vertex(:j1110).phase_key = :error
         @ctx[:e1].phase_key = :transmitted
         @ctx[:e5].phase_key = :transmitted
+        @ctx[:j1100].save!
+        @root.phase_key = :running
+        @ctx.vertex(:j1100).update_phase! :running
+        @ctx.vertex(:j1110).update_phase! :error
         @root.save!
+        @root.reload
         tengine.should_fire(:"error.jobnet.job.tengine",
           :source_name => @ctx[:j1100].name_as_resource,
           :properties => @base_props.merge({
@@ -150,7 +152,7 @@ describe 'jobnet_control_driver' do
         @root.reload
         @ctx.edge(:e1).phase_key.should == :transmitted
         @ctx.edge(:e5).phase_key.should == :transmitted
-        (2..4).each{|idx| @ctx.edge(:"e#{idx}").phase_key.should == :closing }
+        (2..4).each{|idx| [idx, @ctx.edge(:"e#{idx}").phase_key].should == [idx, :closing] }
         (6..9).each{|idx| @ctx.edge(:"e#{idx}").phase_key.should == :closed }
         (10..15).each{|idx| @ctx.edge(:"e#{idx}").phase_key.should == :active }
         @ctx.vertex(:j1100).phase_key.should == :error
@@ -161,13 +163,16 @@ describe 'jobnet_control_driver' do
 
     context 'j1100' do
       it "成功した場合" do
-        @root.phase_key = :running
-        [:j1100, :j1110, :j1120, :j1130, :j1140].each do |jobnet_name|
-          @root.vertex(@ctx[jobnet_name].id).phase_key = :success
-        end
         @ctx[:e1].phase_key = :transmitted
-        (5..9).each{|idx|@ctx[:"e#{idx}"].phase_key = :transmitted}
+        @root.phase_key = :running
         @root.save!
+
+        (5..9).each{|idx| @ctx[:"e#{idx}"].phase_key = :transmitted}
+        @ctx[:e5].owner.save!
+
+        [:j1100, :j1110, :j1120, :j1130, :j1140].each do |jobnet_name|
+          @root.vertex(@ctx[jobnet_name].id).update_phase! :success
+        end
         tengine.should_fire(:"start.job.job.tengine",
           :source_name => @ctx[:j1200].name_as_resource,
           :properties => @base_props.merge({
@@ -190,17 +195,19 @@ describe 'jobnet_control_driver' do
       end
 
       it "失敗した場合" do
-        @root.phase_key = :running
-        [:j1100, :j1110].each do |jobnet_name|
-          @root.vertex(@ctx[jobnet_name].id).phase_key = :error
-        end
-        [:j1120, :j1130, :j1140].each do |jobnet_name|
-          @root.vertex(@ctx[jobnet_name].id).phase_key = :ready
-        end
         @ctx[:e1].phase_key = :transmitted
+        @root.phase_key = :running
+        @root.save!
+
         @ctx[:e5].phase_key = :transmitted
         (6..9).each{|idx|@ctx[:"e#{idx}"].phase_key = :closed}
-        @root.save!
+        [:j1100, :j1110].each do |jobnet_name|
+          @root.vertex(@ctx[jobnet_name].id).update_phase! :error
+        end
+
+        [:j1120, :j1130, :j1140].each do |jobnet_name|
+          @root.vertex(@ctx[jobnet_name].id).update_phase! :ready
+        end
 
         tengine.should_fire(:"error.jobnet.job.tengine",
           :source_name => @root.name_as_resource,
