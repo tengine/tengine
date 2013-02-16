@@ -102,7 +102,7 @@ describe 'job_control_driver' do
       it "失敗した場合" do
         @root.phase_key = :running
         @ctx[:e1].phase_key = :transmitted
-        @ctx[:j11].phase_key = :error
+        @ctx[:j11].update_phase! :error
         @root.save!
         tengine.should_fire(:"error.jobnet.job.tengine",
           :source_name => @root.name_as_resource,
@@ -126,8 +126,8 @@ describe 'job_control_driver' do
         @ctx[:e1].phase_key = :transmitted
         @ctx[:e2].phase_key = :closed
         @ctx[:e3].phase_key = :closed
-        @ctx[:j11].phase_key = :error
-        @ctx[:j12].phase_key = :initialized
+        @ctx[:j11].update_phase! :error
+        @ctx[:j12].update_phase! :initialized
         @root.save!
         tengine.should_fire(:"error.execution.job.tengine",
           :source_name => @execution.name_as_resource,
