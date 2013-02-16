@@ -158,6 +158,7 @@ describe "<BUG>tengindのプロセスを二つ起動した際に並列ジョブ�
     end
 
     it "パターン1" do
+      pending
       # f1-1.
       Tengine.logger.info("1" * 100)
       Tengine::Job.should_receive(:test_harness).with(1, "before yield in update_with_lock").once
