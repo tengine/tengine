@@ -43,15 +43,6 @@ class Tengine::Job::Runtime::RootJobnet < Tengine::Job::Runtime::Jobnet
     result
   end
 
-  def update_with_lock(*args)
-    super(*args) do
-      Tengine::Job.test_harness_hook("before yield in update_with_lock")
-      yield if block_given?
-      Tengine::Job.test_harness_hook("after yield in update_with_lock")
-    end
-    Tengine::Job.test_harness_hook("after update_with_lock")
-  end
-
   def fire_stop_event(options = Hash.new)
     root_jobnet_id = self.id.to_s
     result = Tengine::Job::Runtime::Execution.create!(

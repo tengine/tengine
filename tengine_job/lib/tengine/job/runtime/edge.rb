@@ -76,13 +76,10 @@ class Tengine::Job::Runtime::Edge
     when :suspended then
       self.phase_key = :keeping
     when :closing then
-      puts "c" * 100
-      puts "#{object_id} #{inspect}"
-      puts "#{owner.object_id} #{owner.inspect}"
 
-puts "c" * 100
-puts "#{object_id} #{inspect}"
-puts caller[0, 20].join("\n  ")
+Tengine.logger.debug "c" * 100
+Tengine.logger.debug "#{object_id} #{inspect}"
+# Tengine.logger.debug caller[0, 20].join("\n  ")
 
 # binding.pry
 
@@ -126,8 +123,10 @@ puts caller[0, 20].join("\n  ")
     case phase_key
     when :active, :suspended, :keeping, :transmitting then
       self.phase_key = :closing
+    when :closing, :closed then
+      # ignored
     else
-      $stderr.puts "#{object_id} #{inspect} wasn't closed"
+      Tengine.logger.warn "#{object_id} #{inspect} wasn't closed"
     end
   end
 
@@ -152,12 +151,20 @@ puts caller[0, 20].join("\n  ")
       end
       # jobnetオブジェクトのedgesに含まれないエッジについては、そのowner毎にまとめて保存する
       self.transmit(signal)
+
+      Tengine.logger.debug "<" * 100
+      Tengine.logger.debug "#{__FILE__}##{__LINE__}"
+      jobnet.edges.each do |edge|
+        Tengine.logger.debug "#{edge.object_id} #{edge.inspect} BEFORE end of block for update_with_lock"
+      end
+
     end
     (closing_edges - closed_edges).map(&:owner).uniq.each(&:save!)
   end
 
   def phase_key=(phase_key)
-    Tengine.logger.debug("edge phase changed. <#{self.id.to_s}> #{self.phase_name} -> #{Tengine::Job::Runtime::Edge.phase_name_by_key(phase_key)}")
+    # Tengine.logger.debug("edge phase changed. <#{self.id.to_s}> #{self.phase_name} -> #{Tengine::Job::Runtime::Edge.phase_name_by_key(phase_key)}")
+    Tengine.logger.debug("edge phase changed. <#{inspect}> #{self.phase_name} -> #{Tengine::Job::Runtime::Edge.phase_name_by_key(phase_key)}")
     self.write_attribute(:phase_cd, Tengine::Job::Runtime::Edge.phase_id_by_key(phase_key))
   end
 

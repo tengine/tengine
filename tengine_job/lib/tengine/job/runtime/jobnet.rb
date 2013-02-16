@@ -119,9 +119,9 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
     self.phase_key = :starting
     self.started_at = signal.event.occurred_at
     complete_origin_edge(signal) if prev_edges && !prev_edges.empty?
-    (parent || signal.execution).ack(signal)
+    singal.cache(parent || signal.execution).ack(signal)
     signal.paths << self
-    self.start_vertex.transmit(signal)
+    singal.cache(self.start_vertex).transmit(signal)
   end
   available(:activate, :on => :ready,
     :ignored => [:starting, :running, :dying, :success, :error, :stuck])
@@ -140,7 +140,7 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
 
     Tengine.logger.info("#{__FILE__}##{__LINE__} #{self.class}#finish")
 
-    edge = signal.cache(end_vertex.prev_edges).first
+    edge = signal.cache(end_vertex.prev_edges.first)
     edge.closed? ?
     self.fail(signal) :
       succeed(signal)
@@ -242,7 +242,7 @@ class Tengine::Job::Runtime::End < Tengine::Job::Runtime::Vertex
 
   def activate(signal)
     complete_origin_edge(signal, :except_closed => true)
-    parent = self.parent # Endのparentであるジョブネット
+    parent = signal.cache(self.parent) # Endのparentであるジョブネット
     parent_finally = parent.finally_vertex
     if parent_finally && (parent.phase_key != :dying)
       parent_finally.transmit(signal)
@@ -255,7 +255,7 @@ class Tengine::Job::Runtime::End < Tengine::Job::Runtime::Vertex
 
     Tengine.logger.info("#{__FILE__}##{__LINE__} #{self.class}#reset")
 
-    parent = self.parent # Endのparentであるジョブネット
+    parent = signal.cache(self.parent) # Endのparentであるジョブネット
     if signal.execution.in_scope?(parent)
       if f = parent.finally_vertex
         f.reset(signal)

@@ -32,4 +32,15 @@ class Tengine::Job::Runtime::NamedVertex < Tengine::Job::Runtime::Vertex
     p.nil? ? self : p.was_expansion ? p : p.root_or_expansion
   end
 
+  def update_with_lock(*args)
+binding.pry
+    Tengine::Job.test_harness_hook("[#{self.class.name}] #{name_path} before update_with_lock")
+    super(*args) do
+      Tengine::Job.test_harness_hook("[#{self.class.name}] #{name_path} before yield in update_with_lock")
+      yield if block_given?
+      Tengine::Job.test_harness_hook("[#{self.class.name}] #{name_path} after yield in update_with_lock")
+    end
+    Tengine::Job.test_harness_hook("[#{self.class.name}] #{name_path} after update_with_lock")
+  end
+
 end

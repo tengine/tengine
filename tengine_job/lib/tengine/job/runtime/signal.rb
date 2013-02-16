@@ -63,9 +63,10 @@ class Tengine::Job::Runtime::Signal
   end
 
   def cache_list
-    puts "-" * 100
+    Tengine.logger.debug "-" * 100
+    Tengine.logger.debug "#{__FILE__}##{__LINE__}"
     @cache.each do |key, obj|
-      puts "#{obj.object_id} #{key.inspect} #{obj.inspect}"
+      Tengine.logger.debug "#{obj.object_id} #{key.inspect} #{obj.inspect}"
     end
   end
 

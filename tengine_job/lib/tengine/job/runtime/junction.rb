@@ -21,9 +21,10 @@ class Tengine::Job::Runtime::Junction < Tengine::Job::Runtime::Vertex
   end
 
   def activate(signal)
-    puts "a" * 100
-    puts "#{object_id} #{inspect}"
-    puts "#{signal.cache(parent).object_id} #{signal.cache(parent).inspect}"
+    Tengine.logger.debug "a" * 100
+    Tengine.logger.debug "#{__FILE__}##{__LINE__}"
+    Tengine.logger.debug "#{object_id} #{inspect}"
+    Tengine.logger.debug "#{signal.cache(parent).object_id} #{signal.cache(parent).inspect}"
     signal.leave(self)
   end
 
