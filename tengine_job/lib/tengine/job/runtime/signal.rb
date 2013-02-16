@@ -76,9 +76,15 @@ class Tengine::Job::Runtime::Signal
     Tengine.logger.debug "#{__FILE__}##{__LINE__}"
     Tengine.logger.debug "object_id: #{object_id}"
     @cache.each do |key, obj|
-      Tengine.logger.debug "#{obj.object_id} #{key.inspect} #{obj.inspect}"
+      Tengine.logger.debug "#{obj.object_id} #{key.inspect} #{obj.inspect}" << (obj.changed? ? " CHANGED" : "")
     end
     Tengine.logger.debug "-" * 100
+  end
+
+  def changed_vertecs
+    @cache.values.select(&:changed?).
+      map{|obj| obj.is_a?(Tengine::Job::Runtime::Edge) ? obj.owner : obj}.
+      uniq
   end
 
   def execution

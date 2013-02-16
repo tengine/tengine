@@ -142,7 +142,7 @@ Tengine.logger.debug "#{object_id} #{inspect}"
     closing_edges = nil
     closed_edges = []
     jobnet.update_with_lock do
-      closing_edges = self.close_followings(signal, dry_run: true)
+      closing_edges = self.close_followings(signal)
       closing_edges.each do |e|
         next unless e.owner.id == jobnet.id
         je = signal.cache(e) # jobnet単位で保存するので、jobnetオブエジェクトに紐付けられたものを見つける
@@ -157,9 +157,9 @@ Tengine.logger.debug "#{object_id} #{inspect}"
       jobnet.edges.each do |edge|
         Tengine.logger.debug "#{edge.object_id} #{edge.inspect} BEFORE end of block for update_with_lock"
       end
-
     end
-    (closing_edges - closed_edges).map(&:owner).uniq.each(&:save!)
+    # signal.cache_list
+    signal.changed_vertecs.each(&:save!)
   end
 
   def phase_key=(phase_key)
@@ -172,16 +172,16 @@ Tengine.logger.debug "#{object_id} #{inspect}"
     attr_reader :closed_edges
     def initialize(signal, options = {})
       @signal = signal
-      @dry_run = options[:dry_run]
       @closed_edges = []
     end
 
     def close(edge)
-      edge.close(nil) unless @dry_run
+      edge.close(@signal)
       @closed_edges << edge
     end
 
     def visit(obj)
+# binding.pry
       obj = @signal.remember(obj)
       if obj.is_a?(Tengine::Job::Runtime::End)
         if parent = obj.parent

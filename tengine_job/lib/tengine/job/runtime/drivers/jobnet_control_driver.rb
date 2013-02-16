@@ -90,10 +90,8 @@ driver :jobnet_control_driver do
     signal.remember(target_job)
     signal.with_paths_backup do
       edge = target_job.next_edges.first
-      signal.remember(edge)
-      signal.remember(edge.owner)
-      signal.remember(edge.owner.edges)
-      # signal.cache_list
+      signal.remember_all(target_job.root)
+      signal.cache_list
       edge.close_followings_and_trasmit(signal)
     end
     # target_jobnet = target_job.parent
@@ -128,15 +126,19 @@ driver :jobnet_control_driver do
       case target_jobnet.jobnet_type_key
       when :finally then
         parent = target_jobnet.parent
-        edge = parent.end_vertex.prev_edges.first
+        signal.remember_all(parent)
+        signal.cache_list
+        edge = signal.cache(parent.end_vertex.prev_edges.first)
         (edge.closed? || edge.closing?) ?
-        parent.fail(signal) :
+          parent.fail(signal) :
           parent.succeed(signal)
       else
-        if edge = (target_jobnet.next_edges || []).first
-          edge.transmit(signal)
+        if edge = signal.cache(target_jobnet.next_edges || []).first
+          edge.owner.update_with_lock do
+            edge.transmit(signal)
+          end
         else
-          (target_jobnet.parent || signal.execution).succeed(signal)
+          signal.cache(target_jobnet.parent || signal.execution).succeed(signal)
         end
       end
     end
@@ -170,6 +172,7 @@ driver :jobnet_control_driver do
       when :finally then
         target_jobnet.parent.fail(signal)
       else
+        signal.remember_all(target_jobnet.root)
         if edge = (target_jobnet.next_edges || []).first
           edge.close_followings_and_trasmit(signal)
         else
