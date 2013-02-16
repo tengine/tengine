@@ -37,7 +37,9 @@ class Tengine::Job::Runtime::Signal
       obj.each{|o| remember(o)}
     else
       return nil if obj.nil?
-      key = [obj.class.name, obj.id.to_s]
+      key = cache_key(obj)
+      cached = cache(*key)
+      return cached if cached
       @cache[key] = obj
     end
     obj
@@ -51,20 +53,23 @@ class Tengine::Job::Runtime::Signal
       if obj.is_a?(Array)
         obj.map{|o| cache(o)}
       else
-        cache(obj.class, obj.id) || remember(obj)
+        cache(*cache_key(obj)) || remember(obj)
       end
     when 2 then
-      klass, id = *args
-      key = [klass.is_a?(Class) ? klass.name : klass.to_s, id.to_s]
-      @cache[key]
+      @cache[args]
     else
       raise ArgumentError, "#{self.class.name}#cache requires 1 or 2 arguments"
     end
   end
 
+  def cache_key(obj)
+    return [obj.class.name, obj.id.to_s]
+  end
+
   def cache_list
     Tengine.logger.debug "-" * 100
     Tengine.logger.debug "#{__FILE__}##{__LINE__}"
+    Tengine.logger.debug "object_id: #{object_id}"
     @cache.each do |key, obj|
       Tengine.logger.debug "#{obj.object_id} #{key.inspect} #{obj.inspect}"
     end

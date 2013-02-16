@@ -33,14 +33,24 @@ class Tengine::Job::Runtime::NamedVertex < Tengine::Job::Runtime::Vertex
   end
 
   def update_with_lock(*args)
-binding.pry
-    Tengine::Job.test_harness_hook("[#{self.class.name}] #{name_path} before update_with_lock")
-    super(*args) do
-      Tengine::Job.test_harness_hook("[#{self.class.name}] #{name_path} before yield in update_with_lock")
+    if @in_update_with_lock
+      Tengine::Job.test_harness_hook("[#{self.class.name}] #{name_path} before yield in nested update_with_lock")
       yield if block_given?
-      Tengine::Job.test_harness_hook("[#{self.class.name}] #{name_path} after yield in update_with_lock")
+      Tengine::Job.test_harness_hook("[#{self.class.name}] #{name_path} after yield in nested update_with_lock")
+      return
     end
-    Tengine::Job.test_harness_hook("[#{self.class.name}] #{name_path} after update_with_lock")
+    @in_update_with_lock = true
+    begin
+      Tengine::Job.test_harness_hook("[#{self.class.name}] #{name_path} before update_with_lock")
+      super(*args) do
+        Tengine::Job.test_harness_hook("[#{self.class.name}] #{name_path} before yield in update_with_lock")
+        yield if block_given?
+        Tengine::Job.test_harness_hook("[#{self.class.name}] #{name_path} after yield in update_with_lock")
+      end
+      Tengine::Job.test_harness_hook("[#{self.class.name}] #{name_path} after update_with_lock")
+    ensure
+      @in_update_with_lock = false
+    end
   end
 
 end

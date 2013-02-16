@@ -164,7 +164,7 @@ Tengine.logger.debug "#{object_id} #{inspect}"
 
   def phase_key=(phase_key)
     # Tengine.logger.debug("edge phase changed. <#{self.id.to_s}> #{self.phase_name} -> #{Tengine::Job::Runtime::Edge.phase_name_by_key(phase_key)}")
-    Tengine.logger.debug("edge phase changed. <#{inspect}> #{self.phase_name} -> #{Tengine::Job::Runtime::Edge.phase_name_by_key(phase_key)}")
+    Tengine.logger.debug("#{object_id} edge phase changed. <#{inspect}> #{self.phase_name} -> #{Tengine::Job::Runtime::Edge.phase_name_by_key(phase_key)}")
     self.write_attribute(:phase_cd, Tengine::Job::Runtime::Edge.phase_id_by_key(phase_key))
   end
 
@@ -182,7 +182,7 @@ Tengine.logger.debug "#{object_id} #{inspect}"
     end
 
     def visit(obj)
-      @signal.remember(obj)
+      obj = @signal.remember(obj)
       if obj.is_a?(Tengine::Job::Runtime::End)
         if parent = obj.parent
           (parent.next_edges || []).each{|edge| edge.accept_visitor(self)}

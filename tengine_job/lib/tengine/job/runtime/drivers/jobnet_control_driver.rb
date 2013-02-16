@@ -86,7 +86,7 @@ driver :jobnet_control_driver do
       signal.remember(edge)
       signal.remember(edge.owner)
       signal.remember(edge.owner.edges)
-      # signal.cache_list
+      signal.cache_list
       edge.close_followings_and_trasmit(signal)
     end
     # target_jobnet = target_job.parent
