@@ -18,6 +18,9 @@ class Rjn0004ParallelJobnetWithFinally < JobnetFixtureBuilder
   include TestCredentialFixture
   include TestServerFixture
 
+  public :test_server1
+  public :test_credential1
+
   DSL = <<-EOS
     jobnet("jn0004", :instance_name => "test_server1", :credential_name => "test_credential1") do
       boot_jobs("j1")

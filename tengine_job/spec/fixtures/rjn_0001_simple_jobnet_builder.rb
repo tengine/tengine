@@ -13,6 +13,9 @@ class Rjn0001SimpleJobnetBuilder < JobnetFixtureBuilder
   include TestCredentialFixture
   include TestServerFixture
 
+  public :test_server1
+  public :test_credential1
+
   DSL = <<-EOS
     jobnet("rjn0001", :server_name => "test_server1", :credential_name => "test_credential1") do
       auto_sequence
@@ -23,7 +26,7 @@ class Rjn0001SimpleJobnetBuilder < JobnetFixtureBuilder
 
   def create(options = {})
     root = new_root_jobnet("rjn0001", {
-        :server_name => test_server1.name, 
+        :server_name => test_server1.name,
         :credential_name => test_credential1.name
       }.update(options || { }))
     root.children << new_start

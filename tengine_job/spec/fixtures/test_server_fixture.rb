@@ -1,8 +1,6 @@
 module TestServerFixture
   module_function
 
-  public
-
   def test_server1
     Tengine::Resource::PhysicalServer.find_or_create_by(
       :name => "test_server1",
