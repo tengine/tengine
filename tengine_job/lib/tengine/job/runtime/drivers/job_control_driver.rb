@@ -121,11 +121,14 @@ driver :job_control_driver do
 
   on :'restart.job.job.tengine' do
     begin
+      job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
       signal = Tengine::Job::Runtime::Signal.new(event)
       signal.reset
-      job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
+      signal.remember_all(job.parent)
+      signal.cache_list
       job.reset(signal)
       job.transmit(signal)
+      signal.changed_vertecs.each(&:save!)
       signal.reservations.each{|r| fire(*r.fire_args)}
     ensure
       submit
