@@ -16,7 +16,8 @@ describe 'job_control_driver' do
       @rjn0001 = @root.vertex_by_name_path("/rjn0008/rjn0001")
       @j11 = @root.vertex_by_name_path("/rjn0008/rjn0001/j11")
       @root.phase_key = :running
-      @rjn0001.phase_key = :running
+
+      @rjn0001.update_phase! :running
 
       @rjn0001.class.should == Tengine::Job::Runtime::Jobnet
       @j11.class.should == Tengine::Job::Runtime::SshJob
@@ -24,11 +25,13 @@ describe 'job_control_driver' do
       [@rjn0001, @j11].each{|j| j.should_not be_new_record}
       @rjn0001.parent_id.should == @root.id
       @rjn0001.parent.id.should == @root.id
+
       @j11.parent_id.should == @rjn0001.id
       @j11.parent.id.should == @rjn0001.id
 
-      @j11.phase_key = :ready
       @j11.prev_edges.each{|edge| edge.phase_key = :transmitting}
+      @j11.update_phase! :ready
+
       @root.save!
       @root.reload
       tengine.should_not_fire
@@ -57,7 +60,7 @@ describe 'job_control_driver' do
       @rjn0001 = @root.vertex_by_name_path("/rjn0008/rjn0001")
       @j11 = @root.vertex_by_name_path("/rjn0008/rjn0001/j11")
       @root.phase_key = :running
-      @rjn0001.phase_key = :running
+      @rjn0001.update_phase! :running
     end
   end
 
