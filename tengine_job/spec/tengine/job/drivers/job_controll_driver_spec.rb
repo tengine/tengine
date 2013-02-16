@@ -26,7 +26,7 @@ describe 'job_control_driver' do
       it "通常の場合" do
         @jobnet.phase_key = :starting
         @ctx.edge(:e1).phase_key = :transmitting
-        @ctx.vertex(:j11).phase_key = :ready
+        @ctx.vertex(:j11).update_phase! :ready
         @jobnet.save!
         @jobnet.reload
         tengine.should_not_fire
@@ -63,7 +63,7 @@ describe 'job_control_driver' do
             @ctx[:e1].phase_key = :closing
             @ctx[:e2].phase_key = :closing
             @ctx[:e3].phase_key = :closing
-            @ctx[:j11].phase_key = :initialized
+            @ctx[:j11].update_phase! :initialized
             @jobnet.save!
             @jobnet.reload
             tengine.should_fire(:"error.jobnet.job.tengine", {
@@ -99,7 +99,7 @@ describe 'job_control_driver' do
       it "存在しないスクリプトを実行しようとした場合、標準エラー出力にエラーメッセージが返されるので、それを保持する" do
         @jobnet.phase_key = :starting
         @ctx.edge(:e1).phase_key = :transmitting
-        @ctx.vertex(:j11).phase_key = :ready
+        @ctx.vertex(:j11).update_phase! :ready
         @jobnet.save!
         @jobnet.reload
         mock_ssh = mock(:ssh)
@@ -152,7 +152,7 @@ describe 'job_control_driver' do
     it "PIDを取得できたら" do
       @ctx.edge(:e1).phase_key = :transmitted
       @ctx.edge(:e2).phase_key = :active
-      @ctx.vertex(:j11).phase_key = :starting
+      @ctx.vertex(:j11).update_phase! :starting
       @jobnet.save!
       @jobnet.reload
       tengine.should_not_fire
@@ -183,7 +183,7 @@ describe 'job_control_driver' do
         @jobnet.reload
         j11 = @jobnet.find_descendant_by_name_path("/rjn0001/j11")
         j11.executing_pid = "123"
-        j11.phase_key = :running
+        j11.update_phase! :running
         j11.previous_edges.length.should == 1
         j11.previous_edges.first.phase_key = :transmitted
         @ctx[:root].save!
@@ -228,7 +228,7 @@ describe 'job_control_driver' do
     it "stuckからのfinished.process.job.tengine" do
       @jobnet.reload
       j11 = @jobnet.find_descendant_by_name_path("/rjn0001/j11")
-      j11.phase_key = :stuck
+      j11.update_phase! :stuck
       j11.previous_edges.first.phase_key = :transmitted
       @ctx[:root].save!
       tengine.receive(:"finished.process.job.tengine",
@@ -251,7 +251,7 @@ describe 'job_control_driver' do
       @jobnet.reload
       j11 = @jobnet.find_descendant_by_name_path("/rjn0001/j11")
       j11.executing_pid = @pid
-      j11.phase_key = :running
+      j11.update_phase! :running
       j11.previous_edges.length.should == 1
       j11.previous_edges.first.phase_key = :transmitted
       @ctx[:root].save!
@@ -289,12 +289,12 @@ describe 'job_control_driver' do
       @jobnet.reload
       j11 = @jobnet.find_descendant_by_name_path("/rjn0001/j11")
       j11.executing_pid = @pid11
-      j11.phase_key = :success
+      j11.update_phase! :success
       j11.previous_edges.length.should == 1
       j11.previous_edges.first.phase_key = :transmitted
       j12 = @jobnet.find_descendant_by_name_path("/rjn0001/j12")
       j12.executing_pid = @pid12
-      j12.phase_key = :running
+      j12.update_phase! :running
       j12.previous_edges.length.should == 1
       j12.previous_edges.first.phase_key = :transmitted
       @ctx[:root].save!
@@ -333,12 +333,12 @@ describe 'job_control_driver' do
       @jobnet.reload
       j11 = @jobnet.find_descendant_by_name_path("/rjn0001/j11")
       j11.executing_pid = @pid11
-      j11.phase_key = :success
+      j11.update_phase! :success
       j11.previous_edges.length.should == 1
       j11.previous_edges.first.phase_key = :transmitted
       j12 = @jobnet.find_descendant_by_name_path("/rjn0001/j12")
       j12.executing_pid = @pid12
-      j12.phase_key = :running
+      j12.update_phase! :running
       j12.previous_edges.length.should == 1
       j12.previous_edges.first.phase_key = :transmitted
       @ctx[:root].save!
@@ -431,18 +431,19 @@ describe 'job_control_driver' do
                 :spot => spot, :retry => true,
                 :target_actual_ids => [@ctx[:j11].id.to_s]
               })
+            @ctx[:j11].update_phase! :success
+            @ctx[:j12].update_phase! :error
+
             @root.phase_key = :running
-            @ctx[:j11].phase_key = :success
-            @ctx[:j12].phase_key = :error
             @ctx[:e1].phase_key = :transmitted
             @ctx[:e2].phase_key = :transmitted
             @ctx[:e3].phase_key = :active
+            @root.save!
           end
 
           [:initialized, :success, :error, :stuck].each do |phase_key|
             it "phase_keyが#{phase_key}ならば再実行できるので、startのイベントを発火する" do
-              @ctx[:j11].phase_key = phase_key
-              @root.save!
+              @ctx[:j11].update_phase! phase_key
               tengine.should_fire(:"start.job.job.tengine", {
                   :source_name => @ctx[:j11].name_as_resource,
                   :properties=>{
@@ -482,7 +483,7 @@ describe 'job_control_driver' do
 
           [:ready, :starting, :running, :dying].each do |phase_key|
             it "phase_keyが#{phase_key}ならば再実行できず、エラーのイベントを発火する" do
-              @ctx[:j11].phase_key = phase_key
+              @ctx[:j11].update_phase! phase_key
               @root.save!
               tengine.should_fire("restart.job.job.tengine.error.tengined").with(any_args)
               Tengine::Core::Kernel.temp_exception_reporter(:except_test) do
@@ -515,7 +516,7 @@ describe 'job_control_driver' do
       it do
         @root.phase_key = :starting
         @root.element("prev!j11").phase_key = :transmitting
-        @root.element('j11').phase_key = :ready
+        @root.element('j11').update_phase! :ready
         @root.save!
         @root.reload
         tengine.should_not_fire
