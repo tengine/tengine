@@ -119,9 +119,9 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
     self.phase_key = :starting
     self.started_at = signal.event.occurred_at
     complete_origin_edge(signal) if prev_edges && !prev_edges.empty?
-    singal.cache(parent || signal.execution).ack(signal)
+    signal.cache(parent || signal.execution).ack(signal)
     signal.paths << self
-    singal.cache(self.start_vertex).transmit(signal)
+    signal.cache(self.start_vertex).transmit(signal)
   end
   available(:activate, :on => :ready,
     :ignored => [:starting, :running, :dying, :success, :error, :stuck])
