@@ -62,6 +62,11 @@ class Tengine::Job::Runtime::Signal
     end
   end
 
+  def remember_all(vertex)
+    v = Tengine::Job::Structure::Visitor::AllWithEdge.new{|obj| remember(obj) }
+    vertex.accept_visitor(v)
+  end
+
   def cache_key(obj)
     return [obj.class.name, obj.id.to_s]
   end
@@ -73,6 +78,7 @@ class Tengine::Job::Runtime::Signal
     @cache.each do |key, obj|
       Tengine.logger.debug "#{obj.object_id} #{key.inspect} #{obj.inspect}"
     end
+    Tengine.logger.debug "-" * 100
   end
 
   def execution

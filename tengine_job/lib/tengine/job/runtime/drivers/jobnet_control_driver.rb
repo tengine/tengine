@@ -205,6 +205,8 @@ driver :jobnet_control_driver do
     target_jobnet =
       Tengine::Job::Runtime::Jobnet.find(event[:target_jobnet_id]) ||
       Tengine::Job::Runtime::RootJobnet.find(event[:root_jobnet_id])
+    # signal.remember_all(target_jobnet)
+    # signal.cache_list
     target_jobnet.stop(signal)
     signal.reservations.each{|r| fire(*r.fire_args) }
     submit
