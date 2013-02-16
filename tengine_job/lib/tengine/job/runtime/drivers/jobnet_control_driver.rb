@@ -49,7 +49,12 @@ driver :jobnet_control_driver do
     target_job = Tengine::Job::Runtime::NamedVertex.find(event[:target_job_id])
     signal.with_paths_backup do
       edge = target_job.next_edges.first
-      edge.transmit(signal)
+      jobnet = edge.owner
+      signal.remember(edge)
+      signal.remember(jobnet)
+      signal.remember(jobnet.edges)
+      # signal.cache_list
+      jobnet.update_with_lock{ edge.transmit(signal) }
     end
     # (*1)
     signal.reservations.each{|r| fire(*r.fire_args)}
@@ -86,7 +91,7 @@ driver :jobnet_control_driver do
       signal.remember(edge)
       signal.remember(edge.owner)
       signal.remember(edge.owner.edges)
-      signal.cache_list
+      # signal.cache_list
       edge.close_followings_and_trasmit(signal)
     end
     # target_jobnet = target_job.parent
