@@ -4,6 +4,7 @@ require 'spec_helper'
 describe "reset" do
   context "@4056" do
     before do
+      pending "前提条件となるreset_spec/4056_1_dump.txtがかなり大きくて、新しいクラス構造への変更が大変なので後回し"
       @record = eval(File.read(File.expand_path("reset_spec/4056_1_dump.txt", File.dirname(__FILE__))))
       Tengine::Job::Runtime::Vertex.delete_all
       Tengine::Job::Runtime::Vertex.collection.insert(@record)
@@ -11,7 +12,6 @@ describe "reset" do
     end
 
     it "状況確認" do
-      pending
       @root.phase_key.should == :error
       @root.element('/jn0006/jn1'                    ).phase_key.should == :error
       @root.element('/jn0006/jn1/jn11'               ).phase_key.should == :error
@@ -44,7 +44,6 @@ describe "reset" do
     end
 
     it "jn11をspotで再実行" do
-      pending
       @now = Time.now.utc
       @event = mock(:event, :occurred_at => @now)
       @signal = Tengine::Job::Runtime::Signal.new(@event)
@@ -108,7 +107,6 @@ describe "reset" do
     end
 
     it "jn11以降を再実行" do
-      pending
       @now = Time.now.utc
       @event = mock(:event, :occurred_at => @now)
       @signal = Tengine::Job::Runtime::Signal.new(@event)
@@ -324,33 +322,35 @@ describe "reset" do
         })
         @execution.stub(:root_jobnet).and_return(@root)
 
-        [:root, :jn0005, :j1, :j41].each{|j| @ctx[j].phase_key = :error }
-        [:jn4, :j2, :j4,
-         :j42, :j43, :j44, :jn4f, :jn4_f].each{|j| @ctx[j].phase_key = :initialized }
-
-        [:finally, :jn0005_fjn, :jn0005_f, :jn0005_f1, :jn0005_f2,
-         :jn0005_fjn_f, :jn0005_fif].each{|j| @ctx[j].phase_key = :success}
-
         @ctx[:e1].phase_key = :transmitted
         (2..9).each{|idx| @ctx[:"e#{idx}"].phase_key = :closed}
         (10..18).each{|idx| @ctx[:"e#{idx}"].phase_key = :active}
         (19..26).each{|idx| @ctx[:"e#{idx}"].phase_key = :transmitted}
+
+        [:root, :jn0005, :j1, :j41].each{|j| @ctx[j].update_phase! :error }
+        [:jn4, :j2, :j4,
+         :j42, :j43, :j44, :jn4f, :jn4_f].each{|j| @ctx[j].update_phase!:initialized }
+
+        [:finally, :jn0005_fjn, :jn0005_f, :jn0005_f1, :jn0005_f2,
+         :jn0005_fjn_f, :jn0005_fif].each{|j| @ctx[j].update_phase!:success}
+
         @root.save_descendants!
       end
 
       it "j41の後続のジョブがactivateされる" do
-        pending
         t1 = Time.now
         event1 = mock(:"success.job.job.tengine")
         event1.stub(:occurred_at).and_return(t1)
         signal1 = Tengine::Job::Runtime::Signal.new(event1)
         signal1.stub(:execution).and_return(@execution)
+        signal1.remember_all(@root)
         next_of_j41 = @root.element("next!/jn0005/jn4/j41")
         @root.update_with_lock do
           next_of_j41.transmit(signal1)
         end
         signal1.reservations.length.should == 2
         signal1.reservations.map(&:event_type_name).should == [:"start.job.job.tengine", :"start.job.job.tengine"]
+        signal1.changed_vertecs.each(&:save!)
 
         @root.reload
         @root.element("/jn0005/jn4/j42").tap{|j| j.phase_key.should == :ready }
