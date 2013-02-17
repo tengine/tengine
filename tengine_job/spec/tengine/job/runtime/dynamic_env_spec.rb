@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
+require 'net/ssh'
+
 describe 'hadoop_job_run' do
   include NetSshMock
 
@@ -22,8 +24,6 @@ describe 'hadoop_job_run' do
   describe "基本的なジョブDSL" do
     context "0021_dynamic_env.rb" do
       before do
-        pending "本来Tengine::Job::Runtime以下のクラスを使うべきテストがそうなっていないので要検討"
-
         Tengine::Job::Template::Jobnet.delete_all
         Tengine::Resource::PhysicalServer.delete_all
         TestServerFixture.test_server1
@@ -60,9 +60,13 @@ describe 'hadoop_job_run' do
       context "rjn0021_1" do
         before do
           @template = Tengine::Job::Template::RootJobnet.find_by_name!("rjn0021_1")
+
+          @template.element("j1").class.should == Tengine::Job::Template::SshJob
+          @template.element("j2").class.should == Tengine::Job::Template::SshJob
+
           mock_sender = mock(:sender)
           mock_sender.should_receive(:fire).with(any_args)
-          @execution = @template.execute(:sender => mock_sender)
+          @execution = @template.generate.execute(:sender => mock_sender)
           @root = @execution.root_jobnet
         end
         it_should_behave_like "実行時に環境変数を設定できる"
@@ -73,7 +77,7 @@ describe 'hadoop_job_run' do
           @template = Tengine::Job::Template::RootJobnet.find_by_name!("rjn0021")
           mock_sender = mock(:sender)
           mock_sender.should_receive(:fire).with(any_args)
-          @execution = @template.execute(:sender => mock_sender)
+          @execution = @template.generate.execute(:sender => mock_sender)
           @root = @execution.root_jobnet.vertex_by_name_path("/rjn0021/rjn0021_1")
         end
         it_should_behave_like "実行時に環境変数を設定できる"
@@ -84,7 +88,7 @@ describe 'hadoop_job_run' do
           @template = Tengine::Job::Template::RootJobnet.find_by_name!("rjn0021")
           mock_sender = mock(:sender)
           mock_sender.should_receive(:fire).with(any_args)
-          @execution = @template.execute(:sender => mock_sender)
+          @execution = @template.generate.execute(:sender => mock_sender)
           @root = @execution.root_jobnet.vertex_by_name_path("/rjn0021/rjn0021_2")
         end
         it_should_behave_like "実行時に環境変数を設定できる"
