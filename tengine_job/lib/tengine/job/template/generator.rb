@@ -39,6 +39,10 @@ class Tengine::Job::Template::Generator
       if (t = expansion_root)
         attrs[:template_id] = t.id
       end
+    else
+      if @current.is_a?(Tengine::Job::Template::Jobnet)
+        attrs[:template_id] = @current.id
+      end
     end
     attrs
   end
