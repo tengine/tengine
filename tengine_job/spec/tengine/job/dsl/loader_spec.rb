@@ -127,11 +127,11 @@ describe Tengine::Job::Dsl::Loader do
         end
         root_jobnet.children.map(&:class).should == [
           Tengine::Job::Template::Start         , # 0
-          Tengine::Job::Template::Jobnet, # 1
-          Tengine::Job::Template::Jobnet, # 2
-          Tengine::Job::Template::Jobnet, # 3
-          Tengine::Job::Template::Jobnet, # 4
-          Tengine::Job::Template::Jobnet, # 5
+          Tengine::Job::Template::SshJob, # 1
+          Tengine::Job::Template::SshJob, # 2
+          Tengine::Job::Template::SshJob, # 3
+          Tengine::Job::Template::SshJob, # 4
+          Tengine::Job::Template::SshJob, # 5
           Tengine::Job::Template::Fork          , # 6
           Tengine::Job::Template::Join          , # 7
           Tengine::Job::Template::Join          , # 8
@@ -180,11 +180,11 @@ describe Tengine::Job::Dsl::Loader do
         end
         root_jobnet.children.map(&:class).should == [
           Tengine::Job::Template::Start         , # 0
-          Tengine::Job::Template::Jobnet, # 1
-          Tengine::Job::Template::Jobnet, # 2
-          Tengine::Job::Template::Jobnet, # 3
-          Tengine::Job::Template::Jobnet, # 4
-          Tengine::Job::Template::Jobnet, # 5
+          Tengine::Job::Template::SshJob, # 1
+          Tengine::Job::Template::SshJob, # 2
+          Tengine::Job::Template::SshJob, # 3
+          Tengine::Job::Template::SshJob, # 4
+          Tengine::Job::Template::SshJob, # 5
           Tengine::Job::Template::Fork          , # 6
           Tengine::Job::Template::Fork          , # 7
           Tengine::Job::Template::Join          , # 8
@@ -233,13 +233,13 @@ describe Tengine::Job::Dsl::Loader do
         end
         root_jobnet.children.map(&:class).should == [
           Tengine::Job::Template::Start         , # 0
-          Tengine::Job::Template::Jobnet, # 1
-          Tengine::Job::Template::Jobnet, # 2
-          Tengine::Job::Template::Jobnet, # 3
-          Tengine::Job::Template::Jobnet, # 4
-          Tengine::Job::Template::Jobnet, # 5
-          Tengine::Job::Template::Jobnet, # 6
-          Tengine::Job::Template::Jobnet, # 7
+          Tengine::Job::Template::SshJob, # 1
+          Tengine::Job::Template::SshJob, # 2
+          Tengine::Job::Template::SshJob, # 3
+          Tengine::Job::Template::SshJob, # 4
+          Tengine::Job::Template::SshJob, # 5
+          Tengine::Job::Template::SshJob, # 6
+          Tengine::Job::Template::SshJob, # 7
           Tengine::Job::Template::Fork          , # 8
           Tengine::Job::Template::Fork          , # 9
           Tengine::Job::Template::Fork          , # 10
@@ -300,9 +300,9 @@ describe Tengine::Job::Dsl::Loader do
         end
         root_jobnet.children.map(&:class).should == [
           Tengine::Job::Template::Start         , # 0
-          Tengine::Job::Template::Jobnet, # 1
-          Tengine::Job::Template::Jobnet, # 2
-          Tengine::Job::Template::Jobnet, # 3
+          Tengine::Job::Template::SshJob, # 1
+          Tengine::Job::Template::SshJob, # 2
+          Tengine::Job::Template::SshJob, # 3
           Tengine::Job::Template::Jobnet, # 4
           Tengine::Job::Template::End           , # 5
         ]
@@ -325,8 +325,8 @@ describe Tengine::Job::Dsl::Loader do
         finally_jobnet = root_jobnet.children[4]
         finally_jobnet.children.map(&:class).should == [
           Tengine::Job::Template::Start         , # 0
-          Tengine::Job::Template::Jobnet, # 1
-          Tengine::Job::Template::Jobnet, # 2
+          Tengine::Job::Template::SshJob, # 1
+          Tengine::Job::Template::SshJob, # 2
           Tengine::Job::Template::End           , # 3
         ]
         finally_jobnet.edges.map{|edge| [edge.origin, edge.destination]}.should == [
@@ -398,9 +398,9 @@ describe Tengine::Job::Dsl::Loader do
         end
         root_jobnet.children.map(&:class).should == [
           Tengine::Job::Template::Start         , # 0
-          Tengine::Job::Template::Jobnet, # 1
-          Tengine::Job::Template::Jobnet, # 2
-          Tengine::Job::Template::Jobnet, # 3
+          Tengine::Job::Template::SshJob, # 1
+          Tengine::Job::Template::SshJob, # 2
+          Tengine::Job::Template::SshJob, # 3
           Tengine::Job::Template::Jobnet, # 4
           Tengine::Job::Template::End           , # 5
         ]
