@@ -56,7 +56,7 @@ class Tengine::Job::Template::SshJob < Tengine::Job::Template::NamedVertex
 
     def actual_killing_signals
       killing_signals ? killing_signals :
-        (runtime? ? nil : parent ? parent.actual_killing_signals : DEFAULT_KILLING_SIGNALS)
+        (runtime? ? nil : parent ? parent.actual_killing_signals : DEFAULT_KILLING_SIGNALS.dup)
     end
 
     def actual_killing_signal_interval

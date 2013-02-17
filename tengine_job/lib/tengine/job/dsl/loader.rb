@@ -98,13 +98,13 @@ module Tengine::Job::Dsl::Loader
     script, description, options = __parse_job_args__(name, args)
     options[:description] = options.delete(:caption) if options[:caption]
     options = {
-      :name => name,
-      :description => description,
-      :script => script
+      name: name,
+      description: description,
+      script: script,
     }.update(options)
     preparation = options.delete(:preparation)
     result = __with_redirection__(options) do
-      Tengine::Job::Template::Jobnet.new(options)
+      Tengine::Job::Template::SshJob.new(options)
     end
     @jobnet.children << result
     if preparation

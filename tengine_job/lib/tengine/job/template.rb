@@ -19,4 +19,6 @@ module Tengine::Job::Template
   autoload :SshJob              , "tengine/job/template/ssh_job"
 
   autoload :Expansion           , "tengine/job/template/expansion"
+
+  autoload :Generator           , "tengine/job/template/generator"
 end

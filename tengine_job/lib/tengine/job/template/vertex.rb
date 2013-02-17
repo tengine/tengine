@@ -86,41 +86,8 @@ class Tengine::Job::Template::Vertex
     parent.edges.select{|edge| edge.origin_id == self.id}
   end
 
-  IGNORED_FIELD_NAMES = ["_type", "_id"].freeze
-
-  def actual_class
-    @actual_class ||= self.class.name.sub(/Template/, 'Runtime').constantize
-  end
-
-  def generating_attrs
-    field_names = self.class.fields.keys - IGNORED_FIELD_NAMES
-    field_names.inject({}){|d, name| d[name] = send(name); d }
-  end
-  def generating_children; self.children; end
-  def generating_edges; respond_to?(:edges) ? self.edges : []; end
 
   def generate(options = {})
-    options = {
-      class: actual_class,
-      child_index: 0
-    }.update(options || {})
-    klass = options[:class]
-    result = klass.new(generating_attrs.update(child_index: options[:child_index]))
-    result.save!
-    src_to_generated = {}
-    generating_children.each.with_index do |child, index|
-      generated = child.generate(child_index: index + 1)
-      src_to_generated[child.id] = generated.id
-      result.children << generated
-    end
-    generating_edges.each do |edge|
-      generated = Tengine::Job::Runtime::Edge.new
-      generated.origin_id = src_to_generated[edge.origin_id]
-      generated.destination_id = src_to_generated[edge.destination_id]
-      result.edges << generated
-    end
-    yield(result) if block_given? # 派生クラスでsave!の前に処理を入れるためのyield
-    result.save!
-    result
+    Tengine::Job::Template::Generator.new.execute(self, options)
   end
 end
