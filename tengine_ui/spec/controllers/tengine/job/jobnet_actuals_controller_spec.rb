@@ -20,10 +20,10 @@ require 'tmpdir'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-describe Tengine::Job::JobnetActualsController do
+describe Tengine::Job::Runtime::JobnetsController do
 
   # This should return the minimal set of attributes required to create a valid
-  # Tengine::Job::JobnetActual. As you add validations to Tengine::Job::JobnetActual, be sure to
+  # Tengine::Job::Runtime::Jobnet. As you add validations to Tengine::Job::Runtime::Jobnet, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
     {:name => "test1"}
@@ -46,8 +46,8 @@ describe Tengine::Job::JobnetActualsController do
       Tengine.plugins.add(Tengine::Job)
 
       Tengine::Job::Category.delete_all
-      Tengine::Job::RootJobnetTemplate.delete_all
-      Tengine::Job::RootJobnetActual.delete_all
+      Tengine::Job::Template::RootJobnet.delete_all
+      Tengine::Job::Runtime::RootJobnet.delete_all
       dsl_dir = Dir.tmpdir
       File.open(File.expand_path("VERSION", dsl_dir), "w"){|f| f.write("1") }
       fname = "jn1_jobnet"
@@ -69,12 +69,12 @@ end
 __end_of_dsl__
       end
       load_dsl(dsl_dir, fname)
-      root_jobnet_template = Tengine::Job::RootJobnetTemplate.first()
+      root_jobnet_template = Tengine::Job::Template::RootJobnet.first()
       @root_jobnet_actual = root_jobnet_template.generate
       @root_jobnet_actual.save!
       @jobnet_actuals = []
       visitor = Tengine::Job::Vertex::AllVisitor.new do |vertex|
-                  if vertex.instance_of?(Tengine::Job::JobnetActual)
+                  if vertex.instance_of?(Tengine::Job::Runtime::Jobnet)
                     @jobnet_actuals << vertex
                   end
                 end
@@ -83,8 +83,8 @@ __end_of_dsl__
 
     after do
       Tengine::Job::Category.delete_all
-      Tengine::Job::RootJobnetTemplate.delete_all
-      Tengine::Job::RootJobnetActual.delete_all
+      Tengine::Job::Template::RootJobnet.delete_all
+      Tengine::Job::Runtime::RootJobnet.delete_all
     end
 
     it "assigns all tengine_job_jobnet_actuals as @tengine_job_jobnet_actuals" do
@@ -96,8 +96,8 @@ __end_of_dsl__
 
   describe "GET show" do
     it "assigns the requested jobnet_actual as @jobnet_actual" do
-      root_jobnet_actual = Tengine::Job::RootJobnetActual.new(valid_attributes_for_root)
-      jobnet_actual = Tengine::Job::JobnetActual.new(valid_attributes)
+      root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.new(valid_attributes_for_root)
+      jobnet_actual = Tengine::Job::Runtime::Jobnet.new(valid_attributes)
       root_jobnet_actual.children << jobnet_actual
       root_jobnet_actual.save!
       get :show, :id => jobnet_actual.id.to_s, :root_jobnet_actual_id => root_jobnet_actual.id.to_s
@@ -107,16 +107,16 @@ __end_of_dsl__
 
   describe "GET new" do
     it "assigns a new jobnet_actual as @jobnet_actual" do
-      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
+      root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
       get :new, :root_jobnet_actual_id => root_jobnet_actual.id.to_s
-      assigns(:jobnet_actual).should be_a_new(Tengine::Job::JobnetActual)
+      assigns(:jobnet_actual).should be_a_new(Tengine::Job::Runtime::Jobnet)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested jobnet_actual as @jobnet_actual" do
-      root_jobnet_actual = Tengine::Job::RootJobnetActual.new(valid_attributes_for_root)
-      jobnet_actual = Tengine::Job::JobnetActual.new(valid_attributes)
+      root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.new(valid_attributes_for_root)
+      jobnet_actual = Tengine::Job::Runtime::Jobnet.new(valid_attributes)
       root_jobnet_actual.children << jobnet_actual
       root_jobnet_actual.save!
 
@@ -129,41 +129,41 @@ __end_of_dsl__
 
   describe "POST create" do
     describe "with valid params" do
-      it "creates a new Tengine::Job::JobnetActual" do
-        root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
+      it "creates a new Tengine::Job::Runtime::Jobnet" do
+        root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
         expect {
           post :create, :jobnet_actual => valid_attributes, :root_jobnet_actual_id => root_jobnet_actual.id.to_s
-        }.to change(Tengine::Job::JobnetActual, :count).by(1)
+        }.to change(Tengine::Job::Runtime::Jobnet, :count).by(1)
       end
 
       it "assigns a newly created jobnet_actual as @jobnet_actual" do
-        root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
+        root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
         post :create, :jobnet_actual => valid_attributes, :root_jobnet_actual_id => root_jobnet_actual
-        assigns(:jobnet_actual).should be_a(Tengine::Job::JobnetActual)
+        assigns(:jobnet_actual).should be_a(Tengine::Job::Runtime::Jobnet)
         assigns(:jobnet_actual).should be_persisted
       end
 
       it "redirects to the created jobnet_actual" do
-        root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
+        root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
         post :create, :jobnet_actual => valid_attributes, :root_jobnet_actual_id => root_jobnet_actual.id.to_s
-        jobnet_actual = Tengine::Job::JobnetActual.last
+        jobnet_actual = Tengine::Job::Runtime::Jobnet.last
         response.should redirect_to(tengine_job_root_jobnet_actual_jobnet_actual_path(jobnet_actual, :root_jobnet_actual_id => root_jobnet_actual.id.to_s))
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved jobnet_actual as @jobnet_actual" do
-        root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
+        root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::JobnetActual.any_instance.stub(:save).and_return(false)
+        Tengine::Job::Runtime::Jobnet.any_instance.stub(:save).and_return(false)
         post :create, :jobnet_actual => {}, :root_jobnet_actual_id => root_jobnet_actual.id.to_s
-        assigns(:jobnet_actual).should be_a_new(Tengine::Job::JobnetActual)
+        assigns(:jobnet_actual).should be_a_new(Tengine::Job::Runtime::Jobnet)
       end
 
       it "re-renders the 'new' template" do
-        root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
+        root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::JobnetActual.any_instance.stub(:save).and_return(false)
+        Tengine::Job::Runtime::Jobnet.any_instance.stub(:save).and_return(false)
         post :create, :jobnet_actual => {}, :root_jobnet_actual_id => root_jobnet_actual.id.to_s
         response.should render_template("new")
       end
@@ -173,14 +173,14 @@ __end_of_dsl__
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested jobnet_actual" do
-        root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
-        jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
+        root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
+        jobnet_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
         # Assuming there are no other tengine_job_jobnet_actuals in the database, this
-        # specifies that the Tengine::Job::JobnetActual created on the previous line
+        # specifies that the Tengine::Job::Runtime::Jobnet created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Tengine::Job::JobnetActual.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
+        Tengine::Job::Runtime::Jobnet.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        Tengine::Job::Runtime::RootJobnet.any_instance.stub(:find_descendant).
           and_return(jobnet_actual)
         put :update, :id => jobnet_actual.id, :jobnet_actual => {'these' => 'params'},
           :root_jobnet_actual_id => root_jobnet_actual.id.to_s
@@ -188,10 +188,10 @@ __end_of_dsl__
 
       it "assigns the requested jobnet_actual as @jobnet_actual" do
         root_jobnet_actual = \
-          Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
-        jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
-        Tengine::Job::JobnetActual.any_instance.stub(:save).and_return(true)
-        Tengine::Job::RootJobnetActual.any_instance.should_receive(:find_descendant).
+          Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
+        jobnet_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
+        Tengine::Job::Runtime::Jobnet.any_instance.stub(:save).and_return(true)
+        Tengine::Job::Runtime::RootJobnet.any_instance.should_receive(:find_descendant).
           with(jobnet_actual.id.to_s).and_return(jobnet_actual)
         put :update, :id => jobnet_actual.id, :jobnet_actual => valid_attributes,
           :root_jobnet_actual_id => root_jobnet_actual.id.to_s
@@ -200,10 +200,10 @@ __end_of_dsl__
 
       it "redirects to the root_jobnet_actual show" do
         root_jobnet_actual = \
-          Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
-        jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
-        Tengine::Job::JobnetActual.any_instance.stub(:save).and_return(true)
-        Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
+          Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
+        jobnet_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
+        Tengine::Job::Runtime::Jobnet.any_instance.stub(:save).and_return(true)
+        Tengine::Job::Runtime::RootJobnet.any_instance.stub(:find_descendant).
           and_return(jobnet_actual)
         put :update, :id => jobnet_actual.id, :jobnet_actual => valid_attributes,
           :root_jobnet_actual_id => root_jobnet_actual.id.to_s
@@ -215,11 +215,11 @@ __end_of_dsl__
     describe "with invalid params" do
       it "assigns the jobnet_actual as @jobnet_actual" do
         root_jobnet_actual = \
-          Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
-        jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
+          Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
+        jobnet_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::JobnetActual.any_instance.stub(:save).and_return(false)
-        Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
+        Tengine::Job::Runtime::Jobnet.any_instance.stub(:save).and_return(false)
+        Tengine::Job::Runtime::RootJobnet.any_instance.stub(:find_descendant).
           and_return(jobnet_actual)
 
         put :update, :id => jobnet_actual.id.to_s, :jobnet_actual => {},
@@ -229,11 +229,11 @@ __end_of_dsl__
 
       it "re-renders the 'edit' template" do
         root_jobnet_actual = \
-          Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
-        jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
+          Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
+        jobnet_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::JobnetActual.any_instance.stub(:save).and_return(false)
-        Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
+        Tengine::Job::Runtime::Jobnet.any_instance.stub(:save).and_return(false)
+        Tengine::Job::Runtime::RootJobnet.any_instance.stub(:find_descendant).
           and_return(jobnet_actual)
 
         put :update, :id => jobnet_actual.id.to_s, :jobnet_actual => {},
@@ -246,42 +246,42 @@ __end_of_dsl__
   describe "DELETE destroy" do
     it "destroys the requested jobnet_actual" do
       root_jobnet_actual = \
-        Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
-      jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
-      job_actual = Tengine::Job::JobnetActual.create! valid_attributes
+        Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
+      jobnet_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
+      job_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
       jobnet_actual.stub(:children).and_return([job_actual])
-      Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
+      Tengine::Job::Runtime::RootJobnet.any_instance.stub(:find_descendant).
         and_return(jobnet_actual)
-      Tengine::Job::JobnetActual.any_instance.should_receive(:fire_stop_event)
+      Tengine::Job::Runtime::Jobnet.any_instance.should_receive(:fire_stop_event)
       delete :destroy, :id => jobnet_actual.id.to_s,
         :root_jobnet_actual_id => root_jobnet_actual.id.to_s
     end
 
     it "destroys the requested actual job. example: job, hadoop_job_run (script_executable? => true)" do
       root_jobnet_actual = \
-        Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
-      jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
-      job_actual = Tengine::Job::JobnetActual.create! valid_attributes
+        Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
+      jobnet_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
+      job_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
       # job_actual.stub(:children).and_return(nil)
       job_actual.stub(:script_executable?).and_return(true)
       job_actual.stub(:parent).and_return(jobnet_actual)
-      Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
+      Tengine::Job::Runtime::RootJobnet.any_instance.stub(:find_descendant).
         and_return(job_actual)
-      Tengine::Job::JobnetActual.any_instance.should_receive(:fire_stop_event)
+      Tengine::Job::Runtime::Jobnet.any_instance.should_receive(:fire_stop_event)
       delete :destroy, :id => job_actual.id.to_s,
         :root_jobnet_actual_id => root_jobnet_actual.id.to_s
     end
 
     it "redirects to the tengine_job_jobnet_actuals list. example: jobnet (script_executable? => false)" do
       root_jobnet_actual = \
-        Tengine::Job::RootJobnetActual.create! valid_attributes_for_root
-      jobnet_actual = Tengine::Job::JobnetActual.create! valid_attributes
-      job_actual = Tengine::Job::JobnetActual.create! valid_attributes
+        Tengine::Job::Runtime::RootJobnet.create! valid_attributes_for_root
+      jobnet_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
+      job_actual = Tengine::Job::Runtime::Jobnet.create! valid_attributes
       # jobnet_actual.stub(:children).and_return([job_actual])
       jobnet_actual.stub(:script_executable?).and_return(false)
-      Tengine::Job::RootJobnetActual.any_instance.stub(:find_descendant).
+      Tengine::Job::Runtime::RootJobnet.any_instance.stub(:find_descendant).
         and_return(jobnet_actual)
-      Tengine::Job::JobnetActual.any_instance.should_receive(:fire_stop_event)
+      Tengine::Job::Runtime::Jobnet.any_instance.should_receive(:fire_stop_event)
       delete :destroy, :id => jobnet_actual.id.to_s,
         :root_jobnet_actual_id => root_jobnet_actual.id.to_s
       response.should redirect_to(tengine_job_root_jobnet_actual_path(root_jobnet_actual))

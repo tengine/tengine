@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe "tengine/job/root_jobnet_actuals/show.html.erb" do
   before(:each) do
-    @root_jobnet_actual = assign(:root_jobnet_actual, stub_model(Tengine::Job::RootJobnetActual,
+    @root_jobnet_actual = assign(:root_jobnet_actual, stub_model(Tengine::Job::Runtime::RootJobnet,
       :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
       :name => "Name",
       :server_name => "Server Name",
@@ -61,7 +61,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
 
   describe "@jobnet_actualsが空でないとき" do
     before do
-      @job1 = stub_model(Tengine::Job::JobnetActual,
+      @job1 = stub_model(Tengine::Job::Runtime::Jobnet,
         :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000002"),
         :name => "job1 name",
         :description => "job1 description",
@@ -74,7 +74,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
         :started_at => Time.new(2011, 11, 5),
         :finished_at => Time.new(2011, 11, 6),
       )
-      @job2 = stub_model(Tengine::Job::JobnetActual,
+      @job2 = stub_model(Tengine::Job::Runtime::Jobnet,
         :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000003"),
         :name => "job2 name",
         :description => "job2 description",
@@ -138,7 +138,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
 
     context "@job1のステータスがinitializedのとき" do
       before do
-        @job1 = stub_model(Tengine::Job::JobnetActual,
+        @job1 = stub_model(Tengine::Job::Runtime::Jobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000002"),
           :name => "job1 name",
           :description => "job1 description",
@@ -174,7 +174,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
 
     context "@job1のステータスがreadyのとき" do
       before do
-        @job1 = stub_model(Tengine::Job::JobnetActual,
+        @job1 = stub_model(Tengine::Job::Runtime::Jobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000002"),
           :name => "job1 name",
           :description => "job1 description",
@@ -208,7 +208,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
 
     context "@job1のステータスがstartingのとき" do
       before do
-        @job1 = stub_model(Tengine::Job::JobnetActual,
+        @job1 = stub_model(Tengine::Job::Runtime::Jobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000002"),
           :name => "job1 name",
           :description => "job1 description",
@@ -242,7 +242,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
 
     context "@job1のステータスがrunningのとき" do
       before do
-        @job1 = stub_model(Tengine::Job::JobnetActual,
+        @job1 = stub_model(Tengine::Job::Runtime::Jobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000002"),
           :name => "job1 name",
           :description => "job1 description",
@@ -276,7 +276,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
 
     context "@job1のステータスがdyingのとき" do
       before do
-        @job1 = stub_model(Tengine::Job::JobnetActual,
+        @job1 = stub_model(Tengine::Job::Runtime::Jobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000002"),
           :name => "job1 name",
           :description => "job1 description",
@@ -310,7 +310,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
 
     context "@job1のステータスがsuccessのとき" do
       before do
-        @job1 = stub_model(Tengine::Job::JobnetActual,
+        @job1 = stub_model(Tengine::Job::Runtime::Jobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000002"),
           :name => "job1 name",
           :description => "job1 description",
@@ -346,7 +346,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
 
     context "@job1のステータスがerrorのとき" do
       before do
-        @job1 = stub_model(Tengine::Job::JobnetActual,
+        @job1 = stub_model(Tengine::Job::Runtime::Jobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000002"),
           :name => "job1 name",
           :description => "job1 description",
@@ -382,7 +382,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
 
     context "@job1のステータスがstuckのとき" do
       before do
-        @job1 = stub_model(Tengine::Job::JobnetActual,
+        @job1 = stub_model(Tengine::Job::Runtime::Jobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000002"),
           :name => "job1 name",
           :description => "job1 description",
@@ -418,7 +418,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
 
     context "@jobnet1のステータスがstuck, @job2のステータスがrunningのとき" do
       before do
-        @jobnet1 = stub_model(Tengine::Job::JobnetActual,
+        @jobnet1 = stub_model(Tengine::Job::Runtime::Jobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000002"),
           :name => "job1 name",
           :description => "job1 description",
@@ -429,7 +429,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
           :phase_key => :stuck,
           :started_at => Time.new(2011, 11, 5),
         )
-        @job2 = stub_model(Tengine::Job::JobnetActual,
+        @job2 = stub_model(Tengine::Job::Runtime::Jobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000003"),
           :name => "job2 name",
           :description => "job2 description",
@@ -483,7 +483,7 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
 
     context "@root_jobnet_actualのステータスがrunningのとき" do
       before(:each) do
-        @root_jobnet_actual = assign(:root_jobnet_actual, stub_model(Tengine::Job::RootJobnetActual,
+        @root_jobnet_actual = assign(:root_jobnet_actual, stub_model(Tengine::Job::Runtime::RootJobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
           :name => "Name",
           :server_name => "Server Name",
@@ -528,10 +528,10 @@ describe "tengine/job/root_jobnet_actuals/show.html.erb" do
     context "<BUG>hadoop_job_runを含むジョブを実行すると、「ジョブネット監視」画面のhadoop_job、Map、Reduceに強制停止リンク、及び再実行リンクが表示されてしまう" do
       [:hadoop_job, :map_phase, :reduce_phase].each do |jobnet_type_key|
         context "jobnet_type_keyが#{jobnet_type_key.inspect}ならば" do
-          Tengine::Job::JobnetActual.phase_keys.each do |phase_key|
+          Tengine::Job::Runtime::Jobnet.phase_keys.each do |phase_key|
             context "どんな状態でも(#{phase_key.inspect})" do
               before do
-                @job1 = stub_model(Tengine::Job::JobnetActual,
+                @job1 = stub_model(Tengine::Job::Runtime::Jobnet,
                   :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000002"),
                   :jobnet_type_key => jobnet_type_key,
                   :name => "job1 name",

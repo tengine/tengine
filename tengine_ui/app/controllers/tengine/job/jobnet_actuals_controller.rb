@@ -1,9 +1,9 @@
-class Tengine::Job::JobnetActualsController < ApplicationController
+class Tengine::Job::Runtime::JobnetsController < ApplicationController
   private
 
   before_filter :assign_root_jobnet_actual
   def assign_root_jobnet_actual
-    @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:root_jobnet_actual_id])
+    @root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.find(params[:root_jobnet_actual_id])
   end
 
   public
@@ -13,7 +13,7 @@ class Tengine::Job::JobnetActualsController < ApplicationController
   def index
     @jobnet_actuals = []
     visitor = Tengine::Job::Vertex::AllVisitor.new do |vertex|
-                if vertex.instance_of?(Tengine::Job::JobnetActual)
+                if vertex.instance_of?(Tengine::Job::Runtime::Jobnet)
                   @jobnet_actuals << vertex
                 end
               end
@@ -39,7 +39,7 @@ class Tengine::Job::JobnetActualsController < ApplicationController
   # GET /tengine/job/jobnet_actuals/new
   # GET /tengine/job/jobnet_actuals/new.json
   def new
-    @jobnet_actual = Tengine::Job::JobnetActual.new
+    @jobnet_actual = Tengine::Job::Runtime::Jobnet.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -55,7 +55,7 @@ class Tengine::Job::JobnetActualsController < ApplicationController
   # POST /tengine/job/jobnet_actuals
   # POST /tengine/job/jobnet_actuals.json
   def create
-    @jobnet_actual = Tengine::Job::JobnetActual.new(params[:jobnet_actual])
+    @jobnet_actual = Tengine::Job::Runtime::Jobnet.new(params[:jobnet_actual])
 
     respond_to do |format|
       if @jobnet_actual.save

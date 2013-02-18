@@ -20,10 +20,10 @@ require 'tmpdir'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-describe Tengine::Job::RootJobnetTemplatesController do
+describe Tengine::Job::Template::RootJobnetsController do
 
   # This should return the minimal set of attributes required to create a valid
-  # Tengine::Job::RootJobnetTemplate. As you add validations to Tengine::Job::RootJobnetTemplate, be sure to
+  # Tengine::Job::Template::RootJobnet. As you add validations to Tengine::Job::Template::RootJobnet, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
     {
@@ -49,9 +49,9 @@ describe Tengine::Job::RootJobnetTemplatesController do
         Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1")
 
         Tengine::Job::Category.delete_all
-        Tengine::Job::RootJobnetTemplate.delete_all
+        Tengine::Job::Template::RootJobnet.delete_all
         category = stub_model(Tengine::Job::Category, :to_s => "category")
-        Tengine::Job::RootJobnetTemplate.create!(
+        Tengine::Job::Template::RootJobnet.create!(
           #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
           :name => "9Name1",
           :server_name => "Server Name1",
@@ -67,7 +67,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :dsl_lineno => 4,
           :dsl_version => "1"
         )
-        Tengine::Job::RootJobnetTemplate.create!(
+        Tengine::Job::Template::RootJobnet.create!(
           #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
           :name => "2Name1",
           :server_name => "Server Name1",
@@ -83,7 +83,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :dsl_lineno => 4,
           :dsl_version => "1"
         )
-        Tengine::Job::RootJobnetTemplate.create!(
+        Tengine::Job::Template::RootJobnet.create!(
           #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
           :name => "1Name2",
           :server_name => "Server Name2",
@@ -99,7 +99,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :dsl_lineno => 4,
           :dsl_version => "1"
         )
-        Tengine::Job::RootJobnetTemplate.create!(
+        Tengine::Job::Template::RootJobnet.create!(
           #:id => BSON::ObjectId("4e955633c3406b3a9f000000"),
           :name => "3Name3",
           :server_name => "Server Name3",
@@ -118,8 +118,8 @@ describe Tengine::Job::RootJobnetTemplatesController do
       end
 
       it "assigns all tengine_job_root_jobnet_templates as @tengine_job_root_jobnet_templates" do
-        Tengine::Job::RootJobnetTemplate.delete_all
-        root_jobnet_template = Tengine::Job::RootJobnetTemplate.create! valid_attributes
+        Tengine::Job::Template::RootJobnet.delete_all
+        root_jobnet_template = Tengine::Job::Template::RootJobnet.create! valid_attributes
         get :index
         root_jobnet_templates = assigns(:root_jobnet_templates)
         root_jobnet_templates.to_a.should eq([root_jobnet_template])
@@ -212,9 +212,9 @@ describe Tengine::Job::RootJobnetTemplatesController do
 
         Tengine::Job::Category.delete_all
         Tengine::Job::Vertex.delete_all
-        Tengine::Job::RootJobnetTemplate.delete_all
+        Tengine::Job::Template::RootJobnet.delete_all
         category = stub_model(Tengine::Job::Category, :to_s => "category")
-        Tengine::Job::RootJobnetTemplate.create!(
+        Tengine::Job::Template::RootJobnet.create!(
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
           :name => "jobnet_foo_test",
           :server_name => "Server Name",
@@ -230,7 +230,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :dsl_lineno => 4,
           :dsl_version => "1"
         )
-        Tengine::Job::RootJobnetTemplate.create!(
+        Tengine::Job::Template::RootJobnet.create!(
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000002"),
           :name => "jobnet_bar_test",
           :server_name => "Server Name",
@@ -246,7 +246,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :dsl_lineno => 4,
           :dsl_version => "1"
         )
-        Tengine::Job::RootJobnetTemplate.create!(
+        Tengine::Job::Template::RootJobnet.create!(
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000003"),
           :name => "jobnet_baz_bar_test",
           :server_name => "Server Name",
@@ -403,7 +403,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
         Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1")
 
         Tengine::Job::Category.delete_all
-        Tengine::Job::RootJobnetTemplate.delete_all
+        Tengine::Job::Template::RootJobnet.delete_all
         @foo = Tengine::Job::Category.create!(
           :dsl_version => "1",
           :name => "foo",
@@ -417,7 +417,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
         )
         @foo.children << @bar
         @foo.save!
-        @job1 = Tengine::Job::RootJobnetTemplate.create!(
+        @job1 = Tengine::Job::Template::RootJobnet.create!(
           :name => "jobnet_foo_test",
           :server_name => "Server Name",
           :credential_name => "Credential Name",
@@ -432,7 +432,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :dsl_lineno => 4,
           :dsl_version => "1"
         )
-        @job2 = Tengine::Job::RootJobnetTemplate.create!(
+        @job2 = Tengine::Job::Template::RootJobnet.create!(
           :name => "jobnet_bar_test",
           :server_name => "Server Name",
           :credential_name => "Credential Name",
@@ -447,7 +447,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :dsl_lineno => 4,
           :dsl_version => "1"
         )
-        @job3 = Tengine::Job::RootJobnetTemplate.create!(
+        @job3 = Tengine::Job::Template::RootJobnet.create!(
           :name => "jobnet_baz_bar_foo_test",
           :server_name => "Server Name",
           :credential_name => "Credential Name",
@@ -555,9 +555,9 @@ describe Tengine::Job::RootJobnetTemplatesController do
     describe "dsl_version" do
       before(:each) do
         Tengine::Job::Category.delete_all
-        Tengine::Job::RootJobnetTemplate.delete_all
+        Tengine::Job::Template::RootJobnet.delete_all
         category = stub_model(Tengine::Job::Category, :to_s => "category")
-        Tengine::Job::RootJobnetTemplate.create!(
+        Tengine::Job::Template::RootJobnet.create!(
           :name => "9Name1",
           :server_name => "Server Name1",
           :credential_name => "Credential Name1",
@@ -572,7 +572,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :dsl_lineno => 4,
           :dsl_version => "1"
         )
-        Tengine::Job::RootJobnetTemplate.create!(
+        Tengine::Job::Template::RootJobnet.create!(
           :name => "2Name1",
           :server_name => "Server Name1",
           :credential_name => "Credential Name1",
@@ -587,7 +587,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
           :dsl_lineno => 4,
           :dsl_version => "2"
         )
-        Tengine::Job::RootJobnetTemplate.create!(
+        Tengine::Job::Template::RootJobnet.create!(
           :name => "1Name2",
           :server_name => "Server Name2",
           :credential_name => "Credential Name2",
@@ -656,13 +656,13 @@ describe Tengine::Job::RootJobnetTemplatesController do
       end
 
       it "assigns the requested root_jobnet_template as @root_jobnet_template" do
-        root_jobnet_template = Tengine::Job::RootJobnetTemplate.create! @valid_attributes
+        root_jobnet_template = Tengine::Job::Template::RootJobnet.create! @valid_attributes
         get :show, :id => root_jobnet_template.id.to_s
         assigns(:root_jobnet_template).should eq(root_jobnet_template)
       end
 
       it "assigns the requested root_jobnet_template as @jobnet_templates" do
-        root_jobnet_template = Tengine::Job::RootJobnetTemplate.create! @valid_attributes
+        root_jobnet_template = Tengine::Job::Template::RootJobnet.create! @valid_attributes
         get :show, :id => root_jobnet_template.id.to_s
         assigns(:jobnet_templates).should be_blank
       end
@@ -673,10 +673,10 @@ describe Tengine::Job::RootJobnetTemplatesController do
         Tengine::Core::Setting.where(:name => "dsl_version").delete_all
         Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1")
 
-        Tengine::Job::RootJobnetTemplate.delete_all
-        @job1 = Tengine::Job::RootJobnetTemplate.create!(
+        Tengine::Job::Template::RootJobnet.delete_all
+        @job1 = Tengine::Job::Template::RootJobnet.create!(
           valid_attributes.merge(:dsl_version => "1"))
-        @job2 = Tengine::Job::RootJobnetTemplate.create!(
+        @job2 = Tengine::Job::Template::RootJobnet.create!(
           valid_attributes.merge(:dsl_version => "2"))
       end
 
@@ -690,7 +690,7 @@ describe Tengine::Job::RootJobnetTemplatesController do
       before(:all) do
         Tengine.plugins.add(Tengine::Job)
 
-        Tengine::Job::RootJobnetTemplate.delete_all
+        Tengine::Job::Template::RootJobnet.delete_all
         dsl_dir = Dir.tmpdir
         File.open(File.expand_path("VERSION", dsl_dir), "w"){|f| f.write("1") }
         fname = "jn1_jobnet"
@@ -713,7 +713,7 @@ end
 __end_of_dsl__
         end
         load_dsl(dsl_dir, fname)
-        @root_jobnet_template = Tengine::Job::RootJobnetTemplate.first()
+        @root_jobnet_template = Tengine::Job::Template::RootJobnet.first()
       end
 
       it "@jobnet_templatesの要素が4つあること" do
@@ -743,7 +743,7 @@ __end_of_dsl__
       before(:all) do
         Tengine.plugins.add(Tengine::Job)
 
-        Tengine::Job::RootJobnetTemplate.delete_all
+        Tengine::Job::Template::RootJobnet.delete_all
         dsl_dir = Dir.tmpdir
         File.open(File.expand_path("VERSION", dsl_dir), "w"){|f| f.write("1") }
         expansion_jobnets = {
@@ -787,7 +787,7 @@ end
 __end_of_dsl__
         end
         load_dsl(dsl_dir, fname)
-        @root_jobnet_template = Tengine::Job::RootJobnetTemplate.find_by_name("jn1")
+        @root_jobnet_template = Tengine::Job::Template::RootJobnet.find_by_name("jn1")
       end
 
       it "@jobnet_templatesの要素が4つあること" do
@@ -840,13 +840,13 @@ __end_of_dsl__
   describe "GET new" do
     it "assigns a new root_jobnet_template as @root_jobnet_template" do
       get :new
-      assigns(:root_jobnet_template).should be_a_new(Tengine::Job::RootJobnetTemplate)
+      assigns(:root_jobnet_template).should be_a_new(Tengine::Job::Template::RootJobnet)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested root_jobnet_template as @root_jobnet_template" do
-      root_jobnet_template = Tengine::Job::RootJobnetTemplate.create! valid_attributes
+      root_jobnet_template = Tengine::Job::Template::RootJobnet.create! valid_attributes
       get :edit, :id => root_jobnet_template.id.to_s
       assigns(:root_jobnet_template).should eq(root_jobnet_template)
     end
@@ -854,35 +854,35 @@ __end_of_dsl__
 
   describe "POST create" do
     describe "with valid params" do
-      it "creates a new Tengine::Job::RootJobnetTemplate" do
+      it "creates a new Tengine::Job::Template::RootJobnet" do
         expect {
           post :create, :root_jobnet_template => valid_attributes
-        }.to change(Tengine::Job::RootJobnetTemplate, :count).by(1)
+        }.to change(Tengine::Job::Template::RootJobnet, :count).by(1)
       end
 
       it "assigns a newly created root_jobnet_template as @root_jobnet_template" do
         post :create, :root_jobnet_template => valid_attributes
-        assigns(:root_jobnet_template).should be_a(Tengine::Job::RootJobnetTemplate)
+        assigns(:root_jobnet_template).should be_a(Tengine::Job::Template::RootJobnet)
         assigns(:root_jobnet_template).should be_persisted
       end
 
       it "redirects to the created root_jobnet_template" do
         post :create, :root_jobnet_template => valid_attributes
-        response.should redirect_to(Tengine::Job::RootJobnetTemplate.last)
+        response.should redirect_to(Tengine::Job::Template::RootJobnet.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved root_jobnet_template as @root_jobnet_template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::RootJobnetTemplate.any_instance.stub(:save).and_return(false)
+        Tengine::Job::Template::RootJobnet.any_instance.stub(:save).and_return(false)
         post :create, :root_jobnet_template => {}
-        assigns(:root_jobnet_template).should be_a_new(Tengine::Job::RootJobnetTemplate)
+        assigns(:root_jobnet_template).should be_a_new(Tengine::Job::Template::RootJobnet)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::RootJobnetTemplate.any_instance.stub(:save).and_return(false)
+        Tengine::Job::Template::RootJobnet.any_instance.stub(:save).and_return(false)
         post :create, :root_jobnet_template => {}
         response.should render_template("new")
       end
@@ -892,23 +892,23 @@ __end_of_dsl__
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested root_jobnet_template" do
-        root_jobnet_template = Tengine::Job::RootJobnetTemplate.create! valid_attributes
+        root_jobnet_template = Tengine::Job::Template::RootJobnet.create! valid_attributes
         # Assuming there are no other tengine_job_root_jobnet_templates in the database, this
-        # specifies that the Tengine::Job::RootJobnetTemplate created on the previous line
+        # specifies that the Tengine::Job::Template::RootJobnet created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Tengine::Job::RootJobnetTemplate.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        Tengine::Job::Template::RootJobnet.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
         put :update, :id => root_jobnet_template.id, :root_jobnet_template => {'these' => 'params'}
       end
 
       it "assigns the requested root_jobnet_template as @root_jobnet_template" do
-        root_jobnet_template = Tengine::Job::RootJobnetTemplate.create! valid_attributes
+        root_jobnet_template = Tengine::Job::Template::RootJobnet.create! valid_attributes
         put :update, :id => root_jobnet_template.id, :root_jobnet_template => valid_attributes
         assigns(:root_jobnet_template).should eq(root_jobnet_template)
       end
 
       it "redirects to the root_jobnet_template" do
-        root_jobnet_template = Tengine::Job::RootJobnetTemplate.create! valid_attributes
+        root_jobnet_template = Tengine::Job::Template::RootJobnet.create! valid_attributes
         put :update, :id => root_jobnet_template.id, :root_jobnet_template => valid_attributes
         response.should redirect_to(root_jobnet_template)
       end
@@ -916,17 +916,17 @@ __end_of_dsl__
 
     describe "with invalid params" do
       it "assigns the root_jobnet_template as @root_jobnet_template" do
-        root_jobnet_template = Tengine::Job::RootJobnetTemplate.create! valid_attributes
+        root_jobnet_template = Tengine::Job::Template::RootJobnet.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::RootJobnetTemplate.any_instance.stub(:save).and_return(false)
+        Tengine::Job::Template::RootJobnet.any_instance.stub(:save).and_return(false)
         put :update, :id => root_jobnet_template.id.to_s, :root_jobnet_template => {}
         assigns(:root_jobnet_template).should eq(root_jobnet_template)
       end
 
       it "re-renders the 'edit' template" do
-        root_jobnet_template = Tengine::Job::RootJobnetTemplate.create! valid_attributes
+        root_jobnet_template = Tengine::Job::Template::RootJobnet.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::RootJobnetTemplate.any_instance.stub(:save).and_return(false)
+        Tengine::Job::Template::RootJobnet.any_instance.stub(:save).and_return(false)
         put :update, :id => root_jobnet_template.id.to_s, :root_jobnet_template => {}
         response.should render_template("edit")
       end
@@ -935,14 +935,14 @@ __end_of_dsl__
 
   describe "DELETE destroy" do
     it "destroys the requested root_jobnet_template" do
-      root_jobnet_template = Tengine::Job::RootJobnetTemplate.create! valid_attributes
+      root_jobnet_template = Tengine::Job::Template::RootJobnet.create! valid_attributes
       expect {
         delete :destroy, :id => root_jobnet_template.id.to_s
-      }.to change(Tengine::Job::RootJobnetTemplate, :count).by(-1)
+      }.to change(Tengine::Job::Template::RootJobnet, :count).by(-1)
     end
 
     it "redirects to the tengine_job_root_jobnet_templates list" do
-      root_jobnet_template = Tengine::Job::RootJobnetTemplate.create! valid_attributes
+      root_jobnet_template = Tengine::Job::Template::RootJobnet.create! valid_attributes
       delete :destroy, :id => root_jobnet_template.id.to_s
       response.should redirect_to(tengine_job_root_jobnet_templates_url)
     end

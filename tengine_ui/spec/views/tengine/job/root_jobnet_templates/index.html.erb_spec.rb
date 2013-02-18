@@ -5,10 +5,10 @@ require 'ostruct'
 describe "tengine/job/root_jobnet_templates/index.html.erb" do
   before(:each) do
     Tengine::Job::Category.delete_all
-    Tengine::Job::RootJobnetTemplate.delete_all
+    Tengine::Job::Template::RootJobnet.delete_all
     category = stub_model(Tengine::Job::Category, :to_s => "category")
     templates = [
-      stub_model(Tengine::Job::RootJobnetTemplate,
+      stub_model(Tengine::Job::Template::RootJobnet,
         :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
         :name => "Name",
         :server_name => "Server Name",
@@ -24,7 +24,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
         :dsl_lineno => 4,
         :dsl_version => "Dsl Version"
       ),
-      stub_model(Tengine::Job::RootJobnetTemplate,
+      stub_model(Tengine::Job::Template::RootJobnet,
         :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
         :name => "Name",
         :server_name => "Server Name",
@@ -88,7 +88,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
     href = tengine_job_root_jobnet_templates_path(:sort=>{:id=>"asc"})
     rendered.should have_xpath("//a[@class=''][@href='#{href}']",
-      :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:id))
+      :text => Tengine::Job::Template::RootJobnet.human_attribute_name(:id))
   end
 
   it "nameのソートのリンクに昇順のクエリーパラメータが付加されていてclassが空文字列となっていること" do
@@ -96,7 +96,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
     href = tengine_job_root_jobnet_templates_path(:sort=>{:name=>"asc"})
     rendered.should have_xpath("//a[@class=''][@href='#{href}']",
-      :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:name))
+      :text => Tengine::Job::Template::RootJobnet.human_attribute_name(:name))
   end
 
   it "descriptionのソートのリンクに昇順のクエリーパラメータが付加されていてclassが空文字列となっていること" do
@@ -104,7 +104,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
     href = tengine_job_root_jobnet_templates_path(:sort=>{:desc=>"asc"})
     rendered.should have_xpath("//a[@class=''][@href='#{href}']",
-      :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:description))
+      :text => Tengine::Job::Template::RootJobnet.human_attribute_name(:description))
   end
 
   it "カテゴリのツリーが表示されていること" do
@@ -124,7 +124,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
       href = tengine_job_root_jobnet_templates_path(:sort=>{:id=>:desc})
       rendered.should have_xpath("//a[@class='SortAsc'][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:id))
+        :text => Tengine::Job::Template::RootJobnet.human_attribute_name(:id))
     end
 
     it "nameのソートのリンクに昇順のクエリーパラメータが付加されていてclassが空文字列となっていること" do
@@ -132,7 +132,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
       href = tengine_job_root_jobnet_templates_path(:sort=>{:name=>"asc"})
       rendered.should have_xpath("//a[@class=''][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:name))
+        :text => Tengine::Job::Template::RootJobnet.human_attribute_name(:name))
     end
 
     it "カテゴリのツリーのリンクにsortパラメータがついていないこと" do
@@ -156,7 +156,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
       href = tengine_job_root_jobnet_templates_path(:sort=>{:id=>:asc})
       rendered.should have_xpath("//a[@class='SortDesc'][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:id))
+        :text => Tengine::Job::Template::RootJobnet.human_attribute_name(:id))
     end
 
     it "nameのソートのリンクに昇順のクエリーパラメータが付加されていてclassが空文字列となっていること" do
@@ -164,7 +164,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
       href = tengine_job_root_jobnet_templates_path(:sort=>{:name=>"asc"})
       rendered.should have_xpath("//a[@class=''][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:name))
+        :text => Tengine::Job::Template::RootJobnet.human_attribute_name(:name))
     end
   end
 
@@ -178,7 +178,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
       href = tengine_job_root_jobnet_templates_path(:sort=>{:name=>"desc"})
       rendered.should have_xpath("//a[@class='SortAsc'][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:name))
+        :text => Tengine::Job::Template::RootJobnet.human_attribute_name(:name))
     end
   end
 
@@ -192,7 +192,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
       href = tengine_job_root_jobnet_templates_path(:sort=>{:name=>"asc"})
       rendered.should have_xpath("//a[@class='SortDesc'][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:name))
+        :text => Tengine::Job::Template::RootJobnet.human_attribute_name(:name))
     end
   end
 
@@ -206,7 +206,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
       href = tengine_job_root_jobnet_templates_path(:sort=>{:desc=>"desc"})
       rendered.should have_xpath("//a[@class='SortAsc'][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:description))
+        :text => Tengine::Job::Template::RootJobnet.human_attribute_name(:description))
     end
   end
 
@@ -220,7 +220,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
       href = tengine_job_root_jobnet_templates_path(:sort=>{:desc=>"asc"})
       rendered.should have_xpath("//a[@class='SortDesc'][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:description))
+        :text => Tengine::Job::Template::RootJobnet.human_attribute_name(:description))
     end
 
   end
@@ -261,17 +261,17 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       render
 
       rendered.should have_link(
-        Tengine::Job::RootJobnetTemplate.human_attribute_name(:id),
+        Tengine::Job::Template::RootJobnet.human_attribute_name(:id),
         :href=>tengine_job_root_jobnet_templates_path(
           @request.query_parameters.merge(:sort => {:id => :asc}))
       )
       rendered.should have_link(
-        Tengine::Job::RootJobnetTemplate.human_attribute_name(:name),
+        Tengine::Job::Template::RootJobnet.human_attribute_name(:name),
         :href=>tengine_job_root_jobnet_templates_path(
           @request.query_parameters.merge(:sort => {:name => :asc}))
       )
       rendered.should have_link(
-        Tengine::Job::RootJobnetTemplate.human_attribute_name(:description),
+        Tengine::Job::Template::RootJobnet.human_attribute_name(:description),
         :href=>tengine_job_root_jobnet_templates_path(
           @request.query_parameters.merge(:sort => {:desc => :asc}))
       )
@@ -314,7 +314,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
       params = @request.params.merge(:sort=>{:name=>"asc"})
       href = tengine_job_root_jobnet_templates_path(params)
       rendered.should have_xpath("//a[@class=''][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetTemplate.human_attribute_name(:name))
+        :text => Tengine::Job::Template::RootJobnet.human_attribute_name(:name))
     end
 
     it "検索フォームのhiddenフィールドにcategoryがあること" do
@@ -328,10 +328,10 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
   context "ページの2ページ目を表示したとき" do
     before(:each) do
       Tengine::Job::Category.delete_all
-      Tengine::Job::RootJobnetTemplate.delete_all
+      Tengine::Job::Template::RootJobnet.delete_all
       category = stub_model(Tengine::Job::Category, :to_s => "category")
       templates = assign(:root_jobnet_templates, Kaminari.paginate_array([
-        stub_model(Tengine::Job::RootJobnetTemplate,
+        stub_model(Tengine::Job::Template::RootJobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
           :name => "Name",
           :server_name => "Server Name",
@@ -347,7 +347,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
           :dsl_lineno => 4,
           :dsl_version => "Dsl Version"
         ),
-        stub_model(Tengine::Job::RootJobnetTemplate,
+        stub_model(Tengine::Job::Template::RootJobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
           :name => "Name",
           :server_name => "Server Name",
@@ -363,7 +363,7 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
           :dsl_lineno => 4,
           :dsl_version => "Dsl Version"
         ),
-        stub_model(Tengine::Job::RootJobnetTemplate,
+        stub_model(Tengine::Job::Template::RootJobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
           :name => "Name",
           :server_name => "Server Name",
@@ -433,17 +433,17 @@ describe "tengine/job/root_jobnet_templates/index.html.erb" do
 
         query_param = {:finder => @request.query_parameters[:finder]}
         rendered.should have_link(
-          Tengine::Job::RootJobnetTemplate.human_attribute_name(:id),
+          Tengine::Job::Template::RootJobnet.human_attribute_name(:id),
           :href=>tengine_job_root_jobnet_templates_path(
             query_param.merge(:sort => {:id => :asc}))
         )
         rendered.should have_link(
-          Tengine::Job::RootJobnetTemplate.human_attribute_name(:name),
+          Tengine::Job::Template::RootJobnet.human_attribute_name(:name),
           :href=>tengine_job_root_jobnet_templates_path(
             query_param.merge(:sort => {:name => :asc}))
         )
         rendered.should have_link(
-          Tengine::Job::RootJobnetTemplate.human_attribute_name(:description),
+          Tengine::Job::Template::RootJobnet.human_attribute_name(:description),
           :href=>tengine_job_root_jobnet_templates_path(
             query_param.merge(:sort => {:desc => :asc}))
         )

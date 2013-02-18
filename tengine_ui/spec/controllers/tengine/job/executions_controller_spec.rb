@@ -19,10 +19,10 @@ require 'spec_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-describe Tengine::Job::ExecutionsController do
+describe Tengine::Job::Runtime::ExecutionsController do
 
   # This should return the minimal set of attributes required to create a valid
-  # Tengine::Job::Execution. As you add validations to Tengine::Job::Execution, be sure to
+  # Tengine::Job::Runtime::Execution. As you add validations to Tengine::Job::Runtime::Execution, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
     {}
@@ -30,8 +30,8 @@ describe Tengine::Job::ExecutionsController do
 
   describe "GET index" do
     it "assigns all tengine_job_executions as @tengine_job_executions" do
-      Tengine::Job::Execution.delete_all
-      execution = Tengine::Job::Execution.create! valid_attributes
+      Tengine::Job::Runtime::Execution.delete_all
+      execution = Tengine::Job::Runtime::Execution.create! valid_attributes
       get :index
       executions = assigns(:executions)
       executions.to_a.should eq([execution])
@@ -40,7 +40,7 @@ describe Tengine::Job::ExecutionsController do
 
   describe "GET show" do
     it "assigns the requested execution as @execution" do
-      execution = Tengine::Job::Execution.create! valid_attributes
+      execution = Tengine::Job::Runtime::Execution.create! valid_attributes
       get :show, :id => execution.id.to_s
       assigns(:execution).should eq(execution)
     end
@@ -52,9 +52,9 @@ describe Tengine::Job::ExecutionsController do
         Tengine::Core::Setting.where(:name => "dsl_version").delete_all
         Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1234567890")
         Tengine::Job::Category.delete_all
-        Tengine::Job::RootJobnetTemplate.delete_all
+        Tengine::Job::Template::RootJobnet.delete_all
         category = stub_model(Tengine::Job::Category, :to_s => "category")
-        @test = Tengine::Job::RootJobnetTemplate.create!(
+        @test = Tengine::Job::Template::RootJobnet.create!(
           :name => "Test Name",
           :description => "Test Description",
           :script => "Script",
@@ -68,13 +68,13 @@ describe Tengine::Job::ExecutionsController do
       after do
         Tengine::Core::Setting.where(:name => "dsl_version").delete_all
         Tengine::Job::Category.delete_all
-        Tengine::Job::RootJobnetTemplate.delete_all
+        Tengine::Job::Template::RootJobnet.delete_all
       end
 
       it "assigns a new execution as @execution" do
         get :new, @default_params
         execution = assigns(:execution)
-        execution.should be_a_new(Tengine::Job::Execution)
+        execution.should be_a_new(Tengine::Job::Runtime::Execution)
         execution.actual_base_timeout_alert.should == 0
         execution.actual_base_timeout_termination.should == 0
       end
@@ -103,10 +103,10 @@ describe Tengine::Job::ExecutionsController do
     describe "ジョブネットの再実行のとき" do
       before do
         Tengine::Job::Category.delete_all
-        Tengine::Job::RootJobnetTemplate.delete_all
-        Tengine::Job::RootJobnetActual.delete_all
+        Tengine::Job::Template::RootJobnet.delete_all
+        Tengine::Job::Runtime::RootJobnet.delete_all
         category = stub_model(Tengine::Job::Category, :to_s => "category")
-        @test = Tengine::Job::RootJobnetTemplate.create!(
+        @test = Tengine::Job::Template::RootJobnet.create!(
           :name => "Test Name",
           :description => "Test Description",
           :script => "Script",
@@ -121,14 +121,14 @@ describe Tengine::Job::ExecutionsController do
 
       after do
         Tengine::Job::Category.delete_all
-        Tengine::Job::RootJobnetTemplate.delete_all
-        Tengine::Job::RootJobnetActual.delete_all
+        Tengine::Job::Template::RootJobnet.delete_all
+        Tengine::Job::Runtime::RootJobnet.delete_all
       end
 
       it "assigns a new execution as @execution" do
         get :new, @default_params
         execution = assigns(:execution)
-        execution.should be_a_new(Tengine::Job::Execution)
+        execution.should be_a_new(Tengine::Job::Runtime::Execution)
         execution.actual_base_timeout_alert.should == 0
         execution.actual_base_timeout_termination.should == 0
       end
@@ -165,7 +165,7 @@ describe Tengine::Job::ExecutionsController do
 
   describe "GET edit" do
     it "assigns the requested execution as @execution" do
-      execution = Tengine::Job::Execution.create! valid_attributes
+      execution = Tengine::Job::Runtime::Execution.create! valid_attributes
       get :edit, :id => execution.id.to_s
       assigns(:execution).should eq(execution)
     end
@@ -175,9 +175,9 @@ describe Tengine::Job::ExecutionsController do
     describe "with valid params" do
       before do
         Tengine::Job::Category.delete_all
-        Tengine::Job::RootJobnetTemplate.delete_all
+        Tengine::Job::Template::RootJobnet.delete_all
         category = stub_model(Tengine::Job::Category, :to_s => "category")
-        @test = Tengine::Job::RootJobnetTemplate.create!(
+        @test = Tengine::Job::Template::RootJobnet.create!(
           :name => "Test Name",
           :description => "Test Description",
           :script => "Script",
@@ -196,8 +196,8 @@ describe Tengine::Job::ExecutionsController do
       end
 
       after do
-        Tengine::Job::RootJobnetTemplate.delete_all
-        Tengine::Job::RootJobnetActual.delete_all
+        Tengine::Job::Template::RootJobnet.delete_all
+        Tengine::Job::Runtime::RootJobnet.delete_all
       end
 
       describe "実行のとき" do
@@ -210,12 +210,12 @@ describe Tengine::Job::ExecutionsController do
 
         it "assigns a newly created execution as @execution" do
           post :create, :execution => @valid_attributes
-          assigns(:execution).should be_a(Tengine::Job::Execution)
+          assigns(:execution).should be_a(Tengine::Job::Runtime::Execution)
         end
 
-        it "@execution.retryがfalseのとき@root_jobnetのclassがTengine::Job::RootJobnetTemplateであること" do
+        it "@execution.retryがfalseのとき@root_jobnetのclassがTengine::Job::Template::RootJobnetであること" do
           post :create, :execution => @valid_attributes
-          assigns(:root_jobnet).should be_a(Tengine::Job::RootJobnetTemplate)
+          assigns(:root_jobnet).should be_a(Tengine::Job::Template::RootJobnet)
         end
 
         it "redirects to the created execution" do
@@ -232,23 +232,23 @@ describe Tengine::Job::ExecutionsController do
           Tengine::Event.stub(:default_sender).and_return(mock_sender)
           mock_sender.stub(:fire)
 
-          executed = Tengine::Job::Execution.create!(:retry => true, :spot => false,
+          executed = Tengine::Job::Runtime::Execution.create!(:retry => true, :spot => false,
             :root_jobnet_id => @test_actual.id.to_s,
             :target_actual_ids => [@test_actual.id.to_s]
           ) 
-          Tengine::Job::RootJobnetActual.any_instance.stub(:rerun).and_return(executed)
+          Tengine::Job::Runtime::RootJobnet.any_instance.stub(:rerun).and_return(executed)
         end
 
         it "retryクエリーパラメータで指定した@retryが設定されていること" do
           post :create, :execution => @valid_attributes.merge(
             :retry => true, :root_jobnet_id => @test_actual.id.to_s)
-          assigns(:execution).should be_a(Tengine::Job::Execution)
+          assigns(:execution).should be_a(Tengine::Job::Runtime::Execution)
         end
 
-        it "@execution.retryがtrueのとき@root_jobnetのclassがTengine::Job::RootJobnetActualであること" do
+        it "@execution.retryがtrueのとき@root_jobnetのclassがTengine::Job::Runtime::RootJobnetであること" do
           post :create, :execution => @valid_attributes.merge(
             :retry => true, :root_jobnet_id => @test_actual.id.to_s)
-          assigns(:root_jobnet).should be_a(Tengine::Job::RootJobnetActual)
+          assigns(:root_jobnet).should be_a(Tengine::Job::Runtime::RootJobnet)
         end
       end
     end
@@ -257,23 +257,23 @@ describe Tengine::Job::ExecutionsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested execution" do
-        execution = Tengine::Job::Execution.create! valid_attributes
+        execution = Tengine::Job::Runtime::Execution.create! valid_attributes
         # Assuming there are no other tengine_job_executions in the database, this
-        # specifies that the Tengine::Job::Execution created on the previous line
+        # specifies that the Tengine::Job::Runtime::Execution created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Tengine::Job::Execution.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        Tengine::Job::Runtime::Execution.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
         put :update, :id => execution.id, :execution => {'these' => 'params'}
       end
 
       it "assigns the requested execution as @execution" do
-        execution = Tengine::Job::Execution.create! valid_attributes
+        execution = Tengine::Job::Runtime::Execution.create! valid_attributes
         put :update, :id => execution.id, :execution => valid_attributes
         assigns(:execution).should eq(execution)
       end
 
       it "redirects to the execution" do
-        execution = Tengine::Job::Execution.create! valid_attributes
+        execution = Tengine::Job::Runtime::Execution.create! valid_attributes
         put :update, :id => execution.id, :execution => valid_attributes
         response.should redirect_to(execution)
       end
@@ -281,17 +281,17 @@ describe Tengine::Job::ExecutionsController do
 
     describe "with invalid params" do
       it "assigns the execution as @execution" do
-        execution = Tengine::Job::Execution.create! valid_attributes
+        execution = Tengine::Job::Runtime::Execution.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::Execution.any_instance.stub(:save).and_return(false)
+        Tengine::Job::Runtime::Execution.any_instance.stub(:save).and_return(false)
         put :update, :id => execution.id.to_s, :execution => {}
         assigns(:execution).should eq(execution)
       end
 
       it "re-renders the 'edit' template" do
-        execution = Tengine::Job::Execution.create! valid_attributes
+        execution = Tengine::Job::Runtime::Execution.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::Execution.any_instance.stub(:save).and_return(false)
+        Tengine::Job::Runtime::Execution.any_instance.stub(:save).and_return(false)
         put :update, :id => execution.id.to_s, :execution => {}
         response.should render_template("edit")
       end
@@ -300,14 +300,14 @@ describe Tengine::Job::ExecutionsController do
 
   describe "DELETE destroy" do
     it "destroys the requested execution" do
-      execution = Tengine::Job::Execution.create! valid_attributes
+      execution = Tengine::Job::Runtime::Execution.create! valid_attributes
       expect {
         delete :destroy, :id => execution.id.to_s
-      }.to change(Tengine::Job::Execution, :count).by(-1)
+      }.to change(Tengine::Job::Runtime::Execution, :count).by(-1)
     end
 
     it "redirects to the tengine_job_executions list" do
-      execution = Tengine::Job::Execution.create! valid_attributes
+      execution = Tengine::Job::Runtime::Execution.create! valid_attributes
       delete :destroy, :id => execution.id.to_s
       response.should redirect_to(tengine_job_executions_url)
     end

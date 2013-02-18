@@ -32,7 +32,7 @@ describe Tengine::Job::JobnetTemplatesController do
     it "assigns all tengine_job_jobnet_templates as @tengine_job_jobnet_templates" do
       # 以下の２行は両方必要です。
       Tengine::Job::JobnetTemplate.delete_all
-      Tengine::Job::RootJobnetTemplate.delete_all
+      Tengine::Job::Template::RootJobnet.delete_all
       jobnet_template = Tengine::Job::JobnetTemplate.create! valid_attributes
       get :index
       jobnet_templates = assigns(:jobnet_templates)

@@ -3,9 +3,9 @@ require 'spec_helper'
 
 describe "tengine/job/executions/index.html.erb" do
   before(:each) do
-    root_jobnet = stub_model(Tengine::Job::RootJobnetActual, :name => "root_jobnet1")
+    root_jobnet = stub_model(Tengine::Job::Runtime::RootJobnet, :name => "root_jobnet1")
     mock_pagination(assign(:executions, [
-      stub_model(Tengine::Job::Execution,
+      stub_model(Tengine::Job::Runtime::Execution,
         :root_jobnet => root_jobnet,
         :target_actual_ids => ["abc", "123"],
         :phase_name => "稼働中",
@@ -16,7 +16,7 @@ describe "tengine/job/executions/index.html.erb" do
         :keeping_stdout => true,
         :keeping_stderr => false
       ),
-      stub_model(Tengine::Job::Execution,
+      stub_model(Tengine::Job::Runtime::Execution,
         :root_jobnet => root_jobnet,
         :target_actual_ids => ["abc", "123"],
         :phase_name => "稼働中",

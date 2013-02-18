@@ -89,18 +89,18 @@
       </colgroup>
       <thead>
         <tr>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:id) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:name) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:phase_cd) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:script) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:server_name) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:credential_name) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:started_at) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:finished_at) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:description) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:destinations) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:executing_pid) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:exit_status) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:id) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:name) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:phase_cd) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:script) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:server_name) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:credential_name) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:started_at) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:finished_at) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:description) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:destinations) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:executing_pid) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:exit_status) %></th>
           <th scope="col"><%= t("views.pages.operation") %></th>
         </tr>
       </thead>
@@ -119,7 +119,7 @@
             <td><%= jobnet_actual.description %></td>
             <td>
               <% unless (edges = jobnet_actual.next_edges).blank? -%>
-                <% if (dest = edges.first.destination).instance_of?(Tengine::Job::JobnetActual) -%>
+                <% if (dest = edges.first.destination).instance_of?(Tengine::Job::Runtime::Jobnet) -%>
                   <%= dest.name %>
                 <% else -%>
                   <% next_jobs = dest.next_edges.collect { |edge|

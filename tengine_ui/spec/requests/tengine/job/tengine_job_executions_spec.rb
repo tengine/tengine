@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Tengine::Job::Executions" do
+describe "Tengine::Job::Runtime::Executions" do
   describe "GET /tengine_job_executions" do
     it "works! (now write some real specs)" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers

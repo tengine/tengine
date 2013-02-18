@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "tengine/job/executions/show.html.erb" do
   before(:each) do
-    @execution = assign(:execution, stub_model(Tengine::Job::Execution,
+    @execution = assign(:execution, stub_model(Tengine::Job::Runtime::Execution,
       :root_jobnet => nil,
       :target_actual_ids => ["abc", "123"],
       :phase_cd => 1,

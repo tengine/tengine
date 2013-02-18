@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Tengine::Job::RootJobnetActualsController do
+describe Tengine::Job::Runtime::RootJobnetsController do
   describe "routing" do
 
     it "routes to #index" do

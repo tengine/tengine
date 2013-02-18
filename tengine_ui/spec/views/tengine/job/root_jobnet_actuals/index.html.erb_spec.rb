@@ -5,11 +5,11 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
   context "ページネーションのページが1ページのみのとき" do
     before(:each) do
       Tengine::Job::Category.delete_all
-      Tengine::Job::RootJobnetTemplate.delete_all
-      Tengine::Job::RootJobnetActual.delete_all
-      stub_template = stub_model(Tengine::Job::RootJobnetTemplate, :name => "root_jobnet1")
+      Tengine::Job::Template::RootJobnet.delete_all
+      Tengine::Job::Runtime::RootJobnet.delete_all
+      stub_template = stub_model(Tengine::Job::Template::RootJobnet, :name => "root_jobnet1")
       templates = [
-        @actual1 = stub_model(Tengine::Job::RootJobnetActual,
+        @actual1 = stub_model(Tengine::Job::Runtime::RootJobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
           :name => "Name",
           :server_name => "Server Name",
@@ -27,7 +27,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
           :lock_version => 4,
           :template => stub_template
         ),
-        stub_model(Tengine::Job::RootJobnetActual,
+        stub_model(Tengine::Job::Runtime::RootJobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
           :name => "Name",
           :server_name => "Server Name",
@@ -48,7 +48,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       ]
       assign(:root_jobnet_actuals, Kaminari.paginate_array(templates).page(1).per(5))
 
-      finder = Tengine::Job::RootJobnetActual::Finder.new
+      finder = Tengine::Job::Runtime::RootJobnet::Finder.new
       finder.stub(:phase_hash_array).and_return([{
         :id=>20, :key=>:test, :name=>"test phase", :select=>true,
       }])
@@ -67,7 +67,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
     it "ページタイトルが表示されていること" do
       render
 
-      title = page_title(Tengine::Job::RootJobnetActual, :list)
+      title = page_title(Tengine::Job::Runtime::RootJobnet, :list)
       rendered.should have_xpath("//h1", :text => title)
     end
 
@@ -125,22 +125,22 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
 
       href = tengine_job_root_jobnet_actuals_path(:sort=>{:id=>"asc"})
       rendered.should have_xpath("//a[@class=''][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetActual.human_attribute_name(:id))
+        :text => Tengine::Job::Runtime::RootJobnet.human_attribute_name(:id))
       href = tengine_job_root_jobnet_actuals_path(:sort=>{:name=>"asc"})
       rendered.should have_xpath("//a[@class=''][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetActual.human_attribute_name(:name))
+        :text => Tengine::Job::Runtime::RootJobnet.human_attribute_name(:name))
       href = tengine_job_root_jobnet_actuals_path(:sort=>{:description=>"asc"})
       rendered.should have_xpath("//a[@class=''][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetActual.human_attribute_name(:description))
+        :text => Tengine::Job::Runtime::RootJobnet.human_attribute_name(:description))
       href = tengine_job_root_jobnet_actuals_path(:sort=>{:phase_cd=>"asc"})
       rendered.should have_xpath("//a[@class=''][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetActual.human_attribute_name(:phase_cd))
+        :text => Tengine::Job::Runtime::RootJobnet.human_attribute_name(:phase_cd))
       href = tengine_job_root_jobnet_actuals_path(:sort=>{:started_at=>"asc"})
       rendered.should have_xpath("//a[@class=''][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetActual.human_attribute_name(:started_at))
+        :text => Tengine::Job::Runtime::RootJobnet.human_attribute_name(:started_at))
       href = tengine_job_root_jobnet_actuals_path(:sort=>{:finished_at=>"asc"})
       rendered.should have_xpath("//a[@class=''][@href='#{href}']",
-        :text => Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at))
+        :text => Tengine::Job::Runtime::RootJobnet.human_attribute_name(:finished_at))
     end
 
     context "カテゴリが登録されているとき" do
@@ -180,7 +180,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       end
 
       it "@refresh_intervalの値が絞り込みのフォームのhiddenフィールドとしてあること" do
-        finder = Tengine::Job::RootJobnetActual::Finder.new(refresh_interval:10)
+        finder = Tengine::Job::Runtime::RootJobnet::Finder.new(refresh_interval:10)
         assign(:finder, finder)
 
         render
@@ -189,7 +189,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       end
 
       it "@finderの値が画面の更新間隔のフォームのhiddenフィールドとしてあること" do
-        finder = Tengine::Job::RootJobnetActual::Finder.new(
+        finder = Tengine::Job::Runtime::RootJobnet::Finder.new(
           duration:"finished_at",
           "duration_start(0i)" => "2011",
           "duration_start(1i)" => "11",
@@ -245,7 +245,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
           href = tengine_job_root_jobnet_actuals_path(
             :sort => {:id => 'asc'}, :category => @category.id)
           rendered.should have_xpath("//a[@href='#{href}']",
-            :text => Tengine::Job::RootJobnetActual.human_attribute_name(:id))
+            :text => Tengine::Job::Runtime::RootJobnet.human_attribute_name(:id))
         end
       end
 
@@ -260,7 +260,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
           href = tengine_job_root_jobnet_actuals_path(
             :sort => {:id => 'asc'}, :finder => {:name => 'foo'})
           rendered.should have_xpath("//a[@href='#{href}']",
-            :text => Tengine::Job::RootJobnetActual.human_attribute_name(:id))
+            :text => Tengine::Job::Runtime::RootJobnet.human_attribute_name(:id))
         end
 
         it "カテゴリツリーのリンクにfinderパラメータがついていること" do
@@ -282,7 +282,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
 
           href = tengine_job_root_jobnet_actuals_path(:sort => {:description => 'desc'})
           rendered.should have_xpath("//a[@href='#{href}'][@class='SortAsc']",
-            :text => Tengine::Job::RootJobnetActual.human_attribute_name(:description))
+            :text => Tengine::Job::Runtime::RootJobnet.human_attribute_name(:description))
         end
 
         it "名称のソートのリンクに昇順のパラメータがついていてclassがないこと" do
@@ -290,14 +290,14 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
 
           href = tengine_job_root_jobnet_actuals_path(:sort => {:name => 'asc'})
           rendered.should have_xpath("//a[@href='#{href}'][@class='']",
-            :text => Tengine::Job::RootJobnetActual.human_attribute_name(:name))
+            :text => Tengine::Job::Runtime::RootJobnet.human_attribute_name(:name))
         end
       end
     end
 
     context "@finderが設定されているとき" do
       before do
-        @finder = Tengine::Job::RootJobnetActual::Finder.new({
+        @finder = Tengine::Job::Runtime::RootJobnet::Finder.new({
           :duration => "started_at",
           :duration_start => Time.new(2011, 11, 6, 10, 30),
           :duration_finish => Time.new(2011, 11, 6, 12, 30),
@@ -321,11 +321,11 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       end
     end
 
-    context "フェーズがrunningのTengine::Job::RootJobnetActualが登録されているとき" do
+    context "フェーズがrunningのTengine::Job::Runtime::RootJobnetが登録されているとき" do
       before do
-        stub_template = stub_model(Tengine::Job::RootJobnetTemplate, :name => "root_jobnet1")
+        stub_template = stub_model(Tengine::Job::Template::RootJobnet, :name => "root_jobnet1")
         templates = [
-          @actual1 = stub_model(Tengine::Job::RootJobnetActual,
+          @actual1 = stub_model(Tengine::Job::Runtime::RootJobnet,
             :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
             :name => "Name",
             :server_name => "Server Name",
@@ -364,11 +364,11 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       end
     end
 
-    context "フェーズがreadyのTengine::Job::RootJobnetActualが登録されているとき" do
+    context "フェーズがreadyのTengine::Job::Runtime::RootJobnetが登録されているとき" do
       before do
-        stub_template = stub_model(Tengine::Job::RootJobnetTemplate, :name => "root_jobnet1")
+        stub_template = stub_model(Tengine::Job::Template::RootJobnet, :name => "root_jobnet1")
         templates = [
-          @actual1 = stub_model(Tengine::Job::RootJobnetActual,
+          @actual1 = stub_model(Tengine::Job::Runtime::RootJobnet,
             :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
             :name => "Name",
             :server_name => "Server Name",
@@ -407,11 +407,11 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       end
     end
 
-    context "フェーズがstartingのTengine::Job::RootJobnetActualが登録されているとき" do
+    context "フェーズがstartingのTengine::Job::Runtime::RootJobnetが登録されているとき" do
       before do
-        stub_template = stub_model(Tengine::Job::RootJobnetTemplate, :name => "root_jobnet1")
+        stub_template = stub_model(Tengine::Job::Template::RootJobnet, :name => "root_jobnet1")
         templates = [
-          @actual1 = stub_model(Tengine::Job::RootJobnetActual,
+          @actual1 = stub_model(Tengine::Job::Runtime::RootJobnet,
             :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
             :name => "Name",
             :server_name => "Server Name",
@@ -450,11 +450,11 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       end
     end
 
-    context "フェーズがdyingのTengine::Job::RootJobnetActualが登録されているとき" do
+    context "フェーズがdyingのTengine::Job::Runtime::RootJobnetが登録されているとき" do
       before do
-        stub_template = stub_model(Tengine::Job::RootJobnetTemplate, :name => "root_jobnet1")
+        stub_template = stub_model(Tengine::Job::Template::RootJobnet, :name => "root_jobnet1")
         templates = [
-          @actual1 = stub_model(Tengine::Job::RootJobnetActual,
+          @actual1 = stub_model(Tengine::Job::Runtime::RootJobnet,
             :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
             :name => "Name",
             :server_name => "Server Name",
@@ -493,11 +493,11 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       end
     end
 
-    context "フェーズがinitializedのTengine::Job::RootJobnetActualが登録されているとき" do
+    context "フェーズがinitializedのTengine::Job::Runtime::RootJobnetが登録されているとき" do
       before do
-        stub_template = stub_model(Tengine::Job::RootJobnetTemplate, :name => "root_jobnet1")
+        stub_template = stub_model(Tengine::Job::Template::RootJobnet, :name => "root_jobnet1")
         templates = [
-          @actual1 = stub_model(Tengine::Job::RootJobnetActual,
+          @actual1 = stub_model(Tengine::Job::Runtime::RootJobnet,
             :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
             :name => "Name",
             :server_name => "Server Name",
@@ -536,11 +536,11 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       end
     end
 
-    context "フェーズがsuccessのTengine::Job::RootJobnetActualが登録されているとき" do
+    context "フェーズがsuccessのTengine::Job::Runtime::RootJobnetが登録されているとき" do
       before do
-        stub_template = stub_model(Tengine::Job::RootJobnetTemplate, :name => "root_jobnet1")
+        stub_template = stub_model(Tengine::Job::Template::RootJobnet, :name => "root_jobnet1")
         templates = [
-          @actual1 = stub_model(Tengine::Job::RootJobnetActual,
+          @actual1 = stub_model(Tengine::Job::Runtime::RootJobnet,
             :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
             :name => "Name",
             :server_name => "Server Name",
@@ -579,11 +579,11 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       end
     end
 
-    context "フェーズがerrorのTengine::Job::RootJobnetActualが登録されているとき" do
+    context "フェーズがerrorのTengine::Job::Runtime::RootJobnetが登録されているとき" do
       before do
-        stub_template = stub_model(Tengine::Job::RootJobnetTemplate, :name => "root_jobnet1")
+        stub_template = stub_model(Tengine::Job::Template::RootJobnet, :name => "root_jobnet1")
         templates = [
-          @actual1 = stub_model(Tengine::Job::RootJobnetActual,
+          @actual1 = stub_model(Tengine::Job::Runtime::RootJobnet,
             :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
             :name => "Name",
             :server_name => "Server Name",
@@ -622,11 +622,11 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       end
     end
 
-    context "フェーズがstuckのTengine::Job::RootJobnetActualが登録されているとき" do
+    context "フェーズがstuckのTengine::Job::Runtime::RootJobnetが登録されているとき" do
       before do
-        stub_template = stub_model(Tengine::Job::RootJobnetTemplate, :name => "root_jobnet1")
+        stub_template = stub_model(Tengine::Job::Template::RootJobnet, :name => "root_jobnet1")
         templates = [
-          @actual1 = stub_model(Tengine::Job::RootJobnetActual,
+          @actual1 = stub_model(Tengine::Job::Runtime::RootJobnet,
             :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
             :name => "Name",
             :server_name => "Server Name",
@@ -677,11 +677,11 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
   context "ページネーションのページが2ページ以上のとき" do
     before do
       Tengine::Job::Category.delete_all
-      Tengine::Job::RootJobnetTemplate.delete_all
-      Tengine::Job::RootJobnetActual.delete_all
-      stub_template = stub_model(Tengine::Job::RootJobnetTemplate, :name => "root_jobnet1")
+      Tengine::Job::Template::RootJobnet.delete_all
+      Tengine::Job::Runtime::RootJobnet.delete_all
+      stub_template = stub_model(Tengine::Job::Template::RootJobnet, :name => "root_jobnet1")
       templates = [
-        stub_model(Tengine::Job::RootJobnetActual,
+        stub_model(Tengine::Job::Runtime::RootJobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
           :name => "Name",
           :server_name => "Server Name",
@@ -700,7 +700,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
           :lock_version => 4,
           :template => stub_template
         ),
-        stub_model(Tengine::Job::RootJobnetActual,
+        stub_model(Tengine::Job::Runtime::RootJobnet,
           :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
           :name => "Name",
           :server_name => "Server Name",
@@ -722,7 +722,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
       ]
       assign(:root_jobnet_actuals, Kaminari.paginate_array(templates).page(1).per(1))
 
-      finder = Tengine::Job::RootJobnetActual::Finder.new
+      finder = Tengine::Job::Runtime::RootJobnet::Finder.new
       finder.stub(:phase_hash_array).and_return([{
         :id=>20, :key=>:test, :name=>"test phase", :select=>true,
       }])
@@ -745,7 +745,7 @@ describe "tengine/job/root_jobnet_actuals/index.html.erb" do
 
         href = tengine_job_root_jobnet_actuals_path(:sort => {:name => 'asc'})
         rendered.should have_xpath("//a[@href='#{href}']",
-          :text => Tengine::Job::RootJobnetActual.human_attribute_name(:name))
+          :text => Tengine::Job::Runtime::RootJobnet.human_attribute_name(:name))
       end
 
       context "カテゴリが登録されているとき" do

@@ -1,25 +1,25 @@
-<h1><%= page_title Tengine::Job::JobnetActual, :list %></h1>
+<h1><%= page_title Tengine::Job::Runtime::Jobnet, :list %></h1>
 
 <p id="notice"><%= notice %></p>
 
 <table>
   <tr>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:name) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:server_name) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:credential_name) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:killing_signals) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:killing_signal_interval) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:description) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:script) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:jobnet_type_cd) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:executing_pid) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:exit_status) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:was_expansion) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:phase_cd) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:started_at) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:finished_at) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:stopped_at) %></th>
-    <th><%= Tengine::Job::JobnetActual.human_attribute_name(:stop_reason) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:name) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:server_name) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:credential_name) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:killing_signals) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:killing_signal_interval) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:description) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:script) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:jobnet_type_cd) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:executing_pid) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:exit_status) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:was_expansion) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:phase_cd) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:started_at) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:finished_at) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:stopped_at) %></th>
+    <th><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:stop_reason) %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -56,4 +56,4 @@
 
 <br />
 
-<%= link_to_new Tengine::Job::JobnetActual, new_tengine_job_runtime_root_jobnet_jobnet_actual_path(@root_jobnet_actual) %>
+<%= link_to_new Tengine::Job::Runtime::Jobnet, new_tengine_job_runtime_root_jobnet_jobnet_actual_path(@root_jobnet_actual) %>

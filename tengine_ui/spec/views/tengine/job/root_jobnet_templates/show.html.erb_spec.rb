@@ -19,7 +19,7 @@ describe "tengine/job/root_jobnet_templates/show.html.erb" do
     before(:each) do
 
       @root_jobnet_template = assign(:root_jobnet_template,
-        stub_model(Tengine::Job::RootJobnetTemplate,
+        stub_model(Tengine::Job::Template::RootJobnet,
         :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
         :name => "Name",
         :server_name => "Server Name",
@@ -40,7 +40,7 @@ describe "tengine/job/root_jobnet_templates/show.html.erb" do
     it "ページタイトルが表示されていること" do
       render
 
-      title = page_title(Tengine::Job::RootJobnetTemplate, :show)
+      title = page_title(Tengine::Job::Template::RootJobnet, :show)
       rendered.should have_xpath("//h1", :text => title)
     end
 
@@ -71,7 +71,7 @@ describe "tengine/job/root_jobnet_templates/show.html.erb" do
 
   describe "構成ジョブがあるとき" do
     before do
-      Tengine::Job::RootJobnetTemplate.delete_all
+      Tengine::Job::Template::RootJobnet.delete_all
       @dsl_dir = Dir.tmpdir
       File.open(File.expand_path("VERSION", @dsl_dir), "w"){|f| f.write("1") }
       fname = "jn1_jobnet"
@@ -95,7 +95,7 @@ __end_of_dsl__
       end
       load_dsl(@dsl_dir, fname)
       @root_jobnet_template = assign(:root_jobnet_template,
-        Tengine::Job::RootJobnetTemplate.first())
+        Tengine::Job::Template::RootJobnet.first())
       @jobnet_templates = []
       visitor = \
         Tengine::Job::Vertex::AllVisitor.new do |vertex|
@@ -135,7 +135,7 @@ __end_of_dsl__
 
   describe "構成ジョブにジョブネットが含まれているとき" do
     before do
-      Tengine::Job::RootJobnetTemplate.delete_all
+      Tengine::Job::Template::RootJobnet.delete_all
       @dsl_dir = Dir.tmpdir
       File.open(File.expand_path("VERSION", @dsl_dir), "w"){|f| f.write("1") }
       fname = "jn1_jobnet"
@@ -170,7 +170,7 @@ __end_of_dsl__
       end
       load_dsl(@dsl_dir, fname)
       @root_jobnet_template = assign(:root_jobnet_template,
-        Tengine::Job::RootJobnetTemplate.first())
+        Tengine::Job::Template::RootJobnet.first())
       @jobnet_templates = []
       visitor = \
         Tengine::Job::Vertex::AllVisitor.new do |vertex|
@@ -194,7 +194,7 @@ __end_of_dsl__
 
   describe "ジョブネットにforkが含まれているとき" do
     before do
-      Tengine::Job::RootJobnetTemplate.delete_all
+      Tengine::Job::Template::RootJobnet.delete_all
       @dsl_dir = Dir.tmpdir
       File.open(File.expand_path("VERSION", @dsl_dir), "w"){|f| f.write("1") }
       fname = "jn1_jobnet"
@@ -220,7 +220,7 @@ __end_of_dsl__
       end
       load_dsl(@dsl_dir, fname)
       @root_jobnet_template = assign(:root_jobnet_template,
-        Tengine::Job::RootJobnetTemplate.first())
+        Tengine::Job::Template::RootJobnet.first())
       @jobnet_templates = []
       visitor = \
         Tengine::Job::Vertex::AllVisitor.new do |vertex|
@@ -243,7 +243,7 @@ __end_of_dsl__
 
   describe "ジョブネットにexpansionが含まれているとき" do
     before do
-      Tengine::Job::RootJobnetTemplate.delete_all
+      Tengine::Job::Template::RootJobnet.delete_all
       @dsl_dir = Dir.tmpdir
       File.open(File.expand_path("VERSION", @dsl_dir), "w"){|f| f.write("1") }
       expansion_jobnets = {
@@ -288,7 +288,7 @@ __end_of_dsl__
       end
       load_dsl(@dsl_dir, fname)
       @root_jobnet_template = assign(:root_jobnet_template,
-        Tengine::Job::RootJobnetTemplate.find_by_name("jn1"))
+        Tengine::Job::Template::RootJobnet.find_by_name("jn1"))
       @jobnet_templates = []
 
       visitor = \

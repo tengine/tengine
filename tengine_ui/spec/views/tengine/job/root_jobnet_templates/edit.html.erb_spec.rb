@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "tengine/job/root_jobnet_templates/edit.html.erb" do
   before(:each) do
-    @root_jobnet_template = assign(:root_jobnet_template, stub_model(Tengine::Job::RootJobnetTemplate,
+    @root_jobnet_template = assign(:root_jobnet_template, stub_model(Tengine::Job::Template::RootJobnet,
       :name => "MyString",
       :server_name => "MyString",
       :credential_name => "MyString",

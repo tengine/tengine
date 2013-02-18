@@ -91,15 +91,15 @@
         <tr>
           <th scope="col"><%= Tengine::Job::Vertex.human_attribute_name(:id) %></th>
           <th scope="col"><%= Tengine::Job::Vertex.human_attribute_name(:name) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:phase_cd) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:script) %>/Class</th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:next_edges) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:server_name) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:credential_name) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:started_at) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:finished_at) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:executing_pid) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetActual.human_attribute_name(:exit_status) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:phase_cd) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:script) %>/Class</th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:next_edges) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:server_name) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:credential_name) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:started_at) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:finished_at) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:executing_pid) %></th>
+          <th scope="col"><%= Tengine::Job::Runtime::Jobnet.human_attribute_name(:exit_status) %></th>
           <th scope="col"><%= t("views.pages.operation") %></th>
         </tr>
       </thead>
@@ -108,7 +108,7 @@
           <tr>
             <td><%= vertex.id %></td>
             <td><%= vertex.name_path %></td>
-            <% if vertex.is_a?(Tengine::Job::JobnetActual) -%>
+            <% if vertex.is_a?(Tengine::Job::Runtime::Jobnet) -%>
             <td><%= vertex.human_phase_name %></td>
             <td><%= vertex.script %></td>
             <td>

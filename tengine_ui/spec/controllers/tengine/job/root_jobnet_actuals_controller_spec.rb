@@ -21,10 +21,10 @@ include ChangeTime
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-describe Tengine::Job::RootJobnetActualsController do
+describe Tengine::Job::Runtime::RootJobnetsController do
 
   # This should return the minimal set of attributes required to create a valid
-  # Tengine::Job::RootJobnetActual. As you add validations to Tengine::Job::RootJobnetActual, be sure to
+  # Tengine::Job::Runtime::RootJobnet. As you add validations to Tengine::Job::Runtime::RootJobnet, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
     {
@@ -36,16 +36,16 @@ describe Tengine::Job::RootJobnetActualsController do
   describe "GET index" do
     it "assigns all tengine_job_root_jobnet_actuals as @tengine_job_root_jobnet_actuals" do
       change_now(2011, 11, 7, 10, 0) do
-        Tengine::Job::RootJobnetActual.delete_all
-        root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+        Tengine::Job::Runtime::RootJobnet.delete_all
+        root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes
         get :index
         root_jobnet_actuals = assigns(:root_jobnet_actuals)
         root_jobnet_actuals.to_a.should eq([root_jobnet_actual])
       end
     end
 
-    it "初期検索条件を持ったTengine::Job::RootJobnetActual::Finderのインスタンスが@finderに設定されていること" do
-      expected = Tengine::Job::RootJobnetActual::Finder.new()
+    it "初期検索条件を持ったTengine::Job::Runtime::RootJobnet::Finderのインスタンスが@finderに設定されていること" do
+      expected = Tengine::Job::Runtime::RootJobnet::Finder.new()
       get :index
 
       assigns(:finder).duration.should == expected.duration
@@ -80,10 +80,10 @@ describe Tengine::Job::RootJobnetActualsController do
 
     describe "?sort" do
       before do
-        Tengine::Job::RootJobnetTemplate.delete_all
-        Tengine::Job::RootJobnetActual.delete_all
-        stub_template = stub_model(Tengine::Job::RootJobnetTemplate, :name => "root_jobnet1")
-        @t1 = Tengine::Job::RootJobnetActual.create!({
+        Tengine::Job::Template::RootJobnet.delete_all
+        Tengine::Job::Runtime::RootJobnet.delete_all
+        stub_template = stub_model(Tengine::Job::Template::RootJobnet, :name => "root_jobnet1")
+        @t1 = Tengine::Job::Runtime::RootJobnet.create!({
           :name => "a_name",
           :description => "e_Description",
           :phase_cd => 60,
@@ -91,7 +91,7 @@ describe Tengine::Job::RootJobnetActualsController do
           :finished_at => Time.new(2011, 11, 7, 13, 0),
           :template => stub_template
         })
-        @t2 = Tengine::Job::RootJobnetActual.create!({
+        @t2 = Tengine::Job::Runtime::RootJobnet.create!({
           :name => "b_name",
           :description => "a_Description",
           :phase_cd => 70,
@@ -99,7 +99,7 @@ describe Tengine::Job::RootJobnetActualsController do
           :finished_at => Time.new(2011, 11, 7, 14, 0),
           :template => stub_template
         })
-        @t3 = Tengine::Job::RootJobnetActual.create!({
+        @t3 = Tengine::Job::Runtime::RootJobnet.create!({
           :name => "c_name",
           :description => "b_Description",
           :phase_cd => 20,
@@ -107,7 +107,7 @@ describe Tengine::Job::RootJobnetActualsController do
           :finished_at => Time.new(2011, 11, 7, 15, 0),
           :template => stub_template
         })
-        @t4 = Tengine::Job::RootJobnetActual.create!({
+        @t4 = Tengine::Job::Runtime::RootJobnet.create!({
           :name => "d_name",
           :description => "c_Description",
           :phase_cd => 30,
@@ -115,7 +115,7 @@ describe Tengine::Job::RootJobnetActualsController do
           :finished_at => Time.new(2011, 11, 7, 16, 0),
           :template => stub_template
         })
-        @t5 = Tengine::Job::RootJobnetActual.create!({
+        @t5 = Tengine::Job::Runtime::RootJobnet.create!({
           :name => "e_name",
           :description => "d_Description",
           :phase_cd => 50,
@@ -249,31 +249,31 @@ describe Tengine::Job::RootJobnetActualsController do
 
     describe "?finder" do
       before do
-        Tengine::Job::RootJobnetTemplate.delete_all
-        Tengine::Job::RootJobnetActual.delete_all
-        stub_template = stub_model(Tengine::Job::RootJobnetTemplate, :name => "root_jobnet1")
-        @t1 = Tengine::Job::RootJobnetActual.create!({
+        Tengine::Job::Template::RootJobnet.delete_all
+        Tengine::Job::Runtime::RootJobnet.delete_all
+        stub_template = stub_model(Tengine::Job::Template::RootJobnet, :name => "root_jobnet1")
+        @t1 = Tengine::Job::Runtime::RootJobnet.create!({
           :name => "test_1_foo",
           :phase_cd => 30,
           :started_at => Time.new(2011, 11, 7, 11, 30),
           :finished_at => nil,
           :template => stub_template
         })
-        @t2 = Tengine::Job::RootJobnetActual.create!({
+        @t2 = Tengine::Job::Runtime::RootJobnet.create!({
           :name => "test_2_foo",
           :phase_cd => 40,
           :started_at => Time.new(2011, 11, 7, 13, 30),
           :finished_at => Time.new(2011, 11, 7, 14, 10),
           :template => stub_template
         })
-        @t3 = Tengine::Job::RootJobnetActual.create!({
+        @t3 = Tengine::Job::Runtime::RootJobnet.create!({
           :name => "test_3",
           :phase_cd => 50,
           :started_at => Time.new(2011, 11, 7, 12, 30),
           :finished_at => nil,
           :template => stub_template
         })
-        @t4 = Tengine::Job::RootJobnetActual.create!({
+        @t4 = Tengine::Job::Runtime::RootJobnet.create!({
           :name => "test_4",
           :phase_cd => 50,
           :started_at => Time.new(2011, 11, 7, 12, 30),
@@ -552,8 +552,8 @@ describe Tengine::Job::RootJobnetActualsController do
     describe "?category" do
       before do
         Tengine::Job::Category.delete_all
-        Tengine::Job::RootJobnetTemplate.delete_all
-        Tengine::Job::RootJobnetActual.delete_all
+        Tengine::Job::Template::RootJobnet.delete_all
+        Tengine::Job::Runtime::RootJobnet.delete_all
         @foo = Tengine::Job::Category.create!(
           :name => "foo",
           :caption => "ふー"
@@ -566,7 +566,7 @@ describe Tengine::Job::RootJobnetActualsController do
         @foo.children << @bar
         @foo.save!
 
-        @job1 = Tengine::Job::RootJobnetTemplate.create!(
+        @job1 = Tengine::Job::Template::RootJobnet.create!(
           :name => "foo_job",
           :description => "jobnet_foo_test description",
           :script => "Script",
@@ -575,7 +575,7 @@ describe Tengine::Job::RootJobnetActualsController do
           :dsl_lineno => 4,
           :dsl_version => "1"
         )
-        @job2 = Tengine::Job::RootJobnetTemplate.create!(
+        @job2 = Tengine::Job::Template::RootJobnet.create!(
           :name => "bar_job",
           :description => "jobnet_bar_test description",
           :script => "Script",
@@ -584,7 +584,7 @@ describe Tengine::Job::RootJobnetActualsController do
           :dsl_lineno => 4,
           :dsl_version => "1"
         )
-        @t1 = Tengine::Job::RootJobnetActual.create!({
+        @t1 = Tengine::Job::Runtime::RootJobnet.create!({
           :name => "a_name",
           :description => "c_Description",
           :phase_cd => 20,
@@ -594,7 +594,7 @@ describe Tengine::Job::RootJobnetActualsController do
           :category_id => @foo.id,
           :dsl_version => "1",
         })
-        @t2 = Tengine::Job::RootJobnetActual.create!({
+        @t2 = Tengine::Job::Runtime::RootJobnet.create!({
           :name => "b_name",
           :description => "b_Description",
           :phase_cd => 30,
@@ -684,13 +684,13 @@ describe Tengine::Job::RootJobnetActualsController do
 
   describe "GET show" do
     it "assigns the requested root_jobnet_actual as @root_jobnet_actual" do
-      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+      root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes
       get :show, :id => root_jobnet_actual.id.to_s
       assigns(:root_jobnet_actual).should eq(root_jobnet_actual)
     end
 
     it "assigns the submited refresher as @refresher" do
-      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+      root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes
       get :show, :id => root_jobnet_actual.id.to_s,
         :refresher => {:refresh_interval => 30}
       assigns(:refresher).refresh_interval.should == 30
@@ -700,7 +700,7 @@ describe Tengine::Job::RootJobnetActualsController do
     end
 
     it "リクエストしたroot_jobnet_actualを元に@finderが設定されていること" do
-      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+      root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes
       get :show, :id => root_jobnet_actual.id.to_s
       finder = assigns(:finder)
       finder[:source_name].should == "/" + root_jobnet_actual.id.to_s + "/"
@@ -718,7 +718,7 @@ describe Tengine::Job::RootJobnetActualsController do
 
   describe "GET edit" do
     it "assigns the requested root_jobnet_actual as @root_jobnet_actual" do
-      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+      root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes
       get :edit, :id => root_jobnet_actual.id.to_s
       assigns(:root_jobnet_actual).should eq(root_jobnet_actual)
     end
@@ -726,35 +726,35 @@ describe Tengine::Job::RootJobnetActualsController do
 
   describe "POST create" do
     describe "with valid params" do
-      it "creates a new Tengine::Job::RootJobnetActual" do
+      it "creates a new Tengine::Job::Runtime::RootJobnet" do
         expect {
           post :create, :root_jobnet_actual => valid_attributes
-        }.to change(Tengine::Job::RootJobnetActual, :count).by(1)
+        }.to change(Tengine::Job::Runtime::RootJobnet, :count).by(1)
       end
 
       it "assigns a newly created root_jobnet_actual as @root_jobnet_actual" do
         post :create, :root_jobnet_actual => valid_attributes
-        assigns(:root_jobnet_actual).should be_a(Tengine::Job::RootJobnetActual)
+        assigns(:root_jobnet_actual).should be_a(Tengine::Job::Runtime::RootJobnet)
         assigns(:root_jobnet_actual).should be_persisted
       end
 
       it "redirects to the created root_jobnet_actual" do
         post :create, :root_jobnet_actual => valid_attributes
-        response.should redirect_to(Tengine::Job::RootJobnetActual.last)
+        response.should redirect_to(Tengine::Job::Runtime::RootJobnet.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved root_jobnet_actual as @root_jobnet_actual" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::RootJobnetActual.any_instance.stub(:save).and_return(false)
+        Tengine::Job::Runtime::RootJobnet.any_instance.stub(:save).and_return(false)
         post :create, :root_jobnet_actual => {}
-        assigns(:root_jobnet_actual).should be_a_new(Tengine::Job::RootJobnetActual)
+        assigns(:root_jobnet_actual).should be_a_new(Tengine::Job::Runtime::RootJobnet)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::RootJobnetActual.any_instance.stub(:save).and_return(false)
+        Tengine::Job::Runtime::RootJobnet.any_instance.stub(:save).and_return(false)
         post :create, :root_jobnet_actual => {}
         response.should render_template("new")
       end
@@ -764,23 +764,23 @@ describe Tengine::Job::RootJobnetActualsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested root_jobnet_actual" do
-        root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+        root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes
         # Assuming there are no other tengine_job_root_jobnet_actuals in the database, this
-        # specifies that the Tengine::Job::RootJobnetActual created on the previous line
+        # specifies that the Tengine::Job::Runtime::RootJobnet created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Tengine::Job::RootJobnetActual.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        Tengine::Job::Runtime::RootJobnet.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
         put :update, :id => root_jobnet_actual.id, :root_jobnet_actual => {'these' => 'params'}
       end
 
       it "assigns the requested root_jobnet_actual as @root_jobnet_actual" do
-        root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+        root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes
         put :update, :id => root_jobnet_actual.id, :root_jobnet_actual => valid_attributes
         assigns(:root_jobnet_actual).should eq(root_jobnet_actual)
       end
 
       it "redirects to the root_jobnet_actual" do
-        root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+        root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes
         put :update, :id => root_jobnet_actual.id, :root_jobnet_actual => valid_attributes
         response.should redirect_to(root_jobnet_actual)
       end
@@ -788,17 +788,17 @@ describe Tengine::Job::RootJobnetActualsController do
 
     describe "with invalid params" do
       it "assigns the root_jobnet_actual as @root_jobnet_actual" do
-        root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+        root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::RootJobnetActual.any_instance.stub(:save).and_return(false)
+        Tengine::Job::Runtime::RootJobnet.any_instance.stub(:save).and_return(false)
         put :update, :id => root_jobnet_actual.id.to_s, :root_jobnet_actual => {}
         assigns(:root_jobnet_actual).should eq(root_jobnet_actual)
       end
 
       it "re-renders the 'edit' template" do
-        root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
+        root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Tengine::Job::RootJobnetActual.any_instance.stub(:save).and_return(false)
+        Tengine::Job::Runtime::RootJobnet.any_instance.stub(:save).and_return(false)
         put :update, :id => root_jobnet_actual.id.to_s, :root_jobnet_actual => {}
         response.should render_template("edit")
       end
@@ -807,14 +807,14 @@ describe Tengine::Job::RootJobnetActualsController do
 
   describe "DELETE destroy" do
     it "destroys the requested root_jobnet_actual" do
-      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
-      Tengine::Job::RootJobnetActual.any_instance.should_receive(:fire_stop_event)
+      root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes
+      Tengine::Job::Runtime::RootJobnet.any_instance.should_receive(:fire_stop_event)
       delete :destroy, :id => root_jobnet_actual.id.to_s
     end
 
     it "redirects to the tengine_job_root_jobnet_actuals list" do
-      root_jobnet_actual = Tengine::Job::RootJobnetActual.create! valid_attributes
-      Tengine::Job::RootJobnetActual.any_instance.should_receive(:fire_stop_event)
+      root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.create! valid_attributes
+      Tengine::Job::Runtime::RootJobnet.any_instance.should_receive(:fire_stop_event)
       delete :destroy, :id => root_jobnet_actual.id.to_s
       response.should redirect_to(tengine_job_root_jobnet_actual_path(root_jobnet_actual))
     end

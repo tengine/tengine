@@ -9,7 +9,7 @@ end
 
   describe "テンプレートジョブネットの実行のとき" do
     before(:each) do
-      assign(:execution, stub_model(Tengine::Job::Execution,
+      assign(:execution, stub_model(Tengine::Job::Runtime::Execution,
         :root_jobnet => nil,
         :target_actual_ids => nil,
         :phase_cd => 20,
@@ -20,8 +20,8 @@ end
         :keeping_stdout => false,
         :keeping_stderr => false
       ).as_new_record)
-      Tengine::Job::RootJobnetTemplate.delete_all
-      @test = stub_model(Tengine::Job::RootJobnetTemplate,
+      Tengine::Job::Template::RootJobnet.delete_all
+      @test = stub_model(Tengine::Job::Template::RootJobnet,
         :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
         :name => "Name",
         :description => "Description",
@@ -75,7 +75,7 @@ end
 
   describe "実行ジョブネットの再実行のとき" do
     before do
-      assign(:execution, stub_model(Tengine::Job::Execution,
+      assign(:execution, stub_model(Tengine::Job::Runtime::Execution,
         :root_jobnet => nil,
         :target_actual_ids => nil,
         :phase_cd => 20,
@@ -86,16 +86,16 @@ end
         :keeping_stdout => false,
         :keeping_stderr => false
       ).as_new_record)
-      Tengine::Job::RootJobnetTemplate.delete_all
-      Tengine::Job::RootJobnetActual.delete_all
-      @test_template = stub_model(Tengine::Job::RootJobnetTemplate,
+      Tengine::Job::Template::RootJobnet.delete_all
+      Tengine::Job::Runtime::RootJobnet.delete_all
+      @test_template = stub_model(Tengine::Job::Template::RootJobnet,
         :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000005"),
         :name => "Name",
         :description => "Description",
         :script => "Script",
         :dsl_filepath => "Dsl Filepath",
       )
-      @test = stub_model(Tengine::Job::RootJobnetActual,
+      @test = stub_model(Tengine::Job::Runtime::RootJobnet,
         :id => Moped::BSON::ObjectId("4e955633c3406b3a9f000001"),
         :name => "Name",
         :description => "Description",

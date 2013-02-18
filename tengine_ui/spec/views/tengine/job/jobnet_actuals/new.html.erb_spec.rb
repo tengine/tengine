@@ -3,8 +3,8 @@ require 'spec_helper'
 describe "tengine/job/jobnet_actuals/new.html.erb" do
   before(:each) do
     @root_jobnet_actual = assign(:root_jobnet_actual,
-      stub_model(Tengine::Job::RootJobnetActual, :name => "test"))
-    assign(:jobnet_actual, stub_model(Tengine::Job::JobnetActual,
+      stub_model(Tengine::Job::Runtime::RootJobnet, :name => "test"))
+    assign(:jobnet_actual, stub_model(Tengine::Job::Runtime::Jobnet,
       :name => "MyString",
       :server_name => "MyString",
       :credential_name => "MyString",
