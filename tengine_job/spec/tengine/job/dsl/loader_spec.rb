@@ -19,15 +19,15 @@ describe Tengine::Job::Dsl::Loader do
   describe "基本的なジョブDSL" do
     context "0013_hadoop_job_run.rb" do
       before{
-        Tengine::Job::Template::Jobnet.delete_all
+        Tengine::Job::Template::Vertex.delete_all
         load_dsl("0013_hadoop_job_run.rb")
       }
 
       it do
-        root_jobnet = Tengine::Job::Template::Jobnet.by_name("jobnet0013")
-        root_jobnet.should be_a(Tengine::Job::Template::RootJobnet)
+        root_jobnet = Tengine::Job::Template::RootJobnet.by_name("jobnet0013")
         root_jobnet.tap do |j|
           j.respond_to?(:version).should be_false
+          Tengine::Core::Setting.dsl_version.should == @version
           j.dsl_version.should == @version
           j.dsl_filepath.should == "0013_hadoop_job_run.rb"
           j.dsl_lineno.should == 21
