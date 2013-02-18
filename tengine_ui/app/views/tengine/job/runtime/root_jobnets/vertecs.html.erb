@@ -14,35 +14,35 @@
     </colgroup>
     <tbody>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:name) %></th>
+        <th scope="row"><%= Tengine::Job::Runtime::RootJobnet.human_attribute_name(:name) %></th>
         <td><%= @root_jobnet_actual.name %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:id) %></th>
+        <th scope="row"><%= Tengine::Job::Runtime::RootJobnet.human_attribute_name(:id) %></th>
         <td><%= @root_jobnet_actual.id %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:description) %></th>
+        <th scope="row"><%= Tengine::Job::Runtime::RootJobnet.human_attribute_name(:description) %></th>
         <td><%= @root_jobnet_actual.description %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:server_name) %></th>
+        <th scope="row"><%= Tengine::Job::Runtime::RootJobnet.human_attribute_name(:server_name) %></th>
         <td><%= @root_jobnet_actual.server_name %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:credential_name) %></th>
+        <th scope="row"><%= Tengine::Job::Runtime::RootJobnet.human_attribute_name(:credential_name) %></th>
         <td><%= @root_jobnet_actual.credential_name %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:started_at) %></th>
+        <th scope="row"><%= Tengine::Job::Runtime::RootJobnet.human_attribute_name(:started_at) %></th>
         <td><%= @root_jobnet_actual.started_at %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at) %></th>
+        <th scope="row"><%= Tengine::Job::Runtime::RootJobnet.human_attribute_name(:finished_at) %></th>
         <td><%= @root_jobnet_actual.finished_at %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetActual.human_attribute_name(:phase_cd) %></th>
+        <th scope="row"><%= Tengine::Job::Runtime::RootJobnet.human_attribute_name(:phase_cd) %></th>
         <td><%= @root_jobnet_actual.human_phase_name %></td>
       </tr>
     </tbody>
@@ -61,7 +61,7 @@
     <h2><%= t("views.pages.component_jobs_caption") %></h2>
 
     <div class="BoxActionLinksRight">
-      <%= form_for(:refresher, :url => tengine_job_root_jobnet_actual_path(@root_jobnet_actual), :method => :get, html:{novalidate:true}) do |f| %>
+      <%= form_for(:refresher, :url => tengine_job_runtime_root_jobnet_path(@root_jobnet_actual), :method => :get, html:{novalidate:true}) do |f| %>
         <%= f.label :refresh_interval, t(".form.refresh_interval") %>
         <%= f.number_field :refresh_interval, min:0, class:"InputText" %>
         <%= t("datetime.prompts.second") %>
@@ -147,7 +147,7 @@
     <% if %w(ready starting running).include?(@root_jobnet_actual.phase_key.to_s) -%>
       <p class="BoxBtns">
         <%= button_link_to t("views.links.force_exit"),
-          tengine_job_root_jobnet_actual_path(@root_jobnet_actual),
+          tengine_job_runtime_root_jobnet_path(@root_jobnet_actual),
           method:"delete", confirm:t(".confirm.destroy"), btn_class:"BtnDelete" %>
       </p>
     <% end -%>

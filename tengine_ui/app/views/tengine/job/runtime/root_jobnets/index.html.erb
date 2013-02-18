@@ -6,7 +6,7 @@
 [自動更新中] <%= @refresh_interval %>秒間隔で自動更新しています。
 </p>
 <% end -%>
-<h1><%= page_title Tengine::Job::RootJobnetActual, :list %></h1>
+<h1><%= page_title Tengine::Job::Runtime::RootJobnet, :list %></h1>
 
 <%= message :complete, notice %>
 <div class="TreeViewContents">
@@ -35,8 +35,8 @@
                   <th><%= f.label :duration %></th>
                   <td>
                     <%= f.select :duration, [
-                      [Tengine::Job::RootJobnetActual.human_attribute_name(:started_at), :started_at],
-                      [Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at), :finished_at]] %>
+                      [Tengine::Job::Runtime::RootJobnet.human_attribute_name(:started_at), :started_at],
+                      [Tengine::Job::Runtime::RootJobnet.human_attribute_name(:finished_at), :finished_at]] %>
                   </td>
                 </tr>
                 <tr>
@@ -72,7 +72,7 @@
 
       <div class="Section">
         <div class="BoxActionLinksRight">
-          <%= form_for(:finder, :url => tengine_job_root_jobnet_actuals_path, :method => :get, html:{novalidate:true}) do |f| %>
+          <%= form_for(:finder, :url => tengine_job_runtime_root_jobnets_path, :method => :get, html:{novalidate:true}) do |f| %>
             <%= f.label :refresh_interval, t(".refresher.form.refresh_interval") %>
             <%= f.number_field :refresh_interval, min:0, class:"InputText" %><%= t("datetime.prompts.second") %>
 
@@ -115,12 +115,12 @@
           <thead>
             <tr>
               <% query_without_page = request.query_parameters.select{|k,v| %w(category finder).include?(k.to_s) } -%>
-              <th scope="col"><%= link_to(Tengine::Job::RootJobnetActual.human_attribute_name(:id), tengine_job_root_jobnet_actuals_path(query_without_page.merge(sort_param(:id))), :class => sort_class(:id)) %></th>
-              <th scope="col"><%= link_to(Tengine::Job::RootJobnetActual.human_attribute_name(:name), tengine_job_root_jobnet_actuals_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name)) %></th>
-              <th scope="col"><%= link_to(Tengine::Job::RootJobnetActual.human_attribute_name(:phase_cd), tengine_job_root_jobnet_actuals_path(query_without_page.merge(sort_param(:phase_cd))), :class => sort_class(:phase_cd)) %></th>
-              <th scope="col"><%= link_to(Tengine::Job::RootJobnetActual.human_attribute_name(:started_at), tengine_job_root_jobnet_actuals_path(query_without_page.merge(sort_param(:started_at))), :class => sort_class(:started_at)) %></th>
-              <th scope="col"><%= link_to(Tengine::Job::RootJobnetActual.human_attribute_name(:finished_at), tengine_job_root_jobnet_actuals_path(query_without_page.merge(sort_param(:finished_at))), :class => sort_class(:finished_at)) %></th>
-              <th scope="col"><%= link_to(Tengine::Job::RootJobnetActual.human_attribute_name(:description), tengine_job_root_jobnet_actuals_path(query_without_page.merge(sort_param(:description))), :class => sort_class(:description)) %></th>
+              <th scope="col"><%= link_to(Tengine::Job::Runtime::RootJobnet.human_attribute_name(:id), tengine_job_runtime_root_jobnets_path(query_without_page.merge(sort_param(:id))), :class => sort_class(:id)) %></th>
+              <th scope="col"><%= link_to(Tengine::Job::Runtime::RootJobnet.human_attribute_name(:name), tengine_job_runtime_root_jobnets_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name)) %></th>
+              <th scope="col"><%= link_to(Tengine::Job::Runtime::RootJobnet.human_attribute_name(:phase_cd), tengine_job_runtime_root_jobnets_path(query_without_page.merge(sort_param(:phase_cd))), :class => sort_class(:phase_cd)) %></th>
+              <th scope="col"><%= link_to(Tengine::Job::Runtime::RootJobnet.human_attribute_name(:started_at), tengine_job_runtime_root_jobnets_path(query_without_page.merge(sort_param(:started_at))), :class => sort_class(:started_at)) %></th>
+              <th scope="col"><%= link_to(Tengine::Job::Runtime::RootJobnet.human_attribute_name(:finished_at), tengine_job_runtime_root_jobnets_path(query_without_page.merge(sort_param(:finished_at))), :class => sort_class(:finished_at)) %></th>
+              <th scope="col"><%= link_to(Tengine::Job::Runtime::RootJobnet.human_attribute_name(:description), tengine_job_runtime_root_jobnets_path(query_without_page.merge(sort_param(:description))), :class => sort_class(:description)) %></th>
               <th scope="col"><%= t("views.pages.operation") %></th>
             </tr>
           </thead>
@@ -137,7 +137,7 @@
               <td>
                 <%= link_to(t("views.links.watch"), root_jobnet_actual) %>
                 <% if %w(stuck).include?(root_jobnet_actual.phase_key.to_s) -%>
-                  <%= link_to t("views.links.edit_status"), edit_tengine_job_root_jobnet_actual_path(root_jobnet_actual) %>
+                  <%= link_to t("views.links.edit_status"), edit_tengine_job_runtime_root_jobnet_path(root_jobnet_actual) %>
                 <% end -%>
                 <% if %w(initialized success error stuck).include?(root_jobnet_actual.phase_key.to_s) -%>
                   <%= link_to(t("views.links.rerun"), new_tengine_job_runtime_execution_path(:root_jobnet_id => root_jobnet_actual, :retry => true)) %>

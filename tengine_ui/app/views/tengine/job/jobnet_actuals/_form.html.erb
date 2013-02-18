@@ -4,7 +4,7 @@
       <% status_only = false -%>
     <% end -%>
     <% unless defined?(submit_path) -%>
-      <% submit_path = tengine_job_root_jobnet_actual_jobnet_actuals_path(@root_jobnet_actual) -%>
+      <% submit_path = tengine_job_runtime_root_jobnet_jobnet_actuals_path(@root_jobnet_actual) -%>
     <% end -%>
     <%= form_for(@jobnet_actual, as:"jobnet_actual", url:submit_path) do |f| %>
       <%= model_error_messages(@jobnet_actual) %>
@@ -145,7 +145,7 @@
           <% end -%>
         </span>
         <% unless defined?(cancel_path) -%>
-          <% cancel_path = tengine_job_root_jobnet_actual_jobnet_actuals_path(@root_jobnet_actual) -%>
+          <% cancel_path = tengine_job_runtime_root_jobnet_jobnet_actuals_path(@root_jobnet_actual) -%>
         <% end %>
         <%= button_link_to t("views.links.cancel"), cancel_path, btn_class:"BtnCancel" %>
         </div>

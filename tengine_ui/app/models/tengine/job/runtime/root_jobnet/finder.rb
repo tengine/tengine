@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-require 'tengine/job/root_jobnet_actual'
+require 'tengine/job/runtime/root_jobnet'
 
-class Tengine::Job::RootJobnetActual::Finder
+class Tengine::Job::Runtime::RootJobnet::Finder
   include ActiveModel::Validations
   include ActiveModel::Conversion
   extend ActiveModel::Naming
@@ -23,7 +23,7 @@ class Tengine::Job::RootJobnetActual::Finder
 
   include Tengine::Core::SelectableAttr
 
-  multi_selectable_attr :phase_cd, :enum => Tengine::Job::RootJobnetActual.phase_enum
+  multi_selectable_attr :phase_cd, :enum => Tengine::Job::Runtime::RootJobnet.phase_enum
 
   DEFAULT_REFRESH_INTERVAL = 15
 
@@ -34,7 +34,7 @@ class Tengine::Job::RootJobnetActual::Finder
       duration: "started_at",
       duration_start:  now.beginning_of_day,
       duration_finish: now.end_of_day,
-      phase_ids:   Tengine::Job::RootJobnetActual.phase_ids,
+      phase_ids:   Tengine::Job::Runtime::RootJobnet.phase_ids,
       refresh_interval: DEFAULT_REFRESH_INTERVAL,
     }.update(attrs || {})
     ATTRIBUTE_NAMES.each do |attr|
