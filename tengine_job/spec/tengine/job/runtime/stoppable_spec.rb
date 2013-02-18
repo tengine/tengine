@@ -96,17 +96,18 @@ describe Tengine::Job::Runtime::Stoppable do
       context ":startingならば:runningになるのを待って、stopする" do
 
         it "(ジョブを単体で停止する)エッジはcloseしていない場合" do
-          pending "TODO 要調査"
+          @ctx[:j1110].tap do |j|
+            j.phase_key = :starting
+            j.executing_pid = nil
+            j.save!
+            @pid = "111"
+          end
 
           t = Time.at(Time.now.to_i)
           @mock_event.should_receive(:occurred_at).and_return(t)
           @mock_event.should_receive(:[]).with(:stop_reason).and_return("test stopping")
+          @root.reload
           @ctx[:j1110].tap do |j|
-            j.phase_key = :starting
-            j.executing_pid = nil
-            @root.save!
-            @pid = "111"
-            @root.reload
 
             mock_ssh = mock(:ssh)
             Net::SSH.should_receive(:start).
@@ -125,11 +126,10 @@ describe Tengine::Job::Runtime::Stoppable do
             @root.vertex(j.id).stop(@signal) do
               idx += 1
               if idx >= 3 # 3回目のリトライ後にデータが更新され、4回目でループを抜けて強制停止が始まります
-                root_dup = @root.class.find(@root.id)
-                job = root_dup.vertex(j.id)
+                job = j.class.find(j.id)
                 job.executing_pid = @pid
                 job.phase_key = :running
-                root_dup.save!
+                job.save!
               end
             end
             @root.save!

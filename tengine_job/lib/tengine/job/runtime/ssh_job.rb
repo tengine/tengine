@@ -364,8 +364,9 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
     when :starting then
       job = nil
       loop do
-        root = self.root.reload # class.find(self.root.id)
-        job = root.find_descendant(self.id)
+        # root = self.root.reload # class.find(self.root.id)
+        # job = root.find_descendant(self.id)
+        job = self.class.find(self.id)
         break unless job.phase_key == :starting
         yield if block_given? # テストの為にyieldしています
         sleep(0.1)

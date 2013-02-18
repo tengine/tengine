@@ -36,6 +36,9 @@ module Tengine::Job::Runtime::Executable
         when Tengine::Job::Runtime::SshJob     then "job"
         end
       Tengine.logger.debug("#{element_type} phase changed. <#{ self.id.to_s}> #{self.phase_name} -> #{ self.class.phase_name_by_key(phase_key)}")
+
+      Tengine.logger.debug(caller.join("\n  "))
+
       self.write_attribute(:phase_cd, self.class.phase_id_by_key(phase_key))
     end
 
