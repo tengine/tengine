@@ -59,13 +59,7 @@ class Tengine::Job::Template::Generator
   end
 
   def process(template, options)
-    @inherited_attrs, inherited_attrs_backup = @inherited_attrs.merge(
-      @current.nil? ? {} : expansion? ? {} : {
-        server_name: @current.actual_server_name,
-        credential_name: @current.actual_credential_name,
-        killing_signals: @current.actual_killing_signals,
-        killing_signal_interval: @current.actual_killing_signal_interval,
-      }), @inherited_attrs
+    @inherited_attrs, inherited_attrs_backup = merge_inherited_attrs, @inherited_attrs
     @current, current_backup = template, @current
     begin
       generate(options)
@@ -73,6 +67,22 @@ class Tengine::Job::Template::Generator
       @current = current_backup
       @inherited_attrs = inherited_attrs_backup
     end
+  end
+
+  def merge_inherited_attrs
+    source = @current.nil? ? nil : expansion? ? expansion_root : @current
+    return {} if source.nil?
+    result = @inherited_attrs.dup
+    {
+      server_name: source.actual_server_name,
+      credential_name: source.actual_credential_name,
+      killing_signals: source.actual_killing_signals,
+      killing_signal_interval: source.actual_killing_signal_interval,
+    }.each do |key, value|
+      next if value.blank?
+      result[key] = value # sourceからの値が有効なら上書きする
+    end
+    result
   end
 
   def generate(options)
