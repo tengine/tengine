@@ -108,7 +108,7 @@
 
 <div class="BoxBtns">
   <%= button_link_to t("views.links.run"),
-    new_tengine_job_execution_path(:root_jobnet_id => @root_jobnet_template),
+    new_tengine_job_runtime_execution_path(:root_jobnet_id => @root_jobnet_template),
     :btn_class => "BtnAdd" %>
   <%= button_link_to t("views.links.back_list"),
     tengine_job_template_root_jobnets_path, :btn_class => "BtnBack" %>

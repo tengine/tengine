@@ -140,7 +140,7 @@
                   <%= link_to t("views.links.edit_status"), edit_tengine_job_root_jobnet_actual_path(root_jobnet_actual) %>
                 <% end -%>
                 <% if %w(initialized success error stuck).include?(root_jobnet_actual.phase_key.to_s) -%>
-                  <%= link_to(t("views.links.rerun"), new_tengine_job_execution_path(:root_jobnet_id => root_jobnet_actual, :retry => true)) %>
+                  <%= link_to(t("views.links.rerun"), new_tengine_job_runtime_execution_path(:root_jobnet_id => root_jobnet_actual, :retry => true)) %>
                 <% end -%>
                 <% if %w(ready starting running).include?(root_jobnet_actual.phase_key.to_s) -%>
                   <%= link_to(t("views.links.force_exit"), root_jobnet_actual, confirm: t(".confirm.destroy"), method: :delete ) %>
