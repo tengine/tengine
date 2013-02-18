@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 require "ostruct"
 
-class Tengine::Job::RootJobnetActualsController < ApplicationController
-  # GET /tengine/job/root_jobnet_actuals
-  # GET /tengine/job/root_jobnet_actuals.json
+class Tengine::Job::Runtime::RootJobnetsController < ApplicationController
+  # GET /tengine/job/runtime/root_jobnet_actuals
+  # GET /tengine/job/runtime/root_jobnet_actuals.json
   def index
-    @root_jobnet_actuals = Mongoid::Criteria.new(Tengine::Job::RootJobnetActual)
+    @root_jobnet_actuals = Mongoid::Criteria.new(Tengine::Job::Runtime::RootJobnet)
 
     if sort_param = params[:sort]
       order = sort_order(sort_param)
@@ -18,14 +18,14 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
       @root_jobnet_actuals = @root_jobnet_actuals.send(v, n)
     end
 
-    @finder = Tengine::Job::RootJobnetActual::Finder.new(params[:finder])
+    @finder = Tengine::Job::Runtime::RootJobnet::Finder.new(params[:finder])
     if @finder.valid?
       @root_jobnet_actuals = @finder.scope(@root_jobnet_actuals)
     end
 
     @category = nil
     if category_id = params[:category]
-      @category = Tengine::Job::Category.where({:id => category_id}).first
+      @category = Tengine::Job::Structure::Category.where({:id => category_id}).first
       categories = category_childrens(@category).collect(&:id)
       unless categories.blank?
         @root_jobnet_actuals = \
@@ -34,7 +34,7 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     end
 
     @root_jobnet_actuals = @root_jobnet_actuals.page(params[:page])
-    @root_categories = Tengine::Job::Category.where({:parent_id => nil})
+    @root_categories = Tengine::Job::Structure::Category.where({:parent_id => nil})
 
     respond_to do |format|
       format.html { # index.html.erb
@@ -49,8 +49,8 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
 
   private
   def show_impl(&block)
-    @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:id])
-    visitor = Tengine::Job::Vertex::AllVisitor.new(&block)
+    @root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.find(params[:id])
+    visitor = Tengine::Job::Structure::Visitor::All.new(&block)
     @root_jobnet_actual.accept_visitor(visitor)
 
     @refresher = OpenStruct.new
@@ -81,12 +81,12 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
 
   public
 
-  # GET /tengine/job/root_jobnet_actuals/1
-  # GET /tengine/job/root_jobnet_actuals/1.json
+  # GET /tengine/job/runtime/root_jobnet_actuals/1
+  # GET /tengine/job/runtime/root_jobnet_actuals/1.json
   def show
     @jobnet_actuals = []
     show_impl do |vertex|
-      if vertex.instance_of?(Tengine::Job::JobnetActual)
+      if vertex.instance_of?(Tengine::Job::Runtime::Jobnet)
         @jobnet_actuals << [vertex, (vertex.ancestors.size - 1)]
       end
     end
@@ -100,11 +100,11 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
   end
 
 
-  # GET /tengine/job/root_jobnet_actuals/new
-  # GET /tengine/job/root_jobnet_actuals/new.json
+  # GET /tengine/job/runtime/root_jobnet_actuals/new
+  # GET /tengine/job/runtime/root_jobnet_actuals/new.json
   def new
     redirect_to :action => 'index'
-    # @root_jobnet_actual = Tengine::Job::RootJobnetActual.new
+    # @root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.new
 
     # respond_to do |format|
     #   format.html # new.html.erb
@@ -112,15 +112,15 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     # end
   end
 
-  # GET /tengine/job/root_jobnet_actuals/1/edit
+  # GET /tengine/job/runtime/root_jobnet_actuals/1/edit
   def edit
-    @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:id])
+    @root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.find(params[:id])
   end
 
-  # POST /tengine/job/root_jobnet_actuals
-  # POST /tengine/job/root_jobnet_actuals.json
+  # POST /tengine/job/runtime/root_jobnet_actuals
+  # POST /tengine/job/runtime/root_jobnet_actuals.json
   def create
-    @root_jobnet_actual = Tengine::Job::RootJobnetActual.new(params[:root_jobnet_actual])
+    @root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.new(params[:root_jobnet_actual])
 
     respond_to do |format|
       if @root_jobnet_actual.save
@@ -133,10 +133,10 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     end
   end
 
-  # PUT /tengine/job/root_jobnet_actuals/1
-  # PUT /tengine/job/root_jobnet_actuals/1.json
+  # PUT /tengine/job/runtime/root_jobnet_actuals/1
+  # PUT /tengine/job/runtime/root_jobnet_actuals/1.json
   def update
-    @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:id])
+    @root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.find(params[:id])
 
     respond_to do |format|
       if @root_jobnet_actual.update_attributes(params[:root_jobnet_actual])
@@ -151,10 +151,10 @@ class Tengine::Job::RootJobnetActualsController < ApplicationController
     end
   end
 
-  # DELETE /tengine/job/root_jobnet_actuals/1
-  # DELETE /tengine/job/root_jobnet_actuals/1.json
+  # DELETE /tengine/job/runtime/root_jobnet_actuals/1
+  # DELETE /tengine/job/runtime/root_jobnet_actuals/1.json
   def destroy
-    @root_jobnet_actual = Tengine::Job::RootJobnetActual.find(params[:id])
+    @root_jobnet_actual = Tengine::Job::Runtime::RootJobnet.find(params[:id])
     stop(@root_jobnet_actual)
 
     respond_to do |format|

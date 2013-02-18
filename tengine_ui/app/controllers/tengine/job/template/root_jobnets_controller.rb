@@ -1,10 +1,10 @@
 require 'ostruct'
 
-class Tengine::Job::RootJobnetTemplatesController < ApplicationController
-  # GET /tengine/job/root_jobnet_templates
-  # GET /tengine/job/root_jobnet_templates.json
+class Tengine::Job::Template::RootJobnetsController < ApplicationController
+  # GET /tengine/job/template/root_jobnet_templates
+  # GET /tengine/job/template/root_jobnet_templates.json
   def index
-    @root_jobnet_templates = Tengine::Job::RootJobnetTemplate.where(
+    @root_jobnet_templates = Tengine::Job::Template::RootJobnet.where(
       :dsl_version => Tengine::Core::Setting.dsl_version)
 
     if sort_param = params[:sort]
@@ -47,7 +47,7 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
 
     @category = nil
     if category_id = params[:category]
-      @category = Tengine::Job::Category.where({:id => category_id}).first
+      @category = Tengine::Job::Structure::Category.where({:id => category_id}).first
       categories = category_childrens(@category).collect(&:id)
       unless categories.blank?
         @root_jobnet_templates = \
@@ -56,7 +56,7 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
     end
 
     @root_jobnet_templates = @root_jobnet_templates.page(params[:page])
-    @root_categories = Tengine::Job::Category.where({:parent_id => nil})
+    @root_categories = Tengine::Job::Structure::Category.where({:parent_id => nil})
 
     respond_to do |format|
       format.html # index.html.erb
@@ -64,15 +64,15 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
     end
   end
 
-  # GET /tengine/job/root_jobnet_templates/1
-  # GET /tengine/job/root_jobnet_templates/1.json
+  # GET /tengine/job/template/root_jobnet_templates/1
+  # GET /tengine/job/template/root_jobnet_templates/1.json
   def show
     dsl_version = Tengine::Core::Setting.dsl_version
     @root_jobnet_template = \
-      Tengine::Job::RootJobnetTemplate.where(:dsl_version => dsl_version).find(params[:id])
+      Tengine::Job::Template::RootJobnet.where(:dsl_version => dsl_version).find(params[:id])
     @jobnet_templates = []
-    visitor = Tengine::Job::Vertex::AllVisitor.new do |vertex|
-      if vertex.instance_of?(Tengine::Job::JobnetTemplate) or vertex.instance_of?(Tengine::Job::Expansion)
+    visitor = Tengine::Job::Structure::Visitor::All.new do |vertex|
+      if vertex.instance_of?(Tengine::Job::Template::Jobnet) or vertex.instance_of?(Tengine::Job::Template::Expansion)
         @jobnet_templates << [vertex, (vertex.ancestors.size - 1)]
       end
     end
@@ -84,10 +84,10 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
     end
   end
 
-  # GET /tengine/job/root_jobnet_templates/new
-  # GET /tengine/job/root_jobnet_templates/new.json
+  # GET /tengine/job/template/root_jobnet_templates/new
+  # GET /tengine/job/template/root_jobnet_templates/new.json
   def new
-    @root_jobnet_template = Tengine::Job::RootJobnetTemplate.new
+    @root_jobnet_template = Tengine::Job::Template::RootJobnet.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -95,15 +95,15 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
     end
   end
 
-  # GET /tengine/job/root_jobnet_templates/1/edit
+  # GET /tengine/job/template/root_jobnet_templates/1/edit
   def edit
-    @root_jobnet_template = Tengine::Job::RootJobnetTemplate.find(params[:id])
+    @root_jobnet_template = Tengine::Job::Template::RootJobnet.find(params[:id])
   end
 
-  # POST /tengine/job/root_jobnet_templates
-  # POST /tengine/job/root_jobnet_templates.json
+  # POST /tengine/job/template/root_jobnet_templates
+  # POST /tengine/job/template/root_jobnet_templates.json
   def create
-    @root_jobnet_template = Tengine::Job::RootJobnetTemplate.new(params[:root_jobnet_template])
+    @root_jobnet_template = Tengine::Job::Template::RootJobnet.new(params[:root_jobnet_template])
 
     respond_to do |format|
       if @root_jobnet_template.save
@@ -116,10 +116,10 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
     end
   end
 
-  # PUT /tengine/job/root_jobnet_templates/1
-  # PUT /tengine/job/root_jobnet_templates/1.json
+  # PUT /tengine/job/template/root_jobnet_templates/1
+  # PUT /tengine/job/template/root_jobnet_templates/1.json
   def update
-    @root_jobnet_template = Tengine::Job::RootJobnetTemplate.find(params[:id])
+    @root_jobnet_template = Tengine::Job::Template::RootJobnet.find(params[:id])
 
     respond_to do |format|
       if @root_jobnet_template.update_attributes(params[:root_jobnet_template])
@@ -132,10 +132,10 @@ class Tengine::Job::RootJobnetTemplatesController < ApplicationController
     end
   end
 
-  # DELETE /tengine/job/root_jobnet_templates/1
-  # DELETE /tengine/job/root_jobnet_templates/1.json
+  # DELETE /tengine/job/template/root_jobnet_templates/1
+  # DELETE /tengine/job/template/root_jobnet_templates/1.json
   def destroy
-    @root_jobnet_template = Tengine::Job::RootJobnetTemplate.find(params[:id])
+    @root_jobnet_template = Tengine::Job::Template::RootJobnet.find(params[:id])
     @root_jobnet_template.destroy
 
     respond_to do |format|

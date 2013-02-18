@@ -1,4 +1,4 @@
-<h1><%= page_title Tengine::Job::RootJobnetTemplate, :list %></h1>
+<h1><%= page_title Tengine::Job::Template::RootJobnet, :list %></h1>
 
 <%= message :complete, notice %>
 <div class="TreeViewContents">
@@ -16,15 +16,15 @@
                 </colgroup>
                 <tbody>
                   <tr>
-                    <th><%= f.label :id, Tengine::Job::RootJobnetTemplate.human_attribute_name(:id) %></th>
+                    <th><%= f.label :id, Tengine::Job::Template::RootJobnet.human_attribute_name(:id) %></th>
                     <td><%= f.text_field :id, :class => "InputText" %></td>
                   </tr>
                   <tr>
-                   <th><%= f.label :name, Tengine::Job::RootJobnetTemplate.human_attribute_name(:name) %></th>
+                   <th><%= f.label :name, Tengine::Job::Template::RootJobnet.human_attribute_name(:name) %></th>
                    <td><%= f.text_field :name, :class => "InputText" %></td>
                   </tr>
                   <tr>
-                   <th><%= f.label :description, Tengine::Job::RootJobnetTemplate.human_attribute_name(:description) %></th>
+                   <th><%= f.label :description, Tengine::Job::Template::RootJobnet.human_attribute_name(:description) %></th>
                    <td><%= f.text_field :description, :class => "InputText" %></td>
                   </tr>
                 </tbody>
@@ -59,9 +59,9 @@
           <thead>
             <tr>
               <% query_without_page = request.query_parameters.select{|k,v| %w(category finder).include?(k.to_s) } -%>
-              <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:id), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:id))), :class => sort_class(:id) %></th>
-              <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:name), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name) %></th>
-              <th><%= link_to Tengine::Job::RootJobnetTemplate.human_attribute_name(:description), tengine_job_root_jobnet_templates_path(query_without_page.merge(sort_param(:desc))), :class => sort_class(:desc) %></th>
+              <th><%= link_to Tengine::Job::Template::RootJobnet.human_attribute_name(:id), tengine_job_template_root_jobnets_path(query_without_page.merge(sort_param(:id))), :class => sort_class(:id) %></th>
+              <th><%= link_to Tengine::Job::Template::RootJobnet.human_attribute_name(:name), tengine_job_template_root_jobnets_path(query_without_page.merge(sort_param(:name))), :class => sort_class(:name) %></th>
+              <th><%= link_to Tengine::Job::Template::RootJobnet.human_attribute_name(:description), tengine_job_template_root_jobnets_path(query_without_page.merge(sort_param(:desc))), :class => sort_class(:desc) %></th>
               <th><%= I18n.t(:operation, :scope => [:views, :pages]) %></th>
             </tr>
           </thead>

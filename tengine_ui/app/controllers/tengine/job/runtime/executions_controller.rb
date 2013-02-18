@@ -1,8 +1,8 @@
-class Tengine::Job::ExecutionsController < ApplicationController
-  # GET /tengine/job/executions
-  # GET /tengine/job/executions.json
+class Tengine::Job::Runtime::ExecutionsController < ApplicationController
+  # GET /tengine/job/runtime/executions
+  # GET /tengine/job/runtime/executions.json
   def index
-    @executions = Tengine::Job::Execution.asc(:_id).page(params[:page])
+    @executions = Tengine::Job::Runtime::Execution.asc(:_id).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,10 +10,10 @@ class Tengine::Job::ExecutionsController < ApplicationController
     end
   end
 
-  # GET /tengine/job/executions/1
-  # GET /tengine/job/executions/1.json
+  # GET /tengine/job/runtime/executions/1
+  # GET /tengine/job/runtime/executions/1.json
   def show
-    @execution = Tengine::Job::Execution.find(params[:id])
+    @execution = Tengine::Job::Runtime::Execution.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,8 +21,8 @@ class Tengine::Job::ExecutionsController < ApplicationController
     end
   end
 
-  # GET /tengine/job/executions/new
-  # GET /tengine/job/executions/new.json
+  # GET /tengine/job/runtime/executions/new
+  # GET /tengine/job/runtime/executions/new.json
   def new
     root_jobnet_id = params[:root_jobnet_id]
 
@@ -35,7 +35,7 @@ class Tengine::Job::ExecutionsController < ApplicationController
 
       @retry = true
 
-      @root_jobnet = Tengine::Job::RootJobnetActual.find(root_jobnet_id)
+      @root_jobnet = Tengine::Job::Runtime::RootJobnet.find(root_jobnet_id)
 
       @select_root_jobnet = false
       @target_actual_ids = [params[:target_actual_ids]].flatten.compact.uniq
@@ -54,11 +54,11 @@ class Tengine::Job::ExecutionsController < ApplicationController
       end
 
       dsl_version = Tengine::Core::Setting.dsl_version
-      @root_jobnet = Tengine::Job::RootJobnetTemplate.where(
+      @root_jobnet = Tengine::Job::Template::RootJobnet.where(
         :dsl_version => dsl_version).find(root_jobnet_id)
     end
 
-    @execution = Tengine::Job::Execution.new(
+    @execution = Tengine::Job::Runtime::Execution.new(
       :actual_base_timeout_alert => 0,
       :actual_base_timeout_termination => 0,
       :root_jobnet_id => root_jobnet_id,
@@ -72,21 +72,21 @@ class Tengine::Job::ExecutionsController < ApplicationController
     end
   end
 
-  # GET /tengine/job/executions/1/edit
+  # GET /tengine/job/runtime/executions/1/edit
   def edit
-    @execution = Tengine::Job::Execution.find(params[:id])
+    @execution = Tengine::Job::Runtime::Execution.find(params[:id])
   end
 
-  # POST /tengine/job/executions
-  # POST /tengine/job/executions.json
+  # POST /tengine/job/runtime/executions
+  # POST /tengine/job/runtime/executions.json
   def create
     execute_param = params[:execution]
-    @execution = Tengine::Job::Execution.new(execute_param)
+    @execution = Tengine::Job::Runtime::Execution.new(execute_param)
 
     respond_to do |format|
       @retry = @execution.retry
-      klass = Tengine::Job::RootJobnetTemplate
-      klass = Tengine::Job::RootJobnetActual if @retry
+      klass = Tengine::Job::Template::RootJobnet
+      klass = Tengine::Job::Runtime::RootJobnet if @retry
       @root_jobnet = klass.find(@execution.root_jobnet_id)
 
       executed = nil
@@ -102,10 +102,10 @@ class Tengine::Job::ExecutionsController < ApplicationController
     end
   end
 
-  # PUT /tengine/job/executions/1
-  # PUT /tengine/job/executions/1.json
+  # PUT /tengine/job/runtime/executions/1
+  # PUT /tengine/job/runtime/executions/1.json
   def update
-    @execution = Tengine::Job::Execution.find(params[:id])
+    @execution = Tengine::Job::Runtime::Execution.find(params[:id])
 
     respond_to do |format|
       if @execution.update_attributes(params[:execution])
@@ -118,10 +118,10 @@ class Tengine::Job::ExecutionsController < ApplicationController
     end
   end
 
-  # DELETE /tengine/job/executions/1
-  # DELETE /tengine/job/executions/1.json
+  # DELETE /tengine/job/runtime/executions/1
+  # DELETE /tengine/job/runtime/executions/1.json
   def destroy
-    @execution = Tengine::Job::Execution.find(params[:id])
+    @execution = Tengine::Job::Runtime::Execution.find(params[:id])
     @execution.destroy
 
     respond_to do |format|

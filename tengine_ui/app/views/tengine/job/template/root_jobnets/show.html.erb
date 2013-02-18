@@ -1,7 +1,7 @@
-<h1><%= page_title Tengine::Job::RootJobnetTemplate, :show %></h1>
+<h1><%= page_title Tengine::Job::Template::RootJobnet, :show %></h1>
 
 <div class="Section">
-  <h2><%= "#{Tengine::Job::RootJobnetTemplate.human_attribute_name(:name)}: #{@root_jobnet_template.name}" %></h2>
+  <h2><%= "#{Tengine::Job::Template::RootJobnet.human_attribute_name(:name)}: #{@root_jobnet_template.name}" %></h2>
   <table class="TableInfoView">
     <colgroup>
       <col class="Row1 RowTh">
@@ -9,35 +9,35 @@
     </colgroup>
     <tbody>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:name) %>:</th>
+        <th scope="row"><%= Tengine::Job::Template::RootJobnet.human_attribute_name(:name) %>:</th>
         <td><%= @root_jobnet_template.name %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:id) %>:</th>
+        <th scope="row"><%= Tengine::Job::Template::RootJobnet.human_attribute_name(:id) %>:</th>
         <td><%= @root_jobnet_template.id %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:description) %>:</th>
+        <th scope="row"><%= Tengine::Job::Template::RootJobnet.human_attribute_name(:description) %>:</th>
         <td><%= @root_jobnet_template.description %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:server_name) %>:</th>
+        <th scope="row"><%= Tengine::Job::Template::RootJobnet.human_attribute_name(:server_name) %>:</th>
         <td><%= @root_jobnet_template.server_name %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:credential_name) %>:</th>
+        <th scope="row"><%= Tengine::Job::Template::RootJobnet.human_attribute_name(:credential_name) %>:</th>
         <td><%= @root_jobnet_template.credential_name %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_filepath) %>:</th>
+        <th scope="row"><%= Tengine::Job::Template::RootJobnet.human_attribute_name(:dsl_filepath) %>:</th>
         <td><%= @root_jobnet_template.dsl_filepath %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_lineno) %>:</th>
+        <th scope="row"><%= Tengine::Job::Template::RootJobnet.human_attribute_name(:dsl_lineno) %>:</th>
         <td><%= @root_jobnet_template.dsl_lineno %></td>
       </tr>
       <tr>
-        <th scope="row"><%= Tengine::Job::RootJobnetTemplate.human_attribute_name(:dsl_version) %>:</th>
+        <th scope="row"><%= Tengine::Job::Template::RootJobnet.human_attribute_name(:dsl_version) %>:</th>
         <td><%= @root_jobnet_template.dsl_version %></td>
       </tr>
     </tbody>
@@ -111,6 +111,6 @@
     new_tengine_job_execution_path(:root_jobnet_id => @root_jobnet_template),
     :btn_class => "BtnAdd" %>
   <%= button_link_to t("views.links.back_list"),
-    tengine_job_root_jobnet_templates_path, :btn_class => "BtnBack" %>
+    tengine_job_template_root_jobnets_path, :btn_class => "BtnBack" %>
 </div><!-- /.Section -->
 

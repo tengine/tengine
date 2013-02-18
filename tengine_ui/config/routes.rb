@@ -18,20 +18,22 @@ TengineConsole::Application.routes.draw do
 
   namespace :tengine do  namespace :core do resources :settings end end
 
-  namespace :tengine do  namespace :job do resources :executions end end
+  namespace :tengine do  namespace :job do namespace :runtime do resources :executions end end end
 
   namespace :tengine do  namespace :job do resources :categories end end
 
   namespace :tengine do
     namespace :job do
-      resources :root_jobnet_actuals do
-        resources :jobnet_actuals
-        member{ get :vertecs }
+      namespace :runtime do
+        resources :root_jobnets do
+          resources :jobnet_actuals
+          member{ get :vertecs }
+        end
       end
     end
   end
 
-  namespace :tengine do  namespace :job do resources :root_jobnet_templates end end
+  namespace :tengine do  namespace :job do namespace :template do resources :root_jobnets end end end
 
   namespace :tengine do  namespace :job do resources :jobnets end end
 
