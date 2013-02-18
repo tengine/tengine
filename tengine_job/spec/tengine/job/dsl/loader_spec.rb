@@ -24,7 +24,6 @@ describe Tengine::Job::Dsl::Loader do
       }
 
       it do
-        pending
         root_jobnet = Tengine::Job::Template::Jobnet.by_name("jobnet0013")
         root_jobnet.should be_a(Tengine::Job::Template::RootJobnet)
         root_jobnet.tap do |j|
@@ -39,9 +38,9 @@ describe Tengine::Job::Dsl::Loader do
         end
         root_jobnet.children.map(&:class).should == [
           Tengine::Job::Template::Start,
+          Tengine::Job::Template::SshJob,
           Tengine::Job::Template::Jobnet,
-          Tengine::Job::Template::Jobnet,
-          Tengine::Job::Template::Jobnet,
+          Tengine::Job::Template::SshJob,
           Tengine::Job::Template::End,
         ]
         root_jobnet.children[1].tap{|j| j.name.should == "job1"; j.description.should == "ジョブ1"; j.script.should == "import_hdfs.sh"}
