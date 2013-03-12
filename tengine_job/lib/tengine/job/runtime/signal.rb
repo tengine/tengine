@@ -98,7 +98,7 @@ class Tengine::Job::Runtime::Signal
         cache(obj.destination).send(action, self)
       elsif obj.is_a?(Tengine::Job::Runtime::Vertex)
         obj.next_edges.each do |edge|
-          cache_list
+          # cache_list
           with_paths_backup{ cache(edge).send(action, self) }
         end
       else
