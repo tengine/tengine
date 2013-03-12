@@ -270,13 +270,13 @@ class Tengine::Job::Runtime::End < Tengine::Job::Runtime::Vertex
   end
 
   def reset(signal)
-    # Tengine.logger.info("#{__FILE__}##{__LINE__} #{self.class}#reset")
+    Tengine.logger.info("#{__FILE__}##{__LINE__} #{self.class}#reset")
 
-    # parent = signal.cache(self.parent) # Endのparentであるジョブネット
-    # if signal.execution.in_scope?(parent)
-    #   if f = parent.finally_vertex
-    #     f.reset(signal)
-    #   end
-    # end
+    parent = signal.cache(self.parent) # Endのparentであるジョブネット
+    if signal.execution.in_scope?(parent)
+      if f = parent.finally_vertex
+        f.reset(signal)
+      end
+    end
   end
 end

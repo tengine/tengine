@@ -9,13 +9,16 @@ driver :job_execution_driver do
 
   on :'start.execution.job.tengine' do
     signal = Tengine::Job::Runtime::Signal.new(event)
+    signal.reset
     execution = signal.execution
     root_jobnet = execution.root_jobnet
-    root_jobnet.update_with_lock do
-      signal.reset
-      execution.transmit(signal)
-    end
+    signal.remember(execution)
+    signal.remember_all(root_jobnet)
+
+    execution.transmit(signal)
     execution.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save!
+
+    signal.process_callbacks
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
   end
@@ -42,6 +45,7 @@ driver :job_execution_driver do
       execution.stop(signal)
     end
     execution.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save!
+    signal.process_callbacks
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
   end

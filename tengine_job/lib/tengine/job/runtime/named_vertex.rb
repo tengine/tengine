@@ -82,10 +82,11 @@ class Tengine::Job::Runtime::NamedVertex < Tengine::Job::Runtime::Vertex
         end
       end
       vertecs.each do |vertex|
-        next unless vertex.is_a?(Tengine::Job::Runtime::NamedVertex)
         next unless signal.execution.in_scope?(vertex)
-        signal.call_later do
-          signal.cache(vertex).reset(signal)
+        if vertex.is_a?(Tengine::Job::Runtime::NamedVertex) || vertex.is_a?(Tengine::Job::Runtime::End)
+          signal.call_later do
+            signal.cache(vertex).reset(signal)
+          end
         end
       end
     end

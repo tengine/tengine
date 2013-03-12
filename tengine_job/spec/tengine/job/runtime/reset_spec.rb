@@ -233,6 +233,7 @@ describe "reset" do
           @root.update_with_lock do
             execution.transmit(signal1)
           end
+          signal1.process_callbacks
           signal1.reservations.length.should == 1
           signal1.reservations.first.tap do |reservation|
             reservation.event_type_name.should == :"start.job.job.tengine"

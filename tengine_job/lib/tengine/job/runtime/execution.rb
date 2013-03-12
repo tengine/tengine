@@ -79,6 +79,7 @@ class Tengine::Job::Runtime::Execution
         signal.call_later do
           Tengine.logger.info("=" * 50)
           activate(signal)
+          self.save!
         end
       end
     else

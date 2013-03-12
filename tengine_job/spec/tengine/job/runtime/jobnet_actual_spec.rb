@@ -98,6 +98,7 @@ describe Tengine::Job::Runtime::Jobnet do
     shared_examples_for "全て再実行するためにrootをリセット" do
       it "全てのedgeとvetexは初期化される" do
         @root.reset(@signal)
+        @signal.process_callbacks
         @root.save!
         @root.reload
         [:root, :j11, :j12, :j13].each{|j| [j, @ctx[j].phase_key].should == [j, :initialized]}
@@ -116,6 +117,7 @@ describe Tengine::Job::Runtime::Jobnet do
 
       it "一部再実行の為にreset" do
         @ctx[:j12].reset(@signal)
+        @signal.process_callbacks
         @root.save!
         @root.reload
         [:root, :j11].each{|j| @ctx[j].phase_key.should == :success}
@@ -139,6 +141,7 @@ describe Tengine::Job::Runtime::Jobnet do
 
       it "j11をreset" do
         @ctx[:j11].reset(@signal)
+        @signal.process_callbacks
         @root.save!
         @root.reload
         [:root, :j12].each{|j| [j, @ctx[j].phase_key].should == [j, :error]}
@@ -149,6 +152,7 @@ describe Tengine::Job::Runtime::Jobnet do
 
       it "j12をreset" do
         @ctx[:j12].reset(@signal)
+        @signal.process_callbacks
         @root.save!
         @root.reload
         [:root, ].each{|j| [j, @ctx[j].phase_key].should == [j, :error]}
@@ -160,6 +164,7 @@ describe Tengine::Job::Runtime::Jobnet do
 
       it "j13をreset" do
         @ctx[:j13].reset(@signal)
+        @signal.process_callbacks
         @root.save!
         @root.reload
         [:root, :j12, ].each{|j| [j, @ctx[j].phase_key].should == [j, :error]}
