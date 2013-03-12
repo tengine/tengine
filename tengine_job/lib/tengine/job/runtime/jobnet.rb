@@ -210,12 +210,19 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
   def reset(signal, &block)
     # children.each{|c| c.reset(signal) }
     self.phase_key = :initialized
-    if s = start_vertex
-      s.reset(signal)
+    edges.each do |edge|
+      signal.paths.push(edge)
+      edge.phase_key = :active
     end
-    if edge = signal.cache((next_edges || [])).first
-      edge.reset(signal)
+    children.each do |child|
+      signal.call_later do
+        signal.paths.push(child)
+        signal.cache(child).reset(signal)
+      end
     end
+
+    reset_followings(signal)
+
   rescue Exception => e
     puts "#{self.name_path} [#{e.class}] #{e.message}"
     raise
@@ -239,7 +246,7 @@ class Tengine::Job::Runtime::Start < Tengine::Job::Runtime::Vertex
   end
 
   def reset(signal)
-    signal.leave(self, :reset)
+    # signal.leave(self, :reset)
   end
 end
 
@@ -263,14 +270,13 @@ class Tengine::Job::Runtime::End < Tengine::Job::Runtime::Vertex
   end
 
   def reset(signal)
+    # Tengine.logger.info("#{__FILE__}##{__LINE__} #{self.class}#reset")
 
-    Tengine.logger.info("#{__FILE__}##{__LINE__} #{self.class}#reset")
-
-    parent = signal.cache(self.parent) # Endのparentであるジョブネット
-    if signal.execution.in_scope?(parent)
-      if f = parent.finally_vertex
-        f.reset(signal)
-      end
-    end
+    # parent = signal.cache(self.parent) # Endのparentであるジョブネット
+    # if signal.execution.in_scope?(parent)
+    #   if f = parent.finally_vertex
+    #     f.reset(signal)
+    #   end
+    # end
   end
 end

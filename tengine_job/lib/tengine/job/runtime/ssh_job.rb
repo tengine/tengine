@@ -399,10 +399,8 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
 
   def reset(signal, &block)
     self.phase_key = :initialized
-    if signal.execution.in_scope?(self)
-      next_edges.first.reset(signal)
-    end
+    reset_followings(signal)
   end
-  available :reset, :on => [:initialized, :success, :error, :stuck]
+  available :reset, :on => [:initialized, :ready, :success, :error, :stuck]
 
 end

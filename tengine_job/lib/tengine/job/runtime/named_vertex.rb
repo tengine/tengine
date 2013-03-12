@@ -61,4 +61,34 @@ class Tengine::Job::Runtime::NamedVertex < Tengine::Job::Runtime::Vertex
     t.nil? ? nil : t.vertex_by_absolute_name_path(name_path_until_expansion)
   end
 
+  def reset_followings(signal)
+    return if parent.nil?
+    return unless signal.execution.in_scope?(self)
+    edge_owner = signal.cache(parent)
+    return if signal.paths.include?(edge_owner)
+    edges, vertecs = [], []
+    visitor = Tengine::Job::Structure::Visitor::TraceEdge.new do |obj|
+      dest = obj.is_a?(Tengine::Job::Runtime::Edge) ? edges : vertecs
+      dest << obj
+    end
+    (next_edges || []).each{|edge| edge.accept_visitor(visitor)}
+    signal.paths << edge_owner
+
+    signal.call_later do
+      signal.cache(edge_owner).update_with_lock do
+        edges.each do |edge|
+          next unless signal.execution.in_scope?(edge.destination)
+          signal.cache(edge).phase_key = :active
+        end
+      end
+      vertecs.each do |vertex|
+        next unless vertex.is_a?(Tengine::Job::Runtime::NamedVertex)
+        next unless signal.execution.in_scope?(vertex)
+        signal.call_later do
+          signal.cache(vertex).reset(signal)
+        end
+      end
+    end
+  end
+
 end

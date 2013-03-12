@@ -49,4 +49,19 @@ module Tengine::Job::Structure::Visitor
     end
   end
 
+  class TraceEdge
+    def initialize(&block)
+      @block = block
+    end
+
+    def visit(obj)
+      @block.call(obj)
+      if obj.respond_to?(:destination)
+        obj.destination.accept_visitor(self)
+      elsif obj.respond_to?(:next_edges)
+        obj.next_edges.each{|edge| edge.accept_visitor(self) }
+      end
+    end
+  end
+
 end

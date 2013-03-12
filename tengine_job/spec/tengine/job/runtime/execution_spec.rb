@@ -70,8 +70,10 @@ describe Tengine::Job::Runtime::Execution do
 
       it "全てのedgeとvetexは初期化される" do
         @execution.transmit(@signal)
-        @root.save!
         @execution.save!
+        # @root.save!
+        @signal.process_callbacks
+
         @root.reload
         @execution.reload
         @root.phase_key.should == :ready
@@ -80,17 +82,19 @@ describe Tengine::Job::Runtime::Execution do
       end
 
       it "一部再実行の為にreset" do
-        @execution.target_actual_ids = [@ctx[:j12].id.to_s]
+        # @execution.target_actual_ids = [@ctx[:j12].id.to_s]
+        @execution.target_actual_ids = [@ctx[:j12].id.to_s, @ctx[:j13].id.to_s]
         @execution.save!
         @execution.transmit(@signal)
-        @root.save!
-        @execution.save!
+        # @root.save!
+        @signal.process_callbacks
+
         @execution.reload
         @root.reload
         [:root, :j11].each{|j| @ctx[j].phase_key.should == :success}
         [:j12].each{|j| @ctx[j].phase_key.should == :ready}
         [:j13].each{|j| @ctx[j].phase_key.should == :initialized}
-        [:e1, :e2, :e3, :e4].each{|n| @ctx[n].phase_key.should == :transmitted }
+        [:e1, :e2, :e3, :e4].each{|n| [n, @ctx[n].phase_key].should == [n, :transmitted] }
         [:e5, :e6, :e7].each{|n| @ctx[n].phase_key.should == :active }
       end
     end

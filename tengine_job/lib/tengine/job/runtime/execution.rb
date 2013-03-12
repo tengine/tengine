@@ -69,13 +69,18 @@ class Tengine::Job::Runtime::Execution
   def transmit(signal)
     case phase_key
     when :initialized then
-      if self.retry
-        target_actuals.each do |target|
-          target.reset(signal)
+      self.phase_key = :ready
+      signal.call_later do
+        if self.retry
+          target_actuals.each do |target|
+            signal.call_later{ signal.cache(target).reset(signal) }
+          end
+        end
+        signal.call_later do
+          Tengine.logger.info("=" * 50)
+          activate(signal)
         end
       end
-      self.phase_key = :ready
-      activate(signal)
     else
       raise "Unsupported phase_key for transmit: #{phase_key.inspect}"
     end

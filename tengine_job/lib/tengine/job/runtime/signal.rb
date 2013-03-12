@@ -45,6 +45,7 @@ class Tengine::Job::Runtime::Signal
 
   def process_callbacks
     until self.callbacks.empty?
+Tengine.logger.debug("-" * 20)
       callbacks.shift.call
     end
 
