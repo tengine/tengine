@@ -254,9 +254,11 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
       # (エッジを実行しようとした際、エッジがclosedならばそのジョブネットのEndに遷移する。)
       next_edges.first.transmit(signal)
     when :ready then
-      complete_origin_edge(signal)
       self.phase_key = :starting
       self.started_at = signal.event.occurred_at
+
+      signal.call_later do
+      complete_origin_edge(signal)
       execution = signal.execution
       if execution.retry
         if execution.target_actual_ids.include?(self.id.to_s)
@@ -272,6 +274,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
       # このコールバックはjob_control_driverでupdate_with_lockの外側から
       # 再度呼び出してもらうためにcallbackを設定しています
       signal.call_later{ root.vertex(self.id).activate(signal) }
+      end
     when :starting then
       # 実際にSSHでスクリプトを実行
       execution = signal.execution
