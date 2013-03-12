@@ -33,15 +33,15 @@ module Tengine::Core::OptimisticLock
     end
     Tengine::Core::OptimisticLock.update_with_lock_stack.push(caller.first)
     begin
-    retry_count = options[:retry] || DEFAULT_RETRY_COUNT
-    idx = 1
-    while idx <= retry_count
-      yield
-      return if __update_with_lock__
-      reload
-      idx += 1
-    end
-    raise RetryOverError, "retried #{retry_count} times but failed to update"
+      retry_count = options[:retry] || DEFAULT_RETRY_COUNT
+      idx = 1
+      while idx <= retry_count
+        yield
+        return if __update_with_lock__
+        reload
+        idx += 1
+      end
+      raise RetryOverError, "retried #{retry_count} times but failed to update"
     ensure
       Tengine::Core::OptimisticLock.update_with_lock_stack.pop
     end
