@@ -22,10 +22,7 @@ driver :job_control_driver do
     signal.with_paths_backup do
       target_job.activate(signal) # transmitは既にされているはず。
     end
-    if signal.callback
-      block, signal.callback = signal.callback, nil
-      block.call
-    end
+    signal.process_callbacks
     if signal.callback
       target_job.update_with_lock(&signal.callback)
     end
@@ -56,10 +53,7 @@ driver :job_control_driver do
     signal.with_paths_backup do
       target_job.stop(signal)
     end
-    if signal.callback
-      block, signal.callback = signal.callback, nil
-      block.call
-    end
+    signal.process_callbacks
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
   end

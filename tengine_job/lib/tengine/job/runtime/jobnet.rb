@@ -120,13 +120,13 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
     self.started_at = signal.event.occurred_at
     complete_origin_edge(signal) if prev_edges && !prev_edges.empty?
 
-    signal.callback = Proc.new do
+    signal.call_later do
       signal.cache(parent || signal.execution).ack(signal)
       if root?
         signal.execution.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save!
       end
 
-      signal.callback = Proc.new do
+      signal.call_later do
         self.update_with_lock do
           signal.paths << self
           signal.cache(self.start_vertex).transmit(signal)

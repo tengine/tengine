@@ -28,7 +28,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
         # signal.data = {:executing_pid => data.strip}
         # ack(signal)
         pid = data.strip
-        signal.callback = lambda do
+        signal.call_later do
           signal.data = {:executing_pid => pid}
 
           # このブロック内の処理はupdate_with_lockによって複数回実行されることがあります。
@@ -279,7 +279,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
       begin
         run(execution)
       rescue Tengine::Job::Runtime::SshJob::Error => e
-        signal.callback = lambda do
+        signal.call_later do
           self.fail(signal, :message => e.message)
         end
       end
@@ -376,7 +376,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
       self.phase_key = :dying
       self.stopped_at = signal.event.occurred_at
       self.stop_reason = signal.event[:stop_reason]
-      signal.callback = lambda do
+      signal.call_later do
         kill(signal.execution)
       end
     end
