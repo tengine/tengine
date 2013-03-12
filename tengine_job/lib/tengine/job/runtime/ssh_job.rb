@@ -271,7 +271,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
       end
       # このコールバックはjob_control_driverでupdate_with_lockの外側から
       # 再度呼び出してもらうためにcallbackを設定しています
-      signal.callback = lambda{ root.vertex(self.id).activate(signal) }
+      signal.call_later{ root.vertex(self.id).activate(signal) }
     when :starting then
       # 実際にSSHでスクリプトを実行
       execution = signal.execution

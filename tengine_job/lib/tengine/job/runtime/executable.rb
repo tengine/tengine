@@ -35,7 +35,7 @@ module Tengine::Job::Runtime::Executable
         when Tengine::Job::Runtime::Jobnet     then self.jobnet_type_key == :normal ?  "jobnet" : self.jobnet_type_name
         when Tengine::Job::Runtime::SshJob     then "job"
         end
-      Tengine.logger.debug("#{element_type} phase changed. <#{ self.id.to_s}> #{self.phase_name} -> #{ self.class.phase_name_by_key(phase_key)}")
+      Tengine.logger.debug("#{element_type} phase changed. <#{ self.id.to_s}> #{self.name_path}  #{self.phase_name} -> #{ self.class.phase_name_by_key(phase_key)}")
 
       # Tengine.logger.debug(caller.join("\n  "))
 

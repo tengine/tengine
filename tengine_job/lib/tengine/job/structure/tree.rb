@@ -1,8 +1,12 @@
 require 'tengine/job/structure'
 
 module Tengine::Job::Structure::Tree
+  def root?
+    parent.nil?
+  end
+
   def root
-    (parent = self.parent) ? parent.root : self
+    root? ? self : parent.root
   end
 
   def ancestors

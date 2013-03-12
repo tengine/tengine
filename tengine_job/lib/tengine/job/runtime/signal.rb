@@ -17,7 +17,8 @@ class Tengine::Job::Runtime::Signal
   # 一度のroot_jobnet.update_with_lock では :starting が保存されないので、
   # 2回のroot_jobnet.update_with_lock に分けることができるようにするための
   # 処理を記憶しておく属性です
-  attr_accessor :callback
+  attr_reader :callback
+  attr_reader :callbacks
 
   def initialize(event)
     @event = event
@@ -30,6 +31,27 @@ class Tengine::Job::Runtime::Signal
     @reservations = []
     @data = nil
     @callback = nil
+    @callbacks = []
+  end
+
+  def callback=(value)
+    Tengine.logger.warn("Tengine::Job::Runtime::Signal#callback= is deprecated. Use call_later instead of it.\n  " << caller.join("\n  "))
+    @callback = value
+  end
+
+  def call_later(&block)
+    @callbacks.push(block)
+  end
+
+  def process_callbacks
+    until self.callbacks.empty?
+      callbacks.shift.call
+    end
+
+    while self.callback
+      block, @callback = @callback, nil
+      block.call
+    end
   end
 
   def remember(obj)
@@ -95,7 +117,13 @@ class Tengine::Job::Runtime::Signal
     @paths << obj
     begin
       if obj.is_a?(Tengine::Job::Runtime::Edge)
-        cache(obj.destination).send(action, self)
+        if obj.destination.is_a?(Tengine::Job::Runtime::NamedVertex)
+          self.call_later do
+            cache(obj.destination).send(action, self)
+          end
+        else
+          cache(obj.destination).send(action, self)
+        end
       elsif obj.is_a?(Tengine::Job::Runtime::Vertex)
         obj.next_edges.each do |edge|
           # cache_list

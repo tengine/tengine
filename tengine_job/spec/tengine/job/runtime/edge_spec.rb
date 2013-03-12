@@ -31,6 +31,7 @@ describe Tengine::Job::Runtime::Edge do
         @ctx[:j11].phase_key = :initialized
         @ctx[:root].save!
         @ctx[:e1].transmit(@signal)
+        @signal.process_callbacks
         @ctx[:e1].phase_key.should == :transmitting
         @ctx[:j11].phase_key.should == :ready
         @signal.reservations.length.should == 1
@@ -50,8 +51,8 @@ describe Tengine::Job::Runtime::Edge do
         @execution.should_receive(:signal=).with(@signal)
         @execution.stub(:retry).and_return(false)
         @ctx[:j11].activate(@signal)
-        @signal.callback.should_not be_nil
-        @signal.callback.call # 2回に分けてphaseを更新するのでcallbackすることを期待しています
+        @signal.callbacks.should_not be_empty
+        @signal.callbacks.first.call # 2回に分けてphaseを更新するのでcallbackすることを期待しています
         @ctx[:e1].phase_key.should == :transmitted
         @ctx[:j11].phase_key.should == :starting
         @signal.reservations.length.should == 0
@@ -74,13 +75,17 @@ describe Tengine::Job::Runtime::Edge do
         @ctx[:j11].phase_key = :initialized
         @ctx[:j12].phase_key = :initialized
         @ctx[:root].save!
+
+        @ctx[:root].update_with_lock do
         @ctx[:e1].transmit(@signal)
-        @ctx[:root].save!
+        # @ctx[:root].save!
+        end
+        @signal.process_callbacks
         @ctx[:root].reload
         @ctx.edge(:e1).phase_key.should == :transmitted
         @ctx.edge(:e2).phase_key.should == :transmitting
         @ctx.edge(:e3).phase_key.should == :transmitting
-        @ctx.vertex(:j11).phase_key.should == :ready
+        @ctx.vertex(:j11).tap{|j| j.reload; j.phase_key.should == :ready}
         @ctx.vertex(:j12).phase_key.should == :ready
         @signal.reservations.length.should == 2
         @signal.reservations.first.tap do |r|
@@ -101,6 +106,7 @@ describe Tengine::Job::Runtime::Edge do
         [:e4, :e5, :e6].each{|name| @ctx[name].phase_key = :active}
         @ctx[:root].save!
         @ctx[:e4].transmit(@signal)
+        @signal.process_callbacks
         @ctx[:root].save!
         @ctx[:root].reload
         @ctx[:e4].phase_key.should == :transmitted
@@ -117,6 +123,7 @@ describe Tengine::Job::Runtime::Edge do
         @ctx[:J1].should_not be_new_record
         @ctx[:root].save!
         @ctx[:e5].transmit(@signal)
+        @signal.process_callbacks
         @ctx[:root].save!
         @ctx[:root].reload
         @ctx.edge(:e4).phase_key.should == :transmitted
@@ -149,6 +156,7 @@ describe Tengine::Job::Runtime::Edge do
         [:j14, :j15, :j17].each{|name| @ctx[name].phase_key = :initialized}
         @ctx[:root].save!
         @ctx[:e6].transmit(@signal)
+        @signal.process_callbacks
         @ctx[:e6].phase_key.should == :transmitted
         @ctx[:e7].phase_key.should == :transmitting
         @ctx[:e8].phase_key.should == :transmitted
@@ -173,6 +181,7 @@ describe Tengine::Job::Runtime::Edge do
         @ctx[:root].save!
         @signal.reservations.clear
         @ctx[:e5].transmit(@signal)
+        @signal.process_callbacks
         @ctx[:e6].phase_key.should == :transmitted
         @ctx[:e7].phase_key.should == :transmitting
         @ctx[:e8].phase_key.should == :transmitted
