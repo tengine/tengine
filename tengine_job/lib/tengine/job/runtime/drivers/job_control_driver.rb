@@ -126,6 +126,7 @@ driver :job_control_driver do
       job.reset(signal)
       job.transmit(signal)
       signal.changed_vertecs.each(&:save!)
+      signal.process_callbacks
       signal.reservations.each{|r| fire(*r.fire_args)}
     ensure
       submit

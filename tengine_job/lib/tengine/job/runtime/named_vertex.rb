@@ -29,6 +29,7 @@ class Tengine::Job::Runtime::NamedVertex < Tengine::Job::Runtime::Vertex
 
   def root_or_expansion
     p = parent
+    raise "something wrong!" if p.nil? && !self.is_a?(Tengine::Job::Runtime::Jobnet)
     p.nil? ? self : p.was_expansion ? p : p.root_or_expansion
   end
 
@@ -54,8 +55,9 @@ class Tengine::Job::Runtime::NamedVertex < Tengine::Job::Runtime::Vertex
   end
 
   def template_vertex
-    name_path_until_expansion
-    t = root_or_expansion.template
+    r = root_or_expansion
+    # return nil unless parent # templateから生成される途中だとparentがnilの場合があります
+    t = r.template
     t.nil? ? nil : t.vertex_by_absolute_name_path(name_path_until_expansion)
   end
 

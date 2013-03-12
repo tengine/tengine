@@ -52,7 +52,7 @@ describe Tengine::Job::Runtime::Edge do
         @execution.stub(:retry).and_return(false)
         @ctx[:j11].activate(@signal)
         @signal.callbacks.should_not be_empty
-        @signal.callbacks.first.call # 2回に分けてphaseを更新するのでcallbackすることを期待しています
+        @signal.process_callbacks
         @ctx[:e1].phase_key.should == :transmitted
         @ctx[:j11].phase_key.should == :starting
         @signal.reservations.length.should == 0
@@ -242,8 +242,11 @@ describe Tengine::Job::Runtime::Edge do
           :preparation_command => "export J2_FAIL=true")
         @execution.should_receive(:ack).with(an_instance_of(Tengine::Job::Runtime::Signal))
         @signal = Tengine::Job::Runtime::Signal.new(@event)
+        @execution.stub(:signal=).with(@signal)
+        @execution.stub(:signal).and_return(@signal)
         @signal.stub!(:execution).and_return(@execution)
         @ctx.vertex(:j2).activate(@signal)
+        @signal.process_callbacks
       end
     end
   end

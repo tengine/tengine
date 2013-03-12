@@ -22,8 +22,10 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
   before_validation :prepare_server_and_credential
 
   def prepare_server_and_credential
-    self.server_name = template_vertex.actual_server_name if server_name.blank?
-    self.credential_name = template_vertex.actual_credential_name if credential_name.blank?
+    if t = template_vertex
+      self.server_name = t.actual_server_name if server_name.blank?
+      self.credential_name = t.actual_credential_name if credential_name.blank?
+    end
   end
 
   def run(execution)

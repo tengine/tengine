@@ -14,28 +14,28 @@ describe Tengine::Job::Template::SshJob do
         end
 
         {
-          "rjn0009" => [nil, nil, false, false, false],
-          "j1100" => ["test_credential1" , "test_server1", false, true , true ],
-          "j1110" => ["test_credential1" , "test_server1", true , false, false],
-          "j1120" => ["test_credential1" , "test_server1", true , false, false],
-          "j1200" => ["test_credential1" , nil           , false, true , false],
-          "j1210" => ["test_credential1" , "mysql_master", true , false, true ],
-          "j1300" => [nil                , "mysql_master", false, false, true ],
-          "j1310" => ["test_credential1" , "mysql_master", true , true , false],
-          "j1400" => [nil                , nil           , false, false, false],
-          "j1410" => ["test_credential1" , "mysql_master", true , true , true ],
-          "j1500" => ["test_credential1" , "mysql_master", false, true , true ],
-          "j1510" => ["test_credential1" , "mysql_master", false, false, false],
-          "j1511" => ["test_credential1" , "mysql_master", true , false, false],
-          "j1600" => ["test_credential1" , "mysql_master", false, true , true ],
-          "j1610" => ["test_credential1" , "mysql_master", false, false, false],
-          "j1611" => ["test_credential1" , "test_server1", true , false, true ],
-          "j1612" => ["gohan_ssh_pk"     , "mysql_master", true , true , false],
-          "j1620" => ["test_credential1" , "test_server1", false, false, true ],
-          "j1621" => ["test_credential1" , "test_server1", true , false, false],
-          "j1630" => ["gohan_ssh_pk", "mysql_master"     , false, true , false],
-          "j1631" => ["gohan_ssh_pk", "mysql_master"     , true , false, false],
-        }.each do |job_name, (credential_name, server_name, ssh_job, has_credential, has_server)|
+          "rjn0009" => [nil, nil, false],
+          "j1100" => ["test_credential1" , "test_server1", false],
+          "j1110" => ["test_credential1" , "test_server1", true ],
+          "j1120" => ["test_credential1" , "test_server1", true ],
+          "j1200" => ["test_credential1" , nil           , false],
+          "j1210" => ["test_credential1" , "mysql_master", true ],
+          "j1300" => [nil                , "mysql_master", false],
+          "j1310" => ["test_credential1" , "mysql_master", true ],
+          "j1400" => [nil                , nil           , false],
+          "j1410" => ["test_credential1" , "mysql_master", true ],
+          "j1500" => ["test_credential1" , "mysql_master", false],
+          "j1510" => ["test_credential1" , "mysql_master", false],
+          "j1511" => ["test_credential1" , "mysql_master", true ],
+          "j1600" => ["test_credential1" , "mysql_master", false],
+          "j1610" => ["test_credential1" , "mysql_master", false],
+          "j1611" => ["test_credential1" , "test_server1", true ],
+          "j1612" => ["gohan_ssh_pk"     , "mysql_master", true ],
+          "j1620" => ["test_credential1" , "test_server1", false],
+          "j1621" => ["test_credential1" , "test_server1", true ],
+          "j1630" => ["gohan_ssh_pk", "mysql_master"     , false],
+          "j1631" => ["gohan_ssh_pk", "mysql_master"     , true ],
+        }.each do |job_name, (credential_name, server_name, ssh_job)|
           context "#{job_name} #{ssh_job ? :ssh_job : :jobnet}" do
             subject{ @ctx[job_name.to_sym] }
 
@@ -49,8 +49,8 @@ describe Tengine::Job::Template::SshJob do
               its(:actual_credential_name){ should == credential_name }
               its(:actual_server_name){ should == server_name }
             elsif ssh_job
-              its(:actual_credential_name){ should == (has_credential ? credential_name : nil) }
-              its(:actual_server_name){ should == (has_server ? server_name : nil) }
+              its(:actual_credential_name){ should == credential_name }
+              its(:actual_server_name){ should == server_name }
             else
               it{ subject.respond_to?(:actual_credential_name).should == false }
               it{ subject.respond_to?(:actual_server_name).should == false }

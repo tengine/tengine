@@ -58,6 +58,7 @@ driver :jobnet_control_driver do
       # signal.cache_list
       jobnet.update_with_lock{ edge.transmit(signal) }
     end
+    signal.process_callbacks
     # (*1)
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
@@ -94,6 +95,7 @@ driver :jobnet_control_driver do
       signal.cache_list
       edge.close_followings_and_trasmit(signal)
     end
+    signal.process_callbacks
     # target_jobnet = target_job.parent
     # target_jobnet.jobnet_fail(signal)
     signal.reservations.each{|r| fire(*r.fire_args)}
@@ -139,10 +141,13 @@ driver :jobnet_control_driver do
           end
         else
           signal.cache(target_jobnet.parent || signal.execution).succeed(signal)
+          if target_jobnet.root?
+            signal.execution.with(sage: safemode(Tengine::Job::Runtime::Execution.collection)).save!
+          end
         end
       end
     end
-    signal.execution.with(sage: safemode(Tengine::Job::Runtime::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
+    signal.process_callbacks
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
   end
@@ -177,13 +182,16 @@ driver :jobnet_control_driver do
           edge.close_followings_and_trasmit(signal)
         else
           (target_jobnet.parent || signal.execution).fail(signal)
+          if target_jobnet.root?
+            signal.execution.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save!
+          end
         end
       end
     end
+    signal.process_callbacks
     # if target_parent = target_jobnet.parent
     #   target_parent.end_vertex.transmit(signal)
     # end
-    signal.execution.with(safe: safemode(Tengine::Job::Runtime::Execution.collection)).save! if event[:root_jobnet_id] == event[:target_jobnet_id]
     signal.reservations.each{|r| fire(*r.fire_args)}
     submit
   end
@@ -211,6 +219,7 @@ driver :jobnet_control_driver do
     # signal.remember_all(target_jobnet)
     # signal.cache_list
     target_jobnet.stop(signal)
+    signal.process_callbacks
     signal.reservations.each{|r| fire(*r.fire_args) }
     submit
   end

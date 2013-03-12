@@ -86,14 +86,14 @@ class Tengine::Job::Template::Generator
   end
 
   def generate(options)
-    attrs = generating_attrs.update(child_index: options[:child_index])
+    attrs = generating_attrs.update(child_index: options[:child_index], parent: options[:parent])
     @inherited_attrs.each{|key, value| attrs[key] ||= value }
     klass_name = CLASS_MAP[@current.class.name]
     result = klass_name.constantize.new(attrs)
     result.save!
     src_to_generated = {}
     generating_children.each.with_index do |child, index|
-      generated = process(child, child_index: index + 1)
+      generated = process(child, child_index: index + 1, parent: result)
       src_to_generated[child.id] = generated.id
       result.children << generated
     end
