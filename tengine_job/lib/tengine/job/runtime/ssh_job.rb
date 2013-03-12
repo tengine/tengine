@@ -273,19 +273,21 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
         end
         # このコールバックはjob_control_driverでupdate_with_lockの外側から
         # 再度呼び出してもらうためにcallbackを設定しています
-        signal.call_later{ root.vertex(self.id).activate(signal) }
-      end
-    when :starting then
-      # 実際にSSHでスクリプトを実行
-      execution = signal.execution
-      execution.signal = signal # ackを呼び返してもらうための苦肉の策
-      begin
-        run(execution)
-      rescue Tengine::Job::Runtime::SshJob::Error => e
         signal.call_later do
-          self.fail(signal, :message => e.message)
+          # 実際にSSHでスクリプトを実行
+          execution = signal.execution
+          execution.signal = signal # ackを呼び返してもらうための苦肉の策
+          begin
+            run(execution)
+          rescue Tengine::Job::Runtime::SshJob::Error => e
+            signal.call_later do
+              self.fail(signal, :message => e.message)
+            end
+          end
         end
       end
+    when :starting then
+      raise "something wrong! #{self.inspect}"
     end
   end
   available(:activate, :on => [:initialized, :ready, :starting],
