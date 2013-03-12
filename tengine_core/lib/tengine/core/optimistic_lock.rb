@@ -30,8 +30,14 @@ module Tengine::Core::OptimisticLock
   def update_with_lock(options = {})
     unless Tengine::Core::OptimisticLock.update_with_lock_stack.empty?
       Tengine.logger.warn("Tengine::Core::OptimisticLock#update_with_lock is used in another #update_with_lock.\n  " << caller.join("\n  "))
+      Tengine::Core::OptimisticLock.update_with_lock_stack.each do |obj|
+        Tengine.logger.warn("-" * 100)
+        Tengine.logger.warn("invocation from: #{obj}")
+      end
+      Tengine.logger.warn("-" * 100)
+      Tengine.logger.warn("and invocation from: #{self.inspect}")
     end
-    Tengine::Core::OptimisticLock.update_with_lock_stack.push(caller.first)
+    Tengine::Core::OptimisticLock.update_with_lock_stack.push(self.inspect)
     begin
       retry_count = options[:retry] || DEFAULT_RETRY_COUNT
       idx = 1

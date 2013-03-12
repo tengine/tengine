@@ -19,6 +19,13 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
   field :error_messages, :type => Array # エラーになった場合のメッセージを保持する配列。再実行時に追加される場合は末尾に追加されます。
   array_text_accessor :error_messages, :delimeter => "\n"
 
+  before_validation :prepare_server_and_credential
+
+  def prepare_server_and_credential
+    self.server_name = template_vertex.actual_server_name if server_name.blank?
+    self.credential_name = template_vertex.actual_credential_name if credential_name.blank?
+  end
+
   def run(execution)
     return ack(@acked_pid) if @acked_pid
     cmd = build_command(execution)

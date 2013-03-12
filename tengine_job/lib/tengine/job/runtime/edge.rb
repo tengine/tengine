@@ -112,7 +112,10 @@ Tengine.logger.debug "#{object_id} #{inspect}"
     if d = destination
       if signal.execution.in_scope?(d)
         self.phase_key = :active
-        d.reset(signal)
+
+        signal.call_later do
+          d.reset(signal)
+        end
       end
     else
       raise "destination not found: #{destination_id.inspect} from #{origin.inspect}"

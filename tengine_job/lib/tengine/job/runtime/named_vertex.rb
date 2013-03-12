@@ -53,4 +53,10 @@ class Tengine::Job::Runtime::NamedVertex < Tengine::Job::Runtime::Vertex
     end
   end
 
+  def template_vertex
+    name_path_until_expansion
+    t = root_or_expansion.template
+    t.nil? ? nil : t.vertex_by_absolute_name_path(name_path_until_expansion)
+  end
+
 end

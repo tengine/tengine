@@ -69,7 +69,7 @@ class JobnetFixtureBuilder
       def new_#{method_name}(name, attrs = {}, &block)
         attrs[:name] = name.to_s
         klass = "Tengine::Job::\#{@mode.to_s.camelize}::#{method_name.camelize}".constantize
-        unknown_fields = attrs.keys - klass.fields.keys.map(&:to_sym) - [:jobnet_type_key]
+        unknown_fields = attrs.keys - klass.fields.keys.map(&:to_sym) - [:jobnet_type_key, :template]
         unknown_fields.each{|f| attrs.delete(f)}
         if klass == Tengine::Job::Template::RootJobnet
           attrs[:dsl_version] ||= Tengine::Core::Setting.dsl_version

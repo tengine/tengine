@@ -348,6 +348,8 @@ describe "reset" do
         @root.update_with_lock do
           next_of_j41.transmit(signal1)
         end
+        signal1.process_callbacks
+
         signal1.reservations.length.should == 2
         signal1.reservations.map(&:event_type_name).should == [:"start.job.job.tengine", :"start.job.job.tengine"]
         signal1.changed_vertecs.each(&:save!)
@@ -410,6 +412,8 @@ describe "reset" do
           @root.update_with_lock{ execution.transmit(signal1) }
           @root.save!
           execution.save!
+          signal1.process_callbacks
+
           execution.reload
           @root.reload
 
@@ -459,6 +463,7 @@ describe "reset" do
           jn4.phase_key.should == :success
           jn4.finished_at.should be_nil
           @root.update_with_lock{ jn4.succeed(signal2) }
+          signal2.process_callbacks
 
           @root.reload
           @root.element('/jn0005/j1'               ).phase_key.should == :success
@@ -498,6 +503,7 @@ describe "reset" do
           @root.update_with_lock{ execution.transmit(signal1) }
           @root.save!
           execution.save!
+          signal1.process_callbacks
           execution.reload
           @root.reload
 
@@ -540,6 +546,7 @@ describe "reset" do
           @root.update_with_lock{ execution.transmit(signal1) }
           @root.save!
           execution.save!
+          signal1.process_callbacks
           execution.reload
           @root.reload
 
@@ -584,6 +591,7 @@ describe "reset" do
           @root.update_with_lock{ @execution.transmit(signal1) }
           @root.save!
           @execution.save!
+          signal1.process_callbacks
           @execution.reload
           @root.reload
         end
@@ -621,9 +629,14 @@ describe "reset" do
 
           @root.element('/jn0005/jn4').phase_key = :starting
           j41 = @root.element('/jn0005/jn4/j41')
+          j41.server_name.should_not be_nil
+          j41.actual_server.should_not be_nil
+
           j41.phase_key = :ready
           @root.save_descendants!
           @root.update_with_lock{ j41.activate(signal2) }
+          signal2.process_callbacks
+
           @root.reload
           @root.element('/jn0005/jn4').phase_key.should == :running
         end
@@ -640,6 +653,8 @@ describe "reset" do
           jn4_f.phase_key = :ready
           @root.save_descendants!
           @root.update_with_lock{ jn4_f.activate(signal2) }
+          signal2.process_callbacks
+
           @root.reload
           @root.element('/jn0005/jn4/finally').phase_key.should == :running
         end
@@ -656,6 +671,8 @@ describe "reset" do
           jn0005_fif.phase_key = :ready
           @root.save_descendants!
           @root.update_with_lock{ jn0005_fif.activate(signal2) }
+          signal2.process_callbacks
+
           @root.reload
           @root.element('/jn0005/finally/jn0005_fjn/finally').phase_key.should == :running
         end
@@ -695,6 +712,8 @@ describe "reset" do
           @root.update_with_lock{ execution.transmit(signal1) }
           @root.save!
           execution.save!
+
+          signal1.process_callbacks
           execution.reload
           @root.reload
 
@@ -740,6 +759,8 @@ describe "reset" do
           @root.update_with_lock{ execution.transmit(signal1) }
           @root.save!
           execution.save!
+
+          signal1.process_callbacks
           execution.reload
           @root.reload
 
@@ -786,6 +807,8 @@ describe "reset" do
           @root.update_with_lock{ execution.transmit(signal1) }
           @root.save!
           execution.save!
+
+          signal1.process_callbacks
           execution.reload
           @root.reload
 
@@ -847,6 +870,8 @@ describe "reset" do
           @root.update_with_lock{ execution.transmit(signal1) }
           @root.save!
           execution.save!
+
+          signal1.process_callbacks
           execution.reload
           @root.reload
 
@@ -891,6 +916,8 @@ describe "reset" do
           @root.update_with_lock{ execution.transmit(signal1) }
           @root.save!
           execution.save!
+
+          signal1.process_callbacks
           execution.reload
           @root.reload
 
@@ -933,6 +960,8 @@ describe "reset" do
           @root.update_with_lock{ execution.transmit(signal1) }
           @root.save!
           execution.save!
+
+          signal1.process_callbacks
           execution.reload
           @root.reload
 
