@@ -86,6 +86,7 @@ describe Tengine::Job::Runtime::Stoppable do
             j.executing_pid = nil
             @ctx[:j1120].should_receive(:transmit).with(@signal)
             j.stop(@signal)
+            @signal.process_callbacks
             j.phase_key.should == :initialized
             j.stop_reason.should == "test stopping"
             j.stopped_at.to_time.should == t
