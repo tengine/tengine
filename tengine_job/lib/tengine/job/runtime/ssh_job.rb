@@ -258,22 +258,22 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
       self.started_at = signal.event.occurred_at
 
       signal.call_later do
-      complete_origin_edge(signal)
-      execution = signal.execution
-      if execution.retry
-        if execution.target_actual_ids.include?(self.id.to_s)
-          execution.ack(signal)
-        elsif execution.target_actuals.map{|t| t.parent.id.to_s if t.parent }.include?(self.parent.id.to_s)
-          # 自身とTengine::Job::Runtime::Execution#target_actual_idsに含まれるジョブ／ジョブネットと親が同じならば、ackしない
+        complete_origin_edge(signal)
+        execution = signal.execution
+        if execution.retry
+          if execution.target_actual_ids.include?(self.id.to_s)
+            execution.ack(signal)
+          elsif execution.target_actuals.map{|t| t.parent.id.to_s if t.parent }.include?(self.parent.id.to_s)
+            # 自身とTengine::Job::Runtime::Execution#target_actual_idsに含まれるジョブ／ジョブネットと親が同じならば、ackしない
+          else
+            parent.ack(signal)
+          end
         else
-          parent.ack(signal)
+          parent.ack(signal) # 再実行でない場合
         end
-      else
-        parent.ack(signal) # 再実行でない場合
-      end
-      # このコールバックはjob_control_driverでupdate_with_lockの外側から
-      # 再度呼び出してもらうためにcallbackを設定しています
-      signal.call_later{ root.vertex(self.id).activate(signal) }
+        # このコールバックはjob_control_driverでupdate_with_lockの外側から
+        # 再度呼び出してもらうためにcallbackを設定しています
+        signal.call_later{ root.vertex(self.id).activate(signal) }
       end
     when :starting then
       # 実際にSSHでスクリプトを実行
