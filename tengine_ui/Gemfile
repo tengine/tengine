@@ -28,9 +28,12 @@ gem "wakame-adapters-tengine", "~> 0.0.0"
 
 gem "daemons", "~> 1.1.4"
 
+gem 'devise'
 gem "rails_admin"
 
 group :test, :development do
+  gem "factory_girl"
+
   gem "rails3-generators", "~> 0.17.4"
   gem "rspec-rails", "~> 2.10.1"
   gem "capybara", "~> 1.1.1"
