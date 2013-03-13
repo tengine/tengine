@@ -4,8 +4,9 @@ class Tengine::Job::Template::RootJobnetsController < ApplicationController
   # GET /tengine/job/template/root_jobnet_templates
   # GET /tengine/job/template/root_jobnet_templates.json
   def index
-    @root_jobnet_templates = Tengine::Job::Template::RootJobnet.where(
-      :dsl_version => Tengine::Core::Setting.dsl_version)
+    dsl_version = Tengine::Core::Setting.dsl_version rescue nil
+    flash["notice"] = "NO dsl_version given. Maybe no tengined started." unless dsl_version
+    @root_jobnet_templates = Tengine::Job::Template::RootJobnet.where(:dsl_version => dsl_version)
 
     if sort_param = params[:sort]
       order = []

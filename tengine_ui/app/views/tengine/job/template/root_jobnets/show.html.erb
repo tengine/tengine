@@ -59,13 +59,13 @@
       </colgroup>
       <thead>
         <tr>
-          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:id) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:name) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:description) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:script) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:server_name) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:credential_name) %></th>
-          <th scope="col"><%= Tengine::Job::JobnetTemplate.human_attribute_name(:destinations) %></th>
+          <th scope="col"><%= Tengine::Job::Template::Jobnet.human_attribute_name(:id) %></th>
+          <th scope="col"><%= Tengine::Job::Template::Jobnet.human_attribute_name(:name) %></th>
+          <th scope="col"><%= Tengine::Job::Template::Jobnet.human_attribute_name(:description) %></th>
+          <th scope="col"><%= Tengine::Job::Template::Jobnet.human_attribute_name(:script) %></th>
+          <th scope="col"><%= Tengine::Job::Template::Jobnet.human_attribute_name(:server_name) %></th>
+          <th scope="col"><%= Tengine::Job::Template::Jobnet.human_attribute_name(:credential_name) %></th>
+          <th scope="col"><%= Tengine::Job::Template::Jobnet.human_attribute_name(:destinations) %></th>
         </tr>
       </thead>
       <tbody>
@@ -73,7 +73,7 @@
           <% jobnet_template, lv = jobnet_template -%>
           <tr>
             <td><%= jobnet_template.id %></td>
-            <% if jobnet_template.instance_of?(Tengine::Job::Expansion) -%>
+            <% if jobnet_template.instance_of?(Tengine::Job::Template::Expansion) -%>
               <td><%== '&nbsp;&nbsp;' * lv %><%= link_to jobnet_template.name, tengine_job_root_jobnet_template_path(jobnet_template.root_jobnet_template.id) %></td>
               <td>expansion</td>
               <td></td>
@@ -87,7 +87,7 @@
             <td>
               <% unless (edges = jobnet_template.next_edges).blank? -%>
                 <% dest = edges.first.destination -%>
-                <% if dest.instance_of?(Tengine::Job::JobnetTemplate) || dest.instance_of?(Tengine::Job::Expansion) -%>
+                <% if dest.instance_of?(Tengine::Job::Template::Jobnet) || dest.instance_of?(Tengine::Job::Template::Expansion) -%>
                   <%= dest.name %>
                 <% else -%>
                   <% next_jobs = dest.next_edges.collect { |edge|
