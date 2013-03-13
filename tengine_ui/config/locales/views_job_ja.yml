@@ -1,45 +1,46 @@
 ja:
   tengine:
     job:
-      root_jobnet_actuals:
-        index:
-          confirm:
-            destroy: "本当に強制停止しますか？"
-          finder:
-            error_caption: "絞り込み条件に%{count}点ミスがあります。訂正してください。"
-          refresher:
+      runtime:
+        root_jobnets:
+          index:
+            confirm:
+              destroy: "本当に強制停止しますか？"
+            finder:
+              error_caption: "絞り込み条件に%{count}点ミスがあります。訂正してください。"
+            refresher:
+              form:
+                refresh_interval: "画面の更新間隔"
+                submit: "決定"
+          show:
+            title: "ジョブネット監視"
             form:
               refresh_interval: "画面の更新間隔"
-              submit: "決定"
-        show:
-          title: "ジョブネット監視"
-          form:
-            refresh_interval: "画面の更新間隔"
-            submit: "更新"
-          confirm:
-            destroy: "本当に強制停止しますか？"
-          links:
-            events: "メッセージ一覧"
-        vertecs:
-          title: "ジョブネット詳細"
-          links:
-            events: "メッセージ一覧"
-          form:
-            refresh_interval: "画面の更新間隔"
-            submit: "更新"
-          confirm:
-            destroy: "本当に強制停止しますか？"
-        edit:
-          title: "ジョブネットステータス変更"
-      jobnet_actuals:
-        edit:
-          title: "ジョブステータス変更"
-      executions:
-        new:
-          title: "ジョブネット実行設定"
-          retry_title: "ジョブネット再実行設定"
-          form:
-            notice:
-              preparation_command: "指定しない場合は空欄のままにしておいてください。"
-              actual_base_timeout_alert: "指定しない場合は0を入力してください。"
-              actual_base_timeout_termination: "指定しない場合は0を入力してください。"
+              submit: "更新"
+            confirm:
+              destroy: "本当に強制停止しますか？"
+            links:
+              events: "メッセージ一覧"
+          vertecs:
+            title: "ジョブネット詳細"
+            links:
+              events: "メッセージ一覧"
+            form:
+              refresh_interval: "画面の更新間隔"
+              submit: "更新"
+            confirm:
+              destroy: "本当に強制停止しますか？"
+          edit:
+            title: "ジョブネットステータス変更"
+        jobnets:
+          edit:
+            title: "ジョブステータス変更"
+        executions:
+          new:
+            title: "ジョブネット実行設定"
+            retry_title: "ジョブネット再実行設定"
+            form:
+              notice:
+                preparation_command: "指定しない場合は空欄のままにしておいてください。"
+                actual_base_timeout_alert: "指定しない場合は0を入力してください。"
+                actual_base_timeout_termination: "指定しない場合は0を入力してください。"

@@ -29,7 +29,7 @@ class Tengine::Job::Runtime::ExecutionsController < ApplicationController
     @retry = false
     if params[:retry].to_s == "true"
       unless root_jobnet_id
-        redirect_to tengine_job_root_jobnet_actuals_path
+        redirect_to tengine_job_runtime_root_jobnets_path
         return
       end
 
@@ -49,7 +49,7 @@ class Tengine::Job::Runtime::ExecutionsController < ApplicationController
       end
     else
       unless root_jobnet_id
-        redirect_to tengine_job_root_jobnet_templates_path
+        redirect_to tengine_job_template_root_jobnets_path
         return
       end
 
@@ -89,14 +89,16 @@ class Tengine::Job::Runtime::ExecutionsController < ApplicationController
       klass = Tengine::Job::Runtime::RootJobnet if @retry
       @root_jobnet = klass.find(@execution.root_jobnet_id)
 
+      runtime_root_jobnet = @retry ? @root_jobnet : @root_jobnet.generate
+
       executed = nil
       EM.run do
-        operation = @execution.retry ? :rerun : :execute
-        executed = @root_jobnet.send(operation, execute_param)
+        operation = @retry ? :rerun : :execute
+        executed = runtime_root_jobnet.send(operation, execute_param)
       end
 
       format.html do
-        redirect_to tengine_job_root_jobnet_actual_path(executed.root_jobnet.id)
+        redirect_to tengine_job_runtime_root_jobnet_path(executed.root_jobnet.id)
       end
       format.json { render json: @execution, status: :created, location: @execution }
     end
@@ -125,7 +127,7 @@ class Tengine::Job::Runtime::ExecutionsController < ApplicationController
     @execution.destroy
 
     respond_to do |format|
-      format.html { redirect_to tengine_job_executions_url, notice: successfully_destroyed(@execution) }
+      format.html { redirect_to tengine_job_runtime_executions_url, notice: successfully_destroyed(@execution) }
       format.json { head :ok }
     end
   end

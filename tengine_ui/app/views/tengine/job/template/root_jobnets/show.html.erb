@@ -74,7 +74,7 @@
           <tr>
             <td><%= jobnet_template.id %></td>
             <% if jobnet_template.instance_of?(Tengine::Job::Template::Expansion) -%>
-              <td><%== '&nbsp;&nbsp;' * lv %><%= link_to jobnet_template.name, tengine_job_root_jobnet_template_path(jobnet_template.root_jobnet_template.id) %></td>
+              <td><%== '&nbsp;&nbsp;' * lv %><%= link_to jobnet_template.name, tengine_job_template_root_jobnet_path(jobnet_template.root_jobnet_template.id) %></td>
               <td>expansion</td>
               <td></td>
             <% else -%>
@@ -92,7 +92,7 @@
                 <% else -%>
                   <% next_jobs = dest.next_edges.collect { |edge|
                        d = edge.destination; 
-                       d.name unless (d.instance_of?(Tengine::Job::End) || d.kind_of?(Tengine::Job::Junction))
+                       d.name unless (d.instance_of?(Tengine::Job::Template::End) || d.kind_of?(Tengine::Job::Template::Junction))
                      }
                   -%>
                   <%= next_jobs.compact.join(", ") %>

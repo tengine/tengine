@@ -56,12 +56,12 @@ describe ApplicationHelper do
   describe "category_tree" do
     context "ルートカテゴリが0のとき" do
       before do
-        Tengine::Job::Category.delete_all
+        Tengine::Job::Structure::Category.delete_all
       end
 
       it "ツリーが生成されないこと" do
         params = {
-          :controller => "tengine/job/root_jobnet_templates",
+          :controller => "tengine/job/template/root_jobnets",
           :action => "index",
         }
 
@@ -71,18 +71,18 @@ describe ApplicationHelper do
 
     context "ルートカテゴリが1つのとき" do
       before do
-        Tengine::Job::Category.delete_all
-        @foo = Tengine::Job::Category.create!(
+        Tengine::Job::Structure::Category.delete_all
+        @foo = Tengine::Job::Structure::Category.create!(
           :dsl_verion => 0,
           :name => "foo",
           :caption => "ふー",
         )
-        @baz = Tengine::Job::Category.create!(
+        @baz = Tengine::Job::Structure::Category.create!(
           :dsl_verion => 0,
           :name => "baz",
           :caption => "ばず"
         )
-        @fizz = Tengine::Job::Category.create!(
+        @fizz = Tengine::Job::Structure::Category.create!(
           :dsl_verion => 0,
           :name => "fizz",
           :caption => "ふぃず"
@@ -99,7 +99,7 @@ describe ApplicationHelper do
   
       it "ツリーが作成されること" do
         params = {
-          :controller => "tengine/job/root_jobnet_templates",
+          :controller => "tengine/job/template/root_jobnets",
           :action => "index",
         }
 
@@ -128,7 +128,7 @@ describe ApplicationHelper do
   
       it "指定したリンクのオプションがリンクに設定されていること" do
         params = {
-          :controller => "tengine/job/root_jobnet_templates",
+          :controller => "tengine/job/template/root_jobnets",
           :action => "index",
         }
         link_opts = {:class => "foo"}
@@ -161,7 +161,7 @@ describe ApplicationHelper do
         @foo.caption = "<span>test</span>"
         @foo.save!
         params = {
-          :controller => "tengine/job/root_jobnet_templates",
+          :controller => "tengine/job/template/root_jobnets",
           :action => "index",
         }
 
@@ -191,23 +191,23 @@ describe ApplicationHelper do
 
     context "ルートカテゴリが2つのとき" do
       before do
-        Tengine::Job::Category.delete_all
-        @foo = Tengine::Job::Category.create!(
+        Tengine::Job::Structure::Category.delete_all
+        @foo = Tengine::Job::Structure::Category.create!(
           :dsl_verion => 0,
           :name => "foo",
           :caption => "ふー",
         )
-        @baz = Tengine::Job::Category.create!(
+        @baz = Tengine::Job::Structure::Category.create!(
           :dsl_verion => 0,
           :name => "baz",
           :caption => "ばず"
         )
-        @bar = Tengine::Job::Category.create!(
+        @bar = Tengine::Job::Structure::Category.create!(
           :dsl_verion => 0,
           :name => "bar",
           :caption => "ばー"
         )
-        @fizz = Tengine::Job::Category.create!(
+        @fizz = Tengine::Job::Structure::Category.create!(
           :dsl_verion => 0,
           :name => "fizz",
           :caption => "ふぃず"
@@ -226,7 +226,7 @@ describe ApplicationHelper do
   
       it "ツリーが作成されること" do
         params = {
-          :controller => "tengine/job/root_jobnet_templates",
+          :controller => "tengine/job/template/root_jobnets",
           :action => "index",
         }
 
@@ -282,7 +282,7 @@ describe ApplicationHelper do
 
   describe "button_link_to" do
     it "ボタン表示用のspanが作成されること" do
-      url = tengine_job_root_jobnet_templates_url
+      url = tengine_job_template_root_jobnets_url
 
       result = helper.button_link_to("test", url)
       result.should == helper.link_to("<span class='BtnNormal'>test</span>".html_safe,

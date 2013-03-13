@@ -86,7 +86,8 @@ class Tengine::Job::Runtime::RootJobnetsController < ApplicationController
   def show
     @jobnet_actuals = []
     show_impl do |vertex|
-      if vertex.instance_of?(Tengine::Job::Runtime::Jobnet)
+      next if vertex == @root_jobnet_actual
+      if vertex.is_a?(Tengine::Job::Runtime::NamedVertex)
         @jobnet_actuals << [vertex, (vertex.ancestors.size - 1)]
       end
     end
@@ -141,7 +142,7 @@ class Tengine::Job::Runtime::RootJobnetsController < ApplicationController
     respond_to do |format|
       if @root_jobnet_actual.update_attributes(params[:root_jobnet_actual])
         format.html do
-          redirect_to tengine_job_root_jobnet_actual_path
+          redirect_to tengine_job_runtime_root_jobnet_path
         end
         format.json { head :ok }
       else
@@ -158,7 +159,7 @@ class Tengine::Job::Runtime::RootJobnetsController < ApplicationController
     stop(@root_jobnet_actual)
 
     respond_to do |format|
-      format.html { redirect_to tengine_job_root_jobnet_actual_path(@root_jobnet_actual), notice: successfully_destroyed(@root_jobnet_actual) }
+      format.html { redirect_to tengine_job_runtime_root_jobnet_path(@root_jobnet_actual), notice: successfully_destroyed(@root_jobnet_actual) }
       format.json { head :ok }
     end
   end

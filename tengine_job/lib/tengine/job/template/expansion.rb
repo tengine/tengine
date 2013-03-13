@@ -15,4 +15,10 @@ class Tengine::Job::Template::Expansion < Tengine::Job::Template::NamedVertex
     @root_jobnet_template
   end
 
+  def actual_credential_name
+    @root_jobnet_template.actual_credential_name
+  end
+  def actual_server_name
+    @root_jobnet_template.actual_server_name
+  end
 end

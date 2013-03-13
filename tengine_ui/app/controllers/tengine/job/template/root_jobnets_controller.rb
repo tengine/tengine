@@ -73,7 +73,8 @@ class Tengine::Job::Template::RootJobnetsController < ApplicationController
       Tengine::Job::Template::RootJobnet.where(:dsl_version => dsl_version).find(params[:id])
     @jobnet_templates = []
     visitor = Tengine::Job::Structure::Visitor::All.new do |vertex|
-      if vertex.instance_of?(Tengine::Job::Template::Jobnet) or vertex.instance_of?(Tengine::Job::Template::Expansion)
+      next if vertex == @root_jobnet_template
+      if vertex.is_a?(Tengine::Job::Template::NamedVertex)
         @jobnet_templates << [vertex, (vertex.ancestors.size - 1)]
       end
     end
@@ -140,7 +141,7 @@ class Tengine::Job::Template::RootJobnetsController < ApplicationController
     @root_jobnet_template.destroy
 
     respond_to do |format|
-      format.html { redirect_to tengine_job_root_jobnet_templates_url, notice: successfully_destroyed(@root_jobnet_template) }
+      format.html { redirect_to tengine_job_template_root_jobnets_url, notice: successfully_destroyed(@root_jobnet_template) }
       format.json { head :ok }
     end
   end
