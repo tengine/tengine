@@ -1,4 +1,8 @@
 TengineConsole::Application.routes.draw do
+  devise_for :users
+
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
   if TengineConsole.test_console?
     namespace :tengine do  namespace :test do resources :scripts end end
   end
