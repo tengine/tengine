@@ -86,7 +86,7 @@ module Tengine::Job::Runtime::Executable
 
     # human_phase_keyの表示用の文字列を返します。
     def human_phase_name
-      I18n.t(human_phase_key, :scope => "selectable_attrs.tengine/job/jobnet_actual.human_phase_name")
+      I18n.t(human_phase_key, :scope => "selectable_attrs.tengine/job/runtime/jobnet.human_phase_name")
     end
 
   end
