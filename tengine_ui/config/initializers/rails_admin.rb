@@ -41,7 +41,7 @@ RailsAdmin.config do |config|
   # Each model configuration can alternatively:
   #   - stay here in a `config.model 'ModelName' do ... end` block
   #   - go in the model definition file in a `rails_admin do ... end` block
-  
+
   # This is your choice to make:
   #   - This initializer is loaded once at startup (modifications will show up when restarting the application) but all RailsAdmin configuration would stay in one place.
   #   - Models are reloaded at each request in development mode (when modified), which may smooth your RailsAdmin development workflow.
@@ -57,34 +57,34 @@ RailsAdmin.config do |config|
   # config.model 'Tengine::Test::Script' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your tengine/test/script.rb model definition
-  
+
   #   # Found associations:
 
 
 
   #   # Found columns:
 
-  #     configure :_type, :text         # Hidden 
-  #     configure :_id, :bson_object_id 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
-  #     configure :kind, :enum 
-  #     configure :code, :text 
-  #     configure :options, :serialized 
-  #     configure :timeout, :integer 
-  #     configure :messages, :serialized 
+  #     configure :_type, :text         # Hidden
+  #     configure :_id, :bson_object_id
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
+  #     configure :kind, :enum
+  #     configure :code, :text
+  #     configure :options, :serialized
+  #     configure :timeout, :integer
+  #     configure :messages, :serialized
 
   #   # Cross-section configuration:
-  
+
   #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
   #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
   #     # label_plural 'My models'      # Same, plural
   #     # weight 0                      # Navigation priority. Bigger is higher.
   #     # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
   #     # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
-  
+
   #   # Section specific configuration:
-  
+
   #     list do
   #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
   #       # items_per_page 100    # Override default_items_per_page
