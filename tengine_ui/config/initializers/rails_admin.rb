@@ -32,6 +32,17 @@ RailsAdmin.config do |config|
   # Include specific models (exclude the others):
   # config.included_models = ['Tengine::Test::Script']
 
+  model_name_maps ={
+    "Tengine::Core::" =>
+      %w[Event Driver HandlerPath Mutex::Mutex Schedule Session Setting],
+    "Tengine::Resource::" =>
+      %w[Provider Credential Server VirtualServerImage VirtualServerType],
+    "Tengine::Job::" =>
+      %w[Structure::Category Template::Vertex Runtime::Execution Runtime::Vertex],
+  }
+
+  config.included_models = %w[User] + model_name_maps.map{|(prefix, names)| names.map{|name| prefix + name} }.flatten
+
   # Label methods for model instances:
   # config.label_methods << :description # Default is [:name, :title]
 
