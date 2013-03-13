@@ -24,7 +24,7 @@ describe Tengine::Job::Runtime::Jobnet do
       @i18_locale_backup = I18n.locale
       I18n.locale = :ja
       I18n.backend.store_translations('ja',
-        'selectable_attrs' => {'tengine/job/jobnet_actual' => {'human_phase_name' => human_phase_name_hash } })
+        'selectable_attrs' => {'tengine/job/runtime/jobnet' => {'human_phase_name' => human_phase_name_hash } })
     end
 
     after(:all) do
