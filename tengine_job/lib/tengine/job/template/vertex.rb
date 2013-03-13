@@ -12,8 +12,9 @@ class Tengine::Job::Template::Vertex
 
   self.cyclic = true
   with_options(:class_name => self.name, :cyclic => true) do |c|
-    c.embedded_in :parent  , :inverse_of => :children
-    c.embeds_many :children, :inverse_of => :parent , :validate => false
+    c.embedded_in :parent
+    c.embeds_many :children, :validate => false
+    accepts_nested_attributes_for :children
   end
 
   before_validation do |r|

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # RailsAdmin config file. Generated on March 13, 2013 16:45
 # See github.com/sferik/rails_admin for more informations
 
