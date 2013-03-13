@@ -42,7 +42,8 @@ RailsAdmin.config do |config|
       %w[Structure::Category Template::Vertex Runtime::Execution Runtime::Vertex],
   }
 
-  config.included_models = %w[User] + model_name_maps.map{|(prefix, names)| names.map{|name| prefix + name} }.flatten
+  model_names = %w[User] + model_name_maps.map{|(prefix, names)| names.map{|name| prefix + name} }.flatten
+  config.included_models = model_names
 
   # Label methods for model instances:
   # config.label_methods << :description # Default is [:name, :title]
@@ -65,6 +66,14 @@ RailsAdmin.config do |config|
 
 
   ###  Tengine::Test::Script  ###
+
+  model_names.each.with_index(1) do |name, idx|
+    config.model name do
+      weight idx
+      navigation_label name.sub(/\:\:([^\:]+?)$/, '')
+    end
+  end
+
 
   # config.model 'Tengine::Test::Script' do
 
