@@ -33,7 +33,7 @@ group :test, :development do
   gem "rspec-rails", "~> 2.10.1"
   gem "capybara", "~> 1.1.1"
 
-  gem "ZenTest"
+  gem "ZenTest", "< 4.8.4" # 4.8.4 と 4.9.0 がおかしい
   gem "autotest-rails"
 
   # gem "rcov", ">= 0"
