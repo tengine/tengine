@@ -5,10 +5,6 @@ require 'etc'
 require 'tempfile'
 
 describe Tengine::Job::Runtime::SshJob do
-  let :ssh_dir do
-    File.expand_path("../../../../sshd", __FILE__)
-  end
-
   before :all do
     @test_sshd = TestSshd.new.launch
   end
@@ -30,7 +26,7 @@ describe Tengine::Job::Runtime::SshJob do
       j = Tengine::Job::Runtime::SshJob.new(
         :server_name => @server.name,
         :credential_name => @credential.name,
-        :script => File.expand_path("tengine_job_test.sh", ssh_dir)
+        :script => File.expand_path("tengine_job_test.sh", @test_sshd.base_dir)
       )
       j.execute(j.script)
     end
@@ -83,9 +79,9 @@ describe Tengine::Job::Runtime::SshJob do
                               preparation_command: nil,
                             })
       j.run(mock_execution)
-      20.times do
+      100.times do # ファイルができるまで50秒間待ってみる
         break if File.exist?(text_path)
-        sleep(0.5) # ファイルができるまで10秒間待ってみる
+        sleep(0.5)
       end
       File.exist?(text_path).should == true
       # File.read(text_path).should == `env | sort` # PATHや実行時に環境変数が異なるのでこの比較はできません
