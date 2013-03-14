@@ -31,7 +31,7 @@ class TestSshd
   def initialize(options = {})
     @pid = nil
     @port = nil
-    options.each{|key, value| send("#{key}=", value) }
+    (options || {}).each{|key, value| send("#{key}=", value) }
     @base_dir ||= File.expand_path("../../sshd", __FILE__)
     @login ||= check_login
     @sshd_path ||= find_sshd

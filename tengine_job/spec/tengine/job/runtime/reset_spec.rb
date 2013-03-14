@@ -379,7 +379,19 @@ describe "reset" do
   end
 
   context "ジョブネット内のジョブネットまたはジョブを起点にリセット" do
+    before :all do
+      @test_sshd = TestSshd.new.launch
+      TestSshdResource.instance = TestSshdResource.new(@test_sshd)
+    end
+
+    after :all do
+      TestSshdResource.instance = nil
+      TestSshd.kill_launched_processes
+    end
+
     before do
+      Tengine::Resource::Server.delete_all
+      Tengine::Resource::Credential.delete_all
       Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0005RetryTwoLayerFixture.new
       @root = builder.create_actual

@@ -1,11 +1,15 @@
 class TestSshdResource
-  def initialize(test_sshd)
-    @test_sshd
+  class << self
+    attr_accessor :instance
   end
 
-  def find_or_create_credential
+  def initialize(test_sshd)
+    @test_sshd = test_sshd
+  end
+
+  def find_or_create_credential(options = {})
     Tengine::Resource::Credential.find_or_create_by_name!(
-      :name => @test_sshd.login,
+      :name => options[:name] || @test_sshd.login,
       :description => "myself",
       :auth_type_cd => :ssh_public_key,
       :auth_values => {
@@ -18,11 +22,12 @@ class TestSshdResource
       )
   end
 
-  def find_or_create_server
-    Tengine::Resource::Server.find_or_create_by_name!(
-      :name => "localhost",
+  def find_or_create_server(options = {})
+    klass = options[:class] || Tengine::Resource::Server
+    klass.find_or_create_by_name!(
+      :name => options[:name] || "localhost",
+      :provided_id => options[:provided_id] || options[:name] || "localhost",
       :description => "localhost",
-      :provided_id => "localhost",
       :properties => {
         :ssh_port => @test_sshd.port,
       },

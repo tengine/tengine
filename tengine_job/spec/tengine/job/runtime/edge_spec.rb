@@ -2,6 +2,7 @@
 require 'spec_helper'
 
 describe Tengine::Job::Runtime::Edge do
+
   before do
     @now = Time.now.utc
     @event = mock(:event, :occurred_at => @now)
@@ -206,6 +207,17 @@ describe Tengine::Job::Runtime::Edge do
   end
 
   context "<BUG>再実行したジョブが準備中のままになってしまう" do
+
+    before :all do
+      @test_sshd = TestSshd.new.launch
+      TestSshdResource.instance = TestSshdResource.new(@test_sshd)
+    end
+
+    after :all do
+      TestSshdResource.instance = nil
+      TestSshd.kill_launched_processes
+    end
+
     # in [jn0004]
     #                         |--e3-->(j2)--e5-->|
     # (S1)--e1-->(j1)--e2-->[F1]                [J1]--e7-->(j4)--e8-->(E1)
@@ -214,6 +226,8 @@ describe Tengine::Job::Runtime::Edge do
     # in [jn0004/finally]
     # (S2) --e9-->(jn0004_f)-e10-->(E2)
     before do
+      Tengine::Resource::Server.delete_all
+      Tengine::Resource::Credential.delete_all
       builder = Rjn0004ParallelJobnetWithFinally.new
       builder.create_actual
       @ctx = builder.context

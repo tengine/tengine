@@ -18,9 +18,9 @@ describe Tengine::Job::Runtime::SshJob do
   end
 
   before do
-    TestSshd.new(@test_sshd).tap do |r|
-      r.find_or_create_credential
-      r.find_or_create_server
+    TestSshdResource.new(@test_sshd).tap do |r|
+      @server = r.find_or_create_server
+      @credential = r.find_or_create_credential
     end
   end
 
