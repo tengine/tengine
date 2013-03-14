@@ -22,6 +22,9 @@ gem "mongoid", "~> 3.0.0"
 # gem "daemons", "~> 1.1.4"
 # gem "net-ssh", "~> 2.5.2"
 
+gem 'devise'
+gem "rails_admin"
+
 gem "tengine_support"        , :path => "../tengine_support"
 gem "tengine_event"          , :path => "../tengine_event"
 gem "tengine_core"           , :path => "../tengine_core"
