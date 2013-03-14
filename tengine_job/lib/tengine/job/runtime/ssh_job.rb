@@ -289,6 +289,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
           begin
             run(execution)
           rescue Tengine::Job::Runtime::SshJob::Error => e
+            $stderr.puts("error on run\njob: #{self.inspect}\nexecution: #{execution.inspect}")
             signal.call_later do
               self.fail(signal, :message => e.message)
             end
