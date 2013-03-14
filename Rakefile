@@ -16,6 +16,21 @@ OUTDATED_THRESHOLDS = {
   :ignored => %w[amq-protocol amq-client amqp eventmachine mongo mongoid bson bson_ext]
 }
 
+namespace :bundle do
+  desc "bundle update for each package"
+  task :update do
+    PACKAGES.each do |package|
+      puts "=" * 80
+      puts "bundle update for #{package.name}"
+      cmd = []
+      cmd << "cd #{package.name}"
+      cmd << "bundle update"
+      system(cmd.join(' && ')) || errors << package.name
+    end
+    fail("Errors in #{errors.join(', ')}") unless errors.empty?
+  end
+end
+
 desc "install other tengine gems and bundle install"
 task :rebuild do
   errors = []
