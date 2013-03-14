@@ -12,8 +12,11 @@ class Tengine::Job::Template::Vertex
 
   self.cyclic = true
   with_options(:class_name => self.name, :cyclic => true) do |c|
-    c.embedded_in :parent
-    c.embeds_many :children, :validate => false
+    # parentにはあえてinverse_ofを設定していません。これはtengine_uiでのrails_adminによる
+    # 画面表示に問題が発生するためです。
+    # またchildrenについてのinverse_ofは必要です。設定しないとDSLのロードが動きません。
+    c.embedded_in :parent # , inverse_of: :children
+    c.embeds_many :children, :validate => false, inverse_of: :parent
     accepts_nested_attributes_for :children
   end
 
