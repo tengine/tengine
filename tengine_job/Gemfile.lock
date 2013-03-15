@@ -97,6 +97,9 @@ GEM
       amqp (~> 0.8.0)
       tengine_support (~> 1.1.0)
       uuid (~> 2.3.4)
+    tengine_job_agent (1.1.0)
+      tengine_event (~> 1.1.0)
+      tengine_support (~> 1.1.0)
     tengine_resource (1.1.0)
       net-ssh (~> 2.5.2)
       tengine_core (~> 1.1.0)
@@ -131,5 +134,6 @@ DEPENDENCIES
   rspec (~> 2.10.0)
   simplecov
   tengine_job!
+  tengine_job_agent (~> 1.1.0)
   tengine_resource_ec2 (~> 1.1.0)
   yard

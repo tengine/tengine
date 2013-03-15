@@ -54,6 +54,11 @@ RSpec.configure do |config|
     end
   end
 
+  # http://about.travis-ci.org/docs/user/ci-environment/#Environment-variables
+  if ENV["TRAVIS"] == "true"
+    config.filter_run_excluding skip_travis: true
+  end
+
 end
 
 Dir["#{File.expand_path('factories', File.dirname(__FILE__))}/**/*.rb"].each {|f| require f}
