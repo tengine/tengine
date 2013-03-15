@@ -14,6 +14,8 @@ describe Tengine::Job::Runtime::SshJob do
   end
 
   before do
+    Tengine::Resource::Server.delete_all
+    Tengine::Resource::Credential.delete_all
     TestSshdResource.new(@test_sshd).tap do |r|
       @server = r.find_or_create_server
       @credential = r.find_or_create_credential
