@@ -66,7 +66,7 @@ describe Tengine::Job::Runtime::SshJob do
     # https://www.pivotaltracker.com/story/show/43918327
     it "開発環境(mac, zsh)でジョブが実行されない" do
       dir = File.expand_path("../../../..", __FILE__)
-      text_path = "tmp/log/env.txt"
+      text_path = File.expand_path("../tmp/log/env.txt", dir)
       script = "cd #{dir} && spec/tengine/job/script_executable/echo_env.sh #{text_path}"
       j = Tengine::Job::Runtime::SshJob.new(
         :server_name => @server.name,
@@ -81,10 +81,11 @@ describe Tengine::Job::Runtime::SshJob do
                               preparation_command: nil,
                             })
       j.run(mock_execution)
-      100.times do # ファイルができるまで50秒間待ってみる
+      60.times do # ファイルができるまで30秒間待ってみる
         break if File.exist?(text_path)
         sleep(0.5)
       end
+      j.error_messages.should be_blank
       File.exist?(text_path).should == true
       # File.read(text_path).should == `env | sort` # PATHや実行時に環境変数が異なるのでこの比較はできません
       text = File.read(text_path)
