@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('activesupport', ">= 3.0.0")
   s.add_runtime_dependency('tengine_support', "~> #{version}")
   s.add_runtime_dependency('uuid', "~> 2.3.4")
-  s.add_runtime_dependency('amqp', "~> 0.8.0")
+  s.add_runtime_dependency('amqp', "~> 0.9.10")
 
   common_development_dependencies(s)
   s.add_development_dependency('ci_reporter', "~> 1.6.5")
