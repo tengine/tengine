@@ -525,6 +525,7 @@ describe Tengine::Mq::Suite do
 
           it "エラーが発生してもオプションで指定したリトライ間隔でリトライが行われる" do
             t0 = Time.now
+            timeout(60) do # 60秒
             EM.run do
               subject.send :ensures, :exchange do |xchg|
                 # 正規のfireとリトライのfireなので、リトライ回数+1
@@ -533,6 +534,7 @@ describe Tengine::Mq::Suite do
                 subject.fire x, expected_event, {:keep_connection => false, :retry_interval => 1, :retry_count => 2}, nil
                 subject.stop
               end
+            end
             end
             t1 = Time.now
             (t1 - t0).should be_within(1.0).of(2.0)
@@ -782,7 +784,66 @@ describe Tengine::Mq::Suite do
       ret
     end
 
-    def trigger port = rand(32768)
+    before(:all) do
+      unless system("rabbitmq-plugins disable rabbitmq_management rabbitmq_management_visualiser rabbitmq_mochiweb mochiweb webmachine")
+        fail("failed to rabbitmq-plugins disable" << $?.inspect)
+      end
+    end
+
+    # % rabbitmq-plugins list
+    # [e] amqp_client                       2.8.7
+    # [ ] eldap                             2.8.7-gite309de4
+    # [ ] erlando                           2.8.7
+    # [e] mochiweb                          2.3.1-rmq2.8.7-gitd541e9a
+    # [ ] rabbitmq_auth_backend_ldap        2.8.7
+    # [ ] rabbitmq_auth_mechanism_ssl       2.8.7
+    # [ ] rabbitmq_consistent_hash_exchange 2.8.7
+    # [ ] rabbitmq_federation               2.8.7
+    # [ ] rabbitmq_federation_management    2.8.7
+    # [ ] rabbitmq_jsonrpc                  2.8.7
+    # [ ] rabbitmq_jsonrpc_channel          2.8.7
+    # [ ] rabbitmq_jsonrpc_channel_examples 2.8.7
+    # [E] rabbitmq_management               2.8.7
+    # [e] rabbitmq_management_agent         2.8.7
+    # [E] rabbitmq_management_visualiser    2.8.7
+    # [e] rabbitmq_mochiweb                 2.8.7
+    # [ ] rabbitmq_shovel                   2.8.7
+    # [ ] rabbitmq_shovel_management        2.8.7
+    # [ ] rabbitmq_stomp                    2.8.7
+    # [ ] rabbitmq_tracing                  2.8.7
+    # [ ] rfc4627_jsonrpc                   2.8.7-gita5e7ad7
+    # [e] webmachine                        1.9.1-rmq2.8.7-git52e62bc
+    #
+    # http://www.rabbitmq.com/man/rabbitmq-plugins.1.man.html
+
+    before(:all) do
+      commands = []
+      @targets = `rabbitmq-plugins list`.scan(/^\[[E]\]\s*([^\s]+)\s*.+?\s*$/).flatten
+      unless @targets.empty?
+        commands << "rabbitmq-plugins disable #{@targets.join(' ')}"
+      end
+      commands << "rabbitmq-plugins enable amqp_client"
+      commands.each do |cmd|
+        unless system(cmd)
+          fail("command failed:\n#{cmd}\n#{$?.inspect}")
+        end
+      end
+    end
+
+    after(:all) do
+      commands = [
+        "rabbitmq-plugins enable #{@targets.join(' ')}",
+      ].each do |cmd|
+        unless system(cmd)
+          fail("command failed:\n#{cmd}\n#{$?.inspect}")
+        end
+      end
+    end
+
+    UNRESERVED_PORT_MIN = 1024
+
+    def trigger port = rand(32768 - UNRESERVED_PORT_MIN) + UNRESERVED_PORT_MIN
+
       raise "WRONG" if $_pid
       require 'tmpdir'
       $_dir = Dir.mktmpdir
@@ -816,7 +877,7 @@ describe Tengine::Mq::Suite do
         if (n += 1) > 10
           pending "10 attempts to invoke rabbitmq failed."
         else
-          port = rand(32768)
+          port = rand(32768 - UNRESERVED_PORT_MIN) + UNRESERVED_PORT_MIN
           retry
         end
       end
