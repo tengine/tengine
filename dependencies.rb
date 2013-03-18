@@ -27,7 +27,7 @@ PACKAGES = [
   PackageDef.new(:gem, 'tengine_resource'       , %w[tengine_support tengine_event tengine_core]),
   PackageDef.new(:gem, 'tengine_resource_ec2'   , %w[tengine_support tengine_event tengine_core tengine_resource]),
   PackageDef.new(:gem, 'tengine_resource_wakame', %w[tengine_support tengine_event tengine_core tengine_resource tengine_resource_ec2]),
-  PackageDef.new(:gem, 'tengine_job'            , %w[tengine_support tengine_event tengine_core tengine_resource tengine_resource_ec2]),
   PackageDef.new(:gem, 'tengine_job_agent'      , %w[tengine_support tengine_event]),
+  PackageDef.new(:gem, 'tengine_job'            , %w[tengine_support tengine_event tengine_core tengine_resource tengine_resource_ec2 tengine_job_agent]),
   PackageDef.new(:rails, 'tengine_ui'           , %w[tengine_support tengine_event tengine_core tengine_resource tengine_resource_ec2 tengine_resource_wakame tengine_job]),
 ]
