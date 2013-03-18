@@ -5,7 +5,7 @@ before_install:
   - gem install bundler
 bundler_args: "--path vendor/bundle"
 services:
-  - rabbitmq
+#   - rabbitmq # is not needed to start automatically because rabbitmq-server is started in rspec.
   - mongodb
 rvm:
 #  - 1.9.2
