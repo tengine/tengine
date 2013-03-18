@@ -208,6 +208,17 @@ describe Tengine::Job::Runtime::Edge do
 
   context "<BUG>再実行したジョブが準備中のままになってしまう" do
 
+    before(:all) do
+      TestRabbitmq.backup_plugins
+      TestRabbitmq.enable_plugins("amqp_client")
+      @test_rabbitmq = TestRabbitmq.new.launch
+    end
+
+    after(:all) do
+      TestRabbitmq.kill_launched_processes
+      TestRabbitmq.restore_plugins
+    end
+
     before :all do
       @test_sshd = TestSshd.new.launch
       TestSshdResource.instance = TestSshdResource.new(@test_sshd)
@@ -228,6 +239,8 @@ describe Tengine::Job::Runtime::Edge do
     before do
       Tengine::Resource::Server.delete_all
       Tengine::Resource::Credential.delete_all
+      Tengine::Job::Template::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0004ParallelJobnetWithFinally.new
       builder.create_actual
       @ctx = builder.context
@@ -238,9 +251,11 @@ describe Tengine::Job::Runtime::Edge do
         [:e1].each{|name| @ctx[name].phase_key = :transmitted}
         [:e2, :e3, :e4, :e5, :e6, :e7, :e8].each{|name| @ctx[name].phase_key = :closed}
         [:root, :j1].each{|name| @ctx[name].phase_key = :error}
-        [:j2].each{|name| @ctx[name].phase_key = :ready}
-        [:j3, :j4].each{|name| @ctx[name].phase_key = :initialized}
         @ctx[:root].save!
+        [:j1].each{|name| @ctx[name].update_phase! :error }
+        [:j2].each{|name| @ctx[name].update_phase! :ready }
+        [:j3, :j4].each{|name| @ctx[name].update_phase! :initialized }
+        # @ctx[:root].save!
       end
 
       it "j2以降を再実行しようとしてclosedのe3に対してcompleteしても問題なく動けばOK" do
@@ -253,7 +268,7 @@ describe Tengine::Job::Runtime::Edge do
           :spot => true,
           :target_actual_ids => [@ctx[:j2].id.to_s],
           :actual_estimated_end => Time.utc(2011,10,27,19,8),
-          :preparation_command => "export J2_FAIL=true")
+          :preparation_command => "export J2_FAIL=true TENGINE_MQ_PORT=#{@test_rabbitmq.port}")
         @execution.should_receive(:ack).with(an_instance_of(Tengine::Job::Runtime::Signal))
         @signal = Tengine::Job::Runtime::Signal.new(@event)
         @execution.stub(:signal=).with(@signal)

@@ -51,7 +51,8 @@ describe "reset" do
       @execution = Tengine::Job::Runtime::Execution.create!({
           :target_actual_ids => [@jn11.id.to_s],
           :retry => true, :spot => true,
-          :root_jobnet_id => @root.id
+          :root_jobnet_id => @root.id,
+          :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
         })
       @execution.phase_key.should == :initialized
       @event.stub(:[]).with(:execution_id).and_return(@execution.id.to_s)
@@ -71,7 +72,8 @@ describe "reset" do
           :target_jobnet_name_path=>"/jn0006/jn1/jn11",
           :execution_id=>@execution.id.to_s,
           :root_jobnet_id=>@root.id.to_s,
-          :root_jobnet_name_path=>"/jn0006"
+          :root_jobnet_name_path=>"/jn0006",
+          :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
         }
       }
 
@@ -114,7 +116,8 @@ describe "reset" do
       @execution = Tengine::Job::Runtime::Execution.create!({
           :target_actual_ids => [@jn11.id.to_s],
           :retry => true, :spot => false,
-          :root_jobnet_id => @root.id
+          :root_jobnet_id => @root.id,
+          :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
         })
       @execution.phase_key.should == :initialized
       @event.stub(:[]).with(:execution_id).and_return(@execution.id.to_s)
@@ -134,7 +137,8 @@ describe "reset" do
           :target_jobnet_name_path=>"/jn0006/jn1/jn11",
           :execution_id=>@execution.id.to_s,
           :root_jobnet_id=>@root.id.to_s,
-          :root_jobnet_name_path=>"/jn0006"
+          :root_jobnet_name_path=>"/jn0006",
+          :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
         }
       }
 
@@ -283,7 +287,7 @@ describe "reset" do
         execution = Tengine::Job::Runtime::Execution.create!({
             :retry => true, :spot => false,
             :root_jobnet_id => @root.id,
-            :target_actual_ids => [@ctx[:j2].id.to_s]
+            :target_actual_ids => [@ctx[:j2].id.to_s],
           })
         execution.stub(:root_jobnet).and_return(@root)
         t1 = Time.now
@@ -319,7 +323,7 @@ describe "reset" do
         @execution = Tengine::Job::Runtime::Execution.create!({
           :retry => true, :spot => false,
           :root_jobnet_id => @root.id,
-          :target_actual_ids => [@ctx[:j41].id.to_s]
+          :target_actual_ids => [@ctx[:j41].id.to_s],
         })
         @execution.stub(:root_jobnet).and_return(@root)
 
@@ -379,6 +383,18 @@ describe "reset" do
   end
 
   context "ジョブネット内のジョブネットまたはジョブを起点にリセット" do
+
+    before(:all) do
+      TestRabbitmq.backup_plugins
+      TestRabbitmq.enable_plugins("amqp_client")
+      @test_rabbitmq = TestRabbitmq.new.launch
+    end
+
+    after(:all) do
+      TestRabbitmq.kill_launched_processes
+      TestRabbitmq.restore_plugins
+    end
+
     before :all do
       @test_sshd = TestSshd.new.launch
       TestSshdResource.instance = TestSshdResource.new(@test_sshd)
@@ -418,7 +434,8 @@ describe "reset" do
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [j41.id.to_s],
             :retry => true, :spot => false,
-            :root_jobnet_id => @root.id
+            :root_jobnet_id => @root.id,
+            :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
           })
           execution.stub(:root_jobnet).and_return(@root)
           event1.stub(:[]).with(:execution_id).and_return(execution.id.to_s)
@@ -463,7 +480,8 @@ describe "reset" do
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [j41.id.to_s],
             :retry => true, :spot => false,
-            :root_jobnet_id => @root.id
+            :root_jobnet_id => @root.id,
+            :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
           })
 
           t2 = Time.now
@@ -509,7 +527,8 @@ describe "reset" do
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [jn4.id.to_s],
             :retry => true, :spot => false,
-            :root_jobnet_id => @root.id
+            :root_jobnet_id => @root.id,
+            :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
           })
           execution.stub(:root_jobnet).and_return(@root)
           event1.stub(:[]).with(:execution_id).and_return(execution.id.to_s)
@@ -552,7 +571,8 @@ describe "reset" do
           execution = Tengine::Job::Runtime::Execution.create!({
                         :target_actual_ids => [jn0005_fif.id.to_s],
                         :retry => true, :spot => false,
-                        :root_jobnet_id => @root.id
+                        :root_jobnet_id => @root.id,
+                        :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
                        })
           execution.stub(:root_jobnet).and_return(@root)
           event1.stub(:[]).with(:execution_id).and_return(execution.id.to_s)
@@ -594,7 +614,8 @@ describe "reset" do
           @execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [j1.id.to_s],
             :retry => true, :spot => false,
-            :root_jobnet_id => @root.id
+            :root_jobnet_id => @root.id,
+            :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
           })
           t1 = Time.now
           event1 = mock(:event, :occurred_at => t1)
@@ -718,7 +739,8 @@ describe "reset" do
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [j43.id.to_s],
             :retry => true, :spot => false,
-            :root_jobnet_id => @root.id
+            :root_jobnet_id => @root.id,
+            :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
           })
           execution.stub(:root_jobnet).and_return(@root)
           event1.stub(:[]).with(:execution_id).and_return(execution.id.to_s)
@@ -765,7 +787,8 @@ describe "reset" do
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [j44.id.to_s],
             :retry => true, :spot => false,
-            :root_jobnet_id => @root.id
+            :root_jobnet_id => @root.id,
+            :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
           })
           execution.stub(:root_jobnet).and_return(@root)
           event1.stub(:[]).with(:execution_id).and_return(execution.id.to_s)
@@ -813,7 +836,8 @@ describe "reset" do
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [jn4.id.to_s],
             :retry => true, :spot => false,
-            :root_jobnet_id => @root.id
+            :root_jobnet_id => @root.id,
+            :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
           })
           execution.stub(:root_jobnet).and_return(@root)
           event1.stub(:[]).with(:execution_id).and_return(execution.id.to_s)
@@ -876,7 +900,8 @@ describe "reset" do
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [jn0005_f2.id.to_s],
             :retry => true, :spot => false,
-            :root_jobnet_id => @root.id
+            :root_jobnet_id => @root.id,
+            :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
           })
           execution.stub(:root_jobnet).and_return(@root)
           event1.stub(:[]).with(:execution_id).and_return(execution.id.to_s)
@@ -922,7 +947,8 @@ describe "reset" do
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [jn0005_fjn.id.to_s],
             :retry => true, :spot => false,
-            :root_jobnet_id => @root.id
+            :root_jobnet_id => @root.id,
+            :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
           })
           execution.stub(:root_jobnet).and_return(@root)
           event1.stub(:[]).with(:execution_id).and_return(execution.id.to_s)
@@ -966,7 +992,8 @@ describe "reset" do
           execution = Tengine::Job::Runtime::Execution.create!({
             :target_actual_ids => [finally.id.to_s],
             :retry => true, :spot => false,
-            :root_jobnet_id => @root.id
+            :root_jobnet_id => @root.id,
+            :preparation_command => "TENGINE_MQ_PORT=#{@test_rabbitmq.port}"
           })
           execution.stub(:root_jobnet).and_return(@root)
           event1.stub(:[]).with(:execution_id).and_return(execution.id.to_s)

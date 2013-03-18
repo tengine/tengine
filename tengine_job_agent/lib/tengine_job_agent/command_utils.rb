@@ -28,8 +28,8 @@ module TengineJobAgent::CommandUtils
     # 'logfile' => "log/#{File.basename($PROGRAM_NAME)}-#{`hostname`.strip}-#{Process.pid}.log",
     'logfile' => "tengine_job_agent.log",
     'connection' => {
-      'host' => 'localhost',
-      'port' => 5672,
+      'host' => ENV['TENGINE_MQ_HOST'] || 'localhost',
+      'port' => (ENV['TENGINE_MQ_PORT'] || 5672).to_i,
       # vhost:
       # user:
       # pass:

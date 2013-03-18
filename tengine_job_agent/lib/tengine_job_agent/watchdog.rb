@@ -48,14 +48,18 @@ class TengineJobAgent::Watchdog
   end
 
   def spawn_process
-    @logger.info("spawning process " << [@program, @args].flatten.join(" "))
     options = {
       :out => @stdout.path,
       :err => @stderr.path,
       :pgroup => true}
-    pid = Process.spawn(@program, *(@args + [options]))
+    args = [@program, *(@args + [options])]
+    @logger.info("Process.spawn(*#{args.inspect})")
+    pid = Process.spawn(*args)
     @logger.info("spawned process PID: #{pid}")
     return pid
+  rescue Exception => e
+    @logger.error("[#{e.class.name}] #{e.message}\n  " << e.backtrace.join("\n  "))
+    raise
   end
 
   def wait_process(pid)
@@ -146,7 +150,9 @@ class TengineJobAgent::Watchdog
   end
 
   def sender
-    @sender ||= Tengine::Event::Sender.new({logger: @logger}.update(@config || {}))
+    sender_config = {logger: @logger}.update(@config || {})
+    @logger.info("config for sender: #{sender_config.inspect}")
+    @sender ||= Tengine::Event::Sender.new(sender_config)
   end
 
   private

@@ -16,7 +16,11 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = [
     "README.rdoc"
   ]
-  s.files = Dir["Gemfile", "Gemfile.lock", "README.rdoc", "bin/**/*", "lib/**/*"]
+  s.files = Dir[
+    "Gemfile", "Gemfile.lock", "README.rdoc",
+    "bin/**/*", "lib/**/*", "spec/**/*",
+    "tmp/.gitkeep", # tengine_jobのspecが必要としています
+  ]
 
   s.homepage = "https://github.com/tengine/tengine/tree/develop/tengine_event"
   s.licenses = ["MPL2.0/LGPLv3"]
