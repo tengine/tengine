@@ -709,7 +709,7 @@ describe Tengine::Mq::Suite do
         EM.run do
           subject.add_hook("connection.after_recovery") { block_called = true }
           subject.initiate_termination do
-            EM.defer(proc { finish; trigger@port },
+            EM.defer(proc { relaunch },
                      proc { subject.stop })
           end
         end
@@ -769,146 +769,35 @@ describe Tengine::Mq::Suite do
     next if RUBY_VERSION < "1.9.2"
     next if ENV['TRAVIS'] == 'true'
 
-    let(:rabbitmq) do
-      ret = nil
-      ENV["PATH"].split(/:/).find do |dir|
-        Dir.glob("#{dir}/rabbitmq-server") do |path|
-          if File.executable?(path)
-            ret = path
-            break
-          end
-        end
-      end
-
-      pending "these specs needs a rabbitmq installed" unless ret
-      ret
+    def launch
+      @test_rabbitmq = TestRabbitmq.new.launch
     end
 
-    before(:all) do
-      unless system("rabbitmq-plugins disable rabbitmq_management rabbitmq_management_visualiser rabbitmq_mochiweb mochiweb webmachine")
-        fail("failed to rabbitmq-plugins disable" << $?.inspect)
-      end
-    end
-
-    # % rabbitmq-plugins list
-    # [e] amqp_client                       2.8.7
-    # [ ] eldap                             2.8.7-gite309de4
-    # [ ] erlando                           2.8.7
-    # [e] mochiweb                          2.3.1-rmq2.8.7-gitd541e9a
-    # [ ] rabbitmq_auth_backend_ldap        2.8.7
-    # [ ] rabbitmq_auth_mechanism_ssl       2.8.7
-    # [ ] rabbitmq_consistent_hash_exchange 2.8.7
-    # [ ] rabbitmq_federation               2.8.7
-    # [ ] rabbitmq_federation_management    2.8.7
-    # [ ] rabbitmq_jsonrpc                  2.8.7
-    # [ ] rabbitmq_jsonrpc_channel          2.8.7
-    # [ ] rabbitmq_jsonrpc_channel_examples 2.8.7
-    # [E] rabbitmq_management               2.8.7
-    # [e] rabbitmq_management_agent         2.8.7
-    # [E] rabbitmq_management_visualiser    2.8.7
-    # [e] rabbitmq_mochiweb                 2.8.7
-    # [ ] rabbitmq_shovel                   2.8.7
-    # [ ] rabbitmq_shovel_management        2.8.7
-    # [ ] rabbitmq_stomp                    2.8.7
-    # [ ] rabbitmq_tracing                  2.8.7
-    # [ ] rfc4627_jsonrpc                   2.8.7-gita5e7ad7
-    # [e] webmachine                        1.9.1-rmq2.8.7-git52e62bc
-    #
-    # http://www.rabbitmq.com/man/rabbitmq-plugins.1.man.html
-
-    before(:all) do
-      commands = []
-      @targets = `rabbitmq-plugins list`.scan(/^\[[E]\]\s*([^\s]+)\s*.+?\s*$/).flatten
-      unless @targets.empty?
-        commands << "rabbitmq-plugins disable #{@targets.join(' ')}"
-      end
-      commands << "rabbitmq-plugins enable amqp_client"
-      commands.each do |cmd|
-        unless system(cmd)
-          fail("command failed:\n#{cmd}\n#{$?.inspect}")
-        end
-      end
-    end
-
-    after(:all) do
-      commands = [
-        "rabbitmq-plugins enable #{@targets.join(' ')}",
-      ].each do |cmd|
-        unless system(cmd)
-          fail("command failed:\n#{cmd}\n#{$?.inspect}")
-        end
-      end
-    end
-
-    UNRESERVED_PORT_MIN = 1024
-
-    def trigger port = rand(32768 - UNRESERVED_PORT_MIN) + UNRESERVED_PORT_MIN
-
-      raise "WRONG" if $_pid
-      require 'tmpdir'
-      $_dir = Dir.mktmpdir
-      # 指定したポートはもう使われているかもしれないので、その際は
-      # rabbitmqが起動に失敗するので、何回かポートを変えて試す。
-      n = 0
-      begin
-        envp = {
-          "RABBITMQ_NODENAME"        => "rspec",
-          "RABBITMQ_NODE_PORT"       => port.to_s,
-          "RABBITMQ_NODE_IP_ADDRESS" => "auto",
-          "RABBITMQ_MNESIA_BASE"     => $_dir.to_s,
-          "RABBITMQ_LOG_BASE"        => $_dir.to_s,
-        }
-        $_pid = Process.spawn(envp, rabbitmq, :pgroup => true, :chdir => $_dir, :in => :close)
-        x = Time.now
-        while Time.now < x + 16.0 do # まあこんくらい待てばいいでしょ
-          sleep 0.1
-          Process.waitpid2($_pid, Process::WNOHANG)
-          Process.kill 0, $_pid
-          # netstat -an は Linux / BSD ともに有効
-          # どちらかに限ればもう少し効率的な探し方はある。たとえば Linux 限定でよければ netstat -lnt ...
-          y = `netstat -an | fgrep LISTEN | fgrep #{port}`
-          if y.lines.to_a.size >= 1
-            @port = port
-            return
-          end
-        end
-        pending "failed to invoke rabbitmq in 16 secs."
-      rescue Errno::ECHILD, Errno::ESRCH
-        if (n += 1) > 10
-          pending "10 attempts to invoke rabbitmq failed."
-        else
-          port = rand(32768 - UNRESERVED_PORT_MIN) + UNRESERVED_PORT_MIN
-          retry
-        end
-      end
+    def relaunch
+      TestRabbitmq.kill_launched_processes
+      @test_rabbitmq.keep_port = true
+      @test_rabbitmq.launch
     end
 
     def finish
-      if $_pid
-        begin
-          Process.kill "INT", -$_pid
-          Process.waitpid $_pid
-        rescue Errno::ECHILD, Errno::ESRCH
-        ensure
-          require 'fileutils'
-          FileUtils.remove_entry_secure $_dir, :force
-        end
-      end
-      $_pid = nil
+      TestRabbitmq.kill_launched_processes
     end
 
-    before :all do
-      trigger
+    before(:all) do
+      TestRabbitmq.backup_plugins
+      TestRabbitmq.enable_plugins("amqp_client")
+      launch
     end
 
-    after :all do
+    after(:all) do
       finish
+      TestRabbitmq.restore_plugins
     end
 
     let(:the_config) {
       {
         :connection => {
-          :port => @port,
+          :port => @test_rabbitmq.port,
         },
       }
     }
@@ -916,7 +805,9 @@ describe Tengine::Mq::Suite do
   end
 
   context "mock/stubによる試験" do
-    def trigger *;
+    def launch
+    end
+    def relaunch
     end
     def finish
     end
