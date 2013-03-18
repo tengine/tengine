@@ -8,10 +8,52 @@ module TengineJobAgent::CommandUtils
     mod.extend(ClassMethods)
   end
 
+  class TitledLogger < Logger
+    attr_reader :title
+    def initialize(title, *args, &block)
+      super(*args, &block)
+      @title = title
+    end
+    %w[debug info warn error fatal].each do |level|
+      class_eval(<<-END_OF_METHOD)
+        def #{level}(progname = nil, &block)
+          super("[\#{title}] \#{progname}", &block)
+        end
+      END_OF_METHOD
+    end
+  end
+
+  DEFAULT_CONFIG = {
+    'timeout' => 1,
+    # 'logfile' => "log/#{File.basename($PROGRAM_NAME)}-#{`hostname`.strip}-#{Process.pid}.log",
+    'logfile' => "tengine_job_agent.log",
+    'connection' => {
+      'host' => 'localhost',
+      'port' => 5672,
+      # vhost:
+      # user:
+      # pass:
+    },
+    'exchange' => {
+      'name' => 'tengine_event_exchange',
+      'type' => 'direct',
+      'durable' => true,
+    },
+    'heartbeat' => {
+      'job' => {
+        'interval' => 1
+      }
+    }
+  }.freeze
+
   module ClassMethods
     def load_config
       config_path = Dir["{.,./config,/etc}/tengine_job_agent{.yml,.yml.erb}"].first
-      YAML.load_file(config_path)
+      if config_path
+        YAML.load_file(config_path)
+      else
+        DEFAULT_CONFIG
+      end
     end
 
     def process(*args)
@@ -31,7 +73,9 @@ module TengineJobAgent::CommandUtils
         prefix = self.name.split('::').last.downcase
         logfile = File.expand_path("#{prefix}-#{Process.pid}.log", config['log_dir'])
       end
-      Logger.new(logfile)
+      result = TitledLogger.new(File.basename($PROGRAM_NAME), logfile)
+      result.level = Logger::DEBUG
+      result
     end
 
   end

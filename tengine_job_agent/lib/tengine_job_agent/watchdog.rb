@@ -19,15 +19,20 @@ class TengineJobAgent::Watchdog
   end
 
   def process
+    @logger.info("process start")
     pid, process_status = nil, nil
     with_tmp_outs do |stdout, stderr|
+      @logger.debug("before EM.run")
       EM.run do
+        @logger.debug("before sender.mq_suite.send :ensures, :connection")
         sender.mq_suite.send :ensures, :connection do
+          @logger.debug("before sender.wait_for_connection")
           sender.wait_for_connection do
+            @logger.debug("before spawn_process")
             begin
               pid = spawn_process
               File.open(@pid_path, "a"){|f| f.puts(pid)} # 起動したPIDを呼び出し元に返す
-              detach_and_wait_process(pid)
+              wait_process(pid)
             rescue Exception => e
               File.open(@pid_path, "a"){|f| f.puts("[#{e.class.name}] #{e.message}")}
               @logger.error("[#{e.class.name}] #{e.message}")
@@ -35,8 +40,11 @@ class TengineJobAgent::Watchdog
             end
           end
         end
+        @logger.debug("after sender.mq_suite.send :ensures, :connection")
       end
+      @logger.debug("after EM.run")
     end
+    @logger.info("process finished")
   end
 
   def spawn_process
@@ -50,22 +58,35 @@ class TengineJobAgent::Watchdog
     return pid
   end
 
-  def detach_and_wait_process(pid)
-    @logger.info("detaching process PID: #{pid}")
+  def wait_process(pid)
+    @logger.info("wait_process(#{pid}) begin")
     fire_heartbeat pid do
+      @logger.info("begin block for fire_heartbeat(pid)")
       timer = nil
+      @logger.info("#{__FILE__}##{__LINE__}")
       int = @config["heartbeat"]["job"]["interval"]
+      @logger.info("#{__FILE__}##{__LINE__}")
       if int and int > 0
+        @logger.info("before EM.add_periodic_timer")
         timer = EM.add_periodic_timer int do
           fire_heartbeat pid do end # <- rspecを黙らせるための無駄なブロック
         end
       end
-      EM.defer(lambda { Process.waitpid2 pid }, lambda {|a|
+
+      @logger.info("before EM.defer ...")
+      EM.defer(lambda {
+        @logger.info("before Process.waitpid2 #{pid} ...")
+                 Process.waitpid2 pid
+        @logger.info("$?: " << $?.inspect)
+               }, lambda {|a|
         @logger.info("process finished: " << a[1].exitstatus.inspect)
         EM.cancel_timer timer if timer
         fire_finished(*a)
       })
+
+      @logger.info("after EM.defer ...")
     end
+    @logger.info("wait_process(#{pid}) end")
   end
 
   def fire_finished(pid, process_status)
@@ -125,7 +146,7 @@ class TengineJobAgent::Watchdog
   end
 
   def sender
-    @sender ||= Tengine::Event::Sender.new(@config)
+    @sender ||= Tengine::Event::Sender.new({logger: @logger}.update(@config || {}))
   end
 
   private

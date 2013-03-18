@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 require 'tengine/job/template'
 
+require 'tengine_resource'
+
 # ルートジョブネットを他のジョブネット内に展開するための特殊なテンプレート用Vertex。
 class Tengine::Job::Template::SshJob < Tengine::Job::Template::NamedVertex
 

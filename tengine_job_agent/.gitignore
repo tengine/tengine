@@ -48,3 +48,6 @@ pkg
 #*.rbc
 
 .rvmrc
+
+*.log
+/pid_for_*

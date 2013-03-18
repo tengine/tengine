@@ -56,8 +56,10 @@ class TengineJobAgent::Run
     # http://doc.ruby-lang.org/ja/1.9.2/method/Kernel/m/spawn.html を参考にしています
     args = @args # + [{:out => stdout_w}] #, :err => stderr_w}]
     watchdog = File.expand_path("../../bin/tengine_job_agent_watchdog", File.dirname(__FILE__))
-    @logger.info("spawning watchdog: #{@pid_path}")
-    pid = Process.spawn(RbConfig.ruby, watchdog, @pid_path, *args)
+    # args = [RbConfig.ruby, watchdog, @pid_path, *(@args + [{:out => stdout_w, :err => stderr_w}])]
+    args = [RbConfig.ruby, watchdog, @pid_path, *@args]
+    @logger.info("Process.spawn(*#{args.inspect})")
+    pid = Process.spawn(*args)
     @logger.info("spawned watchdog: #{pid}")
     return pid
   end

@@ -75,13 +75,17 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
             end
 
             ch.on_data do |ch, data|
-              Tengine.logger.debug("got stdout: #{data}")
-              yield(ch, data) if block_given?
+              if data.strip =~ /^\d+$/
+                Tengine.logger.info("got pid: #{data.inspect}")
+                yield(ch, data) if block_given?
+              else
+                add_error_message("expected numeric charactors but got: " << data.inspect)
+                raise Error, "Failure to execute #{self.name_path} via SSH: #{data}"
+              end
             end
 
             ch.on_extended_data do |ch, type, data|
-              self.error_messages ||= []
-              self.error_messages += [data]
+              add_error_message(data)
               raise Error, "Failure to execute #{self.name_path} via SSH: #{data}"
             end
           end
@@ -236,6 +240,11 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
     "MM_HADOOP_JOBS=\"#{s}\""
   end
 
+  def add_error_message(msg)
+    self.error_messages ||= []
+    self.error_messages += [msg]
+  end
+
 
   ## 状態遷移アクション
 
@@ -338,12 +347,10 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
   def fail(signal, options = nil)
     self.phase_key = :error
     if msg = signal.event[:message]
-      self.error_messages ||= []
-      self.error_messages += [msg]
+      add_error_message(msg)
     end
     if options && (msg = options[:message])
-      self.error_messages ||= []
-      self.error_messages += [msg]
+      add_error_message(msg)
     end
     self.finished_at = signal.event.occurred_at
     event_options = {
