@@ -17,8 +17,23 @@ OUTDATED_THRESHOLDS = {
 }
 
 namespace :bundle do
+  desc "bundle install for each packgage"
+  task :install do
+    errors = []
+    PACKAGES.each do |package|
+      puts "=" * 80
+      puts "bundle install for #{package.name}"
+      cmd = []
+      cmd << "cd #{package.name}"
+      cmd << "bundle install"
+      system(cmd.join(' && ')) || errors << package.name
+    end
+    fail("Errors in #{errors.join(', ')}") unless errors.empty?
+  end
+
   desc "bundle update for each package"
   task :update do
+    errors = []
     PACKAGES.each do |package|
       puts "=" * 80
       puts "bundle update for #{package.name}"
@@ -29,6 +44,28 @@ namespace :bundle do
     end
     fail("Errors in #{errors.join(', ')}") unless errors.empty?
   end
+end
+
+desc "bundle install and install each gem"
+task :build do
+  errors = []
+  PACKAGES.each do |package|
+    puts "=" * 80
+    puts "building #{package.name}"
+    cmd = []
+    cmd << "cd #{package.name}"
+    cmd << "gem uninstall #{package.name} -a -I -x"
+    cmd << "bundle install"
+    case package.package_type
+    when :gem then
+      cmd << "rm -rf pkg/*"
+      cmd << "bundle exec rake package"
+      cmd << "gem install pkg/#{package.name}-*.gem --ignore-dependencies"
+    end
+
+    system(cmd.join(' && ')) || errors << package.name
+  end
+  fail("Errors in #{errors.join(', ')}") unless errors.empty?
 end
 
 desc "install other tengine gems and bundle install"
