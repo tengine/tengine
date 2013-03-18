@@ -19,7 +19,11 @@ EM.run do
   logger.debug("#{__FILE__}##{__LINE__}")
   sender.fire("foo") do
     logger.debug("#{__FILE__}##{__LINE__}")
-    sender.fire("bar")
+    sender.fire("bar") do
+      logger.debug("#{__FILE__}##{__LINE__}")
+      sender.fire("baz")
+      logger.debug("#{__FILE__}##{__LINE__}")
+    end
     logger.debug("#{__FILE__}##{__LINE__}")
     sender.stop
     logger.debug("#{__FILE__}##{__LINE__}")

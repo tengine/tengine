@@ -24,7 +24,7 @@ describe "tengine_event" do
   before{ logger.info("-" * 100) }
   after(:all){ logger.info("=" * 100) }
 
-  context "publisher and subscriber are in same process" do
+  shared_examples_for "publisher and subscriber are in same process" do |block|
     let(:buffer){ [] }
     let(:suite ){ Tengine::Mq::Suite.new }
     let(:sender  ){ Tengine::Event::Sender.new(logger: logger) }
@@ -38,23 +38,41 @@ describe "tengine_event" do
           hash = JSON.parse(payload)
           buffer << hash["event_type_name"]
         end
-
-        sender.fire("foo") do
-          sender.fire("bar")
-          sender.stop
-        end
+        block.call(sender)
       end
     end
 
-    it "receives foo and bar" do
-      buffer.should =~ %w[foo bar]
+    it "receives foo, bar and baz" do
+      buffer.should =~ %w[foo bar baz]
     end
   end
 
-  # 環境によって失敗する割合が異なるので、多めに実行しています。 10%の環境もあれば50%の環境もあります。
-  repeat = (ENV['REPEAT'] || 20).to_i
+  context "sequential call" do
+    it_should_behave_like "publisher and subscriber are in same process", ->(sender){
+      sender.fire("foo")
+      sender.fire("bar")
+      sender.fire("baz")
+      sender.stop
+    }
+  end
+
+  context "nested call" do
+    it_should_behave_like "publisher and subscriber are in same process", ->(sender){
+      sender.fire("foo") do
+        sender.fire("bar") do
+          sender.fire("baz") do
+            sender.stop
+          end
+        end
+      end
+    }
+  end
+
+  # ２つのイベント発火の場合には失敗したり成功したりが混じっていましたが、
+  # ３つのイベント発火の場合には100%失敗するので繰り返しは1回だけでOKです。
+  repeat = (ENV['REPEAT'] || 1).to_i
   repeat.times do |idx|
-    context "publisher is in another process #{idx}/#{repeat}" do
+    context "#{idx + 1}/#{repeat} publisher is in another process" do
       let(:timeout){ 10 }
       let(:buffer){ [] }
       let(:suite ){ Tengine::Mq::Suite.new }
@@ -79,8 +97,8 @@ describe "tengine_event" do
         end
       end
 
-      it "receives foo and bar" do
-        buffer.should =~ %w[foo bar]
+      it "receives foo, bar and baz" do
+        buffer.should =~ %w[foo bar baz]
       end
     end
   end

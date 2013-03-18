@@ -25,16 +25,17 @@ describe "amqp" do
   before{ logger.debug("-" * 100) }
   after(:all){ logger.debug("=" * 100) }
 
-  # 環境によって失敗する割合が異なるので、多めに実行しています。 10%の環境もあれば50%の環境もあります。
-  repeat = (ENV['REPEAT'] || 10).to_i
-  repeat.times do |idx|
-    [
-      "actual_publisher1.rb",
-      "actual_publisher2.rb",
-      "actual_publisher2.rb nest",
-    ].each do |publisher_command|
+  [
+    "actual_publisher1.rb",
+    "actual_publisher2.rb sequential",
+    "actual_publisher2.rb nested",
+  ].each do |publisher_command|
+    # ２つのイベント発火の場合には失敗したり成功したりが混じっていましたが、
+    # ３つのイベント発火の場合には100%失敗するので繰り返しは1回だけでOKです。
+    repeat = (ENV['REPEAT'] || 1).to_i
+    repeat.times do |idx|
 
-      context "#{idx}/#{repeat} publisher is in another process with #{publisher_command}" do
+      context "#{idx + 1}/#{repeat} publisher is in another process with #{publisher_command}" do
         let(:timeout){ 10 }
         let(:buffer){ [] }
 
@@ -116,7 +117,7 @@ describe "amqp" do
                         # puts b
                         hash = JSON.parse(b)
                         buffer << hash["event_type_name"]
-                        EM.stop if buffer.length > 1
+                        conn.close{ EM.stop } if buffer.length > 1
                       end
 
                     end
@@ -132,8 +133,8 @@ describe "amqp" do
           end
         end
 
-        it "receives foo and bar" do
-          buffer.should == %w[foo bar]
+        it "receives foo, bar and baz" do
+          buffer.should == %w[foo bar baz]
         end
       end
     end
