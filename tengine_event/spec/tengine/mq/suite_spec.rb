@@ -784,14 +784,11 @@ describe Tengine::Mq::Suite do
     end
 
     before(:all) do
-      TestRabbitmq.backup_plugins
-      TestRabbitmq.enable_plugins("amqp_client")
       launch
     end
 
     after(:all) do
       finish
-      TestRabbitmq.restore_plugins
     end
 
     let(:the_config) {

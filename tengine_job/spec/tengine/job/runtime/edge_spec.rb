@@ -209,15 +209,12 @@ describe Tengine::Job::Runtime::Edge do
   context "<BUG>再実行したジョブが準備中のままになってしまう" do
 
     before(:all) do
-      TestRabbitmq.backup_plugins
-      TestRabbitmq.enable_plugins("amqp_client")
       TestRabbitmq.kill_remain_processes
       @test_rabbitmq = TestRabbitmq.new.launch
     end
 
     after(:all) do
       TestRabbitmq.kill_launched_processes
-      TestRabbitmq.restore_plugins
     end
 
     before :all do

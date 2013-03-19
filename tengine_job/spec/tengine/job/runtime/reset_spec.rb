@@ -385,15 +385,12 @@ describe "reset" do
   context "ジョブネット内のジョブネットまたはジョブを起点にリセット" do
 
     before(:all) do
-      TestRabbitmq.backup_plugins
-      TestRabbitmq.enable_plugins("amqp_client")
       TestRabbitmq.kill_remain_processes
       @test_rabbitmq = TestRabbitmq.new(keep_port: true).launch
     end
 
     after(:all) do
       TestRabbitmq.kill_launched_processes
-      TestRabbitmq.restore_plugins
     end
 
     before :all do
