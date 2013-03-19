@@ -8,10 +8,37 @@ module TengineJobAgent::CommandUtils
     mod.extend(ClassMethods)
   end
 
+  DEFAULT_CONFIG = {
+    'timeout' => 1,
+    # 'logfile' => "log/#{File.basename($PROGRAM_NAME)}-#{`hostname`.strip}-#{Process.pid}.log",
+    'logfile' => "tengine_job_agent.log",
+    'connection' => {
+      'host' => 'localhost',
+      'port' => 5672,
+      # vhost:
+      # user:
+      # pass:
+    },
+    'exchange' => {
+      'name' => 'tengine_event_exchange',
+      'type' => 'direct',
+      'durable' => true,
+    },
+    'heartbeat' => {
+      'job' => {
+        'interval' => 1
+      }
+    }
+  }.freeze
+
   module ClassMethods
     def load_config
       config_path = Dir["{.,./config,/etc}/tengine_job_agent{.yml,.yml.erb}"].first
-      YAML.load_file(config_path)
+      if config_path
+        YAML.load_file(config_path)
+      else
+        DEFAULT_CONFIG
+      end
     end
 
     def process(*args)
