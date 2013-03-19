@@ -211,6 +211,7 @@ describe Tengine::Job::Runtime::Edge do
     before(:all) do
       TestRabbitmq.backup_plugins
       TestRabbitmq.enable_plugins("amqp_client")
+      TestRabbitmq.kill_remain_processes
       @test_rabbitmq = TestRabbitmq.new.launch
     end
 

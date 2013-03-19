@@ -11,13 +11,27 @@ class TestRabbitmq
     def kill_launched_processes
       launched_pids.uniq!
       puts "no pid found " if launched_pids.empty?
-      launched_pids.dup.each do |pid|
+      kill_processes(launched_pids.dup)
+    end
+
+    def kill_remain_processes
+      ps_lines = `ps aux`.split(/\n/).select{|line| line =~ /^.+?\s+\d+\s+.+\-sname rspec/}
+      pids = ps_lines.map do |line|
+        line.scan(/^.+?\s+(\d+)\s+.+\-sname rspec/).flatten.first.to_i
+      end
+      puts "Now rabbitmq-server processes remain: #{pids.inspect}"
+      kill_processes(pids.compact)
+    end
+
+    def kill_processes(pids)
+      pids.each do |pid|
         begin
-          Process.kill "-INT", pid
+          puts "kill INT #{pid}"
+          Process.kill "INT", pid
           Process.waitpid pid
           launched_pids.delete(pid)
         rescue Errno::ECHILD => e
-          puts "[#{e.class}] #{e.message}\n  " << e.backtrace.join("\n  ")
+          puts "Warning: failed to kill process #{pid}. ignore [#{e.class}] #{e.message}\n  " << e.backtrace.join("\n  ")
         end
       end
     end
@@ -82,7 +96,6 @@ class TestRabbitmq
   def initialize(options = {})
     @pid = nil
     @port = DEFAULT_PORT
-    (options || {}).each{|key, value| send("#{key}=", value) }
     # @base_dir ||= File.expand_path("../../../tmp/rabbitmq", __FILE__)
     @base_dir ||= Dir.mktmpdir
     FileUtils.mkdir_p(@base_dir)
@@ -91,6 +104,7 @@ class TestRabbitmq
     @max_attempts = 10
     @max_wait_limit = 16
     @wait_interval = 0.5
+    (options || {}).each{|key, value| send("#{key}=", value) }
   end
 
   def find_rabbitmq_server

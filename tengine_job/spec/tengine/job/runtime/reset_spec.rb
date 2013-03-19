@@ -387,7 +387,8 @@ describe "reset" do
     before(:all) do
       TestRabbitmq.backup_plugins
       TestRabbitmq.enable_plugins("amqp_client")
-      @test_rabbitmq = TestRabbitmq.new.launch
+      TestRabbitmq.kill_remain_processes
+      @test_rabbitmq = TestRabbitmq.new(keep_port: true).launch
     end
 
     after(:all) do
