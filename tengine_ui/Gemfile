@@ -33,7 +33,7 @@ group :test, :development do
   gem "rspec-rails", "~> 2.10.1"
   gem "capybara", "~> 1.1.1"
 
-  gem "ZenTest"
+  gem "ZenTest", "~> 4.9.0"
   gem "autotest-rails"
 
   # gem "rcov", ">= 0"
@@ -44,7 +44,8 @@ group :test, :development do
   gem 'capistrano_colors', "~> 0.5.5"
 
   gem "pry"
-  gem "pry-nav"
+  gem "pry-doc"
+  gem "pry-debugger"
 end
 
 group :js_engine do
