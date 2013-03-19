@@ -78,15 +78,19 @@ class TengineJobAgent::Watchdog
       end
 
       @logger.info("before EM.defer ...")
-      EM.defer(lambda {
-        @logger.info("before Process.waitpid2 #{pid} ...")
-                 Process.waitpid2 pid
-        @logger.info("$?: " << $?.inspect)
-               }, lambda {|a|
-        @logger.info("process finished: " << a[1].exitstatus.inspect)
-        EM.cancel_timer timer if timer
-        fire_finished(*a)
-      })
+      EM.defer(
+         lambda {
+                 @logger.info("before Process.waitpid2 #{pid} ...")
+                 res = Process.waitpid2 pid
+                 @logger.info("$?: " << $?.inspect)
+                 res
+               },
+         lambda {|a|
+                 @logger.info("process finished: " << a[1].exitstatus.inspect)
+                 EM.cancel_timer timer if timer
+                 fire_finished(*a)
+               }
+         )
 
       @logger.info("after EM.defer ...")
     end
