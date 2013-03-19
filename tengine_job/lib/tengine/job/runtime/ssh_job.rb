@@ -81,7 +81,9 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
 
             ch.on_data do |ch, data|
               Tengine.logger.info("got STDOUT data: #{data.inspect}")
-              yield(ch, data) if block_given?
+              unless data.strip.empty?
+                yield(ch, data) if block_given?
+              end
             end
 
             ch.on_extended_data do |ch, type, data|
