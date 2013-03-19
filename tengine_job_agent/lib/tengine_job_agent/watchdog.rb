@@ -154,9 +154,12 @@ class TengineJobAgent::Watchdog
   end
 
   def sender
-    sender_config = {logger: @logger}.update(@config || {})
-    @logger.info("config for sender: #{sender_config.inspect}")
-    @sender ||= Tengine::Event::Sender.new(sender_config)
+    unless @sender
+      sender_config = {logger: @logger}.update(@config || {})
+      @logger.info("config for sender: #{sender_config.inspect}")
+      @sender = Tengine::Event::Sender.new(sender_config)
+    end
+    @sender
   end
 
   private
