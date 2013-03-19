@@ -72,14 +72,16 @@ class TestRabbitmq
   end
 
 
-  attr_reader :pid, :port
+  attr_reader :pid
+  attr_accessor :port, :keep_port
   attr_accessor :base_dir, :nodename, :rabbitmq_server_path
   attr_accessor :max_attempts, :max_wait_limit, :wait_interval
-  attr_accessor :keep_port
+
+  DEFAULT_PORT = 5672
 
   def initialize(options = {})
     @pid = nil
-    @port = nil
+    @port = DEFAULT_PORT
     (options || {}).each{|key, value| send("#{key}=", value) }
     # @base_dir ||= File.expand_path("../../../tmp/rabbitmq", __FILE__)
     @base_dir ||= Dir.mktmpdir

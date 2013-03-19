@@ -33,10 +33,15 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
     cmd = build_command(execution)
     # puts "cmd:\n" << cmd
     execute(cmd) do |ch, data|
+      pid = data.strip
+      if pid =~ /^\d+$/
+        Tengine.logger.info("got pid: #{pid.inspect}")
+      else
+        add_error_message("expected numeric charactors but got: " << data.inspect)
+        raise Error, "Failure to execute #{self.name_path} via SSH. expected numeric charactors but got: #{data}"
+      end
+
       if signal = execution.signal
-        # signal.data = {:executing_pid => data.strip}
-        # ack(signal)
-        pid = data.strip
         signal.call_later do
           signal.data = {:executing_pid => pid}
 
@@ -75,13 +80,8 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
             end
 
             ch.on_data do |ch, data|
-              if data.strip =~ /^\d+$/
-                Tengine.logger.info("got pid: #{data.inspect}")
-                yield(ch, data) if block_given?
-              else
-                add_error_message("expected numeric charactors but got: " << data.inspect)
-                raise Error, "Failure to execute #{self.name_path} via SSH: #{data}"
-              end
+              Tengine.logger.info("got STDOUT data: #{data.inspect}")
+              yield(ch, data) if block_given?
             end
 
             ch.on_extended_data do |ch, type, data|
