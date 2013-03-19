@@ -1,7 +1,12 @@
+# -*- coding: utf-8 -*-
+require 'tengine_event'
 require 'tengine_job_agent'
+require 'time'
 require 'logger'
 require 'yaml'
 require 'tengine/support/yaml_with_erb'
+
+require 'eventmachine'
 
 module TengineJobAgent::CommandUtils
   def self.included(mod)
@@ -59,6 +64,7 @@ module TengineJobAgent::CommandUtils
     def process(*args)
       config = load_config
       logger = new_logger(config)
+      Tengine.logger = logger
       begin
         return new(logger, args, config).process
       rescue Exception => e
@@ -67,13 +73,39 @@ module TengineJobAgent::CommandUtils
       end
     end
 
+    LOG_FORMAT = "[%s #%5d %5s] %5s %s\n".freeze
+
+    def thread_name(tid = Thread.current.object_id, name = nil)
+      result = @thread_names[tid]
+      return result if result
+      @mutex ||= Mutex.new
+      @mutex.lock
+      begin
+        name ||= (@thread_names.length + 1).to_s
+        @thread_names[tid] = name[0,5]
+        return name
+      ensure
+        @mutex.unlock
+      end
+    end
+
     def new_logger(config)
+      @thread_names ||= {}
+      thread_name(Thread.main.object_id, "MAIN")
+      unless Thread.current.object_id == Thread.main.object_id
+        thread_name(Thread.current.object_id, "BASE")
+      end
+      thread_name(EM.reactor_thread.object_id, "EM_RA")
+
       logfile = config['logfile']
       unless logfile
         prefix = self.name.split('::').last.downcase
         logfile = File.expand_path("#{prefix}-#{Process.pid}.log", config['log_dir'])
       end
       result = TitledLogger.new(File.basename($PROGRAM_NAME), logfile)
+      result.formatter = lambda do |severity, datetime, progname, message|
+        LOG_FORMAT % [datetime.iso8601(6), Process.pid, thread_name, severity, message]
+      end
       result.level = Logger::DEBUG
       result
     end
