@@ -10,7 +10,15 @@ describe 'connection error' do
   driver :job_control_driver
 
   before :all do
-    @test_sshd = TestSshd.new.launch
+    begin
+      @test_sshd = TestSshd.new.launch
+      @pending_msg = nil
+    rescue TestSshd::AbortError => e
+      @pending_msg = e.message
+    end
+  end
+  before do
+    pending(@pending_msg) if @pending_msg
   end
 
   after :all do

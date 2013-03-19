@@ -5,8 +5,20 @@ require 'etc'
 require 'tempfile'
 
 describe Tengine::Job::Runtime::SshJob do
+
+  # tengine_job_agent_runを呼び出すのではなく、SSHでコマンドを実行するだけなので、
+  # rabbitmq-serverは起動しません。
+
   before :all do
-    @test_sshd = TestSshd.new.launch
+    begin
+      @test_sshd = TestSshd.new.launch
+      @pending_msg = nil
+    rescue TestSshd::AbortError => e
+      @pending_msg = e.message
+    end
+  end
+  before do
+    pending(@pending_msg) if @pending_msg
   end
 
   after :all do
@@ -67,7 +79,8 @@ describe Tengine::Job::Runtime::SshJob do
     it "開発環境(mac, zsh)でジョブが実行されない" do
       dir = File.expand_path("../../../..", __FILE__)
       text_path = File.expand_path("../tmp/log/env.txt", dir)
-      script = "cd #{dir} && spec/tengine/job/script_executable/echo_env.sh #{text_path}"
+      script_path = File.expand_path("../spec/tengine/job/runtime/script_executable/echo_env.sh", dir)
+      script = "cd #{dir} && #{script_path} #{text_path}"
       j = Tengine::Job::Runtime::SshJob.new(
         :server_name => @server.name,
         :credential_name => @credential.name,

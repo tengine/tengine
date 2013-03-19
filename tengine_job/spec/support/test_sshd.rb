@@ -5,6 +5,12 @@ require 'tempfile'
 
 class TestSshd
 
+  class Error < StandardError
+  end
+
+  class AbortError < Error
+  end
+
   class << self
     def launched_pids
       @launched_pids ||= []
@@ -41,13 +47,13 @@ class TestSshd
   end
 
   def launch
-    raise "Something wrong! launched process is still living." unless self.class.launched_pids.empty?
-    raise "sshd not found" unless @sshd_path
+    raise Error, "Something wrong! launched process is still living." unless self.class.launched_pids.empty?
+    raise Error, "sshd not found" unless @sshd_path
     generate_sshd_config
     max_attempts.times do
       return self if try_launch
     end
-    raise "#{max_attempts} attempts to invoke sshd failed."
+    raise Error, "#{max_attempts} attempts to invoke sshd failed."
   end
 
   private
@@ -56,9 +62,9 @@ class TestSshd
     result = Etc.getlogin
     case result
     when "root"
-      raise "Danger! root is too powerful to run this test."
+      raise AbortError, "Danger! root is too powerful to run this test."
     when NilClass
-      raise "who am i?"
+      raise Error, "who am i?"
     end
     return result
   end
