@@ -770,6 +770,7 @@ describe Tengine::Mq::Suite do
     next if ENV['TRAVIS'] == 'true'
 
     def launch
+      TestRabbitmq.kill_remain_processes
       @test_rabbitmq = TestRabbitmq.new.launch
     end
 
