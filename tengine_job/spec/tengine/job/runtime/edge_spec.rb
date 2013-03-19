@@ -210,7 +210,7 @@ describe Tengine::Job::Runtime::Edge do
 
     before(:all) do
       TestRabbitmq.kill_remain_processes
-      @test_rabbitmq = TestRabbitmq.new.launch
+      @test_rabbitmq = TestRabbitmq.new(keep_port: true).launch
     end
 
     after(:all) do
