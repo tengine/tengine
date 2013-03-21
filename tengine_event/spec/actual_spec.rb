@@ -8,11 +8,11 @@ require'eventmachine'
 describe "tengine_event", manual: true do
 
   before do
-    system(File.expand_path("../../../../bin/tengine_event_sucks", __FILE__))
+    system(File.expand_path("../../bin/tengine_event_sucks", __FILE__))
   end
 
   context "publisher and subscriber are in same process" do
-    let(:logger){ Logger.new(File.expand_path("../../../../tmp/log/actual_spec.log", __FILE__)) }
+    let(:logger){ Logger.new(File.expand_path("../../tmp/log/actual_spec.log", __FILE__)) }
     let(:buffer){ [] }
     let(:suite ){ Tengine::Mq::Suite.new }
     let(:sender  ){ Tengine::Event::Sender.new(logger: logger) }

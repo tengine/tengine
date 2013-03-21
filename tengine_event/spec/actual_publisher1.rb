@@ -5,7 +5,7 @@ require 'logger'
 require'eventmachine'
 
 __DIR__ = File.dirname(__FILE__)
-base_dir = File.expand_path('../../..', __DIR__)
+base_dir = File.expand_path('../', __DIR__)
 $LOAD_PATH << File.expand_path('lib', base_dir)
 require 'tengine/event'
 
