@@ -1022,16 +1022,29 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   end
 
   def gencb
+    logger :debug, "#{self.class.name}#gencb 0"
     @gencb ||= lambda do |ev|
-      case @state when :unsupported, :established
+      logger :debug, "#{self.class.name}#gencb 0.1"
+      r2 = case @state when :unsupported, :established
+        logger :debug, "#{self.class.name}#gencb 0.2"
         fire_internal ev
-        @firing_queue.pop(&gencb)
+        logger :debug, "#{self.class.name}#gencb 0.3"
+        r1  = @firing_queue.pop(&gencb)
+        logger :debug, "#{self.class.name}#gencb 0.4"
+        r1
       else
+        logger :debug, "#{self.class.name}#gencb 0.5"
         # disconnectedとか。
         # 無視?
-        @firing_queue.push ev
+        r1 = @firing_queue.push ev
+        logger :debug, "#{self.class.name}#gencb 0.6"
+        r1
       end
+      logger :debug, "#{self.class.name}#gencb 0.7"
+      r2
     end
+    logger :debug, "#{self.class.name}#gencb 1"
+    @gencb
   end
 
   def trigger_firing_thread
@@ -1077,6 +1090,7 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   end
 
   def publish_failed ev, ex
+    logger :debug, "#{self.class.name}#publish_failed 0"
     if resendable_p ev
       idx = EM.add_timer ev.opts[:retry_interval] do
         synchronize do
@@ -1104,6 +1118,7 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   end
 
   def published ev
+    logger :debug, "#{self.class.name}#published 0"
     case @state
     when :unsupported then
       # ackなし、next_tickをもって送信終了と見なす
