@@ -8,10 +8,10 @@ require'eventmachine'
 describe "tengine_event", manual: true do
 
   before do
-    system(File.expand_path("../../../../bin/tengine_event_sucks", __FILE__))
+    system(File.expand_path("../../bin/tengine_event_sucks", __FILE__))
   end
 
-  let(:logger){ Logger.new(File.expand_path("../../../../tmp/log/actual_spec.log", __FILE__)) }
+  let(:logger){ Logger.new(File.expand_path("../../tmp/log/actual_spec.log", __FILE__)) }
 
   before{ logger.info("-" * 100) }
   after(:all){ logger.info("=" * 100) }
