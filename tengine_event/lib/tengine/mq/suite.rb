@@ -314,18 +314,28 @@ class Tengine::Mq::Suite
   # @option opts          [Numeric] :retry_interval   Seconds to wait before attempting to retransmit a message after failure.
   # @option opts          [Numeric] :retry_count      Max count of retry attempts.
   def fire sender, event, opts, block
+    logger :debug, "#{self.class.name}#fire 0"
     cfg = @config[:sender].merge opts.compact
     e = PendingEvent.new 0, sender, event, cfg, 0, block
+    logger :debug, "#{self.class.name}#fire 1"
     synchronize do
+      logger :debug, "#{self.class.name}#fire 1.0"
       @pending_events[e] = true
+      logger :debug, "#{self.class.name}#fire 1.1 @state: #{@state.inspect}"
       case @state when :disconnected
+        logger :debug, "#{self.class.name}#fire 1.2"
         # wait for next connection
         @retrying_events[e] = [nil, Time.at(0)]
       else
+        logger :debug, "#{self.class.name}#fire 1.3"
         @firing_queue.push e # serialize
+        logger :debug, "#{self.class.name}#fire 1.4 @firing_queue.size: #{@firing_queue.size}"
         trigger_firing_thread if @firing_queue.size <= 1 # first kick
+        logger :debug, "#{self.class.name}#fire 1.5"
       end
+      logger :debug, "#{self.class.name}#fire 1.6"
     end
+    logger :debug, "#{self.class.name}#fire 2"
   end
 
   # stops the suite.
@@ -1015,15 +1025,27 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   end
 
   def trigger_firing_thread
+    logger :debug, "#{self.class.name}#trigger_firing_thread 0"
     # inside mutex
     # event already pushed
-    ensures_handshake do
-      ensures :exchange do
-        synchronize do
-          @firing_queue.pop(&gencb)
+    r1 = ensures_handshake do
+      logger :debug, "#{self.class.name}#trigger_firing_thread 0.0"
+      r2 = ensures :exchange do
+        logger :debug, "#{self.class.name}#trigger_firing_thread 0.0.0"
+        r3 = synchronize do
+          logger :debug, "#{self.class.name}#trigger_firing_thread 0.0.0.0"
+          r4 = @firing_queue.pop(&gencb)
+          logger :debug, "#{self.class.name}#trigger_firing_thread 0.0.0.1"
+          r4
         end
+        logger :debug, "#{self.class.name}#trigger_firing_thread 0.0.1"
+        r3
       end
+      logger :debug, "#{self.class.name}#trigger_firing_thread 0.1"
+      r2
     end
+    logger :debug, "#{self.class.name}#trigger_firing_thread 1"
+    r1
   end
 
   def fire_internal ev
