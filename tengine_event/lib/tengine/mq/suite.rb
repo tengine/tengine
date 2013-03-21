@@ -268,12 +268,22 @@ class Tengine::Mq::Suite
   #                                           beware.
   def subscribe cfg = Hash.new
     raise ArgumentError, "no block given" unless block_given?
-    ensures :queue do |q|
+    logger :debug, "#{self.class.name}#subscribe 0"
+    r1 = ensures :queue do |q|
+      logger :debug, "#{self.class.name}#subscribe 0.0"
       opts = @config[:queue][:subscribe].merge cfg.compact
-      q.subscribe opts do |h, b|
-        yield h, b
+      logger :debug, "#{self.class.name}#subscribe 0.1"
+      r2 = q.subscribe opts do |h, b|
+        logger :debug, "#{self.class.name}#subscribe 0.1.0"
+        r3 = yield h, b
+        logger :debug, "#{self.class.name}#subscribe 0.1.1"
+        r3
       end
+      logger :debug, "#{self.class.name}#subscribe 0.2"
+      r2
     end
+    logger :debug, "#{self.class.name}#subscribe 1"
+    r1
   end
 
   # @yield                                  [cok]          Given  block is  called  after  it had  successfully  ubsubscribed from  the
@@ -1049,8 +1059,10 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   end
 
   def fire_internal ev
+    logger :debug, "#{self.class.name}#fire_internal 0"
     publish ev
   rescue Exception => ex
+    logger :warn, "#{self.class.name}#fire_internal [#{ex.class}] #{e.message}"
     # exchange.publish はたとえば RuntimeError を raise したりするようだ
     publish_failed ev, ex
   else
@@ -1058,7 +1070,10 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   end
 
   def publish ev
-    @exchange.publish ev.event.to_json, @config[:exchange][:publish]
+    logger :debug, "#{self.class.name}#publish 0"
+    r = @exchange.publish ev.event.to_json, @config[:exchange][:publish]
+    logger :debug, "#{self.class.name}#publish 1"
+    r
   end
 
   def publish_failed ev, ex

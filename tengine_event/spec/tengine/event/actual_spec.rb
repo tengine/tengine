@@ -11,13 +11,18 @@ describe "tengine_event", manual: true do
     system(File.expand_path("../../../../bin/tengine_event_sucks", __FILE__))
   end
 
+  let(:logger){ Logger.new(File.expand_path("../../../../tmp/log/actual_spec.log", __FILE__)) }
+
+  before{ logger.info("-" * 100) }
+  after(:all){ logger.info("=" * 100) }
+
   context "publisher and subscriber are in same process" do
-    let(:logger){ Logger.new(File.expand_path("../../../../tmp/log/actual_spec.log", __FILE__)) }
     let(:buffer){ [] }
     let(:suite ){ Tengine::Mq::Suite.new }
     let(:sender  ){ Tengine::Event::Sender.new(logger: logger) }
 
     before do
+      logger.info("=" * 100)
       Tengine.logger = logger
       EM.run do
         suite.subscribe do |header, payload|
@@ -44,6 +49,7 @@ describe "tengine_event", manual: true do
     let(:suite ){ Tengine::Mq::Suite.new }
 
     before do
+      Tengine.logger = logger
       EM.run do
         EM.next_tick do
           puts "now waiting 2 events in #{timeout} seconds."
