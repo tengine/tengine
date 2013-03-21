@@ -11,5 +11,8 @@ SimpleCov.start if ENV["COVERAGE"]
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |config|
-  
+
+  unless ENV['MANUAL'] == 'true'
+    config.filter_run_excluding manual: true
+  end
 end
