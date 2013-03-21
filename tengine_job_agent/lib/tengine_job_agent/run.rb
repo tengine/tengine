@@ -59,6 +59,7 @@ class TengineJobAgent::Run
     @logger.info("spawning watchdog: #{@pid_path}")
     pid = Process.spawn(RbConfig.ruby, watchdog, @pid_path, *args)
     @logger.info("spawned watchdog: #{pid}")
+    @logger.debug("spawned watchdog:" << `ps aux | grep tengine_job_agent_watchdog | grep -v grep`)
     return pid
   end
 

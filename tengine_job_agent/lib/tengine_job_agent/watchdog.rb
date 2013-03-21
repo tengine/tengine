@@ -20,23 +20,36 @@ class TengineJobAgent::Watchdog
 
   def process
     pid, process_status = nil, nil
+    @logger.debug("#{__FILE__}##{__LINE__} before with_tmp_outs")
     with_tmp_outs do |stdout, stderr|
+      @logger.debug("#{__FILE__}##{__LINE__} before EM.run")
       EM.run do
+        @logger.debug("#{__FILE__}##{__LINE__} before sender.mq_suite.send :ensures, :connection")
         sender.mq_suite.send :ensures, :connection do
+          @logger.debug("#{__FILE__}##{__LINE__} before sender.wait_for_connection")
           sender.wait_for_connection do
             begin
+              @logger.debug("#{__FILE__}##{__LINE__} before spawn_process")
               pid = spawn_process
+              @logger.debug("#{__FILE__}##{__LINE__} before output pid")
               File.open(@pid_path, "a"){|f| f.puts(pid)} # 起動したPIDを呼び出し元に返す
+              @logger.debug("#{__FILE__}##{__LINE__} before wait_process")
               detach_and_wait_process(pid)
+              @logger.debug("#{__FILE__}##{__LINE__} after  wait_process")
             rescue Exception => e
-              File.open(@pid_path, "a"){|f| f.puts("[#{e.class.name}] #{e.message}")}
               @logger.error("[#{e.class.name}] #{e.message}")
+              File.open(@pid_path, "a"){|f| f.puts("[#{e.class.name}] #{e.message}")}
               EM.stop
             end
+            @logger.debug("#{__FILE__}##{__LINE__}")
           end
+          @logger.debug("#{__FILE__}##{__LINE__} after  sender.wait_for_connection")
         end
+        @logger.debug("#{__FILE__}##{__LINE__} after  sender.mq_suite.send :ensures, :connection")
       end
+      @logger.debug("#{__FILE__}##{__LINE__} after  EM.run")
     end
+    @logger.debug("#{__FILE__}##{__LINE__} after  with_tmp_outs")
   end
 
   def spawn_process
