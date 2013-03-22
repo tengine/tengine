@@ -27,7 +27,7 @@ describe "tengine_event" do
   shared_examples_for "publisher and subscriber are in same process" do |block|
     let(:buffer){ [] }
     let(:suite ){ Tengine::Mq::Suite.new }
-    let(:sender  ){ Tengine::Event::Sender.new(logger: logger) }
+    let(:sender  ){ Tengine::Event::Sender.new(logger: logger, sender: { keep_connection: true}) }
 
     before do
       logger.info("=" * 100)

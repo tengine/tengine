@@ -12,7 +12,7 @@ require 'tengine/event'
 logger = Logger.new(File.expand_path("tmp/log/actual_publisher1.log", base_dir))
 Tengine.logger = logger
 
-sender = Tengine::Event::Sender.new(logger: logger)
+sender = Tengine::Event::Sender.new(logger: logger, sender: {keep_connection: true} )
 
 nest = ARGV.any?{|arg| arg =~ /^nest/ }
 
