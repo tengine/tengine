@@ -31,8 +31,8 @@ module TengineJobAgent::CommandUtils
   DEFAULT_CONFIG = {
     'timeout' => 1,
     # 'logfile' => "log/#{File.basename($PROGRAM_NAME)}-#{`hostname`.strip}-#{Process.pid}.log",
-    # 'logfile' => "#{File.basename($PROGRAM_NAME)}.log",
-    'logfile' => "tengine_job_agent.log",
+    'logfile' => "#{File.basename($PROGRAM_NAME)}.log",
+    # 'logfile' => "tengine_job_agent.log",
     'connection' => {
       'host' => ENV['TENGINE_MQ_HOST'] || 'localhost',
       'port' => (ENV['TENGINE_MQ_PORT'] || 5672).to_i,
@@ -44,6 +44,9 @@ module TengineJobAgent::CommandUtils
       'name' => 'tengine_event_exchange',
       'type' => 'direct',
       'durable' => true,
+    },
+    'sender' => {
+        'keep_connection' => true,
     },
     'heartbeat' => {
       'job' => {

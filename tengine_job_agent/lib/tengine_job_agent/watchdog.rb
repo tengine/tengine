@@ -27,25 +27,21 @@ class TengineJobAgent::Watchdog
       EM.run do
         @logger.debug("#{__FILE__}##{__LINE__} before sender.mq_suite.send :ensures, :connection")
         sender.mq_suite.send :ensures, :connection do
-          @logger.debug("#{__FILE__}##{__LINE__} before sender.wait_for_connection")
-          sender.wait_for_connection do
             @logger.debug("before spawn_process")
             begin
               @logger.debug("#{__FILE__}##{__LINE__} before spawn_process")
               pid = spawn_process
               @logger.debug("#{__FILE__}##{__LINE__} before output pid")
               File.open(@pid_path, "a"){|f| f.puts(pid)} # 起動したPIDを呼び出し元に返す
-              @logger.debug("#{__FILE__}##{__LINE__} before wait_process")
-              wait_process(pid)
-              @logger.debug("#{__FILE__}##{__LINE__} after  wait_process")
+              @logger.debug("#{__FILE__}##{__LINE__} before start_wait_process")
+              start_wait_process(pid)
+              @logger.debug("#{__FILE__}##{__LINE__} after  start_wait_process")
             rescue Exception => e
               @logger.error("[#{e.class.name}] #{e.message}")
               File.open(@pid_path, "a"){|f| f.puts("[#{e.class.name}] #{e.message}")}
               EM.stop
             end
             @logger.debug("#{__FILE__}##{__LINE__}")
-          end
-          @logger.debug("#{__FILE__}##{__LINE__} after  sender.wait_for_connection")
         end
         @logger.debug("#{__FILE__}##{__LINE__} after  sender.mq_suite.send :ensures, :connection")
       end
@@ -69,8 +65,8 @@ class TengineJobAgent::Watchdog
     raise
   end
 
-  def wait_process(pid)
-    @logger.info("wait_process(#{pid}) begin")
+  def start_wait_process(pid)
+    @logger.info("start_wait_process(#{pid}) begin")
     fire_heartbeat pid do
       @logger.info("begin block for fire_heartbeat(pid)")
       timer = nil
@@ -101,7 +97,7 @@ class TengineJobAgent::Watchdog
 
       @logger.info("after EM.defer ...")
     end
-    @logger.info("wait_process(#{pid}) end")
+    @logger.info("start_wait_process(#{pid}) end")
   end
 
   def fire_finished(pid, process_status)
