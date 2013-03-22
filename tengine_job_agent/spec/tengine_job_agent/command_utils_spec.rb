@@ -63,14 +63,16 @@ describe TengineJobAgent::CommandUtils do
 
       it "logfileを指定する場合" do
         Dir.mktmpdir do |nam|
-          Logger.should_receive(:new).with("foo/bar/baz.log")
+          logger = TengineJobAgent::CommandUtils::TitledLogger.new("test", "filepath.log")
+          TengineJobAgent::CommandUtils::TitledLogger.should_receive(:new).with(File.basename($PROGRAM_NAME), "foo/bar/baz.log").and_return(logger)
           subject.new_logger('logfile' => "foo/bar/baz.log")
         end
       end
 
       it "logfileもlog_dirも指定する場合" do
         Dir.mktmpdir do |nam|
-          Logger.should_receive(:new).with(/\/foobar-\d+?.log$/)
+          logger = TengineJobAgent::CommandUtils::TitledLogger.new("test", "filepath.log")
+          TengineJobAgent::CommandUtils::TitledLogger.should_receive(:new).with(File.basename($PROGRAM_NAME), /\/foobar-\d+?.log$/).and_return(logger)
           subject.new_logger({})
         end
       end
