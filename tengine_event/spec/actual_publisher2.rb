@@ -82,7 +82,9 @@ EM.run do
         if nest
           xchg.publish({"event_type_name" => "foo"}.to_json) do
             logger.debug("#{__FILE__}##{__LINE__}")
-            xchg.publish({"event_type_name" => "bar"}.to_json)
+            xchg.publish({"event_type_name" => "bar"}.to_json) do
+              conn.close{ EM.stop{ exit } }
+            end
             logger.debug("#{__FILE__}##{__LINE__}")
           end
         else
@@ -94,7 +96,9 @@ EM.run do
 
           # sleep 0.1
 
-          xchg.publish({"event_type_name" => "bar"}.to_json)
+          xchg.publish({"event_type_name" => "bar"}.to_json) do
+            conn.close{ EM.stop{ exit } }
+          end
           # xchg.publish({"event_type_name" => "bar"}.to_json) do
           #   logger.debug("#{__FILE__}##{__LINE__}")
           # end
