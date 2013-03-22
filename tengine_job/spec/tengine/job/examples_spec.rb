@@ -17,8 +17,11 @@ describe "job DSL examples" do
 
   example_dir = File.expand_path("../../../examples", File.dirname(__FILE__))
 
+  expections = %w[0027_parallel_ssh_job.rb]
+
   context "load and bind" do
     Dir.glob("#{example_dir}/*.rb") do |job_dsl_path|
+      next if expections.include?(File.basename(job_dsl_path))
       it "load #{job_dsl_path}" do
         Tengine::Core::Driver.delete_all
         Tengine::Core::HandlerPath.delete_all
