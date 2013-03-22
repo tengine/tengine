@@ -268,22 +268,12 @@ class Tengine::Mq::Suite
   #                                           beware.
   def subscribe cfg = Hash.new
     raise ArgumentError, "no block given" unless block_given?
-    logger :debug, "#{self.class.name}#subscribe 0"
-    r1 = ensures :queue do |q|
-      logger :debug, "#{self.class.name}#subscribe 0.0"
+    ensures :queue do |q|
       opts = @config[:queue][:subscribe].merge cfg.compact
-      logger :debug, "#{self.class.name}#subscribe 0.1"
-      r2 = q.subscribe opts do |h, b|
-        logger :debug, "#{self.class.name}#subscribe 0.1.0"
-        r3 = yield h, b
-        logger :debug, "#{self.class.name}#subscribe 0.1.1"
-        r3
+      q.subscribe opts do |h, b|
+        yield h, b
       end
-      logger :debug, "#{self.class.name}#subscribe 0.2"
-      r2
     end
-    logger :debug, "#{self.class.name}#subscribe 1"
-    r1
   end
 
   # @yield                                  [cok]          Given  block is  called  after  it had  successfully  ubsubscribed from  the
@@ -324,28 +314,18 @@ class Tengine::Mq::Suite
   # @option opts          [Numeric] :retry_interval   Seconds to wait before attempting to retransmit a message after failure.
   # @option opts          [Numeric] :retry_count      Max count of retry attempts.
   def fire sender, event, opts, block
-    logger :debug, "#{self.class.name}#fire 0"
     cfg = @config[:sender].merge opts.compact
     e = PendingEvent.new 0, sender, event, cfg, 0, block
-    logger :debug, "#{self.class.name}#fire 1"
     synchronize do
-      logger :debug, "#{self.class.name}#fire 1.0"
       @pending_events[e] = true
-      logger :debug, "#{self.class.name}#fire 1.1 @state: #{@state.inspect}"
       case @state when :disconnected
-        logger :debug, "#{self.class.name}#fire 1.2"
         # wait for next connection
         @retrying_events[e] = [nil, Time.at(0)]
       else
-        logger :debug, "#{self.class.name}#fire 1.3"
         @firing_queue.push e # serialize
-        logger :debug, "#{self.class.name}#fire 1.4 @firing_queue.size: #{@firing_queue.size}"
         trigger_firing_thread if @firing_queue.size <= 1 # first kick
-        logger :debug, "#{self.class.name}#fire 1.5"
       end
-      logger :debug, "#{self.class.name}#fire 1.6"
     end
-    logger :debug, "#{self.class.name}#fire 2"
   end
 
   # stops the suite.
@@ -1022,57 +1002,32 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   end
 
   def gencb
-    logger :debug, "#{self.class.name}#gencb 0"
     @gencb ||= lambda do |ev|
-      logger :debug, "#{self.class.name}#gencb 0.1"
-      r2 = case @state when :unsupported, :established
-        logger :debug, "#{self.class.name}#gencb 0.2"
+      case @state when :unsupported, :established
         fire_internal ev
-        logger :debug, "#{self.class.name}#gencb 0.3"
-        r1  = @firing_queue.pop(&gencb)
-        logger :debug, "#{self.class.name}#gencb 0.4"
-        r1
+        @firing_queue.pop(&gencb)
       else
-        logger :debug, "#{self.class.name}#gencb 0.5"
         # disconnectedとか。
         # 無視?
-        r1 = @firing_queue.push ev
-        logger :debug, "#{self.class.name}#gencb 0.6"
-        r1
+        @firing_queue.push ev
       end
-      logger :debug, "#{self.class.name}#gencb 0.7"
-      r2
     end
-    logger :debug, "#{self.class.name}#gencb 1"
     @gencb
   end
 
   def trigger_firing_thread
-    logger :debug, "#{self.class.name}#trigger_firing_thread 0"
     # inside mutex
     # event already pushed
-    r1 = ensures_handshake do
-      logger :debug, "#{self.class.name}#trigger_firing_thread 0.0"
-      r2 = ensures :exchange do
-        logger :debug, "#{self.class.name}#trigger_firing_thread 0.0.0"
-        r3 = synchronize do
-          logger :debug, "#{self.class.name}#trigger_firing_thread 0.0.0.0"
-          r4 = @firing_queue.pop(&gencb)
-          logger :debug, "#{self.class.name}#trigger_firing_thread 0.0.0.1"
-          r4
+    ensures_handshake do
+      ensures :exchange do
+        synchronize do
+          @firing_queue.pop(&gencb)
         end
-        logger :debug, "#{self.class.name}#trigger_firing_thread 0.0.1"
-        r3
       end
-      logger :debug, "#{self.class.name}#trigger_firing_thread 0.1"
-      r2
     end
-    logger :debug, "#{self.class.name}#trigger_firing_thread 1"
-    r1
   end
 
   def fire_internal ev
-    logger :debug, "#{self.class.name}#fire_internal 0"
     publish ev
   rescue Exception => ex
     logger :warn, "#{self.class.name}#fire_internal [#{ex.class}] #{ex.message}"
@@ -1083,14 +1038,10 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   end
 
   def publish ev
-    logger :debug, "#{self.class.name}#publish 0"
-    r = @exchange.publish ev.event.to_json, @config[:exchange][:publish]
-    logger :debug, "#{self.class.name}#publish 1"
-    r
+    @exchange.publish ev.event.to_json, @config[:exchange][:publish]
   end
 
   def publish_failed ev, ex
-    logger :debug, "#{self.class.name}#publish_failed 0"
     if resendable_p ev
       idx = EM.add_timer ev.opts[:retry_interval] do
         synchronize do
@@ -1118,7 +1069,6 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   end
 
   def published ev
-    logger :debug, "#{self.class.name}#published 0"
     case @state
     when :unsupported then
       # ackなし、next_tickをもって送信終了と見なす
