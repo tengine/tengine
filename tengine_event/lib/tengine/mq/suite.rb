@@ -1012,6 +1012,7 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
         @firing_queue.push ev
       end
     end
+    @gencb
   end
 
   def trigger_firing_thread
@@ -1029,6 +1030,7 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   def fire_internal ev
     publish ev
   rescue Exception => ex
+    logger :warn, "#{self.class.name}#fire_internal [#{ex.class}] #{ex.message}"
     # exchange.publish はたとえば RuntimeError を raise したりするようだ
     publish_failed ev, ex
   else

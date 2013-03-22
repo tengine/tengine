@@ -765,13 +765,12 @@ describe Tengine::Mq::Suite do
     end
   end
 
-  context "実際にMQに接続する試験" do
+  context "実際にMQに接続する試験", skip_travis: true, test_rabbitmq_required: true do
     next if RUBY_VERSION < "1.9.2"
-    next if ENV['TRAVIS'] == 'true'
 
     def launch
       TestRabbitmq.kill_remain_processes
-      @test_rabbitmq = TestRabbitmq.new.launch
+      @test_rabbitmq = TestRabbitmq.new(keep_port: true).launch
     end
 
     def relaunch

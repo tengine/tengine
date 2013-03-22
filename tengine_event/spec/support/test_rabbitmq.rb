@@ -90,6 +90,7 @@ class TestRabbitmq
   attr_accessor :port, :keep_port
   attr_accessor :base_dir, :nodename, :rabbitmq_server_path
   attr_accessor :max_attempts, :max_wait_limit, :wait_interval
+  attr_accessor :disabled
 
   DEFAULT_PORT = 5672
 
@@ -104,6 +105,7 @@ class TestRabbitmq
     @max_attempts = 10
     @max_wait_limit = 16
     @wait_interval = 0.5
+    @disabled = (ENV['TRAVIS'] == 'true') || (ENV['TEST_RABBITMQ_DISABLED'].to_s =~ /^true$|^on$/i)
     (options || {}).each{|key, value| send("#{key}=", value) }
   end
 
@@ -116,6 +118,7 @@ class TestRabbitmq
   end
 
   def launch
+    return self if disabled
     raise "Something wrong! launched process is still living." unless self.class.launched_pids.empty?
     ps_line = `ps aux`.split(/\n/).select{|line| line =~ /^#{ENV['USER']}\s+\d+\s+.+\-sname rspec/}
     raise "process is still remain\n#{ps_line}" unless ps_line.empty?

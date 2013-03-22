@@ -31,6 +31,7 @@ module TengineJobAgent::CommandUtils
   DEFAULT_CONFIG = {
     'timeout' => 1,
     # 'logfile' => "log/#{File.basename($PROGRAM_NAME)}-#{`hostname`.strip}-#{Process.pid}.log",
+    # 'logfile' => "#{File.basename($PROGRAM_NAME)}.log",
     'logfile' => "tengine_job_agent.log",
     'connection' => {
       'host' => ENV['TENGINE_MQ_HOST'] || 'localhost',
@@ -65,11 +66,19 @@ module TengineJobAgent::CommandUtils
       config = load_config
       logger = new_logger(config)
       Tengine.logger = logger
+      Kernel.at_exit do
+        logger.info("process is exiting now")
+      end
+
       begin
-        return new(logger, args, config).process
+        logger.info("#{self.name}#process starting")
+        new(logger, args, config).process
+        logger.info("#{self.name}#process finished successfully")
       rescue Exception => e
-        logger.error("error: [#{e.class.name}] #{e.message}\n  " << e.backtrace.join("\n"))
+        logger.error("#{self.name}#process error: [#{e.class.name}] #{e.message}\n  " << e.backtrace.join("\n"))
         return false
+      ensure
+        logger.info("#{self.name}#process finished at the end")
       end
     end
 

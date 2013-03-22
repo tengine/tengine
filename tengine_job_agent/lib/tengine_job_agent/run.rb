@@ -61,6 +61,7 @@ class TengineJobAgent::Run
     @logger.info("Process.spawn(*#{args.inspect})")
     pid = Process.spawn(*args)
     @logger.info("spawned watchdog: #{pid}")
+    @logger.debug("spawned watchdog:" << `ps aux | grep tengine_job_agent_watchdog | grep -v grep`)
     return pid
   end
 

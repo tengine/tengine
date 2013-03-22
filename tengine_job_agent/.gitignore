@@ -49,5 +49,5 @@ pkg
 
 .rvmrc
 
+pid_for_*
 *.log
-/pid_for_*

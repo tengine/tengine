@@ -48,4 +48,5 @@ coverage
 doc
 pkg
 rdoc
+pid_for_*
 *.log

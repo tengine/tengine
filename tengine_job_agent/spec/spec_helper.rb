@@ -15,5 +15,7 @@ base_dirs.each do |dir_path|
 end
 
 RSpec.configure do |config|
-  config.filter_run_excluding manual: true
+  unless ENV['MANUAL'] == 'true'
+    config.filter_run_excluding manual: true
+  end
 end
