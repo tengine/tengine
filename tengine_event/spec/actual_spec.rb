@@ -52,8 +52,9 @@ describe "tengine_event" do
   end
 
   # 環境によって失敗する割合が異なるので、多めに実行しています。 10%の環境もあれば50%の環境もあります。
-  (ENV['REPEAT'] || 20).times do |idx|
-    context "publisher is in another process ##{idx}" do
+  repeat = (ENV['REPEAT'] || 20).to_i
+  repeat.times do |idx|
+    context "publisher is in another process #{idx}/#{repeat}" do
       let(:timeout){ 10 }
       let(:buffer){ [] }
       let(:suite ){ Tengine::Mq::Suite.new }

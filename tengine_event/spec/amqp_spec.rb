@@ -26,14 +26,15 @@ describe "amqp" do
   after(:all){ logger.debug("=" * 100) }
 
   # 環境によって失敗する割合が異なるので、多めに実行しています。 10%の環境もあれば50%の環境もあります。
-  (ENV['REPEAT'] || 10).times do |idx|
+  repeat = (ENV['REPEAT'] || 10).to_i
+  repeat.times do |idx|
     [
       "actual_publisher1.rb",
       "actual_publisher2.rb",
       "actual_publisher2.rb nest",
     ].each do |publisher_command|
 
-      context "##{idx} publisher is in another process with #{publisher_command}" do
+      context "#{idx}/#{repeat} publisher is in another process with #{publisher_command}" do
         let(:timeout){ 10 }
         let(:buffer){ [] }
 
