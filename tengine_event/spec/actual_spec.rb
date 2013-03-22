@@ -4,8 +4,16 @@ require 'spec_helper'
 require 'logger'
 require'eventmachine'
 
-# このテストは手動でrabbirmq-serverを起動する必要があります。自動化はまた後で。
-describe "tengine_event", manual: true do
+describe "tengine_event" do
+
+  before(:all) do
+    TestRabbitmq.kill_remain_processes
+    @test_rabbitmq = TestRabbitmq.new(keep_port: true).launch
+  end
+
+  after(:all) do
+    TestRabbitmq.kill_launched_processes
+  end
 
   before do
     system(File.expand_path("../../bin/tengine_event_sucks", __FILE__))
@@ -43,7 +51,9 @@ describe "tengine_event", manual: true do
     end
   end
 
-  context "publisher is in another process" do
+  # 環境によって失敗する割合が異なるので、多めに実行しています。 10%の環境もあれば50%の環境もあります。
+  (ENV['REPEAT'] || 20).times do |idx|
+  context "publisher is in another process ##{idx}" do
     let(:timeout){ 10 }
     let(:buffer){ [] }
     let(:suite ){ Tengine::Mq::Suite.new }
@@ -51,15 +61,15 @@ describe "tengine_event", manual: true do
     before do
       Tengine.logger = logger
       EM.run do
-        EM.next_tick do
-          puts "now waiting 2 events in #{timeout} seconds."
-        end
+        # EM.next_tick do
+        #   puts "now waiting 2 events in #{timeout} seconds."
+        # end
         EM.add_timer(timeout) { suite.stop } # timeoutを設定
 
         suite.subscribe do |header, payload|
           header.ack
           hash = JSON.parse(payload)
-          puts hash.inspect
+          # puts hash.inspect
           buffer << hash["event_type_name"]
           suite.stop if buffer.length >= 2
         end
@@ -71,5 +81,6 @@ describe "tengine_event", manual: true do
     it "receives foo and bar" do
       buffer.should =~ %w[foo bar]
     end
+  end
   end
 end

@@ -6,8 +6,16 @@ require 'eventmachine'
 require 'amqp'
 require'json'
 
-# このテストは手動でrabbirmq-serverを起動する必要があります。自動化はまた後で。
-describe "amqp", manual: true do
+describe "amqp" do
+
+  before(:all) do
+    TestRabbitmq.kill_remain_processes
+    @test_rabbitmq = TestRabbitmq.new(keep_port: true).launch
+  end
+  after(:all) do
+    TestRabbitmq.kill_launched_processes
+  end
+
   let(:logger){ Logger.new(File.expand_path("../../tmp/log/amqp_spec.log", __FILE__)) }
 
   before do
@@ -17,13 +25,15 @@ describe "amqp", manual: true do
   before{ logger.debug("-" * 100) }
   after(:all){ logger.debug("=" * 100) }
 
+  # 環境によって失敗する割合が異なるので、多めに実行しています。 10%の環境もあれば50%の環境もあります。
+  (ENV['REPEAT'] || 10).times do |idx|
   [
     "actual_publisher1.rb",
     "actual_publisher2.rb",
     "actual_publisher2.rb nest",
   ].each do |publisher_command|
 
-    context "publisher is in another process with #{publisher_command}" do
+    context "##{idx} publisher is in another process with #{publisher_command}" do
       let(:timeout){ 10 }
       let(:buffer){ [] }
 
@@ -79,9 +89,9 @@ describe "amqp", manual: true do
 
       before do
         EM.run do
-          EM.next_tick do
-            puts "now waiting 2 events in #{timeout} seconds."
-          end
+          # EM.next_tick do
+          #   puts "now waiting 2 events in #{timeout} seconds."
+          # end
           EM.add_timer(timeout) { EM.stop } # timeoutを設定
 
           AMQP.connect(config[:connection]) do |conn|
@@ -102,7 +112,7 @@ describe "amqp", manual: true do
                     opts = config[:queue][:subscribe]
                     que.subscribe opts do |h, b|
                       h.ack
-                      puts b
+                      # puts b
                       hash = JSON.parse(b)
                       buffer << hash["event_type_name"]
                       EM.stop if buffer.length > 1
@@ -125,6 +135,7 @@ describe "amqp", manual: true do
         buffer.should == %w[foo bar]
       end
     end
+  end
   end
 
 end
