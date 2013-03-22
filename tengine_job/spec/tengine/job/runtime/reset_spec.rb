@@ -666,8 +666,10 @@ describe "reset" do
 
           j41.phase_key = :ready
           @root.save_descendants!
-          @root.update_with_lock{ j41.activate(signal2) }
-          signal2.process_callbacks
+          timeout(30) do
+            @root.update_with_lock{ j41.activate(signal2) }
+            signal2.process_callbacks
+          end
 
           @root.reload
           @root.element('/jn0005/jn4').phase_key.should == :running
@@ -684,8 +686,10 @@ describe "reset" do
           jn4_f = @root.element('/jn0005/jn4/finally/jn4_f')
           jn4_f.phase_key = :ready
           @root.save_descendants!
-          @root.update_with_lock{ jn4_f.activate(signal2) }
-          signal2.process_callbacks
+          timeout(30) do
+            @root.update_with_lock{ jn4_f.activate(signal2) }
+            signal2.process_callbacks
+          end
 
           @root.reload
           @root.element('/jn0005/jn4/finally').phase_key.should == :running
@@ -702,8 +706,10 @@ describe "reset" do
           jn0005_fif = @root.element('/jn0005/finally/jn0005_fjn/finally/jn0005_fif')
           jn0005_fif.phase_key = :ready
           @root.save_descendants!
-          @root.update_with_lock{ jn0005_fif.activate(signal2) }
-          signal2.process_callbacks
+          timeout(30) do
+            @root.update_with_lock{ jn0005_fif.activate(signal2) }
+            signal2.process_callbacks
+          end
 
           @root.reload
           @root.element('/jn0005/finally/jn0005_fjn/finally').phase_key.should == :running

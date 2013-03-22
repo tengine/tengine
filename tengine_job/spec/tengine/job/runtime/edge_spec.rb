@@ -272,8 +272,10 @@ describe Tengine::Job::Runtime::Edge do
         @execution.stub(:signal=).with(@signal)
         @execution.stub(:signal).and_return(@signal)
         @signal.stub!(:execution).and_return(@execution)
-        @ctx.vertex(:j2).activate(@signal)
-        @signal.process_callbacks
+        timeout(30) do
+          @ctx.vertex(:j2).activate(@signal)
+          @signal.process_callbacks
+        end
       end
     end
   end
