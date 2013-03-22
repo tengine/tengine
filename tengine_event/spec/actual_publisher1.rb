@@ -14,20 +14,41 @@ Tengine.logger = logger
 
 sender = Tengine::Event::Sender.new(logger: logger)
 
+nest = ARGV.any?{|arg| arg =~ /^nest/ }
+
 logger.debug("#{__FILE__}##{__LINE__}")
 EM.run do
+
+  if nest
+
   logger.debug("#{__FILE__}##{__LINE__}")
   sender.fire("foo") do
     logger.debug("#{__FILE__}##{__LINE__}")
     sender.fire("bar") do
       logger.debug("#{__FILE__}##{__LINE__}")
-      sender.fire("baz")
+      sender.fire("baz") do
+        logger.debug("#{__FILE__}##{__LINE__}")
+        sender.stop
+        logger.debug("#{__FILE__}##{__LINE__}")
+      end
       logger.debug("#{__FILE__}##{__LINE__}")
     end
     logger.debug("#{__FILE__}##{__LINE__}")
-    sender.stop
-    logger.debug("#{__FILE__}##{__LINE__}")
   end
   logger.debug("#{__FILE__}##{__LINE__}")
+
+  else
+
+    logger.debug("#{__FILE__}##{__LINE__}")
+    sender.fire("foo")
+    logger.debug("#{__FILE__}##{__LINE__}")
+    sender.fire("bar")
+    logger.debug("#{__FILE__}##{__LINE__}")
+    sender.fire("baz")
+    logger.debug("#{__FILE__}##{__LINE__}")
+    sender.stop
+    logger.debug("#{__FILE__}##{__LINE__}")
+
+  end
 end
 logger.debug("#{__FILE__}##{__LINE__}")

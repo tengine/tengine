@@ -39,6 +39,7 @@ describe "tengine_event" do
           buffer << hash["event_type_name"]
         end
         block.call(sender)
+        EM.add_timer(10){ suite.stop }
       end
     end
 
@@ -52,7 +53,6 @@ describe "tengine_event" do
       sender.fire("foo")
       sender.fire("bar")
       sender.fire("baz")
-      sender.stop
     }
   end
 
@@ -60,9 +60,7 @@ describe "tengine_event" do
     it_should_behave_like "publisher and subscriber are in same process", ->(sender){
       sender.fire("foo") do
         sender.fire("bar") do
-          sender.fire("baz") do
-            sender.stop
-          end
+          sender.fire("baz")
         end
       end
     }
@@ -90,7 +88,7 @@ describe "tengine_event" do
             hash = JSON.parse(payload)
             # puts hash.inspect
             buffer << hash["event_type_name"]
-            suite.stop if buffer.length >= 2
+            suite.stop if buffer.length >= 3
           end
           cmd = File.expand_path("../actual_publisher1.rb", __FILE__)
           system(cmd)

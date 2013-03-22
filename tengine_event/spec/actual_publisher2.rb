@@ -12,7 +12,7 @@ base_dir = File.expand_path('..', __DIR__)
 logger = Logger.new(File.expand_path("tmp/log/actual_publisher2.log", base_dir))
 
 
-nest = ARGV.any?{|arg| arg == "nest" }
+nest = ARGV.any?{|arg| arg =~ /^nest/ }
 
 
 logger.debug("#{__FILE__}##{__LINE__}")

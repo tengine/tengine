@@ -26,7 +26,8 @@ describe "amqp" do
   after(:all){ logger.debug("=" * 100) }
 
   [
-    "actual_publisher1.rb",
+    "actual_publisher1.rb sequential",
+    "actual_publisher1.rb nested",
     "actual_publisher2.rb sequential",
     "actual_publisher2.rb nested",
   ].each do |publisher_command|
@@ -117,7 +118,7 @@ describe "amqp" do
                         # puts b
                         hash = JSON.parse(b)
                         buffer << hash["event_type_name"]
-                        conn.close{ EM.stop } if buffer.length > 1
+                        conn.close{ EM.stop } if buffer.length >= 3
                       end
 
                     end
