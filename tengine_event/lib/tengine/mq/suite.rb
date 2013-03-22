@@ -1075,7 +1075,7 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
     logger :debug, "#{self.class.name}#fire_internal 0"
     publish ev
   rescue Exception => ex
-    logger :warn, "#{self.class.name}#fire_internal [#{ex.class}] #{e.message}"
+    logger :warn, "#{self.class.name}#fire_internal [#{ex.class}] #{ex.message}"
     # exchange.publish はたとえば RuntimeError を raise したりするようだ
     publish_failed ev, ex
   else
