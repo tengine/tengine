@@ -10,7 +10,7 @@ services:
 rvm:
 #  - 1.9.2
   - 1.9.3
-  - 2.0.0
+#   - 2.0.0
 #  - ruby-head
 #  - jruby-19mode
 env:
@@ -24,7 +24,6 @@ env:
   - "GEM=tengine_job_agent"
   - "GEM=tengine_ui"
 gemfile:
-#  - gemfiles/Gemfile.activesupport-3.0.10
   - gemfiles/Gemfile.activesupport-3.1
   - gemfiles/Gemfile.activesupport-3.2
 matrix:
@@ -33,23 +32,6 @@ matrix:
    # 3.0.xは tengine_event, tengine_job_agentのみ
    # tengine_supportはテスト環境で activemodel ~> 3.1 という依存があるのでひとまず除外。
 %>
-<% ['1.9.2', '1.9.3'].each do |ruuby_version| %>#
-    - rvm: <%= ruuby_version %>
-      gemfile: gemfiles/Gemfile.activesupport-3.0
-      env: "GEM=tengine_support"
-    - rvm: <%= ruuby_version %>
-      gemfile: gemfiles/Gemfile.activesupport-3.0
-      env: "GEM=tengine_core"
-    - rvm: <%= ruuby_version %>
-      gemfile: gemfiles/Gemfile.activesupport-3.0
-      env: "GEM=tengine_resource"
-    - rvm: <%= ruuby_version %>
-      gemfile: gemfiles/Gemfile.activesupport-3.0
-      env: "GEM=tengine_job"
-    - rvm: <%= ruuby_version %>
-      gemfile: gemfiles/Gemfile.activesupport-3.0
-      env: "GEM=tengine_ui"
-<% end %>
 # branches:
 #   only:
 #     - 20120516_travis_ci
