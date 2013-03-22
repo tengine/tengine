@@ -163,6 +163,8 @@ class TengineJobAgent::Watchdog
   def sender
     unless @sender
       sender_config = {logger: @logger}.update(@config || {})
+      c = sender_config["sender"] ||= {}
+      c["keep_connection"] = true
       @logger.info("config for sender: #{sender_config.inspect}")
       @sender = Tengine::Event::Sender.new(sender_config)
     end
