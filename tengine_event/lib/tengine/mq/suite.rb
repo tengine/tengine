@@ -289,7 +289,10 @@ class Tengine::Mq::Suite
     # べつに何も難しいことがしたいわけではなくて最終的にp0を呼べばいいんだけど、EMがいるかいないか、@connectionがいるかいないかの条件分
     # けで無駄に長いメソッドになっている。
 
+    logger :debug, "#{self.class.name}#stop " << ("#" * 30)
+
     p0 = lambda do
+      logger :debug, "#{self.class.name}#stop p0"
       EM.cancel_timer @reconnection_timer if ivar? :reconnection_timer
       @retrying_events.each_value do |(idx, *)|
         EM.cancel_timer idx if idx
@@ -298,6 +301,7 @@ class Tengine::Mq::Suite
       stop_firing_queue
 
       @state = :uninitialized # この後またEM.run{ .. }されるかも
+      logger :debug, "#{self.class.name}#stop #{__LINE__} @state: #{@state.inspect}"
       @setting_up.clear
       @firing_queue = EM::Queue.new
       @connection = nil
@@ -316,6 +320,7 @@ class Tengine::Mq::Suite
     end
 
     p1 = lambda do
+      logger :debug, "#{self.class.name}#stop p1"
       if ivar? :connection
         @connection.disconnect do
           synchronize do
@@ -328,6 +333,7 @@ class Tengine::Mq::Suite
     end
 
     p2 = lambda do
+      logger :debug, "#{self.class.name}#stop p2"
       if ivar? :channel
         @channel.close do
           synchronize do
@@ -340,6 +346,7 @@ class Tengine::Mq::Suite
     end
 
     p3 = lambda do
+      logger :debug, "#{self.class.name}#stop p3"
       if ivar? :queue and @queue.default_consumer
         @queue.unsubscribe :nowait => false do
           synchronize do
@@ -352,6 +359,7 @@ class Tengine::Mq::Suite
     end
 
     p4 = lambda do
+      logger :debug, "#{self.class.name}#stop p4"
       synchronize do
         logger :info, "finishing up, now sending remaining events."
         until @pending_events.empty?
@@ -363,6 +371,7 @@ class Tengine::Mq::Suite
     end
 
     p5 = lambda do |a|
+      logger :debug, "#{self.class.name}#stop p5"
       synchronize do
         p3.call
       end
@@ -462,7 +471,7 @@ class Tengine::Mq::Suite
     begin
       logger :debug, "GETTING LOCK mutex" << ('?' * 50)
       @mutex.lock
-      logger :info , "GET     LOCK mutex" << ('!' * 50)
+      logger :info , "GOT     LOCK mutex" << ('!' * 50)
     rescue ThreadError => e
       # A deadlock was detected, which means of course, we have the lock.
       bt = e.backtrace.join "\n\tfrom "
@@ -544,28 +553,40 @@ class Tengine::Mq::Suite
     end
   end
 
-  # @yields [obj] yields generated object
-  def ensures klass
-    logger :debug, "#ensures(#{klass.inspect})"
-    raise "eventmachine's reactor needed" unless EM.reactor_running?
-    # このメソッドはEM.deferでklassの初期化を待つ。EM.deferだから戻り値を使ってはいけない。引数のブロックは、klassが初期化されたことが確
-    # 認された後にcallされる。
-    p1 = lambda do
+  def ensures_waiting_block(klass)
+    logger :debug, "#{self.class.name}#ensures_waiting_block(#{klass.inspect}) #{__LINE__}"
+    lambda do
+      logger :debug, "#{self.class.name}#ensures_waiting_block(#{klass.inspect}) p1 #{__LINE__}"
       synchronize do
         unless ivar? klass
+          logger :debug, "#{@setting_up.inspect}"
           setups klass unless @setting_up[klass]
           until ivar? klass
             logger :debug, "@condvar.wait @mutex until ivar? klass " << ('?' * 50)
             @condvar.wait @mutex
             logger :debug, "@condvar.wait @mutex done              " << ('!' * 50)
           end
+          logger :debug, "#{self.class.name}#ensures_waiting_block(#{klass.inspect}) p1 #{__LINE__}"
         end
+        logger :debug, "#{self.class.name}#ensures_waiting_block(#{klass.inspect}) p1 #{__LINE__}"
       end
+      logger :debug, "#{self.class.name}#ensures_waiting_block(#{klass.inspect}) p1 #{__LINE__}"
     end
+  end
+
+  # @yields [obj] yields generated object
+  def ensures klass
+    logger :debug, "#ensures(#{klass.inspect}) " << ("#" * 30)
+    raise "eventmachine's reactor needed" unless EM.reactor_running?
+    # このメソッドはEM.deferでklassの初期化を待つ。EM.deferだから戻り値を使ってはいけない。引数のブロックは、klassが初期化されたことが確
+    # 認された後にcallされる。
+    p1 = ensures_waiting_block(klass)
     p2 = lambda do |a|
+      logger :debug, "#{self.class.name}#ensures(#{klass.inspect}) p2"
       obj = ivar? klass
       yield obj if block_given?
     end
+    logger :debug, "#{self.class.name}#ensures(#{klass.inspect}) #{__LINE__}"
     EM.defer p1, p2
   end
 
@@ -575,6 +596,7 @@ class Tengine::Mq::Suite
     AMQP.connect cfg do |conn|
       synchronize do
         @state = :connected
+        logger :debug, "#{self.class.name}#generate_connection #{__LINE__} @state: #{@state.inspect}"
       end
       yield conn
     end
@@ -702,9 +724,10 @@ class Tengine::Mq::Suite
 
   #######
 
-  def ensures_handshake
+  def ensures_handshake(*extra_waitings)
     raise ArgumentError, "no block given" unless block_given?
     raise "eventmachine's reactor needed" unless EM.reactor_running?
+    logger :debug, "#{self.class.name}##ensures_handshake @state: #{@state.inspect} " << ("#" * 30)
     case @state when :established, :unsupported
       EM.next_tick do yield end
     else
@@ -714,21 +737,32 @@ class Tengine::Mq::Suite
       logger :info, "waiting for MQ to be set up (now %s)...", @state
 
       d4 = lambda do |a|
+        logger :debug, "#{self.class.name}#ensures_handshake d4"
              yield
            end
       d3 = lambda do
+        logger :debug, "#{self.class.name}#ensures_handshake d3"
              synchronize do
                unless ensures_handshake_internal
                  setups_handshake unless @setting_up[:handshake]
-                 # @condvar.wait @mutex until ensures_handshake_internal
-                 @mutex.sleep 0.1 until ensures_handshake_internal
+                 until ensures_handshake_internal
+                   logger :debug, "@mutex.sleep 0.1 until ensures_handshake_internal " << ('?' * 50)
+                   # @condvar.wait @mutex
+                   @mutex.sleep 0.1
+                   logger :debug, "@mutex.sleep 0.1 done                             " << ('!' * 50)
+                 end
                end
              end
+             extra_waitings.each(&:call)
            end
-      d2 = lambda do |a|
-             EM.defer d3, d4
-           end
+
+      # d2 = lambda do |a|
+      #   logger :debug, "#{self.class.name}#ensures_handshake d2"
+      #        EM.defer d3, d4
+      #      end
+
       d1 = lambda do
+        logger :debug, "#{self.class.name}#ensures_handshake d1"
              synchronize do
                ensures :channel
                until ivar? :channel
@@ -737,15 +771,19 @@ class Tengine::Mq::Suite
                  logger :debug, "@condvar.wait @mutex done                " << ('!' * 50)
                end
              end
+        d3.call
            end
       d0 = lambda do
-             EM.defer d1, d2
+        logger :debug, "#{self.class.name}#ensures_handshake d0"
+#             EM.defer d1, d2
+             EM.defer d1, d4
            end
       d0.call
     end
   end
 
   def ensures_handshake_internal
+    logger :debug, "#{self.class.name}#ensures_handshake_internal @state: #{@state.inspect}"
     case @state when :established, :unsupported
       true
     else
@@ -764,22 +802,31 @@ class Tengine::Mq::Suite
     # :established   --- proper handshake was made
     # :unsupported   --- peer rejected handshake, but the connection itself is OK.
     cap = @connection.server_capabilities
+
+    logger :debug, "#{self.class.name}#setups_handshake cap: #{cap.inspect}"
+
     if cap and cap["publisher_confirms"] then
       @state = :handshaking
+      logger :debug, "#{self.class.name}#setups_handshake #{__LINE__} @state: #{@state.inspect}"
       @channel.confirm_select do
         # this is in next EM loop...
+        logger :debug, "#{self.class.name}#setups_handshake #{__LINE__}"
         synchronize do
+          logger :debug, "#{self.class.name}#setups_handshake #{__LINE__}"
           reinvoke_retry_timers unless @retrying_events.empty?
           @channel.on_ack do |ack|
             # this is in another EM loop...
-            consume_basic_ack ack 
+            consume_basic_ack ack
           end
-          @channel.on_nack do |ack|
+          logger :debug, "#{self.class.name}#setups_handshake #{__LINE__}"
+          @channel.on_nack do |nack|
             # this is in yet another EM loop...
-            consume_basic_nack ack 
+            consume_basic_nack nack
           end
+          logger :debug, "#{self.class.name}#setups_handshake #{__LINE__}"
           @tag = 0
           @state = :established
+          logger :debug, "#{self.class.name}#setups_handshake #{__LINE__} @state: #{@state.inspect}"
           @setting_up.delete :handshake
           logger :debug, "before @condvar.broadcast" << ('-' * 50)
           @condvar.broadcast
@@ -796,6 +843,7 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
 
       end
       @state = :unsupported
+      logger :debug, "#{self.class.name}#setups_handshake #{__LINE__} @state: #{@state.inspect}"
       @setting_up.delete :handshake
       logger :debug, "before @condvar.broadcast" << ('-' * 50)
       @condvar.broadcast
@@ -878,9 +926,11 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   #######
 
   def revoke_retry_timers
+    logger :debug, "#{self.class.name}#revoke_retry_timers"
     synchronize do
       if @state != :disconnected
         @state = :disconnected
+        logger :debug, "#{self.class.name}#revoke_retry_timers #{__LINE__} @state: #{@state.inspect}"
         @retrying_events.each_value do |(idx, *)|
           EM.cancel_timer idx if idx
         end
@@ -894,6 +944,7 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   end
 
   def reinvoke_retry_timers
+    logger :debug, "#{self.class.name}#reinvoke_retry_timers"
     synchronize do
       @retrying_events.each_pair.to_a.each_next_tick do |i, (j, k)|
         u = (k + (i.opts[:retry_interval] || 0)) - Time.now
@@ -972,6 +1023,7 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
     add_hook :'connection.after_recovery' do |conn|
       synchronize do
         @state = :connected
+        logger :debug, "#{self.class.name}#install_default_hooks #{__LINE__} @state: #{@state.inspect}"
       end
     end
   end
@@ -1003,12 +1055,10 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   def trigger_firing_thread
     # inside mutex
     # event already pushed
-    ensures_handshake do
-      ensures :exchange do
+    ensures_handshake(ensures_waiting_block(:exchange)) do
         synchronize do
           @firing_queue.pop(&gencb)
         end
-      end
     end
   end
 

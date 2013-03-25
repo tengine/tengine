@@ -3,6 +3,7 @@ require 'spec_helper'
 require 'timeout'
 require 'eventmachine'
 require 'json'
+require 'logger'
 
 describe "tengine_job_agent_run" do
 
@@ -29,9 +30,11 @@ describe "tengine_job_agent_run" do
     timeout(30) do
       fail($?) unless system(cmd)
 
+      Tengine.logger = Logger.new(STDOUT)
       EM.run do
         suite = Tengine::Mq::Suite.new
         suite.subscribe do |header, payload|
+          puts "payload: #{payload.inspect}"
           hash = JSON.parse(payload)
           event_type_name = hash["event_type_name"]
           puts "event_type_name: " << event_type_name.inspect

@@ -68,7 +68,7 @@ class TengineJobAgent::Watchdog
   def start_wait_process(pid)
     @logger.info("start_wait_process(#{pid}) begin")
     fire_heartbeat pid do
-      @logger.info("begin block for fire_heartbeat(pid)")
+      @logger.info("\e[31mbegin block for fire_heartbeat(#{pid})")
       timer = nil
       @logger.info("#{__FILE__}##{__LINE__}")
       int = @config["heartbeat"]["job"]["interval"]
@@ -80,7 +80,7 @@ class TengineJobAgent::Watchdog
         end
       end
 
-      @logger.info("before EM.defer ...")
+      @logger.info("\e[31mbefore EM.defer ...")
       EM.defer(
          lambda {
                  @logger.info("before Process.waitpid2 #{pid} ...")
