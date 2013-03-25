@@ -379,6 +379,8 @@ describe Tengine::Mq::Suite do
     end
 
     describe "#fire" do
+      let(:default_wait){ 5 } # TODO この値を自動的に取得する？
+
       subject { Tengine::Mq::Suite.new the_config }
       def sender; Tengine::Event::Sender.new subject end
       def expected_event; Tengine::Event.new(:event_type_name => :foo, :key => "uniq_key") end
@@ -479,7 +481,7 @@ describe Tengine::Mq::Suite do
             EM.run do
               sender.fire "foo", :keep_connection => false
               sleep 0.1
-              EM.add_timer(1) do
+              EM.add_timer(default_wait) do
                 block_called = true
                 subject.stop
               end
@@ -537,7 +539,10 @@ describe Tengine::Mq::Suite do
             end
             end
             t1 = Time.now
-            (t1 - t0).should be_within(1.0).of(2.0)
+            (t1 - t0).tap do |d|
+              d.should >= 1.0
+              d.should <= 1.0 + default_wait
+            end
           end
 
           it "ちょうどretry_count回めのリトライして成功の場合は例外にならない" do
