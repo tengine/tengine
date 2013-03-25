@@ -74,7 +74,7 @@ class TengineJobAgent::Watchdog
       int = @config["heartbeat"]["job"]["interval"]
       @logger.info("#{__FILE__}##{__LINE__}")
       if int and int > 0
-        @logger.info("before EM.add_periodic_timer")
+        @logger.info("before EM.add_periodic_timer(#{int.inspect})")
         timer = EM.add_periodic_timer int do
           fire_heartbeat pid do end # <- rspecを黙らせるための無駄なブロック
         end
