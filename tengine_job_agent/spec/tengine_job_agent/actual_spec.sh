@@ -3,4 +3,8 @@
 
 require 'time'
 
-`echo \"#{Time.now.iso8601(6)}\" >> $HOME/actual_spec.log`
+`echo \"START    #{Time.now.iso8601(6)}\" >> $HOME/actual_spec.log`
+
+sleep(10)
+
+`echo \"FINISHED #{Time.now.iso8601(6)}\" >> $HOME/actual_spec.log`
