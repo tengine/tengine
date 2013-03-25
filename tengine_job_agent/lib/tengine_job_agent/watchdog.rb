@@ -133,9 +133,10 @@ class TengineJobAgent::Watchdog
       :source_name => source_name(pid),
       :sender_name => sender_name,
       :properties => event_properties
-    })
-    @logger.info("fire_finished complete")
-    sender.stop
+    }) do
+      @logger.info("fire_finished complete")
+      sender.stop
+    end
   end
 
   def fire_heartbeat pid, &block
