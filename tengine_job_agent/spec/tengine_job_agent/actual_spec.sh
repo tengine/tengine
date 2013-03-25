@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
 
-# sleep(10)
+require 'time'
 
-env | sort
+`echo \"#{Time.now.iso8601(6)}\" >> $HOME/actual_spec.log`

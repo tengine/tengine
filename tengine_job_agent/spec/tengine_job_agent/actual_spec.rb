@@ -4,19 +4,16 @@ require 'timeout'
 require 'eventmachine'
 require 'json'
 
-describe "tengine_job_agent_run", manual: true do
+describe "tengine_job_agent_run" do
 
-  # ひとまず、手動でrabbitmq-server を起動してください。
-  # tengine_event_sucks も実行しておいてください。
+  before(:all) do
+    TestRabbitmq.kill_remain_processes
+    @test_rabbitmq = TestRabbitmq.new(keep_port: true).launch
+  end
 
-  # before(:all) do
-  #   TestRabbitmq.kill_remain_processes
-  #   @test_rabbitmq = TestRabbitmq.new(keep_port: true).launch
-  # end
-
-  # after(:all) do
-  #   TestRabbitmq.kill_launched_processes
-  # end
+  after(:all) do
+    TestRabbitmq.kill_launched_processes
+  end
 
   it "execute" do
     cmd = "export MM_SERVER_NAME=localhost MM_ROOT_JOBNET_ID=51483f6d5427dbd49c000001" +

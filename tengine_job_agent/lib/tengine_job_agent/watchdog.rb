@@ -7,6 +7,8 @@ require 'tengine_event'
 require 'eventmachine'
 require 'uuid'
 
+require 'tengine/support/method_traceable'
+
 class TengineJobAgent::Watchdog
   include TengineJobAgent::CommandUtils
 
@@ -68,10 +70,10 @@ class TengineJobAgent::Watchdog
   def start_wait_process(pid)
     @logger.info("start_wait_process(#{pid}) begin")
     fire_heartbeat pid do
-      @logger.info("begin block for fire_heartbeat(pid)")
+      @logger.info("begin block for fire_heartbeat(#{pid})")
       timer = nil
       @logger.info("#{__FILE__}##{__LINE__}")
-      int = @config["heartbeat"]["job"]["interval"]
+      int = @config["heartbeat"]["job"]["interval"] || 10
       @logger.info("#{__FILE__}##{__LINE__}")
       if int and int > 0
         @logger.info("before EM.add_periodic_timer")
@@ -130,7 +132,7 @@ class TengineJobAgent::Watchdog
       :level_key => level_key,
       :source_name => source_name(pid),
       :sender_name => sender_name,
-      :properties => event_properties,
+      :properties => event_properties
     })
     @logger.info("fire_finished complete")
     sender.stop
@@ -198,4 +200,6 @@ class TengineJobAgent::Watchdog
     end
   end
 
+  extend Tengine::Support::MethodTraceable
+  method_trace(self.instance_methods - Object.instance_methods)
 end

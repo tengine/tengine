@@ -85,7 +85,7 @@ module TengineJobAgent::CommandUtils
       end
     end
 
-    LOG_FORMAT = "[%s #%5d %5s] %5s %s\n".freeze
+    LOG_FORMAT = "\e[%dm[%s #%5d %5s] %5s %s\n\e[0m".freeze
 
     def thread_name(tid = Thread.current.object_id, name = nil)
       result = @thread_names[tid]
@@ -116,7 +116,12 @@ module TengineJobAgent::CommandUtils
       end
       result = TitledLogger.new(File.basename($PROGRAM_NAME), logfile)
       result.formatter = lambda do |severity, datetime, progname, message|
-        LOG_FORMAT % [datetime.iso8601(6), Process.pid, thread_name, severity, message]
+        tn = thread_name
+        margin = 3
+        no = (tn =~ /^\d+$/) ? tn.to_i : margin
+        # http://d.hatena.ne.jp/keyesberry/20101107/p1
+        color_no = 37 + margin - no
+        LOG_FORMAT % [color_no, datetime.iso8601(6), Process.pid, tn, severity, message]
       end
       result.level = Logger::DEBUG
       result
