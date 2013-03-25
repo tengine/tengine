@@ -7,7 +7,6 @@ require 'tengine/support/core_ext/hash/compact'
 require 'tengine/support/core_ext/hash/deep_dup'
 require 'tengine/support/core_ext/hash/keys'
 require 'tengine/support/core_ext/enumerable/each_next_tick'
-require 'tengine/support/core_ext/enumerable/deep_freeze'
 require 'tengine/support/core_ext/module/private_constant'
 require 'amqp'
 require 'amqp/extensions/rabbitmq'
@@ -52,6 +51,8 @@ class Tengine::Mq::Suite
     end
   end
   private_constant :ExceptionsContainer
+
+  autoload :DEFAULT_CONFIG, "tengine/mq/suite/default_config"
 
   # Some (not all) of the descriptions below are quoted from the AMQP gem's yardoc.
   #
@@ -181,53 +182,7 @@ class Tengine::Mq::Suite
     @retrying_events          =  Hash.new
     @pending_events           =  Hash.new
     @hooks                    =  Hash.new do |h, k| h.store k, Array.new end
-    @config                   =  {
-      :sender                 => {
-        :keep_connection      => false,
-        :retry_interval       => 1,  # in seconds
-        :retry_count          => 30,
-      },
-      :connection             => {
-        :user                 => 'guest',
-        :pass                 => 'guest',
-        :vhost                => '/',
-        :logging              => false,
-        :insist               => false,
-        :host                 => 'localhost',
-        :port                 => 5672,
-        :auto_reconnect_delay => 1, # in seconds
-      },
-      :channel                => {
-        :prefetch             => 1,
-        :auto_recovery        => true,
-      },
-      :exchange               => {
-        :name                 => 'tengine_event_exchange',
-        :type                 => :direct,
-        :passive              => false,
-        :durable              => true,
-        :auto_delete          => false,
-        :internal             => false,
-        :nowait               => false,
-        :publish              => {
-          :content_type       => "application/json", # RFC4627
-          :persistent         => true,
-        },
-      },
-      :queue                  => {
-        :name                 => 'tengine_event_queue',
-        :passive              => false,
-        :durable              => true,
-        :auto_delete          => false,
-        :exclusive            => false,
-        :nowait               => false,
-        :subscribe            => {
-          :ack                => true,
-          :nowait             => false,
-          :confirm            => nil,
-        },
-      },
-    }
+    @config                   =  DEFAULT_CONFIG.deep_dup
     @config.deep_merge! cfg.to_hash.deep_symbolize_keys.compact
     @config.deep_freeze
     install_default_hooks
@@ -270,6 +225,7 @@ class Tengine::Mq::Suite
     raise ArgumentError, "no block given" unless block_given?
     ensures :queue do |q|
       opts = @config[:queue][:subscribe].merge cfg.compact
+      logger :debug, "start subscribe(#{opts.inspect})"
       q.subscribe opts do |h, b|
         yield h, b
       end
@@ -615,6 +571,7 @@ class Tengine::Mq::Suite
 
   def generate_connection cb
     cfg = cb.merge @config[:connection] do |k, v1, v2| v2 end
+    logger :debug, "AMQP.connect(#{cfg.inspect})"
     AMQP.connect cfg do |conn|
       synchronize do
         @state = :connected
@@ -631,6 +588,7 @@ class Tengine::Mq::Suite
     cfg = @config[:channel]
     ensures :connection do |conn|
       id = AMQP::Channel.next_channel_id
+      logger :debug, "AMQP::Channel.new(conn, #{id.inspect}, #{cfg.inspect})"
       AMQP::Channel.new conn, id, cfg do |ch|
         yield ch
       end
@@ -661,6 +619,7 @@ class Tengine::Mq::Suite
     type = cfg.delete :type
     cfg.delete :publish # not needed here
     ensures :channel do |ch|
+      logger :debug, "AMQP::Exchange.new(ch, #{type.intern.inspect}, #{name.inspect}, #{cfg.inspect})"
       if cfg[:nowait]
         xchg = AMQP::Exchange.new ch, type.intern, name, cfg
         yield xchg
