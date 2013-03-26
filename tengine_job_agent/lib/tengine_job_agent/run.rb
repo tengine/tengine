@@ -25,14 +25,14 @@ class TengineJobAgent::Run
       timeout(@timeout) do #タイムアウト(秒)
         @logger.info("watchdog process spawning for #{@args.join(' ')}")
         pid = spawn_watchdog # watchdogプロセスをspawnで起動
-        @logger.info("watchdog process spawned. PID: #{pid.inspect}")
+        @logger.info("watchdog daemon invocation process spawned. PID: #{pid.inspect}")
         File.open(@pid_path, "r") do |f|
           sleep(0.1) until line = f.gets
           process_spawned = true
           @logger.info("watchdog process returned first result: #{line.inspect}")
           if line =~ /\A\d+\n?\Z/ # 数字と改行のみで構成されるならそれはPIDのはず。
             @pid_output.puts(line.strip)
-            @logger.info("return PID: #{pid.inspect}")
+            @logger.info("return PID: #{line.strip}")
           else
             f.rewind
             msg = f.read
@@ -60,6 +60,8 @@ class TengineJobAgent::Run
     args = [RbConfig.ruby, watchdog, @pid_path, *@args]
     @logger.info("Process.spawn(*#{args.inspect})")
     pid = Process.spawn(*args)
+    # ただしこのpidとして起動したプロセスはデーモンプロセスを起動するためのプロセスであり、
+    # 即座に終了してします
     @logger.info("spawned watchdog: #{pid}")
     @logger.debug("spawned watchdog:" << `ps aux | grep tengine_job_agent_watchdog | grep -v grep`)
     return pid
