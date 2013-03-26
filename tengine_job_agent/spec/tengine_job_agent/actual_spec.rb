@@ -8,6 +8,7 @@ require 'logger'
 describe "tengine_job_agent_run" do
 
   before(:all) do
+    system("tengine_event_sucks")
     TestRabbitmq.kill_remain_processes
     @test_rabbitmq = TestRabbitmq.new(keep_port: true).launch
   end
@@ -25,19 +26,20 @@ describe "tengine_job_agent_run" do
       " && " + File.expand_path("../../../bin/tengine_job_agent_run", __FILE__) +
       " " + File.expand_path("../actual_spec.sh", __FILE__)
 
-    puts "now calling: #{cmd}"
+    # puts "now calling: #{cmd}"
 
     timeout(30) do
       fail($?) unless system(cmd)
 
-      Tengine.logger = Logger.new(STDOUT)
+      # Tengine.logger = Tengine::Support::NamedLogger.new("spec", STDOUT)
       EM.run do
         suite = Tengine::Mq::Suite.new
         suite.subscribe do |header, payload|
-          puts "payload: #{payload.inspect}"
+          # puts "payload: #{payload.inspect}"
+          header.ack
           hash = JSON.parse(payload)
           event_type_name = hash["event_type_name"]
-          puts "event_type_name: " << event_type_name.inspect
+          # puts "event_type_name: " << event_type_name.inspect
           case event_type_name
           when "finished.process.job.tengine" then EM.stop
           when "job.heartbeat.tengine" then
@@ -47,6 +49,7 @@ describe "tengine_job_agent_run" do
           end
         end
       end
+
     end
   end
 
