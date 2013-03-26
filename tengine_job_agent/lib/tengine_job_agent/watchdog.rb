@@ -7,6 +7,8 @@ require 'tengine_event'
 require 'eventmachine'
 require 'uuid'
 
+require 'tengine/support/core_ext/hash/keys' # for deep_symbolize_keys
+
 class TengineJobAgent::Watchdog
   include TengineJobAgent::CommandUtils
 
@@ -66,7 +68,7 @@ class TengineJobAgent::Watchdog
   end
 
   def start_wait_process(pid)
-    @logger.info("start_wait_process(#{pid}) begin")
+    @logger.info("#{self.class.name}#start_wait_process(#{pid}) begin")
     fire_heartbeat pid do
       @logger.info("\e[31mbegin block for fire_heartbeat(#{pid})")
       timer = nil
@@ -97,13 +99,13 @@ class TengineJobAgent::Watchdog
 
       @logger.info("after EM.defer ...")
     end
-    @logger.info("start_wait_process(#{pid}) end")
+    @logger.info("#{self.class.name}#start_wait_process(#{pid}) end")
   end
 
   def fire_finished(pid, process_status)
     exit_status = process_status.exitstatus # killされた場合にnilの可能性がある
     level_key = exit_status == 0 ? :info : :error
-    @logger.info("fire_finished starting #{pid} #{level_key}(#{exit_status})")
+    @logger.info("#{self.class.name}#fire_finished starting #{pid} #{level_key}(#{exit_status})")
     event_properties = {
       "execution_id"     => ENV['MM_SCHEDULE_ID'],
       "root_jobnet_id"   => ENV['MM_ROOT_JOBNET_ID'],
@@ -132,7 +134,7 @@ class TengineJobAgent::Watchdog
       :sender_name => sender_name,
       :properties => event_properties,
     })
-    @logger.info("fire_finished complete")
+    @logger.info("#{self.class.name}#fire_finished complete")
     sender.stop
   end
 
@@ -153,16 +155,17 @@ class TengineJobAgent::Watchdog
       :keep_connection => true,
       :retry_count => 0,
     }, &block)
-    @logger.debug("fire_heartbeat #{pid}")
+    @logger.debug("#{self.class.name}#fire_heartbeat #{pid}")
   end
 
   def sender
     unless @sender
-      sender_config = {logger: @logger}.update(@config || {})
-      c = sender_config["sender"] ||= {}
-      c["keep_connection"] = true
+      sender_config = {logger: @logger}.update((@config || {}).deep_symbolize_keys)
+      c = sender_config[:sender] ||= {}
+      c[:keep_connection] = true
       @logger.info("config for sender: #{sender_config.inspect}")
       @sender = Tengine::Event::Sender.new(sender_config)
+      @logger.info("#{self.class.name}@sender.default_keep_connection # => #{@sender.default_keep_connection.inspect}")
     end
     @sender
   end
