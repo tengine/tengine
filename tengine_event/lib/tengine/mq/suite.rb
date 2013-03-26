@@ -17,7 +17,12 @@ class Tengine::Mq::Suite
   private
   #######
 
-  PendingEvent = Struct.new :tag, :sender, :event, :opts, :retry, :block
+  PendingEvent = Struct.new(:tag, :sender, :event, :opts, :retry, :block) do
+    def inspect
+      "#<struct #{self.class.name} tag=%d, opts=%s, retry=%d, &block=%s event.event_type_name=%s>" % [tag, opts.inspect, send(:retry), block.inspect, event.event_type_name.inspect]
+    end
+  end
+
   private_constant :PendingEvent
 
   # This is to accumulate a set of exceptions happend at a series of executions.
@@ -756,10 +761,10 @@ class Tengine::Mq::Suite
              extra_waitings.each(&:call)
            end
 
-      # d2 = lambda do |a|
-      #   logger :debug, "#{self.class.name}#ensures_handshake d2"
-      #        EM.defer d3, d4
-      #      end
+      d2 = lambda do |a|
+        logger :debug, "#{self.class.name}#ensures_handshake d2"
+             EM.defer d3, d4
+           end
 
       d1 = lambda do
         logger :debug, "#{self.class.name}#ensures_handshake d1"
@@ -771,12 +776,10 @@ class Tengine::Mq::Suite
                  logger :debug, "@condvar.wait @mutex done                " << ('!' * 50)
                end
              end
-        d3.call
            end
       d0 = lambda do
         logger :debug, "#{self.class.name}#ensures_handshake d0"
-#             EM.defer d1, d2
-             EM.defer d1, d4
+             EM.defer d1, d2
            end
       d0.call
     end
@@ -1073,10 +1076,12 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   end
 
   def publish ev
+    logger :debug, "#{self.class.name}#publish(#{ev.inspect})"
     @exchange.publish ev.event.to_json, @config[:exchange][:publish]
   end
 
   def publish_failed ev, ex
+    logger :debug, "#{self.class.name}#publish_failed(#{ev.inspect}, #{ex.inspect})"
     if resendable_p ev
       idx = EM.add_timer ev.opts[:retry_interval] do
         synchronize do
@@ -1106,6 +1111,7 @@ you to use a relatively recent version of RabbitMQ.                   [BEWARE!]
   end
 
   def published ev
+    logger :debug, "#{self.class.name}#published(#{ev.inspect})"
     case @state
     when :unsupported then
       # ackなし、next_tickをもって送信終了と見なす
