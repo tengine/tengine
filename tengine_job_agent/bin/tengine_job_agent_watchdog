@@ -5,9 +5,6 @@ unless RUBY_VERSION >= "1.9.2"
   raise "RUBY_VERSION must be >= 1.9.2 but was #{RUBY_VERSION}"
 end
 
-# Process.daemon(true, true)
-Process.daemon(true)
-
 $LOAD_PATH << File.expand_path("../lib", File.dirname(__FILE__))
 require "tengine_job_agent"
 
