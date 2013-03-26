@@ -80,7 +80,7 @@ class Tengine::Event::Sender
   # @option options [Hash] :retry_count
   # @return [Tengine::Event]
   def fire(event_or_event_type_name, options = {}, &block)
-    @logger.debug("fire(#{event_or_event_type_name.inspect}, #{options}) called")
+    @logger.debug("#{self.class.name}#fire(#{event_or_event_type_name.inspect}, #{options}) called")
     opts = (options || {}).dup
     cfg = {
       :keep_connection => (opts.delete(:keep_connection) || default_keep_connection),
@@ -95,10 +95,10 @@ class Tengine::Event::Sender
           :event_type_name => event_or_event_type_name.to_s))
       end
     @mq_suite.fire self, event, cfg, block
-    @logger.debug("fire(#{event_or_event_type_name.inspect}, #{options}) complete")
+    @logger.debug("#{self.class.name}#fire(#{event_or_event_type_name.inspect}, #{options}) complete")
     event
   rescue Exception => e
-    @logger.warn("fire(#{event_or_event_type_name.inspect}, #{options}) raised [#{e.class.name}] #{e.message}")
+    @logger.warn("#{self.class.name}#fire(#{event_or_event_type_name.inspect}, #{options}) raised [#{e.class.name}] #{e.message}")
     raise e
   end
 
