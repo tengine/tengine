@@ -476,7 +476,7 @@ class Tengine::Mq::Suite
     begin
       logger :debug, "GETTING LOCK mutex" << ('?' * 50)
       @mutex.lock
-      logger :info , "GOT     LOCK mutex" << ('!' * 50)
+      logger :debug, "GOT     LOCK mutex" << ('!' * 50)
     rescue ThreadError => e
       # A deadlock was detected, which means of course, we have the lock.
       bt = e.backtrace.join "\n\tfrom "
