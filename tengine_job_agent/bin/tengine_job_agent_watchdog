@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 
-unless RUBY_VERSION >= "1.9.2"
-  raise "RUBY_VERSION must be >= 1.9.2 but was #{RUBY_VERSION}"
-end
+# IGNORE SIGHUP like a daemon
+# http://stackoverflow.com/questions/3688550/make-a-ruby-program-a-daemon
+# source code of call_as_daemon method in http://daemons.rubyforge.org/classes/Daemonize.html
+Signal.trap 'SIGHUP', 'IGNORE'
 
 $LOAD_PATH << File.expand_path("../lib", File.dirname(__FILE__))
 require "tengine_job_agent"
