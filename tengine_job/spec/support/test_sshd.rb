@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'erb'
-require 'etc'
+# require 'etc'
 require 'tempfile'
 
 class TestSshd
@@ -59,7 +59,7 @@ class TestSshd
   private
 
   def check_login
-    result = Etc.getlogin
+    result = ENV['USER'] # Etc.getlogin
     case result
     when "root"
       raise AbortError, "Danger! root is too powerful to run this test."
