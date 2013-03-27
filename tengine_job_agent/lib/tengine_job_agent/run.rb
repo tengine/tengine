@@ -6,15 +6,12 @@ require 'rbconfig'
 class TengineJobAgent::Run
   include TengineJobAgent::CommandUtils
 
-  attr_reader :pid_path
-
   def initialize(logger, args, config = {})
     @logger = logger
     @pid_output = STDOUT
     @error_output = STDERR
     @args = args
     @config = config
-    @pid_path = File.expand_path("pid_for_#{Process.pid}", @config['log_dir'])
     @timeout       = (config[:timeout      ] || ENV["MM_SYSTEM_AGENT_RUN_TIMEOUT"      ] || 600).to_i # seconds
     @timeout_alert = (config[:timeout_alert] || ENV["MM_SYSTEM_AGENT_RUN_TIMEOUT_ALERT"] || 30 ).to_i # seconds
   end
@@ -52,16 +49,21 @@ class TengineJobAgent::Run
     end
   end
 
+  def pid_path
+    File.expand_path("pid_for_#{Process.pid}", @config['log_dir'])
+  end
+
   def setup_pid_file
-    @logger.info("pid file creating: #{@pid_path}")
-    File.open(@pid_path, "w"){ } # ファイルをクリア
-    @logger.info("pid file created: #{@pid_path}")
+    path = self.pid_path
+    @logger.info("pid file creating: #{path}")
+    File.open(path, "w"){ } # ファイルをクリア
+    @logger.info("pid file created: #{path}")
     begin
-      res = yield(@pid_path)
-      File.delete(@pid_path) if File.exist?(@pid_path)
+      res = yield(path)
+      File.delete(path) if File.exist?(path)
       return res
     rescue => e
-      @logger.warn("pid file #{@pid_path.inspect} is not deleted cause of #{e.class.name}")
+      @logger.warn("pid file #{path.inspect} is not deleted cause of #{e.class.name}")
       raise
     end
   end
