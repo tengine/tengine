@@ -24,31 +24,31 @@ class TengineJobAgent::Run
     line = nil
     process_spawned = false
     setup_pid_file do |pid_path|
-    begin
-      timeout(@timeout) do #タイムアウト(秒)
-        @logger.info("watchdog process spawning for #{@args.join(' ')}")
-        pid = spawn_watchdog(pid_path) # watchdogプロセスをspawnで起動
-        @logger.info("watchdog daemon invocation process spawned. PID: #{pid.inspect}")
-        File.open(pid_path, "r") do |f|
-          sleep(0.1) until line = f.gets
-          process_spawned = true
-          @logger.info("watchdog process returned first result: #{line.inspect}")
-          if line =~ /\A\d+\n?\Z/ # 数字と改行のみで構成されるならそれはPIDのはず。
-            @pid_output.puts(line.strip)
-            @logger.info("return PID: #{line.strip}")
-          else
-            f.rewind
-            msg = f.read
-            @logger.error("error occurred:\n#{msg}")
-            @error_output.puts(msg)
-            return false
+      begin
+        timeout(@timeout) do #タイムアウト(秒)
+          @logger.info("watchdog process spawning for #{@args.join(' ')}")
+          pid = spawn_watchdog(pid_path) # watchdogプロセスをspawnで起動
+          @logger.info("watchdog daemon invocation process spawned. PID: #{pid.inspect}")
+          File.open(pid_path, "r") do |f|
+            sleep(0.1) until line = f.gets
+            process_spawned = true
+            @logger.info("watchdog process returned first result: #{line.inspect}")
+            if line =~ /\A\d+\n?\Z/ # 数字と改行のみで構成されるならそれはPIDのはず。
+              @pid_output.puts(line.strip)
+              @logger.info("return PID: #{line.strip}")
+            else
+              f.rewind
+              msg = f.read
+              @logger.error("error occurred:\n#{msg}")
+              @error_output.puts(msg)
+              return false
+            end
           end
         end
+      rescue Timeout::Error => e
+        @error_output.puts("[#{e.class.name}] #{e.message}")
+        raise e # raiseしたものはTengineJobAgent::Run.processでloggerに出力されるので、ここでは何もしません
       end
-    rescue Timeout::Error => e
-      @error_output.puts("[#{e.class.name}] #{e.message}")
-      raise e # raiseしたものはTengineJobAgent::Run.processでloggerに出力されるので、ここでは何もしません
-    end
     end
   end
 
