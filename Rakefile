@@ -16,6 +16,8 @@ OUTDATED_THRESHOLDS = {
   :ignored => %w[amq-protocol amq-client amqp eventmachine mongo mongoid bson bson_ext]
 }
 
+task default: [:build, :spec]
+
 namespace :bundle do
   desc "bundle install for each packgage"
   task :install do
