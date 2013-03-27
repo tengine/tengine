@@ -6,6 +6,8 @@ require 'rbconfig'
 class TengineJobAgent::Run
   include TengineJobAgent::CommandUtils
 
+  attr_reader :pid_path
+
   def initialize(logger, args, config = {})
     @logger = logger
     @pid_output = STDOUT
@@ -21,12 +23,13 @@ class TengineJobAgent::Run
     validate_environment
     line = nil
     process_spawned = false
+    setup_pid_file do |pid_path|
     begin
       timeout(@timeout) do #タイムアウト(秒)
         @logger.info("watchdog process spawning for #{@args.join(' ')}")
-        pid = spawn_watchdog # watchdogプロセスをspawnで起動
+        pid = spawn_watchdog(pid_path) # watchdogプロセスをspawnで起動
         @logger.info("watchdog daemon invocation process spawned. PID: #{pid.inspect}")
-        File.open(@pid_path, "r") do |f|
+        File.open(pid_path, "r") do |f|
           sleep(0.1) until line = f.gets
           process_spawned = true
           @logger.info("watchdog process returned first result: #{line.inspect}")
@@ -46,18 +49,30 @@ class TengineJobAgent::Run
       @error_output.puts("[#{e.class.name}] #{e.message}")
       raise e # raiseしたものはTengineJobAgent::Run.processでloggerに出力されるので、ここでは何もしません
     end
+    end
   end
 
-  # 引数に@pid_pathを渡してwatchdogを起動します。戻り値は起動したwatchdogのPIDです
-  def spawn_watchdog
+  def setup_pid_file
     @logger.info("pid file creating: #{@pid_path}")
     File.open(@pid_path, "w"){ } # ファイルをクリア
     @logger.info("pid file created: #{@pid_path}")
+    begin
+      res = yield(@pid_path)
+      File.delete(@pid_path) if File.exist?(@pid_path)
+      return res
+    rescue => e
+      @logger.warn("pid file #{@pid_path.inspect} is not deleted cause of #{e.class.name}")
+      raise
+    end
+  end
+
+  # 引数にpid_pathを渡してwatchdogを起動します。戻り値は起動したwatchdogのPIDです
+  def spawn_watchdog(pid_path)
     # http://doc.ruby-lang.org/ja/1.9.2/method/Kernel/m/spawn.html を参考にしています
     args = @args # + [{:out => stdout_w}] #, :err => stderr_w}]
     watchdog = File.expand_path("../../bin/tengine_job_agent_watchdog", File.dirname(__FILE__))
-    # args = [RbConfig.ruby, watchdog, @pid_path, *(@args + [{:out => stdout_w, :err => stderr_w}])]
-    args = [RbConfig.ruby, watchdog, @pid_path, *@args]
+    # args = [RbConfig.ruby, watchdog, pid_path, *(@args + [{:out => stdout_w, :err => stderr_w}])]
+    args = [RbConfig.ruby, watchdog, pid_path, *@args]
     @logger.info("Process.spawn(*#{args.inspect})")
     pid = Process.spawn(*args)
     # ただしこのpidとして起動したプロセスはデーモンプロセスを起動するためのプロセスであり、
