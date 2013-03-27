@@ -28,11 +28,10 @@ describe "tengine_job_agent_run" do
 
     # puts "now calling: #{cmd}"
 
-    timeout(30) do
       fail($?) unless system(cmd)
 
       # Tengine.logger = Tengine::Support::NamedLogger.new("spec", STDOUT)
-      EM.run do
+      EM.run_test(timeout: 30) do # actual_spec.sh では 5秒待つので 6倍待ちます
         suite = Tengine::Mq::Suite.new
         suite.subscribe do |header, payload|
           # puts "payload: #{payload.inspect}"
@@ -49,8 +48,6 @@ describe "tengine_job_agent_run" do
           end
         end
       end
-
-    end
   end
 
 end

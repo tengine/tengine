@@ -91,7 +91,7 @@ describe "amqp" do
         end
 
         before do
-          EM.run_test do
+          EM.run_test(timeout: timeout * 3) do # timeoutの3倍あれば大丈夫でしょう
             # EM.next_tick do
             #   puts "now waiting 2 events in #{timeout} seconds."
             # end

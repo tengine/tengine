@@ -5,6 +5,6 @@ require 'time'
 
 `echo \"#{__FILE__} START #{Time.now.iso8601(6)}\" >> $HOME/actual_spec.log`
 
-sleep(10)
+sleep(5)
 
 `echo \"#{__FILE__} END   #{Time.now.iso8601(6)}\" >> $HOME/actual_spec.log`
