@@ -31,7 +31,7 @@ class TestSshdResource
       :properties => {
         :ssh_port => @test_sshd.port,
       },
-      :addressed => {
+      :addresses => {
         :dns_name => "localhost",
         :ip_address => "localhost",
         :private_dns_name => "localhost",
