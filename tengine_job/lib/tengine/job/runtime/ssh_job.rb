@@ -68,29 +68,72 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
     keys_only = actual_credential.auth_type_cd == :ssh_public_key
     Net::SSH.start(actual_server.hostname_or_ipv4, actual_credential, :port => port, :logger => Tengine.logger, :keys_only => keys_only) do |ssh|
       # see http://net-ssh.github.com/ssh/v2/api/classes/Net/SSH/Connection/Channel.html
-      c = ssh.open_channel do |channel|
-        # channel.exec("bash -l") do |shell_ch, success|
-        channel.request_pty do |shell_ch, success|
-          Tengine.logger.info("now exec on ssh: " << cmd)
-          shell_ch.exec(cmd.force_encoding("binary")) do |ch, success|
-            raise Error, "could not execute command" unless success
+      c = ssh.open_channel do |ch0|
+        ch0.request_pty do |channel, success|
+          raise Error, "failed to request_pty" unless success
 
-            ch.on_close do |ch|
-              # puts "ch is closing!"
-            end
+        buffer = []
+        actual_cmd = "echo $PS1"
+        prompt = nil
+        count = 0
+        exiting = false
 
-            ch.on_data do |ch, data|
-              Tengine.logger.info("got STDOUT data: #{data.inspect}")
-              unless data.strip.empty?
-                yield(ch, data) if block_given?
-              end
-            end
+        channel.exec("#{ENV['SHELL']} -l") do |shell_ch, success|
+          raise Error, "failed to \"#{ENV['SHELL']} -l\"" unless success
 
-            ch.on_extended_data do |ch, type, data|
-              add_error_message(data)
-              raise Error, "Failure to execute #{self.name_path} via SSH: #{data}"
-            end
+          shell_ch[:data] = ""
+
+shell_ch.on_process do |ch|
+  while shell_ch[:data] =~ %r!^.*?\n!
+    puts "=" * 100
+    puts buffer.inspect
+    puts "-" * 100
+    buffer = []
+
+    output = $&
+
+    puts output
+    shell_ch[:data] = $'
+
+    unless exiting
+    if prompt.nil?
+      if (output =~ %r!<<<(.+)>>>!) && ($1 != "$PS1")
+        prompt = $1
+
+        actual_cmd = cmd.force_encoding("binary")
+        Tengine.logger.info("now exec on ssh: " << cmd)
+        puts("now exec on ssh: " << cmd)
+        shell_ch.send_data(actual_cmd + "\n")
+
+      end
+    else
+      count += 1
+puts "count: #{count}"
+      if count > 1
+        yield(ch, output) if block_given?
+        exiting = true
+        shell_ch.send_data("exit\n")
+      end
+    end
+    end
+  end
+end
+
+          shell_ch.on_data do |ch, data|
+            shell_ch[:data] << data
+            buffer << data
+            Tengine.logger.info("got STDOUT data: #{data.inspect}")
           end
+
+          shell_ch.on_extended_data do |ch, type, data|
+            add_error_message(data)
+            raise Error, "Failure to execute #{self.name_path} via SSH: #{data}"
+          end
+
+          Tengine.logger.info("now exec on ssh: echo $PS1")
+          shell_ch.send_data("echo \"<<<$PS1>>>\"\n")
+
+        end
         end
       end
       c.wait

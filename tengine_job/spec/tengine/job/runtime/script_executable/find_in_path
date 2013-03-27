@@ -6,7 +6,7 @@ target = ARGV.first
 result = `which #{target}`
 
 unless result.empty?
-  $stdout.puts("#{result} <$PATH: #{ENV['PATH']}>")
+  $stdout.puts("#{result.strip} <$PATH: #{ENV['PATH']}>")
   exit(0)
 end
 
