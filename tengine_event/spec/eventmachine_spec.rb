@@ -10,8 +10,7 @@ describe "Eventmachine" do
     it "2 cascaded defers" do
       buffer = []
       blocks = []
-      timeout(10) do
-        EM.run do
+        EM.run_test do
           blocks[4] = lambda{|a| buffer << [4, a]; EM.stop }
           blocks[3] = lambda{ buffer << 3; 3 }
           blocks[2] = lambda{|a| buffer << [2, a]; EM.defer(blocks[3], blocks[4])}
@@ -19,15 +18,13 @@ describe "Eventmachine" do
           blocks[0] = lambda{ buffer << 0; EM.defer(blocks[1], blocks[2])}
           blocks[0].call
         end
-      end
       buffer.should == [0, 1, [2, 1], 3, [4, 3]]
     end
 
     it "4 cascaded defers" do
       buffer = []
       blocks = []
-      timeout(10) do
-        EM.run do
+        EM.run_test do
           blocks[8] = lambda{|a| buffer << [8, a]; EM.stop }
           blocks[7] = lambda{ buffer << 7; 7 }
           blocks[6] = lambda{|a| buffer << [6, a]; EM.defer(blocks[7], blocks[8])}
@@ -39,7 +36,6 @@ describe "Eventmachine" do
           blocks[0] = lambda{ buffer << 0; EM.defer(blocks[1], blocks[2])}
           blocks[0].call
         end
-      end
       buffer.should == [0, 1, [2, 1], 3, [4, 3], 5, [6, 5], 7, [8, 7]]
     end
 
@@ -47,8 +43,7 @@ describe "Eventmachine" do
       buffer = []
       blocks = []
       EM.threadpool_size.should == 20
-      timeout(10) do
-        EM.run do
+        EM.run_test do
           count = 30
           blocks[count    ] = lambda{|a| buffer << [count, a]; EM.stop }
           blocks[count - 1] = lambda{ buffer << (count - 1); count - 1 }
@@ -61,7 +56,6 @@ describe "Eventmachine" do
           blocks[0] = lambda{ buffer << 0; EM.defer(blocks[1], blocks[2])}
           blocks[0].call
         end
-      end
       buffer.should == [
         0, 1, [2, 1], 3, [4, 3], 5, [6, 5], 7, [8, 7], 9, [10, 9],
         11, [12, 11], 13, [14, 13], 15, [16, 15], 17, [18, 17], 19, [20, 19],

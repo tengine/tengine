@@ -91,7 +91,7 @@ describe "amqp" do
         end
 
         before do
-          EM.run do
+          EM.run_test do
             # EM.next_tick do
             #   puts "now waiting 2 events in #{timeout} seconds."
             # end

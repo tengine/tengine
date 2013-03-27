@@ -309,7 +309,7 @@ describe "Tengine::Event" do
     it "JSON形式にserializeしてexchangeにpublishする" do
       expected_event = Tengine::Event.new(:event_type_name => :foo, :key => "uniq_key")
       @mock_exchange.should_receive(:publish).with(expected_event.to_json, :persistent => true, :content_type => "application/json")
-      EM.run do
+      EM.run_test do
         Tengine::Event.fire(:foo, :key => "uniq_key")
         EM.add_timer(0.1) do
           EM.next_tick do

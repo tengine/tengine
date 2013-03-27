@@ -32,7 +32,7 @@ describe "tengine_event" do
     before do
       logger.info("=" * 100)
       Tengine.logger = logger
-      EM.run do
+      EM.run_test(timeout: 60) do # 1分はかからないと思うんだけど・・・
         suite.subscribe do |header, payload|
           header.ack
           hash = JSON.parse(payload)
@@ -77,7 +77,7 @@ describe "tengine_event" do
 
       before do
         Tengine.logger = logger
-        EM.run do
+        EM.run_test do
           # EM.next_tick do
           #   puts "now waiting 2 events in #{timeout} seconds."
           # end
