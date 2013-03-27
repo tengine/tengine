@@ -115,18 +115,21 @@ class TengineJobAgent::Watchdog
       "exit_status" => exit_status,
       "command"   => [@program, @args].flatten.join(" "),
     }
+
     user_stdout_path = output_filepath("stdout", pid)
     user_stderr_path = output_filepath("stderr", pid)
-    FileUtils.cp(@stdout.path, user_stdout_path)
-    FileUtils.cp(@stderr.path, user_stderr_path)
-    event_properties[:stdout_log] = user_stdout_path
-    event_properties[:stderr_log] = user_stderr_path
+
+    condition = (level_key == :info) ? lambda{|src| File.size(src) > 0} : nil
+    event_properties[:stdout_log] = copy_file(@stdout.path, user_stdout_path, &condition)
+    event_properties[:stderr_log] = copy_file(@stderr.path, user_stderr_path, &condition)
+
     if level_key == :error
       event_properties[:message] =
         "Job process failed. STDOUT and STDERR were redirected to files.\n" <<
         "You can see them at '#{user_stdout_path}' and '#{user_stderr_path}'\n" <<
         "on the server '#{ENV['MM_SERVER_NAME']}'"
     end
+
     sender.fire("finished.process.job.tengine", {
       :key => @uuid,
       :level_key => level_key,
@@ -199,6 +202,15 @@ class TengineJobAgent::Watchdog
         @stdout = nil
       end
     end
+  end
+
+  def copy_file(src, dest)
+    return nil unless File.exist?(src)
+    if block_given?
+      return nil unless yield(src)
+    end
+    FileUtils.cp(src, dest)
+    dest
   end
 
 end
