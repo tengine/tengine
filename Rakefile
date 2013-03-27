@@ -56,13 +56,10 @@ task :build do
     puts "building #{package.name}"
     cmd = []
     cmd << "cd #{package.name}"
-    cmd << "gem uninstall #{package.name} -a -I -x"
     cmd << "bundle install"
     case package.package_type
     when :gem then
-      cmd << "rm -rf pkg/*"
-      cmd << "bundle exec rake package"
-      cmd << "gem install pkg/#{package.name}-*.gem --ignore-dependencies"
+      cmd << "bundle exec rake reinstall"
     end
 
     system(cmd.join(' && ')) || errors << package.name

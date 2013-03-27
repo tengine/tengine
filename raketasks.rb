@@ -49,10 +49,9 @@ def tengine_common_tasks(package_name)
       system "gem uninstall #{package_name} -aIx"
     end
 
-
     desc "install #{package_name}"
     task :install do
-      system "gem install pkg/#{package_name}-*.gem --local"
+      system "gem install pkg/#{package_name}-*.gem --ignore-dependencies"
       rbenv = `which rbenv`
       system("rbenv rehash") unless rbenv.empty?
     end
