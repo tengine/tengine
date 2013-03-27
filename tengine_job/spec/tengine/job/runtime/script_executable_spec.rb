@@ -118,36 +118,19 @@ describe Tengine::Job::Runtime::SshJob do
 
       dir = File.expand_path("../../../../..", __FILE__)
       text_path = File.expand_path("tmp/log/env.txt", dir)
-      script_path = File.expand_path("spec/tengine/job/runtime/script_executable/echo_env.sh", dir)
+      script_path = File.expand_path("spec/tengine/job/runtime/script_executable/find_in_path", dir)
       script = "cd #{dir} && #{script_path} #{text_path}"
       j = Tengine::Job::Runtime::SshJob.new(
         :server_name => @server.name,
         :credential_name => @credential.name,
-        :script => "which #{target}"
+        :script => "#{script_path} #{target}"
       )
       found_path = nil
       j.execute(j.script) do |ch, data|
         found_path = data.strip
       end
 
-      if found_path == nil
-        inspection = Tengine::Job::Runtime::SshJob.new(
-          :server_name => @server.name,
-          :credential_name => @credential.name,
-          :script => "echo $PATH"
-        )
-        found_path = nil
-        inspection.execute(j.script) do |ch, data|
-          found_path = data.strip
-        end
-        if found_path
-          fail("#{target} doesn't exist in #{found_path}")
-        else
-          fail("#{target} doesn't exist, and failed to get $PATH ")
-        end
-      else
-        found_path.should =~ /#{target}$/
-      end
+      found_path.sub(/\<\$PATH: [^\<\>]+\>$/, '').strip.should =~ /#{target}$/
     end
 
   end
