@@ -77,9 +77,9 @@ describe Tengine::Job::Runtime::SshJob do
 
     # https://www.pivotaltracker.com/story/show/43918327
     it "開発環境(mac, zsh)でジョブが実行されない" do
-      dir = File.expand_path("../../../..", __FILE__)
-      text_path = File.expand_path("../tmp/log/env.txt", dir)
-      script_path = File.expand_path("../spec/tengine/job/runtime/script_executable/echo_env.sh", dir)
+      dir = File.expand_path("../../../../..", __FILE__)
+      text_path = File.expand_path("tmp/log/env.txt", dir)
+      script_path = File.expand_path("spec/tengine/job/runtime/script_executable/echo_env.sh", dir)
       script = "cd #{dir} && #{script_path} #{text_path}"
       j = Tengine::Job::Runtime::SshJob.new(
         :server_name => @server.name,
@@ -107,4 +107,49 @@ describe Tengine::Job::Runtime::SshJob do
       end
     end
   end
+
+  context "tengine_job_agent_run" do
+
+    # Travis−CI上では gemfiles/Gemfile* によって、その他の場合にはgemとしてインストールされるので、
+    # tengine_job_agent_run がインストールされているはずですが、SSHを経由してもPATH上にあるかどうか
+    # をテストします。
+    it "be found on PATH" do
+      target = "tengine_job_agent_run"
+
+      dir = File.expand_path("../../../../..", __FILE__)
+      text_path = File.expand_path("tmp/log/env.txt", dir)
+      script_path = File.expand_path("spec/tengine/job/runtime/script_executable/echo_env.sh", dir)
+      script = "cd #{dir} && #{script_path} #{text_path}"
+      j = Tengine::Job::Runtime::SshJob.new(
+        :server_name => @server.name,
+        :credential_name => @credential.name,
+        :script => "which #{target}"
+      )
+      found_path = nil
+      j.execute(j.script) do |ch, data|
+        found_path = data.strip
+      end
+
+      if found_path == nil
+        inspection = Tengine::Job::Runtime::SshJob.new(
+          :server_name => @server.name,
+          :credential_name => @credential.name,
+          :script => "echo $PATH"
+        )
+        found_path = nil
+        inspection.execute(j.script) do |ch, data|
+          found_path = data.strip
+        end
+        if found_path
+          fail("#{target} doesn't exist in #{found_path}")
+        else
+          fail("#{target} doesn't exist, and failed to get $PATH ")
+        end
+      else
+        found_path.should =~ /#{target}$/
+      end
+    end
+
+  end
+
 end
