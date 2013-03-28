@@ -67,19 +67,19 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
     end
 
     def setup
-      @channel[:data] = ""
-      @channel[:result] = nil
-      @channel[:status] = :preparing # :preparing, :waiting, :exiting
+      @data = ""
+      @result = nil
+      @status = :preparing # :preparing, :waiting, :exiting
 
       @channel.on_data do |ch, data|
         # puts "on_data: #{data.inspect}"
-        @channel[:data] << data
+        @data << data
         Tengine.logger.info("got STDOUT data: #{data.inspect}")
       end
 
       @channel.on_process do |ch|
-        while @channel[:data] =~ %r!^.*?\n!
-          @channel[:data] = $'
+        while @data =~ %r!^.*?\n!
+          @data = $'
           dispatch($&)
         end
       end
@@ -87,13 +87,13 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
 
     def dispatch(output)
       # puts "output: #{output.inspect}"
-      case @channel[:status]
+      case @status
       when :preparing then execute
       when :waiting then
         if output.strip == "one_time_token"
           returns
         else
-          @channel[:result] << output
+          @result << output
         end
       when :exiting then
         # do nothing...
@@ -116,14 +116,14 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
       actual = @script.force_encoding("binary")
       Tengine.logger.info("now exec on ssh: " << @script)
       # puts("now exec on ssh: " << @script)
-      @channel[:result] = ""
-      @channel[:status] = :waiting
+      @result = ""
+      @status = :waiting
       @channel.send_data(actual + "; echo \"one_time_token\"\n")
     end
 
     def returns
-      @callback.call(@channel, @channel[:result]) if @callback
-      @channel[:status] = :exiting
+      @callback.call(@channel, @result) if @callback
+      @status = :exiting
       @channel.send_data("exit\n")
     end
   end
