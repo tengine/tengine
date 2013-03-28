@@ -86,14 +86,14 @@ describe Tengine::Job::Runtime::SshJob do
         :credential_name => @credential.name,
         :script => script
       )
-      mock_execution = mock(:execution, {
-                              id: "execution_id1",
-                              signal: nil,
-                              estimated_time: 10,
-                              actual_estimated_end: nil,
-                              preparation_command: nil,
-                            })
-      j.run(mock_execution)
+      # mock_execution = mock(:execution, {
+      #                         id: "execution_id1",
+      #                         signal: nil,
+      #                         estimated_time: 10,
+      #                         actual_estimated_end: nil,
+      #                         preparation_command: nil,
+      #                       })
+      j.execute(j.script)
       60.times do # ファイルができるまで30秒間待ってみる
         break if File.exist?(text_path)
         sleep(0.5)

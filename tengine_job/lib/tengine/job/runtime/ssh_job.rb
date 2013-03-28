@@ -72,11 +72,10 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
         ch0.request_pty do |channel, success|
           raise Error, "failed to request_pty" unless success
 
-        buffer = []
-        actual_cmd = "echo $PS1"
-        prompt = nil
-        count = 0
+        actual_cmd = "export PS1=;"
+        starting = false
         exiting = false
+        result = nil
 
         channel.exec("#{ENV['SHELL']} -l") do |shell_ch, success|
           raise Error, "failed to \"#{ENV['SHELL']} -l\"" unless success
@@ -85,43 +84,39 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
 
 shell_ch.on_process do |ch|
   while shell_ch[:data] =~ %r!^.*?\n!
-    puts "=" * 100
-    puts buffer.inspect
-    puts "-" * 100
-    buffer = []
 
     output = $&
+    # puts "output: #{output.inspect}"
 
     puts output
     shell_ch[:data] = $'
 
     unless exiting
-    if prompt.nil?
-      if (output =~ %r!<<<(.+)>>>!) && ($1 != "$PS1")
-        prompt = $1
+      unless starting
 
         actual_cmd = cmd.force_encoding("binary")
         Tengine.logger.info("now exec on ssh: " << cmd)
         puts("now exec on ssh: " << cmd)
-        shell_ch.send_data(actual_cmd + "\n")
-
+        result = ""
+        starting = true
+        shell_ch.send_data(actual_cmd + "; echo \"one_time_token\"\n")
+      else
+        if output.strip == "one_time_token"
+          yield(ch, result) if block_given?
+          exiting = true
+          shell_ch.send_data("exit\n")
+        else
+          result = ""
+          result << output
+        end
       end
-    else
-      count += 1
-puts "count: #{count}"
-      if count > 1
-        yield(ch, output) if block_given?
-        exiting = true
-        shell_ch.send_data("exit\n")
-      end
-    end
     end
   end
 end
 
           shell_ch.on_data do |ch, data|
+            # puts "on_data: #{data.inspect}"
             shell_ch[:data] << data
-            buffer << data
             Tengine.logger.info("got STDOUT data: #{data.inspect}")
           end
 
@@ -130,8 +125,8 @@ end
             raise Error, "Failure to execute #{self.name_path} via SSH: #{data}"
           end
 
-          Tengine.logger.info("now exec on ssh: echo $PS1")
-          shell_ch.send_data("echo \"<<<$PS1>>>\"\n")
+          Tengine.logger.info("now exec on ssh: \"#{actual_cmd}\"")
+          shell_ch.send_data("#{actual_cmd}\n")
 
         end
         end
