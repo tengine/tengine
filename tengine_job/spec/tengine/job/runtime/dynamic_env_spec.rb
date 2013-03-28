@@ -37,9 +37,12 @@ describe 'hadoop_job_run' do
           signal = Tengine::Job::Runtime::Signal.new(mock_event)
           mock_ssh = mock(:ssh)
           Net::SSH.should_receive(:start).and_yield(mock_ssh)
-          mock_channel = mock_channel_fof_script_executable(mock_ssh)
-          mock_channel.should_receive(:exec).with(an_instance_of(String)) do |cmd|
-            cmd.should =~ /export FOO=BAR/
+          mock_shell_for_script_executable(mock_ssh) do |ch|
+            ch.should_receive(:send_data).with(/.+ export FOO=BAR .+; echo \".+?\"\n/).and_return do
+              client = ch[:client]
+              client.dispatch("123\n") # PID
+              client.dispatch("#{client.one_time_token}\n")
+            end
           end
           @root.element("j1").run(@execution)
         end
@@ -49,9 +52,12 @@ describe 'hadoop_job_run' do
           signal = Tengine::Job::Runtime::Signal.new(mock_event)
           mock_ssh = mock(:ssh)
           Net::SSH.should_receive(:start).and_yield(mock_ssh)
-          mock_channel = mock_channel_fof_script_executable(mock_ssh)
-          mock_channel.should_receive(:exec).with(an_instance_of(String)) do |cmd|
-            cmd.should =~ /export SERVER_NAME=test_server1 && export DNS_NAME=localhost/
+          mock_shell_for_script_executable(mock_ssh) do |ch|
+            ch.should_receive(:send_data).with(/.+ export SERVER_NAME=test_server1 && export DNS_NAME=localhost .+; echo \".+?\"\n/).and_return do
+              client = ch[:client]
+              client.dispatch("123\n") # PID
+              client.dispatch("#{client.one_time_token}\n")
+            end
           end
           @root.element("j2").run(@execution)
         end

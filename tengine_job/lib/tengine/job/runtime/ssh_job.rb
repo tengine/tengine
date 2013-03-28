@@ -64,12 +64,12 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
   class ShellClient
     def initialize(channel, script, callback)
       @channel, @script, @callback = channel, script, callback
+      @status = :preparing # :preparing, :waiting, :exiting
     end
 
     def setup
       @data = ""
       @result = nil
-      @status = :preparing # :preparing, :waiting, :exiting
 
       @channel.on_data do |ch, data|
         # puts "on_data: #{data.inspect}"
@@ -85,20 +85,20 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
       end
     end
 
-    def dispatch(output)
-      # puts "output: #{output.inspect}"
+    def dispatch(line)
+      # puts "line: #{line.inspect}"
       case @status
       when :preparing then execute
       when :waiting then
-        if output.strip == "one_time_token"
+        if line.strip == one_time_token
           returns
         else
-          @result << output
+          @result << line
         end
       when :exiting then
         # do nothing...
       else
-        raise Error, "Unknown shell channel status"
+        raise Error, "Unknown shell channel status: #{@status.inspect}"
       end
     end
 
@@ -118,13 +118,17 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
       # puts("now exec on ssh: " << @script)
       @result = ""
       @status = :waiting
-      @channel.send_data(actual + "; echo \"one_time_token\"\n")
+      @channel.send_data(actual + "; echo \"#{one_time_token}\"\n")
     end
 
     def returns
       @callback.call(@channel, @result) if @callback
       @status = :exiting
       @channel.send_data("exit\n")
+    end
+
+    def one_time_token
+      "one_time_token"
     end
   end
 
@@ -148,6 +152,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
             end
 
             client = ShellClient.new(shell_ch, cmd, block)
+            shell_ch[:client] = client
             client.setup
             client.start
           end

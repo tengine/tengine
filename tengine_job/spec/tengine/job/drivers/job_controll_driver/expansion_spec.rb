@@ -38,18 +38,31 @@ describe 'job_control_driver' do
       mock_ssh = mock(:ssh)
       Net::SSH.should_receive(:start).
         with("localhost", an_instance_of(Tengine::Resource::Credential), an_instance_of(Hash)).and_yield(mock_ssh)
-      mock_channel = mock_channel_fof_script_executable(mock_ssh)
-      mock_channel.should_receive(:exec) do |*args|
-        args.length.should == 1
-        # args.first.should =~ %r<export MM_ACTUAL_JOB_ID=[0-9a-f]{24} MM_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_FULL_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_ACTUAL_JOB_NAME_PATH=\\"/rjn0001/j11\\" MM_ACTUAL_JOB_SECURITY_TOKEN= MM_SCHEDULE_ID=[0-9a-f]{24} MM_SCHEDULE_ESTIMATED_TIME= MM_TEMPLATE_JOB_ID=[0-9a-f]{24} MM_TEMPLATE_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" && tengine_job_agent_run -- \$HOME/j11\.sh>
-          t_rjn1001 = Tengine::Job::Template::RootJobnet.find_by_name("rjn0001")
+
+      mock_shell_for_script_executable(mock_ssh) do |ch|
+        t_rjn1001 = Tengine::Job::Template::RootJobnet.find_by_name("rjn0001")
         t_rjn1001.dsl_version.should == dsl_version
         t_j11 = t_rjn1001.vertex_by_name_path("/rjn0001/j11")
-        args.first.should =~ %r<MM_TEMPLATE_JOB_ID=#{t_j11.id.to_s}>
-          args.first.should_not =~ %r<MM_TEMPLATE_JOB_ANCESTOR_IDS=\"#{@template.id.to_s};#{t_rjn1001.id.to_s}\">
-          args.first.should =~ %r<MM_TEMPLATE_JOB_ANCESTOR_IDS=\"#{t_rjn1001.id.to_s}\">
-          args.first.should =~ %r<job_test j11>
+        ch.should_receive(:send_data).with(%r<.*MM_TEMPLATE_JOB_ID=#{t_j11.id.to_s} MM_TEMPLATE_JOB_ANCESTOR_IDS=\"#{t_rjn1001.id.to_s}\" && tengine_job_agent_run job_test j11; echo \".+?\"\n>).and_return do
+          client = ch[:client]
+          client.dispatch("123\n") # PID
+          client.dispatch("#{client.one_time_token}\n")
+        end
       end
+
+      # mock_channel = mock_channel_fof_script_executable(mock_ssh)
+      # mock_channel.should_receive(:exec) do |*args|
+      #   args.length.should == 1
+      #   # args.first.should =~ %r<export MM_ACTUAL_JOB_ID=[0-9a-f]{24} MM_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_FULL_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_ACTUAL_JOB_NAME_PATH=\\"/rjn0001/j11\\" MM_ACTUAL_JOB_SECURITY_TOKEN= MM_SCHEDULE_ID=[0-9a-f]{24} MM_SCHEDULE_ESTIMATED_TIME= MM_TEMPLATE_JOB_ID=[0-9a-f]{24} MM_TEMPLATE_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" && tengine_job_agent_run -- \$HOME/j11\.sh>
+      #   t_rjn1001 = Tengine::Job::Template::RootJobnet.find_by_name("rjn0001")
+      #   t_rjn1001.dsl_version.should == dsl_version
+      #   t_j11 = t_rjn1001.vertex_by_name_path("/rjn0001/j11")
+      #   args.first.should =~ %r<MM_TEMPLATE_JOB_ID=#{t_j11.id.to_s}>
+      #     args.first.should_not =~ %r<MM_TEMPLATE_JOB_ANCESTOR_IDS=\"#{@template.id.to_s};#{t_rjn1001.id.to_s}\">
+      #     args.first.should =~ %r<MM_TEMPLATE_JOB_ANCESTOR_IDS=\"#{t_rjn1001.id.to_s}\">
+      #     args.first.should =~ %r<job_test j11>
+      # end
+
       tengine.receive("start.job.job.tengine", :properties => {
           :execution_id => @execution.id.to_s,
           :root_jobnet_id => @root.id.to_s,

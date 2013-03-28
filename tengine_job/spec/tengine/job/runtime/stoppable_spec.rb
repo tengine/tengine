@@ -115,12 +115,9 @@ describe Tengine::Job::Runtime::Stoppable do
               with(test_server1.hostname_or_ipv4,
               an_instance_of(Tengine::Resource::Credential),
               an_instance_of(Hash)).and_yield(mock_ssh)
-            mock_channel = mock_channel_fof_script_executable(mock_ssh)
-            mock_channel.should_receive(:exec) do |*args|
-              args.length.should == 1
-              args.first.tap do |cmd|
-                cmd.should =~ /tengine_job_agent_kill #{@pid} 30 INT,HUP,QUIT,KILL/
-              end
+
+            mock_shell_for_script_executable(mock_ssh) do |ch|
+              ch.should_receive(:send_data).with(/tengine_job_agent_kill #{@pid} 30 INT,HUP,QUIT,KILL; echo \".+?\"\n/).and_return(&ch.success)
             end
 
             idx = 0
@@ -153,13 +150,11 @@ describe Tengine::Job::Runtime::Stoppable do
             with(test_server1.hostname_or_ipv4,
             an_instance_of(Tengine::Resource::Credential),
             an_instance_of(Hash)).and_yield(mock_ssh)
-          mock_channel = mock_channel_fof_script_executable(mock_ssh)
-          mock_channel.should_receive(:exec) do |*args|
-            args.length.should == 1
-            args.first.tap do |cmd|
-              cmd.should =~ /tengine_job_agent_kill #{@pid} #{interval} #{signals}/
-            end
+
+          mock_shell_for_script_executable(mock_ssh) do |ch|
+            ch.should_receive(:send_data).with(/tengine_job_agent_kill #{@pid} #{interval} #{signals}; echo \".+?\"\n/).and_return(&ch.success)
           end
+
           t = Time.at(Time.now.to_i)
           @mock_event.should_receive(:occurred_at).and_return(t)
           @mock_event.should_receive(:[]).with(:stop_reason).and_return("test stopping")
