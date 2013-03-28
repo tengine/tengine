@@ -72,44 +72,40 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
         ch0.request_pty do |channel, success|
           raise Error, "failed to request_pty" unless success
 
-          actual_cmd = "export PS1=;"
-          starting = false
-          exiting = false
-          result = nil
-
           channel.exec("#{ENV['SHELL']} -l") do |shell_ch, success|
             raise Error, "failed to \"#{ENV['SHELL']} -l\"" unless success
 
             shell_ch[:data] = ""
+            shell_ch[:result] = nil
+            shell_ch[:status] = :preparing # :preparing, :waiting, :exiting
 
             shell_ch.on_process do |ch|
               while shell_ch[:data] =~ %r!^.*?\n!
-
                 output = $&
                 # puts "output: #{output.inspect}"
 
-                puts output
                 shell_ch[:data] = $'
 
-                unless exiting
-                  unless starting
-
-                    actual_cmd = cmd.force_encoding("binary")
-                    Tengine.logger.info("now exec on ssh: " << cmd)
-                    puts("now exec on ssh: " << cmd)
-                    result = ""
-                    starting = true
-                    shell_ch.send_data(actual_cmd + "; echo \"one_time_token\"\n")
+                case shell_ch[:status]
+                when :preparing then
+                  actual_cmd = cmd.force_encoding("binary")
+                  Tengine.logger.info("now exec on ssh: " << cmd)
+                  puts("now exec on ssh: " << cmd)
+                  shell_ch[:result] = ""
+                  shell_ch[:status] = :waiting
+                  shell_ch.send_data(actual_cmd + "; echo \"one_time_token\"\n")
+                when :waiting then
+                  if output.strip == "one_time_token"
+                    yield(ch, shell_ch[:result]) if block_given?
+                    shell_ch[:status] = :exiting
+                    shell_ch.send_data("exit\n")
                   else
-                    if output.strip == "one_time_token"
-                      yield(ch, result) if block_given?
-                      exiting = true
-                      shell_ch.send_data("exit\n")
-                    else
-                      result = ""
-                      result << output
-                    end
+                    shell_ch[:result] << output
                   end
+                when :exiting then
+                  # do nothing...
+                else
+                  raise Error, "Unknown shell channel status"
                 end
               end
             end
@@ -125,6 +121,7 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
               raise Error, "Failure to execute #{self.name_path} via SSH: #{data}"
             end
 
+            actual_cmd = "export PS1=;"
             Tengine.logger.info("now exec on ssh: \"#{actual_cmd}\"")
             shell_ch.send_data("#{actual_cmd}\n")
 
