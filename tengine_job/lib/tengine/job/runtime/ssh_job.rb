@@ -61,7 +61,72 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
     raise
   end
 
-  def execute(cmd)
+  class ShellClient
+    def initialize(channel, script, callback)
+      @channel, @script, @callback = channel, script, callback
+    end
+
+    def setup
+      @channel[:data] = ""
+      @channel[:result] = nil
+      @channel[:status] = :preparing # :preparing, :waiting, :exiting
+
+      @channel.on_data do |ch, data|
+        # puts "on_data: #{data.inspect}"
+        @channel[:data] << data
+        Tengine.logger.info("got STDOUT data: #{data.inspect}")
+      end
+
+      @channel.on_process do |ch|
+        while @channel[:data] =~ %r!^.*?\n!
+          output = $&
+          # puts "output: #{output.inspect}"
+          @channel[:data] = $'
+
+          case @channel[:status]
+          when :preparing then execute
+          when :waiting then
+            if output.strip == "one_time_token"
+              returns
+            else
+              @channel[:result] << output
+            end
+          when :exiting then
+            # do nothing...
+          else
+            raise Error, "Unknown shell channel status"
+          end
+        end
+      end
+    end
+
+    def start
+      prepare # 他のメソッドはon_processのハンドラから呼ばれます
+    end
+
+    def prepare
+      cmd = "export PS1=;"
+      Tengine.logger.info("now exec on ssh: \"#{cmd}\"")
+      @channel.send_data("#{cmd}\n")
+    end
+
+    def execute
+      actual = @script.force_encoding("binary")
+      Tengine.logger.info("now exec on ssh: " << @script)
+      # puts("now exec on ssh: " << @script)
+      @channel[:result] = ""
+      @channel[:status] = :waiting
+      @channel.send_data(actual + "; echo \"one_time_token\"\n")
+    end
+
+    def returns
+      @callback.call(@channel, @channel[:result]) if @callback
+      @channel[:status] = :exiting
+      @channel.send_data("exit\n")
+    end
+  end
+
+  def execute(cmd, &block)
     raise "actual_server not found for #{self.name_path.inspect}" unless actual_server
     Tengine.logger.info("connecting to #{actual_server.hostname_or_ipv4}")
     port = actual_server.properties["ssh_port"] || 22
@@ -75,56 +140,14 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
           channel.exec("#{ENV['SHELL']} -l") do |shell_ch, success|
             raise Error, "failed to \"#{ENV['SHELL']} -l\"" unless success
 
-            shell_ch[:data] = ""
-            shell_ch[:result] = nil
-            shell_ch[:status] = :preparing # :preparing, :waiting, :exiting
-
-            shell_ch.on_process do |ch|
-              while shell_ch[:data] =~ %r!^.*?\n!
-                output = $&
-                # puts "output: #{output.inspect}"
-
-                shell_ch[:data] = $'
-
-                case shell_ch[:status]
-                when :preparing then
-                  actual_cmd = cmd.force_encoding("binary")
-                  Tengine.logger.info("now exec on ssh: " << cmd)
-                  puts("now exec on ssh: " << cmd)
-                  shell_ch[:result] = ""
-                  shell_ch[:status] = :waiting
-                  shell_ch.send_data(actual_cmd + "; echo \"one_time_token\"\n")
-                when :waiting then
-                  if output.strip == "one_time_token"
-                    yield(ch, shell_ch[:result]) if block_given?
-                    shell_ch[:status] = :exiting
-                    shell_ch.send_data("exit\n")
-                  else
-                    shell_ch[:result] << output
-                  end
-                when :exiting then
-                  # do nothing...
-                else
-                  raise Error, "Unknown shell channel status"
-                end
-              end
-            end
-
-            shell_ch.on_data do |ch, data|
-              # puts "on_data: #{data.inspect}"
-              shell_ch[:data] << data
-              Tengine.logger.info("got STDOUT data: #{data.inspect}")
-            end
-
             shell_ch.on_extended_data do |ch, type, data|
               add_error_message(data)
               raise Error, "Failure to execute #{self.name_path} via SSH: #{data}"
             end
 
-            actual_cmd = "export PS1=;"
-            Tengine.logger.info("now exec on ssh: \"#{actual_cmd}\"")
-            shell_ch.send_data("#{actual_cmd}\n")
-
+            client = ShellClient.new(shell_ch, cmd, block)
+            client.setup
+            client.start
           end
         end
       end
