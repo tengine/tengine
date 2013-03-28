@@ -72,63 +72,63 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
         ch0.request_pty do |channel, success|
           raise Error, "failed to request_pty" unless success
 
-        actual_cmd = "export PS1=;"
-        starting = false
-        exiting = false
-        result = nil
+          actual_cmd = "export PS1=;"
+          starting = false
+          exiting = false
+          result = nil
 
-        channel.exec("#{ENV['SHELL']} -l") do |shell_ch, success|
-          raise Error, "failed to \"#{ENV['SHELL']} -l\"" unless success
+          channel.exec("#{ENV['SHELL']} -l") do |shell_ch, success|
+            raise Error, "failed to \"#{ENV['SHELL']} -l\"" unless success
 
-          shell_ch[:data] = ""
+            shell_ch[:data] = ""
 
-shell_ch.on_process do |ch|
-  while shell_ch[:data] =~ %r!^.*?\n!
+            shell_ch.on_process do |ch|
+              while shell_ch[:data] =~ %r!^.*?\n!
 
-    output = $&
-    # puts "output: #{output.inspect}"
+                output = $&
+                # puts "output: #{output.inspect}"
 
-    puts output
-    shell_ch[:data] = $'
+                puts output
+                shell_ch[:data] = $'
 
-    unless exiting
-      unless starting
+                unless exiting
+                  unless starting
 
-        actual_cmd = cmd.force_encoding("binary")
-        Tengine.logger.info("now exec on ssh: " << cmd)
-        puts("now exec on ssh: " << cmd)
-        result = ""
-        starting = true
-        shell_ch.send_data(actual_cmd + "; echo \"one_time_token\"\n")
-      else
-        if output.strip == "one_time_token"
-          yield(ch, result) if block_given?
-          exiting = true
-          shell_ch.send_data("exit\n")
-        else
-          result = ""
-          result << output
-        end
-      end
-    end
-  end
-end
+                    actual_cmd = cmd.force_encoding("binary")
+                    Tengine.logger.info("now exec on ssh: " << cmd)
+                    puts("now exec on ssh: " << cmd)
+                    result = ""
+                    starting = true
+                    shell_ch.send_data(actual_cmd + "; echo \"one_time_token\"\n")
+                  else
+                    if output.strip == "one_time_token"
+                      yield(ch, result) if block_given?
+                      exiting = true
+                      shell_ch.send_data("exit\n")
+                    else
+                      result = ""
+                      result << output
+                    end
+                  end
+                end
+              end
+            end
 
-          shell_ch.on_data do |ch, data|
-            # puts "on_data: #{data.inspect}"
-            shell_ch[:data] << data
-            Tengine.logger.info("got STDOUT data: #{data.inspect}")
+            shell_ch.on_data do |ch, data|
+              # puts "on_data: #{data.inspect}"
+              shell_ch[:data] << data
+              Tengine.logger.info("got STDOUT data: #{data.inspect}")
+            end
+
+            shell_ch.on_extended_data do |ch, type, data|
+              add_error_message(data)
+              raise Error, "Failure to execute #{self.name_path} via SSH: #{data}"
+            end
+
+            Tengine.logger.info("now exec on ssh: \"#{actual_cmd}\"")
+            shell_ch.send_data("#{actual_cmd}\n")
+
           end
-
-          shell_ch.on_extended_data do |ch, type, data|
-            add_error_message(data)
-            raise Error, "Failure to execute #{self.name_path} via SSH: #{data}"
-          end
-
-          Tengine.logger.info("now exec on ssh: \"#{actual_cmd}\"")
-          shell_ch.send_data("#{actual_cmd}\n")
-
-        end
         end
       end
       c.wait
