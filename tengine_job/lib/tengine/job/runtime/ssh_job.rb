@@ -79,29 +79,31 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
 
       @channel.on_process do |ch|
         while @channel[:data] =~ %r!^.*?\n!
-          output = $&
-          # puts "output: #{output.inspect}"
           @channel[:data] = $'
-
-          case @channel[:status]
-          when :preparing then execute
-          when :waiting then
-            if output.strip == "one_time_token"
-              returns
-            else
-              @channel[:result] << output
-            end
-          when :exiting then
-            # do nothing...
-          else
-            raise Error, "Unknown shell channel status"
-          end
+          dispatch($&)
         end
       end
     end
 
+    def dispatch(output)
+      # puts "output: #{output.inspect}"
+      case @channel[:status]
+      when :preparing then execute
+      when :waiting then
+        if output.strip == "one_time_token"
+          returns
+        else
+          @channel[:result] << output
+        end
+      when :exiting then
+        # do nothing...
+      else
+        raise Error, "Unknown shell channel status"
+      end
+    end
+
     def start
-      prepare # 他のメソッドはon_processのハンドラから呼ばれます
+      prepare # execute, returnsはdispatchから呼ばれます
     end
 
     def prepare
