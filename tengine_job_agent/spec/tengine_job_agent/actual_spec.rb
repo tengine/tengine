@@ -5,7 +5,7 @@ require 'eventmachine'
 require 'json'
 require 'logger'
 
-describe "tengine_job_agent_run" do
+describe "tengine_job_agent_run", skip_travis: true do
 
   before(:all) do
     system("tengine_event_sucks")

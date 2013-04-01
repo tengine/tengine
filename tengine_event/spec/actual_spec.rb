@@ -95,7 +95,7 @@ describe "tengine_event" do
         end
       end
 
-      it "receives foo, bar and baz" do
+      it "receives foo, bar and baz", skip_travis: true do
         buffer.should =~ %w[foo bar baz]
       end
     end
