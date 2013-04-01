@@ -33,11 +33,16 @@ class Tengine::Job::Runtime::SshJob < Tengine::Job::Runtime::JobBase
     cmd = build_command(execution)
     # puts "cmd:\n" << cmd
     execute(cmd) do |ch, data|
-      pid = data.strip
-      if pid =~ /^\d+$/
+      pids = data.strip.scan(/^\d+$/)
+      case pids.length
+      when 0 then
+        add_error_message("expected a set of numeric charactors but not found in: " << data.inspect)
+        raise Error, "Failure to execute #{self.name_path} via SSH. expected numeric charactors but got: #{data}"
+      when 1 then
+        pid = pids.first.strip
         Tengine.logger.info("got pid: #{pid.inspect}")
       else
-        add_error_message("expected numeric charactors but got: " << data.inspect)
+        add_error_message("expected a set of numeric charactors but got #{pids.length} sets of numeric charactoers #{pids.inspect} in #{data.inspect}")
         raise Error, "Failure to execute #{self.name_path} via SSH. expected numeric charactors but got: #{data}"
       end
 
