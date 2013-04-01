@@ -49,7 +49,7 @@ describe 'schedule_driver' do
         Tengine::Core::Schedule.where(:status => Tengine::Core::Schedule::SCHEDULED).should be_empty
       end
 
-      it "タイムアウトが0で設定されていた場合はなにもしない" do
+      it "タイムアウトが0で設定されていた場合はなにもしない", skip_travis: true do
         @execution.phase_key = :initialized
         @execution.actual_base_timeout_alert = 0
         @execution.actual_base_timeout_termination = 0

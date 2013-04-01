@@ -26,17 +26,17 @@ describe "amqp" do
   after(:all){ logger.debug("=" * 100) }
 
   [
-    "actual_publisher1.rb sequential",
-    "actual_publisher1.rb nested",
-    "actual_publisher2.rb sequential",
-    "actual_publisher2.rb nested",
-  ].each do |publisher_command|
+    ["actual_publisher1.rb sequential", {skip_travis: true}],
+    ["actual_publisher1.rb nested"    , {skip_travis: true}],
+    ["actual_publisher2.rb sequential", {}],
+    ["actual_publisher2.rb nested"    , {}],
+  ].each do |(publisher_command, opts)|
     # ２つのイベント発火の場合には失敗したり成功したりが混じっていましたが、
     # ３つのイベント発火の場合には100%失敗するので繰り返しは1回だけでOKです。
     repeat = (ENV['REPEAT'] || 1).to_i
     repeat.times do |idx|
 
-      context "#{idx + 1}/#{repeat} publisher is in another process with #{publisher_command}" do
+      context "#{idx + 1}/#{repeat} publisher is in another process with #{publisher_command}", opts do
         let(:timeout){ 10 }
         let(:buffer){ [] }
 
@@ -134,7 +134,7 @@ describe "amqp" do
           end
         end
 
-        it "receives foo, bar and baz", travis: true do
+        it "receives foo, bar and baz" do
           buffer.should == %w[foo bar baz]
         end
       end
