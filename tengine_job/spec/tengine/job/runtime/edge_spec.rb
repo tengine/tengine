@@ -206,7 +206,7 @@ describe Tengine::Job::Runtime::Edge do
 
   end
 
-  context "<BUG>再実行したジョブが準備中のままになってしまう" do
+  context "<BUG>再実行したジョブが準備中のままになってしまう", skip_travis: true do
 
     before(:all) do
       TestRabbitmq.kill_remain_processes

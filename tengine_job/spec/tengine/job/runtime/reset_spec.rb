@@ -652,6 +652,8 @@ describe "reset" do
           @root.element('/jn0005/finally/jn0005_fjn/finally/jn0005_fif').phase_key.should == :initialized
         end
 
+        context "実際にジョブを実行", skip_travis: true do
+
         it "jn4内のジョブがactivateされるとjn4にack" do
           t2 = Time.now
           event2 = mock(:"start.job.job.tengine") # j41のジョブ開始イベント
@@ -713,6 +715,8 @@ describe "reset" do
 
           @root.reload
           @root.element('/jn0005/finally/jn0005_fjn/finally').phase_key.should == :running
+        end
+
         end
       end
     end

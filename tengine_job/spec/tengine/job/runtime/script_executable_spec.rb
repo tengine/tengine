@@ -36,7 +36,7 @@ describe Tengine::Job::Runtime::SshJob do
 
   describe :execute do
 
-    it "終了コードを取得できる" do
+    it "終了コードを取得できる", skip_travis: true do
       j = Tengine::Job::Runtime::SshJob.new(
         :server_name => @server.name,
         :credential_name => @credential.name,
@@ -51,7 +51,7 @@ describe Tengine::Job::Runtime::SshJob do
 #           )
 #       end
 
-    it "https://www.pivotaltracker.com/story/show/22269461" do
+    it "https://www.pivotaltracker.com/story/show/22269461", skip_travis: true do
       j = Tengine::Job::Runtime::SshJob.new(
         :server_name => @server.name,
         :credential_name => @credential.name,
@@ -65,7 +65,7 @@ describe Tengine::Job::Runtime::SshJob do
     end
   end
 
-  describe "#run" do
+  describe "#run", skip_travis: true do
     before do
       # tengine_job_agent_run を使わないようにします
       ENV['MM_RUNNER_PATH'] = ""
@@ -108,7 +108,7 @@ describe Tengine::Job::Runtime::SshJob do
     end
   end
 
-  context "tengine_job_agent_run" do
+  context "tengine_job_agent_run", skip_travis: true do
 
     # Travis−CI上では gemfiles/Gemfile* によって、その他の場合にはgemとしてインストールされるので、
     # tengine_job_agent_run がインストールされているはずですが、SSHを経由してもPATH上にあるかどうか
