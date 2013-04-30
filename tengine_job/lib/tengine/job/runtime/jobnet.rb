@@ -21,7 +21,7 @@ class Tengine::Job::Runtime::Jobnet < Tengine::Job::Runtime::NamedVertex
 
   # was_expansionがtrueなら元々のtemplateへの参照が必要なのでTenigne::Job::Runtime::RootJobnetだけでなく
   # JobnetActualでもtemplateが必要です。
-  belongs_to :template, :inverse_of => :root_jobnet_actuals, :index => true, :class_name => "Tengine::Job::Template::RootJobnet"
+  belongs_to :template, :index => true, :class_name => "Tengine::Job::Template::RootJobnet"
 
   field :jobnet_type_cd, :type => Integer, :default => 1 # ジョブネットの種類。後述の定義を参照してください。
 
