@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('activesupport', ">= 3.1.0")
   s.add_runtime_dependency('activemodel', ">= 3.1.0")
   s.add_runtime_dependency('selectable_attr', "~> 0.3.15")
-  s.add_runtime_dependency('mongoid', "~> 3.1.3")
+  s.add_runtime_dependency('mongoid', ">= 3.0.22")
   s.add_runtime_dependency('tengine_support', "~> #{version}")
   s.add_runtime_dependency('tengine_event', "~> #{version}")
   s.add_runtime_dependency('daemons', "~> 1.1.4")
