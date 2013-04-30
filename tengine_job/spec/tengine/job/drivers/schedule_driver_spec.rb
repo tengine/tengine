@@ -5,17 +5,17 @@ require 'tengine/rspec'
 describe 'schedule_driver' do
   include Tengine::RSpec::Extension
 
-  target_dsl File.expand_path("../../../../lib/tengine/job/drivers/schedule_driver.rb", File.dirname(__FILE__))
+  target_dsl File.expand_path("../../../../lib/tengine/job/runtime/drivers/schedule_driver.rb", File.dirname(__FILE__))
   driver :schedule_driver
 
   context "rjn0001" do
     before do
       Tengine::Core::Schedule.delete_all
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
     end
@@ -49,7 +49,7 @@ describe 'schedule_driver' do
         Tengine::Core::Schedule.where(:status => Tengine::Core::Schedule::SCHEDULED).should be_empty
       end
 
-      it "タイムアウトが0で設定されていた場合はなにもしない" do
+      it "タイムアウトが0で設定されていた場合はなにもしない", skip_travis: true do
         @execution.phase_key = :initialized
         @execution.actual_base_timeout_alert = 0
         @execution.actual_base_timeout_termination = 0

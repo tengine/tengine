@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
+
+require 'net/ssh'
 require 'tengine/rspec'
 
 describe 'job_control_driver' do
   include Tengine::RSpec::Extension
   include NetSshMock
 
-  target_dsl File.expand_path("../../../../../lib/tengine/job/drivers/job_control_driver.rb", File.dirname(__FILE__))
+  target_dsl File.expand_path("../../../../../lib/tengine/job/runtime/drivers/job_control_driver.rb", File.dirname(__FILE__))
   driver :job_control_driver
 
   shared_examples_for "/rjn0008/rjn0001/j11を実行する際の環境変数" do |dsl_version|
@@ -14,27 +16,53 @@ describe 'job_control_driver' do
       @rjn0001 = @root.vertex_by_name_path("/rjn0008/rjn0001")
       @j11 = @root.vertex_by_name_path("/rjn0008/rjn0001/j11")
       @root.phase_key = :running
-      @rjn0001.phase_key = :running
-      @j11.phase_key = :ready
+
+      @rjn0001.update_phase! :running
+
+      @rjn0001.class.should == Tengine::Job::Runtime::Jobnet
+      @j11.class.should == Tengine::Job::Runtime::SshJob
+
+      [@rjn0001, @j11].each{|j| j.should_not be_new_record}
+      @rjn0001.parent_id.should == @root.id
+      @rjn0001.parent.id.should == @root.id
+
+      @j11.parent_id.should == @rjn0001.id
+      @j11.parent.id.should == @rjn0001.id
+
       @j11.prev_edges.each{|edge| edge.phase_key = :transmitting}
+      @j11.update_phase! :ready
+
       @root.save!
       @root.reload
       tengine.should_not_fire
       mock_ssh = mock(:ssh)
       Net::SSH.should_receive(:start).
         with("localhost", an_instance_of(Tengine::Resource::Credential), an_instance_of(Hash)).and_yield(mock_ssh)
-      mock_channel = mock_channel_fof_script_executable(mock_ssh)
-      mock_channel.should_receive(:exec) do |*args|
-        args.length.should == 1
-        # args.first.should =~ %r<export MM_ACTUAL_JOB_ID=[0-9a-f]{24} MM_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_FULL_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_ACTUAL_JOB_NAME_PATH=\\"/rjn0001/j11\\" MM_ACTUAL_JOB_SECURITY_TOKEN= MM_SCHEDULE_ID=[0-9a-f]{24} MM_SCHEDULE_ESTIMATED_TIME= MM_TEMPLATE_JOB_ID=[0-9a-f]{24} MM_TEMPLATE_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" && tengine_job_agent_run -- \$HOME/j11\.sh>
-          t_rjn1001 = Tengine::Job::RootJobnetTemplate.find_by_name("rjn0001")
+
+      mock_shell_for_script_executable(mock_ssh) do |ch|
+        t_rjn1001 = Tengine::Job::Template::RootJobnet.find_by_name("rjn0001")
         t_rjn1001.dsl_version.should == dsl_version
         t_j11 = t_rjn1001.vertex_by_name_path("/rjn0001/j11")
-        args.first.should =~ %r<MM_TEMPLATE_JOB_ID=#{t_j11.id.to_s}>
-          args.first.should_not =~ %r<MM_TEMPLATE_JOB_ANCESTOR_IDS=\"#{@template.id.to_s};#{t_rjn1001.id.to_s}\">
-          args.first.should =~ %r<MM_TEMPLATE_JOB_ANCESTOR_IDS=\"#{t_rjn1001.id.to_s}\">
-          args.first.should =~ %r<job_test j11>
+        ch.should_receive(:send_data).with(%r<.*MM_TEMPLATE_JOB_ID=#{t_j11.id.to_s} MM_TEMPLATE_JOB_ANCESTOR_IDS=\"#{t_rjn1001.id.to_s}\" && tengine_job_agent_run job_test j11; echo \".+?\"\n>).and_return do
+          client = ch[:client]
+          client.dispatch("123\n") # PID
+          client.dispatch("#{client.one_time_token}\n")
+        end
       end
+
+      # mock_channel = mock_channel_fof_script_executable(mock_ssh)
+      # mock_channel.should_receive(:exec) do |*args|
+      #   args.length.should == 1
+      #   # args.first.should =~ %r<export MM_ACTUAL_JOB_ID=[0-9a-f]{24} MM_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_FULL_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_ACTUAL_JOB_NAME_PATH=\\"/rjn0001/j11\\" MM_ACTUAL_JOB_SECURITY_TOKEN= MM_SCHEDULE_ID=[0-9a-f]{24} MM_SCHEDULE_ESTIMATED_TIME= MM_TEMPLATE_JOB_ID=[0-9a-f]{24} MM_TEMPLATE_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" && tengine_job_agent_run -- \$HOME/j11\.sh>
+      #   t_rjn1001 = Tengine::Job::Template::RootJobnet.find_by_name("rjn0001")
+      #   t_rjn1001.dsl_version.should == dsl_version
+      #   t_j11 = t_rjn1001.vertex_by_name_path("/rjn0001/j11")
+      #   args.first.should =~ %r<MM_TEMPLATE_JOB_ID=#{t_j11.id.to_s}>
+      #     args.first.should_not =~ %r<MM_TEMPLATE_JOB_ANCESTOR_IDS=\"#{@template.id.to_s};#{t_rjn1001.id.to_s}\">
+      #     args.first.should =~ %r<MM_TEMPLATE_JOB_ANCESTOR_IDS=\"#{t_rjn1001.id.to_s}\">
+      #     args.first.should =~ %r<job_test j11>
+      # end
+
       tengine.receive("start.job.job.tengine", :properties => {
           :execution_id => @execution.id.to_s,
           :root_jobnet_id => @root.id.to_s,
@@ -45,7 +73,7 @@ describe 'job_control_driver' do
       @rjn0001 = @root.vertex_by_name_path("/rjn0008/rjn0001")
       @j11 = @root.vertex_by_name_path("/rjn0008/rjn0001/j11")
       @root.phase_key = :running
-      @rjn0001.phase_key = :running
+      @rjn0001.update_phase! :running
     end
   end
 
@@ -63,14 +91,15 @@ describe 'job_control_driver' do
     before do
       Tengine::Core::Setting.delete_all
       Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1")
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Template::Vertex.delete_all
       Rjn0001SimpleJobnetBuilder.new.create_template
       Rjn0002SimpleParallelJobnetBuilder.new.create_template
       builder = Rjn0008ExpansionFixture.new
       @template = builder.create_template
       @root = @template.generate
+      @root.class.should == Tengine::Job::Runtime::RootJobnet
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @base_props = {
@@ -87,7 +116,7 @@ describe 'job_control_driver' do
     before do
       Tengine::Core::Setting.delete_all
       Tengine::Core::Setting.create!(:name => "dsl_version", :value => "2")
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Template::Vertex.delete_all
       Rjn0001SimpleJobnetBuilder.new.tap do |f|
         f.create_template(:dsl_version => "1")
         f.create_template(:dsl_version => "2")
@@ -101,7 +130,7 @@ describe 'job_control_driver' do
       @template = builder.create_template(:dsl_version => "2")
       @root = @template.generate
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @base_props = {

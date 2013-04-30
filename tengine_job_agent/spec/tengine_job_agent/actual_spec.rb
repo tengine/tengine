@@ -3,20 +3,19 @@ require 'spec_helper'
 require 'timeout'
 require 'eventmachine'
 require 'json'
+require 'logger'
 
-describe "tengine_job_agent_run", manual: true do
+describe "tengine_job_agent_run", skip_travis: true do
 
-  # ひとまず、手動でrabbitmq-server を起動してください。
-  # tengine_event_sucks も実行しておいてください。
+  before(:all) do
+    system("tengine_event_sucks")
+    TestRabbitmq.kill_remain_processes
+    @test_rabbitmq = TestRabbitmq.new(keep_port: true).launch
+  end
 
-  # before(:all) do
-  #   TestRabbitmq.kill_remain_processes
-  #   @test_rabbitmq = TestRabbitmq.new(keep_port: true).launch
-  # end
-
-  # after(:all) do
-  #   TestRabbitmq.kill_launched_processes
-  # end
+  after(:all) do
+    TestRabbitmq.kill_launched_processes
+  end
 
   it "execute" do
     cmd = "export MM_SERVER_NAME=localhost MM_ROOT_JOBNET_ID=51483f6d5427dbd49c000001" +
@@ -27,17 +26,19 @@ describe "tengine_job_agent_run", manual: true do
       " && " + File.expand_path("../../../bin/tengine_job_agent_run", __FILE__) +
       " " + File.expand_path("../actual_spec.sh", __FILE__)
 
-    puts "now calling: #{cmd}"
+    # puts "now calling: #{cmd}"
 
-    timeout(30) do
       fail($?) unless system(cmd)
 
-      EM.run do
+      # Tengine.logger = Tengine::Support::NamedLogger.new("spec", STDOUT)
+      EM.run_test(timeout: 30) do # actual_spec.sh では 5秒待つので 6倍待ちます
         suite = Tengine::Mq::Suite.new
         suite.subscribe do |header, payload|
+          # puts "payload: #{payload.inspect}"
+          header.ack
           hash = JSON.parse(payload)
           event_type_name = hash["event_type_name"]
-          puts "event_type_name: " << event_type_name.inspect
+          # puts "event_type_name: " << event_type_name.inspect
           case event_type_name
           when "finished.process.job.tengine" then EM.stop
           when "job.heartbeat.tengine" then
@@ -47,7 +48,6 @@ describe "tengine_job_agent_run", manual: true do
           end
         end
       end
-    end
   end
 
 end

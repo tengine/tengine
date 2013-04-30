@@ -1,17 +1,17 @@
 ja:
   mongoid:
     models:
-      # tengine/job/root_jobnet_template: "ルートテンプレートジョブネット"
-      # tengine/job/root_jobnet_template: "ルートジョブネット"
-      tengine/job/root_jobnet_template: "テンプレートジョブ"
-      # tengine/job/root_jobnet_actual: "実行用ルートジョブネット"
-      tengine/job/root_jobnet_actual: "実行中のジョブ"
-      tengine/job/jobnet_actual: "実行中のジョブ"
-      tengine/job/execution: "ジョブ実行"
-      tengine/job/root_jobnet_actual/finder: "検索"
+      # tengine/job/template/root_jobnet: "ルートテンプレートジョブネット"
+      # tengine/job/template/root_jobnet: "ルートジョブネット"
+      tengine/job/template/root_jobnet: "テンプレートジョブ"
+      # tengine/job/runtime/root_jobnet: "実行用ルートジョブネット"
+      tengine/job/runtime/root_jobnet: "実行中のジョブ"
+      tengine/job/runtime/jobnet: "実行中のジョブ"
+      tengine/job/runtime/execution: "ジョブ実行"
+      tengine/job/runtime/root_jobnet/finder: "検索"
 
     attributes:
-      tengine/job/root_jobnet_template:
+      tengine/job/template/root_jobnet:
         id: "ID"
         name: "ジョブネット名"
         description: "説明"
@@ -21,7 +21,7 @@ ja:
         template_id: "テンプレートID"
         server_name: "接続サーバ名"
         credential_name: "認証情報名"
-      tengine/job/jobnet_template:
+      tengine/job/template/jobnet:
         id: "ID"
         name: "名称"
         script: "実行するスクリプト"
@@ -29,7 +29,7 @@ ja:
         destinations: "次のジョブ"
         server_name: "接続サーバ名"
         credential_name: "認証情報名"
-      tengine/job/root_jobnet_actual:
+      tengine/job/runtime/root_jobnet:
         id: "ID"
         name: "ジョブネット名"
         description: "説明"
@@ -37,7 +37,7 @@ ja:
         started_at: "開始日時"
         finished_at: "終了日時"
         template_id: "テンプレートID"
-      tengine/job/root_jobnet_actual/finder:
+      tengine/job/runtime/root_jobnet/finder:
         duration_start: "期間の開始時刻"
         duration_finish: "期間の終了時刻"
         duration: "期間"
@@ -45,7 +45,7 @@ ja:
         name: "ジョブネット名"
         phase_cd: "ステータス"
         refresh_interval: "リフレッシュ間隔(秒)"
-      tengine/job/jobnet_actual:
+      tengine/job/runtime/jobnet:
         id: "ID"
         name: "ジョブ名"
         phase_cd: "ステータス"
@@ -70,7 +70,7 @@ ja:
         jobnet_type_cd: "ジョブネット種別"
         jobnet_type_key: "ジョブネット種別"
         jobnet_type_name: "ジョブネット種別"
-      tengine/job/execution:
+      tengine/job/runtime/execution:
         id: "ID"
         root_jobnet: "ルートジョブネット"
         root_jobnet_id: "ルートジョブネット"
@@ -90,7 +90,7 @@ ja:
         spot: "スポット実行"
 
   selectable_attrs:
-    tengine/job/root_jobnet_actual/finder:
+    tengine/job/runtime/root_jobnet/finder:
       phase_cd: &phase_cds
         initialized: "初期化済"
         ready: "準備中"
@@ -100,7 +100,7 @@ ja:
         success: "正常終了"
         error: "エラー終了"
         stuck: "状態不明"
-    tengine/job/jobnet_actual:
+    tengine/job/runtime/jobnet:
       phase_cd:
         <<: *phase_cds
       human_phase_name:
@@ -109,6 +109,6 @@ ja:
         stopped_by_user: "エラー終了(強制停止済)"
         stopping_by_timeout: "強制停止中(タイムアウト強制停止中)"
         stopped_by_timeout: "エラー終了(タイムアウト強制停止済)"
-    tengine/job/execution:
+    tengine/job/runtime/execution:
       phase_cd:
         <<: *phase_cds

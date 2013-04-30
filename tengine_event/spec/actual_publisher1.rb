@@ -12,18 +12,43 @@ require 'tengine/event'
 logger = Logger.new(File.expand_path("tmp/log/actual_publisher1.log", base_dir))
 Tengine.logger = logger
 
-sender = Tengine::Event::Sender.new(logger: logger)
+sender = Tengine::Event::Sender.new(logger: logger, sender: {keep_connection: true} )
+
+nest = ARGV.any?{|arg| arg =~ /^nest/ }
 
 logger.debug("#{__FILE__}##{__LINE__}")
 EM.run do
-  logger.debug("#{__FILE__}##{__LINE__}")
-  sender.fire("foo") do
+
+  if nest
+
+    logger.debug("#{__FILE__}##{__LINE__}")
+    sender.fire("foo") do
+      logger.debug("#{__FILE__}##{__LINE__}")
+      sender.fire("bar") do
+        logger.debug("#{__FILE__}##{__LINE__}")
+        sender.fire("baz") do
+          logger.debug("#{__FILE__}##{__LINE__}")
+          sender.stop
+          logger.debug("#{__FILE__}##{__LINE__}")
+        end
+        logger.debug("#{__FILE__}##{__LINE__}")
+      end
+      logger.debug("#{__FILE__}##{__LINE__}")
+    end
+    logger.debug("#{__FILE__}##{__LINE__}")
+
+  else
+
+    logger.debug("#{__FILE__}##{__LINE__}")
+    sender.fire("foo")
     logger.debug("#{__FILE__}##{__LINE__}")
     sender.fire("bar")
     logger.debug("#{__FILE__}##{__LINE__}")
+    sender.fire("baz")
+    logger.debug("#{__FILE__}##{__LINE__}")
     sender.stop
     logger.debug("#{__FILE__}##{__LINE__}")
+
   end
-  logger.debug("#{__FILE__}##{__LINE__}")
 end
 logger.debug("#{__FILE__}##{__LINE__}")

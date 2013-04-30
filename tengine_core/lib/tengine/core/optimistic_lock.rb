@@ -19,16 +19,38 @@ module Tengine::Core::OptimisticLock
   class RetryOverError < StandardError
   end
 
-  def update_with_lock(options = {})
-    retry_count = options[:retry] || 5
-    idx = 1
-    while idx <= retry_count
-      yield
-      return if __update_with_lock__
-      reload
-      idx += 1
+  class << self
+    def update_with_lock_stack
+      @update_with_lock_stack ||= []
     end
-    raise RetryOverError, "retried #{retry_count} times but failed to update"
+  end
+
+  DEFAULT_RETRY_COUNT = (ENV['TENGINE_OPTIMISTIC_LOCK_RETRY_MAX'] || 5).to_i
+
+  def update_with_lock(options = {})
+    unless Tengine::Core::OptimisticLock.update_with_lock_stack.empty?
+      Tengine.logger.warn("Tengine::Core::OptimisticLock#update_with_lock is used in another #update_with_lock.\n  " << caller.join("\n  "))
+      Tengine::Core::OptimisticLock.update_with_lock_stack.each do |obj|
+        Tengine.logger.warn("-" * 100)
+        Tengine.logger.warn("invocation from: #{obj}")
+      end
+      Tengine.logger.warn("-" * 100)
+      Tengine.logger.warn("and invocation from: #{self.inspect}")
+    end
+    Tengine::Core::OptimisticLock.update_with_lock_stack.push(self.inspect)
+    begin
+      retry_count = options[:retry] || DEFAULT_RETRY_COUNT
+      idx = 1
+      while idx <= retry_count
+        yield
+        return if __update_with_lock__
+        reload
+        idx += 1
+      end
+      raise RetryOverError, "retried #{retry_count} times but failed to update"
+    ensure
+      Tengine::Core::OptimisticLock.update_with_lock_stack.pop
+    end
   end
 
   def __update_with_lock__

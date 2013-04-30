@@ -8,25 +8,34 @@ describe 'job_control_driver' do
   include Tengine::RSpec::Extension
   include NetSshMock
 
-  target_dsl File.expand_path("../../../../lib/tengine/job/drivers/job_control_driver.rb", File.dirname(__FILE__))
+  target_dsl File.expand_path("../../../../lib/tengine/job/runtime/drivers/job_control_driver.rb", File.dirname(__FILE__))
   driver :job_control_driver
 
   context "rjn0001" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @jobnet = builder.create_actual
+      @jobnet.children.each do |c|
+        next unless c.is_a?(Tengine::Job::Runtime::SshJob)
+        c.server_name = builder.test_server1.name
+        c.credential_name = builder.test_credential1.name
+        c.killing_signal_interval = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNAL_INTERVAL
+        c.killing_signals         = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNALS.dup
+        c.save!
+      end
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @jobnet.id,
         })
     end
 
     context "ジョブの起動イベントを受け取ったら" do
       it "通常の場合" do
+        pending "MM互換の環境変数をどうするか"
         @jobnet.phase_key = :starting
         @ctx.edge(:e1).phase_key = :transmitting
-        @ctx.vertex(:j11).phase_key = :ready
+        @ctx.vertex(:j11).update_phase! :ready
         @jobnet.save!
         @jobnet.reload
         tengine.should_not_fire
@@ -37,6 +46,7 @@ describe 'job_control_driver' do
         mock_channel.should_receive(:exec) do |*args|
           args.length.should == 1
           # args.first.should =~ %r<export MM_ACTUAL_JOB_ID=[0-9a-f]{24} MM_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_FULL_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_ACTUAL_JOB_NAME_PATH=\\"/rjn0001/j11\\" MM_ACTUAL_JOB_SECURITY_TOKEN= MM_SCHEDULE_ID=[0-9a-f]{24} MM_SCHEDULE_ESTIMATED_TIME= MM_TEMPLATE_JOB_ID=[0-9a-f]{24} MM_TEMPLATE_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" && tengine_job_agent_run -- \$HOME/j11\.sh>
+          # TODO 要検討
           args.first.should =~ %r<MM_ACTUAL_JOB_ID=[0-9a-f]{24} MM_ACTUAL_JOB_ANCESTOR_IDS=\"[0-9a-f]{24}\" MM_FULL_ACTUAL_JOB_ANCESTOR_IDS=\"[0-9a-f]{24}\" MM_ACTUAL_JOB_NAME_PATH=\"/rjn0001/j11\" MM_ACTUAL_JOB_SECURITY_TOKEN= MM_SCHEDULE_ID=[0-9a-f]{24} MM_SCHEDULE_ESTIMATED_TIME= MM_TEMPLATE_JOB_ID=[0-9a-f]{24} MM_TEMPLATE_JOB_ANCESTOR_IDS=\"[0-9a-f]{24}\">
           args.first.should =~ %r<job_test j11>
         end
@@ -63,8 +73,10 @@ describe 'job_control_driver' do
             @ctx[:e1].phase_key = :closing
             @ctx[:e2].phase_key = :closing
             @ctx[:e3].phase_key = :closing
-            @ctx[:j11].phase_key = :initialized
             @jobnet.save!
+
+            @ctx[:j11].update_phase! :initialized
+
             @jobnet.reload
             tengine.should_fire(:"error.jobnet.job.tengine", {
                 :source_name => @ctx[:root].name_as_resource,
@@ -99,7 +111,7 @@ describe 'job_control_driver' do
       it "存在しないスクリプトを実行しようとした場合、標準エラー出力にエラーメッセージが返されるので、それを保持する" do
         @jobnet.phase_key = :starting
         @ctx.edge(:e1).phase_key = :transmitting
-        @ctx.vertex(:j11).phase_key = :ready
+        @ctx.vertex(:j11).update_phase! :ready
         @jobnet.save!
         @jobnet.reload
         mock_ssh = mock(:ssh)
@@ -152,13 +164,13 @@ describe 'job_control_driver' do
     it "PIDを取得できたら" do
       @ctx.edge(:e1).phase_key = :transmitted
       @ctx.edge(:e2).phase_key = :active
-      @ctx.vertex(:j11).phase_key = :starting
+      @ctx.vertex(:j11).update_phase! :starting
       @jobnet.save!
       @jobnet.reload
       tengine.should_not_fire
       mock_event = mock(:event)
       @pid = "123"
-      signal = Tengine::Job::Signal.new(mock_event)
+      signal = Tengine::Job::Runtime::Signal.new(mock_event)
       signal.data = {:executing_pid => @pid}
       @ctx.vertex(:j11).ack(signal) # このメソッド内ではsaveされないので、ここでreloadもしません。
       @ctx.vertex(:j11).executing_pid.should == @pid
@@ -183,10 +195,13 @@ describe 'job_control_driver' do
         @jobnet.reload
         j11 = @jobnet.find_descendant_by_name_path("/rjn0001/j11")
         j11.executing_pid = "123"
-        j11.phase_key = :running
+        j11.update_phase! :running
         j11.previous_edges.length.should == 1
-        j11.previous_edges.first.phase_key = :transmitted
         @ctx[:root].save!
+
+        @jobnet.edges.detect{|e| e.destination_id == j11.id}.phase_key = :transmitted
+        @jobnet.save!
+
         tengine.should_fire(:"#{phase_key}.job.job.tengine",
           :source_name => @ctx[:j11].name_as_resource,
           :properties => {
@@ -228,9 +243,12 @@ describe 'job_control_driver' do
     it "stuckからのfinished.process.job.tengine" do
       @jobnet.reload
       j11 = @jobnet.find_descendant_by_name_path("/rjn0001/j11")
-      j11.phase_key = :stuck
-      j11.previous_edges.first.phase_key = :transmitted
+      j11.update_phase! :stuck
       @ctx[:root].save!
+
+      @jobnet.edges.detect{|e| e.destination_id == j11.id}.phase_key = :transmitted
+      @jobnet.save!
+
       tengine.receive(:"finished.process.job.tengine",
          :properties => {
            :execution_id => @execution.id.to_s,
@@ -251,21 +269,23 @@ describe 'job_control_driver' do
       @jobnet.reload
       j11 = @jobnet.find_descendant_by_name_path("/rjn0001/j11")
       j11.executing_pid = @pid
-      j11.phase_key = :running
+      j11.update_phase! :running
       j11.previous_edges.length.should == 1
-      j11.previous_edges.first.phase_key = :transmitted
       @ctx[:root].save!
+
+      @jobnet.edges.detect{|e| e.destination_id == j11.id}.phase_key = :transmitted
+      @jobnet.save!
 
       tengine.should_not_fire
       mock_ssh = mock(:ssh)
       Net::SSH.should_receive(:start).
         with("localhost", an_instance_of(Tengine::Resource::Credential), an_instance_of(Hash)).and_yield(mock_ssh)
-      mock_channel = mock_channel_fof_script_executable(mock_ssh)
-      mock_channel.should_receive(:exec) do |*args|
-        interval = Tengine::Job::Killing::DEFAULT_KILLING_SIGNAL_INTERVAL
-        args.length.should == 1
-        args.first.should =~ %r<tengine_job_agent_kill #{@pid} #{interval} KILL$>
+
+      mock_shell_for_script_executable(mock_ssh) do |ch|
+        interval = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNAL_INTERVAL
+        ch.should_receive(:send_data).with(%r<tengine_job_agent_kill #{@pid} #{interval} KILL; echo \".+?\"\n>).and_return(&ch.success)
       end
+
       tengine.receive(:"stop.job.job.tengine",
         :source_name => @ctx[:j11].name_as_resource,
         :properties => {
@@ -289,12 +309,12 @@ describe 'job_control_driver' do
       @jobnet.reload
       j11 = @jobnet.find_descendant_by_name_path("/rjn0001/j11")
       j11.executing_pid = @pid11
-      j11.phase_key = :success
+      j11.update_phase! :success
       j11.previous_edges.length.should == 1
       j11.previous_edges.first.phase_key = :transmitted
       j12 = @jobnet.find_descendant_by_name_path("/rjn0001/j12")
       j12.executing_pid = @pid12
-      j12.phase_key = :running
+      j12.update_phase! :running
       j12.previous_edges.length.should == 1
       j12.previous_edges.first.phase_key = :transmitted
       @ctx[:root].save!
@@ -333,24 +353,24 @@ describe 'job_control_driver' do
       @jobnet.reload
       j11 = @jobnet.find_descendant_by_name_path("/rjn0001/j11")
       j11.executing_pid = @pid11
-      j11.phase_key = :success
+      j11.update_phase! :success
       j11.previous_edges.length.should == 1
-      j11.previous_edges.first.phase_key = :transmitted
       j12 = @jobnet.find_descendant_by_name_path("/rjn0001/j12")
       j12.executing_pid = @pid12
-      j12.phase_key = :running
+      j12.update_phase! :running
       j12.previous_edges.length.should == 1
-      j12.previous_edges.first.phase_key = :transmitted
-      @ctx[:root].save!
+
+      @jobnet.edges.detect{|e| e.destination_id == j11.id}.phase_key = :transmitted
+      @jobnet.edges.detect{|e| e.destination_id == j12.id}.phase_key = :transmitted
+      @jobnet.save!
 
       mock_ssh = mock(:ssh)
       Net::SSH.should_receive(:start).
         with("localhost", an_instance_of(Tengine::Resource::Credential), an_instance_of(Hash)).and_yield(mock_ssh)
-      mock_channel = mock_channel_fof_script_executable(mock_ssh)
-      mock_channel.should_receive(:exec) do |*args|
-        interval = Tengine::Job::Killing::DEFAULT_KILLING_SIGNAL_INTERVAL
-        args.length.should == 1
-        args.first.should =~ %r<tengine_job_agent_kill #{@pid12} #{interval} KILL$>
+
+      mock_shell_for_script_executable(mock_ssh) do |ch|
+        interval = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNAL_INTERVAL
+        ch.should_receive(:send_data).with(%r<tengine_job_agent_kill #{@pid12} #{interval} KILL; echo \".+?\"\n>).and_return(&ch.success)
       end
 
       # job12 に対して強制停止
@@ -422,27 +442,28 @@ describe 'job_control_driver' do
         context(caption) do
 
           before do
-            Tengine::Job::Vertex.delete_all
+            Tengine::Job::Runtime::Vertex.delete_all
             builder = Rjn0001SimpleJobnetBuilder.new
             @root = builder.create_actual
             @ctx = builder.context
-            @execution = Tengine::Job::Execution.create!({
+            @execution = Tengine::Job::Runtime::Execution.create!({
                 :root_jobnet_id => @root.id,
                 :spot => spot, :retry => true,
                 :target_actual_ids => [@ctx[:j11].id.to_s]
               })
+            @ctx[:j11].update_phase! :success
+            @ctx[:j12].update_phase! :error
+
             @root.phase_key = :running
-            @ctx[:j11].phase_key = :success
-            @ctx[:j12].phase_key = :error
             @ctx[:e1].phase_key = :transmitted
             @ctx[:e2].phase_key = :transmitted
             @ctx[:e3].phase_key = :active
+            @root.save!
           end
 
           [:initialized, :success, :error, :stuck].each do |phase_key|
             it "phase_keyが#{phase_key}ならば再実行できるので、startのイベントを発火する" do
-              @ctx[:j11].phase_key = phase_key
-              @root.save!
+              @ctx[:j11].update_phase! phase_key
               tengine.should_fire(:"start.job.job.tengine", {
                   :source_name => @ctx[:j11].name_as_resource,
                   :properties=>{
@@ -482,7 +503,7 @@ describe 'job_control_driver' do
 
           [:ready, :starting, :running, :dying].each do |phase_key|
             it "phase_keyが#{phase_key}ならば再実行できず、エラーのイベントを発火する" do
-              @ctx[:j11].phase_key = phase_key
+              @ctx[:j11].update_phase! phase_key
               @root.save!
               tengine.should_fire("restart.job.job.tengine.error.tengined").with(any_args)
               Tengine::Core::Kernel.temp_exception_reporter(:except_test) do
@@ -515,24 +536,24 @@ describe 'job_control_driver' do
       it do
         @root.phase_key = :starting
         @root.element("prev!j11").phase_key = :transmitting
-        @root.element('j11').phase_key = :ready
+        @root.element('j11').update_phase! :ready
         @root.save!
         @root.reload
         tengine.should_not_fire
         mock_ssh = mock(:ssh)
         Net::SSH.should_receive(:start).
           with("localhost", an_instance_of(Tengine::Resource::Credential), an_instance_of(Hash)).and_yield(mock_ssh)
-        mock_channel = mock_channel_fof_script_executable(mock_ssh)
-        mock_channel.should_receive(:exec) do |*args|
-          args.length.should == 1
-          # args.first.should =~ %r<export MM_ACTUAL_JOB_ID=[0-9a-f]{24} MM_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_FULL_ACTUAL_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" MM_ACTUAL_JOB_NAME_PATH=\\"/rjn0001/j11\\" MM_ACTUAL_JOB_SECURITY_TOKEN= MM_SCHEDULE_ID=[0-9a-f]{24} MM_SCHEDULE_ESTIMATED_TIME= MM_TEMPLATE_JOB_ID=[0-9a-f]{24} MM_TEMPLATE_JOB_ANCESTOR_IDS=\\"[0-9a-f]{24}\\" && tengine_job_agent_run -- \$HOME/j11\.sh>
-          args.first.should =~ %r<MM_ACTUAL_JOB_ID=[0-9a-f]{24} MM_ACTUAL_JOB_ANCESTOR_IDS=\"[0-9a-f]{24}\" MM_FULL_ACTUAL_JOB_ANCESTOR_IDS=\"[0-9a-f]{24}\" MM_ACTUAL_JOB_NAME_PATH=\"/rjn0001/j11\" MM_ACTUAL_JOB_SECURITY_TOKEN= MM_SCHEDULE_ID=[0-9a-f]{24} MM_SCHEDULE_ESTIMATED_TIME= MM_TEMPLATE_JOB_ID=[0-9a-f]{24} MM_TEMPLATE_JOB_ANCESTOR_IDS=\"[0-9a-f]{24}\">
+
+        mock_shell_for_script_executable(mock_ssh) do |ch|
           @template.dsl_version.should == dsl_version
           template_job = @template.element("/rjn0001/j11")
-          args.first.should =~ %r<MM_TEMPLATE_JOB_ID=#{template_job.id.to_s}>
-          args.first.should =~ %r<MM_TEMPLATE_JOB_ANCESTOR_IDS=\"#{@template.id.to_s}\">
-          args.first.should =~ %r<job_test j11>
+          ch.should_receive(:send_data).with(%r<.*MM_ACTUAL_JOB_ID=[0-9a-f]{24} MM_ACTUAL_JOB_ANCESTOR_IDS=\"[0-9a-f]{24}\" MM_FULL_ACTUAL_JOB_ANCESTOR_IDS=\"[0-9a-f]{24}\" MM_ACTUAL_JOB_NAME_PATH=\"/rjn0001/j11\" MM_ACTUAL_JOB_SECURITY_TOKEN= MM_SCHEDULE_ID=[0-9a-f]{24} MM_SCHEDULE_ESTIMATED_TIME= MM_TEMPLATE_JOB_ID=#{template_job.id.to_s} MM_TEMPLATE_JOB_ANCESTOR_IDS=\"#{@template.id.to_s}\" && tengine_job_agent_run job_test j11; echo \".+?\"\n>).and_return do
+              client = ch[:client]
+              client.dispatch("123\n") # PID
+              client.dispatch("#{client.one_time_token}\n")
+          end
         end
+
         tengine.receive("start.job.job.tengine", :properties => {
             :execution_id => @execution.id.to_s,
             :root_jobnet_id => @root.id.to_s,
@@ -545,7 +566,7 @@ describe 'job_control_driver' do
         @root.reload
         @root.element('prev!j11').phase_key.should == :transmitted
         @root.element('next!j11').phase_key.should == :active
-        @root.element('j11').phase_key.should == :starting
+        @root.element('j11').phase_key.should == :running # :starting
       end
     end
 
@@ -553,13 +574,13 @@ describe 'job_control_driver' do
       before do
         Tengine::Core::Setting.delete_all
         Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1")
-        Tengine::Job::Vertex.delete_all
+        Tengine::Job::Template::Vertex.delete_all
         Rjn0001SimpleJobnetBuilder.new.tap do |builder|
           @template = builder.create_template(:dsl_version => "1")
           @root = @template.generate
           @ctx = builder.context
         end
-        @execution = Tengine::Job::Execution.create!({
+        @execution = Tengine::Job::Runtime::Execution.create!({
             :root_jobnet_id => @root.id,
           })
       end
@@ -571,14 +592,14 @@ describe 'job_control_driver' do
       before do
         Tengine::Core::Setting.delete_all
         Tengine::Core::Setting.create!(:name => "dsl_version", :value => "2")
-        Tengine::Job::Vertex.delete_all
+        Tengine::Job::Template::Vertex.delete_all
         Rjn0001SimpleJobnetBuilder.new.tap do |builder|
           builder.create_template(:dsl_version => "1")
           @template = builder.create_template(:dsl_version => "2")
           @root = @template.generate
           @ctx = builder.context
         end
-        @execution = Tengine::Job::Execution.create!({
+        @execution = Tengine::Job::Runtime::Execution.create!({
             :root_jobnet_id => @root.id,
           })
       end
@@ -590,7 +611,7 @@ describe 'job_control_driver' do
       before do
         Tengine::Core::Setting.delete_all
         Tengine::Core::Setting.create!(:name => "dsl_version", :value => "10")
-        Tengine::Job::Vertex.delete_all
+        Tengine::Job::Template::Vertex.delete_all
         Rjn0001SimpleJobnetBuilder.new.tap do |builder|
           (1..9).each do |idx|
             builder.create_template(:dsl_version => idx.to_s)
@@ -599,7 +620,7 @@ describe 'job_control_driver' do
           @root = @template.generate
           @ctx = builder.context
         end
-        @execution = Tengine::Job::Execution.create!({
+        @execution = Tengine::Job::Runtime::Execution.create!({
             :root_jobnet_id => @root.id,
           })
       end
@@ -611,11 +632,11 @@ describe 'job_control_driver' do
   context "https://www.pivotaltracker.com/story/show/22624209" do
     it "stuckにする" do
       Tengine::Core::Schedule.delete_all
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @root.phase_key = :initialized
@@ -636,11 +657,11 @@ describe 'job_control_driver' do
   context "start.job.job.tengine.failed.tengined" do
     it "stuckにする" do
       Tengine::Core::Schedule.delete_all
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @root.phase_key = :initialized
@@ -665,11 +686,11 @@ describe 'job_control_driver' do
 
     it "broken event" do
       Tengine::Core::Schedule.delete_all
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @root.phase_key = :initialized
@@ -701,11 +722,11 @@ describe 'job_control_driver' do
     describe i do
       it "stuckにする" do
         Tengine::Core::Schedule.delete_all
-        Tengine::Job::Vertex.delete_all
+        Tengine::Job::Runtime::Vertex.delete_all
         builder = Rjn0001SimpleJobnetBuilder.new
         @root = builder.create_actual
         @ctx = builder.context
-        @execution = Tengine::Job::Execution.create!({
+        @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
         @root.phase_key = :running

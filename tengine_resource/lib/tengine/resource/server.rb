@@ -41,7 +41,8 @@ class Tengine::Resource::Server
   end
 
   def hostname_or_ipv4
-    address_order.map{|key| addresses[key]}.detect{|s| !s.blank?} # nilだけでなく空文字列も考慮する必要があります
+    addrs = addresses.symbolize_keys
+    address_order.map{|key| addrs[key.to_sym]}.detect{|s| !s.blank?} # nilだけでなく空文字列も考慮する必要があります
   end
 
   def hostname_or_ipv4?

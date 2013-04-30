@@ -1,4 +1,8 @@
 TengineConsole::Application.routes.draw do
+  devise_for :users
+
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
   if TengineConsole.test_console?
     namespace :tengine do  namespace :test do resources :scripts end end
   end
@@ -18,40 +22,26 @@ TengineConsole::Application.routes.draw do
 
   namespace :tengine do  namespace :core do resources :settings end end
 
-  namespace :tengine do  namespace :job do resources :executions end end
 
-  namespace :tengine do  namespace :job do resources :categories end end
 
   namespace :tengine do
     namespace :job do
-      resources :root_jobnet_actuals do
-        resources :jobnet_actuals
-        member{ get :vertecs }
+
+      namespace :template do
+        resources :root_jobnets
+      end
+
+      namespace :runtime do
+        resources :executions
+
+        resources :root_jobnets do
+          # resources :jobnets
+          # member{ get :vertecs }
+        end
       end
     end
   end
 
-  namespace :tengine do  namespace :job do resources :root_jobnet_templates end end
-
-  namespace :tengine do  namespace :job do resources :jobnets end end
-
-  namespace :tengine do
-    namespace :job do
-      resources :jobnets do
-        resources :edges
-      end
-    end
-  end
-
-  namespace :tengine do  namespace :job do resources :edges end end
-
-  namespace :tengine do  namespace :job do resources :vertices end end
-
-  namespace :tengine do  namespace :job do resources :jobs end end
-
-  namespace :tengine do  namespace :job do resources :expansions end end
-
-  namespace :tengine do  namespace :job do resources :jobnet_templates end end
 
   namespace :tengine do  namespace :resource do  namespace :provider do resources :ec2s end end end
 

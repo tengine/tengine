@@ -32,33 +32,35 @@ class Rjn0005RetryTwoLayerFixture < JobnetFixtureBuilder
   include TestCredentialFixture
   include TestServerFixture
 
+  BASE_DIR = File.expand_path("../../../examples", __FILE__)
+
   DSL = <<-EOS
     jobnet("jn0005", :instance_name => "test_server1", :credential_name => "test_credential1") do
       boot_jobs("j1")
-      job("j1", "$HOME/0005_retry_two_layer.sh", :to => ["j2", "jn4"])
-      job("j2", "$HOME/0005_retry_two_layer.sh", :to => "j4")
+      job("j1", "#{BASE_DIR}/0005_retry_two_layer.sh", :to => ["j2", "jn4"])
+      job("j2", "#{BASE_DIR}/0005_retry_two_layer.sh", :to => "j4")
       jobnet("jn4", :to => "j4") do
         boot_jobs("j41")
-        job("j41", "$HOME/0005_retry_two_layer.sh", :to => ["j42", "j43"])
-        job("j42", "$HOME/0005_retry_two_layer.sh", :to => "j44")
-        job("j43", "$HOME/0005_retry_two_layer.sh", :to => "j44")
-        job("j44", "$HOME/0005_retry_two_layer.sh")
+        job("j41", "#{BASE_DIR}/0005_retry_two_layer.sh", :to => ["j42", "j43"])
+        job("j42", "#{BASE_DIR}/0005_retry_two_layer.sh", :to => "j44")
+        job("j43", "#{BASE_DIR}/0005_retry_two_layer.sh", :to => "j44")
+        job("j44", "#{BASE_DIR}/0005_retry_two_layer.sh")
         finally do
-          job("jn4_f", "$HOME/0005_retry_two_layer.sh")
+          job("jn4_f", "#{BASE_DIR}/0005_retry_two_layer.sh")
         end
       end
-      job("j4", "$HOME/0005_retry_two_layer.sh")
+      job("j4", "#{BASE_DIR}/0005_retry_two_layer.sh")
       finally do
         boot_jobs("jn0005_fjn")
         jobnet("jn0005_fjn", :to => "jn0005_f") do
           boot_jobs("jn0005_f1")
-          job("jn0005_f1", "$HOME/0005_retry_two_layer.sh", :to => ["jn0005_f2"])
-          job("jn0005_f2", "$HOME/0005_retry_two_layer.sh")
+          job("jn0005_f1", "#{BASE_DIR}/0005_retry_two_layer.sh", :to => ["jn0005_f2"])
+          job("jn0005_f2", "#{BASE_DIR}/0005_retry_two_layer.sh")
           finally do
-            job("jn0005_fif","$HOME/0005_retry_two_layer.sh")
+            job("jn0005_fif","#{BASE_DIR}/0005_retry_two_layer.sh")
           end 
         end
-        job("jn0005_f", "$HOME/0005_retry_two_layer.sh")
+        job("jn0005_f", "#{BASE_DIR}/0005_retry_two_layer.sh")
       end
     end
   EOS
@@ -70,12 +72,12 @@ class Rjn0005RetryTwoLayerFixture < JobnetFixtureBuilder
       }.update(options || { }))
     # root
     root.children << new_start
-    root.children << new_script("j1", :script => "$HOME/0005_retry_two_layer.sh")
+    root.children << new_script("j1", :script => "#{BASE_DIR}/0005_retry_two_layer.sh")
     root.children << new_fork
-    root.children << new_script("j2", :script => "$HOME/0005_retry_two_layer.sh")
+    root.children << new_script("j2", :script => "#{BASE_DIR}/0005_retry_two_layer.sh")
     root.children << new_jobnet("jn4")
     root.children << new_join
-    root.children << new_script("j4", :script => "$HOME/0005_retry_two_layer.sh")
+    root.children << new_script("j4", :script => "#{BASE_DIR}/0005_retry_two_layer.sh")
     root.children << new_finally
     root.children << new_end
     root.edges << new_edge(:S1, :j1)
@@ -89,12 +91,12 @@ class Rjn0005RetryTwoLayerFixture < JobnetFixtureBuilder
 
     self[:jn4].tap do |jn4|
       jn4.children << new_start
-      jn4.children << new_script("j41", :script => "$HOME/0005_retry_two_layer.sh")
+      jn4.children << new_script("j41", :script => "#{BASE_DIR}/0005_retry_two_layer.sh")
       jn4.children << new_fork
-      jn4.children << new_script("j42", :script => "$HOME/0005_retry_two_layer.sh")
-      jn4.children << new_script("j43", :script => "$HOME/0005_retry_two_layer.sh")
+      jn4.children << new_script("j42", :script => "#{BASE_DIR}/0005_retry_two_layer.sh")
+      jn4.children << new_script("j43", :script => "#{BASE_DIR}/0005_retry_two_layer.sh")
       jn4.children << new_join
-      jn4.children << new_script("j44", :script => "$HOME/0005_retry_two_layer.sh")
+      jn4.children << new_script("j44", :script => "#{BASE_DIR}/0005_retry_two_layer.sh")
       jn4.children << new_finally
       jn4.children << new_end
       jn4.edges << new_edge(:S2, :j41)
@@ -109,7 +111,7 @@ class Rjn0005RetryTwoLayerFixture < JobnetFixtureBuilder
       self[:jn4f] = jn4.finally_vertex
       self[:jn4f].tap do |jn4f|
         jn4f.children << new_start
-        jn4f.children << new_script("jn4_f", :script => "$HOME/0005_retry_two_layer.sh")
+        jn4f.children << new_script("jn4_f", :script => "#{BASE_DIR}/0005_retry_two_layer.sh")
         jn4f.children << new_end
         jn4f.edges << new_edge(:S3, :jn4_f)
         jn4f.edges << new_edge(:jn4_f, :E3)
@@ -120,7 +122,7 @@ class Rjn0005RetryTwoLayerFixture < JobnetFixtureBuilder
     self[:finally].tap do |finally|
       finally.children << new_start
       finally.children << new_jobnet("jn0005_fjn")
-      finally.children << new_script("jn0005_f", :script => "$HOME/0005_retry_two_layer.sh")
+      finally.children << new_script("jn0005_f", :script => "#{BASE_DIR}/0005_retry_two_layer.sh")
       finally.children << new_end
       finally.edges << new_edge(:S4, :jn0005_fjn)
       finally.edges << new_edge(:jn0005_fjn, :jn0005_f)
@@ -128,8 +130,8 @@ class Rjn0005RetryTwoLayerFixture < JobnetFixtureBuilder
 
       self[:jn0005_fjn].tap do |jn0005_fjn|
         jn0005_fjn.children << new_start
-        jn0005_fjn.children << new_script("jn0005_f1", :script => "$HOME/0005_retry_two_layer.sh")
-        jn0005_fjn.children << new_script("jn0005_f2", :script => "$HOME/0005_retry_two_layer.sh")
+        jn0005_fjn.children << new_script("jn0005_f1", :script => "#{BASE_DIR}/0005_retry_two_layer.sh")
+        jn0005_fjn.children << new_script("jn0005_f2", :script => "#{BASE_DIR}/0005_retry_two_layer.sh")
         jn0005_fjn.children << new_finally
         jn0005_fjn.children << new_end
         jn0005_fjn.edges << new_edge(:S5, :jn0005_f1)
@@ -139,7 +141,7 @@ class Rjn0005RetryTwoLayerFixture < JobnetFixtureBuilder
         self[:jn0005_fjn_f] = jn0005_fjn.finally_vertex
         self[:jn0005_fjn_f].tap do |jn0005_fjn_f|
           jn0005_fjn_f.children << new_start
-          jn0005_fjn_f.children << new_script("jn0005_fif", :script => "$HOME/0005_retry_two_layer.sh")
+          jn0005_fjn_f.children << new_script("jn0005_fif", :script => "#{BASE_DIR}/0005_retry_two_layer.sh")
           jn0005_fjn_f.children << new_end
           jn0005_fjn_f.edges << new_edge(:S6, :jn0005_fif)
           jn0005_fjn_f.edges << new_edge(:jn0005_fif, :E6)

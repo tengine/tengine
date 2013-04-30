@@ -5,7 +5,7 @@ jobnet("rjn0027", job_method: :ssh_job, server_name: "localhost", credential_nam
 
   boot_jobs(*names)
 
-  filepath = __FILE__.sub(/jobs\.rb/, 'job.rb')
+  filepath = __FILE__.sub(/jobs\.rb/, 'job')
 
   names.each do |name|
     job(name, "#{filepath} #{Process.pid} #{name}")

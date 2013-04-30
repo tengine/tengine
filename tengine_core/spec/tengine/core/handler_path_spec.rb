@@ -32,9 +32,9 @@ describe Tengine::Core::HandlerPath do
     context "with default_driver_version" do
       it "should return handlers" do
         Tengine::Core::HandlerPath.default_driver_version = "2"
-        Tengine::Core::HandlerPath.find_handlers("foo").map(&:id).should == [@d21h1.id, @d22h1.id]
-        Tengine::Core::HandlerPath.find_handlers("boo").map(&:id).should == [@d21h2.id]
-        Tengine::Core::HandlerPath.find_handlers("bar").map(&:id).should == [@d22h2.id]
+        Tengine::Core::HandlerPath.find_handlers("foo").map(&:id).should =~ [@d21h1.id, @d22h1.id]
+        Tengine::Core::HandlerPath.find_handlers("boo").map(&:id).should =~ [@d21h2.id]
+        Tengine::Core::HandlerPath.find_handlers("bar").map(&:id).should =~ [@d22h2.id]
         Tengine::Core::HandlerPath.find_handlers("baz").map(&:id).should == []
         Tengine::Core::HandlerPath.find_handlers("FOO").map(&:id).should == []
         Tengine::Core::HandlerPath.find_handlers("blah").map(&:id).should == []

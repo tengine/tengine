@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+require 'active_support'
+
 # activesupport-3.1.0以上では
 # active_support/core_ext/hash/deep_dupでHash#deep_dupを定義していますが、
 # 対象がHashだけなのでArrayをコピーできません。

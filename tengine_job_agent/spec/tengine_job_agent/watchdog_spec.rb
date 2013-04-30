@@ -35,7 +35,7 @@ describe TengineJobAgent::Watchdog do
 
     it "spawnする" do
       subject.should_receive(:spawn_process).and_return(pid)
-      subject.stub(:detach_and_wait_process).with(pid).and_return(stat)
+      subject.stub(:start_wait_process).with(pid).and_return(stat)
       subject.stub(:fire_finished).with(pid, stat)
       sender = mock(:sender)
       sender.stub_chain(:mq_suite, :ensures).with(:connection).and_yield
@@ -49,7 +49,7 @@ describe TengineJobAgent::Watchdog do
 
     it "子プロセスを待つ" do
       subject.stub(:spawn_process).and_return(pid)
-      subject.should_receive(:detach_and_wait_process).and_return(stat)
+      subject.should_receive(:start_wait_process).and_return(stat)
       subject.stub(:fire_finished).with(pid, stat)
       sender = mock(:sender)
       sender.stub_chain(:mq_suite, :ensures).with(:connection).and_yield
@@ -78,7 +78,7 @@ describe TengineJobAgent::Watchdog do
         mock_pid_file = mock(:pid_file)
         File.should_receive(:open).with(@pid_path, "a").and_yield(mock_pid_file)
         mock_pid_file.should_receive(:puts).with(pid)
-        subject.should_receive(:detach_and_wait_process).with(pid)
+        subject.should_receive(:start_wait_process).with(pid)
         EM.run do
           EM.add_timer(0.1) { EM.stop }
           subject.process
@@ -132,7 +132,7 @@ describe TengineJobAgent::Watchdog do
     end
   end
 
-  describe "#detach_and_wait_process" do
+  describe "#start_wait_process" do
     let(:pid) { mock(Numeric.new) }
     let(:stat) { mock($?) }
     before do
@@ -150,14 +150,14 @@ describe TengineJobAgent::Watchdog do
     it "pidを待つ" do
       EM.run do
         subject.should_receive(:fire_finished) do EM.stop end
-        subject.detach_and_wait_process(pid)
+        subject.start_wait_process(pid)
       end
     end
 
     it "heartbeatをfireしつづける" do
       EM.run do
         subject.should_receive(:fire_heartbeat).at_least(2).times.and_yield
-        subject.detach_and_wait_process(pid)
+        subject.start_wait_process(pid)
       end
     end
 
@@ -166,7 +166,7 @@ describe TengineJobAgent::Watchdog do
         subject.instance_eval { @config["heartbeat"]["job"]["interval"] = 0 }
         subject.unstub(:fire_heartbeat)
         subject.should_receive(:fire_heartbeat).at_least(1).times.and_yield
-        subject.detach_and_wait_process(pid)
+        subject.start_wait_process(pid)
       end
     end
 
@@ -182,7 +182,7 @@ describe TengineJobAgent::Watchdog do
             b.yield if b
           end
           expect {
-            subject.detach_and_wait_process(pid)
+            subject.start_wait_process(pid)
           }.to_not raise_exception(Tengine::Event::Sender::RetryError)
         end
       end
@@ -200,7 +200,7 @@ describe TengineJobAgent::Watchdog do
       it "https://www.pivotaltracker.com/story/show/21466285" do
         n = live_timers_count
         EM.run do
-          subject.detach_and_wait_process(pid)
+          subject.start_wait_process(pid)
         end
         live_timers_count.should == n
       end

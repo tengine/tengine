@@ -15,7 +15,7 @@ Mongoid.load!(File.expand_path('mongoid.yml', File.dirname(__FILE__)))
 Mongoid.default_session.drop rescue nil
 
 
-gem_names = ["tengine_core", "tengine_resource", "tengine_resource_ec2"]
+gem_names = ["tengine_event", "tengine_core", "tengine_resource", "tengine_resource_ec2"]
 gem_names.each{|f| require f}
 
 base_dirs = gem_names.map{|gem_name| Gem.loaded_specs[gem_name].gem_dir}
@@ -52,6 +52,11 @@ RSpec.configure do |config|
     unless Tengine::Core::Setting.where({:name => "dsl_version"}).first
       Tengine::Core::Setting.create!(:name => "dsl_version", :value => "1234567890")
     end
+  end
+
+  # http://about.travis-ci.org/docs/user/ci-environment/#Environment-variables
+  if ENV["TRAVIS"] == "true"
+    config.filter_run_excluding skip_travis: true
   end
 
 end
