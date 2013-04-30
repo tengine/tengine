@@ -35,5 +35,4 @@ Gem::Specification.new do |s|
 
   common_development_dependencies(s)
   s.add_development_dependency('factory_girl', "~> 3.3.0")
-  s.add_development_dependency('kramdown',  ">= 0")
 end

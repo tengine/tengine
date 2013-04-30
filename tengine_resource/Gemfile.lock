@@ -64,7 +64,6 @@ GEM
       pry (>= 0.9)
       yard (>= 0.8)
     rake (10.0.4)
-    rdiscount (2.0.7.2)
     rspec (2.10.0)
       rspec-core (~> 2.10.0)
       rspec-expectations (~> 2.10.0)
@@ -114,7 +113,6 @@ DEPENDENCIES
   pry-debugger
   pry-doc
   rake
-  rdiscount
   rspec (~> 2.10.0)
   simplecov
   tengine_resource!

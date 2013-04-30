@@ -22,21 +22,10 @@ gem 'rspec', "~> 2.10.0"
 gem 'yard', "~> 0.8.1"
 gem 'simplecov', "~> 0.6.4"
 gem 'autotest', ">= 0"
-gem 'rdiscount', ">= 0"
 
 # for tengine_job
 group :development do
   gem 'factory_girl', "~> 3.3.0"
-end
-
-# for tengine_core
-group :development do
-  gem 'kramdown', ">= 0"
-end
-
-# for tengine_event
-group :development do
-  gem 'ci_reporter', "~> 1.6.5"
 end
 
 # for tengine_ui
@@ -45,7 +34,7 @@ gem 'sass' , '~> 3.1.18'
 gem "selectable_attr", "~> 0.3.14"
 gem "selectable_attr_rails", "~> 0.3.14"
 
-gem "mongoid", "~> 3.1.3"
+gem "mongoid", ">= 3.0.22"
 
 gem "kaminari", "~> 0.13.0"
 

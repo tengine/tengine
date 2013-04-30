@@ -27,5 +27,4 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('tengine_event', "~> #{version}")
 
   common_development_dependencies(s)
-  s.add_development_dependency('ci_reporter', "~> 1.6.5")
 end
