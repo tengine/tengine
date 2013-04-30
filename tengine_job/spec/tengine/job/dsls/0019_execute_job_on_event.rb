@@ -11,6 +11,6 @@ end
 
 driver :driver_for_jobnet_0019 do
   on :foo do
-    jobnet("jobnet0019").execute(:sender => self)
+    jobnet("jobnet0019").generate.execute(:sender => self)
   end
 end

@@ -1,0 +1,62 @@
+<h1><%= page_title Tengine::Job::Runtime::Execution, :show %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tengine::Job::Runtime::Execution.human_attribute_name(:root_jobnet) %>:</b>
+  <%= @execution.root_jobnet %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Runtime::Execution.human_attribute_name(:target_actual_ids) %>:</b>
+  <%= @execution.target_actual_ids_text %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Runtime::Execution.human_attribute_name(:phase_cd) %>:</b>
+  <%= @execution.phase_cd %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Runtime::Execution.human_attribute_name(:started_at) %>:</b>
+  <%= @execution.started_at %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Runtime::Execution.human_attribute_name(:finished_at) %>:</b>
+  <%= @execution.finished_at %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Runtime::Execution.human_attribute_name(:preparation_command) %>:</b>
+  <%= @execution.preparation_command %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Runtime::Execution.human_attribute_name(:actual_base_timeout_alert) %>:</b>
+  <%= @execution.actual_base_timeout_alert %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Runtime::Execution.human_attribute_name(:actual_base_timeout_termination) %>:</b>
+  <%= @execution.actual_base_timeout_termination %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Runtime::Execution.human_attribute_name(:estimated_time) %>:</b>
+  <%= @execution.estimated_time %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Runtime::Execution.human_attribute_name(:keeping_stdout) %>:</b>
+  <%= @execution.keeping_stdout %>
+</p>
+
+<p>
+  <b><%= Tengine::Job::Runtime::Execution.human_attribute_name(:keeping_stderr) %>:</b>
+  <%= @execution.keeping_stderr %>
+</p>
+
+
+<%= link_to_edit edit_tengine_job_runtime_execution_path(@execution) %> |
+<%= link_to_back_list tengine_job_runtime_executions_path %>

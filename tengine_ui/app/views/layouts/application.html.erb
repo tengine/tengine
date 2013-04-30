@@ -37,6 +37,9 @@
   }
 -%>
 
+    <p class="notice"><%= notice %><%= flash["notice"] %></p>
+    <p class="alert"><%= alert %><%= flash["alert"] %></p>
+
 <%= yield %>
 
     </div>
@@ -46,9 +49,9 @@
     <ul>
       <li><a href="#"><span>ジョブ</span></a>
         <ul>
-          <%= navi_link_to(Tengine::Job::RootJobnetTemplate) %>
-          <%= navi_link_to(Tengine::Job::Execution) %>
-          <%= navi_link_to(Tengine::Job::RootJobnetActual) %>
+          <%= navi_link_to(Tengine::Job::Template::RootJobnet) %>
+          <%= navi_link_to(Tengine::Job::Runtime::Execution) %>
+          <%= navi_link_to(Tengine::Job::Runtime::RootJobnet) %>
         </ul>
       </li>
       <li><a href="#"><span>リソース</span></a>

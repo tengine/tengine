@@ -1,4 +1,8 @@
+# -*- coding: utf-8 -*-
 class JobnetFixtureBuilder
+
+  attr_reader :instances
+
   def initialize
     reset
   end
@@ -27,13 +31,16 @@ class JobnetFixtureBuilder
     create(options)
   end
 
-  def create_actual(options = {})
+  def create_runtime(options = {})
     template = create_template
     reset
-    @mode = :actual
+    @mode = :runtime
     options = (options || {}).update(:template => template)
-    create(options)
+    result = create(options)
+    result.save_descendants!
+    result
   end
+  alias :create_actual :create_runtime
 
   def context
     self
@@ -55,25 +62,16 @@ class JobnetFixtureBuilder
     raise NotImplementedError, "You must use inherited class of FixtureBuilder"
   end
 
-  MODE_AND_METHOD_TO_CLASS = {
-    [:template, :root_jobnet] => Tengine::Job::RootJobnetTemplate,
-    [:actual  , :root_jobnet] => Tengine::Job::RootJobnetActual  ,
-    [:template, :jobnet     ] => Tengine::Job::JobnetTemplate    ,
-    [:actual  , :jobnet     ] => Tengine::Job::JobnetActual      ,
-    [:template, :script     ] => Tengine::Job::JobnetTemplate    ,
-    [:actual  , :script     ] => Tengine::Job::JobnetActual      ,
-    [:template, :finally    ] => Tengine::Job::JobnetTemplate    ,
-    [:actual  , :finally    ] => Tengine::Job::JobnetActual      ,
-  }.freeze
-
-  %w[root_jobnet jobnet script].each do |method_name|
+  %w[root_jobnet jobnet ssh_job].each do |method_name|
     root_assign = method_name =~ /^root_/ ? "@instances[:root] = result" : ""
 
-    class_eval(<<-EOS)
+    class_eval(<<-EOS, __FILE__, __LINE__ + 1)
       def new_#{method_name}(name, attrs = {}, &block)
         attrs[:name] = name.to_s
-        klass = MODE_AND_METHOD_TO_CLASS[ [@mode, :#{method_name}] ]
-        if klass == Tengine::Job::RootJobnetTemplate
+        klass = "Tengine::Job::\#{@mode.to_s.camelize}::#{method_name.camelize}".constantize
+        unknown_fields = attrs.keys - klass.fields.keys.map(&:to_sym) - [:jobnet_type_key, :template]
+        unknown_fields.each{|f| attrs.delete(f)}
+        if klass == Tengine::Job::Template::RootJobnet
           attrs[:dsl_version] ||= Tengine::Core::Setting.dsl_version
         end
         result = klass.new(attrs, &block)
@@ -83,16 +81,17 @@ class JobnetFixtureBuilder
       end
     EOS
   end
+  alias :new_script :new_ssh_job
 
   def new_finally
-    klass = MODE_AND_METHOD_TO_CLASS[ [@mode, :finally] ]
+    klass = "Tengine::Job::#{@mode.to_s.camelize}::Jobnet".constantize
     result = klass.new(:name => "finally", :jobnet_type_key => :finally)
     result
   end
 
   def new_expansion(name, attrs = {}, &block)
     raise "expansion can be used only as template" unless @mode == :template
-    result = Tengine::Job::Expansion.new({:name => name}.update(attrs || {}))
+    result = Tengine::Job::Template::Expansion.new({:name => name}.update(attrs || {}))
     @instances[name.to_sym] = result
     result
   end
@@ -108,7 +107,7 @@ class JobnetFixtureBuilder
   %w[start end fork join].each do |method_name|
     class_eval(<<-EOS)
       def new_#{method_name}(attrs = {}, &block)
-        klass = Tengine::Job::#{method_name.camelcase}
+        klass = "Tengine::Job::\#{@mode.to_s.camelize}::#{method_name.camelize}".constantize
         result = klass.new(attrs, &block)
         register_#{method_name}(result)
       end
@@ -127,7 +126,8 @@ class JobnetFixtureBuilder
     dest_vertex   = dest  .is_a?(Symbol) ? self[dest  ] : dest
     raise "no origin vertex found: #{origin.inspect}" unless origin_vertex
     raise "no dest   vertex found: #{dest.inspect  }" unless dest_vertex
-    result = Tengine::Job::Edge.new(:origin_id => origin_vertex.id, :destination_id => dest_vertex.id)
+    klass = "Tengine::Job::#{@mode.to_s.camelize}::Edge".constantize
+    result = klass.new(:origin_id => origin_vertex.id, :destination_id => dest_vertex.id)
     remember_edge(result)
   end
 

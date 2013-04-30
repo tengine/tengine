@@ -111,7 +111,7 @@ describe Tengine::Mq::Suite do
             block_called = true
           end
 
-          EM.run do
+          EM.run_test do
             subject.subscribe {|x, y| }
             sleep 0.1
             EM.add_timer(0.1) { subject.stop }
@@ -148,7 +148,7 @@ describe Tengine::Mq::Suite do
         mq = nil
         # 1st time
         yielded = 0
-        EM.run do
+        EM.run_test do
           mq = subject
           mq.send :ensures, :connection do
             mq.add_hook(:"connection.on_closed") do
@@ -160,7 +160,7 @@ describe Tengine::Mq::Suite do
 
         # 2nd time
         yielded = 0
-        EM.run do
+        EM.run_test do
           mq.send :ensures, :connection do
             mq.stop
           end
@@ -173,7 +173,7 @@ describe Tengine::Mq::Suite do
 
         # 1st time
         yielded = 0
-        EM.run do
+        EM.run_test do
           mq = subject
           mq.send :ensures, :channel do
             mq.add_hook(:"channel.on_error") do
@@ -186,7 +186,7 @@ describe Tengine::Mq::Suite do
 
         # 2nd time
         yielded = 0
-        EM.run do
+        EM.run_test do
           mq.send :ensures, :channel do
             mq.channel.exec_callback_once_yielding_self(:error, "channel close reason object")
             mq.stop
@@ -233,7 +233,7 @@ describe Tengine::Mq::Suite do
           body = nil
           header = nil
           expect {
-            EM.run do
+            EM.run_test do
               subject.subscribe do |hdr, bdy|
                 block_called = true
                 body = bdy
@@ -257,7 +257,7 @@ describe Tengine::Mq::Suite do
       context "many messages in queue" do
         before do
           # キューにイベントがすでに溜まってるとおかしくなるので、吸い出しておく
-          EM.run do
+          EM.run_test do
             i = 0
             subject.subscribe do |hdr, bdy|
               hdr.ack
@@ -273,7 +273,7 @@ describe Tengine::Mq::Suite do
         it "runs the block every time" do
           block_called = 0
           expect {
-            EM.run do
+            EM.run_test do
               subject.subscribe do |hdr, bdy|
                 block_called += 1
                 hdr.ack
@@ -326,7 +326,7 @@ describe Tengine::Mq::Suite do
         it "runs the block" do
           block_called = false
           expect {
-            EM.run do
+            EM.run_test do
               subject.send :ensures, :queue do
                 subject.unsubscribe do
                   block_called = true
@@ -343,7 +343,7 @@ describe Tengine::Mq::Suite do
         it "runs the block" do
           block_called = false
           expect {
-            EM.run do
+            EM.run_test do
               subject.subscribe :nowait => false, :confirm => lambda {|x|
                 subject.unsubscribe {|y|
                   block_called = true
@@ -362,7 +362,7 @@ describe Tengine::Mq::Suite do
         it "runs the block" do
           block_called = false
           expect {
-            EM.run do
+            EM.run_test do
               subject.subscribe :nowait => false, :confirm => lambda {|x|
                 subject.unsubscribe({:nowait => true}) {|y|
                   block_called = true
@@ -379,6 +379,8 @@ describe Tengine::Mq::Suite do
     end
 
     describe "#fire" do
+      let(:default_wait){ 5 } # TODO この値を自動的に取得する？
+
       subject { Tengine::Mq::Suite.new the_config }
       def sender; Tengine::Event::Sender.new subject end
       def expected_event; Tengine::Event.new(:event_type_name => :foo, :key => "uniq_key") end
@@ -398,7 +400,7 @@ describe Tengine::Mq::Suite do
         after do
           # キューにイベントがたまるのでてきとうに吸い出す
           if @port
-            EM.run do
+            EM.run_test do
               subject.send :ensures, :connection do
               i = 0
               subject.subscribe do |hdr, bdy|
@@ -422,7 +424,7 @@ describe Tengine::Mq::Suite do
 
         it "JSON形式にserializeしてexchangeにpublishする" do
           Thread.current[:expected_event] = expected_event
-          EM.run do
+          EM.run_test do
             subject.send :ensures, :exchange do |xchg|
               def xchg.publish json, hash
                 json.should == Thread.current[:expected_event].to_json
@@ -436,7 +438,7 @@ describe Tengine::Mq::Suite do
         it "Tengine::Eventオブジェクトを直接指定する" do
           # 上と同じ…過去には意味があった
           Thread.current[:expected_event] = expected_event
-          EM.run do
+          EM.run_test do
             subject.send :ensures, :exchange do |xchg|
               def xchg.publish json, hash
                 json.should == Thread.current[:expected_event].to_json
@@ -450,7 +452,7 @@ describe Tengine::Mq::Suite do
         context "publish後に特定の処理を行う" do
           it "カスタム処理" do
             block_called = false
-            EM.run do
+            EM.run_test do
               sender.fire "foo" do
                 block_called = true
               end
@@ -462,7 +464,7 @@ describe Tengine::Mq::Suite do
         context "keep_connection: true" do
           it "do not stop the reactor" do
             block_called = false
-            EM.run do
+            EM.run_test do
               sender.fire "foo", :keep_connection => true
               EM.add_timer(0.5) do
                 block_called = true
@@ -476,10 +478,10 @@ describe Tengine::Mq::Suite do
         context "keep_connection: false" do
           it "stop the reactor" do
             block_called = false
-            EM.run do
+            EM.run_test do
               sender.fire "foo", :keep_connection => false
               sleep 0.1
-              EM.add_timer(1) do
+              EM.add_timer(default_wait) do
                 block_called = true
                 subject.stop
               end
@@ -491,7 +493,7 @@ describe Tengine::Mq::Suite do
         context "AMQP::TCPConnectionFailed 以外のエラー" do
           it "メッセージ送信ができなくてpublishに渡したブロックが呼び出されず、インターバルが過ぎて、EM.add_timeに渡したブロックが呼び出された場合" do
             block_called = false
-            EM.run do
+            EM.run_test do
               subject.send :ensures, :exchange do |xchg|
                 xchg.stub(:publish).with(expected_event.to_json, :content_type => "application/json", :persistent => true).exactly(31).times.and_raise(StandardError)
                 subject.fire sender, expected_event, {:keep_connection => false, :retry_interval => 0}, lambda { block_called = true }
@@ -502,7 +504,7 @@ describe Tengine::Mq::Suite do
           end
 
           it "エラーが発生しても設定のリトライが行われる" do
-            EM.run do
+            EM.run_test do
               subject.send :ensures, :exchange do |xchg|
                 # 正規のfireとリトライのfireなので、リトライ回数+1
                 xchg.stub(:publish).with(expected_event.to_json, :content_type => "application/json", :persistent => true).exactly(31).times.and_raise(StandardError)
@@ -513,7 +515,7 @@ describe Tengine::Mq::Suite do
           end
 
           it "エラーが発生してもオプションで指定したリトライ回数分のリトライが行われる" do
-            EM.run do
+            EM.run_test do
               subject.send :ensures, :exchange do |xchg|
                 # 正規のfireとリトライのfireなので、リトライ回数+1
                 xchg.stub(:publish).with(expected_event.to_json, :content_type => "application/json", :persistent => true).exactly(2).times.and_raise(StandardError)
@@ -525,7 +527,8 @@ describe Tengine::Mq::Suite do
 
           it "エラーが発生してもオプションで指定したリトライ間隔でリトライが行われる" do
             t0 = Time.now
-            EM.run do
+            timeout(60) do # 60秒
+            EM.run_test do
               subject.send :ensures, :exchange do |xchg|
                 # 正規のfireとリトライのfireなので、リトライ回数+1
                 x = sender
@@ -534,13 +537,17 @@ describe Tengine::Mq::Suite do
                 subject.stop
               end
             end
+            end
             t1 = Time.now
-            (t1 - t0).should be_within(1.0).of(2.0)
+            (t1 - t0).tap do |d|
+              d.should >= 1.0
+              d.should <= 1.0 + default_wait
+            end
           end
 
           it "ちょうどretry_count回めのリトライして成功の場合は例外にならない" do
             block_called = false
-            EM.run do
+            EM.run_test do
               subject.send :ensures, :exchange do |xchg|
                 # 正規のfireとリトライのfireなので、リトライ回数+1
                 Thread.current[:expected_event] = expected_event
@@ -563,8 +570,8 @@ describe Tengine::Mq::Suite do
 
       context "複数のEM event loopにまたがったfire" do
         it "https://www.pivotaltracker.com/story/show/21252625" do
-          EM.run do sender.fire("foo") end
-          EM.run do sender.fire("foo") end
+          EM.run_test do sender.fire("foo") end
+          EM.run_test do sender.fire("foo") end
           # ここまでくればOK
         end
       end
@@ -575,7 +582,7 @@ describe Tengine::Mq::Suite do
           Thread.current[:n2] = 0
           Thread.current[:ev1] = ev1 = Tengine::Event.new(:event_type_name => :foo, :key => "uniq_key")
           Thread.current[:ev2] = ev2 = Tengine::Event.new(:event_type_name => :foo, :key => "another_uniq_key")
-          EM.run do
+          EM.run_test do
             subject.send :ensures, :exchange do |xchg|
               def xchg.publish json, hash
                 case json
@@ -608,7 +615,7 @@ describe Tengine::Mq::Suite do
 
         it "無限にメモリを消費しない" do
           n = 256 # 1024 # 4096
-          EM.run do
+          EM.run_test do
             subject.send :ensures, :exchange do |xchg|
               xchg.stub(:publish).with(an_instance_of(String), :content_type => "application/json", :persistent => true).exactly(31).times.and_raise(StandardError)
               n.times do
@@ -636,7 +643,7 @@ describe Tengine::Mq::Suite do
       after do
         # キューにイベントがたまるのでてきとうに吸い出す
         if @port
-          EM.run do
+          EM.run_test do
             subject.send :ensures, :connection do
             i = 0
             subject.subscribe do |hdr, bdy|
@@ -653,7 +660,7 @@ describe Tengine::Mq::Suite do
       end
 
       it "EMのイベントループを抜ける" do
-        EM.run do
+        EM.run_test do
           subject.stop
         end
         # ここに到達すればOK
@@ -661,7 +668,7 @@ describe Tengine::Mq::Suite do
 
       it "ペンディングのイベントが送信されるまではEMのイベントループにとどまる" do
         block_called = false
-        EM.run do
+        EM.run_test do
           subject.send :ensures, :exchange do |xchg|
             Thread.current[:expected_event] = expected_event
             Thread.current[:x] = false
@@ -685,7 +692,7 @@ describe Tengine::Mq::Suite do
       after do
         # キューにイベントがたまるのでてきとうに吸い出す
         if @port
-          EM.run do
+          EM.run_test do
             i = 0
             j = false
             subject.subscribe :confirm=>proc{j = true} do |hdr, bdy|
@@ -704,10 +711,10 @@ describe Tengine::Mq::Suite do
 
       it "再接続しない" do
         block_called = false
-        EM.run do
+        EM.run_test do
           subject.add_hook("connection.after_recovery") { block_called = true }
           subject.initiate_termination do
-            EM.defer(proc { finish; trigger@port },
+            EM.defer(proc { relaunch },
                      proc { subject.stop })
           end
         end
@@ -718,7 +725,7 @@ describe Tengine::Mq::Suite do
     describe "#callback_entity" do
       subject { Tengine::Mq::Suite.new the_config }
       it "registers callbacks" do
-        EM.run do
+        EM.run_test do
           subject.send :ensures, :queue do
             { :queue => [
                 :before_recovery,
@@ -763,91 +770,36 @@ describe Tengine::Mq::Suite do
     end
   end
 
-  context "実際にMQに接続する試験" do
+  context "実際にMQに接続する試験", skip_travis: true, test_rabbitmq_required: true do
     next if RUBY_VERSION < "1.9.2"
-    next if ENV['TRAVIS'] == 'true'
 
-    let(:rabbitmq) do
-      ret = nil
-      ENV["PATH"].split(/:/).find do |dir|
-        Dir.glob("#{dir}/rabbitmq-server") do |path|
-          if File.executable?(path)
-            ret = path
-            break
-          end
-        end
-      end
-
-      pending "these specs needs a rabbitmq installed" unless ret
-      ret
+    def launch
+      TestRabbitmq.kill_remain_processes
+      @test_rabbitmq = TestRabbitmq.new(keep_port: true).launch
     end
 
-    def trigger port = rand(32768)
-      raise "WRONG" if $_pid
-      require 'tmpdir'
-      $_dir = Dir.mktmpdir
-      # 指定したポートはもう使われているかもしれないので、その際は
-      # rabbitmqが起動に失敗するので、何回かポートを変えて試す。
-      n = 0
-      begin
-        envp = {
-          "RABBITMQ_NODENAME"        => "rspec",
-          "RABBITMQ_NODE_PORT"       => port.to_s,
-          "RABBITMQ_NODE_IP_ADDRESS" => "auto",
-          "RABBITMQ_MNESIA_BASE"     => $_dir.to_s,
-          "RABBITMQ_LOG_BASE"        => $_dir.to_s,
-        }
-        $_pid = Process.spawn(envp, rabbitmq, :pgroup => true, :chdir => $_dir, :in => :close)
-        x = Time.now
-        while Time.now < x + 16.0 do # まあこんくらい待てばいいでしょ
-          sleep 0.1
-          Process.waitpid2($_pid, Process::WNOHANG)
-          Process.kill 0, $_pid
-          # netstat -an は Linux / BSD ともに有効
-          # どちらかに限ればもう少し効率的な探し方はある。たとえば Linux 限定でよければ netstat -lnt ...
-          y = `netstat -an | fgrep LISTEN | fgrep #{port}`
-          if y.lines.to_a.size >= 1
-            @port = port
-            return
-          end
-        end
-        pending "failed to invoke rabbitmq in 16 secs."
-      rescue Errno::ECHILD, Errno::ESRCH
-        if (n += 1) > 10
-          pending "10 attempts to invoke rabbitmq failed."
-        else
-          port = rand(32768)
-          retry
-        end
-      end
+    def relaunch
+      TestRabbitmq.kill_launched_processes
+      @test_rabbitmq.keep_port = true
+      @test_rabbitmq.launch
     end
 
     def finish
-      if $_pid
-        begin
-          Process.kill "INT", -$_pid
-          Process.waitpid $_pid
-        rescue Errno::ECHILD, Errno::ESRCH
-        ensure
-          require 'fileutils'
-          FileUtils.remove_entry_secure $_dir, :force
-        end
-      end
-      $_pid = nil
+      TestRabbitmq.kill_launched_processes
     end
 
-    before :all do
-      trigger
+    before(:all) do
+      launch
     end
 
-    after :all do
+    after(:all) do
       finish
     end
 
     let(:the_config) {
       {
         :connection => {
-          :port => @port,
+          :port => @test_rabbitmq.port,
         },
       }
     }
@@ -855,7 +807,9 @@ describe Tengine::Mq::Suite do
   end
 
   context "mock/stubによる試験" do
-    def trigger *;
+    def launch
+    end
+    def relaunch
     end
     def finish
     end

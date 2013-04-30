@@ -115,7 +115,7 @@ class Rjn0012NestedAndFinallyBuilder < JobnetFixtureBuilder
         self[:j1ff0] = j1f00.finally_vertex
         self[:j1ff0].tap do |j1ff0|
           j1ff0.children << new_start
-          j1ff0.children << new_jobnet("j1ff1")
+          j1ff0.children << new_script("j1ff1")
           j1ff0.children << new_end
           j1ff0.edges << new_edge(:S7   , :j1ff1)
           j1ff0.edges << new_edge(:j1ff1, :E7   )
@@ -141,7 +141,7 @@ class Rjn0012NestedAndFinallyBuilder < JobnetFixtureBuilder
     end
 
     unless root.valid?
-      v = Tengine::Job::Vertex::AllVisitorWithEdge.new do |obj|
+      v = Tengine::Job::Structure::Visitor::AllWithEdge.new do |obj|
         if obj.respond_to?(:errors) && !obj.errors.empty?
           puts obj.errors.inspect
           true

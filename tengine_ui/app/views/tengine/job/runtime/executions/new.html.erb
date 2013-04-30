@@ -1,0 +1,102 @@
+<h1>
+  <% if @retry -%>
+    <%= @page_title = t(".retry_title") %>
+  <% else -%>
+    <%= @page_title = t(".title") %>
+  <% end -%>
+</h1>
+
+<div class="Section">
+<table class="TableInfoView">
+  <colgroup>
+    <col class="Row1 RowTh">
+    <col class="Row2 RowTd">
+  </colgroup>
+  <% klass = @root_jobnet.class -%>
+  <tbody>
+    <tr>
+      <th scope="row"><%= klass.human_attribute_name(:name) %></th>
+      <td><%= @root_jobnet.name %></td>
+    </tr>
+    <tr>
+      <th scope="row"><%= klass.human_attribute_name(:template_id) %></th>
+      <td>
+        <% template_id = @retry ? @root_jobnet.template_id : @root_jobnet.id -%>
+        <%= link_to template_id, tengine_job_template_root_jobnet_path(template_id) %>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row"><%= klass.human_attribute_name(:description) %></th>
+      <td><%= @root_jobnet.description %></td>
+    </tr>
+  </tbody>
+</table>
+</div><!-- /.Section -->
+
+<div class="Section">
+  <%= model_error_messages @execution %>
+
+  <%= form_for(@execution, :as => :execution, :html => {:novalidate => true}) do |f| %>
+    <table class="TableForm4rows">
+      <colgroup>
+        <col class="Row1 RowTh">
+        <col class="Row2 RowTd">
+        <col class="Row3 RowTh">
+        <col class="Row4 RowTd">
+        <col class="Row5 RowTh">
+        <col class="Row6 RowTd">
+      </colgroup>
+      <tbody>
+        <% if @retry && !@select_root_jobnet -%>
+        <tr>
+          <th><%= f.label :spot %></th>
+          <td>
+            <%= f.radio_button :spot, false %><%= f.label :spot_false %>
+            <br /><%= f.radio_button :spot, true %><%= f.label :spot_true %>
+          </td>
+        </tr>
+        <% end -%>
+        <tr>
+          <th><%= f.label :preparation_command %></th>
+          <td>
+            <%= f.text_field :preparation_command, :class => ["InputText", "InputLarge"] %>
+            <br /><span class="TextNotice"><%= t(".form.notice.preparation_command") %></span>
+          </td>
+        </tr>
+        <tr>
+          <th><%= f.label :actual_base_timeout_alert %></th>
+          <td>
+            <%= f.number_field :actual_base_timeout_alert, :min => 0, :class => "InputText" %><%= t("datetime.prompts.minute")%>
+            <span class="TextNotice"><%= t(".form.notice.actual_base_timeout_alert") %></span>
+          </td>
+        </tr>
+        <tr>
+          <th><%= f.label :actual_base_timeout_termination %></th>
+          <td>
+            <%= f.number_field :actual_base_timeout_termination, :min => 0, :class => "InputText" %><%= t("datetime.prompts.minute")%>
+            <span class="TextNotice"><%= t(".form.notice.actual_base_timeout_termination") %></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <%= f.hidden_field :root_jobnet_id %>
+    <% if @retry -%>
+      <%= f.hidden_field :retry %>
+      <%= f.hidden_field :target_actual_ids_text %>
+    <% end -%>
+
+    <div class="BoxBtns">
+      <span class="BtnWrap">
+        <%= f.submit t("views.links.run"), :class => "BtnAdd", :disable_with => t("views.links.run") %>
+      </span>
+      <% if @retry -%>
+        <%= button_link_to t("views.links.cancel"),
+          tengine_job_runtime_root_jobnets_path, :btn_class => "BtnCancel" %>
+      <% else -%>
+        <%= button_link_to t("views.links.cancel"),
+          tengine_job_template_root_jobnets_path, :btn_class => "BtnCancel" %>
+      <% end -%>
+    </div>
+  <% end -%>
+</div><!-- /.Section -->

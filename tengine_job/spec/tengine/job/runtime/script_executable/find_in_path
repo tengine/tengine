@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+target = ARGV.first
+
+result = `which #{target}`
+
+unless result.empty?
+  $stdout.puts("#{result.strip} <$PATH: #{ENV['PATH']}>")
+  exit(0)
+end
+
+$stderr.puts("#{target} not found in #{ENV['PATH']}")
+exit(1)

@@ -5,26 +5,26 @@ require 'tengine/rspec'
 describe 'stop.jobnet.job.tengine' do
   include Tengine::RSpec::Extension
 
-  target_dsl File.expand_path("../../../../../lib/tengine/job/drivers/jobnet_control_driver.rb", File.dirname(__FILE__))
+  target_dsl File.expand_path("../../../../../lib/tengine/job/runtime/drivers/jobnet_control_driver.rb", File.dirname(__FILE__))
   driver :jobnet_control_driver
 
   context "rjn0011" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0011NestedForkJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
     end
 
     context "j1120" do
       before do
-        @ctx[:root].tap{|j| j.phase_key = :running}
-        @ctx[:j1100].tap{|j| j.phase_key = :running}
-        @ctx[:j1110].tap{|j| j.phase_key = :success; j.executing_pid = "1110"}
         [:e1, :e5, :e6].each{|name| @ctx[name].phase_key = :transmitted}
+        @ctx[:root].tap{|j| j.phase_key = :running}
+        @ctx[:j1100].tap{|j| j.update_phase! :running}
+        @ctx[:j1110].tap{|j| j.update_phase!(:success, executing_pid: "1110")}
         @base_props = {
           :execution_id => @execution.id.to_s,
           :root_jobnet_id => @root.id.to_s,
@@ -36,12 +36,12 @@ describe 'stop.jobnet.job.tengine' do
 
       context "runningの場合" do
         before do
-          @ctx[:j1120].tap{|j| j.phase_key = :running}
+          @ctx[:j1120].tap{|j| j.update_phase! :running}
         end
 
         context "j1121がinitialized" do
           before do
-            @ctx[:j1121].tap{|j| j.phase_key = :initialized}
+            @ctx[:j1121].tap{|j| j.update_phase! :initialized}
             [:e10].each{|name| @ctx[name].phase_key = :active}
             @root.save!
           end
@@ -57,7 +57,7 @@ describe 'stop.jobnet.job.tengine' do
             @ctx.vertex(:j1110).tap{|j| j.phase_key.should == :success}
             @ctx.vertex(:j1120).tap{|j| j.phase_key.should == :dying}
             @ctx.vertex(:j1121).tap{|j| j.phase_key.should == :initialized}
-            [:e1, :e5, :e6].each{|name| @ctx.edge(name).phase_key.should == :transmitted }
+            [:e1, :e5, :e6].each{|name| [name, @ctx.edge(name).phase_key].should == [name, :transmitted] }
             (2..4).each{|idx| [:"e#{idx}", @ctx.edge(:"e#{idx}").phase_key].should == [:"e#{idx}", :active] }
             (7..9).each{|idx| [:"e#{idx}", @ctx.edge(:"e#{idx}").phase_key].should == [:"e#{idx}", :active] }
             (10..11).each{|idx| [:"e#{idx}", @ctx.edge(:"e#{idx}").phase_key].should == [:"e#{idx}", :closing] }
@@ -73,8 +73,9 @@ describe 'stop.jobnet.job.tengine' do
 
           context "j1121が#{j1121_phase_key}" do
             before do
-              @ctx[:j1121].tap{|j| j.phase_key = j1121_phase_key}
+              @ctx[:j1121].tap{|j| j.update_phase! j1121_phase_key}
               [:e10].each{|name| @ctx[name].phase_key = e10_phase_key}
+              @ctx[:j1120].save! # e10の変更を保存
               @root.save!
             end
 
@@ -130,11 +131,11 @@ describe 'stop.jobnet.job.tengine' do
   #
   context "jn0004" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0004ParallelJobnetWithFinally.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
     end
@@ -142,7 +143,7 @@ describe 'stop.jobnet.job.tengine' do
     context "ジョブネットが強制停止された場合" do
       before do
         @ctx[:root].tap{|j| j.phase_key = :dying}
-        @ctx[:j1].tap{|j| j.phase_key = :error}
+        @ctx[:j1].tap{|j| j.update_phase! :error}
         [:e1, ].each{|name| @ctx[name].phase_key = :transmitted}
         @base_props = {
           :execution_id => @execution.id.to_s,
@@ -170,7 +171,7 @@ describe 'stop.jobnet.job.tengine' do
     context "ジョブネットではなくジョブj1が強制停止された場合" do
       before do
         @ctx[:root].tap{|j| j.phase_key = :running} # ジョブネットは強制停止されていません
-        @ctx[:j1].tap{|j| j.phase_key = :error}
+        @ctx[:j1].tap{|j| j.update_phase! :error}
         [:e1, ].each{|name| @ctx[name].phase_key = :transmitted}
         @base_props = {
           :execution_id => @execution.id.to_s,

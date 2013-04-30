@@ -42,4 +42,21 @@ def tengine_common_tasks(package_name)
 
   require 'yard'
   YARD::Rake::YardocTask.new
+
+  namespace :gem do
+    desc "uninstall #{package_name}"
+    task :uninstall do
+      system "gem uninstall #{package_name} -aIx"
+    end
+
+    desc "install #{package_name}"
+    task :install do
+      system "gem install pkg/#{package_name}-*.gem --ignore-dependencies"
+      rbenv = `which rbenv`
+      system("rbenv rehash") unless rbenv.empty?
+    end
+  end
+
+  desc "reinstall"
+  task :reinstall => [:"gem:uninstall", :clobber_package, :package, :"gem:install"]
 end

@@ -5,18 +5,18 @@ require 'tengine/rspec'
 describe 'job_execution_driver' do
   include Tengine::RSpec::Extension
 
-  target_dsl File.expand_path("../../../../lib/tengine/job/drivers/job_execution_driver.rb", File.dirname(__FILE__))
+  target_dsl File.expand_path("../../../../lib/tengine/job/runtime/drivers/job_execution_driver.rb", File.dirname(__FILE__))
   driver :job_execution_driver
 
   # in [rjn0001]
   # (S1) --e1-->(j11)--e2-->(j12)--e3-->(E1)
   context "rjn0001" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
     end

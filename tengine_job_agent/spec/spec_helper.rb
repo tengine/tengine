@@ -18,4 +18,8 @@ RSpec.configure do |config|
   unless ENV['MANUAL'] == 'true'
     config.filter_run_excluding manual: true
   end
+
+  if ENV['TRAVIS'] == 'true'
+    config.filter_run_excluding skip_travis: true
+  end
 end

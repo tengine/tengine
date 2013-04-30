@@ -1,97 +1,28 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 require 'tengine/rspec'
+require 'tempfile'
 
 describe 'connection error' do
   include Tengine::RSpec::Extension
 
-  target_dsl File.expand_path("../../../../../lib/tengine/job/drivers/job_control_driver.rb", File.dirname(__FILE__))
+  target_dsl File.expand_path("../../../../../lib/tengine/job/runtime/drivers/job_control_driver.rb", File.dirname(__FILE__))
   driver :job_control_driver
 
-  let :ssh_dir do
-    File.expand_path("../../../../../sshd", __FILE__)
-  end
-
   before :all do
-    raise "WRONG" if $_pid
-
-    uid = Etc.getlogin
-    case uid
-    when "root"
-      pending "rootは危険なのでこのテストを実行できません"
-    when NilClass
-      raise "who am i?"
+    begin
+      @test_sshd = TestSshd.new.launch
+      @pending_msg = nil
+    rescue TestSshd::AbortError => e
+      @pending_msg = e.message
     end
-
-    # 1. sshdをさがす
-    sshd = nil
-    ENV["PATH"].split(/:/).find do |dir|
-      Dir.glob("#{dir}/sshd") do |path|
-        if File.executable?(path)
-          sshd = path
-          break
-        end
-      end
-    end
-
-    raise "sshd not found" unless sshd
-
-    # 2. sshd_configの生成
-    template = File.expand_path("sshd_config.erb", ssh_dir)
-    hostkey = File.expand_path("ssh_host_rsa_key", ssh_dir)
-    clientkey = File.expand_path("id_rsa", ssh_dir)
-    File.chmod(0400, hostkey, clientkey)
-    File.chmod(0700, ssh_dir)
-    $_port = nil
-
-    # 指定したポートはもう使われているかもしれないので、その際は
-    # sshdが起動に失敗するので、何回かポートを変えて試す。
-    catch(:return) do
-      n = 0
-      @port = rand(32768)
-      begin
-        Tempfile.open("sshd_config", ssh_dir) do |conf|
-          File.open(template, "rb") do |tmpl|
-            conf.write ERB.new(tmpl.read).result(binding)
-          end
-          conf.flush
-          conf.close(false) # no unlink
-          argv = [sshd, "-Def", conf.path, "-h", hostkey]
-          $_pid = Process.spawn(*argv)
-          x = Time.now
-          while Time.now < x + 16.0 do # まあこんくらい待てばいいでしょ
-            sleep 0.1
-            Process.waitpid2($_pid, Process::WNOHANG)
-            Process.kill 0, $_pid
-            # netstat -an は Linux / BSD ともに有効
-            # どちらかに限ればもう少し効率的な探し方はある。たとえば Linux 限定でよければ netstat -lnt ...
-            y = `netstat -an | fgrep LISTEN | fgrep #{@port}`
-            if y.lines.to_a.size > 1
-              $_port = @port
-              throw :return
-            end
-          end
-          pending "failed to invoke sshd in 16 secs."
-        end
-      rescue Errno::ECHILD, Errno::ESRCH
-        if (n += 1) > 10
-          pending "10 attempts to invoke sshd failed."
-        else
-          @port = rand(32768)
-          retry
-        end
-      end
-    end
+  end
+  before do
+    pending(@pending_msg) if @pending_msg
   end
 
   after :all do
-    if $_pid
-      begin
-        Process.kill "INT", $_pid
-        Process.waitpid $_pid
-      rescue Errno::ECHILD
-      end
-    end
+    TestSshd.kill_launched_processes
   end
 
   # in [rjn0001]
@@ -99,11 +30,19 @@ describe 'connection error' do
   #
   context "rjn0001" do
     before do
-      Tengine::Job::Vertex.delete_all
+      Tengine::Job::Runtime::Vertex.delete_all
       builder = Rjn0001SimpleJobnetBuilder.new
       @root = builder.create_actual
+      @root.children.each do |c|
+        next unless c.is_a?(Tengine::Job::Runtime::SshJob)
+        c.server_name = builder.test_server1.name
+        c.credential_name = builder.test_credential1.name
+        c.killing_signal_interval = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNAL_INTERVAL
+        c.killing_signals         = Tengine::Job::Template::SshJob::Settings::DEFAULT_KILLING_SIGNALS.dup
+        c.save!
+      end
       @ctx = builder.context
-      @execution = Tengine::Job::Execution.create!({
+      @execution = Tengine::Job::Runtime::Execution.create!({
           :root_jobnet_id => @root.id,
         })
       @base_props = {
@@ -111,7 +50,7 @@ describe 'connection error' do
         :root_jobnet_id => @root.id.to_s,
         :target_jobnet_id => @root.id.to_s,
       }
-      Tengine::Resource::Server.find_by_name("test_server1").update_attributes :properties => { :ssh_port => $_port }
+      Tengine::Resource::Server.find_by_name("test_server1").update_attributes :properties => { :ssh_port => @test_sshd.port }
     end
 
     after do
@@ -125,7 +64,7 @@ describe 'connection error' do
         Tengine::Resource::Credential.delete_all
         @root.phase_key = :starting
         @ctx.edge(:e1).phase_key = :transmitting
-        @ctx.vertex(:j11).phase_key = :ready
+        @ctx.vertex(:j11).update_phase! :ready
         @root.save!
         @root.reload
         tengine.should_fire(:"error.job.job.tengine", an_instance_of(Hash))
@@ -155,7 +94,7 @@ describe 'connection error' do
         credential.save!
         @root.phase_key = :starting
         @ctx.edge(:e1).phase_key = :transmitting
-        @ctx.vertex(:j11).phase_key = :ready
+        @ctx.vertex(:j11).update_phase! :ready
         @root.save!
         @root.reload
         tengine.should_fire(:"error.job.job.tengine", an_instance_of(Hash))
@@ -180,7 +119,7 @@ describe 'connection error' do
         Tengine::Resource::Server.delete_all
         @root.phase_key = :starting
         @ctx.edge(:e1).phase_key = :transmitting
-        @ctx.vertex(:j11).phase_key = :ready
+        @ctx.vertex(:j11).update_phase! :ready
         @root.save!
         @root.reload
         tengine.should_fire(:"error.job.job.tengine", an_instance_of(Hash))
@@ -208,7 +147,7 @@ describe 'connection error' do
         server.save!
         @root.phase_key = :starting
         @ctx.edge(:e1).phase_key = :transmitting
-        @ctx.vertex(:j11).phase_key = :ready
+        @ctx.vertex(:j11).update_phase! :ready
         @root.save!
         @root.reload
         tengine.should_fire(:"error.job.job.tengine", an_instance_of(Hash))

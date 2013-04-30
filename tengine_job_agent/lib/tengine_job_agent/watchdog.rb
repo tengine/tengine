@@ -7,6 +7,8 @@ require 'tengine_event'
 require 'eventmachine'
 require 'uuid'
 
+require 'tengine/support/core_ext/hash/keys' # for deep_symbolize_keys
+
 class TengineJobAgent::Watchdog
   include TengineJobAgent::CommandUtils
 
@@ -19,6 +21,7 @@ class TengineJobAgent::Watchdog
   end
 
   def process
+    @logger.info("process start")
     pid, process_status = nil, nil
     @logger.debug("#{__FILE__}##{__LINE__} before with_tmp_outs")
     with_tmp_outs do |stdout, stderr|
@@ -26,24 +29,21 @@ class TengineJobAgent::Watchdog
       EM.run do
         @logger.debug("#{__FILE__}##{__LINE__} before sender.mq_suite.send :ensures, :connection")
         sender.mq_suite.send :ensures, :connection do
-          @logger.debug("#{__FILE__}##{__LINE__} before sender.wait_for_connection")
-          sender.wait_for_connection do
+            @logger.debug("before spawn_process")
             begin
               @logger.debug("#{__FILE__}##{__LINE__} before spawn_process")
               pid = spawn_process
               @logger.debug("#{__FILE__}##{__LINE__} before output pid")
               File.open(@pid_path, "a"){|f| f.puts(pid)} # 起動したPIDを呼び出し元に返す
-              @logger.debug("#{__FILE__}##{__LINE__} before wait_process")
-              detach_and_wait_process(pid)
-              @logger.debug("#{__FILE__}##{__LINE__} after  wait_process")
+              @logger.debug("#{__FILE__}##{__LINE__} before start_wait_process")
+              start_wait_process(pid)
+              @logger.debug("#{__FILE__}##{__LINE__} after  start_wait_process")
             rescue Exception => e
               @logger.error("[#{e.class.name}] #{e.message}")
               File.open(@pid_path, "a"){|f| f.puts("[#{e.class.name}] #{e.message}")}
               EM.stop
             end
             @logger.debug("#{__FILE__}##{__LINE__}")
-          end
-          @logger.debug("#{__FILE__}##{__LINE__} after  sender.wait_for_connection")
         end
         @logger.debug("#{__FILE__}##{__LINE__} after  sender.mq_suite.send :ensures, :connection")
       end
@@ -53,38 +53,59 @@ class TengineJobAgent::Watchdog
   end
 
   def spawn_process
-    @logger.info("spawning process " << [@program, @args].flatten.join(" "))
     options = {
       :out => @stdout.path,
       :err => @stderr.path,
       :pgroup => true}
-    pid = Process.spawn(@program, *(@args + [options]))
+    args = [@program, *(@args + [options])]
+    @logger.info("Process.spawn(*#{args.inspect})")
+    pid = Process.spawn(*args)
     @logger.info("spawned process PID: #{pid}")
     return pid
+  rescue Exception => e
+    @logger.error("[#{e.class.name}] #{e.message}\n  " << e.backtrace.join("\n  "))
+    raise
   end
 
-  def detach_and_wait_process(pid)
-    @logger.info("detaching process PID: #{pid}")
+  def start_wait_process(pid)
+    @logger.info("#{self.class.name}#start_wait_process(#{pid}) begin")
     fire_heartbeat pid do
+      @logger.info("\e[31mbegin block for fire_heartbeat(#{pid})")
       timer = nil
+      @logger.info("#{__FILE__}##{__LINE__}")
       int = @config["heartbeat"]["job"]["interval"]
+      @logger.info("#{__FILE__}##{__LINE__}")
       if int and int > 0
+        @logger.info("before EM.add_periodic_timer(#{int.inspect})")
         timer = EM.add_periodic_timer int do
           fire_heartbeat pid do end # <- rspecを黙らせるための無駄なブロック
         end
       end
-      EM.defer(lambda { Process.waitpid2 pid }, lambda {|a|
-        @logger.info("process finished: " << a[1].exitstatus.inspect)
-        EM.cancel_timer timer if timer
-        fire_finished(*a)
-      })
+
+      @logger.info("\e[31mbefore EM.defer ...")
+      EM.defer(
+         lambda {
+                 @logger.info("before Process.waitpid2 #{pid} ...")
+                 res = Process.waitpid2 pid
+                 @logger.info("$?: " << $?.inspect)
+                 res
+               },
+         lambda {|a|
+                 @logger.info("process finished: " << a[1].exitstatus.inspect)
+                 EM.cancel_timer timer if timer
+                 fire_finished(*a)
+               }
+         )
+
+      @logger.info("after EM.defer ...")
     end
+    @logger.info("#{self.class.name}#start_wait_process(#{pid}) end")
   end
 
   def fire_finished(pid, process_status)
     exit_status = process_status.exitstatus # killされた場合にnilの可能性がある
     level_key = exit_status == 0 ? :info : :error
-    @logger.info("fire_finished starting #{pid} #{level_key}(#{exit_status})")
+    @logger.info("#{self.class.name}#fire_finished starting #{pid} #{level_key}(#{exit_status})")
     event_properties = {
       "execution_id"     => ENV['MM_SCHEDULE_ID'],
       "root_jobnet_id"   => ENV['MM_ROOT_JOBNET_ID'],
@@ -94,18 +115,21 @@ class TengineJobAgent::Watchdog
       "exit_status" => exit_status,
       "command"   => [@program, @args].flatten.join(" "),
     }
+
     user_stdout_path = output_filepath("stdout", pid)
     user_stderr_path = output_filepath("stderr", pid)
-    FileUtils.cp(@stdout.path, user_stdout_path)
-    FileUtils.cp(@stderr.path, user_stderr_path)
-    event_properties[:stdout_log] = user_stdout_path
-    event_properties[:stderr_log] = user_stderr_path
+
+    condition = (level_key == :info) ? lambda{|src| File.size(src) > 0} : nil
+    event_properties[:stdout_log] = copy_file(@stdout.path, user_stdout_path, &condition)
+    event_properties[:stderr_log] = copy_file(@stderr.path, user_stderr_path, &condition)
+
     if level_key == :error
       event_properties[:message] =
         "Job process failed. STDOUT and STDERR were redirected to files.\n" <<
         "You can see them at '#{user_stdout_path}' and '#{user_stderr_path}'\n" <<
         "on the server '#{ENV['MM_SERVER_NAME']}'"
     end
+
     sender.fire("finished.process.job.tengine", {
       :key => @uuid,
       :level_key => level_key,
@@ -113,7 +137,7 @@ class TengineJobAgent::Watchdog
       :sender_name => sender_name,
       :properties => event_properties,
     })
-    @logger.info("fire_finished complete")
+    @logger.info("#{self.class.name}#fire_finished complete")
     sender.stop
   end
 
@@ -134,11 +158,19 @@ class TengineJobAgent::Watchdog
       :keep_connection => true,
       :retry_count => 0,
     }, &block)
-    @logger.debug("fire_heartbeat #{pid}")
+    @logger.debug("#{self.class.name}#fire_heartbeat #{pid}")
   end
 
   def sender
-    @sender ||= Tengine::Event::Sender.new(@config)
+    unless @sender
+      sender_config = {logger: @logger}.update((@config || {}).deep_symbolize_keys)
+      c = sender_config[:sender] ||= {}
+      c[:keep_connection] = true
+      @logger.info("config for sender: #{sender_config.inspect}")
+      @sender = Tengine::Event::Sender.new(sender_config)
+      @logger.info("#{self.class.name}@sender.default_keep_connection # => #{@sender.default_keep_connection.inspect}")
+    end
+    @sender
   end
 
   private
@@ -170,6 +202,15 @@ class TengineJobAgent::Watchdog
         @stdout = nil
       end
     end
+  end
+
+  def copy_file(src, dest)
+    return nil unless File.exist?(src)
+    if block_given?
+      return nil unless yield(src)
+    end
+    FileUtils.cp(src, dest)
+    dest
   end
 
 end

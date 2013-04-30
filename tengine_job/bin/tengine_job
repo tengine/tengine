@@ -30,7 +30,7 @@ class TengineJob < Thor
     setup
     require 'text-table'
     res = [%w[name type category server credential created_at updated_at]]
-    Tengine::Job::RootJobnetTemplate.all.order_by({name: 1}).each do |t|
+    Tengine::Job::Template::RootJobnet.all.order_by({name: 1}).each do |t|
       res << [
         t.name,
         t.jobnet_type_name,
@@ -50,8 +50,8 @@ class TengineJob < Thor
   def kick(name, *args)
     setup
     EM.run {
-      t = Tengine::Job::RootJobnetTemplate.where(name: name).first
-      r = t.execute
+      t = Tengine::Job::Template::RootJobnet.where(name: name).first
+      r = t.generate.execute
       $stdout.puts "#{name} was executed successfully.\n#{r.inspect}"
     }
   end
@@ -60,7 +60,7 @@ class TengineJob < Thor
   method_option :config, type: :string, aliases: '-f', :desc => "config to connect MongoDB and RabbitmQ as same as tengined's config"
   def remove(name, *args)
     setup
-    t = Tengine::Job::RootJobnetTemplate.where(name: name).first
+    t = Tengine::Job::Template::RootJobnet.where(name: name).first
     t.destroy
     $stdout.puts "#{name} was removed successfully."
   end

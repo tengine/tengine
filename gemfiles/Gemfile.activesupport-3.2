@@ -12,32 +12,20 @@ gem "tengine_core"           , :path => "../tengine_core"
 gem "tengine_resource"       , :path => "../tengine_resource"
 gem "tengine_resource_ec2"   , :path => "../tengine_resource_ec2"
 gem "tengine_resource_wakame", :path => "../tengine_resource_wakame"
+gem "tengine_job_agent"      , :path => "../tengine_job_agent"
 gem "tengine_job"            , :path => "../tengine_job"
 
 # for common_development_dependencies
 gem 'bundler'
-gem 'rake', "~> 0.9.2.2"
+gem 'rake'
 gem 'rspec', "~> 2.10.0"
 gem 'yard', "~> 0.8.1"
 gem 'simplecov', "~> 0.6.4"
 gem 'autotest', ">= 0"
-gem 'rdiscount', ">= 0"
 
 # for tengine_jon
 group :development do
   gem 'factory_girl', "~> 3.3.0"
-end
-
-
-# for tengine_core
-group :development do
-  gem 'kramdown', ">= 0"
-end
-
-
-# for tengine_event
-group :development do
-  gem 'ci_reporter', "~> 1.6.5"
 end
 
 # for tengine_ui
@@ -46,18 +34,21 @@ gem 'sass' , '~> 3.1.18'
 gem "selectable_attr", "~> 0.3.14"
 gem "selectable_attr_rails", "~> 0.3.14"
 
-gem "mongoid", "~> 3.0.0"
+gem "mongoid", ">= 3.0.22"
 
 gem "kaminari", "~> 0.13.0"
 
 gem "daemons", "~> 1.1.4"
+
+gem 'devise'
+gem "rails_admin"
 
 group :test, :development do
   gem "rails3-generators", "~> 0.17.4"
   gem "rspec-rails", "~> 2.10.1"
   gem "capybara", "~> 1.1.1"
 
-  gem "ZenTest", "= 4.8.3" # for except 4.8.4
+  gem "ZenTest", "~> 4.9.0"
   gem "autotest-rails"
 
   # gem "rcov", ">= 0"

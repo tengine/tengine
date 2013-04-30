@@ -16,7 +16,11 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = [
     "README.rdoc"
   ]
-  s.files = Dir["Gemfile", "Gemfile.lock", "README.rdoc", "bin/**/*", "lib/**/*"]
+  s.files = Dir[
+    "Gemfile", "Gemfile.lock", "README.rdoc",
+    "bin/**/*", "lib/**/*", "spec/**/*",
+    "tmp/.gitkeep", # tengine_jobのspecが必要としています
+  ]
 
   s.homepage = "https://github.com/tengine/tengine/tree/develop/tengine_event"
   s.licenses = ["MPL2.0/LGPLv3"]
@@ -27,8 +31,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('activesupport', ">= 3.0.0")
   s.add_runtime_dependency('tengine_support', "~> #{version}")
   s.add_runtime_dependency('uuid', "~> 2.3.4")
-  s.add_runtime_dependency('amqp', "~> 0.8.0")
+  s.add_runtime_dependency('amqp', "~> 0.9.10")
 
   common_development_dependencies(s)
-  s.add_development_dependency('ci_reporter', "~> 1.6.5")
 end

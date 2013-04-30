@@ -43,7 +43,7 @@ describe TengineJobAgent::Run do
     end
 
     context "spawnできない" do
-      it "EXIT_FAILURE" do      
+      it "EXIT_FAILURE" do
         STDERR.stub(:puts) do |arg|
           arg.should =~ /foo bar/
         end
@@ -66,13 +66,13 @@ describe TengineJobAgent::Run do
     it "tengine_job_agent_watchdogを起動する" do
       watchdog = File.expand_path("../../bin/tengine_job_agent_watchdog", File.dirname(__FILE__))
       Process.should_receive(:spawn).with(RbConfig.ruby, watchdog, an_instance_of(String), anything)
-      subject.spawn_watchdog
+      subject.spawn_watchdog(subject.pid_path)
     end
 
     it "pidを返す" do
       pid = mock(Numeric.new)
       Process.stub(:spawn).with(RbConfig.ruby, anything, anything, anything).and_return(pid)
-      subject.spawn_watchdog.should == pid
+      subject.spawn_watchdog(subject.pid_path).should == pid
     end
 
     it "終了を待たない" do
@@ -80,7 +80,7 @@ describe TengineJobAgent::Run do
       Process.should_not_receive :wait
       Process.should_not_receive :waitpid
       Process.should_not_receive :waitpid2
-      subject.spawn_watchdog
+      subject.spawn_watchdog(subject.pid_path)
     end
   end
 
@@ -88,14 +88,14 @@ describe TengineJobAgent::Run do
     it "第一引数にlogger" do
       watchdog = File.expand_path("../../bin/tengine_job_agent_watchdog", File.dirname(__FILE__))
       Process.should_receive(:spawn).with(RbConfig.ruby, watchdog, an_instance_of(String), anything)
-      subject.spawn_watchdog
+      subject.spawn_watchdog(subject.pid_path)
       @log_buffer.string.should_not be_empty
     end
 
     it "第二引数は起動するプロセスへの引数の配列" do
       watchdog = File.expand_path("../../bin/tengine_job_agent_watchdog", File.dirname(__FILE__))
       Process.should_receive(:spawn).with(RbConfig.ruby, watchdog, an_instance_of(String), "scripts/echo_foo.sh")
-      subject.spawn_watchdog
+      subject.spawn_watchdog(subject.pid_path)
     end
 
     it "第三引数はconfig" do

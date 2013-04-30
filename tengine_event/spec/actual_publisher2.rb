@@ -12,7 +12,7 @@ base_dir = File.expand_path('..', __DIR__)
 logger = Logger.new(File.expand_path("tmp/log/actual_publisher2.log", base_dir))
 
 
-nest = ARGV.any?{|arg| arg == "nest" }
+nest = ARGV.any?{|arg| arg =~ /^nest/ }
 
 
 logger.debug("#{__FILE__}##{__LINE__}")
@@ -82,7 +82,23 @@ EM.run do
         if nest
           xchg.publish({"event_type_name" => "foo"}.to_json) do
             logger.debug("#{__FILE__}##{__LINE__}")
-            xchg.publish({"event_type_name" => "bar"}.to_json)
+            xchg.publish({"event_type_name" => "bar"}.to_json) do
+              logger.debug("#{__FILE__}##{__LINE__}")
+              xchg.publish({"event_type_name" => "baz"}.to_json) do
+                logger.debug("#{__FILE__}##{__LINE__}")
+                conn.close{
+                  logger.debug("#{__FILE__}##{__LINE__}")
+                  EM.stop{
+                    logger.debug("#{__FILE__}##{__LINE__}")
+                    exit
+                    logger.debug("#{__FILE__}##{__LINE__}")
+                  }
+                  logger.debug("#{__FILE__}##{__LINE__}")
+                }
+                logger.debug("#{__FILE__}##{__LINE__}")
+              end
+              logger.debug("#{__FILE__}##{__LINE__}")
+            end
             logger.debug("#{__FILE__}##{__LINE__}")
           end
         else
@@ -95,6 +111,20 @@ EM.run do
           # sleep 0.1
 
           xchg.publish({"event_type_name" => "bar"}.to_json)
+
+          xchg.publish({"event_type_name" => "baz"}.to_json) do
+            logger.debug("#{__FILE__}##{__LINE__}")
+            conn.close{
+              logger.debug("#{__FILE__}##{__LINE__}")
+              EM.stop{
+                logger.debug("#{__FILE__}##{__LINE__}")
+                exit
+                logger.debug("#{__FILE__}##{__LINE__}")
+              }
+              logger.debug("#{__FILE__}##{__LINE__}")
+            }
+            logger.debug("#{__FILE__}##{__LINE__}")
+          end
           # xchg.publish({"event_type_name" => "bar"}.to_json) do
           #   logger.debug("#{__FILE__}##{__LINE__}")
           # end

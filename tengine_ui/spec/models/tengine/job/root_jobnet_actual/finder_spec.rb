@@ -3,33 +3,33 @@ require 'spec_helper'
 
 include ChangeTime
 
-describe Tengine::Job::RootJobnetActual::Finder do
+describe Tengine::Job::Runtime::RootJobnet::Finder do
   before do
-    Tengine::Job::RootJobnetTemplate.delete_all
-    Tengine::Job::RootJobnetActual.delete_all
-    stub_template = stub_model(Tengine::Job::RootJobnetTemplate, :name => "root_jobnet1")
-    @t1 = Tengine::Job::RootJobnetActual.create!({
+    Tengine::Job::Template::RootJobnet.delete_all
+    Tengine::Job::Runtime::RootJobnet.delete_all
+    stub_template = stub_model(Tengine::Job::Template::RootJobnet, :name => "root_jobnet1")
+    @t1 = Tengine::Job::Runtime::RootJobnet.create!({
       :name => "test_1_foo",
       :phase_cd => 30,
       :started_at => Time.new(2011, 11, 7, 11, 30),
       :finished_at => nil,
       :template => stub_template
     })
-    @t2 = Tengine::Job::RootJobnetActual.create!({
+    @t2 = Tengine::Job::Runtime::RootJobnet.create!({
       :name => "test_2_foo",
       :phase_cd => 40,
       :started_at => Time.new(2011, 11, 7, 13, 30),
       :finished_at => Time.new(2011, 11, 7, 14, 10),
       :template => stub_template
     })
-    @t3 = Tengine::Job::RootJobnetActual.create!({
+    @t3 = Tengine::Job::Runtime::RootJobnet.create!({
       :name => "test_3",
       :phase_cd => 50,
       :started_at => Time.new(2011, 11, 7, 12, 30),
       :finished_at => nil,
       :template => stub_template
     })
-    @t4 = Tengine::Job::RootJobnetActual.create!({
+    @t4 = Tengine::Job::Runtime::RootJobnet.create!({
       :name => "test_4",
       :phase_cd => 50,
       :started_at => Time.new(2011, 11, 7, 12, 30),
@@ -39,7 +39,7 @@ describe Tengine::Job::RootJobnetActual::Finder do
   end
 
   it "validate_datetime" do
-    finder = Tengine::Job::RootJobnetActual::Finder.new
+    finder = Tengine::Job::Runtime::RootJobnet::Finder.new
     finder.duration_start = Time.now
     finder.duration_finish = Time.now
     finder.valid?.should be_true
@@ -54,7 +54,7 @@ describe Tengine::Job::RootJobnetActual::Finder do
   end
 
   it "assign_attributes" do
-    finder = Tengine::Job::RootJobnetActual::Finder.new
+    finder = Tengine::Job::Runtime::RootJobnet::Finder.new
 
     attrs = {
       "duration_start(1i)" => "2011",
@@ -108,12 +108,12 @@ describe Tengine::Job::RootJobnetActual::Finder do
   end
 
   it "default attributes" do
-    finder = Tengine::Job::RootJobnetActual::Finder.new
+    finder = Tengine::Job::Runtime::RootJobnet::Finder.new
     now = Time.now
     finder.duration.should == "started_at"
     finder.duration_start.should == now.beginning_of_day
     finder.duration_finish.should == now.end_of_day
-    finder.phase_ids.should == Tengine::Job::RootJobnetActual.phase_ids
+    finder.phase_ids.should == Tengine::Job::Runtime::RootJobnet.phase_ids
   end
 
   it "属性の値を指定してインスタンスを作成したとき指定した値が設定されていること" do
@@ -134,7 +134,7 @@ describe Tengine::Job::RootJobnetActual::Finder do
       :phase_ids => [20, 30],
       :refresh_interval => 10,
     }
-    finder = Tengine::Job::RootJobnetActual::Finder.new(attrs)
+    finder = Tengine::Job::Runtime::RootJobnet::Finder.new(attrs)
     finder.duration.should == attrs[:duration]
     finder.duration_start.should == Time.new(2011, 11, 7, 9, 30)
     finder.duration_finish.should == Time.new(2011, 11, 7, 15, 30)
@@ -152,8 +152,8 @@ describe Tengine::Job::RootJobnetActual::Finder do
       "duration_start(4i)" => "9",
       "duration_start(5i)" => "30",
     }
-    finder = Tengine::Job::RootJobnetActual::Finder.new(attrs)
-    expected = Tengine::Job::RootJobnetActual::Finder.new
+    finder = Tengine::Job::Runtime::RootJobnet::Finder.new(attrs)
+    expected = Tengine::Job::Runtime::RootJobnet::Finder.new
     finder.duration_start.should == expected.duration_start
   end
 
@@ -165,8 +165,8 @@ describe Tengine::Job::RootJobnetActual::Finder do
       "duration_finish(4i)" => "9",
       "duration_finish(5i)" => "30",
     }
-    finder = Tengine::Job::RootJobnetActual::Finder.new(attrs)
-    expected = Tengine::Job::RootJobnetActual::Finder.new
+    finder = Tengine::Job::Runtime::RootJobnet::Finder.new(attrs)
+    expected = Tengine::Job::Runtime::RootJobnet::Finder.new
     finder.duration_finish.should == expected.duration_finish
   end
 
@@ -175,8 +175,8 @@ describe Tengine::Job::RootJobnetActual::Finder do
       attrs = {
         :id => @t1.id.to_s,
       }
-      finder = Tengine::Job::RootJobnetActual::Finder.new(attrs)
-      actuals = finder.scope(Mongoid::Criteria.new(Tengine::Job::RootJobnetActual))
+      finder = Tengine::Job::Runtime::RootJobnet::Finder.new(attrs)
+      actuals = finder.scope(Mongoid::Criteria.new(Tengine::Job::Runtime::RootJobnet))
       actuals.count.should == 1
       actuals.first.id.should == @t1.id
     end
@@ -187,8 +187,8 @@ describe Tengine::Job::RootJobnetActual::Finder do
       attrs = {
         :name => "foo",
       }
-      finder = Tengine::Job::RootJobnetActual::Finder.new(attrs)
-      actuals = finder.scope(Mongoid::Criteria.new(Tengine::Job::RootJobnetActual))
+      finder = Tengine::Job::Runtime::RootJobnet::Finder.new(attrs)
+      actuals = finder.scope(Mongoid::Criteria.new(Tengine::Job::Runtime::RootJobnet))
       actuals.count.should == 2
       actuals.each do |actual|
         actual.name.should =~ /foo/
@@ -201,8 +201,8 @@ describe Tengine::Job::RootJobnetActual::Finder do
       attrs = {
         :phase_ids => [30, 40],
       }
-      finder = Tengine::Job::RootJobnetActual::Finder.new(attrs)
-      actuals = finder.scope(Mongoid::Criteria.new(Tengine::Job::RootJobnetActual))
+      finder = Tengine::Job::Runtime::RootJobnet::Finder.new(attrs)
+      actuals = finder.scope(Mongoid::Criteria.new(Tengine::Job::Runtime::RootJobnet))
       actuals.count.should == 2
       actuals.each do |actual|
         [30, 40].should be_include(actual.phase_cd)
@@ -224,8 +224,8 @@ describe Tengine::Job::RootJobnetActual::Finder do
       "duration_finish(4i)" => "12",
       "duration_finish(5i)" => "40",
     }
-    finder = Tengine::Job::RootJobnetActual::Finder.new(attrs)
-    actuals = finder.scope(Mongoid::Criteria.new(Tengine::Job::RootJobnetActual))
+    finder = Tengine::Job::Runtime::RootJobnet::Finder.new(attrs)
+    actuals = finder.scope(Mongoid::Criteria.new(Tengine::Job::Runtime::RootJobnet))
     actuals.count.should == 2
     actuals.each do |actual|
       actual.started_at.should >= Time.new(2011, 11, 7, 12, 10)
@@ -247,8 +247,8 @@ describe Tengine::Job::RootJobnetActual::Finder do
       "duration_finish(4i)" => "14",
       "duration_finish(5i)" => "30",
     }
-    finder = Tengine::Job::RootJobnetActual::Finder.new(attrs)
-    actuals = finder.scope(Mongoid::Criteria.new(Tengine::Job::RootJobnetActual))
+    finder = Tengine::Job::Runtime::RootJobnet::Finder.new(attrs)
+    actuals = finder.scope(Mongoid::Criteria.new(Tengine::Job::Runtime::RootJobnet))
     actuals.count.should == 1
     actuals.each do |actual|
       actual.finished_at.should >= Time.new(2011, 11, 7, 14, 0)

@@ -10,7 +10,7 @@ if File.exist?(config_filepath) && (ENV['TENGINE_EVENT_MQ_TEST'] =~ /true|on/i)
     before do
       # キューをsubscribeすることで、キューを作ります
       @config = YAML.load_file(config_filepath)
-      EM.run do
+      EM.run_test do
         @mq_suite = Tengine::Mq::Suite.new(@config)
         @mq_suite.queue.subscribe do |metadata, msg|
           # 何もしません
@@ -22,12 +22,12 @@ if File.exist?(config_filepath) && (ENV['TENGINE_EVENT_MQ_TEST'] =~ /true|on/i)
     end
 
     it "EM.run{...} を複数回実行できる" do
-      EM.run{
+      EM.run_test{
         @mq_suite.exchange.publish("foo"){
           @mq_suite.connection.close{ EM.stop_event_loop }
         }
       }
-      EM.run{
+      EM.run_test{
         @mq_suite.exchange.publish("foo"){
           @mq_suite.connection.close{ EM.stop_event_loop }
         }

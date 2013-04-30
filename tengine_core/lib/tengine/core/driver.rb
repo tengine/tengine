@@ -44,6 +44,7 @@ class Tengine::Core::Driver
   validates :version, :presence => true
 
   embeds_many :handlers, :class_name => "Tengine::Core::Handler"
+  accepts_nested_attributes_for :handlers
 
   belongs_to :session, :index => true, :class_name => "Tengine::Core::Session"
   has_many :handler_paths, :class_name => "Tengine::Core::HandlerPath"
