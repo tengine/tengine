@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.8.12"
   s.summary = "tengine_support provides utility classes/modules which isn't included in active_support."
 
-  s.add_runtime_dependency('activesupport', ">= 3.0.0")
+  s.add_runtime_dependency('activesupport', ">= 3.0.0", "<4.0.0")
 
   common_development_dependencies(s)
 end
