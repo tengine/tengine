@@ -104,10 +104,17 @@ end
   desc "Run #{task_name} task for all projects"
   task(task_name) do
     errors = []
-    PACKAGES.each do |package|
+    PACKAGES.select{|pkg| pkg.package_type == :gem }.each do |package|
       system(%(cd #{package.name} && bundle exec rake #{task_name})) || errors << package.name
     end
     fail("Errors in #{errors.join(', ')}") unless errors.empty?
+  end
+end
+
+desc "puts `gem push` commands  for all projects"
+task :gem_push do
+  PACKAGES.select{|pkg| pkg.package_type == :gem }.each do |package|
+    puts "gem push #{package.name}/pkg/#{package.name}-#{package.name}.gem"
   end
 end
 
