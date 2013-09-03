@@ -114,7 +114,7 @@ end
 desc "puts `gem push` commands  for all projects"
 task :gem_push do
   PACKAGES.select{|pkg| pkg.package_type == :gem }.each do |package|
-    puts "gem push #{package.name}/pkg/#{package.name}-#{package.name}.gem"
+    puts "gem push #{package.name}/pkg/#{package.name}-#{version}.gem"
   end
 end
 
