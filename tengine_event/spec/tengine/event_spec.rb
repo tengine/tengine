@@ -322,17 +322,21 @@ describe "Tengine::Event" do
 
 
   describe :parse do
+    let(:valid_attrs) do
+      {
+        :event_type_name => :foo,
+        :key => "hoge",
+        'source_name' => "server1",
+        :occurred_at => Time.utc(2011,8,11,12,0),
+        :level_key => 'error',
+        'sender_name' => "server2",
+        :properties => {:bar => "ABC", :baz => 999}
+      }
+    end
+
     context "can parse valid json object" do
       subject do
-        source = Tengine::Event.new(
-          :event_type_name => :foo,
-          :key => "hoge",
-          'source_name' => "server1",
-          :occurred_at => Time.utc(2011,8,11,12,0),
-          :level_key => 'error',
-          'sender_name' => "server2",
-          :properties => {:bar => "ABC", :baz => 999}
-          )
+        source = Tengine::Event.new(valid_attrs)
         Tengine::Event.parse(source.to_json)
       end
       its(:key){ should == "hoge" }
@@ -343,6 +347,22 @@ describe "Tengine::Event" do
       its(:level_key){ should == :error}
       its(:sender_name){ should == "server2" }
       its(:properties){ should == {'bar' => "ABC", 'baz' => 999}}
+    end
+
+    context "can accept Integer UNIX time" do
+      subject do
+        source = Tengine::Event.new(valid_attrs.dup.update(:occurred_at => Time.utc(2011,8,11,12,0).to_i))
+        Tengine::Event.parse(source.to_json)
+      end
+      its(:occurred_at){ should == Time.utc(2011,8,11,12,0) }
+    end
+
+    context "can accept Float UNIX time" do
+      subject do
+        source = Tengine::Event.new(valid_attrs.dup.update(:occurred_at => Time.utc(2011,8,11,12,0).to_f))
+        Tengine::Event.parse(source.to_json)
+      end
+      its(:occurred_at){ should == Time.utc(2011,8,11,12,0) }
     end
 
     context "can parse valid json array" do

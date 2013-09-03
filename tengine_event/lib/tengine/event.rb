@@ -119,14 +119,16 @@ class Tengine::Event
   # イベントの発生日時。
   attr_accessor :occurred_at
   def occurred_at=(v)
-    case v
-    when nil then @occurred_at = nil
-    when Time then @occurred_at = v.utc
-    when String then
-      @occurred_at = v.respond_to?(:to_time) ? v.to_time : Time.respond_to?(:parse) ? Time.parse(v) : v
-    else
-      raise ArgumentError, "occurred_at must be a Time but was #{v.inspect}" unless v.is_a?(Time)
-    end
+    @occurred_at =
+      case v
+      when nil then nil
+      when Time then v.utc
+      when Numeric then Time.at(v).utc
+      when String then
+        v.respond_to?(:to_time) ? v.to_time : Time.respond_to?(:parse) ? Time.parse(v) : v
+      else
+        raise ArgumentError, "occurred_at must be a Time but was #{v.inspect}" unless v.is_a?(Time)
+      end
   end
 
   # from level to level_key
